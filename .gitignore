@@ -1,0 +1,20 @@
+.env
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# 產出與煙霧測試
+jobs/_smoke/
+jobs/**/takes/
+jobs/**/compose/film.mp4
+jobs/**/compose/narration.wav
+jobs/**/scenes/**/speech.wav
+jobs/**/scenes/**/image.png
+
+# 本機工具
+.vscode/
+*.log

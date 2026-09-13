@@ -1,0 +1,12 @@
+id: narrator_zh_tw
+display_name: 旁白・台灣華語
+engine: omnivoice
+model: OmniVoice-bf16
+mode: design
+dtype: fp16
+attention: eager
+steps: 32
+speed: 1.0
+voice_instruct: "女，青年，中音调"
+seed: 42
+# 官方清單沒有台灣腔。之後改 mode: clone，放入 reference.wav + reference.txt，id 不要改。

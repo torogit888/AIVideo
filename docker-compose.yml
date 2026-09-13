@@ -1,0 +1,45 @@
+name: aivideo
+
+services:
+  pipeline:
+    build:
+      context: .
+      dockerfile: .devcontainer/Dockerfile
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      COMFY_URL: ${COMFY_URL:-http://comfyui:8188}
+      GEMINI_IMAGE_MODEL: ${GEMINI_IMAGE_MODEL:-gemini-3.1-flash-image}
+      GEMINI_IMAGE_SIZE: ${GEMINI_IMAGE_SIZE:-1K}
+    command: sleep infinity
+    stdin_open: true
+    tty: true
+
+  # 第一階段先不要 up 這個服務：映像約 8GB+，首次還會再下載 ComfyUI。
+  # GPU 確認後再：docker compose --profile comfyui up -d comfyui
+  comfyui:
+    profiles: ["comfyui"]
+    image: mmartial/comfyui-nvidia-docker:ubuntu24_cuda12.6-latest
+    gpus: all
+    ports:
+      - "127.0.0.1:8188:8188"
+    environment:
+      USE_UV: "true"
+      BASE_DIRECTORY: /basedir
+      SECURITY_LEVEL: normal
+      COMFY_CMDLINE_EXTRA: "--lowvram --preview-method none --listen 0.0.0.0 --port 8188"
+      # Docker Desktop named volume 通常是 root；設 1000 會因 /comfy/mnt 為 0:0 而重啟迴圈
+      WANTED_UID: "0"
+      WANTED_GID: "0"
+    volumes:
+      - comfyui_run:/comfy/mnt
+      - comfyui_basedir:/basedir
+    restart: unless-stopped
+
+volumes:
+  comfyui_run:
+  comfyui_basedir:

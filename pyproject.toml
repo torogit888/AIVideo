@@ -1,0 +1,23 @@
+[project]
+name = "aivideo"
+version = "0.1.0"
+description = "腳本 → Gemini 出圖 → OmniVoice 旁白 → FFmpeg 成片"
+readme = "doc/規劃.md"
+requires-python = ">=3.12"
+dependencies = [
+  "google-genai>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.scripts]
+aivideo = "aivideo.cli:main"
+
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["aivideo*"]

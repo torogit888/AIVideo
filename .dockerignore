@@ -1,0 +1,6 @@
+.git
+.venv
+jobs/_smoke
+**/__pycache__
+*.egg-info
+.env

@@ -1,0 +1,16 @@
+{
+  "name": "AIVideo pipeline",
+  "dockerComposeFile": ["../docker-compose.yml"],
+  "service": "pipeline",
+  "workspaceFolder": "/workspace",
+  "shutdownAction": "stopCompose",
+  "forwardPorts": [8188],
+  "postCreateCommand": "pip install -e .",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python"
+      }
+    }
+  }
+}
