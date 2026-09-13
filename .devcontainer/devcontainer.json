@@ -5,11 +5,16 @@
   "workspaceFolder": "/workspace",
   "shutdownAction": "stopCompose",
   "forwardPorts": [8188],
-  "postCreateCommand": "pip install -e .",
+  "postCreateCommand": "pip install -e '.[dev]'",
   "customizations": {
     "vscode": {
       "settings": {
-        "python.defaultInterpreterPath": "/usr/local/bin/python"
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.testing.pytestEnabled": true,
+        "python.testing.pytestArgs": ["tests"],
+        "python.analysis.typeCheckingMode": "basic",
+        "editor.formatOnSave": true,
+        "files.trimTrailingWhitespace": true
       }
     }
   }

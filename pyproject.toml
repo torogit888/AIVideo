@@ -9,7 +9,12 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest"]
+dev = [
+  "pytest>=8.0",
+  "black>=24.8",
+  "isort>=5.13",
+  "flake8>=7.0",
+]
 
 [project.scripts]
 aivideo = "aivideo.cli:main"
