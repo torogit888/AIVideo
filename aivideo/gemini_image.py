@@ -4,6 +4,14 @@ import os
 from pathlib import Path
 
 
+_VERTEX_ENV_KEYS = (
+    ("GOOGLE_CLOUD_PROJECT", "GOOGLE_CLOUD_PROJECT"),
+    ("VERTEX_PROJECT_ID", "GOOGLE_CLOUD_PROJECT"),
+    ("GOOGLE_CLOUD_LOCATION", "GOOGLE_CLOUD_LOCATION"),
+    ("GOOGLE_CLOUD_REGION", "GOOGLE_CLOUD_LOCATION"),
+    ("VERTEX_LOCATION", "GOOGLE_CLOUD_LOCATION"),
+)
+
 SMOKE_PROMPT = (
     "電影感靜幀，16:9 橫式構圖，下雨的城市巷口，地面反光，"
     "一盞暖色路燈，沒有行人，膠片顆粒，低光照。不要任何文字或浮水印。"
@@ -18,11 +26,44 @@ MODEL_CANDIDATES = (
 )
 
 
-def generate_smoke_image(dest: Path) -> Path:
-    api_key = os.environ.get("GEMINI_API_KEY", "").strip()
-    if not api_key:
-        raise RuntimeError("缺少 GEMINI_API_KEY")
+def get_gemini_client_kwargs() -> dict[str, object]:
+    vertex_mode = str(os.environ.get("GOOGLE_GENAI_USE_VERTEXAI", "")).strip().lower() in {
+        "1",
+        "true",
+        "yes",
+        "on",
+    }
+    if vertex_mode:
+        project = _env_value("GOOGLE_CLOUD_PROJECT") or _env_value("VERTEX_PROJECT_ID")
+        location = _env_value("GOOGLE_CLOUD_LOCATION") or _env_value("GOOGLE_CLOUD_REGION") or _env_value("VERTEX_LOCATION")
+        if not project or not location:
+            raise RuntimeError(
+                "Vertex AI 模式已啟用，但缺少 GOOGLE_CLOUD_PROJECT / GOOGLE_CLOUD_LOCATION（或 VERTEX_*）。"
+            )
+        return {"vertexai": True, "project": project, "location": location}
 
+    api_key = os.environ.get("GEMINI_API_KEY", "").strip()
+    if api_key:
+        return {"api_key": api_key}
+
+    raise RuntimeError(
+        "缺少 Gemini 認證：請設定 GEMINI_API_KEY，或啟用 Vertex AI（GOOGLE_GENAI_USE_VERTEXAI=true + GOOGLE_CLOUD_PROJECT + GOOGLE_CLOUD_LOCATION）。"
+    )
+
+
+def has_gemini_credentials() -> bool:
+    try:
+        get_gemini_client_kwargs()
+        return True
+    except RuntimeError:
+        return False
+
+
+def _env_value(name: str) -> str:
+    return os.environ.get(name, "").strip()
+
+
+def generate_smoke_image(dest: Path) -> Path:
     preferred = os.environ.get("GEMINI_IMAGE_MODEL", "").strip()
     models = [preferred] if preferred else []
     for name in MODEL_CANDIDATES:
@@ -36,11 +77,16 @@ def generate_smoke_image(dest: Path) -> Path:
         from google.genai import types
     except ImportError as exc:
         raise RuntimeError(
-            "容器裡沒有 google-genai。請執行：pip install -e . "
+            "容器裡沒有 google-genai。請執行：pip install -e '.[dev]' "
             "或重建映像 docker compose build pipeline"
         ) from exc
 
-    client = genai.Client(api_key=api_key)
+    try:
+        client_kwargs = get_gemini_client_kwargs()
+    except RuntimeError as exc:
+        raise RuntimeError(str(exc)) from exc
+
+    client = genai.Client(**client_kwargs)
     errors: list[str] = []
 
     for model in models:

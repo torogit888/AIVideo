@@ -7,7 +7,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from aivideo.gemini_image import generate_smoke_image
+from aivideo.gemini_image import generate_smoke_image, has_gemini_credentials
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 CUDA_SMOKE_IMAGE = "nvidia/cuda:12.6.0-base-ubuntu24.04"
@@ -107,11 +107,10 @@ def run_check(args: argparse.Namespace) -> int:
         else:
             _skip("GPU", "加上 --gpu 才會拉 CUDA 容器測 nvidia-smi")
 
-    key = os.environ.get("GEMINI_API_KEY", "").strip()
-    if not key:
+    if not has_gemini_credentials():
         _fail(
-            "Gemini 金鑰",
-            "沒有 GEMINI_API_KEY。複製 .env.example 成 .env，到 aistudio.google.com/apikey 貼上。",
+            "Gemini 認證",
+            "未設定有效認證。可用 GEMINI_API_KEY，或啟用 Vertex AI：GOOGLE_GENAI_USE_VERTEXAI=true + GOOGLE_CLOUD_PROJECT + GOOGLE_CLOUD_LOCATION。",
         )
         failed += 1
     elif args.gemini:
@@ -123,7 +122,7 @@ def run_check(args: argparse.Namespace) -> int:
             _fail("Gemini 16:9", str(exc))
             failed += 1
     else:
-        _ok("Gemini 金鑰", "已設定（加上 --gemini 才真的出一張 16:9）")
+        _ok("Gemini 認證", "已設定（加上 --gemini 才真的出一張 16:9）")
 
     comfy_url = os.environ.get("COMFY_URL", "http://127.0.0.1:8188").rstrip("/")
     try:

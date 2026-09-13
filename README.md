@@ -99,9 +99,38 @@ aivideo check --gemini
 cp .env.example .env
 ```
 
+AIVideo 支援兩種 Gemini 產圖方式：
+
+### API key 模式（最簡單）
+
+```env
+GEMINI_API_KEY=your_key_here
+GOOGLE_GENAI_USE_VERTEXAI=false
+GEMINI_IMAGE_MODEL=gemini-3.1-flash-image
+GEMINI_IMAGE_SIZE=1K
+```
+
+### Vertex AI 模式
+
+```env
+GOOGLE_GENAI_USE_VERTEXAI=true
+GOOGLE_CLOUD_PROJECT=your-project-id
+GOOGLE_CLOUD_LOCATION=us-central1
+GEMINI_IMAGE_MODEL=gemini-2.5-flash-image-preview
+GEMINI_IMAGE_SIZE=1K
+```
+
+此外也支援：
+
+- `GOOGLE_CLOUD_REGION`
+- `VERTEX_PROJECT_ID`
+- `VERTEX_LOCATION`
+
+這些值會被自動視為 Vertex AI 設定。
+
 必要項目：
 
-- `GEMINI_API_KEY`
+- `GEMINI_API_KEY` 或 Vertex AI 環境
 - `COMFY_URL`
 - `GEMINI_IMAGE_MODEL`
 - `GEMINI_IMAGE_SIZE`
