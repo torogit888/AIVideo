@@ -4,7 +4,7 @@
   "service": "pipeline",
   "workspaceFolder": "/workspace",
   "shutdownAction": "stopCompose",
-  "forwardPorts": [8188],
+  "forwardPorts": [8188, 8501],
   "postCreateCommand": "pip install -e '.[dev]'",
   "customizations": {
     "vscode": {
