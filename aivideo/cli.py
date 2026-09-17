@@ -9,6 +9,7 @@ from aivideo.commands.images import run_images
 from aivideo.commands.preview import run_preview
 from aivideo.commands.srt import run_srt
 from aivideo.commands.tts import run_tts
+from aivideo.commands.voices import run_voices
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -62,6 +63,9 @@ def build_parser() -> argparse.ArgumentParser:
     preview = sub.add_parser("preview", help="產生 preview.html 故事板網頁檢視")
     preview.add_argument("--job", required=True, help="Job 目錄路徑，例如 jobs/20260916_roman_telescope")
     preview.set_defaults(func=run_preview)
+
+    voices = sub.add_parser("voices", help="列出 assets/voices/ 內的所有音色角色庫與就緒狀態")
+    voices.set_defaults(func=run_voices)
 
     for name, help_text in (
         ("parse", "把 script.md 切成場景（尚未實作）"),

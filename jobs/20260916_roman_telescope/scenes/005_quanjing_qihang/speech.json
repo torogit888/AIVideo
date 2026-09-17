@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20260917T075236",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.8,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 18.37,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "哈伯望遠鏡辛辛苦苦拍了三十年的深空星圖，這台「羅曼望遠鏡」，居然只要短短幾個月就能全部拍完！",
+      "text_cn": "哈伯望远镜辛辛苦苦拍了三十年的深空星图，这台“罗曼望远镜”，居然只要短短几个月就能全部拍完！",
+      "start_sec": 0.0,
+      "end_sec": 7.95,
+      "duration_sec": 7.95
+    },
+    {
+      "index": 2,
+      "text": "它不是要跟哈伯搶風頭，而是要化身成宇宙的「廣角全景空拍機」！",
+      "text_cn": "它不是要跟哈伯抢风头，而是要化身成宇宙的“广角全景空拍机”！",
+      "start_sec": 8.2,
+      "end_sec": 13.36,
+      "duration_sec": 5.16
+    },
+    {
+      "index": 3,
+      "text": "一次解開暗物質、暗能量，還有幾千顆外星世界的終極謎團！",
+      "text_cn": "一次解开暗物质、暗能量，还有几千颗外星世界的终极谜团！",
+      "start_sec": 13.61,
+      "end_sec": 18.37,
+      "duration_sec": 4.76
+    }
+  ],
+  "created_at": "2026-09-17T07:52:36.131830+00:00"
+}

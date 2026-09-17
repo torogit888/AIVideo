@@ -35,9 +35,9 @@ def run_compose(args: argparse.Namespace) -> int:
     compose_dir = job_dir / "compose"
     compose_dir.mkdir(parents=True, exist_ok=True)
 
-    # 1. 產生或更新 SRT
-    srt_path = generate_srt(job_dir)
-    print(f"[ok]   字幕檔已更新：{srt_path.name}")
+    # 1. 產生或更新 SRT 與 ASS 字幕檔
+    srt_path, ass_path = generate_srt(job_dir)
+    print(f"[ok]   字幕檔已更新：{srt_path.name} 與 {ass_path.name}")
 
     scene_folders = sorted([p for p in scenes_dir.iterdir() if p.is_dir()])
     audio_files: list[Path] = []
@@ -136,23 +136,17 @@ def run_compose(args: argparse.Namespace) -> int:
         print(f"[fail] 視訊串接失敗：{proc.stderr}", file=sys.stderr)
         return 1
 
-    # 4. 最終合成：視訊 + 音訊 + 字幕燒錄
-    print("[gen]  正在合流音訊、燒錄字幕並輸出 1080p 影片...")
+    # 4. 最終合成：視訊 + 音訊 + ASS 字幕燒錄（1080p 絕對定位）
+    print("[gen]  正在合流音訊、燒錄 1080p ASS 字幕並輸出影片...")
     final_film = compose_dir / "film.mp4"
 
-    # 使用 Noto Sans CJK TC 繁體中文
-    sub_style = (
-        "FontName=Noto Sans CJK TC,FontSize=22,"
-        "PrimaryColour=&H00FFFFFF,OutlineColour=&H00000000,"
-        "BorderStyle=1,Outline=2,Shadow=1,MarginV=36"
-    )
-    escaped_srt = str(srt_path.resolve().as_posix()).replace(":", r"\:")
+    escaped_ass = str(ass_path.resolve().as_posix()).replace(":", r"\:")
 
     cmd_final = [
         "ffmpeg", "-y",
         "-i", str(raw_video_mp4),
         "-i", str(narration_wav),
-        "-vf", f"subtitles='{escaped_srt}':force_style='{sub_style}'",
+        "-vf", f"subtitles='{escaped_ass}'",
         "-c:v", "libx264",
         "-preset", "medium",
         "-crf", "18",

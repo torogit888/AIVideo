@@ -1,0 +1,16 @@
+id: 001_shendu_mimi
+index: 1
+title: 深空秘辛與身世反轉
+narration: 如果你今天想看清整個宇宙最深處的終極秘密！你敢相信……NASA 接下來最強大的宇宙神鏡，它的心臟……居然是來自軍方情報機構「淘汰不要的間諜衛星」嗎？
+image_prompt: Otomo Katsuhiro anime style, 1980s cel animation aesthetic, a massive
+  deep space telescope floating in the dark void of space, highly detailed mechanical
+  chassis, exposed heat radiators, intricate wiring and golden optical mirror reflecting
+  distant galaxies, cinematic lighting, ultra detailed retro sci-fi space hardware,
+  16:9
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260917T074756
+  image_take: image_20260917T072304

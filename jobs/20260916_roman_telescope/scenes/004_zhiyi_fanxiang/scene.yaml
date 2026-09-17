@@ -1,0 +1,15 @@
+id: 004_zhiyi_fanxiang
+index: 4
+title: 納稅人的質疑與驚天反轉
+narration: 但你可能會想，既然我們已經有了哈伯和韋伯望遠鏡，NASA 幹嘛還要大費周章去改裝別人的二手鏡頭？這不是浪費納稅人的錢嗎，對吧？錯了！
+image_prompt: Otomo Katsuhiro anime style, 1980s cel animation aesthetic, crowded
+  mission control room, vintage CRT monitors, split second transition to extreme close-up
+  of Roman Space Telescope mechanical aperture shutter rapidly opening, interlocking
+  metal iris blades, brilliant optical flare, 16:9
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260917T074904
+  image_take: image_20260917T072337

@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20260917T072337",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 48701967,
+  "prompt": "大友克洋漫畫與動畫電影風格，80年代經典賽璐珞手繪質感，寫實精準的人物與硬科幻機械結構，極高密度的管線與金屬細節，電影感寬銀幕分鏡，自然手繪光影與陰影線條，16:9 橫式構圖，Otomo Katsuhiro anime style, 1980s cel animation aesthetic, crowded mission control room, vintage CRT monitors, split second transition to extreme close-up of Roman Space Telescope mechanical aperture shutter rapidly opening, interlocking metal iris blades, brilliant optical flare, 16:9",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-09-17T07:23:37.308730+00:00"
+}

@@ -1,0 +1,16 @@
+id: 003_cangku_qiyu
+index: 3
+title: 秘密倉庫的天文學家震撼
+narration: '[sigh] NASA 的天文學家當場下巴都掉下來了！這簡直就像你在路邊二手跳蚤市場，隨手撿到了價值幾十億的頂級太空鏡頭一樣不可思議！'
+image_prompt: Otomo Katsuhiro anime style, 1980s cel animation aesthetic, vast classified
+  military hangar warehouse, industrial overhead spotlights shining on two colossal
+  space telescope optics half-covered in tarpaulins, stunned engineers in lab coats
+  and military officers looking up in astonishment, dense gantries, cables, and blueprints,
+  16:9
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260917T074846
+  image_take: image_20260917T072326

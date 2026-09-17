@@ -1,0 +1,15 @@
+id: 002_jianjie_weixing
+index: 2
+title: 低頭凝視的軍事相機
+narration: 沒錯！就是那種原本用來低頭偷看地面的軍事間諜相機！2012 年，美國國家偵察局突然打電話給 NASA：「欸，我們倉庫裡有兩顆頂級鏡頭用不到了，你們要不要？」
+image_prompt: Otomo Katsuhiro anime style, 1980s cel animation aesthetic, high altitude
+  low Earth orbit, heavy military reconnaissance spy satellite, multiple giant optical
+  camera lenses pointed down at glittering night city lights on Earth, dense mechanical
+  hull, retro sci-fi surveillance hardware, 16:9
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260917T074818
+  image_take: image_20260917T072315

@@ -9,6 +9,7 @@ dependencies = [
   "pyyaml>=6.0",
   "requests>=2.30.0",
   "pillow>=10.0.0",
+  "zhconv>=1.4.3",
 ]
 
 [project.optional-dependencies]

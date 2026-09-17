@@ -107,6 +107,7 @@ def generate_preview_html(job_dir: Path) -> Path:
           <div class="film-actions">
             <a href="compose/film.mp4" download class="btn">下載 MP4 成片</a>
             <a href="compose/timeline.srt" download class="btn btn-secondary">下載 SRT 字幕</a>
+            <a href="compose/timeline.ass" download class="btn btn-secondary">下載 ASS 字幕</a>
           </div>
         </div>
         """

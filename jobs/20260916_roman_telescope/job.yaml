@@ -1,0 +1,25 @@
+id: 20260916_roman_telescope
+title: 羅曼太空望遠鏡的秘密
+language: zh-Hant
+voice_id: female01
+frame:
+  aspect: "16:9"
+  gen_width: 1920
+  gen_height: 1080
+  deliver_width: 1920
+  deliver_height: 1080
+  fps: 30
+image:
+  backend: gemini
+  model: gemini-3.1-flash-image
+  model_final: gemini-3-pro-image
+  resolution: "1K"
+  aspect_ratio: "16:9"
+  style: otomo_katsuhiro
+style_prefix: "大友克洋漫畫與動畫電影風格，80年代經典賽璐珞手繪質感，寫實精準的人物與硬科幻機械結構，極高密度的管線與金屬細節，電影感寬銀幕分鏡，自然手繪光影與陰影線條，16:9 橫式構圖"
+style_negative: "文字浮水印、現代3D塑料感、低細節模糊、走形手部"
+subtitle:
+  mode: hard
+  font: "NotoSansTC-Regular.otf"
+  font_size: 42
+kenburns: slow_zoom_in

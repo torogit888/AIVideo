@@ -1,5 +1,5 @@
-id: narrator_zh_tw
-display_name: 旁白・台灣華語
+id: narrator_male
+display_name: 旁白・沉穩男聲
 engine: omnivoice
 model: OmniVoice-bf16
 mode: clone
@@ -11,4 +11,4 @@ seed: 42
 position_temperature: 0.1
 class_temperature: 0.0
 instruct: ""
-# 採用 Voice Clone 模式：綁定 reference.wav 與 reference.txt，徹底鎖定說書人音色一致性
+# 採用 Voice Clone 模式：綁定 reference.wav 與 reference.txt

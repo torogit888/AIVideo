@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20260917T074904",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.8,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 12.64,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "但你可能會想，既然我們已經有了哈伯和韋伯望遠鏡，NASA 幹嘛還要大費周章去改裝別人的二手鏡頭？",
+      "text_cn": "但你可能会想，既然我们已经有了哈伯和韦伯望远镜，NASA 干嘛还要大费周章去改装别人的二手镜头？",
+      "start_sec": 0.0,
+      "end_sec": 8.0,
+      "duration_sec": 8.0
+    },
+    {
+      "index": 2,
+      "text": "這不是浪費納稅人的錢嗎，對吧？",
+      "text_cn": "这不是浪费纳税人的钱吗，对吧？",
+      "start_sec": 8.25,
+      "end_sec": 10.83,
+      "duration_sec": 2.58
+    },
+    {
+      "index": 3,
+      "text": "錯了！",
+      "text_cn": "错了！",
+      "start_sec": 11.08,
+      "end_sec": 12.64,
+      "duration_sec": 1.56
+    }
+  ],
+  "created_at": "2026-09-17T07:49:04.034600+00:00"
+}
