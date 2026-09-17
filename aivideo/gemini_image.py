@@ -27,12 +27,20 @@ MODEL_CANDIDATES = (
 
 
 def get_gemini_client_kwargs() -> dict[str, object]:
+    api_key = os.environ.get("GEMINI_API_KEY", "").strip()
     vertex_mode = str(os.environ.get("GOOGLE_GENAI_USE_VERTEXAI", "")).strip().lower() in {
         "1",
         "true",
         "yes",
         "on",
     }
+
+    # 若有 GEMINI_API_KEY，且沒有外部 ADC service account 憑證檔，以 API Key (Google AI Studio) 為主
+    # 並顯式將 GOOGLE_GENAI_USE_VERTEXAI 設為 false，避免 SDK 誤走 Vertex AI
+    if api_key and not os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"):
+        os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "false"
+        return {"api_key": api_key}
+
     if vertex_mode:
         project = _env_value("GOOGLE_CLOUD_PROJECT") or _env_value("VERTEX_PROJECT_ID")
         location = _env_value("GOOGLE_CLOUD_LOCATION") or _env_value("GOOGLE_CLOUD_REGION") or _env_value("VERTEX_LOCATION")
@@ -42,8 +50,8 @@ def get_gemini_client_kwargs() -> dict[str, object]:
             )
         return {"vertexai": True, "project": project, "location": location}
 
-    api_key = os.environ.get("GEMINI_API_KEY", "").strip()
     if api_key:
+        os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "false"
         return {"api_key": api_key}
 
     raise RuntimeError(
@@ -64,13 +72,23 @@ def _env_value(name: str) -> str:
 
 
 def generate_smoke_image(dest: Path) -> Path:
-    preferred = os.environ.get("GEMINI_IMAGE_MODEL", "").strip()
+    dest, _, _ = generate_image(prompt=SMOKE_PROMPT, dest=dest)
+    return dest
+
+
+def generate_image(
+    prompt: str,
+    dest: Path,
+    aspect_ratio: str = "16:9",
+    image_size: str = "1K",
+    model: str | None = None,
+    seed: int | None = None,
+) -> tuple[Path, str, int | None]:
+    preferred = (model or os.environ.get("GEMINI_IMAGE_MODEL", "")).strip()
     models = [preferred] if preferred else []
     for name in MODEL_CANDIDATES:
         if name not in models:
             models.append(name)
-
-    image_size = os.environ.get("GEMINI_IMAGE_SIZE", "1K")
 
     try:
         from google import genai
@@ -89,37 +107,44 @@ def generate_smoke_image(dest: Path) -> Path:
     client = genai.Client(**client_kwargs)
     errors: list[str] = []
 
-    for model in models:
+    for m in models:
         try:
+            image_config = types.ImageConfig(
+                aspect_ratio=aspect_ratio,
+                image_size=image_size,
+            )
+            config_kwargs: dict[str, object] = {
+                "response_modalities": ["TEXT", "IMAGE"],
+                "image_config": image_config,
+            }
+            if seed is not None:
+                config_kwargs["seed"] = seed
+
+            config = types.GenerateContentConfig(**config_kwargs)
+
             response = client.models.generate_content(
-                model=model,
-                contents=SMOKE_PROMPT,
-                config=types.GenerateContentConfig(
-                    response_modalities=["TEXT", "IMAGE"],
-                    image_config=types.ImageConfig(
-                        aspect_ratio="16:9",
-                        image_size=image_size,
-                    ),
-                ),
+                model=m,
+                contents=prompt,
+                config=config,
             )
         except Exception as exc:  # noqa: BLE001 — 要對使用者顯示 API 原文
             message = str(exc)
             if "free_tier" in message and "limit: 0" in message:
-                raise RuntimeError(_quota_help(model, message)) from exc
-            errors.append(f"{model}: {message}")
+                raise RuntimeError(_quota_help(m, message)) from exc
+            errors.append(f"{m}: {message}")
             continue
 
         data = _first_image_bytes(response)
         if data:
             dest.parent.mkdir(parents=True, exist_ok=True)
             dest.write_bytes(data)
-            return dest
+            return dest, m, seed
 
         text = _first_text(response)
-        errors.append(f"{model}: 有回應但沒有圖片" + (f"；模型說：{text[:300]}" if text else ""))
+        errors.append(f"{m}: 有回應但沒有圖片" + (f"；模型說：{text[:300]}" if text else ""))
 
     raise RuntimeError(
-        "Gemini 無法產出 16:9 圖。\n" + "\n".join(errors)
+        "Gemini 無法產出圖。\n" + "\n".join(errors)
     )
 
 
