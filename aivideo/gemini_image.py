@@ -83,6 +83,7 @@ def generate_image(
     image_size: str = "1K",
     model: str | None = None,
     seed: int | None = None,
+    ref_image: Path | bytes | None = None,
 ) -> tuple[Path, str, int | None]:
     preferred = (model or os.environ.get("GEMINI_IMAGE_MODEL", "")).strip()
     models = [preferred] if preferred else []
@@ -107,6 +108,25 @@ def generate_image(
     client = genai.Client(**client_kwargs)
     errors: list[str] = []
 
+    # 處理參考圖輸入（Image Reference Conditioning）
+    ref_part = None
+    if ref_image:
+        if isinstance(ref_image, (str, Path)):
+            p = Path(ref_image)
+            if p.is_file():
+                mime = "image/png" if p.suffix.lower() == ".png" else "image/jpeg"
+                ref_part = types.Part.from_bytes(data=p.read_bytes(), mime_type=mime)
+        elif isinstance(ref_image, bytes) and ref_image:
+            ref_part = types.Part.from_bytes(data=ref_image, mime_type="image/png")
+
+    if ref_part is not None:
+        contents: object = [
+            ref_part,
+            f"Visual Reference: The attached image defines the primary visual subject/character appearance and structural details. Maintain strict visual consistency with the subject shown in the reference image while rendering the following new 16:9 widescreen scene:\n{prompt}",
+        ]
+    else:
+        contents = prompt
+
     for m in models:
         try:
             image_config = types.ImageConfig(
@@ -124,7 +144,7 @@ def generate_image(
 
             response = client.models.generate_content(
                 model=m,
-                contents=prompt,
+                contents=contents,
                 config=config,
             )
         except Exception as exc:  # noqa: BLE001 — 要對使用者顯示 API 原文

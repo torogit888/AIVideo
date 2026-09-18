@@ -1,0 +1,17 @@
+id: 020_scene_20
+index: 20
+title: 第 20 幕
+narration: '[surprise-oh] 最神奇的是螞蟻還會隨著年齡自動轉崗，'
+image_prompt: 'Cinematic macro conceptual shot depicting the progression of ant roles:
+  paler younger worker ants deep in the inner nursery dark, gradually transitioning
+  toward darker mature worker ants heading toward the bright surface tunnel entrance.
+  Subterranean labyrinth cut into moist dark earth with exposed tree roots. Dramatic
+  chiaroscuro with soft amber light transitioning to dark shadow depth, 16:9 widescreen
+  composition.'
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

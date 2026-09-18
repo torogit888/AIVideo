@@ -167,8 +167,10 @@ def _synthesize_sentence(
         return resp.read()
 
 
-def run_tts(args: argparse.Namespace) -> int:
+def run_tts(args: argparse.Namespace, progress_callback=None) -> int:
     _load_dotenv()
+
+    callback = progress_callback or getattr(args, "progress_callback", None)
 
     job_dir = Path(args.job)
     if not job_dir.is_absolute():
@@ -276,6 +278,12 @@ def run_tts(args: argparse.Namespace) -> int:
     force = getattr(args, "force", False)
     keep_seed = getattr(args, "keep_seed", False)
 
+    target_folders = [
+        s for s in scene_folders
+        if not target_scene or (s.name == target_scene or s.name.startswith(f"{target_scene}_") or s.name.startswith(target_scene))
+    ]
+    total_targets = len(target_folders)
+
     processed = 0
     errors = 0
 
@@ -294,6 +302,8 @@ def run_tts(args: argparse.Namespace) -> int:
         locks = scene_cfg.get("locks", {})
         if locks.get("speech", False) and not force and not draft:
             print(f"[skip] {s_id}: 語音已鎖定 (locked)")
+            if callback:
+                callback(processed, total_targets, f"[{processed}/{total_targets}] {s_id} 跳過（已鎖定）")
             continue
 
         narration = str(scene_cfg.get("narration", "")).strip()
@@ -475,6 +485,8 @@ def run_tts(args: argparse.Namespace) -> int:
 
             print(f"[ok]   {s_id} 逐句合成完畢 -> {take_id}.wav (共 {total_duration_sec}s)")
             processed += 1
+            if callback:
+                callback(processed, total_targets, f"[{processed}/{total_targets}] {s_id} 語音已合成 ({total_duration_sec}s)")
 
     print(f"\n完成！已產出 {processed} 場語音" + (f"，失敗 {errors} 場" if errors else ""))
     return 1 if errors else 0

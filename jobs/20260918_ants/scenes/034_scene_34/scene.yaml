@@ -1,0 +1,15 @@
+id: 034_scene_34
+index: 34
+title: 第 34 幕
+narration: '[sigh] 人類花了幾千年建立了複雜的現代管理體系，'
+image_prompt: Cinematic composition showing a macro foreground of a pristine subterranean
+  soil mound entry, blending atmospherically with a distant, softly blurred silhouette
+  of modern glass skyscrapers at dusk. Warm amber horizon twilight rays casting volumetric
+  golden hour light over the dark earth, dramatic contrast, 16:9 widescreen composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

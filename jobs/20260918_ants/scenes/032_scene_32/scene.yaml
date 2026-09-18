@@ -1,0 +1,16 @@
+id: 032_scene_32
+index: 32
+title: 第 32 幕
+narration: 單個個體沒有複雜思考只有簡單的化學反應指令，
+image_prompt: Extreme macro close-up of a worker ant's head and compound eye, showing
+  microscopic sensory hairs reacting to glowing chemical pheromone micro-droplets
+  on dark soil. Slender jet-black exoskeleton reflecting ambient light. Intricate
+  underground dirt texture background. Dramatic chiaroscuro with a sharp warm amber
+  focus on antenna and chemical interactions, 16:9 widescreen composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

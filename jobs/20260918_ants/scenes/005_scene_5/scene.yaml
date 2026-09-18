@@ -1,0 +1,18 @@
+id: 005_scene_5
+index: 5
+title: 第 5 幕
+narration: 大家想想看我們總以為蟻后是發號施令的大老闆，
+image_prompt: 'Macro visual focal shot of a massive, majestic queen ant resting deep
+  inside a central royal chamber, surrounded by respectful worker ants. Macro visual
+  focus on distinct ant castes within the superorganism: nimble worker ants with slender,
+  jet-black exoskeletons surrounding the colossal queen. Environment featuring an
+  intricate underground subterranean chamber carved from dark earth interleaved with
+  exposed tree roots and mineral grains. Cinematic macro lighting with dramatic chiaroscuro,
+  warm amber rays casting long volumetric shadows, 16:9 widescreen composition.'
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

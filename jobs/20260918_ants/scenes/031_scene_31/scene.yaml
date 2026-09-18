@@ -1,0 +1,17 @@
+id: 031_scene_31
+index: 31
+title: 第 31 幕
+narration: '[confirmation-en] 這簡直是商業管理學上最完美的風險控制機制，'
+image_prompt: Cinematic wide panorama of a flourishing, highly organized subterranean
+  ant empire, perfectly restored and operating seamlessly across multiple tiers of
+  soil tunnels and vaults. Intricate subterranean network cut into dark earth interleaved
+  with roots and sparkling minerals. Cinematic lighting with brilliant warm amber
+  rays pouring through upper fissures, casting breathtaking volumetric light, 16:9
+  widescreen composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

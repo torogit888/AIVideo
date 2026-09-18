@@ -1,0 +1,22 @@
+id: 002_scene_2
+index: 2
+title: 第 2 幕
+narration: 其實是地球上運作了數千萬年的超級企業，
+image_prompt: 'Cinematic wide macro shot depicting an ancient, mega-scale underground
+  ant colony operating like a bustling organic enterprise. Macro visual focus on distinct
+  ant castes within the superorganism: a formidable soldier ant featuring an oversized,
+  glossy mahogany-red head with massive razor-sharp serrated mandibles and segmented
+  dark chitin armor; alongside nimble worker ants with slender, jet-black exoskeletons,
+  delicate twitching antennae, actively tracing invisible glowing chemical pheromone
+  paths across smooth surfaces. Set in a breathtaking subterranean ant empire featuring
+  an intricate labyrinth of smoothly carved soil tunnels, brood chambers, and food
+  vaults in moist dark earth interleaved with exposed twisted tree roots. Cinematic
+  chiaroscuro lighting, intense warm amber rays piercing down, volumetric light, 16:9
+  widescreen composition.'
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: image_20260918T041818

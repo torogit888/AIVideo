@@ -1,0 +1,17 @@
+id: 007_scene_7
+index: 7
+title: 第 7 幕
+narration: '[question-ei] 那究竟是誰在指揮這個龐大的地下帝國？'
+image_prompt: Dramatic low-angle cinematic tunnel shot gazing down a mysterious, vast
+  subterranean junction where dozens of soil pathways diverge into the dark depths.
+  Microscopic dust particles float in suspended air. A breathtaking subterranean ant
+  empire with smoothly carved dirt walls and exposed roots. Cinematic chiaroscuro
+  lighting with sharp warm amber rays cutting through dark shadows, creating an enigmatic
+  atmosphere, 16:9 widescreen composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

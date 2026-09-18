@@ -1,0 +1,18 @@
+id: 037_scene_37
+index: 37
+title: 第 37 幕
+narration: 你看到的不是一隻昆蟲而是一個龐大的超級有機體，
+image_prompt: 'Epic cinematic master cross-section shot revealing the immense scale
+  of the superorganism: a breathtaking subterranean ant empire with thousands of ants
+  acting as a single living organism across an intricate labyrinth of smoothly carved
+  soil tunnels, brood chambers, and food vaults cut into dark earth with twisted tree
+  roots and sparkling minerals. Cinematic chiaroscuro macro-photography lighting with
+  intense warm amber rays piercing down, casting volumetric light beams through suspended
+  dust motes, 16:9 widescreen composition.'
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

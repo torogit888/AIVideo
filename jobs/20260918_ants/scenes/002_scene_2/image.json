@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20260918T041818",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 40245915,
+  "prompt": "吉卜力工作室動畫風格 (Studio Ghibli Style)，手繪感，溫暖飽和的色彩，細膩自然背景，奇幻與懷舊氛圍，柔和光影，電影感分鏡，16:9 橫式構圖，Cinematic wide macro shot depicting an ancient, mega-scale underground ant colony operating like a bustling organic enterprise. Macro visual focus on distinct ant castes within the superorganism: a formidable soldier ant featuring an oversized, glossy mahogany-red head with massive razor-sharp serrated mandibles and segmented dark chitin armor; alongside nimble worker ants with slender, jet-black exoskeletons, delicate twitching antennae, actively tracing invisible glowing chemical pheromone paths across smooth surfaces. Set in a breathtaking subterranean ant empire featuring an intricate labyrinth of smoothly carved soil tunnels, brood chambers, and food vaults in moist dark earth interleaved with exposed twisted tree roots. Cinematic chiaroscuro lighting, intense warm amber rays piercing down, volumetric light, 16:9 widescreen composition.",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-09-18T04:18:18.236732+00:00"
+}

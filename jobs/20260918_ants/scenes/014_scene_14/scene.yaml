@@ -1,0 +1,18 @@
+id: 014_scene_14
+index: 14
+title: 第 14 幕
+narration: '[surprise-ah] 成千上萬的螞蟻竟然像接到軍令一樣嚴格沿線前進，'
+image_prompt: 'Cinematic high-angle macro photograph showing hundreds of ants marching
+  in a strict, perfectly straight column along a chemical trail across a smooth surface.
+  Macro visual focus on distinct ant castes within the superorganism: nimble worker
+  ants with slender, jet-black exoskeletons, delicate twitching antennae, actively
+  tracing invisible glowing chemical pheromone paths across smooth surfaces. Dramatic
+  chiaroscuro lighting with amber volumetric spotlighting the marching line, 16:9
+  widescreen composition.'
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

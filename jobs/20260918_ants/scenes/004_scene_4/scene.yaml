@@ -1,0 +1,19 @@
+id: 004_scene_4
+index: 4
+title: 第 4 幕
+narration: '[surprise-wa] 卻能讓幾百萬個成員精準運轉毫不混亂！'
+image_prompt: 'Cinematic macro shot of organized streams of thousands of ants moving
+  in perfect synchronization through underground dirt corridors. Macro visual focus
+  on distinct ant castes within the superorganism: nimble worker ants with slender,
+  jet-black exoskeletons, delicate twitching antennae, actively tracing invisible
+  glowing chemical pheromone paths across smooth surfaces without collision. Set within
+  a breathtaking subterranean ant empire of smoothly carved soil tunnels cut into
+  moist dark earth. Dramatic chiaroscuro with warm amber volumetric rays and deep
+  moody shadows, 16:9 widescreen composition.'
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

@@ -1,0 +1,17 @@
+id: 030_scene_30
+index: 30
+title: 第 30 幕
+narration: 當突發災難降臨時他們能瞬間補上缺口挽救危機，
+image_prompt: 'Dramatic action macro shot of a sudden tunnel wall breach with falling
+  earth grains and water droplets, where backup worker and soldier ants rapidly swarm
+  to seal the gap and protect brood chambers. Macro visual focus on distinct ant castes:
+  a formidable soldier ant featuring an oversized glossy mahogany-red head alongside
+  nimble worker ants fighting the breach. Cinematic dramatic chiaroscuro with piercing
+  amber lighting, 16:9 widescreen composition.'
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

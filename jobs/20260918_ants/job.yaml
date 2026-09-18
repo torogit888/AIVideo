@@ -1,0 +1,40 @@
+id: 20260918_ants
+title: 螞蟻的分工生活
+language: zh-Hant
+voice_id: female01
+visual_anchors:
+  subject: 'Macro visual focus on distinct ant castes within the superorganism: a
+    formidable soldier ant featuring an oversized, glossy mahogany-red head with massive
+    razor-sharp serrated mandibles and segmented dark chitin armor; alongside nimble
+    worker ants with slender, jet-black exoskeletons, delicate twitching antennae,
+    and microscopic sensory hairs, actively tracing invisible glowing chemical pheromone
+    paths across smooth surfaces.'
+  environment: A breathtaking subterranean ant empire, featuring an intricate labyrinth
+    of smoothly carved soil tunnels, brood chambers, and food vaults cut into moist
+    dark earth interleaved with exposed twisted tree roots and sparkling mineral grains.
+    Cinematic macro-photography lighting with dramatic chiaroscuro—intense warm amber
+    rays piercing down from surface fissures, casting soft volumetric light beams
+    through suspended dust motes, while deep shadows obscure the infinite depths of
+    the underground network.
+frame:
+  aspect: '16:9'
+  gen_width: 1920
+  gen_height: 1080
+  deliver_width: 1920
+  deliver_height: 1080
+  fps: 30
+image:
+  backend: gemini
+  model: gemini-3.1-flash-image
+  model_final: gemini-3-pro-image
+  resolution: 1K
+  aspect_ratio: '16:9'
+  style: studio_ghibli
+style_prefix: 吉卜力工作室動畫風格 (Studio Ghibli Style)，手繪感，溫暖飽和的色彩，細膩自然背景，奇幻與懷舊氛圍，柔和光影，電影感分鏡，16:9
+  橫式構圖
+style_negative: 文字浮水印、現代3D塑料感、粗糙模糊、走形手部
+subtitle:
+  mode: hard
+  font: NotoSansTC-Regular.otf
+  font_size: 48
+kenburns: slow_zoom_in

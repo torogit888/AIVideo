@@ -1,0 +1,17 @@
+id: 013_scene_13
+index: 13
+title: 第 13 幕
+narration: 當他在玻璃板上用這種化學物質畫出一條線，
+image_prompt: 'Cinematic macro shot of a delicate glass plate laid across soil, where
+  a glowing invisible chemical trail line is drawn across the smooth surface. Macro
+  visual focus on distinct ant castes: nimble worker ants with slender jet-black exoskeletons
+  beginning to gather at the edge of the glass plate. Warm amber rays filtering onto
+  the glass surface, rich dark backgrounds, dramatic chiaroscuro lighting, 16:9 widescreen
+  composition.'
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

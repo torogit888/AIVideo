@@ -1,0 +1,195 @@
+studio_ghibli:
+  name: 吉卜力工作室風格 (Studio Ghibli Style)
+  prefix: 吉卜力工作室動畫風格 (Studio Ghibli Style)，手繪感，溫暖飽和的色彩，細膩自然背景，奇幻與懷舊氛圍，柔和光影，電影感分鏡，16:9
+    橫式構圖
+  negative: 文字浮水印、現代3D塑料感、粗糙模糊、走形手部
+  preview: assets/styles/previews/studio_ghibli.jpg
+  description: 手繪感、溫暖的色彩、細膩的自然背景、富有表情的角色設計、田園詩般的氛圍，常帶有奇幻與懷舊色彩。強調光影的柔和處理。
+toriyama_akira:
+  name: 鳥山明風格 (Akira Toriyama Style)
+  prefix: 鳥山明經典動漫風格 (Akira Toriyama Style)，簡潔而有力的線條，塊狀肌肉表現，高飽和度色彩，動態構圖，獨特機械與生物設計，16:9
+    橫式構圖
+  negative: 文字浮水印、寫實暗沉、模糊走形、塑料感
+  preview: assets/styles/previews/toriyama_akira.jpg
+  description: 簡潔而有力的線條、Q版與寫實之間的獨特平衡、塊狀的肌肉表現、高飽和度色彩（早期）、動感的戰鬥構圖、機械與生物設計獨特。
+oda_eiichiro:
+  name: 尾田榮一郎風格 (Eiichiro Oda Style)
+  prefix: 尾田榮一郎熱血動漫風格 (Eiichiro Oda Style)，豐富畫面細節，粗獷充滿活力的線條，熱血冒險氛圍，動態張力，16:9 橫式構圖
+  negative: 文字浮水印、現代3D塑料感、粗糙模糊、走形手部
+  preview: assets/styles/previews/oda_eiichiro.jpg
+  description: 極度誇張的角色比例與表情、天馬行空的想像力、極其豐富的畫面細節、粗獷而充滿活力的線條、熱血冒險氛圍。
+shinkai_makoto:
+  name: 新海誠風格 (Makoto Shinkai Style)
+  prefix: 新海誠唯美日系風格 (Makoto Shinkai Style)，極度寫實精緻背景美術，鏡頭光暈與體積光，細膩情感，高飽和通透色彩，16:9 橫式構圖
+  negative: 文字浮水印、暗沉粗糙、模糊雜訊、走形手部
+  preview: assets/styles/previews/shinkai_makoto.jpg
+  description: 極度寫實且精緻的背景美術、對光影（尤其是鏡頭光暈、體積光）的極致追求、細膩的情感表達、高飽和度且通透的色彩。
+clamp_style:
+  name: CLAMP 風格 (CLAMP Style)
+  prefix: CLAMP 華麗少女動漫風格 (CLAMP Style)，華麗纖細修長的人物比例，極盡裝飾性服飾與背景，流暢髮絲，浪漫奇幻氛圍，16:9 橫式構圖
+  negative: 文字浮水印、粗糙線條、現代塑料感、低細節模糊
+  preview: assets/styles/previews/clamp_style.jpg
+  description: 華麗、纖細而修長的人物比例、極盡裝飾性的服飾與背景、流暢的髮絲描繪、少女漫畫的浪漫氛圍，常融合奇幻與耽美元素。
+araki_hirohiko:
+  name: 荒木飛呂彥風格 (Hirohiko Araki Style)
+  prefix: 荒木飛呂彥 JOJO 風格 (Hirohiko Araki Style)，大膽色彩運用，時尚服裝設計，硬朗面部輪廓與強烈陰影，強烈視覺張力，16:9
+    橫式構圖
+  negative: 文字浮水印、模糊軟弱、平淡無光、走形手部
+  preview: assets/styles/previews/araki_hirohiko.jpg
+  description: 獨特的人體姿態（JoJo立）、大膽的色彩運用、時尚感極強的服裝設計、硬朗的面部輪廓、擬聲詞的視覺化設計、風格隨連載不斷進化。
+inoue_takehiko:
+  name: 井上雄彥風格 (Takehiko Inoue Style)
+  prefix: 井上雄彥寫實墨繪風格 (Takehiko Inoue Style)，強烈筆觸感，毛筆與沾水筆質感，精準人體結構與動態捕捉，深刻表情刻畫與留白意境，16:9
+    橫式構圖
+  negative: 文字浮水印、現代3D塑料感、模糊平淡、走形手部
+  preview: assets/styles/previews/inoue_takehiko.jpg
+  description: 寫實主義、強烈的筆觸感（毛筆、沾水筆）、精準的人體結構與動態捕捉、深刻的人物表情刻畫、留白的巧妙運用，尤擅長運動與武士題材。
+kyoto_animation:
+  name: 京都動畫風格 (Kyoto Animation Style)
+  prefix: 京都動畫精緻日系風格 (Kyoto Animation Style)，精緻人物作畫，柔和通透色彩，細膩眼神與微表情，空氣感唯美光影，16:9 橫式構圖
+  negative: 文字浮水印、粗糙雜訊、暗沉變形、低細節模糊
+  preview: assets/styles/previews/kyoto_animation.jpg
+  description: 精緻的人物作畫、柔和的色彩、細膩的日常動作動畫、注重角色眼神與微表情、空氣感的營造，常被稱為 KyoAni Face。
+ufotable:
+  name: ufotable 風格 (ufotable Style)
+  prefix: ufotable 電影級動畫風格 (ufotable Style)，華麗數位光效與粒子特效，魄力十足戰鬥場面，3D與2D完美融合，電影級寬銀幕，16:9
+    橫式構圖
+  negative: 文字浮水印、暗淡無光、粗糙低解析度、塑料感
+  preview: assets/styles/previews/ufotable.jpg
+  description: 電影級的數位作畫、華麗的特效（尤其粒子與光效）、流暢且魄力十足的戰鬥場面、3D CG 與 2D 作畫的完美融合、高畫面更新率感。
+trigger_style:
+  name: TRIGGER 風格 (TRIGGER Style)
+  prefix: TRIGGER 狂熱動漫風格 (TRIGGER Style)，極度動感與誇張變形，鮮明色彩對比，粗獷線條，充滿想像力的機械設計，熱血節奏，16:9
+    橫式構圖
+  negative: 文字浮水印、平淡寫實、現代塑料感、模糊暗沉
+  preview: assets/styles/previews/trigger_style.jpg
+  description: 極度的動感與誇張變形、鮮明的色彩對比、粗獷的線條、充滿想像力的機械與角色設計、熱血沸騰的敘事節奏，繼承部分 Gainax 基因。
+miura_kentaro:
+  name: 三浦建太郎風格 (Kentaro Miura Style)
+  prefix: 三浦建太郎黑暗奇幻風格 (Kentaro Miura Style)，極度黑暗與史詩美學，極其精細繁複的細節，強烈體積感與重量感，深刻構圖，16:9
+    橫式構圖
+  negative: 文字浮水印、卡通幼態、現代3D塑料感、低細節模糊
+  preview: assets/styles/previews/miura_kentaro.jpg
+  description: 極度的黑暗與暴力美學、極其精細繁複的畫面細節（鎧甲、怪物、背景）、強烈的體積感與重量感、深刻的人物塑造、史詩級的構圖。
+takahashi_rumiko:
+  name: 高橋留美子風格 (Rumiko Takahashi Style)
+  prefix: 高橋留美子經典復古動漫風格 (Rumiko Takahashi Style)，圓潤臉型，清爽線條，生動表情，80-90年代賽璐珞手繪質感，16:9
+    橫式構圖
+  negative: 文字浮水印、現代3D塑料感、暗沉寫實、粗糙雜訊
+  preview: assets/styles/previews/takahashi_rumiko.jpg
+  description: 圓潤的臉型與大眼睛、生動的喜劇表情、日常與奇幻的巧妙結合、清爽的線條、人物關係豐富。
+tezuka_osamu:
+  name: 手塚治虫風格 (Osamu Tezuka Style)
+  prefix: 手塚治虫昭和復古漫畫風格 (Osamu Tezuka Style)，早期日本漫畫奠基風格，簡潔曲線，富有表現力，復古手繪賽璐珞質感，16:9 橫式構圖
+  negative: 文字浮水印、現代3D塑料感、過度寫實、雜亂線條
+  preview: assets/styles/previews/tezuka_osamu.jpg
+  description: 早期日本漫畫與動畫的奠基風格、簡潔的曲線、標誌性的大眼睛、富有表現力的角色設計、故事性強、符號化的動作。
+otomo_katsuhiro:
+  name: 大友克洋風格 (Katsuhiro Otomo Style)
+  prefix: 大友克洋漫畫與動畫電影風格 (Katsuhiro Otomo Style)，80年代經典賽璐珞手繪質感，寫實精準的人物與硬科幻機械結構，極高密度的管線與金屬細節，電影感寬銀幕分鏡，自然手繪光影與陰影線條，16:9
+    橫式構圖
+  negative: 文字浮水印、現代3D塑料感、低細節模糊、走形手部
+  preview: assets/styles/previews/otomo_katsuhiro.jpg
+  description: 寫實的人物比例、極高密度的背景細節、毀滅與重建的場面描繪、硬科幻設定、電影感的分鏡、對機械與城市景觀的精確描繪。
+matsumoto_taiyo:
+  name: 松本大洋風格 (Taiyo Matsumoto Style)
+  prefix: 松本大洋手繪藝術風格 (Taiyo Matsumoto Style)，自由稚拙線條，強烈透視變形，超現實構圖，獨特氛圍營造，情感張力強烈，16:9
+    橫式構圖
+  negative: 文字浮水印、商業平滑、現代3D塑料感、低細節
+  preview: assets/styles/previews/matsumoto_taiyo.jpg
+  description: 自由、扭曲甚至稚拙的線條、強烈的透視變形、超現實的構圖、獨特的氛圍營造、情感張力強烈。
+amano_yoshitaka:
+  name: 天野喜孝風格 (Yoshitaka Amano Style)
+  prefix: 天野喜孝空靈奇幻概念風格 (Yoshitaka Amano Style)，流暢如書法的線條，華麗繁複裝飾，纖細優雅人物，東西方奇幻融合，水彩與金箔質感，16:9
+    橫式構圖
+  negative: 文字浮水印、現代3D塑料感、粗糙厚重、平淡無奇
+  preview: assets/styles/previews/amano_yoshitaka.jpg
+  description: 空靈、夢幻的畫風、流暢如書法的線條、華麗繁複的裝飾、纖細優雅的人物、融合東西方奇幻元素、常用於概念藝術。
+nihei_tsutomu:
+  name: 弐瓶勉風格 (Tsutomu Nihei Style)
+  prefix: 弐瓶勉硬核科幻末日風格 (Tsutomu Nihei Style)，宏大冰冷巨大建築結構，後末日荒涼感，生物機械設計，強烈黑白對比，電影感寬銀幕，16:9
+    橫式構圖
+  negative: 文字浮水印、鮮豔卡通、溫暖治癒、現代塑料感
+  preview: assets/styles/previews/nihei_tsutomu.jpg
+  description: 宏大、冰冷的巨大建築結構、後末日的荒涼感、生物機械設計、極簡的人物表情、強烈的黑白對比、硬核科幻氛圍。
+shirow_masamune:
+  name: 士郎正宗風格 (Masamune Shirow Style)
+  prefix: 士郎正宗攻殼賽博龐克風格 (Masamune Shirow Style)，精密機械設定，賽博龐克美學，硬朗科技細節，乾淨俐落線條，電影感寬銀幕，16:9
+    橫式構圖
+  negative: 文字浮水印、低細節模糊、現代3D塑料感、走形手部
+  preview: assets/styles/previews/shirow_masamune.jpg
+  description: 精密的機械設定、性感且強壯的女性角色、詳盡的技術註解、複雜的世界觀、賽博龐克美學、乾淨的線條。
+nagano_mamoru:
+  name: 永野護風格 (Mamoru Nagano Style)
+  prefix: 永野護五星物語機甲風格 (Mamoru Nagano Style)，極度修長纖細人物與機甲，華麗複雜設計，哥特與裝飾藝術，史詩科幻感，16:9
+    橫式構圖
+  negative: 文字浮水印、低細節、粗糙簡陋、現代3D塑料感
+  preview: assets/styles/previews/nagano_mamoru.jpg
+  description: 極度修長纖細的人物與機甲（Mortar Headd）、華麗且複雜的設計、融合哥特與裝飾藝術風格、獨特的世界觀設定。
+watanabe_shinichiro:
+  name: 渡邊信一郎作品風格 (Shinichiro Watanabe Style)
+  prefix: 渡邊信一郎電影感風格 (Shinichiro Watanabe Style)，風格化寫實，成熟電影氛圍，流暢鏡頭語言，爵士與復古感，16:9 橫式構圖
+  negative: 文字浮水印、卡通幼態、現代3D塑料感、低細節模糊
+  preview: assets/styles/previews/watanabe_shinichiro.jpg
+  description: 風格化的寫實、電影感強烈、音樂與畫面的高度融合（如 Jazz, Hip-hop）、流暢的動作場面、成熟的氛圍營造。
+yuasa_masaaki:
+  name: 湯淺政明風格 (Masaaki Yuasa Style)
+  prefix: 湯淺政明意識感動漫風格 (Masaaki Yuasa Style)，極度自由奔放線條與變形，鮮豔怪異色彩，突破常規透視與動態構圖，16:9 橫式構圖
+  negative: 文字浮水印、呆板平淡、寫實照片感、低細節模糊
+  preview: assets/styles/previews/yuasa_masaaki.jpg
+  description: 極度自由奔放的線條與變形、鮮豔甚至怪異的色彩搭配、突破常規的透視與構圖、意識流般的視覺表達、動畫的可能性探索。
+demizu_posuka:
+  name: 出水ぽすか風格 (Posuka Demizu Style)
+  prefix: 出水ぽすか奇幻細密風格 (Posuka Demizu Style)，童話與黑暗元素結合，極度細膩繁複道具與背景，豐富幻想色彩，16:9 橫式構圖
+  negative: 文字浮水印、簡陋平淡、現代3D塑料感、粗糙模糊
+  preview: assets/styles/previews/demizu_posuka.jpg
+  description: 充滿幻想色彩的細密畫風、細膩的背景與道具設計、表情豐富略帶不安感的角色、童話與黑暗元素的結合。
+sadamoto_yoshiyuki:
+  name: 貞本義行風格 (Yoshiyuki Sadamoto Style)
+  prefix: 貞本義行新世紀動畫風格 (Yoshiyuki Sadamoto Style)，纖細時尚人物設計，乾淨精準線條，柔和色彩，90年代經典動畫賽璐珞質感，16:9
+    橫式構圖
+  negative: 文字浮水印、現代3D塑料感、暗沉雜訊、低細節模糊
+  preview: assets/styles/previews/sadamoto_yoshiyuki.jpg
+  description: 纖細時尚的人物設計、略帶憂鬱的眼神、乾淨的線條、色彩運用柔和、對服裝質感表現到位。
+murata_yusuke:
+  name: 村田雄介風格 (Yusuke Murata Style)
+  prefix: 村田雄介極致動作漫畫風格 (Yusuke Murata Style)，極致作畫功底，流暢動感分鏡，精準透視與肌肉動態，飽滿畫面張力，16:9 橫式構圖
+  negative: 文字浮水印、軟弱無力、現代3D塑料感、低細節走形
+  preview: assets/styles/previews/murata_yusuke.jpg
+  description: 極致的作畫功底、極度流暢動感的分鏡與動作場面、乾淨利落的線條、畫面構成飽滿、透視精準。
+sumi_e:
+  name: 水墨/墨繪風格 (Sumi-e / Ink Wash Style)
+  prefix: 傳統水墨寫意風格 (Sumi-e / Ink Wash Style)，東方水墨筆觸，濃淡乾濕墨色變化，意境留白，大氣磅礡，16:9 橫式構圖
+  negative: 文字浮水印、現代數碼平滑、塑料感、雜亂色彩
+  preview: assets/styles/previews/sumi_e.jpg
+  description: 模仿傳統水墨畫的筆觸、墨色濃淡變化、留白的運用、寫意的感覺，常帶有東方哲學意境。Vagabond 等作品中可見。
+pixel_art:
+  name: 像素藝術風格 (Pixel Art Style)
+  prefix: 復古像素藝術風格 (Pixel Art Style)，精緻 16-bit 像素塊狀結構，復古調色盤，懷舊街機遊戲質感，16:9 橫式構圖
+  negative: 文字浮水印、照片寫實、平滑向量、模糊走形
+  preview: assets/styles/previews/pixel_art.jpg
+  description: 模仿早期電子遊戲的低解析度視覺效果、有限的色盤、塊狀的圖像構成，具有復古感。常分 8-bit, 16-bit 等。
+chibi_kawaii:
+  name: 可愛/Q版風格 (Kawaii / Chibi Style)
+  prefix: 日系可愛Q版風格 (Kawaii / Chibi Style)，2~3頭身角色造型，圓潤萌系線條，高明度鮮亮色彩，治癒系可愛氛圍，16:9 橫式構圖
+  negative: 文字浮水印、黑暗恐怖、寫實硬核、低細節模糊
+  preview: assets/styles/previews/chibi_kawaii.jpg
+  description: 極度簡化和頭身比縮小的角色造型（通常 2-3 頭身）、圓潤的線條、誇張的可愛表情、色彩鮮亮。常用於衍生商品或搞笑橋段。
+cinematic_realistic:
+  name: 電影寫實風格 (Cinematic Realistic)
+  prefix: 電影感靜幀，35mm鏡頭，膠片顆粒，自然電影光影，高動態範圍，精細細節，16:9 橫式構圖
+  negative: 文字浮水印、過曝、變形、塑料感
+  preview: ''
+  description: 電影感靜幀，35mm鏡頭，膠片顆粒，自然電影光影，高動態範圍，精細細節。
+european_fairytale:
+  name: 歐式古典童話繪本風格 (European Fairytale)
+  prefix: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖
+  negative: 文字浮水印、照片寫實、現代冰冷科技感
+  preview: ''
+  description: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸。
+retro_scifi:
+  name: 70年代復古科幻太空風格 (Retro Sci-Fi)
+  prefix: 70年代復古科幻太空插畫，NASA復古海報風格，顆粒質質感，深邃星空，機械構造，16:9 橫式構圖
+  negative: 文字浮水印、數碼平滑、雜亂畸形
+  preview: ''
+  description: 70年代復古科幻太空插畫，NASA復古海報風格，顆粒質質感，深邃星空，機械構造。

@@ -1,0 +1,17 @@
+id: 016_scene_16
+index: 16
+title: 第 16 幕
+narration: 他們的分工體系更是精妙到了極致，
+image_prompt: 'Cinematic wide macro cross-section view of a subterranean ant empire
+  revealing distinct chambers with specialized worker groups: nursing, excavating,
+  and guarding. Intricate labyrinth of smoothly carved soil tunnels, brood chambers,
+  and food vaults cut into moist dark earth interleaved with exposed twisted tree
+  roots and sparkling mineral grains. Dramatic chiaroscuro lighting with intense warm
+  amber rays piercing down, casting volumetric light, 16:9 widescreen composition.'
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

@@ -1,0 +1,16 @@
+id: 023_scene_23
+index: 23
+title: 第 23 幕
+narration: 因為對群體來說年輕勞動力才是最寶貴的資產，
+image_prompt: Cinematic macro shot highlighting a bustling nursery deep in the underground
+  ant empire, glowing with warm soft light, teeming with precious young worker ants
+  and pristine white larvae. Protected inside thick walls of moist dark earth and
+  tangled roots. Cinematic chiaroscuro with intense amber rays creating a sacred,
+  warm golden glow, 16:9 widescreen composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

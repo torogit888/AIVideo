@@ -15,8 +15,10 @@ from aivideo.gemini_image import generate_image, has_gemini_credentials
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
 
-def run_images(args: argparse.Namespace) -> int:
+def run_images(args: argparse.Namespace, progress_callback=None) -> int:
     _load_dotenv()
+
+    callback = progress_callback or getattr(args, "progress_callback", None)
 
     if not has_gemini_credentials():
         print("[fail] 未設定有效的 Gemini API 認證（請檢查 .env）", file=sys.stderr)
@@ -40,6 +42,14 @@ def run_images(args: argparse.Namespace) -> int:
     resolution = img_cfg.get("resolution", "1K")
     aspect_ratio = img_cfg.get("aspect_ratio", "16:9")
 
+    # 檢查專案是否啟用主體定裝參考圖 (Visual Reference Conditioning)
+    visual_anchors = job_cfg.get("visual_anchors", {})
+    use_image_ref = visual_anchors.get("use_image_reference", True)
+    hero_anchor_path = job_dir / "hero_anchor.png"
+    ref_image_to_use = hero_anchor_path if (use_image_ref and hero_anchor_path.is_file()) else None
+    if ref_image_to_use:
+        print(f"[info] 已掛載主體定裝參考圖進行多模態一致性生圖：{ref_image_to_use.name}")
+
     scenes_dir = job_dir / "scenes"
     if not scenes_dir.is_dir():
         print(f"[fail] 找不到 scenes 目錄：{scenes_dir}", file=sys.stderr)
@@ -55,6 +65,12 @@ def run_images(args: argparse.Namespace) -> int:
     draft = getattr(args, "draft", False)
     force = getattr(args, "force", False)
     keep_seed = getattr(args, "keep_seed", False)
+
+    target_folders = [
+        s for s in scene_folders
+        if not target_scene or (s.name == target_scene or s.name.startswith(f"{target_scene}_") or s.name.startswith(target_scene))
+    ]
+    total_targets = len(target_folders)
 
     processed = 0
     errors = 0
@@ -74,6 +90,8 @@ def run_images(args: argparse.Namespace) -> int:
         locks = scene_cfg.get("locks", {})
         if locks.get("image", False) and not force and not draft:
             print(f"[skip] {s_id}: 圖片已鎖定 (locked)")
+            if callback:
+                callback(processed, total_targets, f"[{processed}/{total_targets}] {s_id} 跳過（已鎖定）")
             continue
 
         prompt = str(scene_cfg.get("image_prompt", "")).strip()
@@ -115,6 +133,7 @@ def run_images(args: argparse.Namespace) -> int:
                     image_size=resolution,
                     model=model,
                     seed=seed,
+                    ref_image=ref_image_to_use,
                 )
             except Exception as exc:
                 print(f"[fail] {s_id} 出圖失敗: {exc}", file=sys.stderr)
@@ -147,6 +166,8 @@ def run_images(args: argparse.Namespace) -> int:
 
             print(f"[ok]   {s_id} -> {take_id}.png")
             processed += 1
+            if callback:
+                callback(processed, total_targets, f"[{processed}/{total_targets}] {s_id} 畫面已產出")
 
     print(f"\n完成！已產出 {processed} 張圖片" + (f"，失敗 {errors} 場" if errors else ""))
     return 1 if errors else 0
