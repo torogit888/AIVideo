@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20260919T144854",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-2.5-flash-image",
+  "seed": 92098923,
+  "prompt": "吉卜力工作室動畫風格 (Studio Ghibli Style)，手繪感，溫暖飽和的色彩，細膩自然背景，奇幻與懷舊氛圍，柔和光影，電影感分鏡，16:9 橫式構圖，A symbolic, cinematic shot: the Roman Space Telescope, depicted as a sophisticated, large-aperture space observatory, visually distinct from the more compact, 'pinhole camera' appearance of the Hubble Telescope. It features a prominent, expansive primary mirror or wide-field imager, suggesting its 'hundreds of times wider field of view' and '300-megapixel wide-angle imager.' Its design is sleek, advanced, and conveys a sense of cutting-edge technology and expansive vision, embodying its role as a 'more powerful eye of the universe' and 'pathfinder.' It should appear robust and capable, designed for broad, sweeping cosmic surveys rather than narrow, deep-field observations, possibly with subtle design elements that hint at its namesake, Nancy Grace Roman, symbolizing human ingenuity and perseverance. Its sleek design is emanating a warm, hopeful glow. It is positioned against a backdrop of a distant, potentially habitable exoplanet, subtly illuminated, suggesting the question 'Are we alone?'. The overarching setting is the vast, awe-inspiring expanse of deep space, characterized by profound depth and infinite scale. Dominant colors are rich, deep cosmic blues, purples, and blacks, serving as a backdrop for vibrant, varied hues of nebulae, starfields, and galaxies (including golds, reds, whites, and greens). Lighting is natural, dramatic, and high-contrast, with volumetric rays emanating from distant celestial bodies and chiaroscuro shadows defining cosmic structures. The atmosphere conveys mystery, wonder, and the scientific pursuit of the unknown, often featuring intricate galactic formations, swirling gas clouds, and glittering star clusters. The visual style should evoke both the scientific precision of astronomical observation and the breathtaking beauty of the cosmos, emphasizing the 'deep and vast cosmic wonders' and the 'mapping of the universe on a large scale.'",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-09-19T14:48:54.845038+00:00"
+}

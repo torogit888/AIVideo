@@ -1,0 +1,20 @@
+id: 039_scene_39
+index: 39
+title: 第 39 幕
+narration: 最後，羅曼望遠鏡還搭載了日冕儀， 這是美國國家航空暨太空總署首個，
+image_prompt: A dramatic cinematic close-up on the Coronagraph Instrument (CGI) of
+  the Roman Space Telescope, its advanced optics gleaming with reflective metallic
+  sheens. A subtle, protective shield effect is visible, ready to block intense starlight.
+  The profound vacuum of deep space is the backdrop. The Roman Space Telescope is
+  depicted as a cutting-edge, large-scale space observatory. The dominant color palette
+  consists of rich, deep blues, purples, and blacks, dramatically contrasted by the
+  vibrant, often warm-toned points of light from countless stars, and the swirling,
+  ethereal hues of nebulae and galaxies. Cinematic close-up, emphasizing specialized
+  technology with high-contrast lighting. 16:9 widescreen composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260919T131247
+  image_take: image_20260919T145312

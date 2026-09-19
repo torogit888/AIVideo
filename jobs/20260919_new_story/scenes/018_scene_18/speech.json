@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260919T131045",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.8,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 9.48,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "追蹤宇宙膨脹的演化規律， 其次是普查銀河系內的系外行星， 它將運用微重力透鏡技術， 對銀河系中心進行高頻率掃描，",
+      "text_cn": "追踪宇宙膨胀的演化规律， 其次是普查银河系内的系外行星， 它将运用微重力透镜技术， 对银河系中心进行高频率扫描，",
+      "start_sec": 0.0,
+      "end_sec": 9.48,
+      "duration_sec": 9.48
+    }
+  ],
+  "created_at": "2026-09-19T13:10:45.578300+00:00"
+}

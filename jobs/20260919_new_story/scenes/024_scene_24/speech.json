@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260919T131123",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.8,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 6.88,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[laughter] 這就像是， 羅曼是宇宙的探路者， 韋伯是精密的狙擊手， 而最令人振奮的消息是，",
+      "text_cn": "[laughter] 这就像是， 罗曼是宇宙的探路者， 韦伯是精密的狙击手， 而最令人振奋的消息是，",
+      "start_sec": 0.0,
+      "end_sec": 6.88,
+      "duration_sec": 6.88
+    }
+  ],
+  "created_at": "2026-09-19T13:11:23.722359+00:00"
+}

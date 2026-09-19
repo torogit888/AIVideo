@@ -12,6 +12,9 @@ from aivideo.gemini_image import get_gemini_client_kwargs
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 TEXT_MODELS = (
+    "gemini-2.5-flash",
+    "gemini-2.0-flash",
+    "gemini-1.5-flash",
     "gemini-3.6-flash",
     "gemini-3.5-flash",
     "gemini-flash-latest",
@@ -353,6 +356,71 @@ Scenes:
     return fallbacks
 
 
+def batch_detect_pip_queries(narrations: list[str]) -> list[str | None]:
+    """呼叫 Gemini 批次分析各場景分鏡台詞，判定哪些場景適合搭配真實考據照片 (PiP)，輸出英文檢索詞或 None。"""
+    if not narrations:
+        return []
+
+    from aivideo.commands.check import _load_dotenv
+    _load_dotenv()
+    from google import genai
+    from google.genai import types
+
+    try:
+        client_kwargs = get_gemini_client_kwargs()
+        client = genai.Client(**client_kwargs)
+    except Exception:
+        return [None] * len(narrations)
+
+    scene_items = [{"index": idx + 1, "text": text} for idx, text in enumerate(narrations)]
+
+    prompt = f"""You are an archival visual researcher and documentary editor.
+Analyze the following scene narrations for a documentary video.
+Identify scenes that mention or describe a SPECIFIC REAL-WORLD entity, historical person, actual scientific instrument/device, spacecraft, telescope, historical event, organism/species, document, or blueprint where displaying a REAL archival photograph (as a Picture-in-Picture card) would strongly enhance documentary credibility.
+
+Scenes:
+{json.dumps(scene_items, ensure_ascii=False, indent=2)}
+
+INSTRUCTIONS:
+1. For scenes that clearly describe a real-world entity, person, device, spacecraft, organism, or document:
+   Provide a concise, precise search query in English suitable for image archives (e.g. "Nancy Grace Roman Space Telescope", "Hubble Space Telescope mirror", "Edward O. Wilson biologist", "Solenopsis invicta fire ant", "ASML EUV lithography machine").
+2. For scenes that are purely metaphorical, abstract transitions, or generic narrative where real photo is NOT needed or inappropriate:
+   Set query to null.
+3. Be selective: only 20%~45% of scenes usually need real archival reference cards to avoid visual clutter.
+
+OUTPUT FORMAT:
+Return a JSON array of strings or nulls, with EXACTLY {len(narrations)} items corresponding to the scenes in order:
+["Hubble Space Telescope", null, "Nancy Grace Roman", null]
+"""
+
+    for model_name in TEXT_MODELS:
+        try:
+            resp = client.models.generate_content(
+                model=model_name,
+                contents=prompt,
+                config=types.GenerateContentConfig(
+                    temperature=0.2,
+                    response_mime_type="application/json",
+                ),
+            )
+            if resp.text:
+                parsed = json.loads(resp.text)
+                if isinstance(parsed, list):
+                    result = []
+                    for item in parsed:
+                        if item and str(item).strip().lower() != "null":
+                            result.append(str(item).strip())
+                        else:
+                            result.append(None)
+                    while len(result) < len(narrations):
+                        result.append(None)
+                    return result[: len(narrations)]
+        except Exception:
+            continue
+
+    return [None] * len(narrations)
+
+
 def parse_script_lines_to_scenes(
     script_lines_text: str,
     sentences_per_scene: int = 3,
@@ -360,7 +428,7 @@ def parse_script_lines_to_scenes(
     subject_anchor: str = "",
     environment_anchor: str = "",
 ) -> list[dict[str, object]]:
-    """將逐行台詞按每 2~3 句自動歸納為一個場景分鏡，並為每場分鏡產生英文畫面提示詞 (English Image Prompt)。"""
+    """將逐行台詞按每 2~3 句自動歸納為一個場景分鏡，並為每場分鏡產生英文提示詞與前置分析考據實體 (PiP)。"""
     # 先行清理並嚴格規範標點符號（頓號、句號、冒號轉逗號，移除引號）
     sanitized_text = sanitize_script_punctuation(script_lines_text)
     raw_lines = [line.strip() for line in sanitized_text.strip().splitlines() if line.strip()]
@@ -385,6 +453,7 @@ def parse_script_lines_to_scenes(
         subject_anchor=subject_anchor,
         environment_anchor=environment_anchor,
     )
+    pip_queries = batch_detect_pip_queries(narrations)
 
     scenes: list[dict[str, object]] = []
     for idx, (chunk, narration) in enumerate(zip(chunks, narrations), start=1):
@@ -394,6 +463,7 @@ def parse_script_lines_to_scenes(
             if idx - 1 < len(english_prompts)
             else "Cinematic wide angle shot, dramatic lighting, 16:9 widescreen composition"
         )
+        q = pip_queries[idx - 1] if idx - 1 < len(pip_queries) else None
 
         scenes.append({
             "id": scene_id,
@@ -402,6 +472,7 @@ def parse_script_lines_to_scenes(
             "narration": narration,
             "sentences": chunk,
             "image_prompt": img_prompt,
+            "pip_query": q,
         })
 
     return scenes
@@ -443,8 +514,8 @@ def create_job_bundle(
         },
         "image": {
             "backend": "gemini",
-            "model": "gemini-3.1-flash-image",
-            "model_final": "gemini-3-pro-image",
+            "model": os.environ.get("GEMINI_IMAGE_MODEL", "gemini-2.5-flash-image"),
+            "model_final": os.environ.get("GEMINI_IMAGE_MODEL", "gemini-2.5-flash-image"),
             "resolution": "1K",
             "aspect_ratio": "16:9",
             "style": style_key,
@@ -494,6 +565,15 @@ def create_job_bundle(
                 "image_take": None,
             },
         }
+        if s.get("pip_query"):
+            scfg["pip"] = {
+                "enabled": False,  # 標記建議實體，待出圖或一鍵全流程時直接下載啟用
+                "image": "pip.png",
+                "position": "top-right",
+                "scale": 0.35,
+                "border": 8,
+                "query": s["pip_query"],
+            }
         (s_dir / "scene.yaml").write_text(yaml.safe_dump(scfg, allow_unicode=True, sort_keys=False), encoding="utf-8")
 
     return job_dir

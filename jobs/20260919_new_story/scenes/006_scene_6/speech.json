@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260919T130849",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.8,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 9.48,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "每次只能拍攝一條街道的特寫， 效率極低，耗時漫長， [surprise-oh] 羅曼太空望遠鏡的出現， 就是要解決這個宇宙視野的困境，",
+      "text_cn": "每次只能拍摄一条街道的特写， 效率极低，耗时漫长， [surprise-oh] 罗曼太空望远镜的出现， 就是要解决这个宇宙视野的困境，",
+      "start_sec": 0.0,
+      "end_sec": 9.48,
+      "duration_sec": 9.48
+    }
+  ],
+  "created_at": "2026-09-19T13:08:49.651030+00:00"
+}

@@ -1,4 +1,5 @@
 .env
+.gcloud/
 .venv/
 __pycache__/
 *.py[cod]

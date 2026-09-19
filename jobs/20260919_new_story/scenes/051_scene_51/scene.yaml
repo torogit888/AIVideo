@@ -1,0 +1,20 @@
+id: 051_scene_51
+index: 51
+title: 第 51 幕
+narration: '[surprise-wa] 這幾乎是原定時間的兩倍多， 意味著它將為人類帶來，'
+image_prompt: The Roman Space Telescope, radiating brilliant light and energy, with
+  countless new discoveries (represented by glowing points of light or newly revealed
+  cosmic structures) emanating from it and spreading across the cosmic canvas. The
+  Roman Space Telescope is depicted as a cutting-edge, large-scale space observatory.
+  The overarching environment is the profound vacuum of deep space. The dominant color
+  palette consists of rich, deep blues, purples, and blacks, dramatically contrasted
+  by the vibrant, often warm-toned points of light from countless stars, and the swirling,
+  ethereal hues of nebulae and galaxies. Abundance of discovery, radiating impact,
+  with powerful, dramatic lighting. 16:9 widescreen composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260919T131348
+  image_take: image_20260919T150118

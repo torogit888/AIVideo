@@ -1,0 +1,26 @@
+id: 012_scene_12
+index: 12
+title: 第 12 幕
+narration: 羅曼博士是美國國家航空暨太空總署首位首席天文學家， 也是該機構首位女性高層主管， 在那個女性科學家備受質疑的年代， 她堅持不懈地推動太空望遠鏡計畫，
+image_prompt: A conceptual, artistic depiction of a single, bright, unwavering beam
+  of light (symbolizing Nancy Grace Roman's perseverance) cutting through a dense,
+  swirling cloud of cosmic dust and shadow (representing skepticism and challenges).
+  The beam illuminates a distant, nascent design of a space telescope. The overarching
+  setting is the vast, awe-inspiring expanse of deep space, characterized by profound
+  depth and infinite scale. Dominant colors are rich, deep cosmic blues, purples,
+  and blacks, serving as a backdrop for vibrant, varied hues of nebulae, starfields,
+  and galaxies (including golds, reds, whites, and greens). Lighting is natural, dramatic,
+  and high-contrast, with volumetric rays emanating from distant celestial bodies
+  and chiaroscuro shadows defining cosmic structures. The atmosphere conveys mystery,
+  wonder, and the scientific pursuit of the unknown, often featuring intricate galactic
+  formations, swirling gas clouds, and glittering star clusters. The visual style
+  should evoke both the scientific precision of astronomical observation and the breathtaking
+  beauty of the cosmos, emphasizing the 'deep and vast cosmic wonders' and the 'mapping
+  of the universe on a large scale.'
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260919T130954
+  image_take: image_20260919T125614

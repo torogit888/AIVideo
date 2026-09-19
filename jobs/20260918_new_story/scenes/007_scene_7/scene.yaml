@@ -1,0 +1,19 @@
+id: 007_scene_7
+index: 7
+title: 第 7 幕
+narration: 當他在玻璃板上用這種化學物質畫出一條線， [surprise-ah] 成千上萬的螞蟻竟然像接到軍令一樣嚴格沿線前進，
+image_prompt: Macro overhead 16:9 shot on a smooth clear glass plate inside a vintage
+  laboratory. A brilliant chemical line glows softly on the glass, while thousands
+  of ants march along it in perfect, strict discipline like a marching army. Macro
+  cinematic focus on Red Imported Fire Ants (Solenopsis invicta), highlighting a distinct
+  large-headed soldier ant with sharp amber-brown mandibles and glossy reddish-dark
+  chitin alongside sleeker orange-tinted worker ants. Their polished exoskeletons
+  catch dramatic rim lighting under warm tungsten desk lamps, surrounded by glowing
+  golden and cyan volumetric pheromone trails.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: image_20260918T061301

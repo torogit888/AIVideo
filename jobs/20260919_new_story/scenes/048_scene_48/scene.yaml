@@ -1,0 +1,19 @@
+id: 048_scene_48
+index: 48
+title: 第 48 幕
+narration: 韋伯是精密的狙擊手， 而最令人振奮的消息是，
+image_prompt: The James Webb Space Telescope (JWST), its golden, segmented mirrors
+  gleaming brilliantly, precisely locked onto a single, incredibly distant and faint
+  cosmic target, with a laser-like focus. A subtle shift in lighting or atmosphere
+  hints at exciting news to come. The profound vacuum of deep space is the environment.
+  The dominant color palette consists of rich, deep blues, purples, and blacks, dramatically
+  contrasted by the vibrant, often warm-toned points of light from countless stars,
+  and the swirling, ethereal hues of nebulae and galaxies. Precision, focus, and anticipation
+  with dramatic lighting. 16:9 widescreen composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260919T131332
+  image_take: image_20260919T145855

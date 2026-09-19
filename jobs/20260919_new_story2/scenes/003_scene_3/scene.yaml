@@ -1,0 +1,26 @@
+id: 003_scene_3
+index: 3
+title: 第 3 幕
+narration: 一個以哈伯之母命名的傳奇， 大家想想看， 哈伯望遠鏡如同一個精密的針孔相機， 它能捕捉宇宙最深處的細節，
+image_prompt: A cinematic medium shot of The Roman Space Telescope, a highly advanced,
+  uncrewed space observatory, its sleek and futuristic design prominently displayed.
+  Its polished metallic surfaces (titanium, aluminum alloys) in shades of silver,
+  dark grey, and white reflect the deep space environment, showcasing its large, primary
+  mirror aperture and prominent, deep blue multi-panel solar arrays with golden Kapton
+  insulation accents. The telescope, a purely technological marvel, a 'cosmic eye'
+  designed for unparalleled cosmic vision, is oriented towards a distant, highly detailed
+  deep field. The background is the profound, boundless expanse of deep space, an
+  infinite, inky black vacuum densely populated by countless distant galaxies appearing
+  as intricate spirals or elliptical blurs of light, and wispy, colorful nebulae (cool
+  blues, soft pinks). Lighting is primarily natural cosmic illumination; stars are
+  sharp, brilliant pinpricks of light, and nebulae provide soft, volumetric glows,
+  creating gradients of color and light. The scene conveys immense precision, robust
+  engineering, and a sense of silent, powerful observation, highlighting its unparalleled
+  cosmic vision, all composed in a 16:9 widescreen cinematic shot.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260919T143051
+  image_take: image_20260919T142833

@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20260919T145104",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-2.5-flash-image",
+  "seed": 55263595,
+  "prompt": "吉卜力工作室動畫風格 (Studio Ghibli Style)，手繪感，溫暖飽和的色彩，細膩自然背景，奇幻與懷舊氛圍，柔和光影，電影感分鏡，16:9 橫式構圖，Distorted, stretched images of distant galaxies, subtly warped and elongated by the invisible presence of dark matter (represented by faint, shimmering, transparent structures), as precisely observed by the Roman Space Telescope from a medium distance. The Roman Space Telescope is depicted as a cutting-edge, large-scale space observatory. The overarching environment is the profound vacuum of deep space. The dominant color palette consists of rich, deep blues, purples, and blacks, dramatically contrasted by the vibrant, often warm-toned points of light from countless stars, and the swirling, ethereal hues of nebulae and galaxies. Visualizing invisible forces with precision, using dramatic lighting. 16:9 widescreen composition.",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-09-19T14:51:04.970559+00:00"
+}

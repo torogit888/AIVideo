@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260919T131057",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.8,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 11.0,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "最後，羅曼望遠鏡還搭載了日冕儀， 這是美國國家航空暨太空總署首個， 能夠直接觀測系外行星的太空設備， 它能有效抑制恆星的強烈光芒，",
+      "text_cn": "最后，罗曼望远镜还搭载了日冕仪， 这是美国国家航空暨太空总署首个， 能够直接观测系外行星的太空设备， 它能有效抑制恒星的强烈光芒，",
+      "start_sec": 0.0,
+      "end_sec": 11.0,
+      "duration_sec": 11.0
+    }
+  ],
+  "created_at": "2026-09-19T13:10:57.802106+00:00"
+}

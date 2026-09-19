@@ -14,3 +14,12 @@ locks:
 current:
   speech_take: speech_20260917T074756
   image_take: image_20260917T101053
+pip:
+  enabled: true
+  image: pip.png
+  position: top-right
+  scale: 0.35
+  border: 8
+  query: Nancy Grace Roman Space Telescope
+  source_title: File:Dr. Nancy Roman - GPN-2002-000212.jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/0/06/Dr._Nancy_Roman_-_GPN-2002-000212.jpg

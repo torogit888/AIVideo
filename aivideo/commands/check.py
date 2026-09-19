@@ -37,7 +37,12 @@ def _load_dotenv() -> None:
         key, value = line.split("=", 1)
         key = key.strip()
         value = value.strip().strip('"').strip("'")
-        os.environ.setdefault(key, value)
+        os.environ[key] = value
+
+    # 若啟用了 Vertex AI，清除可能殘留的 GEMINI_API_KEY 避免 SDK 誤走 AI Studio
+    if str(os.environ.get("GOOGLE_GENAI_USE_VERTEXAI", "")).strip().lower() in {"1", "true", "yes", "on"}:
+        if "GEMINI_API_KEY" in os.environ and not os.environ["GEMINI_API_KEY"].startswith("ya29."):
+            del os.environ["GEMINI_API_KEY"]
 
 
 def _run(cmd: list[str], timeout: int = 120) -> subprocess.CompletedProcess[str]:

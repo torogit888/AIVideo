@@ -1,0 +1,21 @@
+id: 043_scene_43
+index: 43
+title: 第 43 幕
+narration: 羅曼望遠鏡的發射， 意味著空間天文觀測，
+image_prompt: The Roman Space Telescope, fully deployed and magnificent, majestically
+  sailing through the profound vacuum of deep space, bathed in the dramatic light
+  of distant stars and nebulae, symbolizing its successful 'launch' into operation
+  and the beginning of its grand journey. The Roman Space Telescope is depicted as
+  a cutting-edge, large-scale space observatory. The overarching environment is the
+  profound vacuum of deep space. The dominant color palette consists of rich, deep
+  blues, purples, and blacks, dramatically contrasted by the vibrant, often warm-toned
+  points of light from countless stars, and the swirling, ethereal hues of nebulae
+  and galaxies. Majestic, triumphant, and beginning-of-a-journey lighting. 16:9 widescreen
+  composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260919T131309
+  image_take: image_20260919T145455

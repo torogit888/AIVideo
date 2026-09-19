@@ -1,0 +1,33 @@
+[Script Info]
+Title: AIVideo Subtitles
+ScriptType: v4.00+
+WrapStyle: 0
+PlayResX: 1920
+PlayResY: 1080
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Noto Sans CJK TC,48,&H00FFFFFF,&H000000FF,&H00000000,&H80000000,1,0,0,0,100,100,0,0,1,3.2,1.5,2,100,100,65,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:06.04,Default,,0,0,0,,你在腳邊隨處可見的小小螞蟻，\N其實是地球上運作了數千萬年的超級企業，
+Dialogue: 0,0:00:06.04,0:00:11.04,Default,,0,0,0,,他們沒有任何一位管理層或最高執行長，\N卻能讓幾百萬個成員精準運轉毫不混亂！
+Dialogue: 0,0:00:11.04,0:00:16.04,Default,,0,0,0,,大家想想看我們總以為蟻后是發號施令的大老闆，\N但事實上蟻后只是個專門產卵的生育機器，
+Dialogue: 0,0:00:16.04,0:00:21.04,Default,,0,0,0,,那究竟是誰在指揮這個龐大的地下帝國？\N答案是帝國裡面根本就沒有人在進行指揮，
+Dialogue: 0,0:00:21.04,0:00:26.04,Default,,0,0,0,,這就是生物學上最令人驚嘆的去中心化網絡，\N故事要從二十世紀著名的生物學家威爾森說起，
+Dialogue: 0,0:00:26.04,0:00:31.04,Default,,0,0,0,,威爾森為了破解螞蟻傳遞訊息的終極秘密，\N他提取了紅火蟻體內微小的杜氏腺體分泌物，
+Dialogue: 0,0:00:31.04,0:00:36.04,Default,,0,0,0,,當他在玻璃板上用這種化學物質畫出一條線，\N成千上萬的螞蟻竟然像接到軍令一樣嚴格沿線前進，
+Dialogue: 0,0:00:36.04,0:00:41.04,Default,,0,0,0,,人類這才明白螞蟻是用氣味分子建立起龐大訊息網，\N他們的分工體系更是精妙到了極致，
+Dialogue: 0,0:00:41.04,0:00:46.04,Default,,0,0,0,,蟻群內部有著極為嚴格的形態與年齡分工，\N頭大牙利的是兵蟻負責守衛家園與對外禦敵，
+Dialogue: 0,0:00:46.04,0:00:51.04,Default,,0,0,0,,體型小巧的是工蟻負責修築巢穴與照顧幼蟲，\N最神奇的是螞蟻還會隨著年齡自動轉崗，
+Dialogue: 0,0:00:51.04,0:00:56.04,Default,,0,0,0,,年輕的螞蟻待在最安全的地下深處照顧幼兒，\N年老力衰的螞蟻則主動承擔最危險的戶外覓食任務，
+Dialogue: 0,0:00:56.04,0:01:01.04,Default,,0,0,0,,因為對群體來說年輕勞動力才是最寶貴的資產，\N但生物學家在觀察時發現了一個極具爭議的名場面，
+Dialogue: 0,0:01:01.04,0:01:06.04,Default,,0,0,0,,蟻巢裡竟然有高達兩成的螞蟻整天偷懶不做事？\N他們不搬運食物也不修築巢穴只是無所事事地晃盪，
+Dialogue: 0,0:01:06.04,0:01:11.04,Default,,0,0,0,,科學家做了個殘酷實驗把所有幹活的螞蟻全部拿走，\N平時偷懶的螞蟻竟在幾秒鐘內無縫接管所有工作，
+Dialogue: 0,0:01:11.04,0:01:16.04,Default,,0,0,0,,原來這些偷懶的螞蟻是蟻群預留的機動備用隊伍，\N當突發災難降臨時他們能瞬間補上缺口挽救危機，
+Dialogue: 0,0:01:16.04,0:01:21.04,Default,,0,0,0,,這簡直是商業管理學上最完美的風險控制機制，\N單個個體沒有複雜思考只有簡單的化學反應指令，
+Dialogue: 0,0:01:21.04,0:01:26.04,Default,,0,0,0,,卻在宏觀上匯聚成了無懈可擊的集體智慧，\N人類花了幾千年建立了複雜的現代管理體系，
+Dialogue: 0,0:01:26.04,0:01:31.04,Default,,0,0,0,,卻早在億萬年前就被小小的螞蟻用基因完美解答，\N下次當你看到路邊忙碌的螞蟻請記得，
+Dialogue: 0,0:01:31.04,0:01:36.04,Default,,0,0,0,,你看到的不是一隻昆蟲而\N是一個龐大的超級有機體，

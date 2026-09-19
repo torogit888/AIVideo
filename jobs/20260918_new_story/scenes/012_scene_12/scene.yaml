@@ -1,0 +1,17 @@
+id: 012_scene_12
+index: 12
+title: 第 12 幕
+narration: 因為對群體來說年輕勞動力才是最寶貴的資產， 但生物學家在觀察時發現了一個極具爭議的名場面，
+image_prompt: Medium macro 16:9 shot in a mid-20th-century biology laboratory. A scientist
+  looks through a vintage brass microscope at a glass petri dish where some ants work
+  actively while others remain completely idle. Macro cinematic focus on Red Imported
+  Fire Ants (Solenopsis invicta), highlighting polished exoskeletons catching dramatic
+  rim lighting. Warm tungsten lamps illuminate dark wooden desks and glass equipment
+  in an intriguing visual atmosphere.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: image_20260918T061401

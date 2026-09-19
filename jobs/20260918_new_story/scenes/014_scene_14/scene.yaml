@@ -1,0 +1,17 @@
+id: 014_scene_14
+index: 14
+title: 第 14 幕
+narration: 科學家做了個殘酷實驗把所有幹活的螞蟻全部拿走， [surprise-wa] 平時偷懶的螞蟻竟在幾秒鐘內無縫接管所有工作，
+image_prompt: Action macro 16:9 shot in a laboratory glass setup. Scientific tweezers
+  remove active worker ants from a glass dish, causing previously motionless reserve
+  ants to instantaneously activate. Macro cinematic focus on Red Imported Fire Ants
+  (Solenopsis invicta), highlighting glossy reddish-dark chitin and fine tactile antennae
+  catching dramatic rim lighting. Glowing cyan volumetric pheromone trails flare up
+  across the glass plate under warm tungsten laboratory lighting.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: image_20260918T061427

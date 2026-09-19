@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260919T130858",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.8,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 8.52,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "它的核心武器， 是三億像素的廣角觀測儀， 單次觀測範圍是哈伯的百倍以上， 巡天效率更是提升了千倍之多，",
+      "text_cn": "它的核心武器， 是三亿像素的广角观测仪， 单次观测范围是哈伯的百倍以上， 巡天效率更是提升了千倍之多，",
+      "start_sec": 0.0,
+      "end_sec": 8.52,
+      "duration_sec": 8.52
+    }
+  ],
+  "created_at": "2026-09-19T13:08:58.382652+00:00"
+}

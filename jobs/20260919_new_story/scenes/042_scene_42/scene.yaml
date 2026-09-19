@@ -1,0 +1,21 @@
+id: 042_scene_42
+index: 42
+title: 第 42 幕
+narration: '[confirmation-en] 這項技術， 被視為未來宜居世界天文台的關鍵技術驗證平台，'
+image_prompt: A futuristic, even larger space observatory (concept art, perhaps a
+  massive segmented mirror or a ring of telescopes) being constructed or conceptualized
+  in deep space. The Roman Space Telescope is subtly in the foreground, appearing
+  as a blueprint or foundational element for this grand future. The Roman Space Telescope
+  is depicted as a cutting-edge, large-scale space observatory. The overarching environment
+  is the profound vacuum of deep space. The dominant color palette consists of rich,
+  deep blues, purples, and blacks, dramatically contrasted by the vibrant, often warm-toned
+  points of light from countless stars, and the swirling, ethereal hues of nebulae
+  and galaxies. Visionary, foundational, future-oriented lighting. 16:9 widescreen
+  composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260919T131303
+  image_take: image_20260919T130300

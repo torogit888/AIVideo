@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260918T061543",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.8,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 6.04,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "你在腳邊隨處可見的小小螞蟻， 其實是地球上運作了數千萬年的超級企業，",
+      "text_cn": "你在脚边随处可见的小小蚂蚁， 其实是地球上运作了数千万年的超级企业，",
+      "start_sec": 0.0,
+      "end_sec": 6.04,
+      "duration_sec": 6.04
+    }
+  ],
+  "created_at": "2026-09-18T06:15:43.150434+00:00"
+}

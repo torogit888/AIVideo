@@ -1,0 +1,19 @@
+id: 041_scene_41
+index: 41
+title: 第 41 幕
+narration: 直接成像極其微弱的系外行星訊號， 提升對類地行星系統的偵測精度，
+image_prompt: A super-resolution image of a faint, Earth-like exoplanet, showing subtle
+  atmospheric details or surface features, with a sense of incredible precision and
+  clarity, as if seen directly through the Coronagraph Instrument. The profound vacuum
+  of deep space is the environment. The dominant color palette consists of rich, deep
+  blues, purples, and blacks, dramatically contrasted by the vibrant, often warm-toned
+  points of light from countless stars, and the swirling, ethereal hues of nebulae
+  and galaxies. High-resolution, detailed, precision, with dramatic lighting. 16:9
+  widescreen composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260919T131256
+  image_take: image_20260919T145402

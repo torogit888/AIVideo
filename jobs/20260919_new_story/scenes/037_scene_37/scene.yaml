@@ -1,0 +1,18 @@
+id: 037_scene_37
+index: 37
+title: 第 37 幕
+narration: 預計能發現數以萬計的系外行星， 甚至包括質量僅為月球數倍的微型行星，
+image_prompt: A dazzling, overwhelming field of thousands of exoplanets, ranging from
+  gas giants to tiny, moon-sized worlds, all illuminated by their host stars, filling
+  the entire frame. The profound vacuum of deep space is the environment. The dominant
+  color palette consists of rich, deep blues, purples, and blacks, dramatically contrasted
+  by the vibrant, often warm-toned points of light from countless stars, and the swirling,
+  ethereal hues of nebulae and galaxies. Abundance, discovery, vastness of planetary
+  systems, with high-contrast lighting. 16:9 widescreen composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260919T131237
+  image_take: image_20260919T130154

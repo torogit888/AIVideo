@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260919T130908",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.8,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 11.52,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[confirmation-en] 這意味著， 羅曼望遠鏡僅需一個月， 就能完成哈伯望遠鏡需要一個世紀才能做到的銀河系觀測， [sigh] 但這項偉大的計畫並非一帆風順，",
+      "text_cn": "[confirmation-en] 这意味着， 罗曼望远镜仅需一个月， 就能完成哈伯望远镜需要一个世纪才能做到的银河系观测， [sigh] 但这项伟大的计划并非一帆风顺，",
+      "start_sec": 0.0,
+      "end_sec": 11.52,
+      "duration_sec": 11.52
+    }
+  ],
+  "created_at": "2026-09-19T13:09:08.497420+00:00"
+}

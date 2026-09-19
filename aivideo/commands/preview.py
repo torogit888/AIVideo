@@ -57,8 +57,10 @@ def generate_preview_html(job_dir: Path) -> Path:
 
         img_rel = f"scenes/{s_id}/image.png"
         wav_rel = f"scenes/{s_id}/speech.wav"
+        pip_rel = f"scenes/{s_id}/pip.png"
         has_img = (s_dir / "image.png").is_file()
         has_wav = (s_dir / "speech.wav").is_file()
+        has_pip = (s_dir / "pip.png").is_file()
 
         duration = speech_meta.get("duration_sec", "—")
         seed = img_meta.get("seed", "—")
@@ -71,15 +73,21 @@ def generate_preview_html(job_dir: Path) -> Path:
         if takes_dir.is_dir():
             all_takes = sorted([p.name for p in takes_dir.glob("*.png")])
 
+        pip_badge = '<span class="badge" style="background:#7c3aed;margin-left:6px;">🖼️ 畫中畫 PiP</span>' if has_pip else ""
+
         row = f"""
         <div class="scene-card">
           <div class="scene-header">
             <h3>{s_id} · {s_title}</h3>
-            <span class="badge">時長: {duration}s</span>
+            <div>
+              {pip_badge}
+              <span class="badge">時長: {duration}s</span>
+            </div>
           </div>
           <div class="scene-body">
             <div class="scene-media">
               {f'<img src="{img_rel}" alt="{s_title}" class="scene-thumb" />' if has_img else '<div class="no-media">無畫面</div>'}
+              {f'<div style="margin-top:6px;"><small style="color:#7c3aed;font-weight:bold;">疊加參考圖 (PiP)：</small><br><img src="{pip_rel}" alt="PiP" style="max-width:140px;border-radius:4px;border:1px solid #ccc;" /></div>' if has_pip else ''}
               {f'<audio controls src="{wav_rel}" class="scene-audio"></audio>' if has_wav else '<div class="no-media">無語音</div>'}
             </div>
             <div class="scene-meta">

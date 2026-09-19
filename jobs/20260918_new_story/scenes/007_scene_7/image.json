@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20260918T061301",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 67676377,
+  "prompt": "吉卜力工作室動畫風格 (Studio Ghibli Style)，手繪感，溫暖飽和的色彩，細膩自然背景，奇幻與懷舊氛圍，柔和光影，電影感分鏡，16:9 橫式構圖，Macro overhead 16:9 shot on a smooth clear glass plate inside a vintage laboratory. A brilliant chemical line glows softly on the glass, while thousands of ants march along it in perfect, strict discipline like a marching army. Macro cinematic focus on Red Imported Fire Ants (Solenopsis invicta), highlighting a distinct large-headed soldier ant with sharp amber-brown mandibles and glossy reddish-dark chitin alongside sleeker orange-tinted worker ants. Their polished exoskeletons catch dramatic rim lighting under warm tungsten desk lamps, surrounded by glowing golden and cyan volumetric pheromone trails.",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-09-18T06:13:01.365967+00:00"
+}

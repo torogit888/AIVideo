@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260919T131433",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.8,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 6.24,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "如果大家喜歡這種硬核又有趣的科技歷史故事， 別忘了按讚訂閱，我們下期見！",
+      "text_cn": "如果大家喜欢这种硬核又有趣的科技历史故事， 别忘了按赞订阅，我们下期见！",
+      "start_sec": 0.0,
+      "end_sec": 6.24,
+      "duration_sec": 6.24
+    }
+  ],
+  "created_at": "2026-09-19T13:14:33.377247+00:00"
+}

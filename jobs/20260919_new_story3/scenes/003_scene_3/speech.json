@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260919T153934",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.8,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 8.72,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "一個以哈伯之母命名的傳奇， 大家想想看， 哈伯望遠鏡如同一個精密的針孔相機， 它能捕捉宇宙最深處的細節，",
+      "text_cn": "一个以哈伯之母命名的传奇， 大家想想看， 哈伯望远镜如同一个精密的针孔相机， 它能捕捉宇宙最深处的细节，",
+      "start_sec": 0.0,
+      "end_sec": 8.72,
+      "duration_sec": 8.72
+    }
+  ],
+  "created_at": "2026-09-19T15:39:34.758705+00:00"
+}

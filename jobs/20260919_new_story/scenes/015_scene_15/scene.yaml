@@ -1,0 +1,35 @@
+id: 015_scene_15
+index: 15
+title: 第 15 幕
+narration: 羅曼望遠鏡繼承了她的精神， 將帶著人類的希望， 去探索宇宙最深層的奧秘， 它的主要任務有三個方向，
+image_prompt: A majestic, cinematic shot of the Roman Space Telescope, depicted as
+  a sophisticated, large-aperture space observatory, visually distinct from the more
+  compact, 'pinhole camera' appearance of the Hubble Telescope. It features a prominent,
+  expansive primary mirror or wide-field imager, suggesting its 'hundreds of times
+  wider field of view' and '300-megapixel wide-angle imager.' Its design is sleek,
+  advanced, and conveys a sense of cutting-edge technology and expansive vision, embodying
+  its role as a 'more powerful eye of the universe' and 'pathfinder.' It should appear
+  robust and capable, designed for broad, sweeping cosmic surveys rather than narrow,
+  deep-field observations, possibly with subtle design elements that hint at its namesake,
+  Nancy Grace Roman, symbolizing human ingenuity and perseverance. Its sleek design
+  radiates a subtle, hopeful glow. It is positioned as if embarking on a grand journey,
+  with beams of light extending towards distant, intricate galactic formations and
+  swirling gas clouds, symbolizing the 'deepest cosmic mysteries.' The overarching
+  setting is the vast, awe-inspiring expanse of deep space, characterized by profound
+  depth and infinite scale. Dominant colors are rich, deep cosmic blues, purples,
+  and blacks, serving as a backdrop for vibrant, varied hues of nebulae, starfields,
+  and galaxies (including golds, reds, whites, and greens). Lighting is natural, dramatic,
+  and high-contrast, with volumetric rays emanating from distant celestial bodies
+  and chiaroscuro shadows defining cosmic structures. The atmosphere conveys mystery,
+  wonder, and the scientific pursuit of the unknown, often featuring intricate galactic
+  formations, swirling gas clouds, and glittering star clusters. The visual style
+  should evoke both the scientific precision of astronomical observation and the breathtaking
+  beauty of the cosmos, emphasizing the 'deep and vast cosmic wonders' and the 'mapping
+  of the universe on a large scale.'
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260919T131029
+  image_take: image_20260919T125654

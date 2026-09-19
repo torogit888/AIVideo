@@ -3,6 +3,7 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
+REPO_ROOT = Path(__file__).resolve().parents[1]
 
 _VERTEX_ENV_KEYS = (
     ("GOOGLE_CLOUD_PROJECT", "GOOGLE_CLOUD_PROJECT"),
@@ -19,15 +20,18 @@ SMOKE_PROMPT = (
 
 # 金鑰能用哪個 id 因帳號而異；由新到舊試。
 MODEL_CANDIDATES = (
-    "gemini-3.1-flash-image",
-    "gemini-3.1-flash-image-preview",
     "gemini-2.5-flash-image",
     "gemini-2.5-flash-image-preview",
+    "gemini-3.1-flash-image",
+    "gemini-3.1-flash-image-preview",
+    "imagen-3.0-generate-002",
 )
 
 
 def get_gemini_client_kwargs() -> dict[str, object]:
-    api_key = os.environ.get("GEMINI_API_KEY", "").strip()
+    from aivideo.commands.check import _load_dotenv
+    _load_dotenv()
+
     vertex_mode = str(os.environ.get("GOOGLE_GENAI_USE_VERTEXAI", "")).strip().lower() in {
         "1",
         "true",
@@ -35,24 +39,34 @@ def get_gemini_client_kwargs() -> dict[str, object]:
         "on",
     }
 
-    # 若有 GEMINI_API_KEY，且沒有外部 ADC service account 憑證檔，以 API Key (Google AI Studio) 為主
-    # 並顯式將 GOOGLE_GENAI_USE_VERTEXAI 設為 false，避免 SDK 誤走 Vertex AI
-    if api_key and not os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"):
-        os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "false"
-        return {"api_key": api_key}
+    # 若專案目錄下有 .gcloud/application_default_credentials.json，自動設置環境變數供 Google SDK 讀取
+    default_adc_path = REPO_ROOT / ".gcloud" / "application_default_credentials.json"
+    if default_adc_path.is_file() and not os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"):
+        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = str(default_adc_path)
 
+    # 1. 優先支援 Vertex AI 模式
     if vertex_mode:
         project = _env_value("GOOGLE_CLOUD_PROJECT") or _env_value("VERTEX_PROJECT_ID")
-        location = _env_value("GOOGLE_CLOUD_LOCATION") or _env_value("GOOGLE_CLOUD_REGION") or _env_value("VERTEX_LOCATION")
-        if not project or not location:
+        location = _env_value("GOOGLE_CLOUD_LOCATION") or _env_value("GOOGLE_CLOUD_REGION") or _env_value("VERTEX_LOCATION") or "us-central1"
+        if not project:
             raise RuntimeError(
-                "Vertex AI 模式已啟用，但缺少 GOOGLE_CLOUD_PROJECT / GOOGLE_CLOUD_LOCATION（或 VERTEX_*）。"
+                "Vertex AI 模式已啟用，但缺少 GOOGLE_CLOUD_PROJECT / VERTEX_PROJECT_ID。"
             )
+        os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "true"
         return {"vertexai": True, "project": project, "location": location}
 
+    # 2. 次要支援 Google AI Studio API Key 模式
+    api_key = os.environ.get("GEMINI_API_KEY", "").strip()
     if api_key:
         os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "false"
         return {"api_key": api_key}
+
+    # 若未指定 Vertex 且無 API Key，但有 ADC 憑證與專案，自動回退至 Vertex AI
+    project = _env_value("GOOGLE_CLOUD_PROJECT") or _env_value("VERTEX_PROJECT_ID")
+    location = _env_value("GOOGLE_CLOUD_LOCATION") or "us-central1"
+    if project and os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"):
+        os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "true"
+        return {"vertexai": True, "project": project, "location": location}
 
     raise RuntimeError(
         "缺少 Gemini 認證：請設定 GEMINI_API_KEY，或啟用 Vertex AI（GOOGLE_GENAI_USE_VERTEXAI=true + GOOGLE_CLOUD_PROJECT + GOOGLE_CLOUD_LOCATION）。"
@@ -128,30 +142,46 @@ def generate_image(
         contents = prompt
 
     for m in models:
-        try:
-            image_config = types.ImageConfig(
-                aspect_ratio=aspect_ratio,
-                image_size=image_size,
-            )
-            config_kwargs: dict[str, object] = {
-                "response_modalities": ["TEXT", "IMAGE"],
-                "image_config": image_config,
-            }
-            if seed is not None:
-                config_kwargs["seed"] = seed
+        max_attempts = 4
+        response = None
+        for attempt in range(1, max_attempts + 1):
+            try:
+                image_config = types.ImageConfig(
+                    aspect_ratio=aspect_ratio,
+                    image_size=image_size,
+                )
+                config_kwargs: dict[str, object] = {
+                    "response_modalities": ["TEXT", "IMAGE"],
+                    "image_config": image_config,
+                }
+                if seed is not None:
+                    config_kwargs["seed"] = seed
 
-            config = types.GenerateContentConfig(**config_kwargs)
+                config = types.GenerateContentConfig(**config_kwargs)
 
-            response = client.models.generate_content(
-                model=m,
-                contents=contents,
-                config=config,
-            )
-        except Exception as exc:  # noqa: BLE001 — 要對使用者顯示 API 原文
-            message = str(exc)
-            if "free_tier" in message and "limit: 0" in message:
-                raise RuntimeError(_quota_help(m, message)) from exc
-            errors.append(f"{m}: {message}")
+                response = client.models.generate_content(
+                    model=m,
+                    contents=contents,
+                    config=config,
+                )
+                break
+            except Exception as exc:  # noqa: BLE001 — 要對使用者顯示 API 原文
+                message = str(exc)
+                if "free_tier" in message and "limit: 0" in message:
+                    raise RuntimeError(_quota_help(m, message)) from exc
+
+                is_429 = "429" in message or "RESOURCE_EXHAUSTED" in message or "resource exhausted" in message.lower()
+                if is_429 and attempt < max_attempts:
+                    import time
+                    backoff_sec = attempt * 8  # 8s, 16s, 24s
+                    print(f"[warn] {m} 觸發 Google 速率限制 (429)，自動等待 {backoff_sec} 秒後重試 (第 {attempt}/{max_attempts-1} 次)...")
+                    time.sleep(backoff_sec)
+                    continue
+                else:
+                    errors.append(f"{m}: {message}")
+                    break
+
+        if response is None:
             continue
 
         data = _first_image_bytes(response)

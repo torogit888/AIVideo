@@ -1,0 +1,24 @@
+id: 005_scene_5
+index: 5
+title: 第 5 幕
+narration: 或是普查銀河系中的系外行星時， 哈伯就顯得力不從心了， 這就好比你想要繪製整個城市的交通圖， 卻只能用一架超級精準的無人機，
+image_prompt: A wide-angle, cinematic shot depicting a vast, glittering starfield
+  representing the Milky Way, filled with countless distant exoplanets. In the foreground,
+  a conceptual, small, precise observation device (representing Hubble's limitation)
+  emits a single, narrow beam of light, barely touching a tiny fraction of the immense
+  cosmic landscape. The overarching setting is the vast, awe-inspiring expanse of
+  deep space, characterized by rich, deep cosmic blues, purples, and blacks, with
+  dramatic, high-contrast volumetric lighting emphasizing the overwhelming scale and
+  the challenge of comprehensive surveying. The 16:9 widescreen composition conveys
+  mystery, wonder, and the scientific pursuit of the unknown, often featuring intricate
+  galactic formations, swirling gas clouds, and glittering star clusters. The visual
+  style should evoke both the scientific precision of astronomical observation and
+  the breathtaking beauty of the cosmos, emphasizing the 'deep and vast cosmic wonders'
+  and the 'mapping of the universe on a large scale.'
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260919T130836
+  image_take: image_20260919T125444

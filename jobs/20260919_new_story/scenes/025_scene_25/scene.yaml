@@ -1,0 +1,34 @@
+id: 025_scene_25
+index: 25
+title: 第 25 幕
+narration: 由於精準的發射和燃料節省， 羅曼望遠鏡的任務壽命， 預計將從原先的十年， 延長至至少二十二年，
+image_prompt: A serene, cinematic shot of the Roman Space Telescope, depicted as a
+  sophisticated, large-aperture space observatory, visually distinct from the more
+  compact, 'pinhole camera' appearance of the Hubble Telescope. It features a prominent,
+  expansive primary mirror or wide-field imager, suggesting its 'hundreds of times
+  wider field of view' and '300-megapixel wide-angle imager.' Its design is sleek,
+  advanced, and conveys a sense of cutting-edge technology and expansive vision, embodying
+  its role as a 'more powerful eye of the universe' and 'pathfinder.' It should appear
+  robust and capable, designed for broad, sweeping cosmic surveys rather than narrow,
+  deep-field observations, possibly with subtle design elements that hint at its namesake,
+  Nancy Grace Roman, symbolizing human ingenuity and perseverance. It gracefully drifts
+  through the vast, awe-inspiring expanse of deep space. A subtle, long-lasting energy
+  trail or glow emanates from its thrusters, symbolizing its extended mission life.
+  The overarching setting is characterized by profound depth and infinite scale. Dominant
+  colors are rich, deep cosmic blues, purples, and blacks, serving as a backdrop for
+  vibrant, varied hues of nebulae, starfields, and galaxies (including golds, reds,
+  whites, and greens). Lighting is natural, dramatic, and high-contrast, with volumetric
+  rays emanating from distant celestial bodies and chiaroscuro shadows defining cosmic
+  structures. The atmosphere conveys mystery, wonder, and the scientific pursuit of
+  the unknown, often featuring intricate galactic formations, swirling gas clouds,
+  and glittering star clusters. The visual style should evoke both the scientific
+  precision of astronomical observation and the breathtaking beauty of the cosmos,
+  emphasizing the 'deep and vast cosmic wonders' and the 'mapping of the universe
+  on a large scale.'
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260919T131129
+  image_take: image_20260919T144658

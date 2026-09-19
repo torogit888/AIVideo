@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20260919T125513",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-2.5-flash-image",
+  "seed": 35366109,
+  "prompt": "大友克洋漫畫與動畫電影風格 (Katsuhiro Otomo Style)，80年代經典賽璐珞手繪質感，寫實精準的人物與硬科幻機械結構，極高密度的管線與金屬細節，電影感寬銀幕分鏡，自然手繪光影與陰影線條，16:9 橫式構圖，A powerful, wide-angle shot of the Roman Space Telescope, depicted as a sophisticated, large-aperture space observatory, visually distinct from the more compact, 'pinhole camera' appearance of the Hubble Telescope. It features a prominent, expansive primary mirror or wide-field imager, suggesting its 'hundreds of times wider field of view' and '300-megapixel wide-angle imager.' Its design is sleek, advanced, and conveys a sense of cutting-edge technology and expansive vision, embodying its role as a 'more powerful eye of the universe' and 'pathfinder.' It should appear robust and capable, designed for broad, sweeping cosmic surveys rather than narrow, deep-field observations, possibly with subtle design elements that hint at its namesake, Nancy Grace Roman, symbolizing human ingenuity and perseverance. It is positioned against a vast, sweeping panorama of the Milky Way galaxy. Its expansive primary mirror is actively surveying, with subtle visual effects suggesting rapid, comprehensive data collection. The overarching setting is the vast, awe-inspiring expanse of deep space, characterized by profound depth and infinite scale. Dominant colors are rich, deep cosmic blues, purples, and blacks, serving as a backdrop for vibrant, varied hues of nebulae, starfields, and galaxies (including golds, reds, whites, and greens). Lighting is natural, dramatic, and high-contrast, with volumetric rays emanating from distant celestial bodies and chiaroscuro shadows defining cosmic structures. The atmosphere conveys mystery, wonder, and the scientific pursuit of the unknown, often featuring intricate galactic formations, swirling gas clouds, and glittering star clusters. The visual style should evoke both the scientific precision of astronomical observation and the breathtaking beauty of the cosmos, emphasizing the 'deep and vast cosmic wonders' and the 'mapping of the universe on a large scale.'",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-09-19T12:55:13.093705+00:00"
+}

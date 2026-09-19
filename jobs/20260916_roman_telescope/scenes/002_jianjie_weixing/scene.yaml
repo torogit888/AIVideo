@@ -13,3 +13,12 @@ locks:
 current:
   speech_take: speech_20260917T074818
   image_take: image_20260917T072315
+pip:
+  enabled: true
+  image: pip.png
+  position: top-right
+  scale: 0.35
+  border: 8
+  query: National Reconnaissance Office (NRO) spy satellite
+  source_title: File:Declassified Spy Satellite Image of Houston Texas 1972 (53749853913).jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/1/15/Declassified_Spy_Satellite_Image_of_Houston_Texas_1972_%2853749853913%29.jpg

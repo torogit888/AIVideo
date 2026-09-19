@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260919T131344",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.8,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 3.6,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "預計將從原先的十年， 延長至至少二十二年，",
+      "text_cn": "预计将从原先的十年， 延长至至少二十二年，",
+      "start_sec": 0.0,
+      "end_sec": 3.6,
+      "duration_sec": 3.6
+    }
+  ],
+  "created_at": "2026-09-19T13:13:44.067221+00:00"
+}

@@ -1,0 +1,21 @@
+id: 004_scene_4
+index: 4
+title: 第 4 幕
+narration: '[question-ei] 那究竟是誰在指揮這個龐大的地下帝國？ 答案是帝國裡面根本就沒有人在進行指揮，'
+image_prompt: Cinematic 16:9 cross-section view of a sprawling subterranean ant empire,
+  emphasizing the complete absence of a central command hub. Macro cinematic focus
+  on Red Imported Fire Ants (Solenopsis invicta), highlighting a distinct large-headed
+  soldier ant with sharp amber-brown mandibles and glossy reddish-dark chitin alongside
+  sleeker orange-tinted worker ants. Their slender segmented legs, fine tactile antennae,
+  and polished exoskeletons catch dramatic rim lighting, revealing microscopic hairs
+  and subtle iridescent glimmers of pheromone droplets on their sensory appendages.
+  Rich dark ochre earth, damp soil textures, and curving dirt chambers are illuminated
+  by dramatic chiaroscuro lighting, accented by glowing golden and cyan volumetric
+  pheromone trails weaving like neural networks through the deep tunnels.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: image_20260918T061226

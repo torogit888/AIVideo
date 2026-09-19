@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260919T130836",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.8,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 10.6,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "或是普查銀河系中的系外行星時， 哈伯就顯得力不從心了， 這就好比你想要繪製整個城市的交通圖， 卻只能用一架超級精準的無人機，",
+      "text_cn": "或是普查银河系中的系外行星时， 哈伯就显得力不从心了， 这就好比你想要绘制整个城市的交通图， 却只能用一架超级精准的无人机，",
+      "start_sec": 0.0,
+      "end_sec": 10.6,
+      "duration_sec": 10.6
+    }
+  ],
+  "created_at": "2026-09-19T13:08:36.501412+00:00"
+}

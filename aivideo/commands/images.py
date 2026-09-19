@@ -80,6 +80,11 @@ def run_images(args: argparse.Namespace, progress_callback=None) -> int:
         if target_scene and not (s_id == target_scene or s_id.startswith(f"{target_scene}_") or s_id.startswith(target_scene)):
             continue
 
+        check_ctrl = getattr(args, "check_control", None)
+        if check_ctrl and check_ctrl(phase="出圖", s_dir=s_dir):
+            print(f"[stop] 收到中止指令，停止批次出圖")
+            break
+
         scene_yaml_path = s_dir / "scene.yaml"
         if not scene_yaml_path.is_file():
             continue
@@ -91,7 +96,20 @@ def run_images(args: argparse.Namespace, progress_callback=None) -> int:
         if locks.get("image", False) and not force and not draft:
             print(f"[skip] {s_id}: 圖片已鎖定 (locked)")
             if callback:
-                callback(processed, total_targets, f"[{processed}/{total_targets}] {s_id} 跳過（已鎖定）")
+                try:
+                    callback(processed, total_targets, f"[{processed}/{total_targets}] {s_id} 跳過（已鎖定）", s_dir=s_dir)
+                except TypeError:
+                    callback(processed, total_targets, f"[{processed}/{total_targets}] {s_id} 跳過（已鎖定）")
+            continue
+
+        if not force and not draft and (s_dir / "image.png").is_file():
+            print(f"[skip] {s_id}: 圖片檔案已存在 (image.png)")
+            processed += 1
+            if callback:
+                try:
+                    callback(processed, total_targets, f"[{processed}/{total_targets}] {s_id} 已有畫面（跳過）", s_dir=s_dir)
+                except TypeError:
+                    callback(processed, total_targets, f"[{processed}/{total_targets}] {s_id} 已有畫面（跳過）")
             continue
 
         prompt = str(scene_cfg.get("image_prompt", "")).strip()
@@ -121,10 +139,21 @@ def run_images(args: argparse.Namespace, progress_callback=None) -> int:
             if seed is None:
                 seed = random.randint(10000000, 99999999)
 
-            dest_png = takes_dir / f"{take_id}.png"
-            dest_json = takes_dir / f"{take_id}.json"
+        dest_png = takes_dir / f"{take_id}.png"
+        dest_json = takes_dir / f"{take_id}.json"
 
-            print(f"[gen]  {s_id} 正在呼叫 Gemini ({model}) 出圖...")
+        # 場景原地重試機制 (In-Place Scene Retry)，遇暫時性限制絕不直接跳過
+        scene_success = False
+        max_scene_attempts = 3
+        last_error = None
+
+        for attempt in range(1, max_scene_attempts + 1):
+            if check_ctrl and check_ctrl(phase="出圖", s_dir=s_dir):
+                break
+
+            attempt_str = f" (第 {attempt} 次嘗試)" if attempt > 1 else ""
+            print(f"[gen]  {s_id} 正在呼叫 Gemini ({model}) 出圖...{attempt_str}")
+
             try:
                 saved_path, model_used, used_seed = generate_image(
                     prompt=full_prompt,
@@ -135,39 +164,153 @@ def run_images(args: argparse.Namespace, progress_callback=None) -> int:
                     seed=seed,
                     ref_image=ref_image_to_use,
                 )
-            except Exception as exc:
-                print(f"[fail] {s_id} 出圖失敗: {exc}", file=sys.stderr)
-                errors += 1
+                scene_success = True
                 break
+            except Exception as exc:
+                last_error = exc
+                if attempt < max_scene_attempts:
+                    retry_wait = attempt * 8  # 8s, 16s 原地等待配額窗口重置
+                    print(f"[warn] {s_id} 出圖暫時失敗 ({exc})，將於 {retry_wait} 秒後在原地自動重試 (第 {attempt}/{max_scene_attempts-1} 次)...")
+                    if callback:
+                        try:
+                            callback(processed, total_targets, f"[{processed}/{total_targets}] {s_id} 遇限制，等待 {retry_wait}s 原地重試...", s_dir=s_dir)
+                        except TypeError:
+                            callback(processed, total_targets, f"[{processed}/{total_targets}] {s_id} 遇限制，等待 {retry_wait}s 原地重試...")
+                    import time
+                    time.sleep(retry_wait)
+                else:
+                    print(f"[fail] {s_id} 歷經 {max_scene_attempts} 次嘗試依然失敗: {exc}", file=sys.stderr)
 
-            meta = {
-                "take_id": take_id,
-                "kind": "image",
-                "backend": "gemini",
-                "model": model_used,
-                "seed": used_seed,
-                "prompt": full_prompt,
-                "aspect_ratio": aspect_ratio,
-                "resolution": resolution,
-                "width": 1920,
-                "height": 1080,
-                "created_at": now.isoformat(),
-            }
-            dest_json.write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")
-
-            if not draft:
-                shutil.copy2(dest_png, s_dir / "image.png")
-                shutil.copy2(dest_json, s_dir / "image.json")
-                if "current" not in scene_cfg:
-                    scene_cfg["current"] = {}
-                scene_cfg["current"]["image_take"] = take_id
-                with open(scene_yaml_path, "w", encoding="utf-8") as f:
-                    yaml.safe_dump(scene_cfg, f, allow_unicode=True, sort_keys=False)
-
-            print(f"[ok]   {s_id} -> {take_id}.png")
-            processed += 1
+        if not scene_success:
+            errors += 1
             if callback:
+                try:
+                    callback(processed, total_targets, f"[{processed}/{total_targets}] {s_id} 出圖失敗：{last_error}", s_dir=s_dir)
+                except TypeError:
+                    callback(processed, total_targets, f"[{processed}/{total_targets}] {s_id} 出圖失敗")
+            continue
+
+        meta = {
+            "take_id": take_id,
+            "kind": "image",
+            "backend": "gemini",
+            "model": model_used,
+            "seed": used_seed,
+            "prompt": full_prompt,
+            "aspect_ratio": aspect_ratio,
+            "resolution": resolution,
+            "width": 1920,
+            "height": 1080,
+            "created_at": now.isoformat(),
+        }
+        dest_json.write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")
+
+        if not draft:
+            shutil.copy2(dest_png, s_dir / "image.png")
+            shutil.copy2(dest_json, s_dir / "image.json")
+            if "current" not in scene_cfg:
+                scene_cfg["current"] = {}
+            scene_cfg["current"]["image_take"] = take_id
+            with open(scene_yaml_path, "w", encoding="utf-8") as f:
+                yaml.safe_dump(scene_cfg, f, allow_unicode=True, sort_keys=False)
+
+        print(f"[ok]   {s_id} -> {take_id}.png")
+        processed += 1
+        if callback:
+            try:
+                callback(processed, total_targets, f"[{processed}/{total_targets}] {s_id} 畫面已產出", s_dir=s_dir)
+            except TypeError:
                 callback(processed, total_targets, f"[{processed}/{total_targets}] {s_id} 畫面已產出")
+
+        import time
+        time.sleep(2.0)  # 平滑微冷卻，維持合適請求間距，徹底防範 Google 429 速率限制
+
+        if check_ctrl and check_ctrl(phase="出圖", s_dir=s_dir):
+            print(f"[stop] 收到中止指令，停止批次出圖")
+            break
+
+    # =========================================================================
+    # 自動補漏自癒輪次 (Auto-Healing Pass)：若仍有少量場景未成功，自動背景補全
+    # =========================================================================
+    if errors > 0 and not (check_ctrl and check_ctrl(phase="出圖檢查")):
+        missing_scenes = [s for s in scene_folders if not (s / "image.png").is_file()]
+        if missing_scenes:
+            print(f"\n[info] 正在啟動自動補漏自癒輪次，為您補全剩餘 {len(missing_scenes)} 場未完成分鏡...")
+            if callback:
+                try:
+                    callback(processed, total_targets, f"🔄 正在為您自動補跑 {len(missing_scenes)} 場缺漏分鏡...")
+                except TypeError:
+                    callback(processed, total_targets, f"🔄 正在為您自動補跑缺漏分鏡...")
+
+            import time
+            time.sleep(6)  # 冷卻等待配額窗口重置
+
+            for s_dir in missing_scenes:
+                if check_ctrl and check_ctrl(phase="出圖補漏", s_dir=s_dir):
+                    break
+                s_id = s_dir.name
+                scene_yaml_path = s_dir / "scene.yaml"
+                if not scene_yaml_path.is_file():
+                    continue
+                with open(scene_yaml_path, "r", encoding="utf-8") as f:
+                    scene_cfg = yaml.safe_load(f) or {}
+                prompt = str(scene_cfg.get("image_prompt", "")).strip()
+                if not prompt:
+                    continue
+                full_prompt = f"{style_prefix}，{prompt}".strip("，") if style_prefix else prompt
+                takes_dir = s_dir / "takes"
+                takes_dir.mkdir(parents=True, exist_ok=True)
+                now = datetime.now(timezone.utc).astimezone()
+                take_id = f"image_{now.strftime('%Y%m%dT%H%M%S')}"
+                dest_png = takes_dir / f"{take_id}.png"
+                dest_json = takes_dir / f"{take_id}.json"
+                seed = random.randint(10000000, 99999999)
+
+                for heal_attempt in range(1, 3):
+                    try:
+                        saved_path, model_used, used_seed = generate_image(
+                            prompt=full_prompt,
+                            dest=dest_png,
+                            aspect_ratio=aspect_ratio,
+                            image_size=resolution,
+                            model=model,
+                            seed=seed,
+                            ref_image=ref_image_to_use,
+                        )
+                        meta = {
+                            "take_id": take_id,
+                            "kind": "image",
+                            "backend": "gemini",
+                            "model": model_used,
+                            "seed": used_seed,
+                            "prompt": full_prompt,
+                            "aspect_ratio": aspect_ratio,
+                            "resolution": resolution,
+                            "width": 1920,
+                            "height": 1080,
+                            "created_at": now.isoformat(),
+                        }
+                        dest_json.write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")
+                        shutil.copy2(dest_png, s_dir / "image.png")
+                        shutil.copy2(dest_json, s_dir / "image.json")
+                        if "current" not in scene_cfg:
+                            scene_cfg["current"] = {}
+                        scene_cfg["current"]["image_take"] = take_id
+                        with open(scene_yaml_path, "w", encoding="utf-8") as f:
+                            yaml.safe_dump(scene_cfg, f, allow_unicode=True, sort_keys=False)
+
+                        processed += 1
+                        errors = max(0, errors - 1)
+                        print(f"[ok]   【補漏完成】{s_id} -> {take_id}.png")
+                        if callback:
+                            try:
+                                callback(processed, total_targets, f"[{processed}/{total_targets}] {s_id} 補漏完成", s_dir=s_dir)
+                            except TypeError:
+                                callback(processed, total_targets, f"[{processed}/{total_targets}] {s_id} 補漏完成")
+                        time.sleep(2.0)
+                        break
+                    except Exception as exc:
+                        time.sleep(8)
 
     print(f"\n完成！已產出 {processed} 張圖片" + (f"，失敗 {errors} 場" if errors else ""))
     return 1 if errors else 0

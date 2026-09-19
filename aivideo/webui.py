@@ -24,11 +24,13 @@ from aivideo.commands.preview import generate_preview_html
 from aivideo.commands.srt import generate_srt
 from aivideo.commands.tts import run_tts
 from aivideo.gemini_image import generate_image
+from aivideo.pipeline_runner import CmdArgs, PipelineRunner, get_pipeline_runner
 
 # 自動熱重載子模組，防止 Streamlit 常駐時快取舊版 sys.modules 導致 ImportError
 import importlib
 import aivideo.story_generator
 importlib.reload(aivideo.story_generator)
+# 注意：pipeline_runner 維護背景執行緒與執行進度狀態，嚴禁動態 reload，避免清空狀態快取
 
 from aivideo.story_generator import (
     STYLE_PRESETS,
@@ -364,7 +366,7 @@ with tab_create:
                 sub_anchor = anchors.get("subject_anchor", "")
                 env_anchor = anchors.get("environment_anchor", "")
 
-            with st.spinner("正在切分分鏡並融合視覺錨點產生專業英文提示詞..."):
+            with st.spinner("正在切分分鏡、前置分析考據實體 (PiP) 並生成專業英文提示詞..."):
                 scenes = parse_script_lines_to_scenes(
                     script_text,
                     sentences_per_scene=sents_per_scene,
@@ -402,8 +404,17 @@ with tab_produce:
             with open(job_yaml_path, "r", encoding="utf-8") as f:
                 current_job_cfg = yaml.safe_load(f) or {}
 
+            # 取得當前專案與視覺風格設定
+            all_s = load_style_presets()
+            all_s_keys = list(all_s.keys())
+            cur_v = current_job_cfg.get("voice_id", "female01")
+            img_cfg = current_job_cfg.get("image", {})
+            cur_s = (img_cfg.get("style") if isinstance(img_cfg, dict) else None) or current_job_cfg.get("style") or "otomo_katsuhiro"
+            cur_style_info = all_s.get(cur_s, {})
+            cur_style_name = cur_style_info.get("name", cur_s)
+
             st.markdown(f'<div class="main-header">{current_job_cfg.get("title", selected_job_name)}</div>', unsafe_allow_html=True)
-            st.markdown(f"**專案路徑：** `jobs/{selected_job_name}` ｜ **發音人：** `{current_job_cfg.get('voice_id')}` ｜ **圖片風格：** `{current_job_cfg.get('image', {}).get('style', '自訂')}`")
+            st.markdown(f"**專案路徑：** `jobs/{selected_job_name}` ｜ **發音人：** `{cur_v}` ｜ **圖片風格：** **{cur_style_name}** (`{cur_s}`)")
 
             # 腳本資料檢視面板
             script_file = job_path / "script.md"
@@ -420,8 +431,8 @@ with tab_produce:
                     with scol_r:
                         st.markdown("##### 📌 專案設定快照")
                         st.markdown(f"- **專案主題：** {current_job_cfg.get('title', selected_job_name)}")
-                        st.markdown(f"- **綁定發音人：** `{current_job_cfg.get('voice_id')}`")
-                        st.markdown(f"- **畫面視覺風格：** `{current_job_cfg.get('image', {}).get('style')}`")
+                        st.markdown(f"- **綁定發音人：** `{cur_v}`")
+                        st.markdown(f"- **畫面視覺風格：** **{cur_style_name}** (`{cur_s}`)")
                         st.markdown(f"- **16:9 解析度：** `{current_job_cfg.get('frame', {}).get('deliver_width', 1920)}x{current_job_cfg.get('frame', {}).get('deliver_height', 1080)}`")
                         st.markdown(f"- **推鏡運鏡：** `{current_job_cfg.get('kenburns', 'slow_zoom_in')}`")
                         st.markdown(f"- **提示詞前綴：** `{current_job_cfg.get('style_prefix', '')[:50]}...`")
@@ -430,22 +441,30 @@ with tab_produce:
 
             with st.expander("⚙️ 調整當前專案設定（切換發音人或視覺風格）", expanded=False):
                 ecol1, ecol2, ecol3 = st.columns([1, 1, 0.8])
+                all_v = get_available_voices()
+                v_key = f"cfg_switch_voice_{selected_job_name}"
+                s_key = f"cfg_switch_style_{selected_job_name}"
+                token_key = f"_cfg_synced_token_{selected_job_name}"
+                current_token = f"{cur_v}::{cur_s}"
+
+                if st.session_state.get(token_key) != current_token:
+                    st.session_state[v_key] = cur_v if cur_v in all_v else (all_v[0] if all_v else "female01")
+                    st.session_state[s_key] = cur_s if cur_s in all_s_keys else (all_s_keys[0] if all_s_keys else "otomo_katsuhiro")
+                    st.session_state[token_key] = current_token
+
                 with ecol1:
-                    cur_v = current_job_cfg.get("voice_id", "female01")
-                    all_v = get_available_voices()
-                    v_idx = all_v.index(cur_v) if cur_v in all_v else 0
-                    new_v = st.selectbox("🎙️ 切換發音人", options=all_v, index=v_idx, key="cfg_switch_voice")
+                    target_v = st.session_state.get(v_key, cur_v)
+                    v_idx = all_v.index(target_v) if target_v in all_v else 0
+                    new_v = st.selectbox("🎙️ 切換發音人", options=all_v, index=v_idx, key=v_key)
                 with ecol2:
-                    cur_s = current_job_cfg.get("image", {}).get("style", "otomo_katsuhiro")
-                    all_s = load_style_presets()
-                    all_s_keys = list(all_s.keys())
-                    s_idx = all_s_keys.index(cur_s) if cur_s in all_s_keys else 0
+                    target_s = st.session_state.get(s_key, cur_s)
+                    s_idx = all_s_keys.index(target_s) if target_s in all_s_keys else 0
                     new_s = st.selectbox(
                         "🎨 切換視覺風格",
                         options=all_s_keys,
                         index=s_idx,
-                        format_func=lambda x: all_s.get(x, {}).get("name", x),
-                        key="cfg_switch_style",
+                        format_func=lambda x: f"{all_s.get(x, {}).get('name', x)} ({x})",
+                        key=s_key,
                     )
                     new_s_info = all_s.get(new_s, {})
                     new_prev_rel = new_s_info.get("preview", "")
@@ -454,10 +473,12 @@ with tab_produce:
                         st.image(str(new_prev_p), caption=f"示範：{new_s_info.get('name', new_s)}", use_container_width=True)
                     elif new_prev_rel.startswith("http"):
                         st.image(new_prev_rel, caption=f"示範：{new_s_info.get('name', new_s)}", use_container_width=True)
+                    if new_s_info.get("description"):
+                        st.caption(f"**風格特色：** {new_s_info['description']}")
                 with ecol3:
                     st.write("")
                     st.write("")
-                    if st.button("💾 儲存並套用至專案", key="btn_apply_job_cfg"):
+                    if st.button("💾 儲存並套用至專案", key=f"btn_apply_job_cfg_{selected_job_name}"):
                         current_job_cfg["voice_id"] = new_v
                         if "image" not in current_job_cfg or not isinstance(current_job_cfg["image"], dict):
                             current_job_cfg["image"] = {}
@@ -467,6 +488,7 @@ with tab_produce:
                             current_job_cfg["style_negative"] = all_s[new_s]["negative"]
                         with open(job_yaml_path, "w", encoding="utf-8") as f:
                             yaml.safe_dump(current_job_cfg, f, allow_unicode=True, sort_keys=False)
+                        st.session_state[token_key] = f"{new_v}::{new_s}"
                         st.success("專案設定已更新！後續批次生圖或配音將直接生效。")
                         st.rerun()
 
@@ -586,67 +608,162 @@ with tab_produce:
                     else:
                         st.warning("請先勾選確認方塊。")
 
-            # 頂部快捷操作按鈕組
-            col_b1, col_b2, col_b3, col_b4 = st.columns(4)
+            # 智慧續跑與選項設定
+            st.markdown("##### ⚡ 批次生成控制與考據設定")
+            col_opt1, col_opt2, col_opt3 = st.columns([1.2, 1.2, 1.4])
+            with col_opt1:
+                skip_done = st.checkbox(
+                    "⚡ 僅生成未完成場景（跳過已就緒的圖/音，中斷後可無縫續跑）",
+                    value=True,
+                    help="若勾選，已產出 image.png 或 speech.wav 的場景將自動跳過；若取消勾選則強制整部重新生成覆蓋。",
+                    key=f"opt_skip_done_{selected_job_name}",
+                )
+            with col_opt2:
+                auto_pip_in_all = st.checkbox(
+                    "🌐 全流程包含自動檢索考據圖 (Auto-PiP)",
+                    value=True,
+                    help="一鍵全流程時，自動由 AI 掃描台詞向 Wikimedia 權威圖庫配對真實照片/文獻並掛載畫中畫卡片！",
+                    key=f"opt_auto_pip_{selected_job_name}",
+                )
+            with col_opt3:
+                pause_between_stages = st.checkbox(
+                    "⏸️ 階段完成後自動暫停（例如出圖完先暫停供審查）",
+                    value=False,
+                    help="勾選後，完成出圖或配音階段時將自動暫停，方便您在分鏡看板先檢閱成果，確認無誤後再點擊繼續！",
+                    key=f"opt_pause_stage_{selected_job_name}",
+                )
 
-            class CmdArgs:
-                def __init__(self, job, force=False, scene=None, count=1, draft=False, new_seed=False, keep_seed=False, progress_callback=None):
-                    self.job = str(job)
-                    self.force = force
-                    self.scene = scene
-                    self.count = count
-                    self.draft = draft
-                    self.new_seed = new_seed
-                    self.keep_seed = keep_seed
-                    self.progress_callback = progress_callback
+            # 專案任務背景執行器
+            runner = get_pipeline_runner(selected_job_name, job_path)
 
-            with col_b1:
-                if st.button("🎨 批次出圖 (Images)"):
-                    p_bar = st.progress(0, text="正在呼叫 Gemini API 產生 16:9 畫面...")
-                    def on_img_prog(cur, tot, msg):
-                        frac = min(1.0, max(0.0, cur / max(1, tot)))
-                        p_bar.progress(frac, text=f"🎨 出圖進度 ({cur}/{tot}) - {msg}")
-                    res = run_images(CmdArgs(job_path, force=True, progress_callback=on_img_prog), progress_callback=on_img_prog)
-                    p_bar.progress(1.0, text="✅ 批次出圖完成！")
+            # 即時動態反饋預覽視窗容器（邊生成邊動態刷新最新成果）
+            live_preview_box = st.empty()
+
+            def update_live_box_from_dir(cur, tot, phase, s_dir):
+                if not s_dir:
+                    return
+                s_dir = Path(s_dir)
+                if not s_dir.is_dir():
+                    return
+                with live_preview_box.container():
+                    st.info(f"🔴 **【即時同步預覽 ({phase})】第 {cur}/{tot} 幕：`{s_dir.name}`**")
+                    l_col1, l_col2 = st.columns([1.2, 1])
+                    with l_col1:
+                        pip_f = s_dir / "pip.png"
+                        img_f = s_dir / "image.png"
+                        if phase == "Auto-PiP" and pip_f.is_file():
+                            st.image(str(pip_f), caption=f"🏛️ {s_dir.name} 真實考據圖 (PiP 卡片)", use_container_width=True)
+                        elif img_f.is_file():
+                            st.image(str(img_f), caption=f"📸 {s_dir.name} 最新畫面 (16:9)", use_container_width=True)
+                        elif pip_f.is_file():
+                            st.image(str(pip_f), caption=f"🏛️ {s_dir.name} 真實考據圖 (PiP 卡片)", use_container_width=True)
+                        else:
+                            st.caption("🖼️ 畫面生成中或未產生...")
+                    with l_col2:
+                        s_yaml = s_dir / "scene.yaml"
+                        scfg = {}
+                        if s_yaml.is_file():
+                            try:
+                                with open(s_yaml, "r", encoding="utf-8") as yf:
+                                    scfg = yaml.safe_load(yf) or {}
+                            except Exception:
+                                pass
+                        narration_text = scfg.get("narration", "")
+                        if narration_text:
+                            st.markdown(f"**🗣️ 本幕口白：**\n> {narration_text}")
+                        pip_meta = scfg.get("pip", {})
+                        if pip_meta and pip_meta.get("query"):
+                            st.caption(f"🔍 考據檢索詞：`{pip_meta.get('query')}`")
+                        wav_f = s_dir / "speech.wav"
+                        if wav_f.is_file():
+                            st.audio(str(wav_f), format="audio/wav")
+                            st.success("🎙️ 本幕語音已合成完畢，可直接點擊播放試聽！")
+                        else:
+                            st.caption("🎙️ 語音生成中...")
+                    st.markdown("---")
+
+            # 若背景任務正在運行或處於暫停狀態，顯示即時控制台
+            if runner.is_running or runner.is_paused:
+                st.markdown("#### 🚀 生成任務即時控制台")
+                ctrl_col1, ctrl_col2, ctrl_col3 = st.columns([1.2, 1.2, 2.5])
+                with ctrl_col1:
+                    if runner.is_paused:
+                        if st.button("▶️ 繼續執行 (Resume)", key=f"btn_resume_{selected_job_name}", type="primary", use_container_width=True):
+                            runner.resume()
+                            st.rerun()
+                    else:
+                        if st.button("⏸️ 暫停執行 (Pause)", key=f"btn_pause_{selected_job_name}", type="secondary", use_container_width=True):
+                            runner.pause()
+                            st.rerun()
+                with ctrl_col2:
+                    if st.button("⏹️ 中止執行 (Stop)", key=f"btn_stop_{selected_job_name}", type="secondary", use_container_width=True):
+                        runner.stop()
+                        st.rerun()
+                with ctrl_col3:
+                    if runner.is_paused:
+                        st.warning("⏸️ 目前處於暫停狀態。已完成的分鏡進度均已完整保存，可隨時點擊「繼續」或「中止」。")
+                    else:
+                        st.info(f"⏳ **進行中：{runner.stage}** ｜ 可隨時點擊「暫停」以保留進度，或點擊「中止」。")
+
+                st.progress(runner.progress, text=f"{runner.stage} {runner.status_msg}")
+
+                if runner.live_dir:
+                    update_live_box_from_dir(runner.live_cur, runner.live_tot, runner.live_phase, runner.live_dir)
+
+                # 當處於運行中且未暫停時，自動每秒輕量刷新頁面以同步最新進度
+                if runner.is_running and not runner.is_paused:
+                    import time
+                    time.sleep(1.0)
                     st.rerun()
 
-            with col_b2:
-                if st.button("🎙️ 批次配音 (Voice Clone)"):
-                    p_bar = st.progress(0, text="正在透過 ComfyUI 進行逐句聲音克隆合成...")
-                    def on_tts_prog(cur, tot, msg):
-                        frac = min(1.0, max(0.0, cur / max(1, tot)))
-                        p_bar.progress(frac, text=f"🎙️ 配音進度 ({cur}/{tot}) - {msg}")
-                    res = run_tts(CmdArgs(job_path, force=True, progress_callback=on_tts_prog), progress_callback=on_tts_prog)
-                    p_bar.progress(1.0, text="✅ 批次配音完成！")
+            elif runner.is_done:
+                st.success(runner.status_msg)
+                if st.button("✅ 關閉提示並重新整理看板", key=f"btn_ack_done_{selected_job_name}"):
+                    runner.reset()
                     st.rerun()
-
-            with col_b3:
-                if st.button("🎬 合成 1080p 成片 (Compose)"):
-                    with st.spinner("正在透過 FFmpeg 合成 Ken Burns 推鏡與 1080p ASS 字幕..."):
-                        run_compose(CmdArgs(job_path))
-                        generate_preview_html(job_path)
-                        st.success("成片合成完成！請切換到「📺 1080p 成片預覽」分頁播放！")
-
-            with col_b4:
-                if st.button("🚀 全流程一鍵重新生成 (All-in-One)", type="primary"):
-                    p_bar = st.progress(0, text="🚀 [1/3 出圖] 正在準備呼叫 Gemini API...")
-                    def on_all_img(cur, tot, msg):
-                        frac = 0.45 * (cur / max(1, tot))
-                        p_bar.progress(frac, text=f"🎨 [1/3 出圖] ({cur}/{tot}) - {msg}")
-
-                    def on_all_tts(cur, tot, msg):
-                        frac = 0.45 + 0.45 * (cur / max(1, tot))
-                        p_bar.progress(frac, text=f"🎙️ [2/3 配音] ({cur}/{tot}) - {msg}")
-
-                    run_images(CmdArgs(job_path, force=True, progress_callback=on_all_img), progress_callback=on_all_img)
-                    p_bar.progress(0.45, text="🎙️ [2/3 配音] 正在透過 ComfyUI 進行逐句聲音克隆...")
-                    run_tts(CmdArgs(job_path, force=True, progress_callback=on_all_tts), progress_callback=on_all_tts)
-                    p_bar.progress(0.92, text="🎬 [3/3 成片] 正在透過 FFmpeg 合成 1080p 影片與燒錄字幕...")
-                    run_compose(CmdArgs(job_path))
-                    generate_preview_html(job_path)
-                    p_bar.progress(1.0, text="🎉 全流程重新生成大功告成！")
-                    st.success("全流程重新生成大功告成！")
+            elif runner.is_stopped:
+                st.warning(runner.status_msg)
+                if st.button("🔄 重置控制台", key=f"btn_ack_stop_{selected_job_name}"):
+                    runner.reset()
                     st.rerun()
+            elif runner.error_msg:
+                st.error(f"❌ 執行中斷：{runner.error_msg}")
+                if st.button("🔄 清除錯誤並重試", key=f"btn_ack_err_{selected_job_name}"):
+                    runner.reset()
+                    st.rerun()
+            else:
+                # 閒置狀態：顯示頂部快捷操作按鈕組
+                col_b1, col_b2, col_b3, col_b4, col_b5 = st.columns([1, 1, 1.3, 1.05, 1.45])
+
+                with col_b1:
+                    if st.button("🎨 批次出圖 (Images)", key=f"btn_run_imgs_{selected_job_name}"):
+                        runner.start(mode="images", skip_done=skip_done)
+                        st.rerun()
+
+                with col_b2:
+                    if st.button("🎙️ 批次配音 (Voice Clone)", key=f"btn_run_tts_{selected_job_name}"):
+                        runner.start(mode="tts", skip_done=skip_done)
+                        st.rerun()
+
+                with col_b3:
+                    if st.button("🌐 自動考據配圖 (Auto-PiP)", key=f"btn_run_pip_{selected_job_name}"):
+                        runner.start(mode="pip")
+                        st.rerun()
+
+                with col_b4:
+                    if st.button("🎬 合成 1080p 成片 (Compose)", key=f"btn_run_compose_{selected_job_name}"):
+                        runner.start(mode="compose")
+                        st.rerun()
+
+                with col_b5:
+                    if st.button("🚀 全流程一鍵重新生成 (All-in-One)", type="primary", key=f"btn_run_all_{selected_job_name}"):
+                        runner.start(
+                            mode="all",
+                            skip_done=skip_done,
+                            auto_pip=auto_pip_in_all,
+                            pause_between_stages=pause_between_stages,
+                        )
+                        st.rerun()
 
             st.markdown("---")
             st.markdown("### 🎞️ 分鏡看板 (Storyboard)")
@@ -730,6 +847,8 @@ with tab_produce:
 
                 img_p = s_dir / "image.png"
                 wav_p = s_dir / "speech.wav"
+                pip_p = s_dir / "pip.png"
+                has_pip_file = pip_p.is_file()
 
                 dur_str = f"{s_dur:.1f}s" if s_dur > 0 else "—"
 
@@ -737,8 +856,11 @@ with tab_produce:
                 status_badge = "✅ 就緒" if (has_i and has_w) else ("⚠️ 缺音" if has_i else ("⚠️ 缺圖" if has_w else "🔴 待產出"))
                 img_tag = "🟢 圖" if has_i else "⚪ 缺圖"
                 wav_tag = "🟢 音" if has_w else "⚪ 缺音"
+                pip_meta = scfg.get("pip", {}) if isinstance(scfg.get("pip"), dict) else {}
+                pip_query = pip_meta.get("query", "")
+                pip_tag = " ｜ 🖼️+PiP" if has_pip_file else (f" ｜ 🏛️ 建議考據：{pip_query[:25]}" if pip_query else "")
 
-                expander_label = f"【{s_id}】{scfg.get('title', s_id)} ｜ {status_badge} ({img_tag} ｜ {wav_tag}) ｜ ⏱️ {dur_str}"
+                expander_label = f"【{s_id}】{scfg.get('title', s_id)} ｜ {status_badge} ({img_tag} ｜ {wav_tag}{pip_tag}) ｜ ⏱️ {dur_str}"
 
                 with st.expander(expander_label, expanded=(not has_i or not has_w)):
                     scol1, scol2 = st.columns([1, 1.5])
@@ -756,14 +878,42 @@ with tab_produce:
                         # 單場重抽卡按鈕組
                         btn_c1, btn_c2 = st.columns(2)
                         with btn_c1:
-                            if st.button(f"🎲 重抽這張圖", key=f"btn_img_{s_id}"):
+                            if st.button(f"🎲 重抽這張圖", key=f"btn_img_{s_id}", disabled=runner.is_running):
                                 with st.spinner(f"重新呼叫 Gemini 抽圖【{s_id}】..."):
                                     run_images(CmdArgs(job_path, scene=s_id, force=True, new_seed=True))
                                     st.rerun()
                         with btn_c2:
-                            if st.button(f"🎙️ 重錄這段聲音", key=f"btn_tts_{s_id}"):
+                            if st.button(f"🎙️ 重錄這段聲音", key=f"btn_tts_{s_id}", disabled=runner.is_running):
                                 with st.spinner(f"重新呼叫 ComfyUI 克隆語音【{s_id}】..."):
                                     run_tts(CmdArgs(job_path, scene=s_id, force=True))
+                                    st.rerun()
+
+                        # 替換主畫面功能
+                        with st.expander("📁 替換為主畫面 (Upload/URL)", expanded=False):
+                            up_main = st.file_uploader("上傳本機自訂底圖", type=["png", "jpg", "jpeg", "webp"], key=f"up_main_{selected_job_name}_{s_id}")
+                            url_main = st.text_input("或貼上網路圖片網址", key=f"url_main_{selected_job_name}_{s_id}", placeholder="https://.../photo.jpg")
+                            if st.button("💾 確定替換為主畫面", key=f"btn_rep_main_{selected_job_name}_{s_id}"):
+                                rep_done = False
+                                from PIL import Image
+                                import io
+                                if up_main is not None:
+                                    img = Image.open(up_main).convert("RGB")
+                                    img.save(img_p, "PNG")
+                                    rep_done = True
+                                elif url_main.strip():
+                                    import requests
+                                    try:
+                                        resp = requests.get(url_main.strip(), timeout=12, headers={"User-Agent": "Mozilla/5.0"})
+                                        if resp.status_code == 200:
+                                            img = Image.open(io.BytesIO(resp.content)).convert("RGB")
+                                            img.save(img_p, "PNG")
+                                            rep_done = True
+                                        else:
+                                            st.error(f"下載失敗：HTTP {resp.status_code}")
+                                    except Exception as exc:
+                                        st.error(f"下載網路圖片失敗：{exc}")
+                                if rep_done:
+                                    st.success(f"已替換【{s_id}】主畫面！")
                                     st.rerun()
 
                     with scol2:
@@ -785,6 +935,148 @@ with tab_produce:
                                     yaml.safe_dump(scfg, f, allow_unicode=True, sort_keys=False)
                                 st.success(f"已更新【{s_id}】英文畫面提示詞！")
                                 st.rerun()
+
+                        # 畫中畫 (PiP Overlay) 設定區
+                        st.markdown("---")
+                        pip_cfg = scfg.get("pip", {})
+                        if not isinstance(pip_cfg, dict):
+                            pip_cfg = {}
+
+                        with st.expander(f"🖼️ 畫中畫參考圖 (PiP Overlay){' ✅ 已啟用' if has_pip_file else ''}", expanded=has_pip_file):
+                            st.caption("支援在 AI 背景畫面上疊加真實歷史照片、論文圖表或人物特寫卡片（附帶精緻卡片邊框、陰影與平滑淡入動畫）。")
+                            p_c1, p_c2 = st.columns([1, 1.2])
+                            with p_c1:
+                                if has_pip_file:
+                                    st.image(str(pip_p), caption="當前 PiP 疊加圖", use_container_width=True)
+                                    if st.button("🗑️ 移除此畫中畫", key=f"rm_pip_{selected_job_name}_{s_id}"):
+                                        pip_p.unlink(missing_ok=True)
+                                        if "pip" in scfg:
+                                            del scfg["pip"]
+                                        with open(s_yaml_p, "w", encoding="utf-8") as f:
+                                            yaml.safe_dump(scfg, f, allow_unicode=True, sort_keys=False)
+                                        st.success(f"已移除【{s_id}】畫中畫！")
+                                        st.rerun()
+                                else:
+                                    st.info("尚未設定畫中畫圖片")
+
+                            with p_c2:
+                                cur_pos = pip_cfg.get("position", "top-right")
+                                pos_opts = ["top-right", "top-left", "bottom-right", "bottom-left", "center"]
+                                pos_labels = ["右上角 (top-right)", "左上角 (top-left)", "右下角 (bottom-right)", "左下角 (bottom-left)", "畫面置中 (center)"]
+                                p_idx = pos_opts.index(cur_pos) if cur_pos in pos_opts else 0
+                                new_pos = st.selectbox(
+                                    "疊加位置",
+                                    options=pos_opts,
+                                    index=p_idx,
+                                    format_func=lambda x: pos_labels[pos_opts.index(x)],
+                                    key=f"pip_pos_{selected_job_name}_{s_id}",
+                                )
+                                cur_scale = float(pip_cfg.get("scale", 0.35))
+                                new_scale = st.slider("卡片寬度比例", min_value=0.20, max_value=0.60, value=cur_scale, step=0.05, key=f"pip_scale_{selected_job_name}_{s_id}")
+
+                                up_pip = st.file_uploader("上傳本機圖片", type=["png", "jpg", "jpeg", "webp"], key=f"up_pip_{selected_job_name}_{s_id}")
+                                url_pip = st.text_input("或輸入網路圖片 URL", key=f"url_pip_{selected_job_name}_{s_id}", placeholder="https://.../photo.jpg")
+
+                                if st.button("💾 套用並儲存畫中畫", key=f"save_pip_{selected_job_name}_{s_id}"):
+                                    saved = False
+                                    from PIL import Image
+                                    import io
+                                    if up_pip is not None:
+                                        img = Image.open(up_pip).convert("RGBA")
+                                        img.save(pip_p, "PNG")
+                                        saved = True
+                                    elif url_pip.strip():
+                                        import requests
+                                        try:
+                                            resp = requests.get(url_pip.strip(), timeout=12, headers={"User-Agent": "Mozilla/5.0"})
+                                            if resp.status_code == 200:
+                                                img = Image.open(io.BytesIO(resp.content)).convert("RGBA")
+                                                img.save(pip_p, "PNG")
+                                                saved = True
+                                            else:
+                                                st.error(f"下載失敗：HTTP {resp.status_code}")
+                                        except Exception as exc:
+                                            st.error(f"下載網路圖片失敗：{exc}")
+                                    elif has_pip_file:
+                                        saved = True
+
+                                    if saved:
+                                        scfg["pip"] = {
+                                            "enabled": True,
+                                            "image": "pip.png",
+                                            "position": new_pos,
+                                            "scale": new_scale,
+                                            "border": 8,
+                                        }
+                                        with open(s_yaml_p, "w", encoding="utf-8") as f:
+                                            yaml.safe_dump(scfg, f, allow_unicode=True, sort_keys=False)
+                                        st.success(f"已儲存【{s_id}】畫中畫！點選上方「🎬 合成 1080p 成片」即可查看效果。")
+                                        st.rerun()
+
+                        # 線上多來源真實照片搜尋面板
+                        with st.expander("🔍 線上搜尋真實照片 (NASA / 維基百科 / 檔案圖庫)", expanded=False):
+                            default_q = scfg.get("pip", {}).get("query", "") or scfg.get("title", s_id)
+                            q_col1, q_col2 = st.columns([3, 1])
+                            with q_col1:
+                                search_val = st.text_input(
+                                    "輸入搜尋關鍵詞 (支援中文或英文，如: worker ant, ASML, 台積電, Roman Telescope)",
+                                    value=default_q,
+                                    key=f"search_input_{selected_job_name}_{s_id}",
+                                )
+                            with q_col2:
+                                st.write("")
+                                st.write("")
+                                if st.button("🔎 搜尋", key=f"btn_search_imgs_{selected_job_name}_{s_id}"):
+                                    from aivideo.auto_pip import search_all_source_candidates
+                                    with st.spinner("正在向開放圖庫檢索照片..."):
+                                        cands = search_all_source_candidates(search_val, limit=6)
+                                        st.session_state[f"cands_{selected_job_name}_{s_id}"] = cands
+
+                            cand_results = st.session_state.get(f"cands_{selected_job_name}_{s_id}", [])
+                            if cand_results:
+                                st.markdown("##### 📸 檢索成果（點擊直接一鍵套用）：")
+                                cand_cols = st.columns(min(len(cand_results), 3))
+                                for c_i, c_data in enumerate(cand_results[:3]):
+                                    with cand_cols[c_i]:
+                                        st.image(c_data["url"], caption=f"【{c_data.get('source', '')}】{c_data.get('title', '')[:30]}", use_container_width=True)
+                                        if st.button("📌 套用為畫中畫 (PiP)", key=f"apply_pip_{selected_job_name}_{s_id}_{c_i}"):
+                                            try:
+                                                import requests, io
+                                                from PIL import Image
+                                                r = requests.get(c_data["url"], headers={"User-Agent": "AIVideoDocBot/2.0"}, timeout=15)
+                                                if r.status_code == 200:
+                                                    img = Image.open(io.BytesIO(r.content)).convert("RGBA")
+                                                    img.thumbnail((1600, 1600), Image.Resampling.LANCZOS)
+                                                    img.save(pip_p, "PNG")
+                                                    scfg["pip"] = {
+                                                        "enabled": True,
+                                                        "image": "pip.png",
+                                                        "position": "top-right",
+                                                        "scale": 0.35,
+                                                        "border": 8,
+                                                        "query": search_val,
+                                                        "source_title": c_data.get("title", ""),
+                                                        "source_url": c_data["url"],
+                                                        "source_provider": c_data.get("source", ""),
+                                                    }
+                                                    with open(s_yaml_p, "w", encoding="utf-8") as yf:
+                                                        yaml.safe_dump(scfg, yf, allow_unicode=True, sort_keys=False)
+                                                    st.success(f"已套用為【{s_id}】畫中畫！")
+                                                    st.rerun()
+                                            except Exception as exc:
+                                                st.error(f"套用失敗: {exc}")
+                                        if st.button("🖼️ 替換為 16:9 主畫面", key=f"apply_main_{selected_job_name}_{s_id}_{c_i}"):
+                                            try:
+                                                import requests, io
+                                                from PIL import Image
+                                                r = requests.get(c_data["url"], headers={"User-Agent": "AIVideoDocBot/2.0"}, timeout=15)
+                                                if r.status_code == 200:
+                                                    img = Image.open(io.BytesIO(r.content)).convert("RGB")
+                                                    img.save(img_p, "PNG")
+                                                    st.success(f"已成功替換【{s_id}】主畫面！")
+                                                    st.rerun()
+                                            except Exception as exc:
+                                                st.error(f"替換失敗: {exc}")
 
             if rendered_cnt == 0:
                 st.info(f"在「{filter_view}」篩選條件下無符合的場景。")

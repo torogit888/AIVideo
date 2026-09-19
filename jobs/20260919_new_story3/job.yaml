@@ -1,0 +1,51 @@
+id: 20260919_new_story3
+title: 美國太空總署羅曼太空望遠鏡的秘密
+language: zh-Hant
+voice_id: female01
+visual_anchors:
+  subject: The Roman Space Telescope (RST) is depicted as a cutting-edge, highly sophisticated
+    space observatory. Its design is sleek, functional, and robust, emphasizing its
+    role as a 'more powerful eye of the universe.' Visually, it features a prominent,
+    large primary mirror or aperture, indicative of its 'hundred times wider field
+    of view' compared to Hubble. The structure is composed of advanced, reflective
+    materials, possibly incorporating gold-tinted thermal blankets or polished metallic
+    surfaces that catch and reflect cosmic light. Visible solar arrays extend from
+    its main body, providing power. The overall aesthetic conveys precision engineering
+    and advanced technology, with subtle glowing elements from internal systems or
+    sensors contrasting with the deep space environment. Its form is both powerful
+    and elegant, a testament to human ingenuity reaching into the cosmos.
+  environment: The environment is the profound and vast expanse of deep space. The
+    dominant palette is one of infinite darkness, punctuated by the ethereal glow
+    of distant galaxies, nebulae, and star fields. Colors range from deep cosmic blues
+    and purples to the vibrant reds, oranges, and greens of emission nebulae, and
+    the brilliant whites and golds of star clusters. Lighting is characterized by
+    sharp, crisp points of starlight against the absolute blackness, with soft, diffuse
+    glows emanating from nebulae and the luminous cores of galaxies. There are no
+    atmospheric effects; light travels unimpeded, creating stark contrasts and incredibly
+    detailed cosmic structures. The atmosphere is one of awe-inspiring grandeur and
+    silent majesty, emphasizing the immense scale and beauty of the universe. Volumetric
+    lighting effects are used to highlight nebular clouds or galactic arms, creating
+    a sense of depth and cosmic dust. The overall mood is one of wonder, mystery,
+    and boundless exploration.
+frame:
+  aspect: '16:9'
+  gen_width: 1920
+  gen_height: 1080
+  deliver_width: 1920
+  deliver_height: 1080
+  fps: 30
+image:
+  backend: gemini
+  model: gemini-2.5-flash-image
+  model_final: gemini-2.5-flash-image
+  resolution: 1K
+  aspect_ratio: '16:9'
+  style: studio_ghibli
+style_prefix: 吉卜力工作室動畫風格 (Studio Ghibli Style)，手繪感，溫暖飽和的色彩，細膩自然背景，奇幻與懷舊氛圍，柔和光影，電影感分鏡，16:9
+  橫式構圖
+style_negative: 文字浮水印、現代3D塑料感、粗糙模糊、走形手部
+subtitle:
+  mode: hard
+  font: NotoSansTC-Regular.otf
+  font_size: 48
+kenburns: slow_zoom_in

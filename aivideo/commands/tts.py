@@ -82,7 +82,7 @@ def _synthesize_sentence(
                     "denoise": True,
                     "preprocess_prompt": True,
                     "postprocess_output": True,
-                    "keep_model_loaded": False,
+                    "keep_model_loaded": True,
                     "instruct": instruct,
                 },
                 "class_type": "OmniVoiceVoiceCloneTTS",
@@ -115,7 +115,7 @@ def _synthesize_sentence(
                     "layer_penalty_factor": 5.0,
                     "denoise": True,
                     "postprocess_output": True,
-                    "keep_model_loaded": False,
+                    "keep_model_loaded": True,
                 },
                 "class_type": "OmniVoiceVoiceDesignTTS",
                 "_meta": {"title": "OmniVoice Voice Design TTS"},
@@ -292,6 +292,11 @@ def run_tts(args: argparse.Namespace, progress_callback=None) -> int:
         if target_scene and not (s_id == target_scene or s_id.startswith(f"{target_scene}_") or s_id.startswith(target_scene)):
             continue
 
+        check_ctrl = getattr(args, "check_control", None)
+        if check_ctrl and check_ctrl(phase="配音", s_dir=s_dir):
+            print(f"[stop] 收到中止指令，停止批次配音")
+            break
+
         scene_yaml_path = s_dir / "scene.yaml"
         if not scene_yaml_path.is_file():
             continue
@@ -303,7 +308,20 @@ def run_tts(args: argparse.Namespace, progress_callback=None) -> int:
         if locks.get("speech", False) and not force and not draft:
             print(f"[skip] {s_id}: 語音已鎖定 (locked)")
             if callback:
-                callback(processed, total_targets, f"[{processed}/{total_targets}] {s_id} 跳過（已鎖定）")
+                try:
+                    callback(processed, total_targets, f"[{processed}/{total_targets}] {s_id} 跳過（已鎖定）", s_dir=s_dir)
+                except TypeError:
+                    callback(processed, total_targets, f"[{processed}/{total_targets}] {s_id} 跳過（已鎖定）")
+            continue
+
+        if not force and not draft and (s_dir / "speech.wav").is_file():
+            print(f"[skip] {s_id}: 語音檔案已存在 (speech.wav)")
+            processed += 1
+            if callback:
+                try:
+                    callback(processed, total_targets, f"[{processed}/{total_targets}] {s_id} 已有語音（跳過）", s_dir=s_dir)
+                except TypeError:
+                    callback(processed, total_targets, f"[{processed}/{total_targets}] {s_id} 已有語音（跳過）")
             continue
 
         narration = str(scene_cfg.get("narration", "")).strip()
@@ -486,7 +504,14 @@ def run_tts(args: argparse.Namespace, progress_callback=None) -> int:
             print(f"[ok]   {s_id} 逐句合成完畢 -> {take_id}.wav (共 {total_duration_sec}s)")
             processed += 1
             if callback:
-                callback(processed, total_targets, f"[{processed}/{total_targets}] {s_id} 語音已合成 ({total_duration_sec}s)")
+                try:
+                    callback(processed, total_targets, f"[{processed}/{total_targets}] {s_id} 語音已合成 ({total_duration_sec}s)", s_dir=s_dir)
+                except TypeError:
+                    callback(processed, total_targets, f"[{processed}/{total_targets}] {s_id} 語音已合成 ({total_duration_sec}s)")
+
+            if check_ctrl and check_ctrl(phase="配音", s_dir=s_dir):
+                print(f"[stop] 收到中止指令，停止批次配音")
+                break
 
     print(f"\n完成！已產出 {processed} 場語音" + (f"，失敗 {errors} 場" if errors else ""))
     return 1 if errors else 0

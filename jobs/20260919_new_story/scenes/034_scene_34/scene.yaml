@@ -1,0 +1,20 @@
+id: 034_scene_34
+index: 34
+title: 第 34 幕
+narration: 透過弱重力透鏡效應， 精確測量暗物質的空間幾何，
+image_prompt: Distorted, stretched images of distant galaxies, subtly warped and elongated
+  by the invisible presence of dark matter (represented by faint, shimmering, transparent
+  structures), as precisely observed by the Roman Space Telescope from a medium distance.
+  The Roman Space Telescope is depicted as a cutting-edge, large-scale space observatory.
+  The overarching environment is the profound vacuum of deep space. The dominant color
+  palette consists of rich, deep blues, purples, and blacks, dramatically contrasted
+  by the vibrant, often warm-toned points of light from countless stars, and the swirling,
+  ethereal hues of nebulae and galaxies. Visualizing invisible forces with precision,
+  using dramatic lighting. 16:9 widescreen composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260919T131223
+  image_take: image_20260919T145104

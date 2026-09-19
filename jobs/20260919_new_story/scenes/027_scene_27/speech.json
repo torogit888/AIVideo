@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260919T131140",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.8,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 7.96,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "是人類對未知宇宙的又一次勇敢進擊， 它將幫助我們解開， 宇宙最深層次的謎團， 回答我們從何而來？",
+      "text_cn": "是人类对未知宇宙的又一次勇敢进击， 它将帮助我们解开， 宇宙最深层次的谜团， 回答我们从何而来？",
+      "start_sec": 0.0,
+      "end_sec": 7.96,
+      "duration_sec": 7.96
+    }
+  ],
+  "created_at": "2026-09-19T13:11:40.408246+00:00"
+}

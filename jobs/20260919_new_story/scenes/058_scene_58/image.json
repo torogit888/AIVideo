@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20260919T130656",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-2.5-flash-image",
+  "seed": 50724384,
+  "prompt": "大友克洋漫畫與動畫電影風格 (Katsuhiro Otomo Style)，80年代經典賽璐珞手繪質感，寫實精準的人物與硬科幻機械結構，極高密度的管線與金屬細節，電影感寬銀幕分鏡，自然手繪光影與陰影線條，16:9 橫式構圖，The Roman Space Telescope, slowly receding into the vastness of deep space, leaving behind a shimmering trail of light and discovery, with a sense of ongoing exploration and future anticipation. The Roman Space Telescope is depicted as a cutting-edge, large-scale space observatory. The overarching environment is the profound vacuum of deep space. The dominant color palette consists of rich, deep blues, purples, and blacks, dramatically contrasted by the vibrant, often warm-toned points of light from countless stars, and the swirling, ethereal hues of nebulae and galaxies. Concluding, forward-looking, and vastness-emphasizing lighting. 16:9 widescreen composition.",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-09-19T13:06:56.981011+00:00"
+}

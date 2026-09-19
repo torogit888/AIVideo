@@ -1,0 +1,17 @@
+id: 019_scene_19
+index: 19
+title: 第 19 幕
+narration: 你看到的不是一隻昆蟲而是一個龐大的超級有機體，
+image_prompt: Epic cinematic 16:9 wide cross-section of an entire subterranean ant
+  empire, glowing with millions of interconnected golden and cyan pheromone trails
+  pulsating like a single super-organism brain. Macro cinematic focus on Red Imported
+  Fire Ants (Solenopsis invicta), highlighting soldier and worker ants seamlessly
+  integrated into the subterranean matrix. Rich dark ochre earth and damp subterranean
+  chambers are spectacularly illuminated by dramatic volumetric chiaroscuro lighting.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: image_20260918T061529

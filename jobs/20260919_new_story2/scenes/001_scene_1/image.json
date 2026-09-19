@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20260919T142818",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-2.5-flash-image",
+  "seed": 95568226,
+  "prompt": "新海誠唯美日系風格 (Makoto Shinkai Style)，極度寫實精緻背景美術，鏡頭光暈與體積光，細膩情感，高飽和通透色彩，16:9 橫式構圖，A breathtaking, wide-angle establishing shot showcasing the profound, boundless expanse of deep space. The environment is an infinite, inky black vacuum, richly punctuated by the ethereal glow of distant nebulae and galaxies. Dominant colors are deep blues, purples, and blacks for the void, contrasted with vibrant, luminous hues: swirling reds, oranges, and pinks of emission nebulae, cool blues of reflection nebulae, and the golden-white to blue-white light of countless sharp, brilliant pinpricks of stars. Distant galaxies appear as intricate spirals and elliptical blurs of light. Lighting is primarily natural cosmic illumination; nebulae provide soft, volumetric, and diffuse glows, creating gradients of color and light within the darkness. The overall effect is one of awe-inspiring grandeur, silent majesty, and infinite mystery, with textures ranging from the smooth emptiness of space to the wispy, gaseous forms of nebulae and the granular sparkle of dense star fields, all composed in a 16:9 widescreen cinematic shot.",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-09-19T14:28:18.914448+00:00"
+}

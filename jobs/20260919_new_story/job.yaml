@@ -1,0 +1,48 @@
+id: 20260919_new_story
+title: 美國太空總署羅曼太空望遠鏡的秘密
+language: zh-Hant
+voice_id: female01
+visual_anchors:
+  subject: The Roman Space Telescope is depicted as a pinnacle of advanced space engineering.
+    Its design is sleek and futuristic, characterized by highly reflective, polished
+    metallic surfaces (e.g., titanium, gold-plated elements) that catch and refract
+    cosmic light. A prominent, large primary mirror or lens assembly dominates its
+    structure, emphasizing its role as a powerful 'eye of the universe' with an expansive
+    field of view. Intricate optical components and sensor arrays are visible, suggesting
+    precision and cutting-edge technology. Solar panels or power arrays extend gracefully,
+    providing a sense of scale and functionality. The overall aesthetic conveys immense
+    sophistication, precision, and a quiet, powerful presence, distinct yet hinting
+    at the legacy of its predecessor, Hubble, through a shared sense of scientific
+    grandeur.
+  environment: The overarching environment is the deep, infinite expanse of the cosmos.
+    Dominant colors are rich, velvety blacks and deep indigos, transitioning into
+    ethereal purples and blues. This dark canvas is dramatically illuminated by vibrant,
+    swirling nebulae in hues of crimson, emerald, and gold, alongside countless pinpricks
+    of brilliant white, yellow, and sapphire stars. Lighting is volumetric and ethereal,
+    with soft, diffuse glows emanating from distant galaxies and star-forming regions,
+    creating a sense of immense depth and scale. Chiaroscuro shadows are cast by cosmic
+    dust lanes and dark matter, adding mystery and defining cosmic structures. The
+    atmosphere is one of profound silence, awe, and boundless wonder, emphasizing
+    the 'deep and vast cosmic wonders' the telescope observes.
+frame:
+  aspect: '16:9'
+  gen_width: 1920
+  gen_height: 1080
+  deliver_width: 1920
+  deliver_height: 1080
+  fps: 30
+image:
+  backend: gemini
+  model: gemini-2.5-flash-image
+  model_final: gemini-2.5-flash-image
+  resolution: 1K
+  aspect_ratio: '16:9'
+  style: studio_ghibli
+style_prefix: 吉卜力工作室動畫風格 (Studio Ghibli Style)，手繪感，溫暖飽和的色彩，細膩自然背景，奇幻與懷舊氛圍，柔和光影，電影感分鏡，16:9
+  橫式構圖
+style_negative: 文字浮水印、現代3D塑料感、粗糙模糊、走形手部
+subtitle:
+  mode: hard
+  font: NotoSansTC-Regular.otf
+  font_size: 48
+kenburns: slow_zoom_in

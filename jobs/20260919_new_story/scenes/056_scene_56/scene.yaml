@@ -1,0 +1,19 @@
+id: 056_scene_56
+index: 56
+title: 第 56 幕
+narration: '[confirmation-en] 這不僅是一台望遠鏡， 更是人類智慧與勇氣的結晶，'
+image_prompt: The Roman Space Telescope, gleaming with advanced technology, but also
+  imbued with a subtle, almost spiritual golden glow, representing the culmination
+  of human intellect, perseverance, and daring courage. The Roman Space Telescope
+  is depicted as a cutting-edge, large-scale space observatory. The overarching environment
+  is the profound vacuum of deep space. The dominant color palette consists of rich,
+  deep blues, purples, and blacks, dramatically contrasted by the vibrant, often warm-toned
+  points of light from countless stars, and the swirling, ethereal hues of nebulae
+  and galaxies. Symbolic, inspiring, and profound lighting. 16:9 widescreen composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260919T131422
+  image_take: image_20260919T150505

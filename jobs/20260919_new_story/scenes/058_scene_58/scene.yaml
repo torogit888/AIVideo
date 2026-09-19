@@ -1,0 +1,20 @@
+id: 058_scene_58
+index: 58
+title: 第 58 幕
+narration: 如果大家喜歡這種硬核又有趣的科技歷史故事， 別忘了按讚訂閱，我們下期見！
+image_prompt: The Roman Space Telescope, slowly receding into the vastness of deep
+  space, leaving behind a shimmering trail of light and discovery, with a sense of
+  ongoing exploration and future anticipation. The Roman Space Telescope is depicted
+  as a cutting-edge, large-scale space observatory. The overarching environment is
+  the profound vacuum of deep space. The dominant color palette consists of rich,
+  deep blues, purples, and blacks, dramatically contrasted by the vibrant, often warm-toned
+  points of light from countless stars, and the swirling, ethereal hues of nebulae
+  and galaxies. Concluding, forward-looking, and vastness-emphasizing lighting. 16:9
+  widescreen composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260919T131433
+  image_take: image_20260919T130656

@@ -1,0 +1,17 @@
+id: 016_scene_16
+index: 16
+title: 第 16 幕
+narration: '[confirmation-en] 這簡直是商業管理學上最完美的風險控制機制， 單個個體沒有複雜思考只有簡單的化學反應指令，'
+image_prompt: Conceptual macro 16:9 shot showing simple chemical interactions between
+  ant antennae transforming into an abstract, glowing organizational flow-chart network.
+  Macro cinematic focus on Red Imported Fire Ants (Solenopsis invicta), highlighting
+  polished exoskeletons and microscopic hairs under dramatic rim lighting. A dual-world
+  setting blending vintage glass laboratory plates with damp soil dirt chambers, illuminated
+  by intense glowing golden and cyan volumetric pheromone trails.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: image_20260918T061451

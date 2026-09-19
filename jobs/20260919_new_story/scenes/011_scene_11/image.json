@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20260919T125551",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-2.5-flash-image",
+  "seed": 60337417,
+  "prompt": "大友克洋漫畫與動畫電影風格 (Katsuhiro Otomo Style)，80年代經典賽璐珞手繪質感，寫實精準的人物與硬科幻機械結構，極高密度的管線與金屬細節，電影感寬銀幕分鏡，自然手繪光影與陰影線條，16:9 橫式構圖，A symbolic, cinematic shot featuring a subtle, ethereal silhouette of a determined female figure (representing Nancy Grace Roman) projected against a backdrop of a vast, awe-inspiring cosmic landscape. Her form is composed of faint starlight and nebulae, suggesting her enduring legacy. The overarching setting is the vast, awe-inspiring expanse of deep space, characterized by profound depth and infinite scale. Dominant colors are rich, deep cosmic blues, purples, and blacks, serving as a backdrop for vibrant, varied hues of nebulae, starfields, and galaxies (including golds, reds, whites, and greens). Lighting is natural, dramatic, and high-contrast, with volumetric rays emanating from distant celestial bodies and chiaroscuro shadows defining cosmic structures. The atmosphere conveys mystery, wonder, and the scientific pursuit of the unknown, often featuring intricate galactic formations, swirling gas clouds, and glittering star clusters. The visual style should evoke both the scientific precision of astronomical observation and the breathtaking beauty of the cosmos, emphasizing the 'deep and vast cosmic wonders' and the 'mapping of the universe on a large scale.'",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-09-19T12:55:51.315913+00:00"
+}

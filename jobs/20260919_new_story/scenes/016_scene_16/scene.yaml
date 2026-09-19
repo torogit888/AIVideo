@@ -1,0 +1,26 @@
+id: 016_scene_16
+index: 16
+title: 第 16 幕
+narration: 首先是探究暗能量的性質， 大家知道， 宇宙正在加速膨脹， 而背後驅動這股力量的，
+image_prompt: A dynamic, wide-angle shot depicting the accelerating expansion of the
+  universe, with galaxies and star clusters rapidly moving away from a central point,
+  creating a sense of vast, energetic motion. Subtle, ethereal tendrils of dark energy,
+  represented as a mysterious, almost invisible force, weave through the cosmic fabric.
+  The overarching setting is the vast, awe-inspiring expanse of deep space, characterized
+  by profound depth and infinite scale. Dominant colors are rich, deep cosmic blues,
+  purples, and blacks, serving as a backdrop for vibrant, varied hues of nebulae,
+  starfields, and galaxies (including golds, reds, whites, and greens). Lighting is
+  natural, dramatic, and high-contrast, with volumetric rays emanating from distant
+  celestial bodies and chiaroscuro shadows defining cosmic structures. The atmosphere
+  conveys mystery, wonder, and the scientific pursuit of the unknown, often featuring
+  intricate galactic formations, swirling gas clouds, and glittering star clusters.
+  The visual style should evoke both the scientific precision of astronomical observation
+  and the breathtaking beauty of the cosmos, emphasizing the 'deep and vast cosmic
+  wonders' and the 'mapping of the universe on a large scale.'
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260919T131034
+  image_take: image_20260919T144239

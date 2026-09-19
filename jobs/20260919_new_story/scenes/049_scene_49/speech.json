@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260919T131338",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.8,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 4.36,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "由於精準的發射和燃料節省， 羅曼望遠鏡的任務壽命，",
+      "text_cn": "由于精准的发射和燃料节省， 罗曼望远镜的任务寿命，",
+      "start_sec": 0.0,
+      "end_sec": 4.36,
+      "duration_sec": 4.36
+    }
+  ],
+  "created_at": "2026-09-19T13:13:38.593786+00:00"
+}

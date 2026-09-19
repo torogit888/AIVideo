@@ -1,0 +1,40 @@
+id: 20260918_new_story
+title: 美國太空總署羅曼太空望遠鏡的秘密
+language: zh-Hant
+voice_id: female01
+visual_anchors:
+  subject: Macro cinematic focus on Red Imported Fire Ants (Solenopsis invicta), highlighting
+    a distinct large-headed soldier ant with sharp amber-brown mandibles and glossy
+    reddish-dark chitin alongside sleeker orange-tinted worker ants. Their slender
+    segmented legs, fine tactile antennae, and polished exoskeletons catch dramatic
+    rim lighting, revealing microscopic hairs and subtle iridescent glimmers of pheromone
+    droplets on their sensory appendages.
+  environment: A dual-world setting blending a mid-20th-century biology laboratory—featuring
+    vintage brass microscopes, glass petri dishes, dark wooden desks under warm tungsten
+    lamps, and glass plates—with an intricate subterranean macro cross-section of
+    a subterranean ant empire. Rich dark ochre earth, damp soil textures, and curving
+    dirt chambers are illuminated by dramatic chiaroscuro lighting, accented by glowing
+    golden and cyan volumetric pheromone trails weaving through both the laboratory
+    glass and the underground tunnels.
+frame:
+  aspect: '16:9'
+  gen_width: 1920
+  gen_height: 1080
+  deliver_width: 1920
+  deliver_height: 1080
+  fps: 30
+image:
+  backend: gemini
+  model: gemini-3.1-flash-image
+  model_final: gemini-3-pro-image
+  resolution: 1K
+  aspect_ratio: '16:9'
+  style: studio_ghibli
+style_prefix: 吉卜力工作室動畫風格 (Studio Ghibli Style)，手繪感，溫暖飽和的色彩，細膩自然背景，奇幻與懷舊氛圍，柔和光影，電影感分鏡，16:9
+  橫式構圖
+style_negative: 文字浮水印、現代3D塑料感、粗糙模糊、走形手部
+subtitle:
+  mode: hard
+  font: NotoSansTC-Regular.otf
+  font_size: 48
+kenburns: slow_zoom_in

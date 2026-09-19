@@ -46,6 +46,12 @@ def run_compose(args: argparse.Namespace) -> int:
     print("[gen]  正在產生各場景 Ken Burns 鏡頭動畫...")
     for idx, s_dir in enumerate(scene_folders, 1):
         s_id = s_dir.name
+
+        check_ctrl = getattr(args, "check_control", None)
+        if check_ctrl and check_ctrl(phase="成片合成", s_dir=s_dir):
+            print(f"[stop] 收到中止指令，停止成片合成")
+            return 1
+
         img_path = s_dir / "image.png"
         wav_path = s_dir / "speech.wav"
         speech_json = s_dir / "speech.json"
@@ -67,26 +73,82 @@ def run_compose(args: argparse.Namespace) -> int:
 
         audio_files.append(wav_path)
 
+        # 讀取該場景 scene.yaml 設定，檢查是否有啟用畫中畫 (Picture-in-Picture)
+        scene_yaml_path = s_dir / "scene.yaml"
+        scene_cfg = {}
+        if scene_yaml_path.is_file():
+            try:
+                with open(scene_yaml_path, "r", encoding="utf-8") as yf:
+                    scene_cfg = yaml.safe_load(yf) or {}
+            except Exception:
+                pass
+
+        pip_cfg = scene_cfg.get("pip", {})
+        pip_enabled = pip_cfg.get("enabled", True) if isinstance(pip_cfg, dict) else False
+        pip_img_name = pip_cfg.get("image", "pip.png") if isinstance(pip_cfg, dict) else "pip.png"
+        pip_path = s_dir / pip_img_name
+        has_pip = pip_enabled and pip_path.is_file()
+
         # 產生單場推鏡影片
         seg_mp4 = compose_dir / f"seg_{idx:03d}.mp4"
         frames = max(1, int(round(duration * fps)))
 
-        vf_filter = (
-            f"scale=8000:-1,"
-            f"zoompan=z='min(zoom+0.0006,1.15)':d={frames}:"
-            f"x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s={width}x{height}:fps={fps}"
-        )
+        if has_pip:
+            scale_ratio = float(pip_cfg.get("scale", 0.35))
+            pip_w = int(round(width * scale_ratio))
+            if pip_w % 2 != 0:
+                pip_w += 1
+            border_px = int(pip_cfg.get("border", 8))
+            pos_key = str(pip_cfg.get("position", "top-right")).lower()
 
-        cmd = [
-            "ffmpeg", "-y",
-            "-loop", "1",
-            "-i", str(img_path),
-            "-t", str(duration),
-            "-vf", vf_filter,
-            "-c:v", "libx264",
-            "-pix_fmt", "yuv420p",
-            str(seg_mp4),
-        ]
+            pos_map = {
+                "top-right": ("W-w-60", "60"),
+                "top-left": ("60", "60"),
+                "bottom-right": ("W-w-60", "H-h-140"),
+                "bottom-left": ("60", "H-h-140"),
+                "center": ("(W-w)/2", "(H-h)/2"),
+            }
+            pos_x, pos_y = pos_map.get(pos_key, ("W-w-60", "60"))
+
+            fade_st = min(0.3, max(0.0, duration * 0.1))
+            fade_d = min(0.4, max(0.1, duration * 0.2))
+
+            filter_complex = (
+                f"[0:v]scale=8000:-1,zoompan=z='min(zoom+0.0006,1.15)':d={frames}:"
+                f"x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s={width}x{height}:fps={fps}[bg];"
+                f"[1:v]scale={pip_w}:-1:force_original_aspect_ratio=decrease,"
+                f"pad=w='iw+{border_px*2}':h='ih+{border_px*2}':x={border_px}:y={border_px}:color=white@0.9,"
+                f"format=rgba,fade=t=in:st={fade_st:.2f}:d={fade_d:.2f}:alpha=1[pip_card];"
+                f"[bg][pip_card]overlay=x='{pos_x}':y='{pos_y}':format=auto"
+            )
+
+            cmd = [
+                "ffmpeg", "-y",
+                "-loop", "1", "-i", str(img_path),
+                "-loop", "1", "-i", str(pip_path),
+                "-t", str(duration),
+                "-filter_complex", filter_complex,
+                "-c:v", "libx264",
+                "-pix_fmt", "yuv420p",
+                str(seg_mp4),
+            ]
+        else:
+            vf_filter = (
+                f"scale=8000:-1,"
+                f"zoompan=z='min(zoom+0.0006,1.15)':d={frames}:"
+                f"x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s={width}x{height}:fps={fps}"
+            )
+            cmd = [
+                "ffmpeg", "-y",
+                "-loop", "1",
+                "-i", str(img_path),
+                "-t", str(duration),
+                "-vf", vf_filter,
+                "-c:v", "libx264",
+                "-pix_fmt", "yuv420p",
+                str(seg_mp4),
+            ]
+
         proc = subprocess.run(cmd, capture_output=True, text=True)
         if proc.returncode != 0:
             print(f"[fail] {s_id} 推鏡生成失敗：{proc.stderr}", file=sys.stderr)
