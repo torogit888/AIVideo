@@ -14,6 +14,14 @@ RUN apt-get update \
         ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip install --no-cache-dir "google-genai>=1.0.0" "pyyaml>=6.0" "requests>=2.30.0" "pillow>=10.0.0" "zhconv>=1.4.3" "streamlit>=1.35.0"
+RUN pip install --no-cache-dir \
+    "google-genai>=1.0.0" \
+    "pyyaml>=6.0" \
+    "requests>=2.30.0" \
+    "pillow>=10.0.0" \
+    "zhconv>=1.4.3" \
+    "streamlit>=1.35.0" \
+    "fastapi>=0.110.0" \
+    "uvicorn[standard]>=0.28.0"
 
 WORKDIR /workspace

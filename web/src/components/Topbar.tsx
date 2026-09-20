@@ -1,0 +1,187 @@
+import React, { useEffect, useState } from "react";
+import { Sparkles, RefreshCw, MoreVertical, Play, Square, Loader2 } from "lucide-react";
+import { useStudioStore } from "../store";
+import { api } from "../api";
+
+export const Topbar: React.FC = () => {
+  const {
+    jobs,
+    selectedJobId,
+    selectJob,
+    loadJobs,
+    scenes,
+    isPipelineRunning,
+    pipelineProgress,
+    pipelineMessage,
+    setPipelineRunning,
+    setTab,
+  } = useStudioStore();
+
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    loadJobs();
+  }, [loadJobs]);
+
+  const currentJob = jobs.find((j) => j.id === selectedJobId);
+
+  // 狀態計算
+  const totalScenes = scenes.length || currentJob?.progress.scenes_count || 0;
+  const readyImages = scenes.filter((s) => s.status.has_image).length;
+  const readyAudio = scenes.filter((s) => s.status.has_audio).length;
+  const hasFilm = currentJob?.progress.film_ready ?? false;
+
+  // 計算頂列一句話完成度
+  const statusSentence =
+    totalScenes === 0
+      ? "尚無可用分鏡"
+      : `圖 ${readyImages}/${totalScenes} · 聲 ${readyAudio}/${totalScenes} · ${hasFilm ? "🟢 已合成" : "⏳ 待合成"}`;
+
+  // 頂列唯一主按鈕狀態機
+  const handlePrimaryAction = async () => {
+    if (!selectedJobId) return;
+
+    if (readyImages < totalScenes) {
+      setPipelineRunning(true, 10, "正在生成分鏡畫面...");
+      await api.runPipeline(selectedJobId, "images");
+    } else if (readyAudio < totalScenes) {
+      setPipelineRunning(true, 10, "正在生成語音配音...");
+      await api.runPipeline(selectedJobId, "tts");
+    } else if (!hasFilm) {
+      setPipelineRunning(true, 10, "正在合成 1080p 影片...");
+      await api.runPipeline(selectedJobId, "compose");
+    } else {
+      setTab("film");
+    }
+  };
+
+  const handleStopPipeline = async () => {
+    if (selectedJobId) {
+      await api.stopPipeline(selectedJobId);
+      setPipelineRunning(false, 0, "任務已中止");
+    }
+  };
+
+  return (
+    <header className="flex h-12 items-center justify-between px-4 border-b border-cinema-border bg-cinema-darker select-none">
+      {/* 左：專案下拉 */}
+      <div className="flex items-center space-x-2">
+        <div className="relative">
+          <select
+            value={selectedJobId || ""}
+            onChange={(e) => selectJob(e.target.value)}
+            className="h-8 pl-3 pr-8 rounded bg-cinema-card border border-cinema-border text-xs text-cinema-text focus:outline-none focus:border-amber-cta appearance-none cursor-pointer"
+          >
+            {jobs.length === 0 && <option value="">無專案</option>}
+            {jobs.map((j) => (
+              <option key={j.id} value={j.id}>
+                {j.title} ({j.id})
+              </option>
+            ))}
+          </select>
+          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-cinema-muted">
+            ▾
+          </div>
+        </div>
+        <button
+          onClick={() => loadJobs()}
+          title="重新整理專案"
+          className="p-1.5 rounded hover:bg-cinema-card text-cinema-muted hover:text-cinema-text transition-colors"
+        >
+          <RefreshCw className="w-3.5 h-3.5" />
+        </button>
+      </div>
+
+      {/* 中：完成度一句話 */}
+      <div className="text-xs text-cinema-muted font-medium tracking-wide">
+        {statusSentence}
+      </div>
+
+      {/* 右：唯一實心主 CTA + ⋯ */}
+      <div className="flex items-center space-x-3">
+        {isPipelineRunning ? (
+          <div className="flex items-center space-x-2">
+            <div className="flex items-center text-xs text-amber-cta font-mono bg-cinema-card px-2.5 py-1 rounded border border-cinema-border">
+              <Loader2 className="w-3.5 h-3.5 animate-spin mr-1.5" />
+              <span>{pipelineMessage || `處理中 ${pipelineProgress}%`}</span>
+            </div>
+            <button
+              onClick={handleStopPipeline}
+              className="flex items-center h-8 px-2.5 rounded bg-red-950/80 hover:bg-red-900 border border-red-800 text-xs text-red-200 transition-colors"
+              title="中止當前任務"
+            >
+              <Square className="w-3 h-3 mr-1" />
+              <span>停止</span>
+            </button>
+          </div>
+        ) : (
+          <button
+            onClick={handlePrimaryAction}
+            className="flex items-center h-8 px-4 rounded bg-amber-cta hover:bg-amber-ctaHover text-cinema-bg font-semibold text-xs tracking-wide transition-all shadow-sm glow-amber active:scale-95"
+          >
+            {readyImages < totalScenes ? (
+              <>
+                <Sparkles className="w-3.5 h-3.5 mr-1.5" />
+                <span>生成未完成畫面</span>
+              </>
+            ) : readyAudio < totalScenes ? (
+              <>
+                <Sparkles className="w-3.5 h-3.5 mr-1.5" />
+                <span>生成配音</span>
+              </>
+            ) : !hasFilm ? (
+              <>
+                <Play className="w-3.5 h-3.5 mr-1.5 fill-current" />
+                <span>合成 1080p</span>
+              </>
+            ) : (
+              <>
+                <Play className="w-3.5 h-3.5 mr-1.5 fill-current" />
+                <span>預覽成片</span>
+              </>
+            )}
+          </button>
+        )}
+
+        {/* ⋯ 選單 */}
+        <div className="relative">
+          <button
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            className="p-1.5 rounded hover:bg-cinema-card text-cinema-muted hover:text-cinema-text transition-colors"
+          >
+            <MoreVertical className="w-4 h-4" />
+          </button>
+          {isDropdownOpen && (
+            <div
+              className="absolute right-0 mt-1 w-44 rounded-md bg-cinema-card border border-cinema-border shadow-xl py-1 z-50 text-xs text-cinema-text"
+              onMouseLeave={() => setIsDropdownOpen(false)}
+            >
+              <a
+                href={selectedJobId ? `/media/jobs/${selectedJobId}/compose/film.mp4` : "#"}
+                download
+                className="block px-3 py-1.5 hover:bg-cinema-cardHover hover:text-amber-cta"
+              >
+                下載 1080p MP4
+              </a>
+              <a
+                href={selectedJobId ? `/media/jobs/${selectedJobId}/compose/film.srt` : "#"}
+                download
+                className="block px-3 py-1.5 hover:bg-cinema-cardHover hover:text-amber-cta"
+              >
+                下載 SRT 字幕
+              </a>
+              <a
+                href={selectedJobId ? `/media/jobs/${selectedJobId}/preview.html` : "#"}
+                target="_blank"
+                rel="noreferrer"
+                className="block px-3 py-1.5 hover:bg-cinema-cardHover hover:text-amber-cta"
+              >
+                開啟 HTML 故事板
+              </a>
+            </div>
+          )}
+        </div>
+      </div>
+    </header>
+  );
+};

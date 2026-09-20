@@ -8,6 +8,7 @@ services:
     working_dir: /workspace
     ports:
       - "127.0.0.1:8501:8501"
+      - "127.0.0.1:8000:8000"
     volumes:
       - .:/workspace
     env_file:
