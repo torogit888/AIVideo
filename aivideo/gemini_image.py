@@ -28,9 +28,15 @@ MODEL_CANDIDATES = (
 )
 
 
-def get_gemini_client_kwargs() -> dict[str, object]:
+def get_gemini_client_kwargs(timeout_ms: int = 300000) -> dict[str, object]:
     from aivideo.commands.check import _load_dotenv
     _load_dotenv()
+
+    try:
+        from google.genai import types
+        http_opts = types.HttpOptions(timeout=timeout_ms)
+    except Exception:
+        http_opts = None
 
     vertex_mode = str(os.environ.get("GOOGLE_GENAI_USE_VERTEXAI", "")).strip().lower() in {
         "1",
@@ -53,20 +59,29 @@ def get_gemini_client_kwargs() -> dict[str, object]:
                 "Vertex AI 模式已啟用，但缺少 GOOGLE_CLOUD_PROJECT / VERTEX_PROJECT_ID。"
             )
         os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "true"
-        return {"vertexai": True, "project": project, "location": location}
+        res: dict[str, object] = {"vertexai": True, "project": project, "location": location}
+        if http_opts is not None:
+            res["http_options"] = http_opts
+        return res
 
     # 2. 次要支援 Google AI Studio API Key 模式
     api_key = os.environ.get("GEMINI_API_KEY", "").strip()
     if api_key:
         os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "false"
-        return {"api_key": api_key}
+        res = {"api_key": api_key}
+        if http_opts is not None:
+            res["http_options"] = http_opts
+        return res
 
     # 若未指定 Vertex 且無 API Key，但有 ADC 憑證與專案，自動回退至 Vertex AI
     project = _env_value("GOOGLE_CLOUD_PROJECT") or _env_value("VERTEX_PROJECT_ID")
     location = _env_value("GOOGLE_CLOUD_LOCATION") or "us-central1"
     if project and os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"):
         os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "true"
-        return {"vertexai": True, "project": project, "location": location}
+        res = {"vertexai": True, "project": project, "location": location}
+        if http_opts is not None:
+            res["http_options"] = http_opts
+        return res
 
     raise RuntimeError(
         "缺少 Gemini 認證：請設定 GEMINI_API_KEY，或啟用 Vertex AI（GOOGLE_GENAI_USE_VERTEXAI=true + GOOGLE_CLOUD_PROJECT + GOOGLE_CLOUD_LOCATION）。"

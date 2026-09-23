@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Sparkles, RefreshCw, MoreVertical, Play, Square, Loader2 } from "lucide-react";
+import { Sparkles, RefreshCw, MoreVertical, Play, Square, Loader2, Trash2 } from "lucide-react";
 import { useStudioStore } from "../store";
 import { api } from "../api";
 
@@ -59,6 +59,29 @@ export const Topbar: React.FC = () => {
     if (selectedJobId) {
       await api.stopPipeline(selectedJobId);
       setPipelineRunning(false, 0, "任務已中止");
+    }
+  };
+
+  const handleDeleteJob = async () => {
+    if (!selectedJobId) return;
+    const confirmDelete = window.confirm(
+      `確定要徹底刪除專案【${currentJob?.title || selectedJobId}】嗎？\n\n此操作將永久刪除此專案的所有分鏡、生圖、配音與成片，無法復原！`
+    );
+    if (!confirmDelete) return;
+
+    try {
+      await api.deleteJob(selectedJobId);
+      setIsDropdownOpen(false);
+      const remainingJobs = await api.getJobs();
+      useStudioStore.setState({ jobs: remainingJobs });
+      if (remainingJobs.length > 0) {
+        selectJob(remainingJobs[0].id);
+      } else {
+        useStudioStore.setState({ selectedJobId: null, scenes: [], activeSceneId: null });
+      }
+      alert("專案已成功刪除！");
+    } catch (e: any) {
+      alert("刪除專案失敗: " + (e.message || "未知錯誤"));
     }
   };
 
@@ -178,6 +201,14 @@ export const Topbar: React.FC = () => {
               >
                 開啟 HTML 故事板
               </a>
+              <div className="my-1 border-t border-cinema-border" />
+              <button
+                onClick={handleDeleteJob}
+                className="w-full text-left flex items-center px-3 py-1.5 text-red-400 hover:bg-red-950/40 hover:text-red-300 transition-colors"
+              >
+                <Trash2 className="w-3.5 h-3.5 mr-2" />
+                <span>刪除此專案</span>
+              </button>
             </div>
           )}
         </div>

@@ -46,8 +46,22 @@ export const api = {
 
   // 素材庫
   getStyles: () => request<AssetStyle[]>("/assets/styles"),
+  createStyle: (data: any) => request<AssetStyle>("/assets/styles", { method: "POST", body: JSON.stringify(data) }),
+  updateStyle: (id: string, data: any) =>
+    request<AssetStyle>(`/assets/styles/${id}`, { method: "PUT", body: JSON.stringify(data) }),
+  deleteStyle: (id: string) => request<any>(`/assets/styles/${id}`, { method: "DELETE" }),
+
   getTones: () => request<AssetTone[]>("/assets/tones"),
+  createTone: (data: any) => request<AssetTone>("/assets/tones", { method: "POST", body: JSON.stringify(data) }),
+  updateTone: (id: string, data: any) =>
+    request<AssetTone>(`/assets/tones/${id}`, { method: "PUT", body: JSON.stringify(data) }),
+  deleteTone: (id: string) => request<any>(`/assets/tones/${id}`, { method: "DELETE" }),
+
   getVoices: () => request<AssetVoice[]>("/assets/voices"),
+  createVoice: (data: any) => request<AssetVoice>("/assets/voices", { method: "POST", body: JSON.stringify(data) }),
+  updateVoice: (id: string, data: any) =>
+    request<AssetVoice>(`/assets/voices/${id}`, { method: "PUT", body: JSON.stringify(data) }),
+  deleteVoice: (id: string) => request<any>(`/assets/voices/${id}`, { method: "DELETE" }),
 
   // 流水線批次
   runPipeline: (jobId: string, action: string, force = false) =>

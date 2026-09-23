@@ -1,14 +1,14 @@
 id: female01
-display_name: 旁白・台灣華語
+display_name: tw_female01
 engine: omnivoice
 model: OmniVoice-bf16
 mode: clone
 dtype: fp16
 attention: eager
 steps: 32
-speed: 0.8               # OmniVoice 允許範圍為 0.5 ~ 2.0（0.8 為放慢語速，0.5 為最慢極限）
+speed: 1.0
 seed: 42
-position_temperature: 0.2
+position_temperature: 0.1
 class_temperature: 0.0
-instruct: ""             # 克隆模式請留空，保留參考音原汁原味自然口吻（OmniVoice 不支援自訂單字如 happy）
-# 採用 Voice Clone 模式：綁定 reference.wav 與 reference.txt，徹底鎖定說書人音色一致性
+instruct: ''
+gender: 女性

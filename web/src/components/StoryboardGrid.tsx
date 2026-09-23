@@ -75,7 +75,11 @@ export const StoryboardGrid: React.FC = () => {
               return (
                 <div
                   key={scene.id}
-                  onClick={() => openInspector(scene.id)}
+                  onClick={() => {
+                    const sel = window.getSelection();
+                    if (sel && sel.toString().trim().length > 0) return;
+                    openInspector(scene.id);
+                  }}
                   className={`group relative flex flex-col rounded-lg bg-cinema-card border overflow-hidden cursor-pointer transition-all duration-150 ${
                     isSelected
                       ? "border-amber-cta ring-2 ring-amber-cta/30 shadow-lg"

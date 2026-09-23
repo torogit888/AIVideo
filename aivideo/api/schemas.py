@@ -152,6 +152,8 @@ class AssetTone(BaseModel):
     title: str
     summary: str
     content: str
+    tags: List[str] = Field(default_factory=list)
+    recommended_voice_instruct: Optional[str] = None
 
 
 class AssetVoice(BaseModel):
@@ -179,3 +181,54 @@ class UpdateStyleRequest(BaseModel):
     prefix: str
     negative: Optional[str] = ""
     tags: Optional[List[str]] = None
+    preview_base64: Optional[str] = None
+
+
+class CreateStyleRequest(BaseModel):
+    id: str
+    name: str
+    description: str = ""
+    prefix: str
+    negative: Optional[str] = ""
+    tags: Optional[List[str]] = None
+    preview_base64: Optional[str] = None
+
+
+class CreateToneRequest(BaseModel):
+    id: str
+    title: str
+    summary: str = ""
+    tags: List[str] = Field(default_factory=list)
+    recommended_voice_instruct: Optional[str] = None
+    content: str
+
+
+class UpdateToneRequest(BaseModel):
+    title: str
+    summary: str = ""
+    tags: List[str] = Field(default_factory=list)
+    recommended_voice_instruct: Optional[str] = None
+    content: str
+
+
+class CreateVoiceRequest(BaseModel):
+    id: str
+    name: str
+    gender: str = "女性"
+    mode: str = "clone"
+    speed: float = 1.0
+    position_temperature: float = 0.1
+    steps: int = 32
+    reference_text: str = ""
+    audio_base64: Optional[str] = None
+
+
+class UpdateVoiceRequest(BaseModel):
+    name: str
+    gender: str = "女性"
+    mode: str = "clone"
+    speed: float = 1.0
+    position_temperature: float = 0.1
+    steps: int = 32
+    reference_text: str = ""
+    audio_base64: Optional[str] = None

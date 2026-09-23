@@ -70,6 +70,8 @@ export interface AssetTone {
   title: string;
   summary: string;
   content: string;
+  tags?: string[];
+  recommended_voice_instruct?: string;
 }
 
 export interface AssetVoice {
