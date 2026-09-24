@@ -1,7 +1,15 @@
 id: 005_quanjing_qihang
 index: 5
 title: 宇宙全景空拍機的宏大未來
-narration: 哈伯望遠鏡辛辛苦苦拍了三十年的深空星圖，這台「羅曼望遠鏡」，居然只要短短幾個月就能全部拍完！它不是要跟哈伯搶風頭，而是要化身成宇宙的「廣角全景空拍機」！一次解開暗物質、暗能量，還有幾千顆外星世界的終極謎團！
+narration: '這件器話跟你是什麼關西啊？
+
+  你如果連去外面倒樂色，
+
+  包瓜順便幫大家買晚餐這種小事都不知道什麼時候要處理，
+
+  連產品的品職和職量也搞不清楚狀況，
+
+  真的會讓整家雅洲器業的團隊都超傻眼耶。'
 image_prompt: Otomo Katsuhiro anime style, 1980s cel animation aesthetic, epic cosmic
   wide panorama, the massive Nancy Grace Roman Space Telescope deployed at Lagrange
   point L2, enormous solar arrays, wide-angle lens capturing billions of distant galaxies
@@ -11,5 +19,14 @@ locks:
   speech: false
   image: false
 current:
-  speech_take: speech_20260917T075236
+  speech_take: speech_20260924T033326
   image_take: image_20260917T072349
+pip:
+  enabled: false
+  image: null
+  position: top-right
+  scale: 0.35
+  border: 8
+  query: null
+  source_title: null
+  source_url: null

@@ -15,6 +15,7 @@ from aivideo.api.schemas import (
 )
 from aivideo.commands.images import run_images
 from aivideo.commands.tts import run_tts
+from aivideo.pipeline_runner import CmdArgs
 
 router = APIRouter(prefix="/jobs/{job_id}/scenes", tags=["分鏡與右側抽屜"])
 REPO_ROOT = Path(__file__).resolve().parents[3]
@@ -23,13 +24,15 @@ JOBS_DIR = REPO_ROOT / "jobs"
 
 def _get_scene_status(scene_dir: Path, job_id: str) -> SceneStatus:
     img_file = scene_dir / "image.png"
-    aud_file = scene_dir / "audio.wav"
+    aud_file = scene_dir / "speech.wav"
+    if not aud_file.is_file():
+        aud_file = scene_dir / "audio.wav"
 
     has_img = img_file.is_file()
     has_aud = aud_file.is_file()
 
     img_url = f"/media/jobs/{job_id}/scenes/{scene_dir.name}/image.png" if has_img else None
-    aud_url = f"/media/jobs/{job_id}/scenes/{scene_dir.name}/audio.wav" if has_aud else None
+    aud_url = f"/media/jobs/{job_id}/scenes/{scene_dir.name}/{aud_file.name}" if has_aud else None
 
     # 計算音訊秒數
     duration = 0.0
@@ -42,7 +45,17 @@ def _get_scene_status(scene_dir: Path, job_id: str) -> SceneStatus:
                 if rate > 0:
                     duration = round(frames / float(rate), 2)
         except Exception:
-            duration = 6.0
+            sp_json = scene_dir / "speech.json"
+            if sp_json.is_file():
+                try:
+                    import json
+                    with open(sp_json, "r", encoding="utf-8") as f:
+                        data = json.load(f)
+                        duration = round(float(data.get("duration", 6.0)), 2)
+                except Exception:
+                    duration = 6.0
+            else:
+                duration = 6.0
     else:
         duration = 6.0
 
@@ -175,7 +188,8 @@ def regenerate_scene_image(
         raise HTTPException(status_code=404, detail="分鏡不存在")
 
     # 在背景非同步執行 run_images
-    background_tasks.add_task(run_images, job_dir=job_dir, scene=scene_id, force=force)
+    cmd_args = CmdArgs(job=job_dir, scene=scene_id, force=force, new_seed=True)
+    background_tasks.add_task(run_images, cmd_args)
     return {"message": f"第 {scene_id} 幕生圖任務已啟動", "job_id": job_id, "scene_id": scene_id}
 
 
@@ -191,5 +205,6 @@ def regenerate_scene_audio(
     if not (job_dir / "scenes" / scene_id).is_dir():
         raise HTTPException(status_code=404, detail="分鏡不存在")
 
-    background_tasks.add_task(run_tts, job_dir=job_dir, scene=scene_id, force=force)
+    cmd_args = CmdArgs(job=job_dir, scene=scene_id, force=force)
+    background_tasks.add_task(run_tts, cmd_args)
     return {"message": f"第 {scene_id} 幕配音任務已啟動", "job_id": job_id, "scene_id": scene_id}

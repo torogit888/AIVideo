@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Film, Trash2, ArrowRight } from "lucide-react";
+import { Film, Trash2, ArrowRight, CheckCircle2, AlertCircle, Info } from "lucide-react";
 import { SidebarRail } from "./components/SidebarRail";
 import { Topbar } from "./components/Topbar";
 import { StoryboardGrid } from "./components/StoryboardGrid";
@@ -9,6 +9,7 @@ import { FilmViewer } from "./components/FilmViewer";
 import { AssetsView } from "./components/AssetsView";
 import { useStudioStore } from "./store";
 import { api } from "./api";
+import { AI_TEXT_MODELS } from "./types";
 
 export const App: React.FC = () => {
   const {
@@ -20,6 +21,11 @@ export const App: React.FC = () => {
     jobs,
     selectJob,
     setTab,
+    toasts,
+    showToast,
+    removeToast,
+    selectedAiModel,
+    setSelectedAiModel,
   } = useStudioStore();
 
   const handleDeleteJobFromList = async (jobId: string, jobTitle: string, e: React.MouseEvent) => {
@@ -40,9 +46,9 @@ export const App: React.FC = () => {
           useStudioStore.setState({ selectedJobId: null, scenes: [], activeSceneId: null });
         }
       }
-      alert("專案已成功刪除！");
+      showToast("專案已成功刪除！", "success");
     } catch (e: any) {
-      alert("刪除專案失敗: " + (e.message || "未知錯誤"));
+      showToast("刪除專案失敗: " + (e.message || "未知錯誤"), "error");
     }
   };
 
@@ -194,12 +200,80 @@ export const App: React.FC = () => {
             </div>
           )}
           {currentTab === "settings" && (
-            <div className="flex-1 p-8 space-y-4 max-w-3xl mx-auto">
-              <h2 className="text-xl font-bold text-cinema-text">Studio 設定</h2>
-              <div className="p-4 rounded-lg bg-cinema-card border border-cinema-border space-y-3 text-xs">
-                <div>外觀：近黑電影風 (Dark Cinema UI)</div>
-                <div>後端 API 代理：http://localhost:8000</div>
-                <div>靜態媒體掛載：/media (支援 Range 影片拖曳串流)</div>
+            <div className="flex-1 p-8 space-y-6 max-w-3xl mx-auto overflow-y-auto">
+              <div>
+                <h2 className="text-xl font-bold text-cinema-text">Studio 設定</h2>
+                <p className="text-xs text-cinema-muted mt-1">管理全域 AI 文本生成核心、環境端點與渲染管線配置。</p>
+              </div>
+
+              {/* AI 模型設定卡片 */}
+              <div className="p-5 rounded-lg bg-cinema-card border border-cinema-border space-y-4">
+                <div className="flex items-center justify-between border-b border-cinema-border/60 pb-3">
+                  <div>
+                    <h3 className="text-sm font-semibold text-cinema-text flex items-center">
+                      <span className="text-amber-cta mr-2">⚡</span>
+                      Google Cloud Vertex AI 核心大模型
+                    </h3>
+                    <p className="text-xs text-cinema-muted mt-0.5">
+                      驅動故事發想長篇寫作、說書人口吻特徵萃取、AI 分鏡切鏡與英文電影提示詞生成。
+                    </p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
+                  {AI_TEXT_MODELS.map((m) => {
+                    const isSelected = selectedAiModel === m.id;
+                    return (
+                      <div
+                        key={m.id}
+                        onClick={() => {
+                          setSelectedAiModel(m.id);
+                          showToast(`已切換全域核心 AI 模型為 ${m.name}`, "success");
+                        }}
+                        className={`p-3 rounded-lg border cursor-pointer transition-all ${
+                          isSelected
+                            ? "border-amber-cta bg-amber-cta/10 ring-1 ring-amber-cta/30"
+                            : "border-cinema-border bg-cinema-darker/60 hover:border-cinema-muted"
+                        }`}
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className={`text-xs font-semibold ${isSelected ? "text-amber-cta" : "text-cinema-text"}`}>
+                            {m.name}
+                          </span>
+                          <span className={`text-[10px] px-1.5 py-0.5 rounded font-mono ${
+                            isSelected ? "bg-amber-cta text-cinema-bg font-bold" : "bg-cinema-card text-cinema-muted"
+                          }`}>
+                            {m.badge}
+                          </span>
+                        </div>
+                        <div className="text-[11px] text-cinema-muted mt-1">{m.tag}</div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* 系統環境資訊 */}
+              <div className="p-5 rounded-lg bg-cinema-card border border-cinema-border space-y-3 text-xs">
+                <h3 className="text-sm font-semibold text-cinema-text">環境端點與渲染服務</h3>
+                <div className="space-y-1.5 text-cinema-muted">
+                  <div className="flex justify-between py-1 border-b border-cinema-border/40">
+                    <span>介面外觀風格</span>
+                    <span className="text-cinema-text font-medium">近黑電影風 (Dark Cinema UI)</span>
+                  </div>
+                  <div className="flex justify-between py-1 border-b border-cinema-border/40">
+                    <span>後端 API 代理</span>
+                    <span className="text-cinema-text font-mono">http://localhost:8000</span>
+                  </div>
+                  <div className="flex justify-between py-1 border-b border-cinema-border/40">
+                    <span>靜態媒體掛載</span>
+                    <span className="text-cinema-text font-mono">/media (支援 Range 串流快進)</span>
+                  </div>
+                  <div className="flex justify-between py-1">
+                    <span>ComfyUI 生圖與語音服務</span>
+                    <span className="text-cinema-text font-mono">http://127.0.0.1:8188 (GPU)</span>
+                  </div>
+                </div>
               </div>
             </div>
           )}
@@ -207,6 +281,32 @@ export const App: React.FC = () => {
           {/* 右側滑出抽屜 (當前選中鏡頭時開啟) */}
           <SceneInspector />
         </div>
+      </div>
+
+      {/* 浮動輕量級通知 (Toast 零彈窗提示) */}
+      <div className="fixed bottom-5 right-5 z-50 flex flex-col space-y-2 pointer-events-none">
+        {toasts.map((t) => (
+          <div
+            key={t.id}
+            onClick={() => removeToast(t.id)}
+            className={`pointer-events-auto flex items-center px-4 py-2.5 rounded-lg shadow-2xl border text-xs font-medium tracking-wide transition-all duration-300 animate-in fade-in slide-in-from-bottom-2 cursor-pointer ${
+              t.type === "error"
+                ? "bg-red-950/95 border-red-700 text-red-200"
+                : t.type === "info"
+                ? "bg-sky-950/95 border-sky-700 text-sky-200"
+                : "bg-cinema-card/95 border-amber-cta/60 text-cinema-text glow-amber"
+            }`}
+          >
+            {t.type === "error" ? (
+              <AlertCircle className="w-4 h-4 text-red-400 mr-2 flex-shrink-0" />
+            ) : t.type === "info" ? (
+              <Info className="w-4 h-4 text-sky-400 mr-2 flex-shrink-0" />
+            ) : (
+              <CheckCircle2 className="w-4 h-4 text-amber-cta mr-2 flex-shrink-0" />
+            )}
+            <span>{t.message}</span>
+          </div>
+        ))}
       </div>
     </div>
   );

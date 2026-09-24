@@ -12,13 +12,15 @@ import {
   CheckCircle2,
   X,
   Search,
+  Film,
 } from "lucide-react";
 import { useStudioStore } from "../store";
 import { api } from "../api";
-import { AssetStyle, AssetTone, AssetVoice } from "../types";
+import { AssetStyle, AssetTone, AssetVoice, AI_TEXT_MODELS } from "../types";
 
 export const ScriptEditor: React.FC = () => {
-  const { setTab, loadJobs } = useStudioStore();
+  const { setTab, loadJobs, selectedJobId, jobs, showToast, selectedAiModel, setSelectedAiModel } = useStudioStore();
+  const currentJob = jobs.find((j) => j.id === selectedJobId);
 
   const [topic, setTopic] = useState("美國太空總署羅曼太空望遠鏡的秘密");
   const [scriptText, setScriptText] = useState(
@@ -33,6 +35,7 @@ export const ScriptEditor: React.FC = () => {
   const [selectedTone, setSelectedTone] = useState("tech_business_deepdive");
   const [selectedVoice, setSelectedVoice] = useState("female01");
   const [selectedStyle, setSelectedStyle] = useState("otomo_katsuhiro");
+  const [visualPacing, setVisualPacing] = useState<"fast" | "balanced" | "slow">("balanced");
 
   // 視覺風格選取增強狀態
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
@@ -48,6 +51,39 @@ export const ScriptEditor: React.FC = () => {
     api.getVoices().then(setVoices).catch(() => {});
     api.getStyles().then(setStyles).catch(() => {});
   }, []);
+
+  // 監聽專案發音人變更（從抽屜或故事板更改時即時同步）
+  useEffect(() => {
+    if (currentJob?.voice_id) {
+      setSelectedVoice(currentJob.voice_id);
+    }
+  }, [currentJob?.voice_id]);
+
+  // 切換不同專案時自動載入該專案的最新腳本內容與設定
+  useEffect(() => {
+    if (!selectedJobId) return;
+    api
+      .getJobDetail(selectedJobId)
+      .then((detail) => {
+        if (detail.title) setTopic(detail.title);
+        if (detail.script_content) setScriptText(detail.script_content);
+        if (detail.config?.voice_id) setSelectedVoice(detail.config.voice_id);
+        if (detail.config?.image?.style) setSelectedStyle(detail.config.image.style);
+      })
+      .catch((e) => console.error("載入專案詳情失敗", e));
+  }, [selectedJobId]);
+
+  const handleVoiceChange = async (voiceId: string) => {
+    setSelectedVoice(voiceId);
+    if (selectedJobId) {
+      try {
+        await api.updateJob(selectedJobId, { voice_id: voiceId });
+        await loadJobs();
+      } catch (e: any) {
+        console.error("更新發音人失敗", e);
+      }
+    }
+  };
 
   const currentStyleObj = styles.find((s) => s.id === selectedStyle) || styles[0];
 
@@ -87,10 +123,11 @@ export const ScriptEditor: React.FC = () => {
     if (!topic.trim()) return;
     setGenerating(true);
     try {
-      const res = await api.generateScript(topic, selectedTone, wordCount);
+      const res = await api.generateScript(topic, selectedTone, wordCount, selectedAiModel);
       setScriptText(res.script);
+      showToast("深度故事腳本生成完成！", "success");
     } catch (e: any) {
-      alert("生成失敗: " + e.message);
+      showToast("生成失敗: " + e.message, "error");
     } finally {
       setGenerating(false);
     }
@@ -106,13 +143,14 @@ export const ScriptEditor: React.FC = () => {
         tone_id: selectedTone,
         voice_id: selectedVoice,
         style_id: selectedStyle,
-        lines_per_scene: 2,
+        visual_pacing: visualPacing,
       });
       await loadJobs();
       useStudioStore.getState().selectJob(res.id);
+      showToast(`專案【${topic}】建立成功！`, "success");
       setTab("storyboard");
     } catch (e: any) {
-      alert("建立專案失敗: " + e.message);
+      showToast("建立專案失敗: " + e.message, "error");
     } finally {
       setCreatingProject(false);
     }
@@ -180,11 +218,11 @@ export const ScriptEditor: React.FC = () => {
         </div>
       </div>
 
-      {/* 說書人口吻與發音人 (兩欄) */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {/* 說書人口吻、發音人與 AI 核心模型 (三欄) */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* 口吻選擇 */}
         <div>
-          <label className="block text-xs font-medium text-cinema-muted mb-1.5">說書人口吻</label>
+          <label className="block text-xs font-medium text-cinema-muted mb-1.5">說書人口吻風格</label>
           <select
             value={selectedTone}
             onChange={(e) => setSelectedTone(e.target.value)}
@@ -200,15 +238,43 @@ export const ScriptEditor: React.FC = () => {
 
         {/* 發音人選擇 */}
         <div>
-          <label className="block text-xs font-medium text-cinema-muted mb-1.5">發音人</label>
+          <div className="flex justify-between items-center mb-1.5">
+            <label className="text-xs font-medium text-cinema-muted">專案發音人 (OmniVoice)</label>
+            {selectedJobId && (
+              <span className="text-[10px] text-amber-cta/80 font-mono">已同步</span>
+            )}
+          </div>
           <select
             value={selectedVoice}
-            onChange={(e) => setSelectedVoice(e.target.value)}
-            className="w-full h-9 px-3 rounded bg-cinema-card border border-cinema-border text-xs text-cinema-text focus:outline-none focus:border-amber-cta"
+            onChange={(e) => handleVoiceChange(e.target.value)}
+            className="w-full h-9 px-3 rounded bg-cinema-card border border-cinema-border text-xs text-cinema-text focus:outline-none focus:border-amber-cta cursor-pointer"
           >
             {voices.map((v) => (
               <option key={v.id} value={v.id}>
                 {v.name} ({v.gender})
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* AI 創作核心模型選擇 */}
+        <div>
+          <div className="flex justify-between items-center mb-1.5">
+            <label className="text-xs font-medium text-cinema-muted">AI 創作核心模型</label>
+            <span className="text-[10px] text-amber-cta font-mono">⚡ Vertex AI</span>
+          </div>
+          <select
+            value={selectedAiModel}
+            onChange={(e) => {
+              setSelectedAiModel(e.target.value);
+              const m = AI_TEXT_MODELS.find((item) => item.id === e.target.value);
+              if (m) showToast(`已切換核心 AI 模型為 ${m.name}`, "info");
+            }}
+            className="w-full h-9 px-3 rounded bg-cinema-card border border-amber-cta/40 hover:border-amber-cta text-xs text-amber-cta font-medium focus:outline-none focus:border-amber-cta cursor-pointer"
+          >
+            {AI_TEXT_MODELS.map((m) => (
+              <option key={m.id} value={m.id} className="bg-cinema-card text-cinema-text">
+                {m.name} ({m.tag})
               </option>
             ))}
           </select>
@@ -365,12 +431,83 @@ export const ScriptEditor: React.FC = () => {
         </div>
       </div>
 
+      {/* 視覺切鏡節奏 (Visual Pacing) */}
+      <div className="space-y-2 p-3.5 rounded-lg bg-cinema-card border border-cinema-border">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <Film className="w-4 h-4 text-amber-cta" />
+            <label className="text-xs font-semibold text-cinema-text">視覺切鏡節奏 (AI 智能語意分鏡)</label>
+          </div>
+          <span className="text-[11px] text-cinema-muted">
+            由 AI 依據情節單元與視覺轉折自動決定段落合併，並參考此節奏
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5">
+          {[
+            {
+              id: "fast" as const,
+              icon: "🚀",
+              title: "緊湊快節奏",
+              badge: "約 1~2 句 / 圖",
+              desc: "頻繁變換特寫與視角，適合緊張懸念、動作衝突或名場面反轉",
+            },
+            {
+              id: "balanced" as const,
+              icon: "🎬",
+              title: "標準電影感",
+              badge: "約 2~4 句 / 圖（推薦）",
+              desc: "依情節單元與時空變換自然切鏡，兼顧視覺舒適度與觀看沉浸感",
+            },
+            {
+              id: "slow" as const,
+              icon: "☕",
+              title: "沉浸長鏡頭",
+              badge: "約 3~5 句 / 圖",
+              desc: "宏觀大遠景與慢速推拉，適合歷史紀錄、深空宇宙或深沉思考",
+            },
+          ].map((p) => {
+            const isSelected = visualPacing === p.id;
+            return (
+              <div
+                key={p.id}
+                onClick={() => setVisualPacing(p.id)}
+                className={`p-2.5 rounded-md border cursor-pointer transition-all duration-200 ${
+                  isSelected
+                    ? "bg-amber-cta/10 border-amber-cta text-cinema-text shadow-sm"
+                    : "bg-cinema-darker/60 border-cinema-border/70 text-cinema-muted hover:border-cinema-muted hover:text-cinema-text"
+                }`}
+              >
+                <div className="flex items-center justify-between mb-1">
+                  <div className="flex items-center space-x-1.5 font-medium text-xs">
+                    <span>{p.icon}</span>
+                    <span className={isSelected ? "text-amber-cta font-semibold" : ""}>{p.title}</span>
+                  </div>
+                  <span
+                    className={`text-[10px] px-1.5 py-0.5 rounded font-mono ${
+                      isSelected
+                        ? "bg-amber-cta text-cinema-bg font-bold"
+                        : "bg-cinema-card border border-cinema-border text-cinema-muted"
+                    }`}
+                  >
+                    {p.badge}
+                  </span>
+                </div>
+                <div className="text-[11px] leading-relaxed opacity-80">{p.desc}</div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
       {/* 建立專案卡片 */}
       <div className="flex items-center justify-between p-4 rounded-lg bg-cinema-card border border-cinema-border">
         <div>
           <div className="text-xs font-semibold text-cinema-text">準備進入分鏡工作台</div>
           <div className="text-[11px] text-cinema-muted">
-            系統將自動擷取故事視覺錨點，按每 2 句口白切分為一幕分鏡，並生成英文提示詞。
+            系統將由 AI 依故事語意自動決定分鏡段落（當前節奏：{
+              visualPacing === "fast" ? "🚀 緊湊快節奏" : visualPacing === "slow" ? "☕ 沉浸長鏡頭" : "🎬 標準電影感"
+            }），並自動提煉全片視覺錨點與英文提示詞。
           </div>
         </div>
         <button

@@ -4,7 +4,7 @@ import asyncio
 import json
 import time
 from pathlib import Path
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import StreamingResponse
 
 from aivideo.api.schemas import PipelineRunRequest, PipelineStatusResponse
@@ -78,7 +78,7 @@ def get_pipeline_status(job_id: str) -> PipelineStatusResponse:
 
 
 @router.get("/stream")
-async def stream_pipeline_events(job_id: str):
+async def stream_pipeline_events(request: Request, job_id: str):
     """
     SSE (Server-Sent Events) 端點。
     前端頂列主按鈕與進度條可直接以 EventSource 訂閱此端點，即時接收進度百分比與狀態文字。
@@ -87,11 +87,12 @@ async def stream_pipeline_events(job_id: str):
 
     async def event_generator():
         runner = get_pipeline_runner(job_id, job_dir)
-        last_progress = -1.0
-        last_msg = ""
 
-        # 持續串流直到前端斷開或完成後一段時間
+        # 持續串流直到前端斷開
         while True:
+            if await request.is_disconnected():
+                break
+
             cur_prog = runner.progress
             cur_msg = runner.status_msg
             is_running = runner.is_running

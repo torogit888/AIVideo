@@ -1,4 +1,4 @@
-import { AssetStyle, AssetTone, AssetVoice, JobSummary, SceneDetail, SceneSummary } from "./types";
+import { AssetStyle, AssetTone, AssetVoice, JobSummary, JobDetail, SceneDetail, SceneSummary } from "./types";
 
 const BASE_URL = "/api/v1";
 
@@ -20,8 +20,10 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
 export const api = {
   // 專案
   getJobs: () => request<JobSummary[]>("/jobs"),
-  getJobDetail: (id: string) => request<any>(`/jobs/${id}`),
+  getJobDetail: (id: string) => request<JobDetail>(`/jobs/${id}`),
   createJob: (data: any) => request<JobSummary>("/jobs", { method: "POST", body: JSON.stringify(data) }),
+  updateJob: (id: string, patch: { title?: string; voice_id?: string; style_id?: string }) =>
+    request<JobSummary>(`/jobs/${id}`, { method: "PATCH", body: JSON.stringify(patch) }),
   deleteJob: (id: string) => request<any>(`/jobs/${id}`, { method: "DELETE" }),
 
   // 分鏡與右側抽屜
@@ -38,10 +40,10 @@ export const api = {
     request<any>(`/jobs/${jobId}/scenes/${sceneId}/audio`, { method: "POST" }),
 
   // 腳本
-  generateScript: (topic: string, toneId: string, wordCount: number) =>
+  generateScript: (topic: string, toneId: string, wordCount: number, model?: string) =>
     request<{ script: string; word_count: number; estimated_scenes: number }>("/script/generate", {
       method: "POST",
-      body: JSON.stringify({ topic, tone_id: toneId, word_count: wordCount }),
+      body: JSON.stringify({ topic, tone_id: toneId, word_count: wordCount, model }),
     }),
 
   // 素材庫
@@ -53,6 +55,11 @@ export const api = {
 
   getTones: () => request<AssetTone[]>("/assets/tones"),
   createTone: (data: any) => request<AssetTone>("/assets/tones", { method: "POST", body: JSON.stringify(data) }),
+  extractAndSaveTone: (data: { text: string; tone_id?: string; auto_save?: boolean; model?: string; title?: string }) =>
+    request<AssetTone>("/assets/tones/extract-and-save", {
+      method: "POST",
+      body: JSON.stringify(data),
+    }),
   updateTone: (id: string, data: any) =>
     request<AssetTone>(`/assets/tones/${id}`, { method: "PUT", body: JSON.stringify(data) }),
   deleteTone: (id: string) => request<any>(`/assets/tones/${id}`, { method: "DELETE" }),
@@ -61,6 +68,11 @@ export const api = {
   createVoice: (data: any) => request<AssetVoice>("/assets/voices", { method: "POST", body: JSON.stringify(data) }),
   updateVoice: (id: string, data: any) =>
     request<AssetVoice>(`/assets/voices/${id}`, { method: "PUT", body: JSON.stringify(data) }),
+  testVoice: (id: string, data?: { text?: string; speed?: number; position_temperature?: number; steps?: number; mode?: string }) =>
+    request<{ success: boolean; test_audio_url: string; message: string }>(`/assets/voices/${id}/test`, {
+      method: "POST",
+      body: JSON.stringify(data || {}),
+    }),
   deleteVoice: (id: string) => request<any>(`/assets/voices/${id}`, { method: "DELETE" }),
 
   // 流水線批次

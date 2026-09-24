@@ -17,6 +17,26 @@
 
 ---
 
+## ⚡ Vertex AI Gemini Flash 智慧萃取建立（推薦）
+
+專案支援直接輸入參考文字檔或逐字稿，由 Google Cloud Vertex AI (Gemini 2.5 Flash) 自動提煉五大欄位並直接寫入本目錄：
+
+### 1. 透過 Studio 前端介面（Web UI）
+- 開啟 Studio 前端（Port 5173）的「素材庫與風格資源」->「說書人口吻」。
+- 點擊「新增口吻範本」，預設進入「✨ Vertex AI 智慧萃取直接寫入」面板。
+- 點擊「上傳文字檔 (.txt / .md)」或貼上文本，點擊「由 Vertex AI Gemini Flash 萃取並直接寫入專案」，系統將自動分析並直接儲存入 `assets/tones/<id>.md`。
+
+### 2. 透過終端 CLI 指令
+```bash
+# 從現有文字檔直接萃取寫入
+docker compose run --rm pipeline python -m aivideo tones --import-file sample.txt
+
+# 指定口吻 ID（選填）
+docker compose run --rm pipeline python -m aivideo tones --import-file sample.txt --id my_custom_tone
+```
+
+---
+
 ## 範本檔案結構（Markdown + YAML Frontmatter）
 
 每個範本推薦採用 `.md` 格式，開頭使用 YAML Frontmatter 記錄基本設定，正文放參考口白與特色：

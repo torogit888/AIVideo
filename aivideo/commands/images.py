@@ -15,8 +15,22 @@ from aivideo.gemini_image import generate_image, has_gemini_credentials
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
 
-def run_images(args: argparse.Namespace, progress_callback=None) -> int:
+def run_images(args: Any = None, progress_callback=None, **kwargs) -> int:
     _load_dotenv()
+
+    if args is None or not hasattr(args, "job"):
+        class _ArgsWrapper:
+            pass
+        wrapped = _ArgsWrapper()
+        wrapped.job = kwargs.get("job_dir") or kwargs.get("job") or getattr(args, "job", "")
+        wrapped.scene = kwargs.get("scene") or getattr(args, "scene", None)
+        wrapped.force = kwargs.get("force", getattr(args, "force", False))
+        wrapped.new_seed = kwargs.get("new_seed", getattr(args, "new_seed", False))
+        wrapped.keep_seed = kwargs.get("keep_seed", getattr(args, "keep_seed", False))
+        wrapped.count = kwargs.get("count", getattr(args, "count", 1))
+        wrapped.draft = kwargs.get("draft", getattr(args, "draft", False))
+        wrapped.progress_callback = progress_callback or kwargs.get("progress_callback")
+        args = wrapped
 
     callback = progress_callback or getattr(args, "progress_callback", None)
 

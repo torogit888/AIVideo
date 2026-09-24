@@ -6,9 +6,9 @@ mode: clone
 dtype: fp16
 attention: eager
 steps: 32
-speed: 1.0
+speed: 0.95
 seed: 42
-position_temperature: 0.1
+position_temperature: 0.5
 class_temperature: 0.0
 instruct: ''
 gender: 女性

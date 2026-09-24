@@ -21,6 +21,7 @@ class CmdArgs:
         job: Path | str,
         force: bool = False,
         scene: str | None = None,
+        voice_id: str | None = None,
         count: int = 1,
         draft: bool = False,
         new_seed: bool = False,
@@ -32,6 +33,7 @@ class CmdArgs:
         self.job = str(job)
         self.force = force
         self.scene = scene
+        self.voice_id = voice_id
         self.count = count
         self.draft = draft
         self.new_seed = new_seed

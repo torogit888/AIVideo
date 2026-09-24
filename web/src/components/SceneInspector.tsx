@@ -8,23 +8,44 @@ import {
   Mic,
   Save,
   Loader2,
+  Volume2,
 } from "lucide-react";
 import { useStudioStore } from "../store";
 import { api } from "../api";
-import { SceneDetail } from "../types";
+import { SceneDetail, AssetVoice } from "../types";
 
 export const SceneInspector: React.FC = () => {
-  const { activeSceneId, isInspectorOpen, closeInspector, selectedJobId, scenes, loadScenes } = useStudioStore();
+  const {
+    activeSceneId,
+    isInspectorOpen,
+    closeInspector,
+    selectedJobId,
+    scenes,
+    loadScenes,
+    jobs,
+    loadJobs,
+    showToast,
+  } = useStudioStore();
 
   const [detail, setDetail] = useState<SceneDetail | null>(null);
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [isRegeneratingAudio, setIsRegeneratingAudio] = useState(false);
+  const [isRegeneratingImage, setIsRegeneratingImage] = useState(false);
+  const [voices, setVoices] = useState<AssetVoice[]>([]);
 
   // 表單內部暫存狀態
   const [narration, setNarration] = useState("");
   const [prompt, setPrompt] = useState("");
   const [pipEnabled, setPipEnabled] = useState(false);
   const [pipPos, setPipPos] = useState("top-right");
+
+  const currentJob = jobs.find((j) => j.id === selectedJobId);
+
+  // 載入可用音色庫
+  useEffect(() => {
+    api.getVoices().then(setVoices).catch(console.error);
+  }, []);
 
   // 載入當前鏡頭細節
   useEffect(() => {
@@ -60,11 +81,23 @@ export const SceneInspector: React.FC = () => {
   const prevScene = currentIndex > 0 ? scenes[currentIndex - 1] : null;
   const nextScene = currentIndex < scenes.length - 1 ? scenes[currentIndex + 1] : null;
 
-  const handleSave = async () => {
+  const handleVoiceChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newVoice = e.target.value;
+    if (!selectedJobId) return;
+    try {
+      await api.updateJob(selectedJobId, { voice_id: newVoice });
+      await loadJobs();
+      showToast("專案發音人已更新", "success");
+    } catch (err: any) {
+      showToast("更新發音人失敗: " + (err.message || "未知錯誤"), "error");
+    }
+  };
+
+  const handleSave = async (showNotification = true) => {
     if (!selectedJobId || !activeSceneId || !detail) return;
     setSaving(true);
     try {
-      await api.patchScene(selectedJobId, activeSceneId, {
+      const updated = await api.patchScene(selectedJobId, activeSceneId, {
         narration,
         image_prompt: prompt,
         pip: {
@@ -73,25 +106,117 @@ export const SceneInspector: React.FC = () => {
           position: pipPos,
         },
       });
-      // 靜默更新主網格資料
+      setDetail(updated);
       await loadScenes(selectedJobId);
-    } catch (e) {
+      if (showNotification) {
+        showToast("分鏡資料已儲存", "success");
+      }
+    } catch (e: any) {
       console.error("儲存失敗", e);
+      if (showNotification) showToast("儲存失敗: " + (e.message || "未知錯誤"), "error");
     } finally {
       setSaving(false);
     }
   };
 
   const handleRegenImage = async () => {
-    if (!selectedJobId || !activeSceneId) return;
-    await api.regenerateImage(selectedJobId, activeSceneId);
-    alert("單幕出圖已觸發，完成後將自動刷新。");
+    if (!selectedJobId || !activeSceneId || !detail) return;
+    setIsRegeneratingImage(true);
+    try {
+      // 1. 自動先儲存目前輸入框內容
+      const updated = await api.patchScene(selectedJobId, activeSceneId, {
+        narration,
+        image_prompt: prompt,
+        pip: {
+          ...detail.pip,
+          enabled: pipEnabled,
+          position: pipPos,
+        },
+      });
+      setDetail(updated);
+      await loadScenes(selectedJobId);
+
+      // 2. 觸發重抽畫面
+      await api.regenerateImage(selectedJobId, activeSceneId);
+      showToast(`第 ${detail.index} 幕已開始重新生圖...`, "info");
+
+      // 3. 背景輪詢狀態（每 2 秒輪詢一次，最多 15 次）
+      let attempts = 0;
+      const timer = setInterval(async () => {
+        attempts++;
+        try {
+          const fresh = await api.getSceneDetail(selectedJobId, activeSceneId);
+          if (fresh.status.has_image) {
+            setDetail(fresh);
+            await loadScenes(selectedJobId);
+            setIsRegeneratingImage(false);
+            showToast(`第 ${detail.index} 幕畫面更新完成！`, "success");
+            clearInterval(timer);
+          } else if (attempts >= 15) {
+            setIsRegeneratingImage(false);
+            clearInterval(timer);
+          }
+        } catch {
+          if (attempts >= 15) {
+            setIsRegeneratingImage(false);
+            clearInterval(timer);
+          }
+        }
+      }, 2000);
+    } catch (e: any) {
+      setIsRegeneratingImage(false);
+      showToast("出圖啟動失敗: " + (e.message || "未知錯誤"), "error");
+    }
   };
 
   const handleRegenAudio = async () => {
-    if (!selectedJobId || !activeSceneId) return;
-    await api.regenerateAudio(selectedJobId, activeSceneId);
-    alert("單幕配音已觸發，完成後將自動刷新。");
+    if (!selectedJobId || !activeSceneId || !detail) return;
+    setIsRegeneratingAudio(true);
+    try {
+      // 1. 自動先儲存最新修改的口白與設定
+      const updated = await api.patchScene(selectedJobId, activeSceneId, {
+        narration,
+        image_prompt: prompt,
+        pip: {
+          ...detail.pip,
+          enabled: pipEnabled,
+          position: pipPos,
+        },
+      });
+      setDetail(updated);
+      await loadScenes(selectedJobId);
+
+      // 2. 觸發配音重錄
+      await api.regenerateAudio(selectedJobId, activeSceneId);
+      showToast(`第 ${detail.index} 幕已開始重錄配音...`, "info");
+
+      // 3. 背景輪詢狀態（每 2 秒輪詢一次，最多 15 次）
+      let attempts = 0;
+      const timer = setInterval(async () => {
+        attempts++;
+        try {
+          const fresh = await api.getSceneDetail(selectedJobId, activeSceneId);
+          if (fresh.status.has_audio) {
+            setDetail(fresh);
+            await loadScenes(selectedJobId);
+            setIsRegeneratingAudio(false);
+            showToast(`第 ${detail.index} 幕配音已更新完成！`, "success");
+            clearInterval(timer);
+          } else if (attempts >= 15) {
+            setIsRegeneratingAudio(false);
+            clearInterval(timer);
+          }
+        } catch {
+          if (attempts >= 15) {
+            setIsRegeneratingAudio(false);
+            clearInterval(timer);
+          }
+        }
+      }, 2000);
+    } catch (e: any) {
+      setIsRegeneratingAudio(false);
+      showToast("配音重錄失敗: " + (e.message || "未知錯誤"), "error");
+    }
   };
 
   return (
@@ -158,19 +283,82 @@ export const SceneInspector: React.FC = () => {
             <div className="flex items-center space-x-2">
               <button
                 onClick={handleRegenImage}
-                className="flex-1 flex items-center justify-center h-8 rounded bg-cinema-darker hover:bg-cinema-cardHover border border-cinema-border text-xs text-cinema-text hover:text-amber-cta transition-colors"
+                disabled={isRegeneratingImage || isRegeneratingAudio}
+                className="flex-1 flex items-center justify-center h-8 rounded bg-cinema-darker hover:bg-cinema-cardHover border border-cinema-border text-xs text-cinema-text hover:text-amber-cta transition-colors disabled:opacity-50"
               >
-                <RotateCw className="w-3.5 h-3.5 mr-1" />
-                <span>重抽畫面</span>
+                {isRegeneratingImage ? (
+                  <>
+                    <Loader2 className="w-3.5 h-3.5 animate-spin mr-1 text-amber-cta" />
+                    <span>出圖中...</span>
+                  </>
+                ) : (
+                  <>
+                    <RotateCw className="w-3.5 h-3.5 mr-1" />
+                    <span>重抽畫面</span>
+                  </>
+                )}
               </button>
               <button
                 onClick={handleRegenAudio}
-                className="flex-1 flex items-center justify-center h-8 rounded bg-cinema-darker hover:bg-cinema-cardHover border border-cinema-border text-xs text-cinema-text hover:text-amber-cta transition-colors"
+                disabled={isRegeneratingAudio || isRegeneratingImage}
+                className="flex-1 flex items-center justify-center h-8 rounded bg-cinema-darker hover:bg-cinema-cardHover border border-cinema-border text-xs text-cinema-text hover:text-amber-cta transition-colors disabled:opacity-50"
               >
-                <Mic className="w-3.5 h-3.5 mr-1" />
-                <span>重錄配音</span>
+                {isRegeneratingAudio ? (
+                  <>
+                    <Loader2 className="w-3.5 h-3.5 animate-spin mr-1 text-amber-cta" />
+                    <span>配音中...</span>
+                  </>
+                ) : (
+                  <>
+                    <Mic className="w-3.5 h-3.5 mr-1" />
+                    <span>重錄配音</span>
+                  </>
+                )}
               </button>
             </div>
+
+            {/* 2.2 專案發音人切換 */}
+            <div className="p-2.5 rounded bg-cinema-darker border border-cinema-border space-y-1.5">
+              <div className="flex items-center justify-between text-xs">
+                <span className="font-medium text-cinema-text flex items-center">
+                  <Mic className="w-3.5 h-3.5 mr-1 text-amber-cta" />
+                  <span>專案發音人</span>
+                </span>
+                <span className="text-[11px] text-cinema-muted">重錄或批次配音即套用</span>
+              </div>
+              <select
+                value={currentJob?.voice_id || "female01"}
+                onChange={handleVoiceChange}
+                className="w-full h-8 px-2.5 rounded bg-cinema-card border border-cinema-border text-xs text-cinema-text focus:outline-none focus:border-amber-cta cursor-pointer"
+              >
+                {voices.map((v) => (
+                  <option key={v.id} value={v.id}>
+                    {v.name} ({v.gender})
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* 2.5 語音試聽播放器 */}
+            {detail?.status.has_audio && detail.status.audio_url && (
+              <div className="p-2.5 rounded bg-cinema-darker border border-cinema-border space-y-1.5">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="font-medium text-cinema-text flex items-center">
+                    <Volume2 className="w-3.5 h-3.5 mr-1 text-amber-cta" />
+                    <span>本幕配音試聽</span>
+                  </span>
+                  <span className="text-[11px] font-mono text-cinema-muted">
+                    {detail.status.duration.toFixed(1)} 秒
+                  </span>
+                </div>
+                <audio
+                  controls
+                  src={`${detail.status.audio_url}?t=${Date.now()}`}
+                  key={detail.status.audio_url}
+                  className="w-full h-8"
+                />
+              </div>
+            )}
 
             {/* 3. 旁白解說 */}
             <div>
@@ -233,7 +421,7 @@ export const SceneInspector: React.FC = () => {
 
             {/* 6. 儲存變更按鈕 */}
             <button
-              onClick={handleSave}
+              onClick={() => handleSave(true)}
               disabled={saving}
               className="w-full flex items-center justify-center h-9 rounded bg-amber-cta hover:bg-amber-ctaHover text-cinema-bg font-semibold text-xs tracking-wide transition-all shadow active:scale-98 disabled:opacity-50"
             >

@@ -8,6 +8,7 @@ from aivideo.commands.compose import run_compose
 from aivideo.commands.images import run_images
 from aivideo.commands.preview import run_preview
 from aivideo.commands.srt import run_srt
+from aivideo.commands.tones import run_tones
 from aivideo.commands.tts import run_tts
 from aivideo.commands.voices import run_voices
 
@@ -66,6 +67,13 @@ def build_parser() -> argparse.ArgumentParser:
 
     voices = sub.add_parser("voices", help="列出 assets/voices/ 內的所有音色角色庫與就緒狀態")
     voices.set_defaults(func=run_voices)
+
+    tones = sub.add_parser("tones", help="管理與匯入說書人口吻風格庫 (Assets Tones)")
+    tones.add_argument("--import-file", help="指定輸入的參考文字檔路徑 (例如: sample.txt)")
+    tones.add_argument("--text", help="直接指定參考文字內容")
+    tones.add_argument("--id", help="指定口吻 ID (選填，未填由 Vertex AI 自動產生)")
+    tones.add_argument("--model", help="指定使用的 Gemini Flash 模型 (例如: gemini-3.8-flash, gemini-3.5-flash)")
+    tones.set_defaults(func=run_tones)
 
     for name, help_text in (
         ("parse", "把 script.md 切成場景（尚未實作）"),

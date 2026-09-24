@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Sparkles, RefreshCw, MoreVertical, Play, Square, Loader2, Trash2 } from "lucide-react";
 import { useStudioStore } from "../store";
 import { api } from "../api";
+import { AI_TEXT_MODELS } from "../types";
 
 export const Topbar: React.FC = () => {
   const {
@@ -15,6 +16,9 @@ export const Topbar: React.FC = () => {
     pipelineMessage,
     setPipelineRunning,
     setTab,
+    showToast,
+    selectedAiModel,
+    setSelectedAiModel,
   } = useStudioStore();
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -79,9 +83,9 @@ export const Topbar: React.FC = () => {
       } else {
         useStudioStore.setState({ selectedJobId: null, scenes: [], activeSceneId: null });
       }
-      alert("專案已成功刪除！");
+      showToast("專案已成功刪除！", "success");
     } catch (e: any) {
-      alert("刪除專案失敗: " + (e.message || "未知錯誤"));
+      showToast("刪除專案失敗: " + (e.message || "未知錯誤"), "error");
     }
   };
 
@@ -113,6 +117,32 @@ export const Topbar: React.FC = () => {
         >
           <RefreshCw className="w-3.5 h-3.5" />
         </button>
+
+        {/* 全域 AI 模型膠囊選擇器 */}
+        <div className="relative flex items-center ml-1">
+          <div className="flex items-center h-8 pl-2.5 pr-6 rounded-full bg-cinema-card border border-amber-cta/40 hover:border-amber-cta text-xs text-amber-cta font-medium transition-all shadow-sm">
+            <span className="text-xs mr-1">⚡</span>
+            <select
+              value={selectedAiModel}
+              onChange={(e) => {
+                setSelectedAiModel(e.target.value);
+                const item = AI_TEXT_MODELS.find((m) => m.id === e.target.value);
+                if (item) showToast(`已切換核心 AI 模型為 ${item.name}`, "info");
+              }}
+              title="切換全域 AI 文本生成模型 (Vertex AI Gemini Flash)"
+              className="bg-transparent text-amber-cta text-xs font-semibold focus:outline-none appearance-none cursor-pointer pr-1"
+            >
+              {AI_TEXT_MODELS.map((m) => (
+                <option key={m.id} value={m.id} className="bg-cinema-card text-cinema-text py-1">
+                  {m.badge} ({m.tag})
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="pointer-events-none absolute right-2 text-amber-cta/70 text-[10px]">
+            ▾
+          </div>
+        </div>
       </div>
 
       {/* 中：完成度一句話 */}

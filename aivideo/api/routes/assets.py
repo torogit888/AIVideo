@@ -1,12 +1,19 @@
 from __future__ import annotations
 
 import base64
+import os
 import re
 import shutil
+import subprocess
+import time
+import urllib.parse
+import urllib.request
 from pathlib import Path
 from typing import List, Optional
 from fastapi import APIRouter, HTTPException
+import requests
 import yaml
+import zhconv
 
 from aivideo.api.schemas import (
     AssetStyle,
@@ -15,12 +22,16 @@ from aivideo.api.schemas import (
     CreateStyleRequest,
     CreateToneRequest,
     CreateVoiceRequest,
+    ExtractToneRequest,
+    TestVoiceRequest,
     UpdateStyleRequest,
     UpdateToneRequest,
     UpdateVoiceRequest,
 )
+from aivideo.commands.tts import _synthesize_sentence
 from aivideo.story_generator import (
     delete_style_preset,
+    extract_and_create_tone_preset,
     load_style_presets,
     save_style_preset,
 )
@@ -134,6 +145,32 @@ description: {req.summary or '自訂說書人口吻範本'}
     )
 
 
+@router.post("/tones/extract-and-save", response_model=AssetTone)
+def extract_and_save_tone(req: ExtractToneRequest) -> AssetTone:
+    raw_text = req.text.strip()
+    if not raw_text:
+        raise HTTPException(status_code=400, detail="參考文本內容不得為空")
+
+    try:
+        result = extract_and_create_tone_preset(
+            text=raw_text,
+            custom_tone_id=req.tone_id,
+            auto_save=req.auto_save,
+            model=req.model,
+            custom_title=req.title,
+        )
+        return AssetTone(
+            id=str(result["id"]),
+            title=str(result["title"]),
+            summary=str(result["summary"]),
+            tags=list(result["tags"]) if isinstance(result["tags"], list) else [str(result["tags"])],
+            recommended_voice_instruct=str(result["recommended_voice_instruct"]) if result.get("recommended_voice_instruct") else None,
+            content=str(result["content"]),
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Vertex AI Gemini Flash 萃取口吻失敗：{str(e)}")
+
+
 @router.put("/tones/{tone_id}", response_model=AssetTone)
 def update_tone(tone_id: str, req: UpdateToneRequest) -> AssetTone:
     tones_dir = ASSETS_DIR / "tones"
@@ -215,9 +252,16 @@ def list_voices() -> List[AssetVoice]:
 
             sample_url = None
             if (d / "reference.wav").is_file():
-                sample_url = f"/media/assets/voices/{d.name}/reference.wav"
+                rmtime = int((d / "reference.wav").stat().st_mtime)
+                sample_url = f"/media/assets/voices/{d.name}/reference.wav?t={rmtime}"
             elif (d / "reference.mp3").is_file():
-                sample_url = f"/media/assets/voices/{d.name}/reference.mp3"
+                rmtime = int((d / "reference.mp3").stat().st_mtime)
+                sample_url = f"/media/assets/voices/{d.name}/reference.mp3?t={rmtime}"
+
+            preview_url = None
+            if (d / "preview.wav").is_file():
+                pmtime = int((d / "preview.wav").stat().st_mtime)
+                preview_url = f"/media/assets/voices/{d.name}/preview.wav?t={pmtime}"
 
             results.append(
                 AssetVoice(
@@ -225,8 +269,13 @@ def list_voices() -> List[AssetVoice]:
                     name=name,
                     language=lang,
                     gender=gender,
+                    mode=cfg.get("mode", "clone"),
+                    speed=float(cfg.get("speed", 1.0)),
+                    position_temperature=float(cfg.get("position_temperature", 0.1)),
+                    steps=int(cfg.get("steps", 32)),
                     reference_text=ref_txt,
                     audio_sample_url=sample_url,
+                    test_audio_url=preview_url,
                 )
             )
         except Exception:
@@ -281,8 +330,13 @@ def create_voice(req: CreateVoiceRequest) -> AssetVoice:
         name=req.name,
         language="中文 (普通話/國語)",
         gender=req.gender,
+        mode=req.mode,
+        speed=req.speed,
+        position_temperature=req.position_temperature,
+        steps=req.steps,
         reference_text=req.reference_text.strip() or None,
         audio_sample_url=sample_url,
+        test_audio_url=None,
     )
 
 
@@ -321,21 +375,151 @@ def update_voice(voice_id: str, req: UpdateVoiceRequest) -> AssetVoice:
             if "," in audio_data:
                 audio_data = audio_data.split(",", 1)[1]
             raw_audio = base64.b64decode(audio_data)
-            (voice_dir / "reference.wav").write_bytes(raw_audio)
-            sample_url = f"/media/assets/voices/{voice_id}/reference.wav"
+            temp_raw = voice_dir / "temp_upload_raw"
+            temp_raw.write_bytes(raw_audio)
+            # 透過 ffmpeg 統一轉為標準 44.1kHz 16-bit 單聲道 WAV 格式
+            conv_proc = subprocess.run(
+                ["ffmpeg", "-y", "-i", str(temp_raw), "-ar", "44100", "-ac", "1", str(voice_dir / "reference.wav")],
+                capture_output=True,
+            )
+            temp_raw.unlink(missing_ok=True)
+            if conv_proc.returncode != 0:
+                (voice_dir / "reference.wav").write_bytes(raw_audio)
+
+            ts = int(time.time())
+            sample_url = f"/media/assets/voices/{voice_id}/reference.wav?t={ts}"
         except Exception:
             pass
     elif (voice_dir / "reference.wav").is_file():
-        sample_url = f"/media/assets/voices/{voice_id}/reference.wav"
+        rmtime = int((voice_dir / "reference.wav").stat().st_mtime)
+        sample_url = f"/media/assets/voices/{voice_id}/reference.wav?t={rmtime}"
+
+    preview_url = None
+    if (voice_dir / "preview.wav").is_file():
+        pmtime = int((voice_dir / "preview.wav").stat().st_mtime)
+        preview_url = f"/media/assets/voices/{voice_id}/preview.wav?t={pmtime}"
 
     return AssetVoice(
         id=voice_id,
         name=req.name,
         language="中文 (普通話/國語)",
         gender=req.gender,
+        mode=req.mode,
+        speed=req.speed,
+        position_temperature=req.position_temperature,
+        steps=req.steps,
         reference_text=req.reference_text.strip() or None,
         audio_sample_url=sample_url,
+        test_audio_url=preview_url,
     )
+
+
+@router.post("/voices/{voice_id}/test")
+def test_voice(voice_id: str, req: Optional[TestVoiceRequest] = None) -> dict:
+    voices_dir = ASSETS_DIR / "voices"
+    voice_dir = voices_dir / voice_id
+    if not voice_dir.is_dir():
+        raise HTTPException(status_code=404, detail="找不到指定發音人角色")
+
+    yaml_file = voice_dir / "voice.yaml"
+    cfg = {}
+    if yaml_file.is_file():
+        try:
+            cfg = yaml.safe_load(yaml_file.read_text(encoding="utf-8")) or {}
+        except Exception:
+            cfg = {}
+
+    req_obj = req or TestVoiceRequest()
+    test_text = (req_obj.text or "歡迎使用智能影視創作系統，這是一段測試發音人音色與位置溫度的語音合成效果。").strip()
+
+    mode = str(req_obj.mode or cfg.get("mode", "clone")).strip().lower()
+    speed = float(req_obj.speed if req_obj.speed is not None else cfg.get("speed", 1.0))
+    pos_temp = float(req_obj.position_temperature if req_obj.position_temperature is not None else cfg.get("position_temperature", 0.1))
+    steps = int(req_obj.steps if req_obj.steps is not None else cfg.get("steps", 32))
+    dtype = str(cfg.get("dtype", "fp16")).strip()
+    attention = str(cfg.get("attention", "eager")).strip()
+    seed = int(cfg.get("seed", 42))
+    class_temp = float(cfg.get("class_temperature", 0.0))
+    voice_instruct = str(cfg.get("voice_instruct", "女，青年，中音调")).strip()
+    instruct = str(req_obj.instruct or cfg.get("instruct", "")).strip()
+
+    comfy_url = os.environ.get("COMFY_URL", "http://comfyui:8188").rstrip("/")
+
+    # 檢查 ComfyUI 連線
+    try:
+        with urllib.request.urlopen(f"{comfy_url}/system_stats", timeout=5) as resp:
+            if resp.status >= 300:
+                raise HTTPException(status_code=503, detail="ComfyUI 回應狀態異常")
+    except Exception as exc:
+        raise HTTPException(
+            status_code=503,
+            detail=f"無法連線至 ComfyUI ({comfy_url})。請確認已啟動 ComfyUI 服務 (docker compose --profile comfyui up -d comfyui)",
+        )
+
+    ref_audio_name = None
+    ref_text_cn = ""
+    if mode == "clone":
+        ref_wav = voice_dir / "reference.wav"
+        ref_txt = voice_dir / "reference.txt"
+        if not ref_wav.is_file():
+            raise HTTPException(status_code=400, detail="克隆模式缺少 reference.wav 參考音訊，請先上傳")
+        if not ref_txt.is_file():
+            raise HTTPException(status_code=400, detail="克隆模式缺少 reference.txt 逐字稿")
+
+        ref_text = ref_txt.read_text(encoding="utf-8").strip()
+        ref_text_cn = zhconv.convert(ref_text, "zh-cn")
+        ref_audio_name = f"{voice_id}_reference.wav"
+
+        with open(ref_wav, "rb") as f:
+            up_resp = requests.post(
+                f"{comfy_url}/upload/image",
+                files={"image": (ref_audio_name, f)},
+                data={"overwrite": "true"},
+                timeout=15,
+            )
+        if up_resp.status_code != 200:
+            raise HTTPException(status_code=502, detail=f"上傳參考音訊至 ComfyUI 失敗: {up_resp.text}")
+
+    # 轉為簡體中文送入 OmniVoice
+    text_cn = zhconv.convert(test_text, "zh-cn")
+
+    try:
+        raw_bytes = _synthesize_sentence(
+            text_cn=text_cn,
+            voice_instruct=voice_instruct,
+            steps=steps,
+            speed=speed,
+            dtype=dtype,
+            attention=attention,
+            seed=seed,
+            pos_temp=pos_temp,
+            class_temp=class_temp,
+            comfy_url=comfy_url,
+            mode=mode,
+            ref_audio_name=ref_audio_name,
+            ref_text_cn=ref_text_cn,
+            instruct=instruct,
+        )
+
+        out_wav = voice_dir / "preview.wav"
+        temp_audio = voice_dir / "preview_raw.audio"
+        temp_audio.write_bytes(raw_bytes)
+
+        subprocess.run(
+            ["ffmpeg", "-y", "-i", str(temp_audio), "-ar", "44100", "-ac", "2", str(out_wav)],
+            check=True,
+            capture_output=True,
+        )
+        temp_audio.unlink(missing_ok=True)
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"語音試聽合成失敗: {str(exc)}")
+
+    ts = int(time.time())
+    return {
+        "success": True,
+        "test_audio_url": f"/media/assets/voices/{voice_id}/preview.wav?t={ts}",
+        "message": "試聽合成完畢",
+    }
 
 
 @router.delete("/voices/{voice_id}")

@@ -848,7 +848,17 @@ if selected_nav == NAV_CREATE:
 
     col_btn1, col_btn2 = st.columns([1, 1])
     with col_btn1:
-        sents_per_scene = st.slider("🖼️ 每張圖片搭配句數", min_value=1, max_value=3, value=3, help="建議 2~3 句換一張圖，觀看節奏最佳！")
+        pacing_choice = st.select_slider(
+            "🖼️ 視覺切鏡節奏 (Visual Pacing)",
+            options=["fast", "balanced", "slow"],
+            value="balanced",
+            format_func=lambda x: {
+                "fast": "🚀 緊湊快節奏 (1~2句/圖)",
+                "balanced": "🎬 標準電影感 (2~4句/圖，推薦)",
+                "slow": "☕ 沉浸長鏡頭 (3~5句/圖)",
+            }[x],
+            help="AI 將依據語意情節與敘事單元自動決定切分點，並參考此節奏檔位。",
+        )
 
     with col_btn2:
         job_slug_input = st.text_input(
@@ -865,13 +875,14 @@ if selected_nav == NAV_CREATE:
                 sub_anchor = anchors.get("subject_anchor", "")
                 env_anchor = anchors.get("environment_anchor", "")
 
-            with st.spinner("正在切分分鏡、前置分析考據實體 (PiP) 並生成專業英文提示詞..."):
+            with st.spinner("正在由 AI 依語意情節智能切分分鏡、前置分析考據實體 (PiP) 並生成專業英文提示詞..."):
                 scenes = parse_script_lines_to_scenes(
                     script_text,
-                    sentences_per_scene=sents_per_scene,
+                    visual_pacing=pacing_choice,
                     style_key=selected_style,
                     subject_anchor=sub_anchor,
                     environment_anchor=env_anchor,
+                    topic=topic_input,
                 )
                 job_dir = create_job_bundle(
                     job_id=job_slug_input,

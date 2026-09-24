@@ -1,11 +1,28 @@
-import React from "react";
-import { Image as ImageIcon, Volume2, Sparkles, CheckCircle2, AlertCircle } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { Image as ImageIcon, Volume2, Sparkles, CheckCircle2, AlertCircle, Mic } from "lucide-react";
 import { useStudioStore } from "../store";
-import { SceneSummary } from "../types";
+import { SceneSummary, AssetVoice } from "../types";
 import { api } from "../api";
 
 export const StoryboardGrid: React.FC = () => {
-  const { scenes, activeSceneId, openInspector, selectedJobId, setPipelineRunning } = useStudioStore();
+  const {
+    scenes,
+    activeSceneId,
+    openInspector,
+    selectedJobId,
+    setPipelineRunning,
+    jobs,
+    loadJobs,
+    showToast,
+  } = useStudioStore();
+
+  const [voices, setVoices] = useState<AssetVoice[]>([]);
+
+  useEffect(() => {
+    api.getVoices().then(setVoices).catch(console.error);
+  }, []);
+
+  const currentJob = jobs.find((j) => j.id === selectedJobId);
 
   const handleBatchImages = async () => {
     if (!selectedJobId) return;
@@ -51,6 +68,34 @@ export const StoryboardGrid: React.FC = () => {
             <Sparkles className="w-3.5 h-3.5 mr-1 text-cinema-muted" />
             <span>合成</span>
           </button>
+
+          <div className="h-4 w-px bg-cinema-border/60 mx-1" />
+
+          {/* 專案預設發音人切換 */}
+          <div className="flex items-center space-x-1.5 text-cinema-muted">
+            <Mic className="w-3.5 h-3.5 text-amber-cta" />
+            <span className="text-[11px] font-medium">發音人:</span>
+            <select
+              value={currentJob?.voice_id || "female01"}
+              onChange={async (e) => {
+                if (!selectedJobId) return;
+                try {
+                  await api.updateJob(selectedJobId, { voice_id: e.target.value });
+                  await loadJobs();
+                  showToast("專案發音人已更新", "success");
+                } catch (err: any) {
+                  showToast("更新專案發音人失敗: " + (err.message || "未知錯誤"), "error");
+                }
+              }}
+              className="h-7 px-2 rounded bg-cinema-card border border-cinema-border text-cinema-text text-[11px] focus:outline-none focus:border-amber-cta cursor-pointer"
+            >
+              {voices.map((v) => (
+                <option key={v.id} value={v.id}>
+                  {v.name} ({v.gender})
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
         <div className="text-cinema-muted text-[11px]">
           點擊卡片選取開啟右側精修抽屜

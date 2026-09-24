@@ -11,6 +11,7 @@ import yaml
 
 from aivideo.api.schemas import (
     CreateJobRequest,
+    UpdateJobRequest,
     JobDetail,
     JobProgress,
     JobSummary,
@@ -34,7 +35,7 @@ def _calculate_job_progress(job_dir: Path) -> JobProgress:
     scene_dirs = sorted([d for d in scenes_dir.iterdir() if d.is_dir()])
     total_scenes = len(scene_dirs)
     images_ready = sum(1 for d in scene_dirs if (d / "image.png").is_file())
-    audio_ready = sum(1 for d in scene_dirs if (d / "audio.wav").is_file())
+    audio_ready = sum(1 for d in scene_dirs if (d / "speech.wav").is_file() or (d / "audio.wav").is_file())
     film_ready = (job_dir / "compose" / "film.mp4").is_file()
 
     return JobProgress(
@@ -113,6 +114,7 @@ def get_job_detail(job_id: str) -> JobDetail:
         anchors_str = f"主角: {anchors.get('subject', '')} | 場景: {anchors.get('environment', '')}"
 
     has_script = (job_dir / "script.md").is_file()
+    script_content = (job_dir / "script.md").read_text(encoding="utf-8") if has_script else None
     has_film = (job_dir / "compose" / "film.mp4").is_file()
 
     film_url = f"/media/jobs/{job_id}/compose/film.mp4" if has_film else None
@@ -124,6 +126,7 @@ def get_job_detail(job_id: str) -> JobDetail:
         config=config,
         visual_anchors=anchors_str,
         has_script=has_script,
+        script_content=script_content,
         has_film=has_film,
         film_url=film_url,
         preview_html_url=preview_url,
@@ -149,10 +152,12 @@ def create_job(req: CreateJobRequest) -> JobSummary:
     # 拆解分鏡
     scenes_data = parse_script_lines_to_scenes(
         script_lines_text=req.script,
+        visual_pacing=req.visual_pacing,
         sentences_per_scene=req.lines_per_scene,
         style_key=req.style_id,
         subject_anchor=subject_anchor,
         environment_anchor=env_anchor,
+        topic=req.topic,
     )
 
     created_dir = create_job_bundle(
@@ -175,6 +180,48 @@ def create_job(req: CreateJobRequest) -> JobSummary:
         voice_id=req.voice_id,
         style_id=req.style_id,
         progress=progress,
+    )
+
+
+@router.patch("/{job_id}", response_model=JobSummary)
+def update_job(job_id: str, req: UpdateJobRequest) -> JobSummary:
+    job_dir = JOBS_DIR / job_id
+    if not job_dir.is_dir():
+        raise HTTPException(status_code=404, detail="專案不存在")
+
+    job_yaml_path = job_dir / "job.yaml"
+    if not job_yaml_path.is_file():
+        raise HTTPException(status_code=404, detail="找不到 job.yaml")
+
+    data = yaml.safe_load(job_yaml_path.read_text(encoding="utf-8")) or {}
+
+    if req.title is not None:
+        data["title"] = req.title
+    if req.voice_id is not None:
+        data["voice_id"] = req.voice_id
+    if req.style_id is not None:
+        if "image" not in data or not isinstance(data["image"], dict):
+            data["image"] = {}
+        data["image"]["style"] = req.style_id
+
+    try:
+        job_yaml_path.write_text(
+            yaml.dump(data, sort_keys=False, allow_unicode=True),
+            encoding="utf-8",
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"更新專案失敗: {str(e)}")
+
+    mtime = datetime.fromtimestamp(job_dir.stat().st_mtime, tz=timezone.utc).isoformat()
+    progress = _calculate_job_progress(job_dir)
+    return JobSummary(
+        id=job_id,
+        title=data.get("title", job_id),
+        language=data.get("language", "zh-Hant"),
+        voice_id=data.get("voice_id", "female01"),
+        style_id=data.get("image", {}).get("style", "otomo_katsuhiro"),
+        progress=progress,
+        updated_at=mtime,
     )
 
 

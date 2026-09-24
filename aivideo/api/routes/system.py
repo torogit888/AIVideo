@@ -42,9 +42,10 @@ def generate_script(req: GenerateScriptRequest) -> GenerateScriptResponse:
     try:
         raw_script = generate_story_script(
             topic=req.topic,
-            tone=req.tone_id,
+            tone_id=req.tone_id,
             word_count=req.word_count,
-            internet_search=req.internet_search,
+            search_grounding=req.internet_search,
+            model=req.model,
         )
         # 清理並統計字數與估算秒數 (中文語速約每分鐘 200~240 字)
         lines = [line.strip() for line in raw_script.splitlines() if line.strip()]

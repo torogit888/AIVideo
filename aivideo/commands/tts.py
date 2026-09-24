@@ -167,28 +167,15 @@ def _synthesize_sentence(
         return resp.read()
 
 
-def run_tts(args: argparse.Namespace, progress_callback=None) -> int:
-    _load_dotenv()
+def _prepare_voice_config(voice_id: str, comfy_url: str, cache: dict) -> dict | None:
+    """載入指定音色設定檔並在 clone 模式下預先上傳參考音訊至 ComfyUI。快取避免重複上傳。"""
+    if voice_id in cache:
+        return cache[voice_id]
 
-    callback = progress_callback or getattr(args, "progress_callback", None)
-
-    job_dir = Path(args.job)
-    if not job_dir.is_absolute():
-        job_dir = REPO_ROOT / job_dir
-
-    job_yaml_path = job_dir / "job.yaml"
-    if not job_yaml_path.is_file():
-        print(f"[fail] 找不到 job.yaml：{job_yaml_path}", file=sys.stderr)
-        return 1
-
-    with open(job_yaml_path, "r", encoding="utf-8") as f:
-        job_cfg = yaml.safe_load(f) or {}
-
-    voice_id = job_cfg.get("voice_id", "narrator_zh_tw")
     voice_yaml_path = REPO_ROOT / "assets" / "voices" / voice_id / "voice.yaml"
     if not voice_yaml_path.is_file():
         print(f"[fail] 找不到音色設定檔：{voice_yaml_path}", file=sys.stderr)
-        return 1
+        return None
 
     with open(voice_yaml_path, "r", encoding="utf-8") as f:
         voice_cfg = yaml.safe_load(f) or {}
@@ -211,25 +198,12 @@ def run_tts(args: argparse.Namespace, progress_callback=None) -> int:
     pos_temp = float(voice_cfg.get("position_temperature", 0.1))
     class_temp = float(voice_cfg.get("class_temperature", 0.0))
 
-    # 在 clone 模式下檢查 instruct 是否合法，避免 ComfyUI 拋出例外拒絕執行
     if mode == "clone" and instruct:
         valid_zh_instructs = {"东北话", "中年", "中音调", "云南话", "低音调", "儿童", "四川话", "女", "宁夏话", "少年", "极低音调", "极高音调", "桂林话", "河南话", "济南话", "甘肃话", "男", "石家庄话", "老年", "耳语", "贵州话", "陕西话", "青岛话", "青年", "高音调"}
         valid_en_instructs = {"american accent", "australian accent", "british accent", "canadian accent", "child", "chinese accent", "elderly", "female", "high pitch", "indian accent", "japanese accent", "korean accent", "low pitch", "male", "middle-aged", "moderate pitch", "portuguese accent", "russian accent", "teenager", "very high pitch", "very low pitch", "whisper", "young adult"}
         if instruct not in (valid_zh_instructs | valid_en_instructs):
             print(f"[warn] instruct 設定 '{instruct}' 不在 OmniVoice 支援清單內，克隆模式已自動忽略以保留參考音原生口吻。")
             instruct = ""
-
-    comfy_url = os.environ.get("COMFY_URL", "http://comfyui:8188").rstrip("/")
-
-    # 檢查 ComfyUI 是否連得上
-    try:
-        with urllib.request.urlopen(f"{comfy_url}/system_stats", timeout=5) as resp:
-            if resp.status >= 300:
-                print(f"[fail] ComfyUI 回應狀態異常：{resp.status}", file=sys.stderr)
-                return 1
-    except Exception as exc:
-        print(f"[fail] 無法連線至 ComfyUI ({comfy_url})：{exc}\n請確認已啟動 comfyui 容器：docker compose --profile comfyui up -d comfyui", file=sys.stderr)
-        return 1
 
     ref_audio_name = None
     ref_text_cn = ""
@@ -240,10 +214,10 @@ def run_tts(args: argparse.Namespace, progress_callback=None) -> int:
 
         if not ref_wav_path.is_file():
             print(f"[fail] 克隆模式缺少參考音訊檔案：{ref_wav_path}\n請放置 5~15 秒乾淨口白音訊至該路徑。", file=sys.stderr)
-            return 1
+            return None
         if not ref_txt_path.is_file():
             print(f"[fail] 克隆模式缺少逐字稿檔案：{ref_txt_path}\n請寫入與 reference.wav 完全對齊的逐字稿。", file=sys.stderr)
-            return 1
+            return None
 
         ref_text = ref_txt_path.read_text(encoding="utf-8").strip()
         ref_text_cn = zhconv.convert(ref_text, "zh-cn")
@@ -259,8 +233,93 @@ def run_tts(args: argparse.Namespace, progress_callback=None) -> int:
             )
         if up_resp.status_code != 200:
             print(f"[fail] 參考音訊上傳 ComfyUI 失敗：{up_resp.text}", file=sys.stderr)
-            return 1
+            return None
         print(f"[info] 已載入 Voice Clone 參考音色：{ref_wav_path.name}（逐字稿：{ref_text}）")
+
+    v_dict = {
+        "voice_id": voice_id,
+        "mode": mode,
+        "voice_instruct": voice_instruct,
+        "instruct": instruct,
+        "steps": steps,
+        "speed": speed,
+        "dtype": dtype,
+        "attention": attention,
+        "default_seed": default_seed,
+        "pos_temp": pos_temp,
+        "class_temp": class_temp,
+        "ref_audio_name": ref_audio_name,
+        "ref_text_cn": ref_text_cn,
+    }
+    cache[voice_id] = v_dict
+    return v_dict
+
+
+def run_tts(args: Any = None, progress_callback=None, **kwargs) -> int:
+    _load_dotenv()
+
+    if args is None or not hasattr(args, "job"):
+        class _ArgsWrapper:
+            pass
+        wrapped = _ArgsWrapper()
+        wrapped.job = kwargs.get("job_dir") or kwargs.get("job") or getattr(args, "job", "")
+        wrapped.scene = kwargs.get("scene") or getattr(args, "scene", None)
+        wrapped.voice_id = kwargs.get("voice_id") or getattr(args, "voice_id", None)
+        wrapped.force = kwargs.get("force", getattr(args, "force", False))
+        wrapped.count = kwargs.get("count", getattr(args, "count", 1))
+        wrapped.draft = kwargs.get("draft", getattr(args, "draft", False))
+        wrapped.keep_seed = kwargs.get("keep_seed", getattr(args, "keep_seed", False))
+        wrapped.progress_callback = progress_callback or kwargs.get("progress_callback")
+        args = wrapped
+
+    callback = progress_callback or getattr(args, "progress_callback", None)
+
+    job_dir = Path(args.job)
+    if not job_dir.is_absolute():
+        job_dir = REPO_ROOT / job_dir
+
+    job_yaml_path = job_dir / "job.yaml"
+    if not job_yaml_path.is_file():
+        print(f"[fail] 找不到 job.yaml：{job_yaml_path}", file=sys.stderr)
+        return 1
+
+    with open(job_yaml_path, "r", encoding="utf-8") as f:
+        job_cfg = yaml.safe_load(f) or {}
+
+    default_voice_id = job_cfg.get("voice_id", "narrator_zh_tw")
+    voice_cache: dict[str, dict] = {}
+
+    comfy_url = os.environ.get("COMFY_URL", "http://comfyui:8188").rstrip("/")
+
+    # 檢查 ComfyUI 是否連得上
+    try:
+        with urllib.request.urlopen(f"{comfy_url}/system_stats", timeout=5) as resp:
+            if resp.status >= 300:
+                print(f"[fail] ComfyUI 回應狀態異常：{resp.status}", file=sys.stderr)
+                return 1
+    except Exception as exc:
+        print(f"[fail] 無法連線至 ComfyUI ({comfy_url})：{exc}\n請確認已啟動 comfyui 容器：docker compose --profile comfyui up -d comfyui", file=sys.stderr)
+        return 1
+
+    # 預先載入專案預設發音人設定
+    v_info = _prepare_voice_config(default_voice_id, comfy_url, voice_cache)
+    if not v_info:
+        print(f"[fail] 無法載入專案預設音色：{default_voice_id}", file=sys.stderr)
+        return 1
+
+    voice_id = default_voice_id
+    default_seed = v_info["default_seed"]
+    voice_instruct = v_info["voice_instruct"]
+    steps = v_info["steps"]
+    speed = v_info["speed"]
+    dtype = v_info["dtype"]
+    attention = v_info["attention"]
+    pos_temp = v_info["pos_temp"]
+    class_temp = v_info["class_temp"]
+    mode = v_info["mode"]
+    ref_audio_name = v_info["ref_audio_name"]
+    ref_text_cn = v_info["ref_text_cn"]
+    instruct = v_info["instruct"]
 
     scenes_dir = job_dir / "scenes"
     if not scenes_dir.is_dir():

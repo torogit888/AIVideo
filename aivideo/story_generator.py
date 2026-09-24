@@ -12,11 +12,11 @@ from aivideo.gemini_image import get_gemini_client_kwargs
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 TEXT_MODELS = (
+    "gemini-3.8-flash",
+    "gemini-3.5-flash",
     "gemini-2.5-flash",
     "gemini-2.0-flash",
     "gemini-1.5-flash",
-    "gemini-3.6-flash",
-    "gemini-3.5-flash",
     "gemini-flash-latest",
 )
 
@@ -166,7 +166,16 @@ def generate_story_script(
     tone_id: str = "tech_business_deepdive",
     word_count: int = 2000,
     search_grounding: bool = True,
+    model: str | None = None,
+    # 向下相容參數別名
+    tone: str | None = None,
+    internet_search: bool | None = None,
 ) -> str:
+    if tone:
+        tone_id = tone
+    if internet_search is not None:
+        search_grounding = internet_search
+
     _load_dotenv()
     from google import genai
     from google.genai import types
@@ -214,8 +223,14 @@ def generate_story_script(
 
     config = types.GenerateContentConfig(**config_kwargs)
 
+    # 候選模型清單：若使用者指定特定模型，優先排在第一個嘗試
+    models_to_try = list(TEXT_MODELS)
+    if model and model.strip():
+        m = model.strip()
+        models_to_try = [m] + [x for x in TEXT_MODELS if x != m]
+
     errors = []
-    for model_name in TEXT_MODELS:
+    for model_name in models_to_try:
         try:
             resp = client.models.generate_content(
                 model=model_name,
@@ -303,7 +318,8 @@ def batch_generate_english_image_prompts(
         client_kwargs = get_gemini_client_kwargs()
         client = genai.Client(**client_kwargs)
 
-        items_text = "\n".join([f"[{i+1}] {re.sub(r'\[[a-zA-Z0-9_\-]+\]', '', n).strip()}" for i, n in enumerate(narrations)])
+        tag_pattern = re.compile(r"\[[a-zA-Z0-9_\-]+\]")
+        items_text = "\n".join([f"[{i+1}] {tag_pattern.sub('', n).strip()}" for i, n in enumerate(narrations)])
         
         anchor_rules = ""
         if subject_anchor or environment_anchor:
@@ -421,14 +437,150 @@ Return a JSON array of strings or nulls, with EXACTLY {len(narrations)} items co
     return [None] * len(narrations)
 
 
+PACING_CONFIGS = {
+    "fast": {
+        "name": "緊湊快節奏 (Fast)",
+        "ideal_range": "1~2 句",
+        "max_lines": 3,
+        "default_chunk": 2,
+        "instruction": "每 1~2 句形成一個獨立分鏡。節奏明快緊湊，適合緊張懸念、名場面衝擊或情緒快速轉折。",
+    },
+    "balanced": {
+        "name": "標準電影感 (Balanced)",
+        "ideal_range": "2~4 句",
+        "max_lines": 5,
+        "default_chunk": 3,
+        "instruction": "每 2~4 句形成一個獨立分鏡。依據完整的情節單元、敘事主體轉換或時空環境變化進行自然切鏡，達到最佳觀看舒適度與電影感。",
+    },
+    "slow": {
+        "name": "沉浸長鏡頭 (Slow)",
+        "ideal_range": "3~5 句",
+        "max_lines": 6,
+        "default_chunk": 4,
+        "instruction": "每 3~5 句形成一個獨立分鏡。節奏深邃沉穩，著重宏觀世界觀建立、大遠景環境鋪陳與深層氛圍沉浸。",
+    },
+}
+
+
+def ai_semantic_chunk_script(
+    lines: list[str],
+    visual_pacing: str = "balanced",
+    topic: str = "",
+) -> list[list[str]]:
+    """呼叫 Gemini 依據故事台詞的語意、情節單元與視覺場景轉換，自動決定哪幾句話歸為同一個分鏡畫面，
+    並參考使用者設定的視覺節奏 (Visual Pacing: fast / balanced / slow)。"""
+    if not lines:
+        return []
+
+    pacing_key = visual_pacing.lower() if visual_pacing and visual_pacing.lower() in PACING_CONFIGS else "balanced"
+    cfg = PACING_CONFIGS[pacing_key]
+    max_lines = cfg["max_lines"]
+    default_chunk = cfg["default_chunk"]
+
+    # 若總行數過少（例如 <= 2 句），直接作為單幕
+    if len(lines) <= 2:
+        return [lines]
+
+    try:
+        from aivideo.commands.check import _load_dotenv
+        _load_dotenv()
+        from google import genai
+        from google.genai import types
+
+        client_kwargs = get_gemini_client_kwargs()
+        client = genai.Client(**client_kwargs)
+
+        numbered_lines = "\n".join([f"[{i + 1}] {line}" for i, line in enumerate(lines)])
+        prompt = f"""You are a master Hollywood film director, storyboard artist, and visual editor.
+We are converting a spoken video script into cinematic storyboard scenes for image generation.
+Analyze the semantic narrative flow, subject transitions, location shifts, and emotional beats below.
+Group these script lines into coherent visual scenes according to the target visual pacing.
+
+Topic: {topic or "Documentary Story"}
+TARGET PACING: {cfg['name']}
+PACING GUIDELINES: {cfg['instruction']}
+
+STRICT RULES:
+1. Every scene should ideally cover {cfg['ideal_range']} lines.
+2. NEVER assign more than {max_lines} lines to a single scene.
+3. Every single line from 1 to {len(lines)} must be included exactly once in chronological, contiguous order without skipping or repetition.
+4. Output EXACTLY a JSON array of arrays of integers representing line numbers for each scene.
+
+Script Lines:
+{numbered_lines}
+
+OUTPUT FORMAT:
+Return ONLY a valid JSON 2D array of integers, like:
+[[1, 2], [3, 4, 5], [6, 7]]
+"""
+
+        for model_name in TEXT_MODELS:
+            try:
+                resp = client.models.generate_content(
+                    model=model_name,
+                    contents=prompt,
+                    config=types.GenerateContentConfig(
+                        temperature=0.2,
+                        response_mime_type="application/json",
+                    ),
+                )
+                if resp.text:
+                    parsed = json.loads(resp.text)
+                    if isinstance(parsed, list) and parsed:
+                        # 驗證與修復結果
+                        valid_chunks: list[list[str]] = []
+                        last_idx = 0
+                        for group in parsed:
+                            if not isinstance(group, list):
+                                continue
+                            group_indices = [int(x) - 1 for x in group if isinstance(x, (int, str)) and str(x).isdigit()]
+                            group_indices = [idx for idx in group_indices if 0 <= idx < len(lines)]
+                            if not group_indices:
+                                continue
+
+                            # 限制單幕上限
+                            while len(group_indices) > max_lines:
+                                sub = group_indices[:max_lines]
+                                valid_chunks.append([lines[i] for i in sub])
+                                last_idx = max(last_idx, sub[-1] + 1)
+                                group_indices = group_indices[max_lines:]
+
+                            if group_indices:
+                                valid_chunks.append([lines[i] for i in group_indices])
+                                last_idx = max(last_idx, group_indices[-1] + 1)
+
+                        # 檢查是否有漏掉末尾的句子
+                        if last_idx < len(lines):
+                            tail = lines[last_idx:]
+                            while tail:
+                                valid_chunks.append(tail[:max_lines])
+                                tail = tail[max_lines:]
+
+                        if valid_chunks:
+                            return valid_chunks
+            except Exception:
+                continue
+    except Exception:
+        pass
+
+    # 備援 (Fallback)：依據該檔位標準每隔 default_chunk 句進行規則切片
+    fallback_chunks: list[list[str]] = []
+    for idx in range(0, len(lines), default_chunk):
+        fallback_chunks.append(lines[idx : idx + default_chunk])
+    return fallback_chunks
+
+
 def parse_script_lines_to_scenes(
     script_lines_text: str,
-    sentences_per_scene: int = 3,
+    visual_pacing: str = "balanced",
+    sentences_per_scene: int | None = None,
     style_key: str = "otomo_katsuhiro",
     subject_anchor: str = "",
     environment_anchor: str = "",
+    topic: str = "",
 ) -> list[dict[str, object]]:
-    """將逐行台詞按每 2~3 句自動歸納為一個場景分鏡，並為每場分鏡產生英文提示詞與前置分析考據實體 (PiP)。"""
+    """將逐行台詞依據 AI 語意情節與設定的視覺節奏 (Visual Pacing) 自動切分為分鏡場景，
+    並為每場分鏡產生英文提示詞與前置分析考據實體 (PiP)。若傳入 sentences_per_scene 則保留向下相容。"""
     # 先行清理並嚴格規範標點符號（頓號、句號、冒號轉逗號，移除引號）
     sanitized_text = sanitize_script_punctuation(script_lines_text)
     raw_lines = [line.strip() for line in sanitized_text.strip().splitlines() if line.strip()]
@@ -440,12 +592,20 @@ def parse_script_lines_to_scenes(
         if l:
             clean_lines.append(l)
 
-    chunks: list[list[str]] = []
-    chunk_size = max(1, min(5, sentences_per_scene))
-
-    for idx in range(0, len(clean_lines), chunk_size):
-        chunk = clean_lines[idx : idx + chunk_size]
-        chunks.append(chunk)
+    # 決定分鏡區塊 (Chunks)
+    if sentences_per_scene is not None and sentences_per_scene > 0:
+        # 向下相容傳統固定句數切分
+        chunks: list[list[str]] = []
+        chunk_size = max(1, min(5, sentences_per_scene))
+        for idx in range(0, len(clean_lines), chunk_size):
+            chunks.append(clean_lines[idx : idx + chunk_size])
+    else:
+        # AI 智能語意切分 (結合視覺節奏)
+        chunks = ai_semantic_chunk_script(
+            clean_lines,
+            visual_pacing=visual_pacing,
+            topic=topic,
+        )
 
     narrations = [" ".join(c) for c in chunks]
     english_prompts = batch_generate_english_image_prompts(
@@ -476,6 +636,151 @@ def parse_script_lines_to_scenes(
         })
 
     return scenes
+
+
+def extract_and_create_tone_preset(
+    text: str,
+    custom_tone_id: str | None = None,
+    auto_save: bool = True,
+    model: str | None = None,
+    custom_title: str | None = None,
+) -> dict[str, object]:
+    """呼叫 Vertex AI Gemini Flash 模型，深度分析文字檔或參考口白文本，
+    提煉出說書人口吻之各項結構特徵，組裝成符合專案規範的 Markdown 並直接寫入 assets/tones/<id>.md。
+    """
+    _load_dotenv()
+    import time
+    from google import genai
+    from google.genai import types
+
+    client_kwargs = get_gemini_client_kwargs()
+    client = genai.Client(**client_kwargs)
+
+    prompt = f"""你是一位資深的影視導演、說書人節目編劇與台詞專家。
+請深度分析以下提供的參考口白文本或逐字稿，提煉出專屬的「說書人口吻風格規範與範本」：
+
+【參考文本】
+{text[:5000]}
+
+【任務與輸出規範】
+請分析該文本的破題節奏、邏輯鋪陳、語言頓挫、情緒起伏與敘事特徵，並以 JSON 格式輸出以下欄位：
+1. "id": 英文唯一識別碼（小寫英數字與底線，長度約 8~25 字元，例如 "tech_business_deepdive", "suspense_noir", "investigative_storyteller"）。
+2. "title": 具備高度辨識度的說書風格中文名稱（例如："硬核科技商業傳奇風 (杜比模式)", "都市懸疑探案風"）。
+3. "tags": 3~6 個精確標籤陣列（例如：["商業", "傳奇", "深度解構", "通俗比喻", "說書"]）。
+4. "recommended_voice_instruct": 適合 OmniVoice 語音模型的發音人語氣引導詞（格式範例："女，青年，中音调"、"男，青年，沉穩低音"、"男，中年，渾厚故事感"）。
+5. "description": 一句話簡要描述與特徵（約 40~80 字，說明適用題材、片長區間、開場鉤子 Hook、語言比喻與節奏特色）。
+6. "sample_narration": 從參考文本中精選或重構出一段約 250~450 字的「精華示範口白」，並嚴格符合專案規範：
+   * 標點符號只允許使用全形逗號「，」、問號「？」、感嘆號「！」（絕對嚴禁句號「。」、冒號「：」、頓號「、」、各類引號「」“”‘’、破折號——與括號）。
+   * 問號「？」與感嘆號「！」必須極度克制（90%以上使用全形逗號「，」銜接或換行斷句，問號感嘆號每 10~15 句至多出現 1 次）。
+   * 自然且克制地嵌入 OmniVoice 官方副語言情緒標籤（如 [surprise-wa]、[surprise-oh]、[question-ei]、[sigh]、[laughter]、[confirmation-en]、[dissatisfaction-hnn] 等，平均每 4~6 句至多 1 個）。
+   * 外語名詞、人名、機構名一律標準中譯。
+7. "structure_formula": 核心敘事結構與節奏公式（以 Markdown 條列 4~7 個步驟成片法，例如：1. 黃金 8 秒認知反差 Hook、2. 通俗生動降維比喻 Analogy、3. 質疑反詰與預設立場 Tension、4. 乾脆反轉 Reversal、5. 名場面展開、6. 純粹執念昇華致敬等，附帶典型句型引導）。
+8. "punctuation_and_emotions": 標點與情緒標籤規範說明（Markdown 條列說明停頓節奏與情緒標籤嵌入時機）。
+
+OUTPUT FORMAT:
+Return JSON with the exact keys:
+{{
+  "id": "...",
+  "title": "...",
+  "tags": ["..."],
+  "recommended_voice_instruct": "...",
+  "description": "...",
+  "sample_narration": "...",
+  "structure_formula": "...",
+  "punctuation_and_emotions": "..."
+}}
+"""
+
+    # 候選模型清單：若使用者指定特定模型，優先排在第一個嘗試
+    models_to_try = list(TEXT_MODELS)
+    if model and model.strip():
+        m = model.strip()
+        models_to_try = [m] + [x for x in TEXT_MODELS if x != m]
+
+    data: dict[str, object] = {}
+    for model_name in models_to_try:
+        try:
+            resp = client.models.generate_content(
+                model=model_name,
+                contents=prompt,
+                config=types.GenerateContentConfig(
+                    temperature=0.3,
+                    response_mime_type="application/json",
+                ),
+            )
+            if resp.text:
+                parsed = json.loads(resp.text)
+                if isinstance(parsed, dict) and "title" in parsed:
+                    data = parsed
+                    break
+        except Exception:
+            continue
+
+    if not data:
+        raise RuntimeError("Vertex AI Gemini Flash 萃取口吻特徵失敗，請確認 API 連線或文字內容。")
+
+    # 處理識別 ID
+    def _sanitize(raw: str) -> str:
+        c = re.sub(r"[^\w\-]", "_", raw.strip().lower())
+        return re.sub(r"_+", "_", c).strip("_")
+
+    tone_id = _sanitize(custom_tone_id) if custom_tone_id else _sanitize(str(data.get("id") or "custom_tone"))
+    if not tone_id:
+        tone_id = f"tone_{int(time.time())}"
+
+    if custom_title and custom_title.strip():
+        title = custom_title.strip()
+    else:
+        title = str(data.get("title") or "自訂說書人口吻")
+
+    tags_raw = data.get("tags") or ["說書", "自訂"]
+    tags = tags_raw if isinstance(tags_raw, list) else [str(tags_raw)]
+    tags_str = ", ".join([str(t).strip() for t in tags])
+
+    rec_voice = str(data.get("recommended_voice_instruct") or "女，青年，中音调")
+    desc = str(data.get("description") or "由 Vertex AI Gemini Flash 智慧萃取之說書人口吻範本。")
+    sample = sanitize_script_punctuation(str(data.get("sample_narration") or "").strip())
+    formula = str(data.get("structure_formula") or "").strip()
+    punct = str(data.get("punctuation_and_emotions") or "").strip()
+
+    # 組裝成標準 Markdown + YAML Frontmatter
+    markdown_content = f"""---
+id: {tone_id}
+name: {title}
+tags: [{tags_str}]
+recommended_voice_instruct: "{rec_voice}"
+description: {desc}
+---
+
+## 核心口白範例文本
+
+> {sample}
+
+## 核心敘事結構與節奏公式
+{formula}
+
+## 標點與情緒標籤規範
+{punct}
+"""
+
+    target_file = None
+    if auto_save:
+        tones_dir = REPO_ROOT / "assets" / "tones"
+        tones_dir.mkdir(parents=True, exist_ok=True)
+        target_path = tones_dir / f"{tone_id}.md"
+        target_path.write_text(markdown_content.strip() + "\n", encoding="utf-8")
+        target_file = f"assets/tones/{tone_id}.md"
+
+    return {
+        "id": tone_id,
+        "title": title,
+        "tags": [str(t).strip() for t in tags],
+        "recommended_voice_instruct": rec_voice,
+        "summary": desc,
+        "content": markdown_content.strip() + "\n",
+        "saved": auto_save,
+        "file_path": target_file,
+    }
 
 
 def create_job_bundle(

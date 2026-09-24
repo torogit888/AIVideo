@@ -2,6 +2,12 @@ import { create } from "zustand";
 import { api } from "./api";
 import { JobSummary, NavTab, SceneSummary } from "./types";
 
+export interface ToastItem {
+  id: string;
+  message: string;
+  type?: "info" | "success" | "error";
+}
+
 interface StudioState {
   // 導航
   currentTab: NavTab;
@@ -28,6 +34,15 @@ interface StudioState {
   pipelineProgress: number;
   pipelineMessage: string;
   setPipelineRunning: (running: boolean, progress?: number, msg?: string) => void;
+
+  // 全域輕量級 Toast 通知
+  toasts: ToastItem[];
+  showToast: (message: string, type?: "info" | "success" | "error") => void;
+  removeToast: (id: string) => void;
+
+  // 全域 AI 模型設定
+  selectedAiModel: string;
+  setSelectedAiModel: (model: string) => void;
 }
 
 export const useStudioStore = create<StudioState>((set, get) => ({
@@ -77,4 +92,29 @@ export const useStudioStore = create<StudioState>((set, get) => ({
   pipelineMessage: "",
   setPipelineRunning: (running, progress = 0, msg = "") =>
     set({ isPipelineRunning: running, pipelineProgress: progress, pipelineMessage: msg }),
+
+  // 全域輕量級 Toast 通知
+  toasts: [],
+  showToast: (message, type = "success") => {
+    const id = Math.random().toString(36).substring(2, 9);
+    set((state) => ({ toasts: [...state.toasts, { id, message, type }] }));
+    setTimeout(() => {
+      get().removeToast(id);
+    }, 3200);
+  },
+  removeToast: (id) => {
+    set((state) => ({ toasts: state.toasts.filter((t) => t.id !== id) }));
+  },
+
+  // 全域 AI 模型設定 (持久化存入 localStorage)
+  selectedAiModel:
+    typeof window !== "undefined"
+      ? localStorage.getItem("aivideo_selected_model") || "gemini-3.8-flash"
+      : "gemini-3.8-flash",
+  setSelectedAiModel: (model) => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("aivideo_selected_model", model);
+    }
+    set({ selectedAiModel: model });
+  },
 }));

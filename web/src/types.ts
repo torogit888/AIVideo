@@ -15,6 +15,18 @@ export interface JobSummary {
   updated_at?: string;
 }
 
+export interface JobDetail {
+  id: string;
+  title: string;
+  config: Record<string, any>;
+  visual_anchors?: string | null;
+  has_script: boolean;
+  script_content?: string | null;
+  has_film: boolean;
+  film_url?: string | null;
+  preview_html_url?: string | null;
+}
+
 export interface SceneStatus {
   has_image: boolean;
   has_audio: boolean;
@@ -79,8 +91,27 @@ export interface AssetVoice {
   name: string;
   language: string;
   gender: string;
+  mode?: string;
+  speed?: number;
+  position_temperature?: number;
+  steps?: number;
   reference_text?: string;
   audio_sample_url?: string;
+  test_audio_url?: string;
 }
+
+export interface AiModelOption {
+  id: string;
+  name: string;
+  badge: string;
+  tag: string;
+}
+
+export const AI_TEXT_MODELS: AiModelOption[] = [
+  { id: "gemini-3.8-flash", name: "Gemini 3.8 Flash", badge: "3.8 Flash", tag: "極速高擬真・首選" },
+  { id: "gemini-3.5-flash", name: "Gemini 3.5 Flash", badge: "3.5 Flash", tag: "經典平衡・推薦" },
+  { id: "gemini-2.5-flash", name: "Gemini 2.5 Flash", badge: "2.5 Flash", tag: "主流穩定" },
+  { id: "gemini-2.0-flash", name: "Gemini 2.0 Flash", badge: "2.0 Flash", tag: "備用核心" },
+];
 
 export type NavTab = "overview" | "script" | "storyboard" | "film" | "assets" | "settings";

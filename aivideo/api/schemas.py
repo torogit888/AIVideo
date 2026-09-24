@@ -40,6 +40,7 @@ class JobDetail(BaseModel):
     config: Dict[str, Any]
     visual_anchors: Optional[str] = None
     has_script: bool = False
+    script_content: Optional[str] = None
     has_film: bool = False
     film_url: Optional[str] = None
     preview_html_url: Optional[str] = None
@@ -52,7 +53,14 @@ class CreateJobRequest(BaseModel):
     tone_id: Optional[str] = None
     voice_id: str = "female01"
     style_id: str = "future_workplace"
-    lines_per_scene: int = Field(default=2, ge=1, le=5)
+    visual_pacing: str = Field(default="balanced", description="視覺換鏡節奏: fast, balanced, slow")
+    lines_per_scene: Optional[int] = Field(default=None, ge=1, le=5)
+
+
+class UpdateJobRequest(BaseModel):
+    title: Optional[str] = None
+    voice_id: Optional[str] = None
+    style_id: Optional[str] = None
 
 
 # ==========================================
@@ -115,6 +123,7 @@ class GenerateScriptRequest(BaseModel):
     tone_id: str = "tech_business_deepdive"
     word_count: int = Field(default=1500, ge=300, le=5000)
     internet_search: bool = True
+    model: Optional[str] = Field("gemini-3.8-flash", description="指定 Vertex AI 文本生成模型")
 
 
 class GenerateScriptResponse(BaseModel):
@@ -161,8 +170,22 @@ class AssetVoice(BaseModel):
     name: str
     language: str
     gender: str
+    mode: Optional[str] = "clone"
+    speed: Optional[float] = 1.0
+    position_temperature: Optional[float] = 0.1
+    steps: Optional[int] = 32
     reference_text: Optional[str] = None
     audio_sample_url: Optional[str] = None
+    test_audio_url: Optional[str] = None
+
+
+class TestVoiceRequest(BaseModel):
+    text: Optional[str] = "歡迎使用智能影視創作系統，這是一段測試發音人音色與位置溫度的語音合成效果。"
+    speed: Optional[float] = None
+    position_temperature: Optional[float] = None
+    steps: Optional[int] = None
+    mode: Optional[str] = None
+    instruct: Optional[str] = None
 
 
 class AssetStyle(BaseModel):
@@ -201,6 +224,14 @@ class CreateToneRequest(BaseModel):
     tags: List[str] = Field(default_factory=list)
     recommended_voice_instruct: Optional[str] = None
     content: str
+
+
+class ExtractToneRequest(BaseModel):
+    text: str = Field(..., description="參考口白、文章或逐字稿文本")
+    tone_id: Optional[str] = Field(None, description="指定或覆蓋的口吻 ID（選填）")
+    auto_save: bool = Field(True, description="是否由 Vertex AI 直接寫入 assets/tones/<id>.md 專案檔案")
+    model: Optional[str] = Field("gemini-3.8-flash", description="指定 Vertex AI 文本分析模型")
+    title: Optional[str] = Field(None, description="指定口吻中文名稱（若為空則由 Vertex AI 產生）")
 
 
 class UpdateToneRequest(BaseModel):
