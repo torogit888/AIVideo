@@ -1,0 +1,25 @@
+id: 002_scene_2
+index: 2
+title: 第 2 幕
+narration: 要理解這段傳奇，我們得把時間撥回到，一九五九年的莫斯科， 那時，美蘇冷戰正酣，兩大陣營劍拔弩張，卻也偶有緩和， 美國在莫斯科舉辦了一場國家展覽會，旨在展示美國的資本主義生活方式，
+  百事可樂，作為美國文化的象徵之一，自然不會缺席，
+image_prompt: A wide-angle establishing shot of the 1959 American National Exhibition
+  in Moscow. Bright, artificial lighting (fluorescent, spotlights) illuminates vibrant
+  displays of modern American consumer goods and a prominent Pepsi stand, starkly
+  contrasted against the muted, imposing, brutalist Soviet architecture in the background
+  under a grey, utilitarian sky. 16:9 widescreen cinematic composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: American National Exhibition Moscow 1959

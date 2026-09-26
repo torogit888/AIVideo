@@ -1,0 +1,17 @@
+id: 020_scene_20
+index: 20
+title: 第 20 幕
+narration: 這是一個，充滿冷戰色彩的，荒謬又傳奇的故事 [sigh]. 它反映了，那個特殊年代，商業與政治之間，錯綜複雜的關係 [confirmation-en].
+  百事可樂，這個資本主義的象徵，成功地，穿透了鐵幕. 成為了美蘇兩國之間，一道奇特的商業橋樑.
+image_prompt: A powerful, symbolic wide-angle shot. A vibrant, iconic Pepsi logo or
+  bottle is dramatically positioned, seemingly breaking through a metaphorical 'Iron
+  Curtain' – represented by imposing, dark, brutalist Soviet architecture on one side
+  and a brightly lit, modern American cityscape on the other. Volumetric light emphasizes
+  the ideological divide and the penetration. 16:9 widescreen cinematic composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

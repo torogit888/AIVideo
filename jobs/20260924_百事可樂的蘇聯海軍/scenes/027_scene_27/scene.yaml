@@ -1,0 +1,30 @@
+id: 027_scene_27
+index: 27
+title: 第 27 幕
+narration: 但這些軍艦，當然不是，用來作戰的 [confirmation-en]. 百事公司，隨後將這些艦船，轉賣給了一家，瑞典的拆船公司.
+image_prompt: A desolate, industrial scene of massive imposing, weathered Soviet naval
+  vessels being systematically dismantled in a Swedish scrapyard. Cranes and heavy
+  machinery, part of a stern, powerful Soviet leader with a knowing gaze, are at work,
+  reducing the once-mighty vessels to scrap metal. The scene is bathed in a moody,
+  high-contrast cinematic lighting palette, with deep shadows and dramatic volumetric
+  light, evoking a sense of Cold War tension and historical significance. The background
+  features subtle, atmospheric elements like a faint haze or distant, blurred industrial
+  structures, all composed in a 16:9 widescreen aspect ratio, with harsh, cold, metallic
+  lighting, emphasizing the end of their journey. Wide-angle shot.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  scale: 0.24
+  border: 5
+  query: Shipbreaking yard
+  source_title: null
+  source_url: null
+  mode: pip

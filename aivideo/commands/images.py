@@ -11,6 +11,8 @@ import yaml
 
 from aivideo.commands.check import _load_dotenv
 from aivideo.gemini_image import generate_image, has_gemini_credentials
+from aivideo.visual_anchors import collect_character_ref_images
+from aivideo.story_generator import resolve_style
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
@@ -50,19 +52,19 @@ def run_images(args: Any = None, progress_callback=None, **kwargs) -> int:
     with open(job_yaml_path, "r", encoding="utf-8") as f:
         job_cfg = yaml.safe_load(f) or {}
 
-    style_prefix = str(job_cfg.get("style_prefix", "")).strip()
-    img_cfg = job_cfg.get("image", {})
+    img_cfg = job_cfg.get("image", {}) if isinstance(job_cfg.get("image"), dict) else {}
+    style_key = img_cfg.get("style") or job_cfg.get("style") or ""
+    style_prefix = resolve_style(style_key)["prefix"] or str(job_cfg.get("style_prefix", "")).strip()
     model = img_cfg.get("model", "gemini-3.1-flash-image")
     resolution = img_cfg.get("resolution", "1K")
     aspect_ratio = img_cfg.get("aspect_ratio", "16:9")
 
-    # 檢查專案是否啟用主體定裝參考圖 (Visual Reference Conditioning)
+    # 檢查專案是否啟用角色定裝參考圖 (每人一張，多模態一致性)
     visual_anchors = job_cfg.get("visual_anchors", {})
-    use_image_ref = visual_anchors.get("use_image_reference", True)
-    hero_anchor_path = job_dir / "hero_anchor.png"
-    ref_image_to_use = hero_anchor_path if (use_image_ref and hero_anchor_path.is_file()) else None
-    if ref_image_to_use:
-        print(f"[info] 已掛載主體定裝參考圖進行多模態一致性生圖：{ref_image_to_use.name}")
+    ref_images_to_use = collect_character_ref_images(job_dir, visual_anchors)
+    if ref_images_to_use:
+        names = ", ".join(p.name for p, _ in ref_images_to_use)
+        print(f"[info] 已掛載 {len(ref_images_to_use)} 張角色定裝參考圖進行多模態一致性生圖：{names}")
 
     scenes_dir = job_dir / "scenes"
     if not scenes_dir.is_dir():
@@ -176,7 +178,7 @@ def run_images(args: Any = None, progress_callback=None, **kwargs) -> int:
                     image_size=resolution,
                     model=model,
                     seed=seed,
-                    ref_image=ref_image_to_use,
+                    ref_images=ref_images_to_use or None,
                 )
                 scene_success = True
                 break
@@ -289,7 +291,7 @@ def run_images(args: Any = None, progress_callback=None, **kwargs) -> int:
                             image_size=resolution,
                             model=model,
                             seed=seed,
-                            ref_image=ref_image_to_use,
+                            ref_images=ref_images_to_use or None,
                         )
                         meta = {
                             "take_id": take_id,

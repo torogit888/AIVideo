@@ -1,0 +1,26 @@
+id: 015_scene_15
+index: 15
+title: 第 15 幕
+narration: 在七零年代，百事可樂在蘇聯的銷量，一度遙遙領先可口可樂. 蘇聯人民對這種資本主義的甜水，展現出了超乎想像的熱愛.
+image_prompt: A Q-version 2D cartoon illustration of happy, smiling Q-version Soviet
+  citizens enthusiastically drinking Pepsi in a simplified Soviet park or street setting.
+  A stylized graph in the background visually depicts Pepsi's sales soaring high above
+  a smaller, less prominent Coca-Cola bottle, illustrating market dominance. Medium
+  shot, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Pepsi-Cola Soviet Union advertisement
+  source_title: File:Dashing 90s in Russia 15.jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/5/55/Dashing_90s_in_Russia_15.jpg

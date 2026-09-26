@@ -1,0 +1,24 @@
+id: 018_scene_18
+index: 18
+title: 第 18 幕
+narration: 但這些軍艦，當然不是，用來作戰的 [confirmation-en]. 百事公司，隨後將這些艦船，轉賣給了一家，瑞典的拆船公司. 它們的最終歸宿，是作為廢鐵，被拆解回收.
+image_prompt: A gritty, industrial wide-angle shot of a massive Soviet-era warship
+  (cruiser or destroyer) being actively dismantled in a Swedish shipbreaking yard.
+  Sparks fly, cranes are visible, and piles of scrap metal are in the foreground.
+  The lighting is harsh and industrial, with a sense of melancholy and obsolescence.
+  16:9 widescreen cinematic composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: shipbreaking yard

@@ -1,0 +1,16 @@
+id: 010_scene_10
+index: 10
+title: 第 10 幕
+narration: 這張照片，第二天便登上了世界各大報紙的頭版. 百事可樂藉此，在蘇聯獲得了巨大的免費宣傳. 肯德爾也因此聲名大噪，僅六年後，便晉升為百事公司的執行長.
+image_prompt: A Q-version 2D cartoon illustration in a split panel. On one side, a
+  stylized Q-version newspaper front page features a cartoon image of Khrushchev drinking
+  Pepsi. On the other side, Donald Kendall, looking even more confident and successful,
+  stands proudly next to a large, stylized Pepsi logo, subtly indicating his promotion
+  to CEO. The overall style is vibrant and clean. 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

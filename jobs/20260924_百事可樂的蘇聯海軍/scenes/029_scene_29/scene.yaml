@@ -1,0 +1,32 @@
+id: 029_scene_29
+index: 29
+title: 第 29 幕
+narration: 也讓百事可樂，在蘇聯擴大了生產線，並增加了，新的油輪來運輸貨物. 這是一個，充滿冷戰色彩的，荒謬又傳奇的故事 [sigh].
+image_prompt: A modern Pepsi bottling plant, part of a sleek, retro-futuristic Pepsi
+  bottle, gleaming under a spotlight, in full operation in the Soviet Union, with
+  new oil tankers, part of a stern, powerful Soviet leader with a knowing gaze, loading
+  product in the foreground. The background features subtle, iconic Cold War-era architecture,
+  creating a surreal blend of commerce and geopolitics. The scene is bathed in a moody,
+  high-contrast cinematic lighting palette, with deep shadows and dramatic volumetric
+  light, evoking a sense of Cold War tension and historical significance. The background
+  features subtle, atmospheric elements like a faint haze or distant, blurred industrial
+  structures, all composed in a 16:9 widescreen aspect ratio, with a dramatic, almost
+  theatrical lighting, highlighting the absurdity and legend. Wide-angle establishing
+  shot.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  scale: 0.24
+  border: 5
+  query: Pepsi oil tanker
+  source_title: null
+  source_url: null
+  mode: spotlight

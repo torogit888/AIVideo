@@ -46,6 +46,12 @@ class JobDetail(BaseModel):
     preview_html_url: Optional[str] = None
 
 
+class CharacterAnchorInput(BaseModel):
+    id: Optional[str] = None
+    name: str
+    appearance: str = ""
+
+
 class CreateJobRequest(BaseModel):
     topic: str
     slug: Optional[str] = None
@@ -55,6 +61,9 @@ class CreateJobRequest(BaseModel):
     style_id: str = "future_workplace"
     visual_pacing: str = Field(default="balanced", description="視覺換鏡節奏: fast, balanced, slow")
     lines_per_scene: Optional[int] = Field(default=None, ge=1, le=5)
+    subject_anchor: Optional[str] = Field(default=None, description="主體外觀特徵錨點（多人時為彙總字串）")
+    environment_anchor: Optional[str] = Field(default=None, description="環境與光影基調錨點")
+    characters: Optional[List[CharacterAnchorInput]] = Field(default=None, description="每人獨立外觀錨點")
 
 
 class UpdateJobRequest(BaseModel):
@@ -64,25 +73,91 @@ class UpdateJobRequest(BaseModel):
 
 
 # ==========================================
+# 視覺一致性與定裝參考 (Visual Continuity)
+# ==========================================
+class AnalyzeAnchorsRequest(BaseModel):
+    topic: str
+    script: str
+    style_id: Optional[str] = Field(default=None, description="專案選擇的生圖風格，分析時鎖定畫風")
+
+
+class CharacterAnchorDraft(BaseModel):
+    id: str
+    name: str
+    appearance: str = ""
+
+
+class AnalyzeAnchorsResponse(BaseModel):
+    subject_anchor: str
+    environment_anchor: str
+    characters: List[CharacterAnchorDraft] = Field(default_factory=list)
+
+
+class CharacterAnchor(BaseModel):
+    id: str
+    name: str
+    appearance: str = ""
+    has_image: bool = False
+    image_url: Optional[str] = None
+
+
+class JobVisualAnchorsResponse(BaseModel):
+    subject: str = ""
+    environment: str = ""
+    use_image_reference: bool = True
+    has_hero_image: bool = False
+    hero_image_url: Optional[str] = None
+    characters: List[CharacterAnchor] = Field(default_factory=list)
+
+
+class UpdateVisualAnchorsRequest(BaseModel):
+    subject: Optional[str] = None
+    environment: Optional[str] = None
+    use_image_reference: Optional[bool] = None
+    characters: Optional[List[CharacterAnchorInput]] = None
+
+
+class AddCharacterRequest(BaseModel):
+    name: str
+    appearance: str = ""
+
+
+class PatchCharacterRequest(BaseModel):
+    name: Optional[str] = None
+    appearance: Optional[str] = None
+
+
+class GenerateHeroAnchorResponse(BaseModel):
+    success: bool
+    message: str
+    hero_image_url: str = ""
+    generated_count: int = 0
+
+
+# ==========================================
 # 分鏡 (Scene)
 # ==========================================
 class SceneStatus(BaseModel):
     has_image: bool = False
     has_audio: bool = False
+    has_pip: bool = False
     image_url: Optional[str] = None
     audio_url: Optional[str] = None
+    pip_url: Optional[str] = None
     duration: float = 0.0
 
 
 class ScenePipConfig(BaseModel):
     enabled: bool = False
     image: Optional[str] = None
-    position: str = "top-right"
-    scale: float = 0.35
-    border: int = 8
+    position: str = "right-center"
+    mode: str = "pip"
+    scale: float = 0.24
+    border: int = 5
     query: Optional[str] = None
     source_title: Optional[str] = None
     source_url: Optional[str] = None
+    fetch_error: Optional[str] = None
 
 
 class SceneSummary(BaseModel):
@@ -90,6 +165,10 @@ class SceneSummary(BaseModel):
     index: int
     title: str
     narration: str
+    pip_query: Optional[str] = None
+    has_pip: bool = False
+    pip_mode: str = "pip"
+    pip_error: Optional[str] = None
     status: SceneStatus
 
 
@@ -142,6 +221,7 @@ class PipelineRunRequest(BaseModel):
     force: bool = False
     only_missing: bool = True
     scene_id: Optional[str] = None
+    burn_subtitles: Optional[bool] = Field(default=None, description="是否燒錄 ASS 字幕至成片畫面（None 表示依專案 job.yaml 設定，預設不燒錄）")
 
 
 class PipelineStatusResponse(BaseModel):

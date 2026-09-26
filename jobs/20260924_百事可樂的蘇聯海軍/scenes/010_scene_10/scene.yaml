@@ -1,0 +1,24 @@
+id: 010_scene_10
+index: 10
+title: 第 10 幕
+narration: 百事可樂提供濃縮原漿，在蘇聯設廠生產. 而蘇聯方面，則用他們引以為傲的伏特加，來支付可樂的費用. 百事可樂，因此獲得了蘇聯伏特加在美國的獨家代理權.
+image_prompt: 'A visual metaphor: a vintage industrial Pepsi syrup container (barrel
+  or large jug) on one side, juxtaposed with several iconic Soviet vodka bottles (e.g.,
+  Stolichnaya) on the other. A stark, high-contrast lighting scheme, perhaps with
+  subtle red and blue color palettes representing the two nations, emphasizing the
+  exchange. 16:9 widescreen cinematic composition.'
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Stolichnaya Vodka bottle vintage

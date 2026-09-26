@@ -1,0 +1,16 @@
+id: 033_scene_33
+index: 33
+title: 第 33 幕
+narration: 各位觀眾，你對這個故事，有什麼看法呢 [question-ei]？ 歡迎在評論區，留下你的精彩留言 [confirmation-en].
+image_prompt: A Q-version 2D cartoon illustration. A friendly, inviting Q-version
+  character, with an open, questioning expression, is gesturing towards a stylized
+  'comment section' or 'speech bubble' area. The background is simple and engaging,
+  perhaps with subtle, abstract elements from the story like a Pepsi bottle or a tiny
+  ship. Medium close-up on the character, inviting interaction, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

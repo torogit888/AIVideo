@@ -1,0 +1,16 @@
+id: 017_scene_17
+index: 17
+title: 第 17 幕
+narration: 蘇聯的經濟狀況，日益惡化. 他們已經無法，提供足夠的伏特加，來支付日益增長的可樂費用. 百事公司，需要一種新的支付方式 [question-ei]？
+image_prompt: A Q-version 2D cartoon illustration of a large, worried-looking Donald
+  Kendall. He is looking at a very small, almost empty vodka bottle, while a huge
+  stack of Pepsi bottles looms in the background. A stylized, cracked or crumbling
+  Soviet hammer and sickle symbol in the background hints at economic decline. Kendall
+  has a thoughtful, problem-solving expression. Medium shot, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

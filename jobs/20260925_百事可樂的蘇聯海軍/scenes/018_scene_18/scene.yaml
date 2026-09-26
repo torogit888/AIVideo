@@ -1,0 +1,18 @@
+id: 018_scene_18
+index: 18
+title: 第 18 幕
+narration: 此時，肯德爾又一次，創造了歷史 [confirmation-en]. 一九八九年，百事公司與蘇聯政府，簽署了一份，價值高達三十億美元的協議.
+  這一次，蘇聯用來交換百事可樂的，竟然是他們的，退役軍艦 [surprise-wa].
+image_prompt: A Q-version 2D cartoon illustration. Donald Kendall, with a bold and
+  visionary expression, is shaking hands with a Soviet official. In the background,
+  instead of vodka, there are stylized silhouettes or simplified outlines of Q-version
+  Soviet naval vessels (submarines, surface ships), hinting at the new, surprising
+  form of payment. A stylized '1989' is subtly visible as a visual element. Medium
+  shot, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

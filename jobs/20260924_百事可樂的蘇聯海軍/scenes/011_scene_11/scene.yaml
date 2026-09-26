@@ -1,0 +1,18 @@
+id: 011_scene_11
+index: 11
+title: 第 11 幕
+narration: 這項交易，在當時震驚了世界 [surprise-ah]. 百事可樂，成為了第一個，成功打入蘇聯市場的西方消費品牌. 在七零年代，百事可樂在蘇聯的銷量，一度遙遙領先可口可樂.
+  蘇聯人民對這種資本主義的甜水，展現出了超乎想像的熱愛.
+image_prompt: A vibrant, almost surreal image of Soviet citizens (period-accurate
+  attire, 1970s) eagerly queuing or enjoying Pepsi in a vast, sparsely populated public
+  square in front of imposing, brutalist Soviet architecture. The Pepsi logo and red,
+  white, and blue colors stand out vividly against the muted Soviet backdrop, with
+  bright, almost celebratory lighting on the people and the product. 16:9 widescreen
+  cinematic composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

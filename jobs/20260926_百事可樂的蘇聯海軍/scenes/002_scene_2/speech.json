@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260926T150208",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.96,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "要理解這段傳奇，我們得把時間撥回到，一九五九年的莫斯科， 那時，美蘇冷戰正酣，兩大陣營劍拔弩張，卻也偶有緩和， 美國在莫斯科舉辦了一場國家展覽會，旨在展示美國的資本主義生活方式，",
+      "text_cn": "要理解这段传奇，我们得把时间拨回到，一九五九年的莫斯科， 那时，美苏冷战正酣，两大阵营剑拔弩张，却也偶有缓和， 美国在莫斯科举办了一场国家展览会，旨在展示美国的资本主义生活方式，",
+      "start_sec": 0.0,
+      "end_sec": 13.96,
+      "duration_sec": 13.96
+    }
+  ],
+  "created_at": "2026-09-26T15:02:08.882274+00:00"
+}

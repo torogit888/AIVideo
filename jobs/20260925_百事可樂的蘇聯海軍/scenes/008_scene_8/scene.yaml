@@ -1,0 +1,16 @@
+id: 008_scene_8
+index: 8
+title: 第 8 幕
+narration: 赫魯雪夫接過可樂，先是聞了聞，然後一飲而盡. 他評價這飲料不難喝，有點像鞋蠟的味道.
+image_prompt: A Q-version 2D cartoon illustration of Nikita Khrushchev, the Soviet
+  leader, in a close-up. He holds a glass of Pepsi, with a large, round, bald head,
+  exaggerated bushy eyebrows, and a wide, expressive mouth, perhaps mid-sip or just
+  finished. His eyes are large, friendly yet firm, conveying a mix of curiosity and
+  slight surprise. Close-up on his face and upper body, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

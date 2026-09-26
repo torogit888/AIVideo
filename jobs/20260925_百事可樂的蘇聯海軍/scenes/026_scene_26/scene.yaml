@@ -1,0 +1,26 @@
+id: 026_scene_26
+index: 26
+title: 第 26 幕
+narration: 然而，好景不長 [sigh]. 一九九一年，蘇聯解體. 這對百事可樂在蘇聯的業務，造成了巨大的衝擊. 隨之而來的混亂與重組，讓百事公司，不得不重新評估其投資.
+image_prompt: A Q-version 2D cartoon illustration. A Q-version Pepsi bottle looks
+  worried or sad, standing amidst a crumbling, stylized Soviet Union map or symbol.
+  Cracks appear in the ground, representing the dissolution. The atmosphere is slightly
+  chaotic but still in the clean cartoon style. A stylized '1991' is subtly visible
+  as a visual element. Medium shot, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Dissolution of Soviet Union 1991
+  source_title: File:1991 Events montage 16-grid version.jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/6/6d/1991_Events_montage_16-grid_version.jpg

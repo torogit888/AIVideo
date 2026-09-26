@@ -1,0 +1,31 @@
+id: 034_scene_34
+index: 34
+title: 第 34 幕
+narration: 結束了百事可樂，在蘇聯市場，獨佔鰲頭的好日子. 可口可樂，在短時間內，銷量便超越了百事.
+image_prompt: A vintage-style scoreboard, part of a stern, powerful Soviet leader
+  with a knowing gaze, showing "Pepsi" being dramatically overtaken by "Coca-Cola"
+  in sales figures. A retro sleek, retro-futuristic Pepsi bottle, gleaming under a
+  spotlight, looks dejected in the foreground, while a triumphant Coca-Cola bottle,
+  part of a sleek, retro-futuristic Pepsi bottle, gleaming under a spotlight, stands
+  tall. The scene is bathed in a moody, high-contrast cinematic lighting palette,
+  with deep shadows and dramatic volumetric light, evoking a sense of Cold War tension
+  and historical significance. The background features subtle, atmospheric elements
+  like a faint haze or distant, blurred industrial structures, all composed in a 16:9
+  widescreen aspect ratio, with a shift from bright, celebratory light to a more subdued,
+  defeated tone. Cinematic close-up.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: top-right
+  scale: 0.24
+  border: 5
+  query: null
+  source_title: null
+  source_url: null

@@ -3,6 +3,7 @@ from __future__ import annotations
 import io
 import json
 import re
+import time
 import urllib.parse
 from pathlib import Path
 from PIL import Image
@@ -188,8 +189,243 @@ def search_all_source_candidates(query: str, limit: int = 6) -> list[dict[str, o
 
 def search_multi_source_image(query: str) -> dict[str, object] | None:
     """自動為 Auto-PiP 挑選最佳匹配的真實考據照片（級聯多來源聚合）。"""
-    cands = search_all_source_candidates(query, limit=3)
+    cands = search_all_source_candidates(query, limit=6)
     return cands[0] if cands else None
+
+
+def _pip_cfg(scfg: dict) -> dict:
+    pip = scfg.get("pip")
+    return pip if isinstance(pip, dict) else {}
+
+
+def read_scene_pip_query(scene_dir: Path) -> str | None:
+    """只讀建案時寫入的考據詞，不再現場補判。"""
+    s_yaml_p = scene_dir / "scene.yaml"
+    if not s_yaml_p.is_file():
+        return None
+    try:
+        scfg = yaml.safe_load(s_yaml_p.read_text(encoding="utf-8")) or {}
+    except Exception:
+        return None
+    q = str(_pip_cfg(scfg).get("query") or "").strip()
+    return q or None
+
+
+def _download_image_bytes(img_url: str) -> bytes | None:
+    for attempt in range(1, 4):
+        try:
+            r = requests.get(img_url, headers=WIKIMEDIA_HEADERS, timeout=20)
+            if r.status_code == 429 and attempt < 3:
+                time.sleep(2.0 * attempt)
+                continue
+            if r.status_code == 200 and r.content:
+                return r.content
+            print(f"[warn] 考據圖下載 HTTP {r.status_code}：{img_url}")
+        except Exception as exc:
+            print(f"[warn] 考據圖下載失敗（第 {attempt} 次）：{exc}")
+            if attempt < 3:
+                time.sleep(1.5 * attempt)
+    return None
+
+
+def mark_scene_pip_error(scene_dir: Path, message: str, query: str | None = None) -> None:
+    """把考據失敗寫進該幕 scene.yaml，供分鏡卡片 tag 顯示。"""
+    s_yaml_p = scene_dir / "scene.yaml"
+    if not s_yaml_p.is_file():
+        return
+    try:
+        scfg = yaml.safe_load(s_yaml_p.read_text(encoding="utf-8")) or {}
+    except Exception:
+        return
+    prev = _pip_cfg(scfg)
+    q = (query or prev.get("query") or "").strip()
+    scfg["pip"] = {
+        **prev,
+        "enabled": False,
+        "query": q or prev.get("query"),
+        "fetch_error": str(message).strip()[:240],
+    }
+    s_yaml_p.write_text(yaml.safe_dump(scfg, allow_unicode=True, sort_keys=False), encoding="utf-8")
+
+
+def _write_pip_yaml(scene_dir: Path, scfg: dict, query: str, result: dict[str, object], enabled: bool) -> None:
+    s_yaml_p = scene_dir / "scene.yaml"
+    chosen_mode = _pip_cfg(scfg).get("mode") or infer_pip_mode(query, str(scfg.get("narration", "")))
+    prev = _pip_cfg(scfg)
+    scfg["pip"] = {
+        "enabled": enabled,
+        "image": "pip.png",
+        "position": prev.get("position", "right-center"),
+        "mode": chosen_mode,
+        "scale": prev.get("scale", 0.24),
+        "border": prev.get("border", 5),
+        "query": query,
+        "source_title": result.get("title", "") if result else prev.get("source_title", ""),
+        "source_url": result.get("url", "") if result else prev.get("source_url", ""),
+    }
+    scfg["pip"].pop("fetch_error", None)
+    s_yaml_p.write_text(yaml.safe_dump(scfg, allow_unicode=True, sort_keys=False), encoding="utf-8")
+
+
+def ensure_scene_pip_query(scene_dir: Path) -> str | None:
+    """讀取既有考據檢索詞；沒有的話依本幕旁白補判一次。"""
+    s_yaml_p = scene_dir / "scene.yaml"
+    if not s_yaml_p.is_file():
+        return None
+    scfg = yaml.safe_load(s_yaml_p.read_text(encoding="utf-8")) or {}
+    q = str(_pip_cfg(scfg).get("query") or "").strip()
+    if q:
+        return q
+
+    narration = str(scfg.get("narration") or "").strip()
+    if not narration:
+        return None
+
+    try:
+        from aivideo.story_generator import batch_detect_pip_queries
+
+        detected = batch_detect_pip_queries([narration])
+        q = str(detected[0]).strip() if detected and detected[0] else ""
+    except Exception as exc:
+        print(f"[warn] 【{scene_dir.name}】補判考據詞失敗: {exc}")
+        q = ""
+
+    if not q:
+        return None
+
+    prev = _pip_cfg(scfg)
+    scfg["pip"] = {
+        **prev,
+        "enabled": bool(prev.get("enabled", False)),
+        "image": prev.get("image", "pip.png"),
+        "position": prev.get("position", "right-center"),
+        "mode": prev.get("mode") or infer_pip_mode(q, narration),
+        "scale": prev.get("scale", 0.24),
+        "border": prev.get("border", 5),
+        "query": q,
+    }
+    s_yaml_p.write_text(yaml.safe_dump(scfg, allow_unicode=True, sort_keys=False), encoding="utf-8")
+    print(f"[info] 【{scene_dir.name}】補上考據檢索詞：{q}")
+    return q
+
+
+def backfill_missing_pip_queries(job_dir: Path) -> int:
+    """一鍵全流程開始前，為尚無 query 的分鏡一次補上考據詞（不覆蓋已有的）。"""
+    scenes_dir = job_dir / "scenes"
+    if not scenes_dir.is_dir():
+        return 0
+
+    missing: list[Path] = []
+    for s_dir in sorted(p for p in scenes_dir.iterdir() if p.is_dir()):
+        s_yaml_p = s_dir / "scene.yaml"
+        if not s_yaml_p.is_file() or (s_dir / "pip.png").is_file():
+            continue
+        scfg = yaml.safe_load(s_yaml_p.read_text(encoding="utf-8")) or {}
+        if not str(_pip_cfg(scfg).get("query") or "").strip():
+            missing.append(s_dir)
+
+    if not missing:
+        return 0
+
+    detected = auto_detect_scene_reference_entities(job_dir)
+    filled = 0
+    for s_dir in missing:
+        q = detected.get(s_dir.name)
+        if not q:
+            continue
+        s_yaml_p = s_dir / "scene.yaml"
+        scfg = yaml.safe_load(s_yaml_p.read_text(encoding="utf-8")) or {}
+        prev = _pip_cfg(scfg)
+        scfg["pip"] = {
+            **prev,
+            "enabled": False,
+            "image": prev.get("image", "pip.png"),
+            "position": prev.get("position", "right-center"),
+            "mode": prev.get("mode") or infer_pip_mode(q, str(scfg.get("narration", ""))),
+            "scale": prev.get("scale", 0.24),
+            "border": prev.get("border", 5),
+            "query": q,
+        }
+        s_yaml_p.write_text(yaml.safe_dump(scfg, allow_unicode=True, sort_keys=False), encoding="utf-8")
+        filled += 1
+    if filled:
+        print(f"[info] 已為 {filled} 場尚無考據詞的分鏡補上檢索詞")
+    return filled
+
+
+def infer_pip_mode(query: str | None, narration: str = "") -> str:
+    """
+    AI 智能決策判定器：自動判定考據圖應採用「黑底歷史聚焦 (spotlight)」還是「畫中畫小卡 (pip)」：
+    - 歷史重大轉折、協議簽字、震撼名場面、世界地圖、政權解體：自動判為 spotlight（黑底慢推浮現）
+    - 人物肖像、裝備載具、建築工廠、貨幣或一般物品：自動判為 pip（右半部置中畫中畫）
+    """
+    if not query:
+        return "pip"
+
+    q_lower = query.lower()
+    narr_lower = narration.lower()
+
+    # 關鍵名場面與歷史轉折特徵詞
+    spotlight_query_keywords = (
+        "signing", "agreement", "treaty", "summit", "exhibition", "collapse",
+        "fall", "revolution", "protest", "crisis", "map", "document", "historic",
+        "cold war", "iron curtain", "drinking pepsi photo", "famous photo", "ceremony",
+    )
+    spotlight_narr_keywords = (
+        "簽約", "協議", "合約", "簽署", "展覽會", "解體", "倒塌", "冷戰", "鐵幕",
+        "歷史性的", "名場面", "震撼", "反轉", "條約", "宣言", "地圖", "合影", "照片",
+    )
+
+    if any(k in q_lower for k in spotlight_query_keywords) or any(k in narr_lower for k in spotlight_narr_keywords):
+        return "spotlight"
+
+    return "pip"
+
+
+def fetch_single_scene_pip(scene_dir: Path, query: str | None = None) -> bool:
+    """為單一分鏡檢索並下載真實考據照片 (pip.png)。多來源、多候選、下載失敗會改試下一張。"""
+    s_yaml_p = scene_dir / "scene.yaml"
+    if not s_yaml_p.is_file():
+        return False
+
+    scfg = yaml.safe_load(s_yaml_p.read_text(encoding="utf-8")) or {}
+    q = str(query or _pip_cfg(scfg).get("query") or "").strip()
+    if not q:
+        print(f"[skip] 【{scene_dir.name}】本幕無需考據圖")
+        return False
+
+    candidates = search_all_source_candidates(q, limit=6)
+    if not candidates:
+        print(f"[skip] 【{scene_dir.name}】未檢索到合適考據照片：{q}")
+        mark_scene_pip_error(scene_dir, "未找到合適照片", q)
+        return False
+
+    last_err = None
+    for i, result in enumerate(candidates, 1):
+        raw_url = str(result.get("url", ""))
+        img_url = raw_url.split("?")[0] if raw_url else ""
+        if not img_url:
+            continue
+        try:
+            content = _download_image_bytes(img_url)
+            if not content:
+                last_err = f"無法下載候選 {i}"
+                continue
+            img = Image.open(io.BytesIO(content)).convert("RGBA")
+            img.thumbnail((1600, 1600), Image.Resampling.LANCZOS)
+            img.save(scene_dir / "pip.png", "PNG")
+            result = {**result, "url": img_url}
+            _write_pip_yaml(scene_dir, scfg, q, result, enabled=True)
+            print(f"[ok]   【{scene_dir.name}】成功下載考據圖：{q} -> {result.get('title')}")
+            return True
+        except Exception as e:
+            last_err = e
+            print(f"[warn] 【{scene_dir.name}】候選 {i}/{len(candidates)} 失敗: {e}，改試下一張")
+            continue
+
+    print(f"[skip] 【{scene_dir.name}】所有考據來源皆失敗：{q} ({last_err})")
+    mark_scene_pip_error(scene_dir, f"下載失敗：{last_err}" if last_err else "所有來源皆失敗", q)
+    return False
 
 
 def auto_detect_scene_reference_entities(job_dir: Path) -> dict[str, str]:
@@ -287,19 +523,26 @@ def auto_fetch_and_apply_pip(job_dir: Path, progress_callback=None, check_contro
         s_yaml_p = s_dir / "scene.yaml"
         if s_yaml_p.is_file():
             try:
-                with open(s_yaml_p, "r", encoding="utf-8") as yf:
-                    scfg = yaml.safe_load(yf) or {}
-                q = scfg.get("pip", {}).get("query")
-                if q and str(q).strip():
-                    entity_map[s_dir.name] = str(q).strip()
+                scfg = yaml.safe_load(s_yaml_p.read_text(encoding="utf-8")) or {}
+                q = str(_pip_cfg(scfg).get("query") or "").strip()
+                if q:
+                    entity_map[s_dir.name] = q
             except Exception:
                 pass
 
-    # 2. 若分鏡尚無預置 query（例如早期專案），自動呼叫 Gemini 進行全片實體分析
+    # 2. 全片都沒有預置 query（舊專案）才補判一次；已有選擇性標註的專案不再逐幕加詞
     if not entity_map:
         if progress_callback:
             progress_callback(0, 1, "正在以 AI 檢索全片口白實體名詞與考據需求...")
-        entity_map = auto_detect_scene_reference_entities(job_dir)
+        backfill_missing_pip_queries(job_dir)
+        for s_dir in scene_folders:
+            s_yaml_p = s_dir / "scene.yaml"
+            if not s_yaml_p.is_file():
+                continue
+            scfg = yaml.safe_load(s_yaml_p.read_text(encoding="utf-8")) or {}
+            q = str(_pip_cfg(scfg).get("query") or "").strip()
+            if q:
+                entity_map[s_dir.name] = q
 
     if not entity_map:
         if progress_callback:
@@ -308,9 +551,6 @@ def auto_fetch_and_apply_pip(job_dir: Path, progress_callback=None, check_contro
 
     total_matched = len(entity_map)
     applied_count = 0
-
-    from PIL import Image
-    import io
 
     for idx, (s_id, query) in enumerate(entity_map.items(), 1):
         s_dir = scenes_dir / s_id
@@ -321,70 +561,30 @@ def auto_fetch_and_apply_pip(job_dir: Path, progress_callback=None, check_contro
             print(f"[stop] 收到中止指令，停止考據配圖")
             break
 
-        s_yaml_p = s_dir / "scene.yaml"
-        if not s_yaml_p.is_file():
+        if (s_dir / "pip.png").is_file():
+            applied_count += 1
+            if progress_callback:
+                progress_callback(idx, total_matched, f"【{s_id}】已有考據圖，略過下載", s_dir=s_dir)
             continue
 
         if progress_callback:
             progress_callback(idx, total_matched, f"正在多來源檢索【{s_id}】：{query} ...", s_dir=s_dir)
 
-        # 跨來源智慧檢索真實考據圖 (NASA 官方庫、維基共享資源、維基百科中英條目)
-        result = search_multi_source_image(query)
-        if not result:
-            print(f"[skip] 【{s_id}】多來源未匹配到合適真實照片：{query}")
-            continue
-
-        raw_url = str(result.get("url", ""))
-        img_url = raw_url.split("?")[0] if raw_url else ""
-        if not img_url:
-            continue
-
         try:
-            r = None
-            for dl_attempt in range(1, 4):
-                r = requests.get(img_url, headers=WIKIMEDIA_HEADERS, timeout=20)
-                if r.status_code == 429 and dl_attempt < 3:
-                    import time
-                    time.sleep(2.0 * dl_attempt)
-                    continue
-                break
-
-            if r is None or r.status_code != 200:
-                code = r.status_code if r is not None else "None"
-                print(f"[warn] 【{s_id}】圖片下載失敗 HTTP {code}：{img_url}")
-                continue
-
-            pip_p = s_dir / "pip.png"
-            img = Image.open(io.BytesIO(r.content)).convert("RGBA")
-            img.thumbnail((1600, 1600), Image.Resampling.LANCZOS)
-            img.save(pip_p, "PNG")
-
-            # 更新 scene.yaml
-            with open(s_yaml_p, "r", encoding="utf-8") as yf:
-                scfg = yaml.safe_load(yf) or {}
-
-            scfg["pip"] = {
-                "enabled": True,
-                "image": "pip.png",
-                "position": "top-right",
-                "scale": 0.35,
-                "border": 8,
-                "query": query,
-                "source_title": result.get("title", ""),
-                "source_url": img_url,
-            }
-            with open(s_yaml_p, "w", encoding="utf-8") as yf:
-                yaml.safe_dump(scfg, yf, allow_unicode=True, sort_keys=False)
-
-            applied_count += 1
-            print(f"[ok]   【{s_id}】已成功掛載考據圖：{query} -> {result.get('title')}")
-            if progress_callback:
-                progress_callback(idx, total_matched, f"✅ 已為【{s_id}】套用考據圖：{query}", s_dir=s_dir)
-
-            import time
-            time.sleep(1.0)  # 考據圖下載間隔微延遲
+            if fetch_single_scene_pip(s_dir, query):
+                applied_count += 1
+                if progress_callback:
+                    progress_callback(idx, total_matched, f"✅ 已為【{s_id}】套用考據圖：{query}", s_dir=s_dir)
+                time.sleep(1.0)
+            else:
+                mark_scene_pip_error(s_dir, "未找到合適照片", query)
+                if progress_callback:
+                    progress_callback(idx, total_matched, f"⚠️ 【{s_id}】未找到考據圖，繼續下一幕", s_dir=s_dir)
         except Exception as exc:
             print(f"[warn] 【{s_id}】考據圖處理失敗: {exc}")
+            mark_scene_pip_error(s_dir, str(exc), query)
+            if progress_callback:
+                progress_callback(idx, total_matched, f"⚠️ 【{s_id}】考據失敗，繼續下一幕", s_dir=s_dir)
             continue
 
     return applied_count

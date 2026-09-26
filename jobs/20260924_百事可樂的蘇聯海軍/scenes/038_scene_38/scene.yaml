@@ -1,0 +1,32 @@
+id: 038_scene_38
+index: 38
+title: 第 38 幕
+narration: 但百事可樂，用可樂換軍艦的傳奇，卻永遠，被載入了史冊 [confirmation-en]. 這不僅是商業的勝利，更是人類歷史上，一次，不可思議的，文化與政治的，奇妙交鋒
+  [surprise-oh].
+image_prompt: An ancient, open history book, part of a stern, powerful Soviet leader
+  with a knowing gaze, with illuminated pages. On one page, a retro sleek, retro-futuristic
+  Pepsi bottle, gleaming under a spotlight, is intricately drawn next to a powerful
+  imposing, weathered Soviet naval vessel, symbolizing the legendary trade. Subtle,
+  glowing lines connect them, representing cultural and political exchange. The scene
+  is bathed in a moody, high-contrast cinematic lighting palette, with deep shadows
+  and dramatic volumetric light, evoking a sense of Cold War tension and historical
+  significance. The background features subtle, atmospheric elements like a faint
+  haze or distant, blurred industrial structures, all composed in a 16:9 widescreen
+  aspect ratio, with a warm, reverent lighting, emphasizing historical significance.
+  Cinematic close-up.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: top-right
+  scale: 0.24
+  border: 5
+  query: null
+  source_title: null
+  source_url: null

@@ -1,0 +1,18 @@
+id: 001_scene_1
+index: 1
+title: 第 1 幕
+narration: 百事可樂，這個看似普通的氣泡飲料品牌，在冷戰時期，竟然搖身一變，成為了世界第六大海軍力量，你敢相信嗎？ [surprise-wa] 這不是天方夜譚，而是真實發生過的歷史，一筆用可樂換軍艦的驚天交易，
+image_prompt: A whimsical Q版 2D 卡通插畫 wide shot, depicting a giant, cheerful Pepsi
+  bottle in the foreground, comically towering over a fleet of stylized, small Q-version
+  warships sailing on a simplified blue ocean. In the background, a subtle, stylized
+  representation of a divided world map, hinting at the Cold War era, rendered with
+  flat, bold colors. The overall composition is bright and playful, emphasizing the
+  surprising scale of the "cola for warships" concept. Uniformly bright and soft lighting,
+  no harsh shadows. 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260926T150127
+  image_take: image_20260926T150117

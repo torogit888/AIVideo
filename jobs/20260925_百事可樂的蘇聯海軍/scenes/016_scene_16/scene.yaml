@@ -1,0 +1,16 @@
+id: 016_scene_16
+index: 16
+title: 第 16 幕
+narration: 然而，隨著時間推移，到了八零年代末期，問題再次浮現 [sigh]. 百事可樂在蘇聯的銷量，持續攀升. 但伏特加的供應，卻開始出現疲軟.
+image_prompt: A Q-version 2D cartoon illustration. On one side, a large, overflowing
+  Pepsi bottle represents increasing sales. On the other side, a smaller, almost empty
+  vodka bottle, perhaps sweating or looking tired, represents dwindling supply. A
+  stylized calendar visually indicating the late 1980s is subtly integrated into the
+  background. Medium shot, contrasting the two elements, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

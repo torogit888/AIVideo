@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20260926T150233",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-2.5-flash-image",
+  "seed": 68249875,
+  "prompt": "A clean, vibrant 2D cartoon illustration with cute, Chibi-proportioned characters. This style features defined linework and cell-shading with minimal texture. The compositions are often structured like game menus or split-screen views. Use a balanced, slightly desaturated but still cheerful color palette. Elements like machinery are simplified but detailed, characters have large, expressive eyes and simple faces. Perfect for UI elements or narrative cutscenes in a mobile game or webcomic.16:9 橫式構圖，A Q版 2D 卡通插畫 medium shot featuring Donald Kendall, with his large, round, cheerful face, wide, sparkling black dot eyes, and broad, confident smile. His light brown hair is neatly combed, and he wears a crisp dark blue business suit with a bright white shirt and red tie. He stands confidently amidst a simplified display of stylized Pepsi bottles at the American National Exhibition in Moscow, 1959. The background shows parts of the exhibition hall with bright, flat colors and bold outlines. His expression conveys ambition and intelligence. Uniformly bright and soft lighting, no harsh shadows. 16:9 widescreen.",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-09-26T15:02:33.698666+00:00"
+}

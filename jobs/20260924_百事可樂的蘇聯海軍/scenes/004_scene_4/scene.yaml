@@ -1,0 +1,17 @@
+id: 004_scene_4
+index: 4
+title: 第 4 幕
+narration: 他找到了當時的美國副總統，理查德·尼克森，請求他的幫助， 尼克森與肯德爾私交甚篤，曾經還是百事可樂的律師顧問. 在肯德爾的懇求下，尼克森答應了這個看似荒唐的請求.
+image_prompt: A medium shot of Donald Kendall (young man, 1959), impeccably dressed,
+  leaning slightly forward, speaking earnestly to Richard Nixon, who is in a formal,
+  conservative suit and tie, with a thoughtful, somewhat stern expression. They are
+  in a slightly secluded, well-lit area of the American exhibition, perhaps near a
+  modern appliance display, with soft, directional lighting. 16:9 widescreen cinematic
+  composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

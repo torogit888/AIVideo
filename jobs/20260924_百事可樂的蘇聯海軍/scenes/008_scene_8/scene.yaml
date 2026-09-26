@@ -1,0 +1,16 @@
+id: 008_scene_8
+index: 8
+title: 第 8 幕
+narration: 然而，問題來了，蘇聯的盧布，在國際市場上，幾乎沒有價值. 蘇聯法律，也禁止貨幣外流. 那麼，百事可樂要如何在蘇聯，進行貿易呢 [question-ei]？
+image_prompt: A stark, utilitarian shot of a stack of old, worn, and faded Soviet
+  rubles lying on a rough, grey concrete surface. The background is blurred, hinting
+  at imposing, brutalist Soviet architecture. The lighting is dim and cold, casting
+  deep shadows, emphasizing the lack of value and the economic challenge. 16:9 widescreen
+  cinematic composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

@@ -1,0 +1,24 @@
+id: 001_scene_1
+index: 1
+title: 第 1 幕
+narration: 百事可樂，這個看似普通的氣泡飲料品牌，在冷戰時期，竟然搖身一變，成為了世界第六大海軍力量，你敢相信嗎？ [surprise-wa] 這不是天方夜譚，而是真實發生過的歷史，一筆用可樂換軍艦的驚天交易，
+image_prompt: A dramatic, high-contrast image showing a vintage Pepsi bottle or logo
+  prominently displayed, juxtaposed with the powerful, dark silhouette of a Soviet-era
+  warship (submarine or cruiser) against a stormy, Cold War sky. Volumetric light
+  pierces through the clouds, emphasizing the stark contrast and the absurd premise.
+  16:9 widescreen cinematic composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Pepsi-Cola logo

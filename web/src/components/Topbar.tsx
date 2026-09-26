@@ -4,6 +4,39 @@ import { useStudioStore } from "../store";
 import { api } from "../api";
 import { AI_TEXT_MODELS } from "../types";
 
+const CooldownRing: React.FC<{ remaining: number; total: number }> = ({ remaining, total }) => {
+  const size = 32;
+  const stroke = 3;
+  const r = (size - stroke) / 2;
+  const circ = 2 * Math.PI * r;
+  const pct = Math.min(1, remaining / Math.max(1, total));
+  return (
+    <div className="relative shrink-0" style={{ width: size, height: size }} title={`冷卻 ${remaining}`}>
+      <svg width={size} height={size} className="-rotate-90">
+        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="#2A2A30" strokeWidth={stroke} />
+        <circle
+          cx={size / 2}
+          cy={size / 2}
+          r={r}
+          fill="none"
+          stroke="#E8B86D"
+          strokeWidth={stroke}
+          strokeLinecap="round"
+          strokeDasharray={circ}
+          strokeDashoffset={circ * (1 - pct)}
+        />
+      </svg>
+      <div
+        className="absolute inset-[3px] rounded-full border-2 border-transparent border-t-amber-cta animate-spin"
+        style={{ animationDuration: "0.9s" }}
+      />
+      <span className="absolute inset-0 flex items-center justify-center text-[11px] font-bold font-mono text-amber-cta leading-none">
+        {remaining}
+      </span>
+    </div>
+  );
+};
+
 export const Topbar: React.FC = () => {
   const {
     jobs,
@@ -14,6 +47,8 @@ export const Topbar: React.FC = () => {
     isPipelineRunning,
     pipelineProgress,
     pipelineMessage,
+    pipelineCooldown,
+    pipelineCooldownTotal,
     setPipelineRunning,
     setTab,
     showToast,
@@ -22,9 +57,19 @@ export const Topbar: React.FC = () => {
   } = useStudioStore();
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isServerOnline, setIsServerOnline] = useState<boolean | null>(null);
 
   useEffect(() => {
     loadJobs();
+    const checkHealth = () => {
+      api
+        .getSystemStatus()
+        .then(() => setIsServerOnline(true))
+        .catch(() => setIsServerOnline(false));
+    };
+    checkHealth();
+    const timer = setInterval(checkHealth, 4000);
+    return () => clearInterval(timer);
   }, [loadJobs]);
 
   const currentJob = jobs.find((j) => j.id === selectedJobId);
@@ -41,16 +86,18 @@ export const Topbar: React.FC = () => {
       ? "尚無可用分鏡"
       : `圖 ${readyImages}/${totalScenes} · 聲 ${readyAudio}/${totalScenes} · ${hasFilm ? "🟢 已合成" : "⏳ 待合成"}`;
 
+  const cooldownRemaining =
+    pipelineCooldown > 0
+      ? pipelineCooldown
+      : Number((pipelineMessage || "").match(/冷卻(?:倒數)?\s*(\d+)/)?.[1] || 0);
+
   // 頂列唯一主按鈕狀態機
   const handlePrimaryAction = async () => {
     if (!selectedJobId) return;
 
-    if (readyImages < totalScenes) {
-      setPipelineRunning(true, 10, "正在生成分鏡畫面...");
-      await api.runPipeline(selectedJobId, "images");
-    } else if (readyAudio < totalScenes) {
-      setPipelineRunning(true, 10, "正在生成語音配音...");
-      await api.runPipeline(selectedJobId, "tts");
+    if (readyImages < totalScenes || readyAudio < totalScenes) {
+      setPipelineRunning(true, 5, "正在啟動一鍵逐幕生成（生圖 ➔ 配音 ➔ 考據）...");
+      await api.runPipeline(selectedJobId, "all");
     } else if (!hasFilm) {
       setPipelineRunning(true, 10, "正在合成 1080p 影片...");
       await api.runPipeline(selectedJobId, "compose");
@@ -143,6 +190,35 @@ export const Topbar: React.FC = () => {
             ▾
           </div>
         </div>
+
+        {/* 後端連線狀態燈 */}
+        <div
+          title={
+            isServerOnline === true
+              ? "後端 API 服務在線 (Port 8000)"
+              : isServerOnline === false
+              ? "後端 API 連線中斷 / 伺服器正在熱重載中..."
+              : "檢測後端連線中..."
+          }
+          className={`flex items-center px-2 py-1 rounded-full text-[10px] font-mono border transition-all ${
+            isServerOnline === true
+              ? "bg-emerald-950/40 border-emerald-800/60 text-emerald-400"
+              : isServerOnline === false
+              ? "bg-red-950/70 border-red-800 text-red-300 animate-pulse"
+              : "bg-cinema-card border-cinema-border text-cinema-muted"
+          }`}
+        >
+          <span
+            className={`w-1.5 h-1.5 rounded-full mr-1.5 ${
+              isServerOnline === true
+                ? "bg-emerald-400 shadow-[0_0_6px_#34d399]"
+                : isServerOnline === false
+                ? "bg-red-400 shadow-[0_0_6px_#f87171]"
+                : "bg-cinema-muted"
+            }`}
+          />
+          <span>{isServerOnline === true ? "API 在線" : isServerOnline === false ? "重連中" : "連線中"}</span>
+        </div>
       </div>
 
       {/* 中：完成度一句話 */}
@@ -154,10 +230,17 @@ export const Topbar: React.FC = () => {
       <div className="flex items-center space-x-3">
         {isPipelineRunning ? (
           <div className="flex items-center space-x-2">
-            <div className="flex items-center text-xs text-amber-cta font-mono bg-cinema-card px-2.5 py-1 rounded border border-cinema-border">
-              <Loader2 className="w-3.5 h-3.5 animate-spin mr-1.5" />
-              <span>{pipelineMessage || `處理中 ${pipelineProgress}%`}</span>
-            </div>
+            {cooldownRemaining > 0 ? (
+              <CooldownRing
+                remaining={cooldownRemaining}
+                total={pipelineCooldownTotal || (cooldownRemaining > 8 ? 30 : 8)}
+              />
+            ) : (
+              <div className="flex items-center text-xs text-amber-cta font-mono bg-cinema-card px-2.5 py-1 rounded border border-cinema-border max-w-[280px]">
+                <Loader2 className="w-3.5 h-3.5 animate-spin mr-1.5 shrink-0" />
+                <span className="truncate">{pipelineMessage || `處理中 ${pipelineProgress}%`}</span>
+              </div>
+            )}
             <button
               onClick={handleStopPipeline}
               className="flex items-center h-8 px-2.5 rounded bg-red-950/80 hover:bg-red-900 border border-red-800 text-xs text-red-200 transition-colors"
@@ -172,15 +255,10 @@ export const Topbar: React.FC = () => {
             onClick={handlePrimaryAction}
             className="flex items-center h-8 px-4 rounded bg-amber-cta hover:bg-amber-ctaHover text-cinema-bg font-semibold text-xs tracking-wide transition-all shadow-sm glow-amber active:scale-95"
           >
-            {readyImages < totalScenes ? (
+            {readyImages < totalScenes || readyAudio < totalScenes ? (
               <>
                 <Sparkles className="w-3.5 h-3.5 mr-1.5" />
-                <span>生成未完成畫面</span>
-              </>
-            ) : readyAudio < totalScenes ? (
-              <>
-                <Sparkles className="w-3.5 h-3.5 mr-1.5" />
-                <span>生成配音</span>
+                <span>一鍵生成 (圖+聲+考據)</span>
               </>
             ) : !hasFilm ? (
               <>
@@ -210,21 +288,21 @@ export const Topbar: React.FC = () => {
               onMouseLeave={() => setIsDropdownOpen(false)}
             >
               <a
-                href={selectedJobId ? `/media/jobs/${selectedJobId}/compose/film.mp4` : "#"}
+                href={selectedJobId ? `/media/jobs/${encodeURIComponent(selectedJobId)}/compose/film.mp4` : "#"}
                 download
                 className="block px-3 py-1.5 hover:bg-cinema-cardHover hover:text-amber-cta"
               >
                 下載 1080p MP4
               </a>
               <a
-                href={selectedJobId ? `/media/jobs/${selectedJobId}/compose/film.srt` : "#"}
+                href={selectedJobId ? `/media/jobs/${encodeURIComponent(selectedJobId)}/compose/film.srt` : "#"}
                 download
                 className="block px-3 py-1.5 hover:bg-cinema-cardHover hover:text-amber-cta"
               >
-                下載 SRT 字幕
+                下載 SRT 字幕 (YouTube)
               </a>
               <a
-                href={selectedJobId ? `/media/jobs/${selectedJobId}/preview.html` : "#"}
+                href={selectedJobId ? `/media/jobs/${encodeURIComponent(selectedJobId)}/preview.html` : "#"}
                 target="_blank"
                 rel="noreferrer"
                 className="block px-3 py-1.5 hover:bg-cinema-cardHover hover:text-amber-cta"

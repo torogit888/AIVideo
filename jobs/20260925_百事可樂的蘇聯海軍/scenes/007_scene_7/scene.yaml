@@ -1,0 +1,16 @@
+id: 007_scene_7
+index: 7
+title: 第 7 幕
+narration: 辯論結束後，尼克森將赫魯雪夫，帶到了百事可樂的展台前. 肯德爾親手為赫魯雪夫，倒了一杯冰鎮的百事可樂.
+image_prompt: A Q-version 2D cartoon illustration of Richard Nixon leading Nikita
+  Khrushchev towards a brightly lit Pepsi stand. Donald Kendall, with a confident
+  smile, is pouring a bubbly Pepsi into a glass for Khrushchev. The Pepsi stand is
+  prominent with its stylized logo. The lighting is soft, even, and bright daylight.
+  Medium shot, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

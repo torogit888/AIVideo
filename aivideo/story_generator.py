@@ -51,6 +51,34 @@ DEFAULT_STYLE_PRESETS = {
 }
 
 
+def resolve_style(style_key: str | None = None) -> dict[str, str]:
+    """取得專案生圖風格的名稱、prefix 與說明，供分析與分鏡 prompt 鎖定畫風。"""
+    styles = load_style_presets()
+    key = (style_key or "").strip()
+    info = styles.get(key) if key else None
+    if not isinstance(info, dict) or not info:
+        info = styles.get("otomo_katsuhiro") or next(iter(styles.values()), {}) or {}
+        key = key or "otomo_katsuhiro"
+    return {
+        "key": key,
+        "name": str(info.get("name") or key or "").strip(),
+        "prefix": str(info.get("prefix") or "").strip(),
+        "description": str(info.get("description") or "").strip(),
+        "negative": str(info.get("negative") or "").strip(),
+    }
+
+
+def style_lock_instructions(style_key: str | None = None) -> str:
+    style = resolve_style(style_key)
+    desc = style["description"] or style["prefix"]
+    return f"""ART STYLE LOCK (mandatory — this is the project's selected image style):
+- Style name: {style["name"]}
+- Visual language: {desc}
+- Write faces, bodies, clothing, materials, lighting and atmosphere IN THIS MEDIUM.
+- Do NOT add photoreal photography, 35mm film grain, live-action cinematography, or volumetric cinematic lighting unless this style is itself realistic / cinematic.
+- Do not contradict the style with a different art movement."""
+
+
 def load_style_presets() -> dict[str, dict[str, str]]:
     """載入視覺風格預設值。優先從 assets/styles.yaml 載入，若不存在則初始化並存檔。"""
     if STYLES_FILE.is_file():
@@ -246,8 +274,24 @@ def generate_story_script(
     raise RuntimeError("Gemini 腳本生成失敗：\n" + "\n".join(errors))
 
 
-def extract_story_visual_anchors(topic: str, script_text: str) -> dict[str, str]:
-    """呼叫 Gemini 從故事主題與腳本中提煉出『主體視覺特徵錨點 (Subject Anchor)』與『環境基調錨點 (Environment Anchor)』。"""
+def extract_story_visual_anchors(
+    topic: str,
+    script_text: str,
+    style_key: str = "",
+) -> dict[str, object]:
+    """從腳本提煉多名角色外觀（每人獨立）與全片環境光影錨點，並依專案生圖風格書寫。"""
+    from aivideo.visual_anchors import compose_subject_anchor, normalize_characters
+
+    style = resolve_style(style_key)
+    fallback_appearance = (
+        f"The main visual subject representing {topic}, drawn in {style['name']} style, highly detailed, distinct features"
+    )
+    fallback_env = (
+        f"{style['name']} environment, lighting and materials matching this art style, 16:9 widescreen composition"
+    )
+    excerpt = (script_text or "")[:8000]
+    style_lock = style_lock_instructions(style_key)
+
     try:
         from google import genai
         from google.genai import types
@@ -255,22 +299,35 @@ def extract_story_visual_anchors(topic: str, script_text: str) -> dict[str, str]
         client_kwargs = get_gemini_client_kwargs()
         client = genai.Client(**client_kwargs)
 
-        prompt = f"""You are a master concept artist and visual continuity director for cinema.
+        prompt = f"""You are a master concept artist and visual continuity director.
 Analyze the story topic and script excerpt below.
-Extract and define two essential VISUAL ANCHORS in high-detail ENGLISH to ensure visual consistency across all AI-generated storyboard frames:
+Extract a CHARACTER BIBLE and one ENVIRONMENT ANCHOR in high-detail ENGLISH.
 
-1. "subject_anchor": Detailed visual description of the main protagonist, character, or primary entity/machine (e.g. specific physical traits, age, facial features, distinctive clothing, signature colors, or precise mechanical/biological structures).
-2. "environment_anchor": Detailed description of the overarching setting, world atmosphere, architecture, and cinematic lighting palette (e.g. time period, dominant colors, lighting style like volumetric rays or chiaroscuro shadows, ambient textures).
+{style_lock}
+
+Rules:
+- List EVERY visually distinct recurring person, creature, or signature machine (up to 8).
+- Each character is a separate entry with its own face, body, clothing, colors, and era-accurate details, described as they would appear IN THE LOCKED ART STYLE.
+- Do not merge multiple people into one description.
+- If the script is about a single protagonist or object, return exactly one character.
+- "environment_anchor" is the shared world, architecture, palette, and lighting — not a person — and must match the locked art style (medium, line, color, lighting).
 
 Story Topic: {topic}
+Selected image style: {style["name"]}
 Script Excerpt:
-{script_text[:1800]}
+{excerpt}
 
 OUTPUT FORMAT:
 Output JSON with exact keys:
 {{
-  "subject_anchor": "English description...",
-  "environment_anchor": "English description..."
+  "characters": [
+    {{
+      "id": "ascii_slug",
+      "name": "Character or entity name",
+      "appearance": "English visual description of THIS character only"
+    }}
+  ],
+  "environment_anchor": "English description of world, architecture, lighting..."
 }}
 """
         for model_name in TEXT_MODELS:
@@ -286,18 +343,30 @@ Output JSON with exact keys:
                 if resp.text:
                     data = json.loads(resp.text)
                     if isinstance(data, dict):
+                        characters = normalize_characters(data.get("characters"))
+                        env = str(data.get("environment_anchor", "")).strip()
+                        if not characters:
+                            sub = str(data.get("subject_anchor", "")).strip() or fallback_appearance
+                            characters = normalize_characters(
+                                [{"id": "main", "name": "Main Subject", "appearance": sub}]
+                            )
                         return {
-                            "subject_anchor": str(data.get("subject_anchor", "")).strip(),
-                            "environment_anchor": str(data.get("environment_anchor", "")).strip(),
+                            "characters": characters,
+                            "subject_anchor": compose_subject_anchor(characters) or fallback_appearance,
+                            "environment_anchor": env or fallback_env,
                         }
             except Exception:
                 continue
     except Exception:
         pass
 
+    characters = normalize_characters(
+        [{"id": "main", "name": "Main Subject", "appearance": fallback_appearance}]
+    )
     return {
-        "subject_anchor": f"The main visual subject representing {topic}, highly detailed, distinct features",
-        "environment_anchor": "Cinematic atmosphere, dramatic volumetric lighting, detailed textures, 16:9 widescreen composition",
+        "characters": characters,
+        "subject_anchor": compose_subject_anchor(characters),
+        "environment_anchor": fallback_env,
     }
 
 
@@ -305,10 +374,16 @@ def batch_generate_english_image_prompts(
     narrations: list[str],
     subject_anchor: str = "",
     environment_anchor: str = "",
+    characters: list[dict[str, str]] | None = None,
+    style_key: str = "",
 ) -> list[str]:
     """呼叫 Gemini 將中文旁白台詞批次轉換為專業電影感英文出圖提示詞 (Image Prompts)，並強制融合主體與環境視覺錨點。"""
     if not narrations:
         return []
+
+    from aivideo.visual_anchors import character_bible_for_prompts
+
+    bible = character_bible_for_prompts(characters or [])
 
     # 嘗試呼叫 Gemini API 批次產生純英文分鏡畫面描述
     try:
@@ -322,22 +397,35 @@ def batch_generate_english_image_prompts(
         items_text = "\n".join([f"[{i+1}] {tag_pattern.sub('', n).strip()}" for i, n in enumerate(narrations)])
         
         anchor_rules = ""
-        if subject_anchor or environment_anchor:
+        if bible or subject_anchor or environment_anchor:
+            if bible:
+                subject_rule = (
+                    "CHARACTER BIBLE (include a character's visual details ONLY when that character actually appears in the scene; never force unused characters into the frame):\n"
+                    f"{bible}"
+                )
+            else:
+                subject_rule = f'- MAIN SUBJECT ANCHOR: Whenever the main protagonist/object appears, incorporate these specific physical details: "{subject_anchor}"'
+            env_rule = ""
+            if environment_anchor:
+                env_rule = f'\n- ENVIRONMENT & LIGHTING ANCHOR: Maintain this consistent background atmosphere and cinematic lighting palette: "{environment_anchor}"'
             anchor_rules = f"""
 STRICT VISUAL CONTINUITY RULES (Apply to all scenes to maintain consistency):
-- MAIN SUBJECT ANCHOR: Whenever the main protagonist/object appears, incorporate these specific physical details: "{subject_anchor}"
-- ENVIRONMENT & LIGHTING ANCHOR: Maintain this consistent background atmosphere and cinematic lighting palette: "{environment_anchor}"
+{subject_rule}{env_rule}
 """
 
-        prompt = f"""You are a master Hollywood film director and professional AI storyboard visual artist.
-Below is a numbered list of scene narrations from a video documentary.
-For each scene, craft an evocative, professional text-to-image prompt strictly in ENGLISH.
+        style = resolve_style(style_key)
+        style_lock = style_lock_instructions(style_key)
+        prompt = f"""You are a professional storyboard visual artist working strictly in the project's selected art style.
+Below is a numbered list of scene narrations from a video.
+For each scene, craft an evocative text-to-image prompt strictly in ENGLISH.
+{style_lock}
 {anchor_rules}
 CRITICAL REQUIREMENTS:
 1. Every prompt MUST be written completely in ENGLISH.
-2. Focus on visual description: subjects, character actions/expressions, cinematic lighting (e.g. volumetric light, chiaroscuro, golden hour, moody shadows), camera angle (e.g. wide angle establishing shot, cinematic close-up, dramatic low angle), environment, atmosphere, and 16:9 widescreen composition.
-3. NEVER include any dialogue, speech bubbles, quotes, text, subtitles, words, letters, logos, or watermarks.
-4. Output EXACTLY a JSON array of strings containing exactly {len(narrations)} prompts in the same order as the input scenes.
+2. Focus on visual description in the locked art style: subjects, character actions/expressions, lighting and materials that belong to "{style["name"]}", camera angle (wide establishing shot, close-up, low angle), environment, atmosphere, and 16:9 widescreen composition.
+3. Do not inject a conflicting medium (for example photoreal live-action if the style is illustration, anime, chibi, or pixel art).
+4. NEVER include any dialogue, speech bubbles, quotes, text, subtitles, words, letters, logos, or watermarks.
+5. Output EXACTLY a JSON array of strings containing exactly {len(narrations)} prompts in the same order as the input scenes.
 
 Scenes:
 {items_text}
@@ -361,13 +449,14 @@ Scenes:
     except Exception:
         pass
 
-    # 備援 (Fallback)：若 API 無法連線時，保證提示詞為純英文且帶入錨點
+    # 備援 (Fallback)：若 API 無法連線時，保證提示詞為純英文且帶入錨點與風格
     fallbacks = []
+    style = resolve_style(style_key)
     base_sub = subject_anchor if subject_anchor else "the central subject"
-    base_env = environment_anchor if environment_anchor else "detailed environment, dramatic lighting"
+    base_env = environment_anchor if environment_anchor else f"{style['name']} environment"
     for _ in narrations:
         fallbacks.append(
-            f"Cinematic wide angle shot featuring {base_sub}, {base_env}, 16:9 widescreen composition, high quality film still"
+            f"{style['name']} wide angle shot featuring {base_sub}, {base_env}, 16:9 widescreen composition"
         )
     return fallbacks
 
@@ -578,6 +667,7 @@ def parse_script_lines_to_scenes(
     subject_anchor: str = "",
     environment_anchor: str = "",
     topic: str = "",
+    characters: list[dict[str, str]] | None = None,
 ) -> list[dict[str, object]]:
     """將逐行台詞依據 AI 語意情節與設定的視覺節奏 (Visual Pacing) 自動切分為分鏡場景，
     並為每場分鏡產生英文提示詞與前置分析考據實體 (PiP)。若傳入 sentences_per_scene 則保留向下相容。"""
@@ -612,6 +702,8 @@ def parse_script_lines_to_scenes(
         narrations,
         subject_anchor=subject_anchor,
         environment_anchor=environment_anchor,
+        characters=characters,
+        style_key=style_key,
     )
     pip_queries = batch_detect_pip_queries(narrations)
 
@@ -791,6 +883,7 @@ def create_job_bundle(
     voice_id: str = "female01",
     subject_anchor: str = "",
     environment_anchor: str = "",
+    characters: list[dict[str, str]] | None = None,
 ) -> Path:
     job_dir = REPO_ROOT / "jobs" / job_id
     job_dir.mkdir(parents=True, exist_ok=True)
@@ -800,15 +893,23 @@ def create_job_bundle(
     styles = load_style_presets()
     style_cfg = styles.get(style_key, styles.get("otomo_katsuhiro", DEFAULT_STYLE_PRESETS["otomo_katsuhiro"]))
 
+    from aivideo.visual_anchors import compose_subject_anchor, persist_characters_on_anchors
+
+    visual_anchors: dict[str, object] = {
+        "subject": subject_anchor,
+        "environment": environment_anchor,
+        "use_image_reference": True,
+    }
+    if characters:
+        persist_characters_on_anchors(visual_anchors, characters)
+        visual_anchors["subject"] = compose_subject_anchor(characters) or subject_anchor
+
     job_yaml = {
         "id": job_id,
         "title": title,
         "language": "zh-Hant",
         "voice_id": voice_id,
-        "visual_anchors": {
-            "subject": subject_anchor,
-            "environment": environment_anchor,
-        },
+        "visual_anchors": visual_anchors,
         "frame": {
             "aspect": "16:9",
             "gen_width": 1920,
@@ -828,7 +929,7 @@ def create_job_bundle(
         "style_prefix": style_cfg["prefix"],
         "style_negative": style_cfg["negative"],
         "subtitle": {
-            "mode": "hard",
+            "mode": "none",
             "font": "NotoSansTC-Regular.otf",
             "font_size": 48,
         },
@@ -838,7 +939,14 @@ def create_job_bundle(
 
     # 寫入 script.md
     script_md_lines = [f"# {title}\n"]
-    if subject_anchor or environment_anchor:
+    if characters:
+        for ch in characters:
+            script_md_lines.append(
+                f"> **角色定裝 ({ch.get('name') or ch.get('id')}):** {ch.get('appearance', '')}"
+            )
+        if environment_anchor:
+            script_md_lines.append(f"> **環境錨定 (Environment Anchor):** {environment_anchor}\n")
+    elif subject_anchor or environment_anchor:
         script_md_lines.append(f"> **主體錨定 (Subject Anchor):** {subject_anchor}")
         script_md_lines.append(f"> **環境錨定 (Environment Anchor):** {environment_anchor}\n")
 
@@ -871,13 +979,17 @@ def create_job_bundle(
             },
         }
         if s.get("pip_query"):
+            q = s["pip_query"]
+            from aivideo.auto_pip import infer_pip_mode
+            auto_mode = infer_pip_mode(q, str(s.get("narration", "")))
             scfg["pip"] = {
                 "enabled": False,  # 標記建議實體，待出圖或一鍵全流程時直接下載啟用
                 "image": "pip.png",
-                "position": "top-right",
-                "scale": 0.35,
-                "border": 8,
-                "query": s["pip_query"],
+                "position": "right-center",
+                "mode": auto_mode,
+                "scale": 0.24,
+                "border": 5,
+                "query": q,
             }
         (s_dir / "scene.yaml").write_text(yaml.safe_dump(scfg, allow_unicode=True, sort_keys=False), encoding="utf-8")
 
@@ -888,6 +1000,7 @@ def regenerate_job_scene_prompts(
     job_dir: Path,
     subject_anchor: str,
     environment_anchor: str,
+    characters: list[dict[str, str]] | None = None,
 ) -> int:
     """依據最新主體與環境錨點，重新為現有 Job 的所有場景批次產生並更新英文提示詞 (Image Prompts)。"""
     scenes_dir = job_dir / "scenes"
@@ -912,10 +1025,25 @@ def regenerate_job_scene_prompts(
         except Exception:
             pass
 
+    job_yaml = job_dir / "job.yaml"
+    style_key = ""
+    if job_yaml.is_file():
+        try:
+            cfg = yaml.safe_load(job_yaml.read_text(encoding="utf-8")) or {}
+            style_key = str((cfg.get("image") or {}).get("style") or cfg.get("style") or "")
+            if not characters:
+                from aivideo.visual_anchors import ensure_characters
+                v = cfg.get("visual_anchors") if isinstance(cfg.get("visual_anchors"), dict) else {}
+                characters = ensure_characters(v)
+        except Exception:
+            style_key = ""
+
     new_prompts = batch_generate_english_image_prompts(
         narrations,
         subject_anchor=subject_anchor,
         environment_anchor=environment_anchor,
+        characters=characters,
+        style_key=style_key,
     )
 
     updated_count = 0

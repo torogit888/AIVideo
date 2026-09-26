@@ -25,10 +25,11 @@ def run_pipeline(req: PipelineRunRequest) -> PipelineStatusResponse:
     if runner.is_running:
         raise HTTPException(status_code=400, detail="流水線已在執行中，請等待完成或先中止")
 
-    # 執行任務 (mode: "all", "images", "tts", "compose")
+    # 執行任務 (mode: "all", "images", "pip", "tts", "compose")
     mode_map = {
         "all": "all",
         "images": "images",
+        "pip": "pip",
         "tts": "tts",
         "compose": "compose",
     }
@@ -37,8 +38,9 @@ def run_pipeline(req: PipelineRunRequest) -> PipelineStatusResponse:
     runner.start(
         mode=target_mode,
         skip_done=req.only_missing and not req.force,
-        auto_pip=False,
+        auto_pip=True if req.action in ("all", "pip") else False,
         pause_between_stages=False,
+        burn_subtitles=req.burn_subtitles,
     )
 
     return PipelineStatusResponse(
@@ -88,34 +90,43 @@ async def stream_pipeline_events(request: Request, job_id: str):
     async def event_generator():
         runner = get_pipeline_runner(job_id, job_dir)
 
-        # 持續串流直到前端斷開
-        while True:
-            if await request.is_disconnected():
-                break
+        # 持續串流直到前端斷開或伺服器重載關閉
+        try:
+            while True:
+                if await request.is_disconnected():
+                    break
 
-            cur_prog = runner.progress
-            cur_msg = runner.status_msg
-            is_running = runner.is_running
-            is_done = runner.is_done
-            error = runner.error_msg
+                cur_prog = runner.progress
+                cur_msg = runner.status_msg
+                is_running = runner.is_running
+                is_done = runner.is_done
+                error = runner.error_msg
 
-            data = {
-                "job_id": job_id,
-                "is_running": is_running,
-                "is_done": is_done,
-                "progress": round(cur_prog * 100, 1),
-                "message": cur_msg,
-                "error": error,
-                "timestamp": time.time(),
-            }
+                data = {
+                    "job_id": job_id,
+                    "is_running": is_running,
+                    "is_done": is_done,
+                    "progress": round(cur_prog * 100, 1),
+                    "message": cur_msg,
+                    "error": error,
+                    "cooldown_remaining": int(getattr(runner, "cooldown_remaining", 0) or 0),
+                    "cooldown_total": int(getattr(runner, "cooldown_total", 0) or 0),
+                    "notice_seq": int(getattr(runner, "notice_seq", 0) or 0),
+                    "notice": getattr(runner, "notice_text", "") or "",
+                    "notice_level": getattr(runner, "notice_level", "info") or "info",
+                    "timestamp": time.time(),
+                }
 
-            yield f"data: {json.dumps(data, ensure_ascii=False)}\n\n"
+                yield f"data: {json.dumps(data, ensure_ascii=False)}\n\n"
 
-            # 如果已經結束且不再運行，發送最後一次完成事件後休眠較長間隔
-            if not is_running and (is_done or error):
-                await asyncio.sleep(2.0)
-            else:
-                await asyncio.sleep(0.5)
+                # 如果已經結束且不再運行，發送最後一次完成事件後休眠較長間隔
+                if not is_running and (is_done or error):
+                    await asyncio.sleep(2.0)
+                else:
+                    await asyncio.sleep(0.5)
+        except (asyncio.CancelledError, GeneratorExit):
+            # 伺服器重載或客戶端關閉時平滑退出，避免 Uvicorn 卡死等待
+            pass
 
     return StreamingResponse(
         event_generator(),

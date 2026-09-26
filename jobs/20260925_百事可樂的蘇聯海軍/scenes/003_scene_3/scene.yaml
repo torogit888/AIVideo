@@ -1,0 +1,27 @@
+id: 003_scene_3
+index: 3
+title: 第 3 幕
+narration: 美國在莫斯科舉辦了一場國家展覽會，旨在展示美國的資本主義生活方式， 百事可樂，作為美國文化的象徵之一，自然不會缺席，
+image_prompt: A Q-version 2D cartoon illustration of the vibrant interior of the American
+  pavilion at the 1959 US National Exhibition in Moscow. The focus is on a brightly
+  colored Pepsi stand with a prominent, stylized Pepsi logo. Q-version visitors, drawn
+  with simplified features, are observing the exhibits with curiosity. The lighting
+  is soft, even, and bright daylight, creating a cheerful atmosphere in a 16:9 widescreen
+  composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: American National Exhibition Moscow 1959
+  source_title: File:1959 Khrushchev, Nixon, Brezhnev.jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/8/87/1959_Khrushchev%2C_Nixon%2C_Brezhnev.jpg

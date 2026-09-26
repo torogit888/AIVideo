@@ -1,0 +1,27 @@
+id: 021_scene_21
+index: 21
+title: 第 21 幕
+narration: 肯德爾甚至，對當時的美國國家安全顧問，布倫特·斯考克羅夫特說， 我們正在，比你們更快地，解除蘇聯人的武裝 [laughter]. 這句話充滿了，幽默與諷刺
+  [laughter].
+image_prompt: A Q-version 2D cartoon illustration of Donald Kendall, with a mischievous
+  and confident smirk, gesturing towards a simplified, slightly bewildered-looking
+  American official. In the background, Q-version Soviet naval vessels are being symbolically
+  'disarmed' or 'decommissioned' in a playful way, perhaps with tiny flags being lowered
+  or cannons turning into flowers. Medium shot, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Brent Scowcroft
+  source_title: File:Brent Scowcroft (cropped).jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/b/b5/Brent_Scowcroft_%28cropped%29.jpg

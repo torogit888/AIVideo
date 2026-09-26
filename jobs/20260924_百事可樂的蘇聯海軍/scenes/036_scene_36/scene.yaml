@@ -1,0 +1,30 @@
+id: 036_scene_36
+index: 36
+title: 第 36 幕
+narration: 百事可樂的蘇聯海軍傳奇，也畫上了句號 [sigh]. 這個故事告訴我們，在商業世界裡，創新與膽識，永不設限 [confirmation-en].
+image_prompt: A dramatic, stylized period mark, part of a stern, powerful Soviet leader
+  with a knowing gaze, falling onto a faded image of an imposing, weathered Soviet
+  naval vessel, signifying the end of the "Pepsi Navy" legend. Below it, bold, illuminated
+  text (not actual text, but a visual representation of the concept of "innovation
+  and daring") emerges. The scene is bathed in a moody, high-contrast cinematic lighting
+  palette, with deep shadows and dramatic volumetric light, evoking a sense of Cold
+  War tension and historical significance. The background features subtle, atmospheric
+  elements like a faint haze or distant, blurred industrial structures, all composed
+  in a 16:9 widescreen aspect ratio, with a mix of reflective and inspiring lighting.
+  Cinematic close-up.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: top-right
+  scale: 0.24
+  border: 5
+  query: null
+  source_title: null
+  source_url: null

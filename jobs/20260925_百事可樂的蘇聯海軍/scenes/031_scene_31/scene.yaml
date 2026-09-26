@@ -1,0 +1,16 @@
+id: 031_scene_31
+index: 31
+title: 第 31 幕
+narration: 儘管最終，那支海軍化作了廢鐵 [sigh]. 但百事可樂，用可樂換軍艦的傳奇，卻永遠，被載入了史冊 [confirmation-en].
+image_prompt: A Q-version 2D cartoon illustration. A stylized, open history book or
+  scroll is at the center. On one page, there's a cute, toy-like Q-version Soviet
+  naval vessel visually turning into scrap metal. On the opposite page, a vibrant
+  Pepsi bottle is proudly displayed, with a stylized 'Legend' or 'History' motif around
+  it, emphasizing its enduring story. Medium shot, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

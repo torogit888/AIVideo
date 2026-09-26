@@ -29,6 +29,7 @@ class CmdArgs:
         progress_callback: Callable[..., Any] | None = None,
         skip_existing: bool = False,
         check_control: Callable[..., bool] | None = None,
+        burn_subtitles: bool | None = None,
     ):
         self.job = str(job)
         self.force = force
@@ -41,6 +42,7 @@ class CmdArgs:
         self.progress_callback = progress_callback
         self.skip_existing = skip_existing
         self.check_control = check_control
+        self.burn_subtitles = burn_subtitles
 
 
 class PipelineRunner:
@@ -63,6 +65,11 @@ class PipelineRunner:
         self.stage: str = ""
         self.progress: float = 0.0
         self.status_msg: str = ""
+        self.cooldown_remaining: int = 0
+        self.cooldown_total: int = 0
+        self.notice_seq: int = 0
+        self.notice_text: str = ""
+        self.notice_level: str = "info"
 
         # 即時預覽資訊 (提供給 Streamlit 動態繪製)
         self.live_cur: int = 0
@@ -82,6 +89,7 @@ class PipelineRunner:
         skip_done: bool = True,
         auto_pip: bool = True,
         pause_between_stages: bool = False,
+        burn_subtitles: bool | None = None,
     ) -> bool:
         """啟動生成流程。若目前已有任務正在運行則回傳 False。"""
         with self._lock:
@@ -96,6 +104,11 @@ class PipelineRunner:
             self.error_msg = None
             self.progress = 0.0
             self.status_msg = "準備啟動任務..."
+            self.cooldown_remaining = 0
+            self.cooldown_total = 0
+            self.notice_seq = 0
+            self.notice_text = ""
+            self.notice_level = "info"
             self.live_cur = 0
             self.live_tot = 0
             self.live_phase = ""
@@ -106,7 +119,7 @@ class PipelineRunner:
 
             self.thread = threading.Thread(
                 target=self._run_worker,
-                args=(mode, skip_done, auto_pip, pause_between_stages),
+                args=(mode, skip_done, auto_pip, pause_between_stages, burn_subtitles),
                 daemon=True,
             )
             self.thread.start()
@@ -148,7 +161,15 @@ class PipelineRunner:
             self.error_msg = None
             self.progress = 0.0
             self.status_msg = ""
+            self.cooldown_remaining = 0
+            self.cooldown_total = 0
             self.live_dir = None
+
+    def emit_notice(self, text: str, level: str = "error") -> None:
+        with self._lock:
+            self.notice_seq += 1
+            self.notice_text = text
+            self.notice_level = level
 
     def check_control(self, phase: str = "", s_dir: Path | None = None) -> bool:
         """供子命令調用的檢查點。若已中止回傳 True；若暫停則在此休眠直到喚醒。"""
@@ -180,6 +201,7 @@ class PipelineRunner:
         skip_done: bool,
         auto_pip: bool,
         pause_between_stages: bool,
+        burn_subtitles: bool | None = None,
     ) -> None:
         """背景線程主工作流程。"""
         try:
@@ -217,11 +239,143 @@ class PipelineRunner:
                     self.progress = min(1.0, max(0.0, frac))
                     self.status_msg = f"🎙️ [配音] ({cur}/{tot}) - {msg}"
 
+            # ========================================================
+            # mode == "all": 一鍵全流程（逐幕：出圖 ➔ 配音 ➔ 考據 ➔ 下一幕 ➔ 成片）
+            # ========================================================
+            if mode == "all":
+                scenes_dir = self.job_path / "scenes"
+                scene_folders = sorted([p for p in scenes_dir.iterdir() if p.is_dir()]) if scenes_dir.is_dir() else []
+                total_scenes = len(scene_folders)
+                self.stage = "🎬 [一鍵全流程]"
+
+                for idx, s_dir in enumerate(scene_folders, 1):
+                    if self.check_control(phase=f"第 {idx}/{total_scenes} 幕準備", s_dir=s_dir):
+                        return
+
+                    img_file = s_dir / "image.png"
+                    aud_file = s_dir / "speech.wav"
+                    if not aud_file.is_file():
+                        aud_file = s_dir / "audio.wav"
+
+                    need_img = (not img_file.is_file()) or (not skip_done)
+                    need_aud = (not aud_file.is_file()) or (not skip_done)
+                    did_work = False
+
+                    # 1. 該幕出圖
+                    if need_img:
+                        did_work = True
+                        with self._lock:
+                            self.live_cur = idx
+                            self.live_tot = total_scenes
+                            self.live_phase = "出圖"
+                            self.live_dir = s_dir
+                            self.status_msg = f"🎨 第 {idx}/{total_scenes} 幕：正在生成畫面..."
+                            self.progress = round(0.88 * ((idx - 1) / max(1, total_scenes)), 3)
+
+                        cmd_args = CmdArgs(
+                            job=self.job_path,
+                            scene=s_dir.name,
+                            force=(not skip_done),
+                            skip_existing=skip_done,
+                            check_control=self.check_control,
+                        )
+                        run_images(cmd_args)
+
+                        if self.check_control(phase=f"第 {idx}/{total_scenes} 幕出圖完畢", s_dir=s_dir):
+                            return
+
+                    # 2. 該幕配音
+                    if need_aud:
+                        did_work = True
+                        with self._lock:
+                            self.live_cur = idx
+                            self.live_tot = total_scenes
+                            self.live_phase = "配音"
+                            self.live_dir = s_dir
+                            self.status_msg = f"🎙️ 第 {idx}/{total_scenes} 幕：正在合成語音..."
+
+                        cmd_args = CmdArgs(
+                            job=self.job_path,
+                            scene=s_dir.name,
+                            force=(not skip_done),
+                            skip_existing=skip_done,
+                            check_control=self.check_control,
+                        )
+                        run_tts(cmd_args)
+
+                        if self.check_control(phase=f"第 {idx}/{total_scenes} 幕配音完畢", s_dir=s_dir):
+                            return
+
+                    # 3. 考據：僅建案時已標 query 的幕才抓；其餘直接略過
+                    if auto_pip and not (s_dir / "pip.png").is_file():
+                        q = None
+                        try:
+                            from aivideo.auto_pip import fetch_single_scene_pip, read_scene_pip_query
+
+                            q = read_scene_pip_query(s_dir)
+                            if q:
+                                with self._lock:
+                                    self.status_msg = f"📷 第 {idx}/{total_scenes} 幕：正在檢索考據圖 ({q})..."
+                                if fetch_single_scene_pip(s_dir, q):
+                                    did_work = True
+                                else:
+                                    print(f"[warn] 第 {idx} 幕考據未成功：{q}")
+                        except Exception as exc:
+                            from aivideo.auto_pip import mark_scene_pip_error
+
+                            mark_scene_pip_error(s_dir, str(exc), q)
+                            print(f"[warn] 第 {idx} 幕考據失敗（{exc}）")
+
+                    with self._lock:
+                        self.progress = round(0.88 * (idx / max(1, total_scenes)), 3)
+
+                    # 4. 僅在本幕實際呼叫 Gemini 出圖後短暫冷卻；頂列用圓圈數字倒數，不塞長文字
+                    if idx < total_scenes and need_img:
+                        COOLING_SECONDS = 8
+                        with self._lock:
+                            self.cooldown_total = COOLING_SECONDS
+                            self.live_phase = "冷卻"
+                        for rem in range(COOLING_SECONDS, 0, -1):
+                            if self.check_control(phase=f"第 {idx} 幕冷卻", s_dir=s_dir):
+                                with self._lock:
+                                    self.cooldown_remaining = 0
+                                    self.cooldown_total = 0
+                                return
+                            with self._lock:
+                                self.cooldown_remaining = rem
+                                self.status_msg = "冷卻"
+                            time.sleep(1.0)
+                        with self._lock:
+                            self.cooldown_remaining = 0
+                            self.cooldown_total = 0
+
+                # ========================
+                # 最終階段: 合成 1080p 成片
+                # ========================
+                self.stage = "🎬 [成片合成]"
+                self.status_msg = "全片分鏡與語音已就緒，正在透過 FFmpeg 合成 1080p 影片..."
+                self.progress = 0.92
+                if self.check_control(phase="成片準備"):
+                    return
+
+                cmd_args = CmdArgs(
+                    job=self.job_path,
+                    check_control=self.check_control,
+                    burn_subtitles=burn_subtitles,
+                )
+                ret_comp = run_compose(cmd_args)
+                if ret_comp != 0:
+                    self.error_msg = "FFmpeg 成片合成失敗，請檢查素材或日誌。"
+                    self.status_msg = "❌ 成片合成失敗"
+                    return
+
+                generate_preview_html(self.job_path)
+
             # ========================
-            # 階段 1: 批次出圖
+            # 獨立模式 1: 批次出圖 (mode == "images")
             # ========================
-            if mode in ("all", "images"):
-                self.stage = "🎨 [1/4 出圖]"
+            elif mode == "images":
+                self.stage = "🎨 [批次出圖]"
                 self.status_msg = "正在呼叫 Gemini API 批次產生畫面..."
                 if self.check_control(phase="出圖準備"):
                     return
@@ -233,29 +387,17 @@ class PipelineRunner:
                     progress_callback=on_img_prog,
                     check_control=self.check_control,
                 )
-                ret_img = run_images(cmd_args, progress_callback=on_img_prog)
+                run_images(cmd_args, progress_callback=on_img_prog)
 
                 if self.check_control(phase="出圖完畢"):
                     return
 
-                if ret_img != 0 and mode == "all":
-                    self.pause()
-                    self.status_msg = "⚠️ [1/4 出圖] 部分分鏡出圖失敗，已自動暫停。可點擊「繼續執行」補跑未完成場景，或於分鏡看板檢查。"
-                    if self.check_control(phase="出圖異常檢查"):
-                        return
-
-                if mode == "all" and pause_between_stages:
-                    self.pause()
-                    self.status_msg = "⏸️ [1/4 出圖] 已全數完成！已自動暫停供審查畫面，確認滿意後請點擊「繼續執行」。"
-                    if self.check_control(phase="出圖審查"):
-                        return
-
             # ========================
-            # 階段 2: 自動考據配圖 (Auto-PiP)
+            # 獨立模式 2: 自動考據配圖 (mode == "pip")
             # ========================
-            if mode in ("all", "pip") and (mode == "pip" or auto_pip):
-                self.stage = "🌐 [2/4 考據]"
-                self.status_msg = "正在以 AI 掃描台詞向維基共享資源配對真實考據圖..."
+            elif mode == "pip" or (auto_pip and mode == "all"):
+                self.stage = "🌐 [考據配圖]"
+                self.status_msg = "正在以 AI 掃描台詞向維基共享資源與 NASA 配對真實考據圖..."
                 if self.check_control(phase="考據準備"):
                     return
 
@@ -271,10 +413,10 @@ class PipelineRunner:
                     return
 
             # ========================
-            # 階段 3: 批次語音合成
+            # 獨立模式 3: 批次語音合成 (mode == "tts")
             # ========================
-            if mode in ("all", "tts"):
-                self.stage = "🎙️ [3/4 配音]"
+            elif mode == "tts":
+                self.stage = "🎙️ [批次配音]"
                 self.status_msg = "正在透過 ComfyUI 逐句進行聲音克隆合成..."
                 if self.check_control(phase="配音準備"):
                     return
@@ -286,28 +428,16 @@ class PipelineRunner:
                     progress_callback=on_tts_prog,
                     check_control=self.check_control,
                 )
-                ret_tts = run_tts(cmd_args, progress_callback=on_tts_prog)
+                run_tts(cmd_args, progress_callback=on_tts_prog)
 
                 if self.check_control(phase="配音完畢"):
                     return
 
-                if ret_tts != 0 and mode == "all":
-                    self.pause()
-                    self.status_msg = "⚠️ [3/4 配音] 部分分鏡配音失敗，已自動暫停。可點擊「繼續執行」重試未完成語音。"
-                    if self.check_control(phase="配音異常檢查"):
-                        return
-
-                if mode == "all" and pause_between_stages:
-                    self.pause()
-                    self.status_msg = "⏸️ [3/4 配音] 已合成完畢！已自動暫停供試聽台詞，確認無誤後請點擊「繼續合成」。"
-                    if self.check_control(phase="配音審查"):
-                        return
-
             # ========================
-            # 階段 4: 合成 1080p 成片
+            # 獨立模式 4: 合成 1080p 成片 (mode == "compose")
             # ========================
-            if mode in ("all", "compose"):
-                self.stage = "🎬 [4/4 成片]"
+            elif mode == "compose":
+                self.stage = "🎬 [成片合成]"
                 self.status_msg = "正在檢查分鏡素材完整度..."
 
                 scenes_dir = self.job_path / "scenes"
@@ -322,16 +452,20 @@ class PipelineRunner:
                     if missing_audios:
                         err_details.append(f"缺音: {', '.join(missing_audios[:4])}{'...' if len(missing_audios) > 4 else ''}")
                     self.pause()
-                    self.status_msg = f"⚠️ [4/4 成片暫停] 分鏡素材未就緒 ({' ｜ '.join(err_details)})。請點擊「繼續執行」補產出，或於看板單獨處理。"
+                    self.status_msg = f"⚠️ [成片暫停] 分鏡素材未就緒 ({' ｜ '.join(err_details)})。請先補齊出圖與配音。"
                     if self.check_control(phase="成片素材確認"):
                         return
 
                 self.status_msg = "正在透過 FFmpeg 合成 1080p 影片、推鏡、畫中畫與字幕..."
-                self.progress = 0.92 if mode == "all" else 0.5
+                self.progress = 0.5
                 if self.check_control(phase="成片準備"):
                     return
 
-                cmd_args = CmdArgs(job=self.job_path, check_control=self.check_control)
+                cmd_args = CmdArgs(
+                    job=self.job_path,
+                    check_control=self.check_control,
+                    burn_subtitles=burn_subtitles,
+                )
                 ret_comp = run_compose(cmd_args)
                 if ret_comp != 0:
                     self.error_msg = "FFmpeg 成片合成失敗，請檢查分鏡素材是否齊全或 FFmpeg 日誌。"

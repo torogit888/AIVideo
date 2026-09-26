@@ -1,0 +1,17 @@
+id: 006_scene_6
+index: 6
+title: 第 6 幕
+narration: 肯德爾親手為赫魯雪夫，倒了一杯冰鎮的百事可樂. 赫魯雪夫接過可樂，先是聞了聞，然後一飲而盡. 他評價這飲料不難喝，有點像鞋蠟的味道. 這句話聽起來有些奇怪，卻成了百事可樂，打入蘇聯市場的敲門磚.
+image_prompt: A cinematic close-up on Nikita Khrushchev (bald head, stout build, dark
+  formal suit), holding a glass of ice-cold Pepsi. His expression transitions from
+  initial curiosity as he smells it, to a slightly bemused or unimpressed look after
+  taking a sip. Donald Kendall (young man, impeccably dressed) is visible in the background,
+  subtly observing, a hopeful yet anxious look on his face. Bright, artificial lighting
+  from the exhibition. 16:9 widescreen cinematic composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

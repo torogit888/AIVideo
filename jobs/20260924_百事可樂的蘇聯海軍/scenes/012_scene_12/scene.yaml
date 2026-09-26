@@ -1,0 +1,16 @@
+id: 012_scene_12
+index: 12
+title: 第 12 幕
+narration: 然而，隨著時間推移，到了八零年代末期，問題再次浮現 [sigh]. 百事可樂在蘇聯的銷量，持續攀升. 但伏特加的供應，卻開始出現疲軟. 蘇聯的經濟狀況，日益惡化.
+image_prompt: A somber, moody shot depicting a sparsely stocked shelf in a utilitarian
+  Soviet store (late 1980s), with only a few dusty vodka bottles remaining. The background
+  shows hints of a dilapidated, grey interior. The lighting is dim, cold, and utilitarian,
+  casting long shadows, emphasizing economic hardship and scarcity. 16:9 widescreen
+  cinematic composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

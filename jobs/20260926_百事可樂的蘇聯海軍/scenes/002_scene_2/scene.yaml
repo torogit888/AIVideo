@@ -1,0 +1,31 @@
+id: 002_scene_2
+index: 2
+title: 第 2 幕
+narration: 要理解這段傳奇，我們得把時間撥回到，一九五九年的莫斯科， 那時，美蘇冷戰正酣，兩大陣營劍拔弩張，卻也偶有緩和， 美國在莫斯科舉辦了一場國家展覽會，旨在展示美國的資本主義生活方式，
+image_prompt: A vibrant Q版 2D 卡通插畫 wide establishing shot of the American National
+  Exhibition in Moscow, 1959. The scene features a cute, rounded interpretation of
+  a geodesic dome or a clean, modern building with large, inviting windows, all rendered
+  with bright, flat colors and bold outlines. Inside, simplified displays of cartoonish
+  American consumer goods like cars and refrigerators are visible. In the background,
+  a simplified Moscow skyline with muted onion domes or blocky buildings. The color
+  palette is cheerful with patriotic reds, whites, and blues for American elements,
+  contrasted with cooler background tones. Uniformly bright and soft lighting, no
+  harsh shadows. The atmosphere is one of curious cultural exchange and playful charm.
+  16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260926T150208
+  image_take: image_20260926T150158
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: American National Exhibition Moscow 1959
+  source_title: File:1959 Khrushchev, Nixon, Brezhnev.jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/8/87/1959_Khrushchev%2C_Nixon%2C_Brezhnev.jpg

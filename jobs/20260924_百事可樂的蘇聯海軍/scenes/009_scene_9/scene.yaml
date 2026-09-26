@@ -1,0 +1,17 @@
+id: 009_scene_9
+index: 9
+title: 第 9 幕
+narration: 這時候，肯德爾再次展現了他的商業智慧 [confirmation-en]. 他與蘇聯政府達成了一項，史無前例的以物易物協議.
+image_prompt: A medium shot of Donald Kendall (now a seasoned executive, impeccably
+  dressed in a tailored suit), standing confidently in a dimly lit, formal Soviet
+  office. He holds a pen, looking determinedly at unseen Soviet officials. The room
+  features muted colors, heavy drapes, and a large, imposing wooden desk, with a single,
+  strong directional light source highlighting his shrewd expression. 16:9 widescreen
+  cinematic composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

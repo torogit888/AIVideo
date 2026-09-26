@@ -1,0 +1,16 @@
+id: 025_scene_25
+index: 25
+title: 第 25 幕
+narration: 百事可樂，這個資本主義的象徵，成功地，穿透了鐵幕. 成為了美蘇兩國之間，一道奇特的商業橋樑.
+image_prompt: A Q-version 2D cartoon illustration. A vibrant Pepsi bottle is shown
+  visually 'breaking through' or 'crossing' a stylized, slightly transparent 'Iron
+  Curtain' (represented by a simple, symbolic barrier). On one side is a simplified
+  US landscape, on the other, a simplified Soviet landscape. The Pepsi bottle forms
+  a clear, stylized bridge between them. Wide shot, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

@@ -1,0 +1,17 @@
+id: 017_scene_17
+index: 17
+title: 第 17 幕
+narration: 肯德爾甚至，對當時的美國國家安全顧問，布倫特·斯考克羅夫特說， 我們正在，比你們更快地，解除蘇聯人的武裝 [laughter]. 這句話充滿了，幽默與諷刺
+  [laughter].
+image_prompt: A medium shot of Donald Kendall (seasoned executive, impeccably dressed,
+  confident, with a subtle, wry smile), perhaps gesturing expansively. The background
+  is a blurred, imposing, yet slightly dated, formal office setting, hinting at high-level
+  Cold War diplomacy. The lighting is sophisticated, with soft, directional light
+  emphasizing his confident demeanor. 16:9 widescreen cinematic composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

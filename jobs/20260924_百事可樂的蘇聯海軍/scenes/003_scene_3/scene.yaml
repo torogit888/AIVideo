@@ -1,0 +1,16 @@
+id: 003_scene_3
+index: 3
+title: 第 3 幕
+narration: 當時百事可樂的國際部負責人，一位名叫唐納德·肯德爾的年輕人，他有著非凡的商業嗅覺， 肯德爾深知，這是一個將百事可樂，推向蘇聯人民的絕佳機會，
+image_prompt: A cinematic close-up on Donald Kendall, a young man (1959), impeccably
+  dressed in a tailored, conservative suit (dark blue, pinstripes), with a confident
+  and shrewd expression. He stands amidst the vibrant, brightly lit American exhibition,
+  looking thoughtfully towards the unseen Soviet crowd, a subtle volumetric light
+  highlighting his determined profile. 16:9 widescreen cinematic composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

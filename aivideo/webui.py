@@ -871,9 +871,12 @@ if selected_nav == NAV_CREATE:
             st.warning("請先生成或在文字框輸入腳本台詞！")
         else:
             with st.spinner("正在提煉全片主體特徵與環境光影錨點 (Visual Anchors)..."):
-                anchors = extract_story_visual_anchors(topic=topic_input, script_text=script_text)
+                anchors = extract_story_visual_anchors(
+                    topic=topic_input, script_text=script_text, style_key=selected_style
+                )
                 sub_anchor = anchors.get("subject_anchor", "")
                 env_anchor = anchors.get("environment_anchor", "")
+                job_characters = anchors.get("characters") or []
 
             with st.spinner("正在由 AI 依語意情節智能切分分鏡、前置分析考據實體 (PiP) 並生成專業英文提示詞..."):
                 scenes = parse_script_lines_to_scenes(
@@ -883,6 +886,7 @@ if selected_nav == NAV_CREATE:
                     subject_anchor=sub_anchor,
                     environment_anchor=env_anchor,
                     topic=topic_input,
+                    characters=job_characters,
                 )
                 job_dir = create_job_bundle(
                     job_id=job_slug_input,
@@ -892,6 +896,7 @@ if selected_nav == NAV_CREATE:
                     voice_id=selected_voice,
                     subject_anchor=sub_anchor,
                     environment_anchor=env_anchor,
+                    characters=job_characters,
                 )
                 # 設定目標切換專案，安全重載
                 st.session_state["target_job"] = job_slug_input
@@ -1016,6 +1021,7 @@ elif selected_nav == NAV_PRODUCE:
                                     "subject": cur_sub_text.strip(),
                                     "environment": cur_env_text.strip(),
                                     "use_image_reference": use_ref_chk,
+                                    "characters": anchors_cfg.get("characters") or [],
                                 }
                                 with open(job_yaml_path, "w", encoding="utf-8") as f:
                                     yaml.safe_dump(current_job_cfg, f, allow_unicode=True, sort_keys=False)
@@ -1034,6 +1040,7 @@ elif selected_nav == NAV_PRODUCE:
                                         "subject": cur_sub_text.strip(),
                                         "environment": cur_env_text.strip(),
                                         "use_image_reference": use_ref_chk,
+                                        "characters": anchors_cfg.get("characters") or [],
                                     }
                                     with open(job_yaml_path, "w", encoding="utf-8") as f:
                                         yaml.safe_dump(current_job_cfg, f, allow_unicode=True, sort_keys=False)

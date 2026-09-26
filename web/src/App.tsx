@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Film, Trash2, ArrowRight, CheckCircle2, AlertCircle, Info } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { Film, Trash2, ArrowRight, CheckCircle2, AlertCircle, Info, Copy, Check } from "lucide-react";
 import { SidebarRail } from "./components/SidebarRail";
 import { Topbar } from "./components/Topbar";
 import { StoryboardGrid } from "./components/StoryboardGrid";
@@ -27,6 +27,8 @@ export const App: React.FC = () => {
     selectedAiModel,
     setSelectedAiModel,
   } = useStudioStore();
+
+  const [copiedToastId, setCopiedToastId] = useState<string | null>(null);
 
   const handleDeleteJobFromList = async (jobId: string, jobTitle: string, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -56,13 +58,36 @@ export const App: React.FC = () => {
   useEffect(() => {
     if (!selectedJobId) return;
 
+    let lastReloadTime = 0;
+    let lastMessage = "";
+    let isAlreadyDone = false;
+
     const cleanup = api.subscribePipeline(selectedJobId, (data) => {
       if (data.is_running) {
-        setPipelineRunning(true, data.progress, data.message);
+        isAlreadyDone = false;
+        setPipelineRunning(
+          true,
+          data.progress,
+          data.message,
+          data.cooldown_remaining || 0,
+          data.cooldown_total || 0
+        );
+        
+        const now = Date.now();
+        // 當前進度訊息改變（如完成一幕），或每隔 1.5 秒即時重新載入分鏡與專案進度
+        if (data.message !== lastMessage || now - lastReloadTime > 1500) {
+          lastMessage = data.message;
+          lastReloadTime = now;
+          loadScenes(selectedJobId);
+          loadJobs();
+        }
       } else if (data.is_done) {
-        setPipelineRunning(false, 100, "任務已完成");
-        loadScenes(selectedJobId);
-        loadJobs();
+        if (!isAlreadyDone) {
+          isAlreadyDone = true;
+          setPipelineRunning(false, 100, "任務已完成", 0, 0);
+          loadScenes(selectedJobId);
+          loadJobs();
+        }
       }
     });
 
@@ -81,11 +106,19 @@ export const App: React.FC = () => {
 
         {/* 主畫布與右側 Inspector */}
         <div className="flex-1 flex h-[calc(100vh-48px)] overflow-hidden relative">
-          {/* 依 Tab 切換主視圖 */}
-          {currentTab === "storyboard" && <StoryboardGrid />}
-          {currentTab === "script" && <ScriptEditor />}
-          {currentTab === "film" && <FilmViewer />}
-          {currentTab === "assets" && <AssetsView />}
+          {/* 依 Tab 切換主視圖（常駐掛載，保留各分頁已調整之狀態與滾動位置） */}
+          <div className={currentTab === "storyboard" ? "flex-1 flex h-full overflow-hidden" : "hidden"}>
+            <StoryboardGrid />
+          </div>
+          <div className={currentTab === "script" ? "flex-1 flex h-full overflow-hidden" : "hidden"}>
+            <ScriptEditor />
+          </div>
+          <div className={currentTab === "film" ? "flex-1 flex h-full overflow-hidden" : "hidden"}>
+            <FilmViewer />
+          </div>
+          <div className={currentTab === "assets" ? "flex-1 flex h-full overflow-hidden" : "hidden"}>
+            <AssetsView />
+          </div>
           {currentTab === "overview" && (
             <div className="flex-1 p-8 space-y-6 max-w-5xl mx-auto overflow-y-auto">
               <div className="flex justify-between items-end border-b border-cinema-border pb-4">
@@ -304,7 +337,32 @@ export const App: React.FC = () => {
             ) : (
               <CheckCircle2 className="w-4 h-4 text-amber-cta mr-2 flex-shrink-0" />
             )}
-            <span>{t.message}</span>
+            <span className="flex-1 pr-1 break-words">{t.message}</span>
+            {t.type === "error" && (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigator.clipboard.writeText(t.message);
+                  setCopiedToastId(t.id);
+                  setTimeout(() => setCopiedToastId(null), 1500);
+                }}
+                title="複製錯誤訊息"
+                className="ml-2 px-1.5 py-0.5 rounded bg-red-900/80 hover:bg-red-800 text-[10px] text-red-200 border border-red-700/80 flex items-center shrink-0 transition-colors"
+              >
+                {copiedToastId === t.id ? (
+                  <>
+                    <Check className="w-3 h-3 mr-1 text-emerald-400" />
+                    <span>已複製</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-3 h-3 mr-1" />
+                    <span>複製</span>
+                  </>
+                )}
+              </button>
+            )}
           </div>
         ))}
       </div>

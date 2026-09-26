@@ -1,0 +1,16 @@
+id: 015_scene_15
+index: 15
+title: 第 15 幕
+narration: 這筆交易中，百事可樂，得到了十七艘柴油潛水艇. 還有一艘巡洋艦，一艘護衛艦，以及一艘驅逐艦. 總計二十艘軍艦.
+image_prompt: A wide-angle, cinematic shot showcasing a fleet of formidable yet aged
+  Soviet warships (seventeen diesel submarines, one cruiser, one frigate, one destroyer)
+  docked in a vast, grey, industrial Soviet naval base. The lighting is stark and
+  utilitarian, with deep shadows, emphasizing their imposing presence but also a sense
+  of melancholy or obsolescence. 16:9 widescreen cinematic composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

@@ -1,0 +1,30 @@
+id: 035_scene_35
+index: 35
+title: 第 35 幕
+narration: 甚至到了二零一三年，連百事可樂在，普希金廣場的廣告牌，都被撤下了. 這場可樂戰爭，在蘇聯解體後，進入了新的篇章.
+image_prompt: A large, iconic Pepsi billboard, part of a sleek, retro-futuristic Pepsi
+  bottle, gleaming under a spotlight, is being slowly dismantled and removed from
+  Pushkin Square in Moscow, revealing a blank space. The scene is melancholic, signifying
+  the end of an era. The scene is bathed in a moody, high-contrast cinematic lighting
+  palette, with deep shadows and dramatic volumetric light, evoking a sense of Cold
+  War tension and historical significance. The background features subtle, atmospheric
+  elements like a faint haze or distant, blurred industrial structures, all composed
+  in a 16:9 widescreen aspect ratio, with a grey, somber lighting, emphasizing loss
+  and transition. Wide-angle establishing shot.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  scale: 0.24
+  border: 5
+  query: Pepsi billboard Pushkin Square Moscow
+  source_title: null
+  source_url: null
+  mode: spotlight

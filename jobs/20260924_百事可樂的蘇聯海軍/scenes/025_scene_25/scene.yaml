@@ -1,0 +1,17 @@
+id: 025_scene_25
+index: 25
+title: 第 25 幕
+narration: 這不僅是商業的勝利，更是人類歷史上，一次，不可思議的，文化與政治的，奇妙交鋒 [surprise-oh]. 一個飲料品牌，在特定的歷史背景下，竟然能擁有，足以排進世界前列的，軍事實力
+  [question-ah]？ 這本身，就是對時代，最生動的註腳 [confirmation-en].
+image_prompt: A surreal, almost dreamlike wide-angle shot. A vintage Pepsi bottle
+  or can floats majestically above a vast, icy landscape, where the faint outlines
+  of Soviet warships (submarines, cruisers) are visible, half-submerged or frozen.
+  The sky is dramatic, with swirling clouds and volumetric light, emphasizing the
+  incredible and unique clash of culture and politics. 16:9 widescreen cinematic composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

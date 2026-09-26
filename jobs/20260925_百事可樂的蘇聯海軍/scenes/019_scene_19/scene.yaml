@@ -1,0 +1,26 @@
+id: 019_scene_19
+index: 19
+title: 第 19 幕
+narration: 沒錯，你沒有聽錯，是軍艦 [surprise-ah]！ 這筆交易中，百事可樂，得到了十七艘柴油潛水艇. 還有一艘巡洋艦，一艘護衛艦，以及一艘驅逐艦.
+  總計二十艘軍艦.
+image_prompt: A Q-version 2D cartoon illustration. A triumphant Donald Kendall stands
+  proudly next to a large, bubbly Pepsi bottle. Around him, a fleet of cute, toy-like
+  Q-version Soviet naval vessels (seventeen chubby submarines, one blocky cruiser,
+  one frigate, and one destroyer) are floating in stylized water, looking like a child's
+  bath toys. Wide shot, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Soviet Navy decommissioned warships 1989
+  fetch_error: 未找到合適照片

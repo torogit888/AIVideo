@@ -1,0 +1,19 @@
+id: 003_scene_3
+index: 3
+title: 第 3 幕
+narration: 百事可樂，作為美國文化的象徵之一，自然不會缺席， 當時百事可樂的國際部負責人，一位名叫唐納德·肯德爾的年輕人，他有著非凡的商業嗅覺， 肯德爾深知，這是一個將百事可樂，推向蘇聯人民的絕佳機會，
+image_prompt: A Q版 2D 卡通插畫 medium shot featuring Donald Kendall, with his large, round,
+  cheerful face, wide, sparkling black dot eyes, and broad, confident smile. His light
+  brown hair is neatly combed, and he wears a crisp dark blue business suit with a
+  bright white shirt and red tie. He stands confidently amidst a simplified display
+  of stylized Pepsi bottles at the American National Exhibition in Moscow, 1959. The
+  background shows parts of the exhibition hall with bright, flat colors and bold
+  outlines. His expression conveys ambition and intelligence. Uniformly bright and
+  soft lighting, no harsh shadows. 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260926T150244
+  image_take: image_20260926T150233

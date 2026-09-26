@@ -1,0 +1,70 @@
+id: 20260924_百事可樂的蘇聯海軍
+title: 百事可樂的蘇聯海軍
+language: zh-Hant
+voice_id: female01
+visual_anchors:
+  subject: The primary subjects are Donald Kendall, Richard Nixon, and Nikita Khrushchev,
+    depicted consistently across their respective timeframes. Donald Kendall, initially
+    a 'young man' in 1959, should be portrayed as a sharp, ambitious American businessman,
+    always impeccably dressed in a tailored, conservative suit (dark blues, greys,
+    or pinstripes), with a confident and shrewd demeanor. His appearance should subtly
+    age over the decades, reflecting his progression to a seasoned executive. Richard
+    Nixon, as US Vice President, maintains a formal, conservative suit and tie, with
+    his characteristic somewhat stern or thoughtful expression. Nikita Khrushchev,
+    the Soviet Premier, is consistently depicted with his distinctive bald head, stout
+    build, and often in a dark, formal suit or a military-style tunic, conveying authority
+    and a certain gruffness. His expression when drinking Pepsi is a key visual, transitioning
+    from initial curiosity to a slightly bemused or unimpressed look. All figures
+    maintain period-accurate hairstyles and accessories.
+  environment: The overarching environment is the Cold War era, spanning from 1959
+    to the early 1990s, characterized by a stark visual contrast between American
+    capitalism and Soviet communism. The dominant aesthetic for the Soviet Union is
+    one of imposing, often brutalist architecture; vast, sometimes sparsely populated
+    public spaces; and a general sense of austerity and state control. Dominant colors
+    for Soviet settings are muted reds, greys, browns, and dark blues. Lighting is
+    often stark, utilitarian, with deep shadows, or grand and imposing in official
+    settings, emphasizing the 'Iron Curtain' metaphor. In contrast, the American influence,
+    particularly the 1959 Moscow exhibition, is a vibrant, almost jarring splash of
+    color and consumerism. This setting features bright, artificial lighting (fluorescent,
+    spotlights), showcasing modern appliances, consumer goods, and the iconic red,
+    white, and blue branding of Pepsi, creating a sense of novelty and foreignness
+    against the Soviet backdrop. Later scenes involving Soviet naval assets should
+    depict formidable yet aged warships (submarines, cruisers, destroyers) with a
+    sense of melancholy or obsolescence, reflecting their status as decommissioned
+    scrap metal. Cinematic lighting should employ high contrast to emphasize ideological
+    divides, with volumetric rays occasionally highlighting grand Soviet structures
+    or the starkness of the Cold War atmosphere. The overall mood shifts from tense
+    and ideological to moments of unexpected humor and absurdity, visually conveyed
+    through the juxtaposition of these contrasting elements.
+frame:
+  aspect: '16:9'
+  gen_width: 1920
+  gen_height: 1080
+  deliver_width: 1920
+  deliver_height: 1080
+  fps: 30
+image:
+  backend: gemini
+  model: gemini-2.5-flash-image
+  model_final: gemini-2.5-flash-image
+  resolution: 1K
+  aspect_ratio: '16:9'
+  style: european_fairytale
+style_prefix: A clean, vibrant 2D cartoon illustration with cute, Chibi-proportioned
+  characters. This style features defined linework and cell-shading with minimal texture.
+  The compositions are often structured like game menus or split-screen views. Use
+  a balanced, slightly desaturated but still cheerful color palette. Elements like
+  machinery are simplified but detailed, characters have large, expressive eyes and
+  simple faces. Perfect for UI elements or narrative cutscenes in a mobile game or
+  webcomic.16:9 橫式構圖
+style_negative: '文字浮水印、照片寫實、現代冰冷科技感
+
+  (worst quality, low quality:1.4), 3D, 2.5D, realistic, photorealistic, CGI, render,
+  octane render, 3d model, oil painting, watercolor, rough lines, messy sketch, dirty
+  background, depth of field, blur, deformed, bad anatomy, bad proportions, missing
+  fingers, extra digits, signature, watermark, text'
+subtitle:
+  mode: hard
+  font: NotoSansTC-Regular.otf
+  font_size: 48
+kenburns: slow_zoom_in

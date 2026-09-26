@@ -1,0 +1,30 @@
+id: 031_scene_31
+index: 31
+title: 第 31 幕
+narration: 成為了美蘇兩國之間，一道奇特的商業橋樑. 然而，好景不長 [sigh].
+image_prompt: A stylized Pepsi bottle, part of a sleek, retro-futuristic Pepsi bottle,
+  gleaming under a spotlight, acting as a vibrant, glowing bridge connecting two distinct
+  landmasses representing the US and USSR. A subtle, ominous crack, part of a stern,
+  powerful Soviet leader with a knowing gaze, begins to appear in the bridge, hinting
+  at instability. The scene is bathed in a moody, high-contrast cinematic lighting
+  palette, with deep shadows and dramatic volumetric light, evoking a sense of Cold
+  War tension and historical significance. The background features subtle, atmospheric
+  elements like a faint haze or distant, blurred industrial structures, all composed
+  in a 16:9 widescreen aspect ratio, with a mix of hopeful and foreboding lighting,
+  signifying the changing times. Wide shot.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: top-right
+  scale: 0.24
+  border: 5
+  query: null
+  source_title: null
+  source_url: null

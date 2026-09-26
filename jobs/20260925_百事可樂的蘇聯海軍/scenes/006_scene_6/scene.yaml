@@ -1,0 +1,26 @@
+id: 006_scene_6
+index: 6
+title: 第 6 幕
+narration: 展覽會上，尼克森與蘇聯領導人，尼基塔·赫魯雪夫，展開了一場著名的廚房辯論. 這場辯論火花四射，充滿了意識形態的交鋒.
+image_prompt: A Q-version 2D cartoon illustration of Richard Nixon and Nikita Khrushchev
+  engaged in a lively 'kitchen debate' within a stylized American kitchen exhibit
+  at the 1959 US National Exhibition in Moscow. Nixon is gesturing emphatically, while
+  Khrushchev has a wide, expressive mouth, mid-sentence. The kitchen is modern and
+  bright, reflecting the environment anchor. Medium shot, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Nixon Khrushchev Kitchen Debate
+  source_title: File:1959 Events montage 16-grid version.jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/e/ef/1959_Events_montage_16-grid_version.jpg

@@ -1,0 +1,17 @@
+id: 011_scene_11
+index: 11
+title: 第 11 幕
+narration: 然而，問題來了，蘇聯的盧布，在國際市場上，幾乎沒有價值. 蘇聯法律，也禁止貨幣外流. 那麼，百事可樂要如何在蘇聯，進行貿易呢 [question-ei]？
+image_prompt: A Q-version 2D cartoon illustration. A stylized, almost deflated-looking
+  Soviet Ruble coin or banknote is shown next to a vibrant Pepsi bottle. A simplified,
+  cartoon 'no' symbol (like a red circle with a slash) is visually integrated over
+  the Ruble, indicating its lack of international value or prohibition of outflow.
+  The background is a simplified, slightly somber Soviet economic landscape. Medium
+  shot, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

@@ -1,0 +1,16 @@
+id: 020_scene_20
+index: 20
+title: 第 20 幕
+narration: '[laughter] 一家飲料公司，竟然擁有了，一支龐大的艦隊 [laughter]. 這讓百事可樂，一度被戲稱為，世界第六大海軍力量.'
+image_prompt: A Q-version 2D cartoon illustration. A giant, smiling Pepsi bottle is
+  depicted as the flagship, leading a vast, cute, toy-like Q-version Soviet Navy Fleet.
+  The fleet, consisting of various simplified naval vessels, sails proudly on stylized
+  waves, conveying the playful idea of Pepsi as a major naval power. Wide establishing
+  shot, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

@@ -1,0 +1,18 @@
+id: 024_scene_24
+index: 24
+title: 第 24 幕
+narration: 這個故事告訴我們，在商業世界裡，創新與膽識，永不設限 [confirmation-en]. 肯德爾的遠見卓識，讓百事可樂，在冷戰的冰封中，找到了一條，通往巨大市場的航道
+  [confirmation-en]. 儘管最終，那支海軍化作了廢鐵 [sigh]. 但百事可樂，用可樂換軍艦的傳奇，卻永遠，被載入了史冊 [confirmation-en].
+image_prompt: 'A powerful, symbolic image: Donald Kendall (older, seasoned executive,
+  impeccably dressed, with a reflective expression) stands in the foreground, looking
+  towards a distant, hazy silhouette of a massive pile of scrap metal (remnants of
+  warships). A subtle, glowing Pepsi logo is superimposed or reflected nearby. The
+  lighting is dramatic, with volumetric rays highlighting the contrast between ambition
+  and ultimate fate. 16:9 widescreen cinematic composition.'
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

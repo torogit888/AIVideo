@@ -33,7 +33,15 @@ interface StudioState {
   isPipelineRunning: boolean;
   pipelineProgress: number;
   pipelineMessage: string;
-  setPipelineRunning: (running: boolean, progress?: number, msg?: string) => void;
+  pipelineCooldown: number;
+  pipelineCooldownTotal: number;
+  setPipelineRunning: (
+    running: boolean,
+    progress?: number,
+    msg?: string,
+    cooldown?: number,
+    cooldownTotal?: number
+  ) => void;
 
   // 全域輕量級 Toast 通知
   toasts: ToastItem[];
@@ -59,8 +67,13 @@ export const useStudioStore = create<StudioState>((set, get) => ({
     try {
       const jobs = await api.getJobs();
       set({ jobs });
-      if (jobs.length > 0 && !get().selectedJobId) {
-        get().selectJob(jobs[0].id);
+      const currentSelected = get().selectedJobId;
+      if (jobs.length > 0) {
+        if (!currentSelected || !jobs.some((j) => j.id === currentSelected)) {
+          get().selectJob(jobs[0].id);
+        } else {
+          get().loadScenes(currentSelected);
+        }
       }
     } catch (e) {
       console.error("載入專案失敗", e);
@@ -90,17 +103,27 @@ export const useStudioStore = create<StudioState>((set, get) => ({
   isPipelineRunning: false,
   pipelineProgress: 0,
   pipelineMessage: "",
-  setPipelineRunning: (running, progress = 0, msg = "") =>
-    set({ isPipelineRunning: running, pipelineProgress: progress, pipelineMessage: msg }),
+  pipelineCooldown: 0,
+  pipelineCooldownTotal: 0,
+  setPipelineRunning: (running, progress = 0, msg = "", cooldown = 0, cooldownTotal = 0) =>
+    set({
+      isPipelineRunning: running,
+      pipelineProgress: progress,
+      pipelineMessage: msg,
+      pipelineCooldown: cooldown,
+      pipelineCooldownTotal: cooldownTotal,
+    }),
 
   // 全域輕量級 Toast 通知
   toasts: [],
   showToast: (message, type = "success") => {
     const id = Math.random().toString(36).substring(2, 9);
     set((state) => ({ toasts: [...state.toasts, { id, message, type }] }));
+    // 錯誤訊息停留 8 秒（讓使用者有充足時間閱讀與複製），一般成功提示停留 3.5 秒
+    const duration = type === "error" ? 8000 : 3500;
     setTimeout(() => {
       get().removeToast(id);
-    }, 3200);
+    }, duration);
   },
   removeToast: (id) => {
     set((state) => ({ toasts: state.toasts.filter((t) => t.id !== id) }));

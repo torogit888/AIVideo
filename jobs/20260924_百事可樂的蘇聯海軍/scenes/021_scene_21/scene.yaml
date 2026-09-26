@@ -1,0 +1,24 @@
+id: 021_scene_21
+index: 21
+title: 第 21 幕
+narration: 然而，好景不長 [sigh]. 一九九一年，蘇聯解體. 這對百事可樂在蘇聯的業務，造成了巨大的衝擊. 隨之而來的混亂與重組，讓百事公司，不得不重新評估其投資.
+image_prompt: A somber, wide-angle shot depicting a chaotic street scene in post-1991
+  Moscow. Faded Soviet banners, crumbling brutalist architecture, and a general sense
+  of disarray. The lighting is grey, overcast, and melancholic, reflecting the collapse
+  and uncertainty. A lone, slightly weathered Pepsi billboard stands incongruously
+  amidst the chaos. 16:9 widescreen cinematic composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Dissolution of Soviet Union 1991

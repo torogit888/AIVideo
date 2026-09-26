@@ -105,6 +105,19 @@ def generate_smoke_image(dest: Path) -> Path:
     return dest
 
 
+def _image_part(ref_image: Path | bytes | str, types: object):
+    if isinstance(ref_image, (str, Path)):
+        p = Path(ref_image)
+        if not p.is_file():
+            return None
+        suffix = p.suffix.lower()
+        mime = "image/png" if suffix == ".png" else "image/webp" if suffix == ".webp" else "image/jpeg"
+        return types.Part.from_bytes(data=p.read_bytes(), mime_type=mime)
+    if isinstance(ref_image, bytes) and ref_image:
+        return types.Part.from_bytes(data=ref_image, mime_type="image/png")
+    return None
+
+
 def generate_image(
     prompt: str,
     dest: Path,
@@ -113,6 +126,7 @@ def generate_image(
     model: str | None = None,
     seed: int | None = None,
     ref_image: Path | bytes | None = None,
+    ref_images: list[Path | bytes | tuple[Path | bytes, str]] | None = None,
 ) -> tuple[Path, str, int | None]:
     preferred = (model or os.environ.get("GEMINI_IMAGE_MODEL", "")).strip()
     models = [preferred] if preferred else []
@@ -137,22 +151,49 @@ def generate_image(
     client = genai.Client(**client_kwargs)
     errors: list[str] = []
 
-    # 處理參考圖輸入（Image Reference Conditioning）
-    ref_part = None
-    if ref_image:
-        if isinstance(ref_image, (str, Path)):
-            p = Path(ref_image)
-            if p.is_file():
-                mime = "image/png" if p.suffix.lower() == ".png" else "image/jpeg"
-                ref_part = types.Part.from_bytes(data=p.read_bytes(), mime_type=mime)
-        elif isinstance(ref_image, bytes) and ref_image:
-            ref_part = types.Part.from_bytes(data=ref_image, mime_type="image/png")
+    # 處理參考圖輸入（可多人、每人一張定裝圖）
+    labeled_refs: list[tuple[object, str]] = []
+    raw_refs: list[Path | bytes | tuple[Path | bytes, str]] = []
+    if ref_images:
+        raw_refs.extend(ref_images)
+    elif ref_image is not None:
+        raw_refs.append(ref_image)
 
-    if ref_part is not None:
-        contents: object = [
-            ref_part,
-            f"Visual Reference: The attached image defines the primary visual subject/character appearance and structural details. Maintain strict visual consistency with the subject shown in the reference image while rendering the following new 16:9 widescreen scene:\n{prompt}",
-        ]
+    for item in raw_refs:
+        label = ""
+        src: Path | bytes
+        if isinstance(item, tuple) and len(item) == 2:
+            src, label = item[0], str(item[1] or "").strip()
+        else:
+            src = item  # type: ignore[assignment]
+        part = _image_part(src, types)
+        if part is None:
+            continue
+        if not label:
+            label = f"character reference {len(labeled_refs) + 1}"
+        labeled_refs.append((part, label))
+
+    if labeled_refs:
+        parts = [part for part, _ in labeled_refs]
+        if len(labeled_refs) == 1:
+            instruction = (
+                f"Visual Reference: The attached image defines {labeled_refs[0][1]}. "
+                "Maintain strict visual consistency with the subject shown in the reference image "
+                f"while rendering the following new 16:9 widescreen scene:\n{prompt}"
+            )
+        else:
+            mapping = " ".join(
+                f"Attached image {i} is {label}."
+                for i, (_, label) in enumerate(labeled_refs, start=1)
+            )
+            instruction = (
+                "Visual character design references are attached. "
+                f"{mapping} "
+                "When a referenced character appears, match that character's face, hair, body, costume and colors exactly. "
+                "Do not merge or swap identities across different reference images. "
+                f"Render the following new 16:9 widescreen scene:\n{prompt}"
+            )
+        contents: object = [*parts, instruction]
     else:
         contents = prompt
 

@@ -1,0 +1,31 @@
+id: 030_scene_30
+index: 30
+title: 第 30 幕
+narration: 它反映了，那個特殊年代，商業與政治之間，錯綜複雜的關係 [confirmation-en]. 百事可樂，這個資本主義的象徵，成功地，穿透了鐵幕.
+image_prompt: A sleek, retro-futuristic Pepsi bottle, gleaming under a spotlight,
+  dramatically breaking through a symbolic "Iron Curtain", part of a stern, powerful
+  Soviet leader with a knowing gaze, made of heavy, metallic fabric. Volumetric light
+  streams through the tear, revealing a vibrant, capitalist world beyond. The scene
+  is bathed in a moody, high-contrast cinematic lighting palette, with deep shadows
+  and dramatic volumetric light, evoking a sense of Cold War tension and historical
+  significance. The background features subtle, atmospheric elements like a faint
+  haze or distant, blurred industrial structures, all composed in a 16:9 widescreen
+  aspect ratio, with powerful, symbolic lighting, emphasizing the penetration of capitalism.
+  Cinematic close-up.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  scale: 0.24
+  border: 5
+  query: Iron Curtain Cold War map
+  source_title: null
+  source_url: null
+  mode: spotlight

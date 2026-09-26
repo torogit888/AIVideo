@@ -1,0 +1,25 @@
+id: 023_scene_23
+index: 23
+title: 第 23 幕
+narration: 甚至到了二零一三年，連百事可樂在，普希金廣場的廣告牌，都被撤下了. 這場可樂戰爭，在蘇聯解體後，進入了新的篇章. 百事可樂的蘇聯海軍傳奇，也畫上了句號
+  [sigh].
+image_prompt: A poignant, wide-angle shot of Pushkin Square in Moscow (2013). A large,
+  empty billboard frame stands prominently, with workers in the distance removing
+  the last remnants of a Pepsi advertisement. The lighting is soft, melancholic, and
+  slightly overcast, symbolizing the end of an era and the fading of Pepsi's legend.
+  16:9 widescreen cinematic composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Pepsi billboard Pushkin Square Moscow

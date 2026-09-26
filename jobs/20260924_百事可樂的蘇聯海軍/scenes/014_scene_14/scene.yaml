@@ -1,0 +1,26 @@
+id: 014_scene_14
+index: 14
+title: 第 14 幕
+narration: 此時，肯德爾又一次，創造了歷史 [confirmation-en]. 一九八九年，百事公司與蘇聯政府，簽署了一份，價值高達三十億美元的協議.
+  這一次，蘇聯用來交換百事可樂的，竟然是他們的，退役軍艦 [surprise-wa]. 沒錯，你沒有聽錯，是軍艦 [surprise-ah]！
+image_prompt: A dramatic, high-contrast image of Donald Kendall (seasoned executive,
+  impeccably dressed, confident) standing in front of a massive, dark silhouette of
+  a Soviet warship (e.g., a cruiser or submarine), perhaps docked in a grim, industrial
+  port. A large, stylized Pepsi logo is subtly visible in the foreground. Volumetric
+  light pierces through a cloudy, ominous sky, emphasizing the monumental and absurd
+  nature of the deal. 16:9 widescreen cinematic composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Soviet Navy ships for Pepsi

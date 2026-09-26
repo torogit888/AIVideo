@@ -1,0 +1,16 @@
+id: 026_scene_26
+index: 26
+title: 第 26 幕
+narration: 各位觀眾，你對這個故事，有什麼看法呢 [question-ei]？ 歡迎在評論區，留下你的精彩留言 [confirmation-en].
+image_prompt: A cinematic, slightly abstract shot of a vintage film reel spinning
+  slowly, reflecting subtle, fleeting images of Pepsi bottles and Soviet warships.
+  The lighting is moody and atmospheric, with a soft, nostalgic glow, inviting reflection.
+  The composition is clean, allowing for a sense of contemplation. 16:9 widescreen
+  cinematic composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

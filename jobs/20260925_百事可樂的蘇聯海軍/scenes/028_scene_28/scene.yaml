@@ -1,0 +1,25 @@
+id: 028_scene_28
+index: 28
+title: 第 28 幕
+narration: 可口可樂，在短時間內，銷量便超越了百事. 甚至到了二零一三年，連百事可樂在，普希金廣場的廣告牌，都被撤下了.
+image_prompt: A Q-version 2D cartoon illustration. A stylized graph visually shows
+  Coca-Cola's sales line sharply rising above Pepsi's declining line. In the background,
+  a Q-version worker is taking down a Pepsi billboard in a simplified Pushkin Square
+  setting, while a Coca-Cola billboard is already prominent. A stylized '2013' is
+  subtly visible as a visual element. Split panel or montage, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Pepsi billboard Pushkin Square Moscow
+  fetch_error: 未找到合適照片

@@ -1,0 +1,16 @@
+id: 013_scene_13
+index: 13
+title: 第 13 幕
+narration: 他們已經無法，提供足夠的伏特加，來支付日益增長的可樂費用. 百事公司，需要一種新的支付方式 [question-ei]？
+image_prompt: A medium shot of Donald Kendall (now a seasoned executive, older, impeccably
+  dressed in a tailored suit) looking concerned and thoughtful, perhaps reviewing
+  documents at a large, imposing desk in a dimly lit office. The lighting is dramatic,
+  with deep shadows, suggesting a difficult problem and the weight of decision-making
+  in a high-stakes Cold War environment. 16:9 widescreen cinematic composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

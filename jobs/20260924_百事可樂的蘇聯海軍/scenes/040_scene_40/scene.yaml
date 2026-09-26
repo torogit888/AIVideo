@@ -1,0 +1,29 @@
+id: 040_scene_40
+index: 40
+title: 第 40 幕
+narration: 各位觀眾，你對這個故事，有什麼看法呢 [question-ei]？ 歡迎在評論區，留下你的精彩留言 [confirmation-en].
+image_prompt: A sophisticated, minimalist end card with a subtle, abstract representation
+  of a sleek, retro-futuristic Pepsi bottle, gleaming under a spotlight, and a faint
+  outline of a ship, part of a stern, powerful Soviet leader with a knowing gaze,
+  in the background. The composition invites contemplation. The scene is bathed in
+  a moody, high-contrast cinematic lighting palette, with deep shadows and dramatic
+  volumetric light, evoking a sense of Cold War tension and historical significance.
+  The background features subtle, atmospheric elements like a faint haze or distant,
+  blurred industrial structures, all composed in a 16:9 widescreen aspect ratio, with
+  a soft, reflective lighting, encouraging audience engagement. Wide-angle shot.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: top-right
+  scale: 0.24
+  border: 5
+  query: null
+  source_title: null
+  source_url: null

@@ -1,0 +1,31 @@
+id: 032_scene_32
+index: 32
+title: 第 32 幕
+narration: 一九九一年，蘇聯解體. 這對百事可樂在蘇聯的業務，造成了巨大的衝擊.
+image_prompt: A tattered Soviet flag, part of a stern, powerful Soviet leader with
+  a knowing gaze, slowly falling from a flagpole, symbolizing the collapse of the
+  USSR. In the foreground, a glass sleek, retro-futuristic Pepsi bottle, gleaming
+  under a spotlight, shatters into a thousand pieces, reflecting the impact on business.
+  The scene is bathed in a moody, high-contrast cinematic lighting palette, with deep
+  shadows and dramatic volumetric light, evoking a sense of Cold War tension and historical
+  significance. The background features subtle, atmospheric elements like a faint
+  haze or distant, blurred industrial structures, all composed in a 16:9 widescreen
+  aspect ratio, with cold, stark lighting, emphasizing the dramatic end of an era.
+  Cinematic close-up.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  scale: 0.24
+  border: 5
+  query: Soviet Union collapse 1991
+  source_title: null
+  source_url: null
+  mode: spotlight

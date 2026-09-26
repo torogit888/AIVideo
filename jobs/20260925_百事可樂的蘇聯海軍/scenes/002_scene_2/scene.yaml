@@ -1,0 +1,17 @@
+id: 002_scene_2
+index: 2
+title: 第 2 幕
+narration: 要理解這段傳奇，我們得把時間撥回到，一九五九年的莫斯科， 那時，美蘇冷戰正酣，兩大陣營劍拔弩張，卻也偶有緩和，
+image_prompt: A Q-version 2D cartoon illustration of the 1959 US National Exhibition
+  in Moscow. This wide establishing shot shows the bright, modern, and slightly futuristic
+  American pavilion with clean, simplified lines, contrasting with more traditional,
+  muted Soviet buildings in the background. The color palette is vibrant and inviting,
+  with prominent red, white, and blue. The lighting is soft, even, and bright daylight,
+  creating a cheerful and optimistic atmosphere in a 16:9 widescreen composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

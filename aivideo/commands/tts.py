@@ -520,7 +520,11 @@ def run_tts(args: Any = None, progress_callback=None, **kwargs) -> int:
                 encoding="utf-8",
             )
             subprocess.run(
-                ["ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", str(concat_list), "-c", "copy", str(dest_wav)],
+                [
+                    "ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", str(concat_list),
+                    "-ar", "44100", "-ac", "1", "-c:a", "pcm_s16le",
+                    str(dest_wav),
+                ],
                 check=True,
                 capture_output=True,
             )

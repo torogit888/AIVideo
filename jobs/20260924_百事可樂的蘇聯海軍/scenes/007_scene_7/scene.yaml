@@ -1,0 +1,26 @@
+id: 007_scene_7
+index: 7
+title: 第 7 幕
+narration: 一位攝影師，精準捕捉到了，赫魯雪夫喝可樂的歷史性瞬間. 這張照片，第二天便登上了世界各大報紙的頭版. 百事可樂藉此，在蘇聯獲得了巨大的免費宣傳.
+  肯德爾也因此聲名大噪，僅六年後，便晉升為百事公司的執行長.
+image_prompt: A dramatic, high-contrast image mimicking a vintage newspaper photograph.
+  Nikita Khrushchev (bald head, stout build, dark formal suit) is prominently featured,
+  mid-sip of Pepsi, with a slightly bemused expression. Donald Kendall (young man,
+  impeccably dressed) is in the background, looking on with a confident, shrewd smile.
+  The scene is brightly lit, emphasizing the historical moment, with a subtle sense
+  of a camera flash. 16:9 widescreen cinematic composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Khrushchev drinking Pepsi photo

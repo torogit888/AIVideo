@@ -1,0 +1,21 @@
+id: 004_scene_4
+index: 4
+title: 第 4 幕
+narration: 他找到了當時的美國副總統，理查德·尼克森，請求他的幫助， 尼克森與肯德爾私交甚篤，曾經還是百事可樂的律師顧問. 在肯德爾的懇求下，尼克森答應了這個看似荒唐的請求.
+image_prompt: A Q版 2D 卡通插畫 medium shot depicting Donald Kendall and Richard Nixon
+  interacting at the American National Exhibition in Moscow, 1959. Donald Kendall,
+  with his cheerful face and confident smile, is gesturing persuasively towards Nixon.
+  Richard Nixon, with his slightly more angular Q-version head, small, serious but
+  kind eyes, and a thoughtful frown, listens intently. Both are dressed in their characteristic
+  suits, rendered with flat colors and bold outlines. They are positioned within the
+  simplified, brightly colored exhibition hall, with stylized American consumer goods
+  in the soft-focus background. Uniformly bright and soft lighting, no harsh shadows.
+  The atmosphere is one of a private, yet significant, conversation amidst a public
+  event. 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260926T150313
+  image_take: image_20260926T150303

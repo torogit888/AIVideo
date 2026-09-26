@@ -1,0 +1,18 @@
+id: 032_scene_32
+index: 32
+title: 第 32 幕
+narration: 這不僅是商業的勝利，更是人類歷史上，一次，不可思議的，文化與政治的，奇妙交鋒 [surprise-oh]. 一個飲料品牌，在特定的歷史背景下，竟然能擁有，足以排進世界前列的，軍事實力
+  [question-ah]？ 這本身，就是對時代，最生動的註腳 [confirmation-en].
+image_prompt: A Q-version 2D cartoon illustration. A vibrant Pepsi bottle is at the
+  center, surrounded by swirling, stylized elements representing culture (e.g., music
+  notes, art symbols), politics (e.g., simplified flags, government buildings), and
+  military power (e.g., tiny, cute Q-version tanks or planes, alongside the naval
+  vessels). All elements interact playfully, highlighting the 'clash' and 'wonder'
+  of this historical event. Wide, dynamic, and symbolic shot, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

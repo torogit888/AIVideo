@@ -1,0 +1,26 @@
+id: 027_scene_27
+index: 27
+title: 第 27 幕
+narration: 更具挑戰性的是，百事可樂的死敵，可口可樂，也趁勢大舉進攻，俄羅斯市場. 結束了百事可樂，在蘇聯市場，獨佔鰲頭的好日子.
+image_prompt: A Q-version 2D cartoon illustration. A confident Coca-Cola bottle, almost
+  like a conquering hero, is marching into a simplified Russian market with stylized
+  Russian architecture. A Q-version Pepsi bottle looks surprised or defeated, being
+  visually pushed aside, symbolizing the end of its market dominance. Medium shot,
+  16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Coca-Cola Russia advertisement
+  source_title: File:AmericanDruggist22Oct1900CocaColaAd.jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/3/35/AmericanDruggist22Oct1900CocaColaAd.jpg

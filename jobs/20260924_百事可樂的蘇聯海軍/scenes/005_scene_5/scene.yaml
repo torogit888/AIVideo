@@ -1,0 +1,25 @@
+id: 005_scene_5
+index: 5
+title: 第 5 幕
+narration: 展覽會上，尼克森與蘇聯領導人，尼基塔·赫魯雪夫，展開了一場著名的廚房辯論. 這場辯論火花四射，充滿了意識形態的交鋒. 辯論結束後，尼克森將赫魯雪夫，帶到了百事可樂的展台前.
+image_prompt: A dynamic shot capturing Richard Nixon (US Vice President, formal suit,
+  stern expression) gesturing towards a vibrant Pepsi stand, leading Nikita Khrushchev
+  (bald head, stout build, dark formal suit, somewhat gruff expression) through a
+  brightly lit, modern kitchen display at the 1959 American exhibition. The background
+  shows glimpses of consumer goods. High contrast lighting. 16:9 widescreen cinematic
+  composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Nixon Khrushchev Kitchen Debate

@@ -1,0 +1,16 @@
+id: 019_scene_19
+index: 19
+title: 第 19 幕
+narration: 這筆交易，不僅解決了蘇聯，缺乏硬通貨的問題. 也讓百事可樂，在蘇聯擴大了生產線，並增加了，新的油輪來運輸貨物.
+image_prompt: 'A split image or juxtaposition: on one side, a modern, brightly lit
+  Pepsi bottling plant interior in the Soviet Union with workers. On the other side,
+  a sleek, newly acquired oil tanker with subtle Pepsi branding, sailing through calm
+  waters under a clear sky. The contrast highlights growth and expansion. 16:9 widescreen
+  cinematic composition.'
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

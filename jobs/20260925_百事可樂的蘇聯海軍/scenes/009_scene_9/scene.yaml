@@ -1,0 +1,25 @@
+id: 009_scene_9
+index: 9
+title: 第 9 幕
+narration: 這句話聽起來有些奇怪，卻成了百事可樂，打入蘇聯市場的敲門磚. 一位攝影師，精準捕捉到了，赫魯雪夫喝可樂的歷史性瞬間.
+image_prompt: 'A Q-version 2D cartoon illustration depicting the iconic moment: Nikita
+  Khrushchev drinking Pepsi, surrounded by smiling Richard Nixon and Donald Kendall.
+  In the foreground, a stylized Q-version photographer with an old-fashioned camera
+  is capturing the historical shot. The scene is bright and cheerful, set at the Pepsi
+  stand of the 1959 US National Exhibition. Medium shot, 16:9 widescreen.'
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Khrushchev drinking Pepsi 1959
+  fetch_error: 未找到合適照片

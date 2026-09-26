@@ -59,6 +59,8 @@ def build_parser() -> argparse.ArgumentParser:
 
     compose = sub.add_parser("compose", help="使用 FFmpeg 合成 1080p 影片 (Ken Burns 推鏡 + 旁白 + 字幕)")
     compose.add_argument("--job", required=True, help="Job 目錄路徑，例如 jobs/20260916_roman_telescope")
+    compose.add_argument("--burn-subtitles", dest="burn_subtitles", action="store_true", default=None, help="燒錄 ASS 字幕至影片畫面（若未指定則預設不燒錄，依 job.yaml 設定）")
+    compose.add_argument("--no-burn-subtitles", dest="burn_subtitles", action="store_false", help="不燒錄字幕至畫面（純淨畫面輸出，可搭配匯出的 SRT 字幕檔上傳 YouTube）")
     compose.set_defaults(func=run_compose)
 
     preview = sub.add_parser("preview", help="產生 preview.html 故事板網頁檢視")

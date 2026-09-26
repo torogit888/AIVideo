@@ -1,0 +1,16 @@
+id: 014_scene_14
+index: 14
+title: 第 14 幕
+narration: 這項交易，在當時震驚了世界 [surprise-ah]. 百事可樂，成為了第一個，成功打入蘇聯市場的西方消費品牌.
+image_prompt: A Q-version 2D cartoon illustration. A vibrant Pepsi bottle, almost
+  like a triumphant flag, is planted firmly in a simplified map of the Soviet Union.
+  Stylized Q-version people from around the world, represented by different national
+  costumes or features, look on in awe or surprise. The scene emphasizes global impact
+  and Pepsi's pioneering entry. Wide shot, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

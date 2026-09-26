@@ -1,0 +1,124 @@
+id: 20260925_百事可樂的蘇聯海軍
+title: 百事可樂的蘇聯海軍
+language: zh-Hant
+voice_id: female01
+visual_anchors:
+  subject: 'Donald Kendall: A Q-version 2D cartoon illustration of a sharp, ambitious
+    American businessman. He has a disproportionately large head with a confident,
+    slightly smirking expression, featuring bright, expressive eyes and neatly combed,
+    dark hair. His body is smaller and energetic, dressed in a crisp, mid-century
+    dark grey or navy business suit with a white shirt and a subtly patterned tie.
+    His posture is dynamic, perhaps holding a stylized, bubbly Pepsi bottle. The lines
+    are clean, and colors are vibrant yet professional, reflecting his modern, capitalist
+    persona. | Richard Nixon: A Q-version 2D cartoon illustration of the US Vice President.
+    He has a large, recognizable head with exaggerated features like a prominent nose
+    and a serious, yet softened, expression. His eyes are large and expressive, conveying
+    a sense of gravitas. His body is sturdy and formal, dressed in a classic dark
+    suit (navy or black), a crisp white shirt, and a conservative red or blue tie.
+    His hair is neatly combed, with a hint of a receding hairline. The overall look
+    is simplified and iconic, capturing his political stature in a friendly, approachable
+    cartoon style. | Nikita Khrushchev: A Q-version 2D cartoon illustration of the
+    Soviet leader. He features a very large, round, bald head with exaggerated, bushy
+    eyebrows and a wide, expressive mouth, perhaps caught mid-sip of a Pepsi. His
+    eyes are large, friendly yet firm. His body is stocky and portly, typical of Q-version
+    proportions. He wears a simplified, dark Soviet-style suit or tunic, often in
+    deep grey or olive green, with a white shirt visible underneath, and no tie. His
+    posture is often depicted with a hand on his hip or gesturing, conveying a mix
+    of joviality and authority. The lines are clean, and colors are muted but distinct.
+    | Soviet Navy Fleet (Pepsi''s Fleet): A collection of Q-version 2D cartoon illustrations
+    of various Soviet naval vessels. Each ship (submarines, cruiser, frigate, destroyer)
+    is rendered in a simplified, cute, and non-threatening style. Submarines are chubby,
+    rounded torpedo-like shapes with tiny, friendly periscopes and propellers. Surface
+    ships have blocky, simplified hulls with exaggerated, stubby turrets, radar dishes,
+    and small, cute portholes, perhaps with a tiny, stylized Soviet flag. All vessels
+    are colored in a softened, desaturated military grey with subtle blue or green
+    undertones, appearing clean and toy-like rather than battle-hardened. The lines
+    are clear and playful, emphasizing their role as an unusual commodity rather than
+    instruments of war.'
+  environment: The environment is a Q-version 2D cartoon illustration of the 1959
+    US National Exhibition in Moscow. The architecture of the American pavilion is
+    depicted with clean, simplified lines, appearing bright, modern, and slightly
+    futuristic against a backdrop of more traditional, muted Soviet buildings. The
+    color palette is vibrant and inviting, with prominent use of red, white, and blue
+    for the exhibition's branding and the Pepsi stand, contrasting with cooler, desaturated
+    tones for the Moscow cityscape. The lighting is soft, even, and bright daylight,
+    creating a cheerful and optimistic atmosphere without harsh shadows. The overall
+    impression is one of cultural exchange and curiosity, rendered in a friendly,
+    approachable cartoon style, with stylized details like a prominent Pepsi logo
+    and hints of generic Q-version visitors observing the exhibits.
+  use_image_reference: true
+  characters:
+  - id: donald_kendall
+    name: Donald Kendall
+    appearance: A Q-version 2D cartoon illustration of a sharp, ambitious American
+      businessman. He has a disproportionately large head with a confident, slightly
+      smirking expression, featuring bright, expressive eyes and neatly combed, dark
+      hair. His body is smaller and energetic, dressed in a crisp, mid-century dark
+      grey or navy business suit with a white shirt and a subtly patterned tie. His
+      posture is dynamic, perhaps holding a stylized, bubbly Pepsi bottle. The lines
+      are clean, and colors are vibrant yet professional, reflecting his modern, capitalist
+      persona.
+  - id: richard_nixon
+    name: Richard Nixon
+    appearance: A Q-version 2D cartoon illustration of the US Vice President. He has
+      a large, recognizable head with exaggerated features like a prominent nose and
+      a serious, yet softened, expression. His eyes are large and expressive, conveying
+      a sense of gravitas. His body is sturdy and formal, dressed in a classic dark
+      suit (navy or black), a crisp white shirt, and a conservative red or blue tie.
+      His hair is neatly combed, with a hint of a receding hairline. The overall look
+      is simplified and iconic, capturing his political stature in a friendly, approachable
+      cartoon style.
+  - id: nikita_khrushchev
+    name: Nikita Khrushchev
+    appearance: A Q-version 2D cartoon illustration of the Soviet leader. He features
+      a very large, round, bald head with exaggerated, bushy eyebrows and a wide,
+      expressive mouth, perhaps caught mid-sip of a Pepsi. His eyes are large, friendly
+      yet firm. His body is stocky and portly, typical of Q-version proportions. He
+      wears a simplified, dark Soviet-style suit or tunic, often in deep grey or olive
+      green, with a white shirt visible underneath, and no tie. His posture is often
+      depicted with a hand on his hip or gesturing, conveying a mix of joviality and
+      authority. The lines are clean, and colors are muted but distinct.
+  - id: soviet_navy_fleet
+    name: Soviet Navy Fleet (Pepsi's Fleet)
+    appearance: A collection of Q-version 2D cartoon illustrations of various Soviet
+      naval vessels. Each ship (submarines, cruiser, frigate, destroyer) is rendered
+      in a simplified, cute, and non-threatening style. Submarines are chubby, rounded
+      torpedo-like shapes with tiny, friendly periscopes and propellers. Surface ships
+      have blocky, simplified hulls with exaggerated, stubby turrets, radar dishes,
+      and small, cute portholes, perhaps with a tiny, stylized Soviet flag. All vessels
+      are colored in a softened, desaturated military grey with subtle blue or green
+      undertones, appearing clean and toy-like rather than battle-hardened. The lines
+      are clear and playful, emphasizing their role as an unusual commodity rather
+      than instruments of war.
+frame:
+  aspect: '16:9'
+  gen_width: 1920
+  gen_height: 1080
+  deliver_width: 1920
+  deliver_height: 1080
+  fps: 30
+image:
+  backend: gemini
+  model: gemini-2.5-flash-image
+  model_final: gemini-2.5-flash-image
+  resolution: 1K
+  aspect_ratio: '16:9'
+  style: european_fairytale
+style_prefix: A clean, vibrant 2D cartoon illustration with cute, Chibi-proportioned
+  characters. This style features defined linework and cell-shading with minimal texture.
+  The compositions are often structured like game menus or split-screen views. Use
+  a balanced, slightly desaturated but still cheerful color palette. Elements like
+  machinery are simplified but detailed, characters have large, expressive eyes and
+  simple faces. Perfect for UI elements or narrative cutscenes in a mobile game or
+  webcomic.16:9 橫式構圖
+style_negative: '文字浮水印、照片寫實、現代冰冷科技感
+
+  (worst quality, low quality:1.4), 3D, 2.5D, realistic, photorealistic, CGI, render,
+  octane render, 3d model, oil painting, watercolor, rough lines, messy sketch, dirty
+  background, depth of field, blur, deformed, bad anatomy, bad proportions, missing
+  fingers, extra digits, signature, watermark, text'
+subtitle:
+  mode: none
+  font: NotoSansTC-Regular.otf
+  font_size: 48
+kenburns: slow_zoom_in

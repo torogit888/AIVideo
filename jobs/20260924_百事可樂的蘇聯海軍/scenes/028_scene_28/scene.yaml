@@ -1,0 +1,31 @@
+id: 028_scene_28
+index: 28
+title: 第 28 幕
+narration: 它們的最終歸宿，是作為廢鐵，被拆解回收. 這筆交易，不僅解決了蘇聯，缺乏硬通貨的問題.
+image_prompt: Towering piles of rusted, twisted scrap metal, part of a stern, powerful
+  Soviet leader with a knowing gaze, remnants of the dismantled warships, under a
+  grey, industrial sky. A subtle, symbolic image of a Soviet ruble, part of a stern,
+  powerful Soviet leader with a knowing gaze, transforming into a hard currency coin,
+  part of a stern, powerful Soviet leader with a knowing gaze, is subtly integrated
+  into the scene. The scene is bathed in a moody, high-contrast cinematic lighting
+  palette, with deep shadows and dramatic volumetric light, evoking a sense of Cold
+  War tension and historical significance. The background features subtle, atmospheric
+  elements like a faint haze or distant, blurred industrial structures, all composed
+  in a 16:9 widescreen aspect ratio, with gritty, realistic lighting, emphasizing
+  the practical outcome. Low angle shot.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: top-right
+  scale: 0.24
+  border: 5
+  query: null
+  source_title: null
+  source_url: null

@@ -1,0 +1,16 @@
+id: 023_scene_23
+index: 23
+title: 第 23 幕
+narration: 這筆交易，不僅解決了蘇聯，缺乏硬通貨的問題. 也讓百事可樂，在蘇聯擴大了生產線，並增加了，新的油輪來運輸貨物.
+image_prompt: A Q-version 2D cartoon illustration. On one side, a stylized, empty
+  'hard currency' wallet or piggy bank for the USSR is now visually full of Pepsi
+  bottles. On the other side, a Q-version Pepsi factory in the Soviet Union is expanding,
+  with new, cute Q-version oil tankers (or Pepsi tankers) sailing away, filled with
+  product. Split panel or montage, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

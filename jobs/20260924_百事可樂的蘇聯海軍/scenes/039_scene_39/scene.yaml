@@ -1,0 +1,30 @@
+id: 039_scene_39
+index: 39
+title: 第 39 幕
+narration: 一個飲料品牌，在特定的歷史背景下，竟然能擁有，足以排進世界前列的，軍事實力 [question-ah]？ 這本身，就是對時代，最生動的註腳 [confirmation-en].
+image_prompt: A sleek, retro-futuristic Pepsi bottle, gleaming under a spotlight,
+  adorned with subtle, stylized military insignias and a faint "6th Largest Navy"
+  emblem, part of a sleek, retro-futuristic Pepsi bottle, gleaming under a spotlight.
+  A large, dramatic question mark, part of a sleek, retro-futuristic Pepsi bottle,
+  gleaming under a spotlight, hovers above it, emphasizing the incredulity of the
+  situation. The scene is bathed in a moody, high-contrast cinematic lighting palette,
+  with deep shadows and dramatic volumetric light, evoking a sense of Cold War tension
+  and historical significance. The background features subtle, atmospheric elements
+  like a faint haze or distant, blurred industrial structures, all composed in a 16:9
+  widescreen aspect ratio, with a surreal, thought-provoking lighting. Cinematic close-up.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: top-right
+  scale: 0.24
+  border: 5
+  query: null
+  source_title: null
+  source_url: null

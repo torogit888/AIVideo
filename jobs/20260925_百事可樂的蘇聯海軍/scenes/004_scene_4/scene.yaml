@@ -1,0 +1,27 @@
+id: 004_scene_4
+index: 4
+title: 第 4 幕
+narration: 當時百事可樂的國際部負責人，一位名叫唐納德·肯德爾的年輕人，他有著非凡的商業嗅覺， 肯德爾深知，這是一個將百事可樂，推向蘇聯人民的絕佳機會，
+image_prompt: A Q-version 2D cartoon illustration of Donald Kendall, a sharp and ambitious
+  American businessman. He stands confidently with a disproportionately large head,
+  a slightly smirking expression, and bright, expressive eyes. He holds a stylized,
+  bubbly Pepsi bottle. His body is smaller and energetic, dressed in a crisp mid-century
+  dark business suit. The background is a subtle, blurred hint of the Soviet market,
+  conveying his commercial ambition. Medium close-up, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Donald Kendall Pepsi
+  source_title: File:Donald Mcintosh Kendall.jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/5/5d/Donald_Mcintosh_Kendall.jpg

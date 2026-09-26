@@ -1,0 +1,17 @@
+id: 030_scene_30
+index: 30
+title: 第 30 幕
+narration: 這個故事告訴我們，在商業世界裡，創新與膽識，永不設限 [confirmation-en]. 肯德爾的遠見卓識，讓百事可樂，在冷戰的冰封中，找到了一條，通往巨大市場的航道
+  [confirmation-en].
+image_prompt: A Q-version 2D cartoon illustration of Donald Kendall, with a visionary
+  and determined expression, standing at the helm of a stylized Pepsi bottle-shaped
+  ship. The ship is navigating through icy, stylized Cold War waters, breaking a clear
+  path towards a bright, open market represented by a distant, glowing city. Wide
+  shot, symbolic and inspiring, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

@@ -1,0 +1,26 @@
+id: 013_scene_13
+index: 13
+title: 第 13 幕
+narration: 百事可樂提供濃縮原漿，在蘇聯設廠生產. 而蘇聯方面，則用他們引以為傲的伏特加，來支付可樂的費用. 百事可樂，因此獲得了蘇聯伏特加在美國的獨家代理權.
+image_prompt: A Q-version 2D cartoon illustration. A cheerful Pepsi bottle is on one
+  side, connected by a stylized conveyor belt or pipeline to a Q-version factory building
+  in a simplified Soviet landscape. On the other side, a bottle of vodka is prominently
+  displayed, with a stylized 'USA' flag next to it, indicating exclusive distribution
+  rights. Wide shot, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Soviet Vodka bottle
+  source_title: File:Anchorage Alaska Museum Russia Exhibit - Stolichnaya vodka.jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/1/1b/Anchorage_Alaska_Museum_Russia_Exhibit_-_Stolichnaya_vodka.jpg

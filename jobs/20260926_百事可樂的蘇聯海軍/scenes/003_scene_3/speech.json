@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260926T150244",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.8,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "百事可樂，作為美國文化的象徵之一，自然不會缺席， 當時百事可樂的國際部負責人，一位名叫唐納德·肯德爾的年輕人，他有著非凡的商業嗅覺， 肯德爾深知，這是一個將百事可樂，推向蘇聯人民的絕佳機會，",
+      "text_cn": "百事可乐，作为美国文化的象征之一，自然不会缺席， 当时百事可乐的国际部负责人，一位名叫唐纳德·肯德尔的年轻人，他有着非凡的商业嗅觉， 肯德尔深知，这是一个将百事可乐，推向苏联人民的绝佳机会，",
+      "start_sec": 0.0,
+      "end_sec": 14.8,
+      "duration_sec": 14.8
+    }
+  ],
+  "created_at": "2026-09-26T15:02:44.306094+00:00"
+}

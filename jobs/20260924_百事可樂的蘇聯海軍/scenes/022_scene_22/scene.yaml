@@ -1,0 +1,24 @@
+id: 022_scene_22
+index: 22
+title: 第 22 幕
+narration: 更具挑戰性的是，百事可樂的死敵，可口可樂，也趁勢大舉進攻，俄羅斯市場. 結束了百事可樂，在蘇聯市場，獨佔鰲頭的好日子. 可口可樂，在短時間內，銷量便超越了百事.
+image_prompt: A dramatic, high-contrast visual of a bright red Coca-Cola truck or
+  billboard aggressively dominating a street scene in post-Soviet Russia, overshadowing
+  a smaller, slightly faded Pepsi advertisement. The lighting is stark, emphasizing
+  the competitive struggle and the shift in market dominance. 16:9 widescreen cinematic
+  composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Coca-Cola Russia advertisement

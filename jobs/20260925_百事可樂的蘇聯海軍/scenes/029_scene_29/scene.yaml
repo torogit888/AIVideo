@@ -1,0 +1,16 @@
+id: 029_scene_29
+index: 29
+title: 第 29 幕
+narration: 這場可樂戰爭，在蘇聯解體後，進入了新的篇章. 百事可樂的蘇聯海軍傳奇，也畫上了句號 [sigh].
+image_prompt: A Q-version 2D cartoon illustration. A Q-version Pepsi bottle, looking
+  a bit wistful, is standing on a stylized, empty dock. In the distance, the last
+  of the cute, toy-like Q-version Soviet naval vessels is sailing away into a stylized
+  sunset, symbolizing the end of an era. Wide shot, melancholic but still cartoonish,
+  16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

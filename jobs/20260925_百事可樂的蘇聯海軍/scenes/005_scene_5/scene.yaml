@@ -1,0 +1,26 @@
+id: 005_scene_5
+index: 5
+title: 第 5 幕
+narration: 他找到了當時的美國副總統，理查德·尼克森，請求他的幫助， 尼克森與肯德爾私交甚篤，曾經還是百事可樂的律師顧問. 在肯德爾的懇求下，尼克森答應了這個看似荒唐的請求.
+image_prompt: A Q-version 2D cartoon illustration of Donald Kendall, gesturing persuasively,
+  facing Richard Nixon, the US Vice President. Nixon has a large, recognizable head
+  with a serious, yet softened, expression, and a thoughtful hand on his chin. Both
+  are in a simplified, professional setting, perhaps a quiet corner of the exhibition.
+  The lighting is soft and even. Medium shot, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Richard Nixon
+  source_title: File:Elvis-nixon.jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/4/41/Elvis-nixon.jpg

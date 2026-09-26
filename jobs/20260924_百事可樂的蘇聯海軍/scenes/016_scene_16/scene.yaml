@@ -1,0 +1,16 @@
+id: 016_scene_16
+index: 16
+title: 第 16 幕
+narration: '[laughter] 一家飲料公司，竟然擁有了，一支龐大的艦隊 [laughter]. 這讓百事可樂，一度被戲稱為，世界第六大海軍力量.'
+image_prompt: 'A humorous and ironic visual: a vintage Pepsi bottle or can, comically
+  oversized, floating majestically in the foreground of a vast ocean. In the background,
+  a fleet of Soviet-era warships (submarines, cruisers) sails, looking formidable
+  but slightly out of place. The lighting is dramatic, almost theatrical, highlighting
+  the absurdity. 16:9 widescreen cinematic composition.'
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

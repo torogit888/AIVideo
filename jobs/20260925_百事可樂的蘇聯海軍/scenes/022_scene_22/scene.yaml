@@ -1,0 +1,26 @@
+id: 022_scene_22
+index: 22
+title: 第 22 幕
+narration: 但這些軍艦，當然不是，用來作戰的 [confirmation-en]. 百事公司，隨後將這些艦船，轉賣給了一家，瑞典的拆船公司. 它們的最終歸宿，是作為廢鐵，被拆解回收.
+image_prompt: A Q-version 2D cartoon illustration. The cute, toy-like Q-version Soviet
+  naval vessels are shown being dismantled in a stylized, non-violent way. A Q-version
+  crane with a claw is gently picking up parts, or the ships are neatly stacked as
+  'scrap metal' cubes. A stylized Swedish flag might be subtly present in the background.
+  Wide shot, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Shipbreaking yard
+  source_title: File:Chittagong-Ship-Breaking-Yard-Sunset.jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/7/7e/Chittagong-Ship-Breaking-Yard-Sunset.jpg

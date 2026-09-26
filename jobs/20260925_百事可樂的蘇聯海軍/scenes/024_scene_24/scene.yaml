@@ -1,0 +1,16 @@
+id: 024_scene_24
+index: 24
+title: 第 24 幕
+narration: 這是一個，充滿冷戰色彩的，荒謬又傳奇的故事 [sigh]. 它反映了，那個特殊年代，商業與政治之間，錯綜複雜的關係 [confirmation-en].
+image_prompt: A Q-version 2D cartoon illustration. A stylized Pepsi bottle and a Q-version
+  Soviet naval vessel are intertwined with symbolic elements of the Cold War, such
+  as a simplified, playful red star and a blue star, or subtle hints of a divided
+  world map. The overall atmosphere is one of quirky historical significance, reflecting
+  the complex relationship between commerce and politics. Medium shot, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

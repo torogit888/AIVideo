@@ -175,21 +175,20 @@ chibi_kawaii:
   negative: 文字浮水印、黑暗恐怖、寫實硬核、低細節模糊
   preview: assets/styles/previews/chibi_kawaii.jpg
   description: 極度簡化和頭身比縮小的角色造型（通常 2-3 頭身）、圓潤的線條、誇張的可愛表情、色彩鮮亮。常用於衍生商品或搞笑橋段。
-cinematic_realistic:
-  name: 電影寫實風格 (Cinematic Realistic)
-  prefix: 電影感靜幀，35mm鏡頭，膠片顆粒，自然電影光影，高動態範圍，精細細節，16:9 橫式構圖
-  negative: 文字浮水印、過曝、變形、塑料感
-  preview: ''
-  description: 電影感靜幀，35mm鏡頭，膠片顆粒，自然電影光影，高動態範圍，精細細節。
 european_fairytale:
-  name: 歐式古典童話繪本風格 (European Fairytale)
-  prefix: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖
-  negative: 文字浮水印、照片寫實、現代冰冷科技感
-  preview: ''
-  description: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸。
-retro_scifi:
-  name: 70年代復古科幻太空風格 (Retro Sci-Fi)
-  prefix: 70年代復古科幻太空插畫，NASA復古海報風格，顆粒質質感，深邃星空，機械構造，16:9 橫式構圖
-  negative: 文字浮水印、數碼平滑、雜亂畸形
-  preview: ''
-  description: 70年代復古科幻太空插畫，NASA復古海報風格，顆粒質質感，深邃星空，機械構造。
+  name: Q版 2D 卡通插畫
+  prefix: A clean, vibrant 2D cartoon illustration with cute, Chibi-proportioned characters.
+    This style features defined linework and cell-shading with minimal texture. The
+    compositions are often structured like game menus or split-screen views. Use a
+    balanced, slightly desaturated but still cheerful color palette. Elements like
+    machinery are simplified but detailed, characters have large, expressive eyes
+    and simple faces. Perfect for UI elements or narrative cutscenes in a mobile game
+    or webcomic.16:9 橫式構圖
+  negative: '文字浮水印、照片寫實、現代冰冷科技感
+
+    (worst quality, low quality:1.4), 3D, 2.5D, realistic, photorealistic, CGI, render,
+    octane render, 3d model, oil painting, watercolor, rough lines, messy sketch,
+    dirty background, depth of field, blur, deformed, bad anatomy, bad proportions,
+    missing fingers, extra digits, signature, watermark, text'
+  preview: assets/styles/previews/european_fairytale.jpg
+  description: Q版 2D 卡通插畫

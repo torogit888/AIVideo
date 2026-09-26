@@ -1,0 +1,16 @@
+id: 012_scene_12
+index: 12
+title: 第 12 幕
+narration: 這時候，肯德爾再次展現了他的商業智慧 [confirmation-en]. 他與蘇聯政府達成了一項，史無前例的以物易物協議.
+image_prompt: A Q-version 2D cartoon illustration of Donald Kendall, with a triumphant
+  and cunning expression, shaking hands with a simplified, official-looking Soviet
+  representative. In the background, stylized icons representing 'barter' or 'exchange'
+  are visible, with a Pepsi bottle on one side and a bottle of vodka on the other,
+  symbolizing the unprecedented agreement. Medium shot, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

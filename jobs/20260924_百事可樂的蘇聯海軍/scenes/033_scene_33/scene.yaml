@@ -1,0 +1,33 @@
+id: 033_scene_33
+index: 33
+title: 第 33 幕
+narration: 隨之而來的混亂與重組，讓百事公司，不得不重新評估其投資. 更具挑戰性的是，百事可樂的死敵，可口可樂，也趁勢大舉進攻，俄羅斯市場.
+image_prompt: A chaotic scene of blurred, frantic activity and restructuring in a
+  post-Soviet market. Donald Kendall, a determined, charismatic businessman in a sharp
+  1960s suit, and Pepsi executives, part of a sleek, retro-futuristic Pepsi bottle,
+  gleaming under a spotlight, look worried. Suddenly, a bright, iconic Coca-Cola bottle,
+  part of a sleek, retro-futuristic Pepsi bottle, gleaming under a spotlight, appears
+  prominently in the foreground, symbolizing a new challenger. The scene is bathed
+  in a moody, high-contrast cinematic lighting palette, with deep shadows and dramatic
+  volumetric light, evoking a sense of Cold War tension and historical significance.
+  The background features subtle, atmospheric elements like a faint haze or distant,
+  blurred industrial structures, all composed in a 16:9 widescreen aspect ratio, with
+  dynamic, unsettling lighting, emphasizing the turmoil and new competition. Medium
+  shot.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  scale: 0.24
+  border: 5
+  query: Coca-Cola entering Russia market
+  source_title: null
+  source_url: null
+  mode: pip
