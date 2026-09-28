@@ -315,6 +315,72 @@ export const ScriptEditor: React.FC = () => {
         </div>
       </div>
 
+      {/* 腳本內容即時預覽與編輯器（含 AI 生成腳本主按鈕） */}
+      <div
+        ref={scriptBoxRef}
+        className="flex flex-col min-h-[380px] shrink-0 rounded-lg bg-cinema-card border border-cinema-border overflow-hidden transition-all shadow-md"
+      >
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between px-4 py-2.5 border-b border-cinema-border/60 text-xs bg-cinema-darker/60 gap-2">
+          <div className="flex items-center space-x-2">
+            <span className="font-semibold text-cinema-text">📖 故事腳本即時預覽與編輯區</span>
+            <span className="text-[10px] text-cinema-muted">（每行一句話，可直接編輯）</span>
+          </div>
+          <div className="flex items-center space-x-2.5 text-cinema-muted text-xs">
+            <span className="font-mono text-amber-cta font-medium hidden sm:inline">
+              {scriptLines.filter((l) => l.trim()).length} 句口白 · 共 {totalChars} 字
+            </span>
+            <button
+              onClick={() => {
+                navigator.clipboard.writeText(scriptText);
+                showToast("已複製腳本內容至剪貼簿！", "info");
+              }}
+              className="flex items-center hover:text-cinema-text transition-colors text-xs text-cinema-muted px-2 py-1 rounded bg-cinema-card border border-cinema-border cursor-pointer"
+              title="複製腳本"
+            >
+              <Copy className="w-3.5 h-3.5 mr-1" />
+              <span>複製</span>
+            </button>
+
+            {/* 生成腳本主按鈕 */}
+            <button
+              onClick={handleGenerateScript}
+              disabled={generating || !topic.trim()}
+              className="flex items-center h-8 px-3.5 rounded bg-amber-cta hover:bg-amber-ctaHover text-cinema-bg font-semibold text-xs tracking-wide transition-all shadow glow-amber active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+              title={!topic.trim() ? "請先填寫腳本主題" : "由 AI 聯網生成逐句口白腳本並於下方編輯區顯示"}
+            >
+              {generating ? (
+                <>
+                  <Loader2 className="w-3.5 h-3.5 animate-spin mr-1.5" />
+                  <span>AI 生成中 (15~30s)...</span>
+                </>
+              ) : (
+                <>
+                  <Sparkles className="w-3.5 h-3.5 mr-1.5" />
+                  <span>{scriptText.trim() ? "重新生成腳本" : "✨ 生成逐句腳本"}</span>
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+
+        {/* 編輯器容器 */}
+        <div className="flex flex-1 min-h-[320px] p-2 bg-cinema-darker overflow-hidden">
+          {/* 行號欄 */}
+          <div className="w-8 py-1 text-right pr-2 text-cinema-muted/40 font-mono text-xs select-none leading-relaxed">
+            {scriptLines.map((_, i) => (
+              <div key={i}>{i + 1}</div>
+            ))}
+          </div>
+          {/* 文字編輯區 */}
+          <textarea
+            value={scriptText}
+            onChange={(e) => setScriptText(e.target.value)}
+            className="flex-1 p-1 bg-transparent text-cinema-text text-xs font-sans leading-relaxed focus:outline-none resize-none"
+            placeholder="點擊右上角「生成逐句腳本」或直接在此貼上/撰寫逐句口白..."
+          />
+        </div>
+      </div>
+
       {/* 電影級視覺分鏡風格膠卷選擇器 */}
       <div className="space-y-2.5">
         <div className="flex items-center justify-between">
@@ -431,51 +497,6 @@ export const ScriptEditor: React.FC = () => {
         )}
       </div>
 
-      {/* 腳本內容即時預覽與編輯器（帶行號） */}
-      <div
-        ref={scriptBoxRef}
-        className="flex flex-col min-h-[380px] shrink-0 rounded-lg bg-cinema-card border border-cinema-border overflow-hidden transition-all shadow-md"
-      >
-        <div className="flex items-center justify-between px-4 py-2.5 border-b border-cinema-border/60 text-xs bg-cinema-darker/60">
-          <div className="flex items-center space-x-2">
-            <span className="font-semibold text-cinema-text">📖 故事腳本即時預覽與編輯區</span>
-            <span className="text-[10px] text-cinema-muted">（每行一句話，可直接在此微調）</span>
-          </div>
-          <div className="flex items-center space-x-3 text-cinema-muted text-xs">
-            <span className="font-mono text-amber-cta font-medium">
-              {scriptLines.filter((l) => l.trim()).length} 句口白 · 共 {totalChars} 字
-            </span>
-            <button
-              onClick={() => {
-                navigator.clipboard.writeText(scriptText);
-                showToast("已複製腳本內容至剪貼簿！", "info");
-              }}
-              className="flex items-center hover:text-cinema-text transition-colors text-xs text-cinema-muted"
-            >
-              <Copy className="w-3.5 h-3.5 mr-1" />
-              <span>複製</span>
-            </button>
-          </div>
-        </div>
-
-        {/* 編輯器容器 */}
-        <div className="flex flex-1 min-h-[320px] p-2 bg-cinema-darker overflow-hidden">
-          {/* 行號欄 */}
-          <div className="w-8 py-1 text-right pr-2 text-cinema-muted/40 font-mono text-xs select-none leading-relaxed">
-            {scriptLines.map((_, i) => (
-              <div key={i}>{i + 1}</div>
-            ))}
-          </div>
-          {/* 文字編輯區 */}
-          <textarea
-            value={scriptText}
-            onChange={(e) => setScriptText(e.target.value)}
-            className="flex-1 p-1 bg-transparent text-cinema-text text-xs font-sans leading-relaxed focus:outline-none resize-none"
-            placeholder="貼上或撰寫逐句口白..."
-          />
-        </div>
-      </div>
-
       {/* 視覺切鏡節奏 (Visual Pacing) */}
       <div className="space-y-2 p-3.5 rounded-lg bg-cinema-card border border-cinema-border">
         <div className="flex items-center justify-between">
@@ -545,29 +566,39 @@ export const ScriptEditor: React.FC = () => {
         </div>
       </div>
 
-      {/* 主體一致性與角色特徵分析 (Pre-production Character & Entity Bible) */}
-      <div className="p-4 rounded-lg bg-cinema-card border border-cinema-border space-y-3">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-cinema-border/50 pb-3">
-          <div className="flex items-center space-x-2">
-            <Sparkles className="w-4 h-4 text-amber-cta" />
+      {/* 視覺一致性特徵分析與進入分鏡工作台（整合一體化前製面板） */}
+      <div className="rounded-lg bg-cinema-card border border-cinema-border overflow-hidden shadow-md">
+        {/* 卡片頂部 Header */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 border-b border-cinema-border/60 bg-cinema-darker/40">
+          <div className="flex items-center space-x-2.5">
+            <Sparkles className="w-4 h-4 text-amber-cta shrink-0" />
             <div>
-              <span className="text-xs font-semibold text-cinema-text">
-                🎭 視覺一致性特徵分析 (Character & Entity Bible)
-              </span>
-              <p className="text-[11px] text-cinema-muted">
-                依上方選擇的生圖風格掃描腳本，為每位角色寫外觀錨點，並提煉世界觀光影。
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-semibold text-cinema-text">
+                  🎭 視覺一致性特徵分析與前製設定 (Character & Entity Bible)
+                </span>
+                {(characters.length > 0 || subjectAnchor) && (
+                  <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono">
+                    已建立 {characters.length} 個角色錨點
+                  </span>
+                )}
+              </div>
+              <p className="text-[11px] text-cinema-muted mt-0.5">
+                依選定的生圖風格掃描腳本，提煉每位角色的外觀錨點與世界觀光影，確保全片分鏡畫風連貫。
               </p>
             </div>
           </div>
+
           <button
             onClick={handleAnalyzeAnchors}
             disabled={isAnalyzingAnchors || !scriptText.trim()}
-            className="flex items-center justify-center h-8 px-3 rounded bg-amber-cta/15 hover:bg-amber-cta/25 text-amber-cta border border-amber-cta/40 text-xs font-medium transition-colors whitespace-nowrap disabled:opacity-40 cursor-pointer"
+            className="flex items-center justify-center h-8 px-3 rounded bg-amber-cta/15 hover:bg-amber-cta/25 text-amber-cta border border-amber-cta/40 text-xs font-medium transition-colors whitespace-nowrap disabled:opacity-40 cursor-pointer shrink-0"
+            title={!scriptText.trim() ? "請先生成或填寫腳本內容後再進行分析" : "依據目前腳本與風格提煉角色特徵"}
           >
             {isAnalyzingAnchors ? (
               <>
                 <Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" />
-                <span>分析腳本中...</span>
+                <span>分析腳本主體中...</span>
               </>
             ) : (
               <>
@@ -579,8 +610,8 @@ export const ScriptEditor: React.FC = () => {
         </div>
 
         {/* 展開之錨點編輯區：每人一段外觀 + 共用環境 */}
-        {(showAnchors || subjectAnchor || characters.length > 0) && (
-          <div className="space-y-3 pt-1">
+        {showAnchors || subjectAnchor || characters.length > 0 ? (
+          <div className="p-4 space-y-3 bg-cinema-card/50">
             <div className="flex items-center justify-between">
               <label className="text-xs font-medium text-cinema-muted">
                 角色外觀錨點（每人獨立，建案後可各出一張定裝圖）
@@ -593,7 +624,7 @@ export const ScriptEditor: React.FC = () => {
                     { id: `char_${prev.length + 1}`, name: "", appearance: "" },
                   ])
                 }
-                className="flex items-center h-7 px-2 rounded bg-cinema-darker hover:bg-cinema-card text-cinema-muted hover:text-amber-cta text-[11px] border border-cinema-border"
+                className="flex items-center h-7 px-2.5 rounded bg-cinema-darker hover:bg-cinema-card text-cinema-muted hover:text-amber-cta text-[11px] border border-cinema-border transition-colors cursor-pointer"
               >
                 <Plus className="w-3 h-3 mr-1" />
                 新增角色
@@ -652,69 +683,54 @@ export const ScriptEditor: React.FC = () => {
               />
             </div>
           </div>
-        )}
-
-        {!showAnchors && !subjectAnchor && (
-          <div className="text-[11px] text-cinema-muted/70 flex items-center gap-1.5">
-            <Info className="w-3.5 h-3.5 text-amber-cta/70 shrink-0" />
-            <span>點擊上方按鈕可預先檢視並微調主體特徵；若直接建立專案，系統亦會在後台自動進行分析約束。</span>
+        ) : (
+          <div className="p-4 bg-cinema-card/30 text-[11px] text-cinema-muted/80 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Info className="w-4 h-4 text-amber-cta/80 shrink-0" />
+              <span>點擊上方「✨ AI 分析」可預先檢視並微調主體特徵；若直接建立專案，系統亦會在後台自動進行分析約束。</span>
+            </div>
+            <button
+              type="button"
+              onClick={() => setShowAnchors(true)}
+              className="text-amber-cta hover:underline shrink-0 text-xs ml-2 cursor-pointer"
+            >
+              手動自訂錨點
+            </button>
           </div>
         )}
-      </div>
 
-      {/* 底部控制台：腳本生成與進入分鏡 */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between p-4 rounded-lg bg-cinema-card border border-cinema-border gap-4">
-        <div>
-          <div className="text-xs font-semibold text-cinema-text">準備進入分鏡工作台</div>
-          <div className="text-[11px] text-cinema-muted mt-0.5">
-            填寫主題與設定後，先點擊「生成腳本」由 AI 聯網生成口白預覽；確認內容無誤後，即可點擊「建立專案並進入分鏡」。
+        {/* 卡片底欄 Footer Action Bar：建立專案並進入分鏡 */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 border-t border-cinema-border/70 bg-cinema-darker/70 gap-3">
+          <div className="text-[11px] text-cinema-muted">
+            {scriptText.trim()
+              ? "腳本與前製設定已就緒，點擊右側即可解析分鏡並進入工作台。"
+              : "請先在上方點擊「✨ 生成逐句腳本」或貼入口白後即可建立專案。"}
           </div>
-        </div>
 
-        <div className="flex items-center space-x-3 shrink-0">
-          {/* 生成腳本按鈕 */}
-          <button
-            onClick={handleGenerateScript}
-            disabled={generating || !topic.trim()}
-            className="flex items-center h-9 px-4 rounded bg-cinema-darker hover:bg-cinema-cardHover border border-amber-cta/60 hover:border-amber-cta text-amber-cta font-medium text-xs tracking-wide transition-all shadow-sm active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed"
-            title={!topic.trim() ? "請先填寫腳本主題" : "由 AI 聯網生成逐句口白腳本並於上方預覽"}
-          >
-            {generating ? (
-              <>
-                <Loader2 className="w-3.5 h-3.5 animate-spin mr-1.5" />
-                <span>生成中 (需 15~30s)...</span>
-              </>
-            ) : (
-              <>
-                <Sparkles className="w-3.5 h-3.5 mr-1.5" />
-                <span>{scriptText.trim() ? "重新生成腳本" : "✨ 生成腳本"}</span>
-              </>
-            )}
-          </button>
-
-          {/* 建立專案並進入分鏡（沒有腳本時反灰） */}
-          <button
-            onClick={handleCreateProject}
-            disabled={creatingProject || generating || !scriptText.trim()}
-            className={`flex items-center h-9 px-4 rounded font-semibold text-xs tracking-wide transition-all ${
-              !scriptText.trim()
-                ? "bg-cinema-darker border border-cinema-border/70 text-cinema-muted/40 cursor-not-allowed opacity-40 shadow-none"
-                : "bg-amber-cta hover:bg-amber-ctaHover text-cinema-bg shadow glow-amber active:scale-95 disabled:opacity-50"
-            }`}
-            title={!scriptText.trim() ? "目前尚無腳本，請先點擊「生成腳本」或於上方手動輸入口白" : "建立專案並進入分鏡"}
-          >
-            {creatingProject ? (
-              <>
-                <Loader2 className="w-3.5 h-3.5 animate-spin mr-1.5" />
-                <span>解析分鏡中...</span>
-              </>
-            ) : (
-              <>
-                <span>建立專案並進入分鏡</span>
-                <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
-              </>
-            )}
-          </button>
+          <div className="flex items-center space-x-3 shrink-0">
+            <button
+              onClick={handleCreateProject}
+              disabled={creatingProject || generating || !scriptText.trim()}
+              className={`flex items-center h-9 px-5 rounded font-semibold text-xs tracking-wide transition-all ${
+                !scriptText.trim()
+                  ? "bg-cinema-darker border border-cinema-border/70 text-cinema-muted/40 cursor-not-allowed opacity-40 shadow-none"
+                  : "bg-amber-cta hover:bg-amber-ctaHover text-cinema-bg shadow glow-amber active:scale-95 disabled:opacity-50 cursor-pointer"
+              }`}
+              title={!scriptText.trim() ? "目前尚無腳本，請先點擊上方「生成逐句腳本」或手動輸入口白" : "建立專案並進入分鏡"}
+            >
+              {creatingProject ? (
+                <>
+                  <Loader2 className="w-3.5 h-3.5 animate-spin mr-1.5" />
+                  <span>解析分鏡中...</span>
+                </>
+              ) : (
+                <>
+                  <span>建立專案並進入分鏡</span>
+                  <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+                </>
+              )}
+            </button>
+          </div>
         </div>
       </div>
 

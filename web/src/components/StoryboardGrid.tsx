@@ -182,10 +182,6 @@ export const StoryboardGrid: React.FC = () => {
 
         {/* 右側：提示與危險操作 */}
         <div className="flex items-center space-x-3 shrink-0">
-          <span className="text-cinema-muted/70 text-[11px] hidden lg:inline">
-            💡 點選分鏡卡片開啟右側精修抽屜
-          </span>
-
           <button
             onClick={handleClearAllMedia}
             className="flex items-center h-6 px-2 rounded hover:bg-red-950/40 text-cinema-muted/60 hover:text-red-400 border border-transparent hover:border-red-900/60 transition-colors whitespace-nowrap text-[11px]"
