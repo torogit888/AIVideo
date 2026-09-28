@@ -54,6 +54,11 @@ export const App: React.FC = () => {
     }
   };
 
+  // 全域初始化：網頁開啟或重新整理時，第一時間向後端載入所有專案
+  useEffect(() => {
+    loadJobs();
+  }, [loadJobs]);
+
   // 監聽 SSE 串流：自動更新進度與分鏡
   useEffect(() => {
     if (!selectedJobId) return;
@@ -101,11 +106,11 @@ export const App: React.FC = () => {
 
       {/* 2. 右側主工作區 */}
       <div className="flex-1 flex flex-col h-full overflow-hidden">
-        {/* 頂列 (48px) */}
+        {/* 頂列 (智能感知按需渲染：分鏡常駐 / 其他頁面背景生成時輕量浮現) */}
         <Topbar />
 
-        {/* 主畫布與右側 Inspector */}
-        <div className="flex-1 flex h-[calc(100vh-48px)] overflow-hidden relative">
+        {/* 主畫布與右側 Inspector (自適應 100% 滿版高度) */}
+        <div className="flex-1 flex min-h-0 overflow-hidden relative">
           {/* 依 Tab 切換主視圖（常駐掛載，保留各分頁已調整之狀態與滾動位置） */}
           <div className={currentTab === "storyboard" ? "flex-1 flex h-full overflow-hidden" : "hidden"}>
             <StoryboardGrid />

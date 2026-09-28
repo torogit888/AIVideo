@@ -3,76 +3,99 @@ title: 百事可樂的蘇聯海軍
 language: zh-Hant
 voice_id: female01
 visual_anchors:
-  subject: 'Donald Kendall: In Q版 2D 卡通插畫 style, Donald Kendall has a large, round,
-    and cheerful face with wide, sparkling black dot eyes that convey ambition and
-    intelligence. His small, upturned nose and broad, confident smile are simplified
-    and expressive. His light brown hair is neatly combed, rendered with a few smooth,
-    rounded shapes. He possesses a compact, slightly plump Q-version body, characterized
-    by short limbs and a prominent head-to-body ratio, giving him a cute yet determined
-    stance. He wears a simplified, crisp dark blue business suit with bold, clean
-    outlines. A bright white shirt and a small, neatly tied red tie complete his professional
-    look. The suit has minimal folds, indicated by a few curved lines, and is colored
-    with flat, solid tones, possibly with a single, subtle highlight on the shoulder
-    or lapel to suggest form. His overall palette is bright but professional, integrating
-    subtle hints of Pepsi''s iconic colors. | Richard Nixon: Rendered in Q版 2D 卡通插畫
-    style, Richard Nixon features a large, slightly more angular Q-version head than
-    Kendall''s, with a hint of a jowl line, yet still simplified and cute. He has
-    small, serious but kind eyes, perhaps with slightly thicker, simplified eyebrows,
-    and a distinctive, simplified nose. His mouth is often in a slight, thoughtful
-    frown or a polite, closed-lip smile. His dark hair is neatly combed, depicted
-    with smooth, rounded shapes. His body is a slightly broader, more authoritative
-    Q-version build, still maintaining the characteristic large head and short limbs,
-    conveying a sense of gravitas. He is dressed in a simplified, formal dark grey
-    or black suit with sharp, clean outlines. A pristine white shirt and a solid,
-    dignified blue tie complete his attire. Like Kendall''s, his suit uses flat colors
-    with minimal, stylized folds and subtle highlights, reflecting a more subdued
-    and formal palette of dark greys, black, white, and deep blue.'
-  environment: The setting is the American National Exhibition in Moscow, 1959, depicted
-    in a vibrant Q版 2D 卡通插畫 style. The architecture of the exhibition hall is simplified
-    and stylized, perhaps featuring a cute, rounded interpretation of a geodesic dome
-    or a clean, modern (for the era) building with large, inviting windows. Bright,
-    flat colors dominate the structures, with clear, bold outlines defining every
-    element. Inside, simplified displays of American consumer goods – cartoonish cars,
-    refrigerators, and stylized Pepsi bottles – are arranged with a sense of optimistic
-    abundance. The color palette is bright and cheerful, featuring patriotic reds,
-    whites, and blues for the American elements, contrasted with slightly cooler,
-    more muted tones for the background Moscow skyline (simplified onion domes or
-    blocky buildings in the distance). Lighting is uniformly bright and soft, casting
-    no harsh shadows, typical of a friendly 2D cartoon. The atmosphere is one of curious
-    cultural exchange, a blend of historical significance and playful visual charm,
-    with a hint of the Cold War's underlying tension conveyed through subtle color
-    contrasts rather than dramatic visual effects.
+  subject: 'Donald Kendall: Donald Kendall is depicted in a Q-version 2D cartoon illustration
+    style, with a youthful, energetic, and slightly mischievous expression. His face
+    is round and friendly, featuring large, sparkling eyes that convey sharp intellect
+    and ambition, and a small, confident smirk. His hair is neatly styled, simplified
+    with a few stylized waves. His body is rendered in a chibi-style proportion, giving
+    him a slightly exaggerated, dynamic posture that suggests his drive. He wears
+    a crisp, simplified 1950s business suit, likely in a solid dark blue with a bright
+    white shirt and a bold red tie, reflecting Pepsi''s brand colors. The clothing
+    has minimal folds, defined by clear, thick outlines. A tiny, stylized Pepsi logo
+    might be subtly integrated as a lapel pin. His skin tone is warm and healthy.
+    | Richard Nixon: Richard Nixon is portrayed in a Q-version 2D cartoon illustration
+    style, with a recognizable but softened and simplified appearance. His face is
+    slightly more angular than Kendall''s, with a serious yet approachable expression,
+    featuring distinctive, simplified eyebrows and a hint of his famous five o''clock
+    shadow rendered as a clean, stylized patch. His eyes are expressive but convey
+    a more formal demeanor. His body is in chibi proportion, appearing a bit stockier
+    and more formal in posture, reflecting his political gravitas. He is dressed in
+    a classic, simplified 1950s American politician''s suit, typically in a solid
+    charcoal grey or dark blue, paired with a white shirt and a conservative, solid-colored
+    tie. The suit features clear outlines and minimal detailing, consistent with the
+    cartoon style. A small, stylized American flag pin might adorn his lapel. His
+    skin tone is slightly paler, emphasizing his serious role. | Soviet Sailor: A
+    representative Soviet Sailor is depicted in a Q-version 2D cartoon illustration
+    style, embodying a sense of stern discipline mixed with the inherent cuteness
+    of the chibi aesthetic. His face is round and rosy-cheeked, with a determined
+    or slightly serious expression, featuring simplified, short-cropped hair. His
+    eyes are large and expressive, conveying a sense of duty. His body is sturdy and
+    broad-shouldered, yet still adheres to the chibi proportions with a larger head
+    and smaller limbs, suggesting strength in a simplified form. He wears a classic
+    Soviet Navy uniform: a dark blue pea coat or tunic with stylized gold buttons,
+    a white and blue striped telnyashka (undershirt) peeking out, and a dark blue
+    sailor cap adorned with a prominent, simplified red star insignia. His bell-bottom
+    trousers are also simplified. The uniform''s colors are bold and distinct, with
+    clear outlines. His skin tone is fair, perhaps with a touch of ruddiness.'
+  environment: The environment is rendered in a vibrant Q-version 2D cartoon illustration
+    style, focusing on the 1959 American National Exhibition in Moscow. The scene
+    is characterized by bright, clear lighting that is even and diffused, creating
+    a cheerful and optimistic atmosphere without harsh shadows or volumetric effects.
+    The architecture of the American exhibition hall is depicted with clean, simplified
+    lines, large stylized glass panels, and a sense of modern openness, contrasting
+    with the more imposing, blocky, and grand (yet simplified) Soviet buildings in
+    the background. The color palette for the American section is bright and inviting,
+    utilizing optimistic blues, reds, whites, and pastels, while the surrounding Moscow
+    cityscape features more muted, earthy tones like greys, browns, and deep reds
+    for Soviet structures. Details include stylized displays of American consumer
+    products (cars, appliances) rendered in a cute, simplified manner, and simplified
+    Q-version crowds of people, some looking curious and impressed. The overall atmosphere
+    is lighthearted and inviting, despite the underlying Cold War context, emphasizing
+    the exhibition's purpose of showcasing American life.
   use_image_reference: true
   characters:
   - id: donald_kendall
     name: Donald Kendall
-    appearance: In Q版 2D 卡通插畫 style, Donald Kendall has a large, round, and cheerful
-      face with wide, sparkling black dot eyes that convey ambition and intelligence.
-      His small, upturned nose and broad, confident smile are simplified and expressive.
-      His light brown hair is neatly combed, rendered with a few smooth, rounded shapes.
-      He possesses a compact, slightly plump Q-version body, characterized by short
-      limbs and a prominent head-to-body ratio, giving him a cute yet determined stance.
-      He wears a simplified, crisp dark blue business suit with bold, clean outlines.
-      A bright white shirt and a small, neatly tied red tie complete his professional
-      look. The suit has minimal folds, indicated by a few curved lines, and is colored
-      with flat, solid tones, possibly with a single, subtle highlight on the shoulder
-      or lapel to suggest form. His overall palette is bright but professional, integrating
-      subtle hints of Pepsi's iconic colors.
+    appearance: Donald Kendall is depicted in a Q-version 2D cartoon illustration
+      style, with a youthful, energetic, and slightly mischievous expression. His
+      face is round and friendly, featuring large, sparkling eyes that convey sharp
+      intellect and ambition, and a small, confident smirk. His hair is neatly styled,
+      simplified with a few stylized waves. His body is rendered in a chibi-style
+      proportion, giving him a slightly exaggerated, dynamic posture that suggests
+      his drive. He wears a crisp, simplified 1950s business suit, likely in a solid
+      dark blue with a bright white shirt and a bold red tie, reflecting Pepsi's brand
+      colors. The clothing has minimal folds, defined by clear, thick outlines. A
+      tiny, stylized Pepsi logo might be subtly integrated as a lapel pin. His skin
+      tone is warm and healthy.
   - id: richard_nixon
     name: Richard Nixon
-    appearance: Rendered in Q版 2D 卡通插畫 style, Richard Nixon features a large, slightly
-      more angular Q-version head than Kendall's, with a hint of a jowl line, yet
-      still simplified and cute. He has small, serious but kind eyes, perhaps with
-      slightly thicker, simplified eyebrows, and a distinctive, simplified nose. His
-      mouth is often in a slight, thoughtful frown or a polite, closed-lip smile.
-      His dark hair is neatly combed, depicted with smooth, rounded shapes. His body
-      is a slightly broader, more authoritative Q-version build, still maintaining
-      the characteristic large head and short limbs, conveying a sense of gravitas.
-      He is dressed in a simplified, formal dark grey or black suit with sharp, clean
-      outlines. A pristine white shirt and a solid, dignified blue tie complete his
-      attire. Like Kendall's, his suit uses flat colors with minimal, stylized folds
-      and subtle highlights, reflecting a more subdued and formal palette of dark
-      greys, black, white, and deep blue.
+    appearance: Richard Nixon is portrayed in a Q-version 2D cartoon illustration
+      style, with a recognizable but softened and simplified appearance. His face
+      is slightly more angular than Kendall's, with a serious yet approachable expression,
+      featuring distinctive, simplified eyebrows and a hint of his famous five o'clock
+      shadow rendered as a clean, stylized patch. His eyes are expressive but convey
+      a more formal demeanor. His body is in chibi proportion, appearing a bit stockier
+      and more formal in posture, reflecting his political gravitas. He is dressed
+      in a classic, simplified 1950s American politician's suit, typically in a solid
+      charcoal grey or dark blue, paired with a white shirt and a conservative, solid-colored
+      tie. The suit features clear outlines and minimal detailing, consistent with
+      the cartoon style. A small, stylized American flag pin might adorn his lapel.
+      His skin tone is slightly paler, emphasizing his serious role.
+  - id: soviet_sailor
+    name: Soviet Sailor
+    appearance: 'A representative Soviet Sailor is depicted in a Q-version 2D cartoon
+      illustration style, embodying a sense of stern discipline mixed with the inherent
+      cuteness of the chibi aesthetic. His face is round and rosy-cheeked, with a
+      determined or slightly serious expression, featuring simplified, short-cropped
+      hair. His eyes are large and expressive, conveying a sense of duty. His body
+      is sturdy and broad-shouldered, yet still adheres to the chibi proportions with
+      a larger head and smaller limbs, suggesting strength in a simplified form. He
+      wears a classic Soviet Navy uniform: a dark blue pea coat or tunic with stylized
+      gold buttons, a white and blue striped telnyashka (undershirt) peeking out,
+      and a dark blue sailor cap adorned with a prominent, simplified red star insignia.
+      His bell-bottom trousers are also simplified. The uniform''s colors are bold
+      and distinct, with clear outlines. His skin tone is fair, perhaps with a touch
+      of ruddiness.'
 frame:
   aspect: '16:9'
   gen_width: 1920
@@ -87,19 +110,16 @@ image:
   resolution: 1K
   aspect_ratio: '16:9'
   style: european_fairytale
-style_prefix: A clean, vibrant 2D cartoon illustration with cute, Chibi-proportioned
-  characters. This style features defined linework and cell-shading with minimal texture.
-  The compositions are often structured like game menus or split-screen views. Use
-  a balanced, slightly desaturated but still cheerful color palette. Elements like
-  machinery are simplified but detailed, characters have large, expressive eyes and
-  simple faces. Perfect for UI elements or narrative cutscenes in a mobile game or
-  webcomic.16:9 橫式構圖
-style_negative: '文字浮水印、照片寫實、現代冰冷科技感
-
-  (worst quality, low quality:1.4), 3D, 2.5D, realistic, photorealistic, CGI, render,
-  octane render, 3d model, oil painting, watercolor, rough lines, messy sketch, dirty
-  background, depth of field, blur, deformed, bad anatomy, bad proportions, missing
-  fingers, extra digits, signature, watermark, text'
+style_prefix: "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art\
+  \ style, \nchibi characters, clean line art, cell shading, flat colors, \nvisual\
+  \ novel style, crisp details, vibrant and cheerful color palette, \nsingle coherent\
+  \ scene, non-split screen, unified single viewpoint, \nwide-angle coherent view,\
+  \ one main environment, \nhighly detailed and intricate background, \npacked with\
+  \ objects and props, \ndynamic composition within a single panel"
+style_negative: (worst quality, low quality:1.4), 3D, 2.5D, realistic, photorealistic,
+  CGI, render, octane render, 3d model, oil painting, watercolor, rough lines, messy
+  sketch, dirty background, depth of field, blur, deformed, bad anatomy, bad proportions,
+  missing fingers, extra digits, signature, watermark, text
 subtitle:
   mode: none
   font: NotoSansTC-Regular.otf

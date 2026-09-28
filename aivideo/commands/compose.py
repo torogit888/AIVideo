@@ -29,11 +29,6 @@ def _render_single_segment(
     wav_path = s_dir / "speech.wav"
     speech_json = s_dir / "speech.json"
 
-    if not img_path.is_file():
-        raise FileNotFoundError(f"{s_id} 缺少 image.png，請先跑 aivideo images")
-    if not wav_path.is_file():
-        raise FileNotFoundError(f"{s_id} 缺少 speech.wav，請先跑 aivideo tts")
-
     duration = 5.0
     if speech_json.is_file():
         try:
@@ -42,7 +37,7 @@ def _render_single_segment(
         except Exception:
             pass
 
-    # 讀取該場景 scene.yaml 設定，檢查是否有啟用畫中畫 (Picture-in-Picture)
+    # 讀取該場景 scene.yaml 設定，檢查是否有啟用畫中畫 (Picture-in-Picture) 或黑底考據圖 (Spotlight)
     scene_yaml_path = s_dir / "scene.yaml"
     scene_cfg = {}
     if scene_yaml_path.is_file():
@@ -58,6 +53,15 @@ def _render_single_segment(
     pip_path = s_dir / pip_img_name
     has_pip = pip_enabled and pip_path.is_file()
 
+    pip_mode = str(pip_cfg.get("mode", "pip")).lower() if has_pip else ""
+    is_spotlight = has_pip and pip_mode in ("spotlight", "focus", "black_bg", "fullscreen")
+
+    # 若為黑底歷史聚焦 (spotlight) 且已有考據真實照片，則畫面以此為主角，不強制要求 image.png
+    if not is_spotlight and not img_path.is_file():
+        raise FileNotFoundError(f"{s_id} 缺少 image.png，請先跑 aivideo images")
+    if not wav_path.is_file():
+        raise FileNotFoundError(f"{s_id} 缺少 speech.wav，請先跑 aivideo tts")
+
     seg_mp4 = compose_dir / f"seg_{idx:03d}.mp4"
     frames = max(1, int(round(duration * fps)))
 
@@ -65,27 +69,30 @@ def _render_single_segment(
         pip_mode = str(pip_cfg.get("mode", "pip")).lower()
 
         # ----------------------------------------------------
-        # 模式 B: 黑底歷史原照聚焦 (Archival Spotlight)
+        # 模式 B: 黑底歷史原照聚焦 (Archival Spotlight + 8000px 座標級抗抖動緩慢推鏡)
         # ----------------------------------------------------
         if pip_mode in ("spotlight", "focus", "black_bg", "fullscreen"):
-            spot_w = int(round(width * float(pip_cfg.get("scale", 0.65))))
+            cw = width * 4
+            ch = height * 4
+            spot_w = int(round(cw * float(pip_cfg.get("scale", 0.60))))
             if spot_w % 2 != 0:
                 spot_w += 1
-            border_px = int(pip_cfg.get("border", 4))
+            border_px = int(pip_cfg.get("border", 16))
 
             filter_complex = (
-                f"color=c=black:s={width}x{height}:r={fps}:d={duration}[bg];"
+                f"color=c=black:s={cw}x{ch}:r={fps}:d={duration}[cbg];"
                 f"[0:v]scale={spot_w}:-1:force_original_aspect_ratio=decrease,"
-                f"pad=w='trunc((iw+{border_px*2})/2)*2':h='trunc((ih+{border_px*2})/2)*2':x={border_px}:y={border_px}:color=white@0.85,"
-                f"fade=t=in:st=0.0:d=0.6:alpha=1,"
-                f"format=rgba[fg];"
-                f"[bg][fg]overlay=x='(W-w)/2':y='(H-h)/2-20':format=auto:shortest=1"
+                f"pad=w='trunc((iw+{border_px*2})/2)*2':h='trunc((ih+{border_px*2})/2)*2':x={border_px}:y={border_px}:color=white@0.88[photo];"
+                f"[cbg][photo]overlay=x='(W-w)/2':y='(H-h)/2-80':shortest=1[comp];"
+                f"[comp]zoompan=z='min(zoom+0.0004,1.08)':d={frames}:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s={width}x{height}:fps={fps},"
+                f"fade=t=in:st=0.0:d=0.6:alpha=1[v]"
             )
             cmd = [
                 "ffmpeg", "-y",
                 "-loop", "1", "-i", str(pip_path),
                 "-t", str(duration),
                 "-filter_complex", filter_complex,
+                "-map", "[v]",
                 "-c:v", "libx264",
                 "-preset", "ultrafast",
                 "-pix_fmt", "yuv420p",
@@ -93,7 +100,7 @@ def _render_single_segment(
             ]
         else:
             # ----------------------------------------------------
-            # 模式 A: 畫中畫小卡 (PiP) 疊加 (預設右半部置中)
+            # 模式 A: 畫中畫小卡 (PiP) 疊加 + 4*iw 超採樣背景推鏡
             # ----------------------------------------------------
             scale_ratio = float(pip_cfg.get("scale", 0.24))
             pip_w = int(round(width * scale_ratio))
@@ -112,16 +119,21 @@ def _render_single_segment(
             }
             pos_x, pos_y = pos_map.get(pos_key, ("W-w-60", "(H-h)/2"))
 
-            fade_st = min(0.3, max(0.0, duration * 0.1))
-            fade_d = min(0.4, max(0.1, duration * 0.2))
+            # 畫中畫 (PiP) 出現時機：在該幕中後半部（約 45%~48% 處）才淡入，留給觀眾沉浸前奏，不再一開場 0.3 秒就彈出遮擋
+            fade_d = 0.5
+            if duration <= 3.0:
+                fade_st = max(0.6, duration * 0.40)
+            else:
+                fade_st = min(duration * 0.48, max(1.5, duration - 1.5))
 
             filter_complex = (
-                f"[0:v]scale={int(width * 1.2)}:-1,zoompan=z='min(zoom+0.0008,1.12)':d={frames}:"
+                f"[0:v]scale=4*iw:-1:flags=bicubic,"
+                f"zoompan=z='min(zoom+0.0006,1.15)':d={frames}:"
                 f"x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s={width}x{height}:fps={fps}[bg];"
                 f"[1:v]scale={pip_w}:-1:force_original_aspect_ratio=decrease,"
                 f"pad=w='trunc((iw+{border_px*2})/2)*2':h='trunc((ih+{border_px*2})/2)*2':x={border_px}:y={border_px}:color=white@0.9,"
                 f"format=rgba,fade=t=in:st={fade_st:.2f}:d={fade_d:.2f}:alpha=1[pip_card];"
-                f"[bg][pip_card]overlay=x='{pos_x}':y='{pos_y}':format=auto:shortest=1"
+                f"[bg][pip_card]overlay=x='{pos_x}':y='{pos_y}':format=auto:shortest=1[v]"
             )
 
             cmd = [
@@ -130,15 +142,17 @@ def _render_single_segment(
                 "-loop", "1", "-i", str(pip_path),
                 "-t", str(duration),
                 "-filter_complex", filter_complex,
+                "-map", "[v]",
                 "-c:v", "libx264",
                 "-preset", "ultrafast",
                 "-pix_fmt", "yuv420p",
                 str(seg_mp4),
             ]
     else:
+        # 4*iw (約 7680px) 超採樣網格運算，徹底消除整數座標跳格抖動 (Sub-pixel Jitter)
         vf_filter = (
-            f"scale={int(width * 1.2)}:-1,"
-            f"zoompan=z='min(zoom+0.0008,1.12)':d={frames}:"
+            f"scale=4*iw:-1:flags=bicubic,"
+            f"zoompan=z='min(zoom+0.0006,1.15)':d={frames}:"
             f"x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s={width}x{height}:fps={fps}"
         )
         cmd = [
@@ -160,7 +174,7 @@ def _render_single_segment(
     return idx, seg_mp4, wav_path, duration
 
 
-def run_compose(args: argparse.Namespace) -> int:
+def run_compose(args: argparse.Namespace, progress_callback: Any = None) -> int:
     job_dir = Path(args.job)
     if not job_dir.is_absolute():
         job_dir = REPO_ROOT / job_dir
@@ -168,6 +182,8 @@ def run_compose(args: argparse.Namespace) -> int:
     if not job_dir.is_dir():
         print(f"[fail] 找不到 Job 目錄：{job_dir}", file=sys.stderr)
         return 1
+
+    cb = progress_callback or getattr(args, "progress_callback", None)
 
     job_yaml_path = job_dir / "job.yaml"
     with open(job_yaml_path, "r", encoding="utf-8") as f:
@@ -218,7 +234,12 @@ def run_compose(args: argparse.Namespace) -> int:
             try:
                 res = future.result()
                 results.append(res)
-                print(f"[ok]   [{len(results)}/{len(scene_folders)}] 第 {res[0]:03d} 幕推鏡完成 ({res[3]:.1f}s)")
+                done_count = len(results)
+                total_scenes = len(scene_folders)
+                print(f"[ok]   [{done_count}/{total_scenes}] 第 {res[0]:03d} 幕推鏡完成 ({res[3]:.1f}s)")
+                if cb:
+                    ratio = done_count / max(1, total_scenes)
+                    cb(done_count, total_scenes, f"推鏡渲染中 ({done_count}/{total_scenes}) 第 {res[0]:03d} 幕", stage_ratio=ratio * 0.8)
             except Exception as e:
                 print(f"[fail] 第 {idx:03d} 幕 ({s_dir.name}) 生成失敗：{e}", file=sys.stderr)
                 executor.shutdown(wait=False, cancel_futures=True)
@@ -230,6 +251,8 @@ def run_compose(args: argparse.Namespace) -> int:
     audio_files = [r[2] for r in results]
 
     # 2. 合併音訊
+    if cb:
+        cb(len(scene_folders), len(scene_folders), "正在合併旁白音訊軌道...", stage_ratio=0.85)
     print("[gen]  正在合併各場景旁白音訊...")
     narration_wav = compose_dir / "narration.wav"
     audio_concat_txt = compose_dir / "audio_concat.txt"
@@ -251,6 +274,8 @@ def run_compose(args: argparse.Namespace) -> int:
         return 1
 
     # 3. 串接視訊片段
+    if cb:
+        cb(len(scene_folders), len(scene_folders), "正在串接 1080p 視訊軌道...", stage_ratio=0.90)
     print("[gen]  正在串接視訊軌道...")
     video_concat_txt = compose_dir / "video_concat.txt"
     video_concat_txt.write_text(
@@ -273,6 +298,9 @@ def run_compose(args: argparse.Namespace) -> int:
 
     # 4. 最終合成：視訊 + 音訊 (+ 選配 ASS 字幕燒錄)
     final_film = compose_dir / "film.mp4"
+
+    if cb:
+        cb(len(scene_folders), len(scene_folders), "正在合流輸出 1080p 成片...", stage_ratio=0.96)
 
     if burn_subtitles:
         print("[gen]  正在合流音訊、燒錄 1080p ASS 字幕並輸出影片...")

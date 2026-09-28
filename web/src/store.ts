@@ -62,24 +62,31 @@ export const useStudioStore = create<StudioState>((set, get) => ({
 
   // 專案
   jobs: [],
-  selectedJobId: null,
+  selectedJobId:
+    typeof window !== "undefined" ? localStorage.getItem("aivideo_selected_job") || null : null,
   loadJobs: async () => {
     try {
       const jobs = await api.getJobs();
       set({ jobs });
-      const currentSelected = get().selectedJobId;
+      const savedJobId = typeof window !== "undefined" ? localStorage.getItem("aivideo_selected_job") : null;
+      const currentSelected = get().selectedJobId || savedJobId;
       if (jobs.length > 0) {
-        if (!currentSelected || !jobs.some((j) => j.id === currentSelected)) {
-          get().selectJob(jobs[0].id);
+        if (currentSelected && jobs.some((j) => j.id === currentSelected)) {
+          get().selectJob(currentSelected);
         } else {
-          get().loadScenes(currentSelected);
+          get().selectJob(jobs[0].id);
         }
+      } else {
+        set({ selectedJobId: null, scenes: [] });
       }
     } catch (e) {
       console.error("載入專案失敗", e);
     }
   },
   selectJob: (jobId) => {
+    if (typeof window !== "undefined" && jobId) {
+      localStorage.setItem("aivideo_selected_job", jobId);
+    }
     set({ selectedJobId: jobId, activeSceneId: null, isInspectorOpen: false });
     get().loadScenes(jobId);
   },

@@ -82,18 +82,33 @@ def _get_scene_status(scene_dir: Path, job_id: str) -> SceneStatus:
         aud_file = scene_dir / "audio.wav"
     pip_file = scene_dir / "pip.png"
 
-    has_img = img_file.is_file()
     has_aud = aud_file.is_file()
     has_pip = pip_file.is_file()
 
-    img_mtime = int(img_file.stat().st_mtime) if has_img else 0
+    # 檢查是否為黑底歷史聚焦 (spotlight) 且已有真實考據圖
+    is_spotlight = False
+    s_yaml_p = scene_dir / "scene.yaml"
+    if s_yaml_p.is_file():
+        try:
+            sc_data = yaml.safe_load(s_yaml_p.read_text(encoding="utf-8")) or {}
+            p_mode = str(sc_data.get("pip", {}).get("mode", "")).lower()
+            if p_mode in ("spotlight", "focus", "black_bg", "fullscreen") and has_pip:
+                is_spotlight = True
+        except Exception:
+            pass
+
+    has_img = img_file.is_file() or is_spotlight
+
+    img_mtime = int(img_file.stat().st_mtime) if img_file.is_file() else 0
     aud_mtime = int(aud_file.stat().st_mtime) if has_aud else 0
     pip_mtime = int(pip_file.stat().st_mtime) if has_pip else 0
 
     import urllib.parse
     job_id_encoded = urllib.parse.quote(job_id)
 
-    img_url = f"/media/jobs/{job_id_encoded}/scenes/{scene_dir.name}/image.png?t={img_mtime}" if has_img else None
+    img_url = f"/media/jobs/{job_id_encoded}/scenes/{scene_dir.name}/image.png?t={img_mtime}" if img_file.is_file() else (
+        f"/media/jobs/{job_id_encoded}/scenes/{scene_dir.name}/pip.png?t={pip_mtime}" if is_spotlight else None
+    )
     aud_url = f"/media/jobs/{job_id_encoded}/scenes/{scene_dir.name}/{aud_file.name}?t={aud_mtime}" if has_aud else None
     pip_url = f"/media/jobs/{job_id_encoded}/scenes/{scene_dir.name}/pip.png?t={pip_mtime}" if has_pip else None
 

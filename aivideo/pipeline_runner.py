@@ -261,7 +261,53 @@ class PipelineRunner:
                     need_aud = (not aud_file.is_file()) or (not skip_done)
                     did_work = False
 
-                    # 1. 該幕出圖
+                    # 0. 考據先行判定：若分鏡規劃為黑底歷史聚焦 (spotlight)，優先檢索並下載真實歷史原照
+                    is_spotlight_mode = False
+                    pip_q = None
+                    s_yaml_p = s_dir / "scene.yaml"
+                    if s_yaml_p.is_file():
+                        try:
+                            scfg_data = yaml.safe_load(s_yaml_p.read_text(encoding="utf-8")) or {}
+                            p_cfg = scfg_data.get("pip", {})
+                            if isinstance(p_cfg, dict):
+                                p_mode = str(p_cfg.get("mode", "")).lower()
+                                pip_q = str(p_cfg.get("query", "")).strip()
+                                if p_mode in ("spotlight", "focus", "black_bg", "fullscreen"):
+                                    is_spotlight_mode = True
+                        except Exception:
+                            pass
+
+                    pip_file = s_dir / "pip.png"
+                    spotlight_ready = False
+
+                    if is_spotlight_mode:
+                        if pip_file.is_file():
+                            spotlight_ready = True
+                        elif auto_pip and pip_q:
+                            with self._lock:
+                                self.live_cur = idx
+                                self.live_tot = total_scenes
+                                self.live_phase = "考據"
+                                self.live_dir = s_dir
+                                self.status_msg = f"🏛️ 第 {idx}/{total_scenes} 幕：檢索黑底考據圖 ({pip_q})..."
+                            try:
+                                from aivideo.auto_pip import fetch_single_scene_pip
+                                if fetch_single_scene_pip(s_dir, pip_q):
+                                    spotlight_ready = True
+                                    did_work = True
+                                    print(f"[info] 第 {idx} 幕已成功抓取黑底考據圖 ({pip_q})，自動略過 AI 生圖")
+                                else:
+                                    print(f"[warn] 第 {idx} 幕黑底考據圖未檢索到，自動降級為 AI 生圖")
+                            except Exception as exc:
+                                from aivideo.auto_pip import mark_scene_pip_error
+                                mark_scene_pip_error(s_dir, str(exc), pip_q)
+                                print(f"[warn] 第 {idx} 幕黑底考據圖檢索失敗（{exc}），自動降級為 AI 生圖")
+
+                    # 若黑底考據真實照片已就緒，該幕成片完全使用黑底考據圖，直接跳過 AI 生圖（省下 API 配額與冷卻）
+                    if spotlight_ready:
+                        need_img = False
+
+                    # 1. 該幕出圖（若需出圖）
                     if need_img:
                         did_work = True
                         with self._lock:
@@ -306,8 +352,8 @@ class PipelineRunner:
                         if self.check_control(phase=f"第 {idx}/{total_scenes} 幕配音完畢", s_dir=s_dir):
                             return
 
-                    # 3. 考據：僅建案時已標 query 的幕才抓；其餘直接略過
-                    if auto_pip and not (s_dir / "pip.png").is_file():
+                    # 3. 常規考據：非 spotlight 的畫中畫小卡 (PiP)，於此處抓取
+                    if auto_pip and not is_spotlight_mode and not (s_dir / "pip.png").is_file():
                         q = None
                         try:
                             from aivideo.auto_pip import fetch_single_scene_pip, read_scene_pip_query
@@ -354,16 +400,22 @@ class PipelineRunner:
                 # ========================
                 self.stage = "🎬 [成片合成]"
                 self.status_msg = "全片分鏡與語音已就緒，正在透過 FFmpeg 合成 1080p 影片..."
-                self.progress = 0.92
+                self.progress = 0.85
                 if self.check_control(phase="成片準備"):
                     return
+
+                def on_compose_all(curr: int, total: int, msg: str, stage_ratio: float = 0.0):
+                    self.stage = "🎬 [成片合成]"
+                    self.progress = round(0.85 + stage_ratio * 0.14, 2)
+                    self.status_msg = f"🎬 {msg}"
 
                 cmd_args = CmdArgs(
                     job=self.job_path,
                     check_control=self.check_control,
                     burn_subtitles=burn_subtitles,
+                    progress_callback=on_compose_all,
                 )
-                ret_comp = run_compose(cmd_args)
+                ret_comp = run_compose(cmd_args, progress_callback=on_compose_all)
                 if ret_comp != 0:
                     self.error_msg = "FFmpeg 成片合成失敗，請檢查素材或日誌。"
                     self.status_msg = "❌ 成片合成失敗"
@@ -442,7 +494,21 @@ class PipelineRunner:
 
                 scenes_dir = self.job_path / "scenes"
                 scene_folders = sorted([p for p in scenes_dir.iterdir() if p.is_dir()]) if scenes_dir.is_dir() else []
-                missing_images = [s.name for s in scene_folders if not (s / "image.png").is_file()]
+                missing_images = []
+                for s in scene_folders:
+                    if (s / "image.png").is_file():
+                        continue
+                    # 若為黑底歷史聚焦 (spotlight) 且已備齊真實照片 pip.png，視為畫面已就緒
+                    s_yaml = s / "scene.yaml"
+                    if s_yaml.is_file() and (s / "pip.png").is_file():
+                        try:
+                            sc_d = yaml.safe_load(s_yaml.read_text(encoding="utf-8")) or {}
+                            p_m = str(sc_d.get("pip", {}).get("mode", "")).lower()
+                            if p_m in ("spotlight", "focus", "black_bg", "fullscreen"):
+                                continue
+                        except Exception:
+                            pass
+                    missing_images.append(s.name)
                 missing_audios = [s.name for s in scene_folders if not (s / "speech.wav").is_file()]
 
                 if missing_images or missing_audios:
@@ -457,16 +523,22 @@ class PipelineRunner:
                         return
 
                 self.status_msg = "正在透過 FFmpeg 合成 1080p 影片、推鏡、畫中畫與字幕..."
-                self.progress = 0.5
+                self.progress = 0.05
                 if self.check_control(phase="成片準備"):
                     return
+
+                def on_compose_solo(curr: int, total: int, msg: str, stage_ratio: float = 0.0):
+                    self.stage = "🎬 [成片合成]"
+                    self.progress = round(max(0.05, stage_ratio * 0.98), 2)
+                    self.status_msg = f"🎬 {msg}"
 
                 cmd_args = CmdArgs(
                     job=self.job_path,
                     check_control=self.check_control,
                     burn_subtitles=burn_subtitles,
+                    progress_callback=on_compose_solo,
                 )
-                ret_comp = run_compose(cmd_args)
+                ret_comp = run_compose(cmd_args, progress_callback=on_compose_solo)
                 if ret_comp != 0:
                     self.error_msg = "FFmpeg 成片合成失敗，請檢查分鏡素材是否齊全或 FFmpeg 日誌。"
                     self.status_msg = "❌ 成片合成失敗"

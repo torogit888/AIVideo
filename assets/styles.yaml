@@ -177,18 +177,15 @@ chibi_kawaii:
   description: 極度簡化和頭身比縮小的角色造型（通常 2-3 頭身）、圓潤的線條、誇張的可愛表情、色彩鮮亮。常用於衍生商品或搞笑橋段。
 european_fairytale:
   name: Q版 2D 卡通插畫
-  prefix: A clean, vibrant 2D cartoon illustration with cute, Chibi-proportioned characters.
-    This style features defined linework and cell-shading with minimal texture. The
-    compositions are often structured like game menus or split-screen views. Use a
-    balanced, slightly desaturated but still cheerful color palette. Elements like
-    machinery are simplified but detailed, characters have large, expressive eyes
-    and simple faces. Perfect for UI elements or narrative cutscenes in a mobile game
-    or webcomic.16:9 橫式構圖
-  negative: '文字浮水印、照片寫實、現代冰冷科技感
-
-    (worst quality, low quality:1.4), 3D, 2.5D, realistic, photorealistic, CGI, render,
-    octane render, 3d model, oil painting, watercolor, rough lines, messy sketch,
-    dirty background, depth of field, blur, deformed, bad anatomy, bad proportions,
-    missing fingers, extra digits, signature, watermark, text'
+  prefix: "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style,\
+    \ \nchibi characters, clean line art, cell shading, flat colors, \nvisual novel\
+    \ style, crisp details, vibrant and cheerful color palette, \nsingle coherent\
+    \ scene, non-split screen, unified single viewpoint, \nwide-angle coherent view,\
+    \ one main environment, \nhighly detailed and intricate background, \npacked with\
+    \ objects and props, \ndynamic composition within a single panel"
+  negative: (worst quality, low quality:1.4), 3D, 2.5D, realistic, photorealistic,
+    CGI, render, octane render, 3d model, oil painting, watercolor, rough lines, messy
+    sketch, dirty background, depth of field, blur, deformed, bad anatomy, bad proportions,
+    missing fingers, extra digits, signature, watermark, text
   preview: assets/styles/previews/european_fairytale.jpg
   description: Q版 2D 卡通插畫

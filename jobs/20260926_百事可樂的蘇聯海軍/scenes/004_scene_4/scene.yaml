@@ -1,21 +1,30 @@
 id: 004_scene_4
 index: 4
 title: 第 4 幕
-narration: 他找到了當時的美國副總統，理查德·尼克森，請求他的幫助， 尼克森與肯德爾私交甚篤，曾經還是百事可樂的律師顧問. 在肯德爾的懇求下，尼克森答應了這個看似荒唐的請求.
-image_prompt: A Q版 2D 卡通插畫 medium shot depicting Donald Kendall and Richard Nixon
-  interacting at the American National Exhibition in Moscow, 1959. Donald Kendall,
-  with his cheerful face and confident smile, is gesturing persuasively towards Nixon.
-  Richard Nixon, with his slightly more angular Q-version head, small, serious but
-  kind eyes, and a thoughtful frown, listens intently. Both are dressed in their characteristic
-  suits, rendered with flat colors and bold outlines. They are positioned within the
-  simplified, brightly colored exhibition hall, with stylized American consumer goods
-  in the soft-focus background. Uniformly bright and soft lighting, no harsh shadows.
-  The atmosphere is one of a private, yet significant, conversation amidst a public
-  event. 16:9 widescreen.
+narration: 當時百事可樂的國際部負責人，一位名叫唐納德·肯德爾的年輕人，他有著非凡的商業嗅覺， 肯德爾深知，這是一個將百事可樂，推向蘇聯人民的絕佳機會，
+image_prompt: Q版 2D 卡通插畫, a medium shot of Donald Kendall, rendered in chibi-style
+  proportion with a youthful, energetic, and slightly mischievous expression. His
+  round, friendly face features large, sparkling eyes that convey sharp intellect
+  and ambition, and a small, confident smirk. His neatly styled hair has a few stylized
+  waves. He wears a crisp, simplified 1950s dark blue business suit with a bright
+  white shirt and a bold red tie, with a tiny, stylized Pepsi logo as a lapel pin.
+  He stands with a slightly exaggerated, dynamic posture, observing the bustling American
+  National Exhibition in Moscow, which is subtly visible in the bright, clear background.
+  The atmosphere is optimistic and inviting. 16:9 widescreen composition.
 image_negative: ''
 locks:
   speech: false
   image: false
 current:
-  speech_take: speech_20260926T150313
-  image_take: image_20260926T150303
+  speech_take: speech_20260926T161124
+  image_take: image_20260926T161111
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Donald Kendall Pepsi
+  source_title: File:Donald Mcintosh Kendall.jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/5/5d/Donald_Mcintosh_Kendall.jpg

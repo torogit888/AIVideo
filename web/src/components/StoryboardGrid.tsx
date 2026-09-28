@@ -86,50 +86,60 @@ export const StoryboardGrid: React.FC = () => {
   return (
     <div className="flex-1 flex flex-col h-full overflow-hidden bg-cinema-bg">
       {/* 矮版全幽靈指揮列 */}
-      <div className="flex items-center justify-between px-6 py-2 border-b border-cinema-border/40 text-xs overflow-x-auto gap-4">
-        <div className="flex items-center space-x-2 shrink-0">
+      <div className="flex items-center justify-between px-5 py-2 border-b border-cinema-border/50 text-xs overflow-x-auto gap-4 bg-cinema-bg/95 backdrop-blur-sm">
+        {/* 左側：管線工具分組 */}
+        <div className="flex items-center space-x-2.5 shrink-0">
+          {/* 群組 1: 視覺一致性 (定裝圖) */}
           <button
             onClick={() => setIsContinuityOpen(true)}
-            className="flex items-center px-3 py-1 rounded bg-amber-cta/15 hover:bg-amber-cta/25 text-amber-cta border border-amber-cta/40 transition-colors whitespace-nowrap shrink-0 font-medium"
-            title="開啟視覺一致性中心：設定主體定裝參考圖 (Hero Shot) 與視覺特徵錨點"
+            className="flex items-center h-7 px-3 rounded-md bg-amber-cta/15 hover:bg-amber-cta/25 text-amber-cta border border-amber-cta/40 hover:border-amber-cta transition-all whitespace-nowrap shrink-0 font-medium shadow-sm"
+            title="開啟視覺一致性中心：設定主體定裝參考圖 (Hero Shot) 與各角色視覺特徵錨點"
           >
-            <Sparkles className="w-3.5 h-3.5 mr-1" />
-            <span>視覺一致性 (定裝圖)</span>
+            <Sparkles className="w-3.5 h-3.5 mr-1.5" />
+            <span>視覺一致性</span>
           </button>
-          <div className="h-4 w-[1px] bg-cinema-border/60 mx-1 shrink-0" />
 
-          <button
-            onClick={handleBatchImages}
-            className="flex items-center px-3 py-1 rounded bg-cinema-card hover:bg-cinema-cardHover text-cinema-text hover:text-amber-cta transition-colors border border-cinema-border/60 whitespace-nowrap shrink-0"
-          >
-            <ImageIcon className="w-3.5 h-3.5 mr-1 text-cinema-muted" />
-            <span>出圖</span>
-          </button>
-          <button
-            onClick={handleBatchPip}
-            className="flex items-center px-3 py-1 rounded bg-cinema-card hover:bg-cinema-cardHover text-cinema-text hover:text-amber-cta transition-colors border border-cinema-border/60 whitespace-nowrap shrink-0"
-            title="依據各幕台詞自動向 NASA、維基百科檢索真實考據歷史照片"
-          >
-            <Camera className="w-3.5 h-3.5 mr-1 text-cinema-muted" />
-            <span>考據配圖 (PiP)</span>
-          </button>
-          <button
-            onClick={handleBatchTTS}
-            className="flex items-center px-3 py-1 rounded bg-cinema-card hover:bg-cinema-cardHover text-cinema-text hover:text-amber-cta transition-colors border border-cinema-border/60 whitespace-nowrap shrink-0"
-          >
-            <Volume2 className="w-3.5 h-3.5 mr-1 text-cinema-muted" />
-            <span>配音</span>
-          </button>
-          <button
-            onClick={handleCompose}
-            className="flex items-center px-3 py-1 rounded bg-cinema-card hover:bg-cinema-cardHover text-cinema-text hover:text-amber-cta transition-colors border border-cinema-border/60 whitespace-nowrap shrink-0"
-            title={burnSubtitles ? "合成 1080p 成片（將燒錄 ASS 字幕）" : "合成 1080p 成片（免重編碼極速直通，可下載 SRT 字幕上傳 YouTube）"}
-          >
-            <Play className="w-3.5 h-3.5 mr-1 text-cinema-muted" />
-            <span>合成</span>
-          </button>
+          <div className="h-4 w-[1px] bg-cinema-border/60 shrink-0" />
+
+          {/* 群組 2: 分段式管線操作 (Segmented Pipeline Buttons) */}
+          <div className="flex items-center bg-cinema-card/70 rounded-md border border-cinema-border/70 p-0.5 space-x-0.5">
+            <button
+              onClick={handleBatchImages}
+              className="flex items-center h-6 px-2.5 rounded text-cinema-muted hover:text-amber-cta hover:bg-cinema-card transition-colors whitespace-nowrap text-[11px] font-medium"
+              title="批次為未出圖分鏡生成畫面"
+            >
+              <ImageIcon className="w-3 h-3 mr-1" />
+              <span>出圖</span>
+            </button>
+            <button
+              onClick={handleBatchPip}
+              className="flex items-center h-6 px-2.5 rounded text-cinema-muted hover:text-amber-cta hover:bg-cinema-card transition-colors whitespace-nowrap text-[11px] font-medium"
+              title="依據台詞自動向維基與 NASA 檢索真實歷史考據原照 (PiP)"
+            >
+              <Camera className="w-3 h-3 mr-1" />
+              <span>考據 (PiP)</span>
+            </button>
+            <button
+              onClick={handleBatchTTS}
+              className="flex items-center h-6 px-2.5 rounded text-cinema-muted hover:text-amber-cta hover:bg-cinema-card transition-colors whitespace-nowrap text-[11px] font-medium"
+              title="批次為未配音分鏡合成語音"
+            >
+              <Volume2 className="w-3 h-3 mr-1" />
+              <span>配音</span>
+            </button>
+            <button
+              onClick={handleCompose}
+              className="flex items-center h-6 px-2.5 rounded text-cinema-text hover:text-amber-cta hover:bg-cinema-card transition-colors whitespace-nowrap text-[11px] font-medium"
+              title={burnSubtitles ? "合成 1080p 成片（將燒錄 ASS 字幕）" : "合成 1080p 成片（極速直通，可下載 SRT 字幕）"}
+            >
+              <Play className="w-3 h-3 mr-1 fill-current text-amber-cta" />
+              <span>合成</span>
+            </button>
+          </div>
+
+          {/* 燒錄字幕開關 */}
           <label
-            className="flex items-center space-x-1.5 cursor-pointer text-cinema-muted hover:text-cinema-text text-[11px] select-none pl-1 shrink-0"
+            className="flex items-center space-x-1.5 cursor-pointer text-cinema-muted hover:text-cinema-text text-[11px] select-none px-1.5 shrink-0"
             title="開啟時將 ASS 字幕壓制至影片畫面內；關閉時極速合流純淨畫面（免重編碼），並產出可供 YouTube 使用的 SRT 字幕檔"
           >
             <input
@@ -140,22 +150,12 @@ export const StoryboardGrid: React.FC = () => {
             />
             <span>燒錄字幕</span>
           </label>
-          <div className="h-4 w-[1px] bg-cinema-border/60 mx-1 shrink-0" />
-          <button
-            onClick={handleClearAllMedia}
-            className="flex items-center px-2.5 py-1 rounded bg-cinema-card hover:bg-red-950/40 text-cinema-muted hover:text-red-400 border border-cinema-border/60 hover:border-red-800/80 transition-colors whitespace-nowrap shrink-0"
-            title="清空所有已生成的圖片、配音、考據圖與成片，重置為初始待出圖狀態"
-          >
-            <Trash2 className="w-3.5 h-3.5 mr-1 text-red-400/80" />
-            <span>全部清除</span>
-          </button>
 
-          <div className="h-4 w-px bg-cinema-border/60 mx-1 shrink-0" />
+          <div className="h-4 w-[1px] bg-cinema-border/60 shrink-0" />
 
           {/* 專案預設發音人切換 */}
-          <div className="flex items-center space-x-1.5 text-cinema-muted whitespace-nowrap shrink-0">
+          <div className="flex items-center space-x-1 text-cinema-muted whitespace-nowrap shrink-0">
             <Mic className="w-3.5 h-3.5 text-amber-cta" />
-            <span className="text-[11px] font-medium">發音人:</span>
             <select
               value={currentJob?.voice_id || "female01"}
               onChange={async (e) => {
@@ -168,7 +168,8 @@ export const StoryboardGrid: React.FC = () => {
                   showToast("更新專案發音人失敗: " + (err.message || "未知錯誤"), "error");
                 }
               }}
-              className="h-7 px-2 rounded bg-cinema-card border border-cinema-border text-cinema-text text-[11px] focus:outline-none focus:border-amber-cta cursor-pointer"
+              className="h-7 px-2 rounded-md bg-cinema-card border border-cinema-border text-cinema-text text-[11px] focus:outline-none focus:border-amber-cta cursor-pointer font-medium"
+              title="切換專案預設發音人"
             >
               {voices.map((v) => (
                 <option key={v.id} value={v.id}>
@@ -178,8 +179,21 @@ export const StoryboardGrid: React.FC = () => {
             </select>
           </div>
         </div>
-        <div className="text-cinema-muted text-[11px]">
-          點擊卡片選取開啟右側精修抽屜
+
+        {/* 右側：提示與危險操作 */}
+        <div className="flex items-center space-x-3 shrink-0">
+          <span className="text-cinema-muted/70 text-[11px] hidden lg:inline">
+            💡 點選分鏡卡片開啟右側精修抽屜
+          </span>
+
+          <button
+            onClick={handleClearAllMedia}
+            className="flex items-center h-6 px-2 rounded hover:bg-red-950/40 text-cinema-muted/60 hover:text-red-400 border border-transparent hover:border-red-900/60 transition-colors whitespace-nowrap text-[11px]"
+            title="清空所有已生成的圖片、配音、考據圖與成片，重置為初始待出圖狀態"
+          >
+            <Trash2 className="w-3 h-3 mr-1 text-red-400/70" />
+            <span>清空素材</span>
+          </button>
         </div>
       </div>
 

@@ -1,0 +1,21 @@
+id: 005_scene_5
+index: 5
+title: 第 5 幕
+narration: 他找到了當時的美國副總統，理查德·尼克森，請求他的幫助， 尼克森與肯德爾私交甚篤，曾經還是百事可樂的律師顧問.
+image_prompt: Q版 2D 卡通插畫, a medium shot showing Donald Kendall and Richard Nixon in
+  discussion within the American National Exhibition in Moscow. Donald Kendall, in
+  his crisp, simplified 1950s dark blue business suit and confident smirk, faces Richard
+  Nixon. Richard Nixon is portrayed with a recognizable but softened and simplified
+  appearance, his slightly angular face showing a serious yet approachable expression,
+  with distinctive, simplified eyebrows. He wears a classic, simplified 1950s charcoal
+  grey suit with a conservative tie and a small, stylized American flag pin. Both
+  are in chibi proportion. The background shows simplified elements of the exhibition
+  hall, with bright, clear, and diffused lighting maintaining the cheerful and optimistic
+  atmosphere. 16:9 widescreen composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260926T161212
+  image_take: image_20260926T161157
