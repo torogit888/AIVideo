@@ -1,5 +1,5 @@
 {
-  "take_id": "speech_20260926T160916",
+  "take_id": "speech_20260928T124544",
   "kind": "speech",
   "engine": "omnivoice",
   "model": "OmniVoice-bf16",
@@ -30,5 +30,5 @@
       "duration_sec": 6.07
     }
   ],
-  "created_at": "2026-09-26T16:09:16.734810+00:00"
+  "created_at": "2026-09-28T12:45:44.640942+00:00"
 }

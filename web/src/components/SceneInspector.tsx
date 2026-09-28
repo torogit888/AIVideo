@@ -297,13 +297,32 @@ export const SceneInspector: React.FC = () => {
         ) : (
           <>
             {/* 1. 16:9 大預覽 */}
-            <div className="relative aspect-video w-full rounded-md bg-black/60 overflow-hidden border border-cinema-border">
-              {detail?.status.image_url ? (
+            <div className="relative aspect-video w-full rounded-md bg-black overflow-hidden border border-cinema-border flex items-center justify-center">
+              {detail?.pip_mode === "spotlight" && detail?.status?.has_pip && detail?.status?.pip_url ? (
+                <div className="relative w-full h-full bg-black flex items-center justify-center">
+                  <img
+                    src={detail.status.pip_url}
+                    alt="Spotlight Archival"
+                    className="max-h-[85%] max-w-[85%] object-contain rounded border border-white/80 shadow-2xl"
+                  />
+                  <div className="absolute top-2 right-2 px-2 py-0.5 rounded bg-amber-500/90 text-black font-semibold text-[10px] z-10 shadow">
+                    🏛️ 黑底歷史聚焦原照
+                  </div>
+                </div>
+              ) : detail?.status.image_url ? (
                 <img
                   src={detail.status.image_url}
                   alt={detail.title}
                   className="w-full h-full object-cover"
                 />
+              ) : detail?.pip_mode === "spotlight" ? (
+                <div className="flex flex-col items-center justify-center w-full h-full bg-black text-amber-cta/90 p-4 text-center select-none">
+                  <Camera className="w-10 h-10 stroke-1 mb-2 text-amber-cta" />
+                  <span className="text-sm font-semibold text-amber-cta">🏛️ 待檢索黑底歷史考據原照</span>
+                  <span className="text-xs text-cinema-muted mt-1 max-w-[280px]">
+                    一鍵生成時將優先下載真實歷史照片慢推，自動跳過 AI 生圖
+                  </span>
+                </div>
               ) : (
                 <div className="flex flex-col items-center justify-center w-full h-full text-cinema-muted/50">
                   <ImageIcon className="w-10 h-10 stroke-1 mb-1" />
@@ -314,23 +333,32 @@ export const SceneInspector: React.FC = () => {
 
             {/* 2. 重抽 / 換圖 / 重錄快速小按鈕列 */}
             <div className="flex items-center space-x-2">
-              <button
-                onClick={handleRegenImage}
-                disabled={isRegeneratingImage || isRegeneratingAudio}
-                className="flex-1 flex items-center justify-center h-8 rounded bg-cinema-darker hover:bg-cinema-cardHover border border-cinema-border text-xs text-cinema-text hover:text-amber-cta transition-colors disabled:opacity-50"
-              >
-                {isRegeneratingImage ? (
-                  <>
-                    <Loader2 className="w-3.5 h-3.5 animate-spin mr-1 text-amber-cta" />
-                    <span>出圖中...</span>
-                  </>
-                ) : (
-                  <>
-                    <RotateCw className="w-3.5 h-3.5 mr-1" />
-                    <span>重抽畫面</span>
-                  </>
-                )}
-              </button>
+              {detail?.pip_mode === "spotlight" && detail?.status?.has_pip ? (
+                <div
+                  className="flex-1 flex items-center justify-center h-8 rounded bg-amber-cta/10 border border-amber-cta/30 text-xs text-amber-cta select-none"
+                  title="此幕成片直接採用真實歷史照片慢推，已自動跳過 AI 生圖"
+                >
+                  <span>🏛️ 黑底考據（已免除生圖）</span>
+                </div>
+              ) : (
+                <button
+                  onClick={handleRegenImage}
+                  disabled={isRegeneratingImage || isRegeneratingAudio}
+                  className="flex-1 flex items-center justify-center h-8 rounded bg-cinema-darker hover:bg-cinema-cardHover border border-cinema-border text-xs text-cinema-text hover:text-amber-cta transition-colors disabled:opacity-50"
+                >
+                  {isRegeneratingImage ? (
+                    <>
+                      <Loader2 className="w-3.5 h-3.5 animate-spin mr-1 text-amber-cta" />
+                      <span>出圖中...</span>
+                    </>
+                  ) : (
+                    <>
+                      <RotateCw className="w-3.5 h-3.5 mr-1" />
+                      <span>重抽畫面</span>
+                    </>
+                  )}
+                </button>
+              )}
               <button
                 onClick={handleRegenAudio}
                 disabled={isRegeneratingAudio || isRegeneratingImage}

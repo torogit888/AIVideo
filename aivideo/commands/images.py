@@ -128,9 +128,9 @@ def run_images(args: Any = None, progress_callback=None, **kwargs) -> int:
                     callback(processed, total_targets, f"[{processed}/{total_targets}] {s_id} 已有畫面（跳過）")
             continue
 
-        # 若該幕為黑底考據圖 (spotlight) 且已有真實考據照片 (pip.png)，則跳過 AI 生圖
+        # 若該幕為黑底考據圖 (spotlight) 且已有真實考據照片 (pip.png)，無論是否 force，皆徹底跳過 AI 生圖
         pip_cfg = scene_cfg.get("pip", {})
-        if isinstance(pip_cfg, dict) and not force:
+        if isinstance(pip_cfg, dict):
             p_mode = str(pip_cfg.get("mode", "")).lower()
             if p_mode in ("spotlight", "focus", "black_bg", "fullscreen") and (s_dir / "pip.png").is_file():
                 print(f"[skip] {s_id}: 已具備黑底真實考據圖 (pip.png)，跳過 AI 生圖")

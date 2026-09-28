@@ -228,6 +228,13 @@ export const StoryboardGrid: React.FC = () => {
                 >
                   {/* 16:9 圖片縮圖區（支援黑底歷史聚焦與右側置中 PiP） */}
                   <div className="relative aspect-video w-full bg-black/40 overflow-hidden">
+                    {/* 右上角黑底歷史聚焦常駐標籤（無論有無出圖，皆一眼可辨識） */}
+                    {scene.pip_mode === "spotlight" && (
+                      <div className="absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded bg-amber-500/95 text-black font-semibold text-[9px] z-20 shadow-md flex items-center">
+                        <span>🏛️ 黑底歷史聚焦</span>
+                      </div>
+                    )}
+
                     {scene.status.has_pip && scene.status.pip_url && scene.pip_mode === "spotlight" ? (
                       <div className="w-full h-full bg-black flex items-center justify-center overflow-hidden">
                         <img
@@ -236,9 +243,6 @@ export const StoryboardGrid: React.FC = () => {
                           className="max-h-[82%] max-w-[82%] object-contain rounded border border-white/80 shadow-2xl transition-transform group-hover:scale-105"
                           loading="lazy"
                         />
-                        <div className="absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded bg-amber-500/90 text-black font-semibold text-[9px] z-10">
-                          🏛️ 黑底歷史聚焦
-                        </div>
                       </div>
                     ) : (
                       <>
@@ -249,6 +253,13 @@ export const StoryboardGrid: React.FC = () => {
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                             loading="lazy"
                           />
+                        ) : scene.pip_mode === "spotlight" ? (
+                          /* 黑底歷史聚焦的空狀態：純黑底 + 金色考據相機圖示 + 清楚標明免 AI 生圖 */
+                          <div className="flex flex-col items-center justify-center w-full h-full bg-black text-amber-cta/90 p-2 text-center select-none">
+                            <Camera className="w-7 h-7 stroke-1 mb-1 text-amber-cta" />
+                            <span className="text-[11px] font-semibold text-amber-cta">待抓取黑底考據圖</span>
+                            <span className="text-[9px] text-cinema-muted mt-0.5">免 AI 出圖 · 真實原照慢推</span>
+                          </div>
                         ) : (
                           <div className="flex flex-col items-center justify-center w-full h-full text-cinema-muted/40">
                             <ImageIcon className="w-8 h-8 stroke-1 mb-1" />
@@ -281,10 +292,17 @@ export const StoryboardGrid: React.FC = () => {
                           <span>已完成</span>
                         </span>
                       ) : !hasImg ? (
-                        <span className="flex items-center px-1.5 py-0.5 rounded bg-amber-950/80 border border-amber-800 text-amber-400 text-[10px]">
-                          <AlertCircle className="w-3 h-3 mr-0.5" />
-                          <span>缺圖</span>
-                        </span>
+                        scene.pip_mode === "spotlight" ? (
+                          <span className="flex items-center px-1.5 py-0.5 rounded bg-amber-950/90 border border-amber-600/80 text-amber-300 text-[10px] shadow-sm">
+                            <Camera className="w-3 h-3 mr-0.5 text-amber-400" />
+                            <span>待考據</span>
+                          </span>
+                        ) : (
+                          <span className="flex items-center px-1.5 py-0.5 rounded bg-amber-950/80 border border-amber-800 text-amber-400 text-[10px]">
+                            <AlertCircle className="w-3 h-3 mr-0.5" />
+                            <span>缺圖</span>
+                          </span>
+                        )
                       ) : (
                         <span className="flex items-center px-1.5 py-0.5 rounded bg-sky-950/80 border border-sky-800 text-sky-400 text-[10px]">
                           <AlertCircle className="w-3 h-3 mr-0.5" />
@@ -322,11 +340,22 @@ export const StoryboardGrid: React.FC = () => {
                           </span>
                         ) : (
                           <span
-                            className="flex items-center px-1.5 py-0.5 rounded bg-black/85 border border-amber-cta/50 text-amber-300 text-[10px] font-mono shadow-sm truncate"
-                            title={`AI 建議考據實體: ${scene.pip_query}（可點擊上方「考據配圖」一鍵下載）`}
+                            className={`flex items-center px-1.5 py-0.5 rounded text-[10px] font-mono shadow-sm truncate ${
+                              scene.pip_mode === "spotlight"
+                                ? "bg-black/90 border border-amber-cta/70 text-amber-300"
+                                : "bg-black/85 border border-purple-500/50 text-purple-200"
+                            }`}
+                            title={`考據檢索詞: ${scene.pip_query} (${scene.pip_mode === "spotlight" ? "黑底聚焦模式" : "畫中畫小卡模式"})`}
                           >
-                            <Search className="w-2.5 h-2.5 mr-1 text-amber-cta shrink-0" />
-                            <span className="truncate">考據: {scene.pip_query}</span>
+                            {scene.pip_mode === "spotlight" ? (
+                              <Camera className="w-2.5 h-2.5 mr-1 text-amber-cta shrink-0" />
+                            ) : (
+                              <Search className="w-2.5 h-2.5 mr-1 text-purple-400 shrink-0" />
+                            )}
+                            <span className="truncate">
+                              {scene.pip_mode === "spotlight" ? "聚焦: " : "PiP: "}
+                              {scene.pip_query}
+                            </span>
                           </span>
                         )}
                       </div>
