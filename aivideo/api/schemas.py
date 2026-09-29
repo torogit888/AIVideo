@@ -60,7 +60,7 @@ class CreateJobRequest(BaseModel):
     tone_id: Optional[str] = None
     voice_id: str = "female01"
     style_id: str = "future_workplace"
-    image_model: Optional[str] = Field(default="gemini-3.6-flash-image", description="生圖模型")
+    image_model: Optional[str] = Field(default="gemini-3.1-flash-image", description="生圖模型")
     visual_pacing: str = Field(default="balanced", description="視覺換鏡節奏: fast, balanced, slow")
     lines_per_scene: Optional[int] = Field(default=None, ge=1, le=5)
     subject_anchor: Optional[str] = Field(default=None, description="主體外觀特徵錨點（多人時為彙總字串）")

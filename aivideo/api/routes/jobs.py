@@ -130,7 +130,7 @@ def _generate_one_character_sheet(job_dir: Path, cfg: dict, character: dict[str,
         appearance=character.get("appearance") or character.get("name") or "distinct character",
         environment=str(environment),
     )
-    img_model = cfg.get("image", {}).get("model", "gemini-3.6-flash-image")
+    img_model = cfg.get("image", {}).get("model", "gemini-3-pro-image")
     generate_image(
         prompt=prompt,
         dest=dest,

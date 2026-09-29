@@ -3,18 +3,17 @@ index: 1
 title: 第 1 幕
 narration: 你敢相信一家賣汽水的公司，在冷戰最高峰時期，曾經坐擁一支比許多國家海軍還龐大的艦隊嗎 [surprise-wa]， 這聽起來像是天方夜譚，卻是真實發生在人類歷史上，
   沒錯，就是那個我們耳熟能詳的百事可樂， 一場跨越意識形態的商業奇蹟，顛覆了所有人的想像，
-image_prompt: Q版 2D 卡通插畫 style, a dramatic wide establishing shot of a Pepsi-Cola
-  bottle/can standing proudly on a stylized world map, surrounded by a fleet of Soviet
-  Submarines (Type 613) and Soviet Cruisers/Destroyers. The world map is divided by
-  a stylized 'Iron Curtain.' The atmosphere is one of wonder and historical significance,
-  16:9 widescreen.
+image_prompt: a dramatic wide establishing shot of a classic Pepsi-Cola bottle standing
+  proudly on a stylized vintage world map, surrounded by a fleet of stylized cute
+  Soviet Submarines and Naval Cruisers. The atmosphere is full of historical wonder
+  and grandeur, 16:9 widescreen composition.
 image_negative: ''
 locks:
   speech: false
   image: false
 current:
   speech_take: speech_20260929T100217
-  image_take: image_20260929T145132
+  image_take: image_20260929T155141
 pip:
   enabled: false
   image: null

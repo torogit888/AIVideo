@@ -186,8 +186,8 @@ frame:
   fps: 30
 image:
   backend: gemini
-  model: gemini-3.6-flash-image
-  model_final: gemini-3.6-flash-image
+  model: gemini-3.1-flash-image
+  model_final: gemini-3.1-flash-image
   resolution: 1K
   aspect_ratio: '16:9'
   style: european_fairytale

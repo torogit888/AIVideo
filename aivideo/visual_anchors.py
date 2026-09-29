@@ -210,14 +210,43 @@ def build_character_hero_prompt(
     style_prefix: str,
     name: str,
     appearance: str,
-    environment: str,
+    environment: str = "",
 ) -> str:
-    env = environment or "cinematic lighting, detailed textures"
-    return (
-        f"{style_prefix}，Character costume design reference, SINGLE character only, "
-        f"full-body three-quarter standing portrait, clear face, hair, body, outfit and signature colors, "
-        f"no other people, no collage, no text, no labels, no watermarks, "
-        f"{name}: {appearance}, "
-        f"simple unobtrusive backdrop, lighting mood: {env}, "
-        f"16:9 widescreen composition, cinematic masterpiece, high detail"
-    ).strip("，")
+    """構建乾淨純粹的定裝基準圖 Prompt，智慧感知主體是人物還是核心物件/載具，避免非人物體被擬人化。"""
+    prefix = (style_prefix or "").strip("，")
+    char_desc = f"{name}: {appearance}" if name and appearance else (appearance or name)
+
+    combined_text = f"{name} {appearance}".lower()
+
+    # 判定是否為物品、道具、飲料、載具、機器等非人物實體
+    object_keywords = (
+        "bottle", "can", "drink", "beverage", "soda", "pepsi", "coke",
+        "submarine", "ship", "cruiser", "destroyer", "boat", "vessel", "fleet",
+        "plane", "aircraft", "car", "tank", "vehicle", "machine", "device",
+        "prop", "artifact", "weapon", "sword", "gun", "glass", "container"
+    )
+    person_keywords = (
+        "kendall", "nixon", "khrushchev", "person", "man", "woman", "boy", "girl",
+        "president", "leader", "ceo", "captain", "sailor", "soldier", "character"
+    )
+
+    is_object = any(k in combined_text for k in object_keywords) and not any(p in name.lower() for p in person_keywords)
+
+    if is_object:
+        # 物件/道具/載具展示模板：強調物品本體細節與材質，嚴禁擬人化
+        return (
+            f"{prefix}，Iconic object design reference sheet, SINGLE item only, central hero display of the object, "
+            f"crisp silhouette, authentic materials and textures, accurate scale, signature branding and colors, "
+            f"no human figures, no people, no anime characters, no personification, no extra clutter, no text, no labels, no watermarks, "
+            f"{char_desc}, "
+            f"clean minimalist neutral studio background, soft even lighting, 16:9 widescreen composition"
+        ).strip("，")
+    else:
+        # 人物/角色立繪模板：專注於全身比例、面部五官與服飾
+        return (
+            f"{prefix}，Character reference sheet, SINGLE character only, full-body standing pose, "
+            f"clear face, distinct hair, body proportions and signature outfit colors, "
+            f"no other characters, no collage, no extra props, no text, no labels, no watermarks, "
+            f"{char_desc}, "
+            f"clean minimalist neutral background, soft even lighting, 16:9 widescreen composition"
+        ).strip("，")

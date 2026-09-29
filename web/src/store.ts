@@ -172,8 +172,8 @@ export const useStudioStore = create<StudioState>((set, get) => ({
   // 全域 生圖 AI 模型設定 (持久化存入 localStorage)
   selectedImageModel:
     typeof window !== "undefined"
-      ? localStorage.getItem("aivideo_selected_image_model") || "gemini-3.6-flash-image"
-      : "gemini-3.6-flash-image",
+      ? localStorage.getItem("aivideo_selected_image_model") || "gemini-3.1-flash-image"
+      : "gemini-3.1-flash-image",
   setSelectedImageModel: (model) => {
     if (typeof window !== "undefined") {
       localStorage.setItem("aivideo_selected_image_model", model);

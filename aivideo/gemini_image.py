@@ -20,18 +20,51 @@ SMOKE_PROMPT = (
 
 # 金鑰能用哪個 id 因帳號而異；由新到舊試。
 MODEL_CANDIDATES = (
-    "gemini-3.6-flash-image",
-    "gemini-3.6-flash-image-preview",
-    "gemini-3.6-flash",
+    "gemini-3-pro-image",
     "gemini-3.1-flash-image",
     "gemini-3.1-flash-image-preview",
+    "gemini-3.1-flash-lite-image",
     "gemini-2.5-flash-image",
     "gemini-2.5-flash-image-preview",
     "imagen-3.0-generate-002",
 )
 
 
-def get_gemini_client_kwargs(timeout_ms: int = 300000) -> dict[str, object]:
+# 全域模型部署位置快取（記住每個模型成功出圖的 Region，後續零延遲直達）
+_MODEL_LOCATION_CACHE: dict[str, str] = {}
+
+
+def get_candidate_locations_for_model(model_name: str, env_location: str = "") -> list[str]:
+    """依據模型特性智慧推薦優先嘗試的 Google Cloud 部署位置清單。"""
+    m = (model_name or "").lower()
+    locs: list[str] = []
+
+    # 若快取已有成功記錄，絕對優先使用
+    if model_name in _MODEL_LOCATION_CACHE:
+        return [_MODEL_LOCATION_CACHE[model_name]]
+
+    # 使用者環境變數指定
+    if env_location:
+        locs.append(env_location)
+
+    # 3 系列模型在 Vertex AI 優先部署於 global 全域端點
+    if "gemini-3" in m:
+        for r in ("global", "us-central1", "us-east4", "us-west1"):
+            if r not in locs:
+                locs.append(r)
+    elif "imagen" in m:
+        for r in ("us-central1", "us-east4", "global"):
+            if r not in locs:
+                locs.append(r)
+    else:
+        for r in ("global", "us-central1", "us-east4"):
+            if r not in locs:
+                locs.append(r)
+
+    return locs
+
+
+def get_gemini_client_kwargs(timeout_ms: int = 300000, model: str | None = None, location: str | None = None) -> dict[str, object]:
     from aivideo.commands.check import _load_dotenv
     _load_dotenv()
 
@@ -53,16 +86,19 @@ def get_gemini_client_kwargs(timeout_ms: int = 300000) -> dict[str, object]:
     if default_adc_path.is_file() and not os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"):
         os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = str(default_adc_path)
 
+    env_loc = _env_value("GOOGLE_CLOUD_LOCATION") or _env_value("GOOGLE_CLOUD_REGION") or _env_value("VERTEX_LOCATION")
+    # 若有指定 location 則使用，否則依據 model 名稱智慧挑選最佳起始 location
+    chosen_loc = location or (get_candidate_locations_for_model(model or "", env_loc)[0] if model else (env_loc or "global"))
+
     # 1. 優先支援 Vertex AI 模式
     if vertex_mode:
         project = _env_value("GOOGLE_CLOUD_PROJECT") or _env_value("VERTEX_PROJECT_ID")
-        location = _env_value("GOOGLE_CLOUD_LOCATION") or _env_value("GOOGLE_CLOUD_REGION") or _env_value("VERTEX_LOCATION") or "us-central1"
         if not project:
             raise RuntimeError(
                 "Vertex AI 模式已啟用，但缺少 GOOGLE_CLOUD_PROJECT / VERTEX_PROJECT_ID。"
             )
         os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "true"
-        res: dict[str, object] = {"vertexai": True, "project": project, "location": location}
+        res: dict[str, object] = {"vertexai": True, "project": project, "location": chosen_loc}
         if http_opts is not None:
             res["http_options"] = http_opts
         return res
@@ -78,10 +114,9 @@ def get_gemini_client_kwargs(timeout_ms: int = 300000) -> dict[str, object]:
 
     # 若未指定 Vertex 且無 API Key，但有 ADC 憑證與專案，自動回退至 Vertex AI
     project = _env_value("GOOGLE_CLOUD_PROJECT") or _env_value("VERTEX_PROJECT_ID")
-    location = _env_value("GOOGLE_CLOUD_LOCATION") or "us-central1"
     if project and os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"):
         os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "true"
-        res = {"vertexai": True, "project": project, "location": location}
+        res = {"vertexai": True, "project": project, "location": chosen_loc}
         if http_opts is not None:
             res["http_options"] = http_opts
         return res
@@ -146,12 +181,8 @@ def generate_image(
             "或重建映像 docker compose build pipeline"
         ) from exc
 
-    try:
-        client_kwargs = get_gemini_client_kwargs()
-    except RuntimeError as exc:
-        raise RuntimeError(str(exc)) from exc
-
-    client = genai.Client(**client_kwargs)
+    base_client_kwargs = get_gemini_client_kwargs()
+    is_vertex = bool(base_client_kwargs.get("vertexai"))
     errors: list[str] = []
 
     # 處理參考圖輸入（可多人、每人一張定裝圖）
@@ -201,56 +232,79 @@ def generate_image(
         contents = prompt
 
     for m in models:
-        max_attempts = 4
-        response = None
-        for attempt in range(1, max_attempts + 1):
+        # 自動感知與 Mapping 該模型支援的 Google Cloud 部署位置 (Locations)
+        candidate_locs = get_candidate_locations_for_model(m) if is_vertex else [None]
+        model_succeeded = False
+
+        for current_loc in candidate_locs:
             try:
-                image_config = types.ImageConfig(
-                    aspect_ratio=aspect_ratio,
-                    image_size=image_size,
-                )
-                config_kwargs: dict[str, object] = {
-                    "response_modalities": ["TEXT", "IMAGE"],
-                    "image_config": image_config,
-                }
-                if seed is not None:
-                    config_kwargs["seed"] = seed
+                active_kwargs = dict(base_client_kwargs)
+                if current_loc:
+                    active_kwargs["location"] = current_loc
+                client = genai.Client(**active_kwargs)
+            except Exception as client_err:
+                errors.append(f"{m} (location {current_loc}): client 初始化失敗: {client_err}")
+                continue
 
-                config = types.GenerateContentConfig(**config_kwargs)
+            max_attempts = 4
+            response = None
+            for attempt in range(1, max_attempts + 1):
+                try:
+                    image_config = types.ImageConfig(
+                        aspect_ratio=aspect_ratio,
+                        image_size=image_size,
+                    )
+                    config_kwargs: dict[str, object] = {
+                        "response_modalities": ["TEXT", "IMAGE"],
+                        "image_config": image_config,
+                    }
+                    if seed is not None:
+                        config_kwargs["seed"] = seed
 
-                response = client.models.generate_content(
-                    model=m,
-                    contents=contents,
-                    config=config,
-                )
-                break
-            except Exception as exc:  # noqa: BLE001 — 要對使用者顯示 API 原文
-                message = str(exc)
-                if "free_tier" in message and "limit: 0" in message:
-                    raise RuntimeError(_quota_help(m, message)) from exc
+                    config = types.GenerateContentConfig(**config_kwargs)
 
-                is_429 = "429" in message or "RESOURCE_EXHAUSTED" in message or "resource exhausted" in message.lower()
-                if is_429 and attempt < max_attempts:
-                    import time
-                    backoff_sec = attempt * 8  # 8s, 16s, 24s
-                    print(f"[warn] {m} 觸發 Google 速率限制 (429)，自動等待 {backoff_sec} 秒後重試 (第 {attempt}/{max_attempts-1} 次)...")
-                    time.sleep(backoff_sec)
-                    continue
-                else:
-                    errors.append(f"{m}: {message}")
+                    response = client.models.generate_content(
+                        model=m,
+                        contents=contents,
+                        config=config,
+                    )
                     break
+                except Exception as exc:  # noqa: BLE001 — 要對使用者顯示 API 原文
+                    message = str(exc)
+                    if "free_tier" in message and "limit: 0" in message:
+                        raise RuntimeError(_quota_help(m, message)) from exc
 
-        if response is None:
-            continue
+                    is_429 = "429" in message or "RESOURCE_EXHAUSTED" in message or "resource exhausted" in message.lower()
+                    if is_429 and attempt < max_attempts:
+                        import time
+                        backoff_sec = attempt * 8  # 8s, 16s, 24s
+                        print(f"[warn] {m} 觸發 Google 速率限制 (429)，自動等待 {backoff_sec} 秒後重試 (第 {attempt}/{max_attempts-1} 次)...")
+                        time.sleep(backoff_sec)
+                        continue
 
-        data = _first_image_bytes(response)
-        if data:
-            dest.parent.mkdir(parents=True, exist_ok=True)
-            dest.write_bytes(data)
-            return dest, m, seed
+                    # 若報錯提示模型在當前 region 未開放或找不到，自動切換至下一個 candidate region
+                    is_region_mismatch = "404" in message and ("specified region" in message or "was not found" in message)
+                    if is_region_mismatch:
+                        break
+                    else:
+                        errors.append(f"{m} (location {current_loc}): {message}")
+                        break
 
-        text = _first_text(response)
-        errors.append(f"{m}: 有回應但沒有圖片" + (f"；模型說：{text[:300]}" if text else ""))
+            if response is not None:
+                data = _first_image_bytes(response)
+                if data:
+                    dest.parent.mkdir(parents=True, exist_ok=True)
+                    dest.write_bytes(data)
+                    # 記住該模型成功出圖的有效 location 快取
+                    if current_loc:
+                        _MODEL_LOCATION_CACHE[m] = current_loc
+                    return dest, m, seed
+
+                text = _first_text(response)
+                errors.append(f"{m} (location {current_loc}): 有回應但沒有圖片" + (f"；模型說：{text[:300]}" if text else ""))
+
+        if model_succeeded:
+            break
 
     raise RuntimeError(
         "Gemini 無法產出圖。\n" + "\n".join(errors)

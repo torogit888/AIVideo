@@ -1103,8 +1103,8 @@ def create_job_bundle(
         },
         "image": {
             "backend": "gemini",
-            "model": (image_model or os.environ.get("GEMINI_IMAGE_MODEL", "gemini-3.6-flash-image")).strip(),
-            "model_final": (image_model or os.environ.get("GEMINI_IMAGE_MODEL", "gemini-3.6-flash-image")).strip(),
+            "model": (image_model or os.environ.get("GEMINI_IMAGE_MODEL", "gemini-3-pro-image")).strip(),
+            "model_final": (image_model or os.environ.get("GEMINI_IMAGE_MODEL", "gemini-3-pro-image")).strip(),
             "resolution": "1K",
             "aspect_ratio": "16:9",
             "style": style_key,

@@ -125,9 +125,10 @@ export const AI_TEXT_MODELS: AiModelOption[] = [
 ];
 
 export const AI_IMAGE_MODELS: AiModelOption[] = [
-  { id: "gemini-3.6-flash-image", name: "Gemini 3.6 Flash Image", badge: "3.6 Flash", tag: "極速高擬真・首選" },
-  { id: "gemini-3.1-flash-image", name: "Gemini 3.1 Flash Image", badge: "3.1 Flash", tag: "平衡高效" },
-  { id: "gemini-2.5-flash-image", name: "Gemini 2.5 Flash Image", badge: "2.5 Flash", tag: "主流相容" },
+  { id: "gemini-3.1-flash-image", name: "Gemini 3.1 Flash Image", badge: "3.1 Flash", tag: "極速生圖・預設推薦" },
+  { id: "gemini-3-pro-image", name: "Gemini 3 Pro Image", badge: "3 Pro", tag: "電影級旗艦・頂級畫質" },
+  { id: "gemini-3.1-flash-lite-image", name: "Gemini 3.1 Flash Lite Image", badge: "3.1 Lite", tag: "輕量生圖" },
+  { id: "gemini-2.5-flash-image", name: "Gemini 2.5 Flash Image", badge: "2.5 Flash", tag: "舊版相容" },
   { id: "imagen-3.0-generate-002", name: "Imagen 3 (002)", badge: "Imagen 3", tag: "專業生圖" },
 ];
 
