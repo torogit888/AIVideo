@@ -7,8 +7,8 @@ export const FilmViewer: React.FC = () => {
 
   const encodedJobId = selectedJobId ? encodeURIComponent(selectedJobId) : "";
   const filmUrl = encodedJobId ? `/media/jobs/${encodedJobId}/compose/film.mp4` : null;
-  const srtUrl = encodedJobId ? `/media/jobs/${encodedJobId}/compose/film.srt` : null;
-  const assUrl = encodedJobId ? `/media/jobs/${encodedJobId}/compose/film.ass` : null;
+  const srtUrl = encodedJobId ? `/media/jobs/${encodedJobId}/compose/timeline.srt` : null;
+  const assUrl = encodedJobId ? `/media/jobs/${encodedJobId}/compose/timeline.ass` : null;
 
   const handleSceneClick = (sceneId: string) => {
     openInspector(sceneId);
@@ -16,9 +16,9 @@ export const FilmViewer: React.FC = () => {
   };
 
   return (
-    <div className="flex-1 flex flex-col h-full overflow-y-auto p-6 max-w-5xl mx-auto space-y-6">
+    <div className="flex-1 flex flex-col h-full overflow-y-auto p-6 pb-20 max-w-5xl mx-auto space-y-6">
       {/* 頂部標題與下載 */}
-      <div className="flex items-center justify-between">
+      <div className="shrink-0 flex items-center justify-between">
         <div>
           <h2 className="text-lg font-semibold text-cinema-text">成片劇院預覽</h2>
           <p className="text-xs text-cinema-muted">
@@ -61,8 +61,8 @@ export const FilmViewer: React.FC = () => {
         </div>
       </div>
 
-      {/* 16:9 主劇院播放器 */}
-      <div className="relative aspect-video w-full rounded-xl bg-black overflow-hidden border border-cinema-border shadow-2xl">
+      {/* 16:9 主劇院播放器（加上 shrink-0 防止被 flex 壓縮為 0） */}
+      <div className="shrink-0 relative aspect-video w-full rounded-xl bg-black overflow-hidden border border-cinema-border shadow-2xl">
         {filmUrl ? (
           <video
             src={filmUrl}

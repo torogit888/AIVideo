@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260929T103726",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.17,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "更糟糕的是，到了1988年，形勢變得更加嚴峻， 百事可樂在蘇聯的銷量增長速度， 已經遠遠超出了伏特加的供應能力， 蘇聯已經無法提供足夠的伏特加， 來抵扣日益增長的可樂濃縮液費用了，",
+      "text_cn": "更糟糕的是，到了1988年，形势变得更加严峻， 百事可乐在苏联的销量增长速度， 已经远远超出了伏特加的供应能力， 苏联已经无法提供足够的伏特加， 来抵扣日益增长的可乐浓缩液费用了，",
+      "start_sec": 0.0,
+      "end_sec": 14.17,
+      "duration_sec": 14.17
+    }
+  ],
+  "created_at": "2026-09-29T10:37:26.935741+00:00"
+}

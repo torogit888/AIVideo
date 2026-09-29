@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260929T100333",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.28,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "如果你今天回望上個世紀中葉的地球， 你會看到一個被冰與火撕裂的世界版圖， 那時是1950年代的初期，美蘇兩大陣營劍拔弩張， 冷戰的巨大陰影，如同烏雲般籠罩著全球大地，",
+      "text_cn": "如果你今天回望上个世纪中叶的地球， 你会看到一个被冰与火撕裂的世界版图， 那时是1950年代的初期，美苏两大阵营剑拔弩张， 冷战的巨大阴影，如同乌云般笼罩着全球大地，",
+      "start_sec": 0.0,
+      "end_sec": 13.28,
+      "duration_sec": 13.28
+    }
+  ],
+  "created_at": "2026-09-29T10:03:33.798108+00:00"
+}

@@ -1,0 +1,16 @@
+id: 019_scene_19
+index: 19
+title: 第 19 幕
+narration: 照片中，赫魯雪夫的笑容，彷彿融化了冷戰的堅冰， 百事可樂隨後在全球範圍內大肆宣傳， 聲稱連社會主義的最高領導人，也喜歡百事可樂，
+image_prompt: Q版 2D 卡通插畫 style, a medium shot focusing on the iconic photo of Nikita
+  Khrushchev smiling with Pepsi. Around the photo, stylized 'ice' or 'cold war' symbols
+  are visibly melting away, replaced by vibrant Pepsi colors (red, white, blue) and
+  stylized 'propaganda rays' spreading across a world map. The atmosphere is one of
+  thawing relations and global propaganda, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260929T101717
+  image_take: image_20260929T101655

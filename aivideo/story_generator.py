@@ -167,11 +167,19 @@ def sanitize_script_punctuation(text: str) -> str:
     2. 嚴禁句號「。」、頓號「、」、冒號「：」、分號「；」，一律替換為全形逗號「，」
     3. 移除各類引號「」『』""''“”‘’、括號、書名號
     4. 壓縮過多重複標點，保留 OmniVoice [tag]
+    5. 嚴格過濾章節、幕次、場景標題行（例如：第一幕、第1幕、第二章、[第一幕]、【第3幕】等），確保純口白
     """
     cleaned_lines = []
     for line in text.splitlines():
         line = line.strip()
         if not line:
+            continue
+        # 嚴格過濾章節、幕次、場景標題行（避免被當成台詞朗讀）
+        if re.match(
+            r"^\s*([【\[\(（#*]*\s*第[一二三四五六七八九十\d]+[幕章節集場次]|幕[一二三四五六七八九十\d]+[：:]|Act\s*\d+|Chapter\s*\d+|Scene\s*\d+)",
+            line,
+            re.IGNORECASE,
+        ):
             continue
         # 移除引號、書名號、圓括號（保留中括號供 OmniVoice [tag] 使用）
         line = re.sub(r"[「」『』\"'“”‘’《》〈〉（）()]", "", line)
@@ -185,16 +193,91 @@ def sanitize_script_punctuation(text: str) -> str:
         line = re.sub(r"，+", "，", line)
         # 去除行首逗號
         line = re.sub(r"^[，,]+", "", line).strip()
-        cleaned_lines.append(line)
+        if line:
+            cleaned_lines.append(line)
     return "\n".join(cleaned_lines)
+
+
+def generate_story_outline(
+    topic: str,
+    tone_id: str = "michelin_curious",
+    model: str | None = None,
+    user_prompt: str | None = None,
+) -> str:
+    """由 AI 聯網檢索並規劃長篇深度故事的 6~8 個核心情節大綱與關鍵看點，可依據使用者自訂的 Prompt/靈感深化。"""
+    _load_dotenv()
+    from google import genai
+    from google.genai import types
+
+    client_kwargs = get_gemini_client_kwargs()
+    client = genai.Client(**client_kwargs)
+
+    tone_sample = load_tone_sample(tone_id)
+
+    user_prompt_section = ""
+    if user_prompt and user_prompt.strip():
+        user_prompt_section = f"""
+【使用者核心指示與自訂 Prompt 要求（重要基石）】
+{user_prompt.strip()}
+請務必緊扣並融入使用者上述指定的靈感看點、情節要求或人物視角，以此為基石規劃展開！
+"""
+
+    prompt = f"""你是一位頂級專題紀錄片與故事腳本總策劃。
+請針對以下主題進行深度資料檢索，規劃一套結構嚴密、高潮迭起、長達 12~15 分鐘（目標約 4000 字）的「6～8 幕核心情節大綱與關鍵看點」：
+
+【主題】
+{topic}
+{user_prompt_section}
+【口吻風格與敘事公式參照（關鍵）】
+{tone_sample if tone_sample else "請使用極具感染力、短句頓挫、反詰質疑後驚喜反轉的敘事風格。"}
+請嚴格依據上述風格範本中的「核心敘事結構與節奏公式」（如反差鉤子 Hook、困境鋪陳、核心機制拆解、矛盾交鋒、反噬或警示、昇華反思等）來構建各幕次的情節走向！
+【人設禁令】：嚴禁自稱「說書人」、「小編」等任何預設稱謂，開場與視角必須 100% 依循上方風格範本的人設與口吻。
+
+【大綱規劃原則】
+1. 請條列 6～8 個獨立幕次，每幕包含：
+   - 幕次標題與核心矛盾衝突
+   - 關鍵真實歷史/技術細節、數據對抗或人物名場面
+   - 此幕要帶給觀眾的懸念或情緒高潮
+2. 避免空泛概述，請給出具體人物姓名、時間點、關鍵事件與技術關鍵詞
+3. 排版請簡潔有力，條列式輸出（例如「第一幕：...」、「第二幕：...」）
+
+請直接輸出繁體中文的大綱內容："""
+
+    config = types.GenerateContentConfig(
+        temperature=0.7,
+        tools=[{"google_search": {}}],
+    )
+
+    models_to_try = list(TEXT_MODELS)
+    if model and model.strip():
+        m = model.strip()
+        models_to_try = [m] + [x for x in TEXT_MODELS if x != m]
+
+    errors = []
+    for model_name in models_to_try:
+        try:
+            resp = client.models.generate_content(
+                model=model_name,
+                contents=prompt,
+                config=config,
+            )
+            if resp.text:
+                return resp.text.strip()
+        except Exception as exc:
+            errors.append(f"{model_name}: {exc}")
+            continue
+
+    raise RuntimeError("Gemini 大綱規劃失敗：\n" + "\n".join(errors))
 
 
 def generate_story_script(
     topic: str,
-    tone_id: str = "tech_business_deepdive",
+    tone_id: str = "michelin_curious",
     word_count: int = 2000,
     search_grounding: bool = True,
     model: str | None = None,
+    notes: str | None = None,
+    user_prompt: str | None = None,
     # 向下相容參數別名
     tone: str | None = None,
     internet_search: bool | None = None,
@@ -213,19 +296,46 @@ def generate_story_script(
 
     tone_sample = load_tone_sample(tone_id)
 
-    prompt = f"""你是一位擁有數百萬訂閱的 YouTube 頂級說書人與知識專欄作家。
-請根據以下標準指令與約束，為我撰寫一篇深度故事腳本：
+    user_prompt_section = ""
+    if user_prompt and user_prompt.strip():
+        user_prompt_section = f"""
+【使用者核心指示與指定 Prompt（重要客製化要求）】
+{user_prompt.strip()}
+請務必將使用者上述指定的劇情看點、人物關係或視角要求深度融入故事各幕中！
+"""
+
+    notes_section = ""
+    if notes and notes.strip():
+        notes_section = f"""
+【故事核心大綱與關鍵看點（務必作為情節骨架深度展開）】
+{notes.strip()}
+請嚴格依據上述大綱架構逐幕深入鋪陳，每幕展開足夠的台詞與名場面細節，切忌一筆帶過！
+"""
+
+    prompt = f"""你是一位頂級深度故事與影片腳本創作者。
+請完全依照指定的主題、使用者要求與口吻風格範本，為我撰寫一篇深度故事腳本：
 
 【主題】
 介紹：{topic}
-
+{user_prompt_section}
+{notes_section}
 【基本需求】
-- 字數規模：約 {word_count} 字的中文深度故事（適合約 8~12 分鐘的 YouTube 專題影片）
+- 字數規模：目標約 {word_count} 字的中文深度故事（適合約 10~15 分鐘的 YouTube 專題影片）
+- 篇幅與章節配額（關鍵）：
+  * 故事請涵蓋 6～8 個完整轉折幕次（起承轉合、危機爆發、生死對決、技術/商業本質拆解、高潮反轉與歷史昇華）。
+  * 每一幕必須包含充足的口白量（每幕約 15~25 句台詞），嚴格禁止浮光掠影般草草收尾。
+- 人設與禁令（極為關鍵）：
+  * 【絕對嚴格禁止自稱「說書人」、「小編」或出現任何「我是說書人」的語句】！
+  * 開場與全篇人設視角必須 100% 嚴格依照下方【口吻風格參照】的範本與語調發聲（例如若風格範本是以提問或直接點題開場，請直接切入，切勿加入多餘自稱）。
+- 絕對最高禁令（純口白保證）：
+  * 全文 100% 必須為直接說出的純台詞口白！
+  * 【絕對嚴格禁止】輸出任何章節標題、幕次名稱、場景標號或過渡前綴（嚴格禁止出現「第一幕：...」、「第二幕」、「第1幕」、「【第一幕】」、「幕次一」、「引言」、「結語」等任何結構標記）。
+  * 聽眾只會聽到你嘴巴講出來的故事台詞，因此嚴禁出現任何給讀者看的章節小標題！
 - 資料深度：盡可能挖掘該主題的真實歷史、人物細節、爭議轉折點、技術與商業本質、傳奇名場面
 - 語言規範：盡量不要有英文，外國人名、機構名、專業術語一律標準中文通譯（避免中文語音模型拼讀字母破音）
 - 標點符號嚴格約束：
   * 全文標點符號只允許使用全形逗號「，」、問號「？」、感嘆號「！」（絕對嚴禁使用句號「。」、冒號「：」、頓號「、」、各類引號「」“”‘’、省略號……、破折號——與括號）。
-  * 問號「？」與感嘆號「！」切忌過多：絕大多數句子（90%以上）請使用全形逗號「，」銜接或行末直接換行斷句；問號與感嘆號必須極度克制，僅在真正強烈懸念或極具震撼的情緒高潮時偶爾使用（每 10~15 句至多出現 1 次），保持沉穩洗鍊的頂級說書質感。
+  * 問號「？」與感嘆號「！」切忌過多：絕大多數句子（90%以上）請使用全形逗號「，」銜接或行末直接換行斷句；問號與感嘆號必須極度克制，僅在真正強烈懸念或極具震撼的情緒高潮時偶爾使用（每 10~15 句至多出現 1 次），保持沉穩洗鍊的頂級質感。
 - 排版格式：請以「一句一行口白腳本」的樣式輸出，每行獨立一句話（每行約 15~25 字，適合語音逐句合成與字幕顯示）
 - 語氣情緒標籤（OmniVoice 專用情緒副語言）：
   請參考 OmniVoice 官方規範，在故事關鍵轉折、懸念或情緒起伏處，自然且克制地在句首或語意處嵌入對應標籤（不用太多，平均每 4~6 句至多出現 1 個，保持沉穩專業，切忌過度頻繁）：
@@ -239,9 +349,9 @@ def generate_story_script(
   * [dissatisfaction-hnn]：質疑抗衡、不滿冷笑
 
 【口吻風格參照】
-{tone_sample if tone_sample else "請使用極具感染力、短句頓挫、反詰質疑後驚喜反轉的說書口吻。"}
+{tone_sample if tone_sample else "請使用極具感染力、短句頓挫、反詰質疑後驚喜反轉的敘事風格。"}
 
-請直接輸出逐行口白內容，不要輸出開頭客套話："""
+請直接輸出逐行口白內容，不要輸出開頭客套話，切勿自稱說書人："""
 
     config_kwargs: dict[str, object] = {
         "temperature": 0.75,
@@ -272,6 +382,78 @@ def generate_story_script(
             continue
 
     raise RuntimeError("Gemini 腳本生成失敗：\n" + "\n".join(errors))
+
+
+def expand_story_script(
+    current_script: str,
+    topic: str = "",
+    tone_id: str = "michelin_curious",
+    target_word_count: int = 3500,
+    model: str | None = None,
+) -> str:
+    """讀取現有腳本，針對情節簡略、對話欠缺或轉折過快的章節深入擴寫，大幅增加篇幅厚度。"""
+    _load_dotenv()
+    from google import genai
+    from google.genai import types
+
+    client_kwargs = get_gemini_client_kwargs()
+    client = genai.Client(**client_kwargs)
+
+    tone_sample = load_tone_sample(tone_id)
+
+    prompt = f"""你是一位頂級專題故事與紀錄片資深編劇。
+下方是目前已經初步撰寫的一篇口白腳本。由於目前篇幅偏短、部分情節推進過快或細節不夠豐富，請你進行「深度情節擴寫與細節補強」，將其擴寫為目標約 {target_word_count} 字的宏大深度故事：
+
+【主題】
+{topic if topic else "原腳本核心主題"}
+
+【原始腳本口白】
+{current_script.strip()}
+
+【擴寫指令與原則】
+1. 保留原本故事主線與精華亮點，在其基礎上進行「血肉充實」：
+   - 在關鍵衝突處增加真實人物對峙、對白細節與心理交戰
+   - 在技術或歷史轉折處補充關鍵歷史數據、對比與背後原理
+   - 將原本幾句話草草帶過的情節展開為完整的對決與高潮
+2. 標點符號與格式約束（極為嚴格）：
+   - 全文標點符號只允許「，」、「？」、「！」（嚴禁句號「。」、頓號「、」、冒號「：」、引號、括號與破折號）。
+   - 問號與感嘆號極度克制（每 10~15 句至多出現 1 次）。
+   - 必須維持「一行一句獨立口白」（每行約 15~25 字）。
+   - 【絕對嚴格禁止】輸出任何章節標題、幕次名稱或提示前綴（嚴禁出現「第一幕」、「第X幕」等結構標籤），每一行都必須是純口白！
+   - 【絕對嚴禁自稱「說書人」或「小編」】！全篇語氣人設嚴格遵照下方風格範本。
+   - 外國人名、機構名一律中文通譯，避免英文。
+   - 自然嵌入 OmniVoice 情緒標籤（如 [surprise-wa]、[sigh]、[question-ei] 等，每 4~6 句至多 1 個）。
+
+【口吻風格參照】
+{tone_sample if tone_sample else "請使用極具感染力、短句頓挫、反詰質疑後驚喜反轉的敘事風格。"}
+
+請直接輸出擴寫後的完整逐行口白腳本，不要輸出任何前言或客套話，切勿自稱說書人："""
+
+    config = types.GenerateContentConfig(
+        temperature=0.75,
+        tools=[{"google_search": {}}],
+    )
+
+    models_to_try = list(TEXT_MODELS)
+    if model and model.strip():
+        m = model.strip()
+        models_to_try = [m] + [x for x in TEXT_MODELS if x != m]
+
+    errors = []
+    for model_name in models_to_try:
+        try:
+            resp = client.models.generate_content(
+                model=model_name,
+                contents=prompt,
+                config=config,
+            )
+            if resp.text:
+                return sanitize_script_punctuation(resp.text.strip())
+        except Exception as exc:
+            errors.append(f"{model_name}: {exc}")
+            continue
+
+    raise RuntimeError("Gemini 腳本擴寫失敗：\n" + "\n".join(errors))
 
 
 def extract_story_visual_anchors(
@@ -884,6 +1066,7 @@ def create_job_bundle(
     subject_anchor: str = "",
     environment_anchor: str = "",
     characters: list[dict[str, str]] | None = None,
+    image_model: str | None = None,
 ) -> Path:
     job_dir = REPO_ROOT / "jobs" / job_id
     job_dir.mkdir(parents=True, exist_ok=True)
@@ -920,8 +1103,8 @@ def create_job_bundle(
         },
         "image": {
             "backend": "gemini",
-            "model": os.environ.get("GEMINI_IMAGE_MODEL", "gemini-2.5-flash-image"),
-            "model_final": os.environ.get("GEMINI_IMAGE_MODEL", "gemini-2.5-flash-image"),
+            "model": (image_model or os.environ.get("GEMINI_IMAGE_MODEL", "gemini-3.6-flash-image")).strip(),
+            "model_final": (image_model or os.environ.get("GEMINI_IMAGE_MODEL", "gemini-3.6-flash-image")).strip(),
             "resolution": "1K",
             "aspect_ratio": "16:9",
             "style": style_key,

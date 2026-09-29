@@ -20,10 +20,13 @@ SMOKE_PROMPT = (
 
 # 金鑰能用哪個 id 因帳號而異；由新到舊試。
 MODEL_CANDIDATES = (
-    "gemini-2.5-flash-image",
-    "gemini-2.5-flash-image-preview",
+    "gemini-3.6-flash-image",
+    "gemini-3.6-flash-image-preview",
+    "gemini-3.6-flash",
     "gemini-3.1-flash-image",
     "gemini-3.1-flash-image-preview",
+    "gemini-2.5-flash-image",
+    "gemini-2.5-flash-image-preview",
     "imagen-3.0-generate-002",
 )
 

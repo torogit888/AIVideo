@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260929T103515",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.6,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "1980年代，蘇聯悍然入侵阿富汗， 這一事件導致美國社會對蘇聯產品，進行了強烈的抵制， 許多美國消費者，出於政治立場，拒絕購買蘇聯商品， 史托利契那亞伏特加在美國的銷量，受到了嚴重影響，",
+      "text_cn": "1980年代，苏联悍然入侵阿富汗， 这一事件导致美国社会对苏联产品，进行了强烈的抵制， 许多美国消费者，出于政治立场，拒绝购买苏联商品， 史托利契那亚伏特加在美国的销量，受到了严重影响，",
+      "start_sec": 0.0,
+      "end_sec": 14.6,
+      "duration_sec": 14.6
+    }
+  ],
+  "created_at": "2026-09-29T10:35:15.385117+00:00"
+}

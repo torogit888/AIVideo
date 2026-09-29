@@ -1,0 +1,15 @@
+id: 032_scene_32
+index: 32
+title: 第 32 幕
+narration: 酒精與糖漿的奇異交換，開啟了這段商業史上， 最為獨特，也最為曲折的旅程，
+image_prompt: Q版 2D 卡通插畫 style, a wide shot showing a winding, adventurous road or
+  path. At the beginning, a Pepsi-Cola bottle/can and a Stolichnaya Vodka Bottle are
+  side-by-side, embarking on the journey. The path is full of stylized twists and
+  turns. The atmosphere is one of a unique and unpredictable journey, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260929T103026
+  image_take: image_20260929T102950

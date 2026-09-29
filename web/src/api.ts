@@ -42,7 +42,7 @@ export const api = {
   getJobs: () => request<JobSummary[]>("/jobs"),
   getJobDetail: (id: string) => request<JobDetail>(`/jobs/${id}`),
   createJob: (data: any) => request<JobSummary>("/jobs", { method: "POST", body: JSON.stringify(data) }),
-  updateJob: (id: string, patch: { title?: string; voice_id?: string; style_id?: string }) =>
+  updateJob: (id: string, patch: { title?: string; voice_id?: string; style_id?: string; image_model?: string }) =>
     request<JobSummary>(`/jobs/${id}`, { method: "PATCH", body: JSON.stringify(patch) }),
   deleteJob: (id: string) => request<any>(`/jobs/${id}`, { method: "DELETE" }),
   clearJobMedia: (id: string) => request<any>(`/jobs/${id}/clear`, { method: "POST" }),
@@ -130,11 +130,43 @@ export const api = {
   fetchScenePip: (jobId: string, sceneId: string) =>
     request<any>(`/jobs/${jobId}/scenes/${sceneId}/pip`, { method: "POST" }),
 
-  // 腳本
-  generateScript: (topic: string, toneId: string, wordCount: number, model?: string) =>
+  // 腳本與大綱
+  generateOutline: (topic: string, toneId: string, model?: string, userPrompt?: string) =>
+    request<{ outline: string }>("/script/generate-outline", {
+      method: "POST",
+      body: JSON.stringify({ topic, tone_id: toneId, model, user_prompt: userPrompt }),
+    }),
+
+  generateScript: (
+    topic: string,
+    toneId: string,
+    wordCount: number,
+    model?: string,
+    notes?: string,
+    userPrompt?: string
+  ) =>
     request<{ script: string; word_count: number; estimated_scenes: number }>("/script/generate", {
       method: "POST",
-      body: JSON.stringify({ topic, tone_id: toneId, word_count: wordCount, model }),
+      body: JSON.stringify({
+        topic,
+        tone_id: toneId,
+        word_count: wordCount,
+        model,
+        notes,
+        user_prompt: userPrompt,
+      }),
+    }),
+
+  expandScript: (script: string, topic?: string, toneId?: string, targetWordCount?: number, model?: string) =>
+    request<{ script: string; word_count: number; estimated_scenes: number }>("/script/expand", {
+      method: "POST",
+      body: JSON.stringify({
+        script,
+        topic: topic || "",
+        tone_id: toneId || "michelin_curious",
+        target_word_count: targetWordCount || 3500,
+        model,
+      }),
     }),
 
   // 素材庫

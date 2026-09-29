@@ -183,9 +183,8 @@ european_fairytale:
     \ scene, non-split screen, unified single viewpoint, \nwide-angle coherent view,\
     \ one main environment, \nhighly detailed and intricate background, \npacked with\
     \ objects and props, \ndynamic composition within a single panel"
-  negative: (worst quality, low quality:1.4), 3D, 2.5D, realistic, photorealistic,
-    CGI, render, octane render, 3d model, oil painting, watercolor, rough lines, messy
-    sketch, dirty background, depth of field, blur, deformed, bad anatomy, bad proportions,
-    missing fingers, extra digits, signature, watermark, text
+  negative: (worst quality, low quality:1.4)rough lines, messy sketch, blur, deformed,
+    bad anatomy, bad proportions, missing fingers, extra digits, signature, watermark,
+    text
   preview: assets/styles/previews/european_fairytale.jpg
   description: Q版 2D 卡通插畫

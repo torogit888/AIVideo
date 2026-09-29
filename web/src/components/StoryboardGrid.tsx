@@ -244,6 +244,7 @@ export const StoryboardGrid: React.FC = () => {
                       <>
                         {hasImg && scene.status.image_url ? (
                           <img
+                            key={scene.status.image_url}
                             src={scene.status.image_url}
                             alt={scene.title}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"

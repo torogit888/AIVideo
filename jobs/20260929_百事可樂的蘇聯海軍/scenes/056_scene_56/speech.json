@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260929T105418",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 11.2,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "當商業力量強大到足以影響國家戰略， 甚至能夠以一種離奇的方式，解除一個超級大國的武裝時， 商業的邊界究竟在哪裡，我們又該如何定義呢 [question-ei]，",
+      "text_cn": "当商业力量强大到足以影响国家战略， 甚至能够以一种离奇的方式，解除一个超级大国的武装时， 商业的边界究竟在哪里，我们又该如何定义呢 [question-ei]，",
+      "start_sec": 0.0,
+      "end_sec": 11.2,
+      "duration_sec": 11.2
+    }
+  ],
+  "created_at": "2026-09-29T10:54:18.075468+00:00"
+}

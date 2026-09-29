@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260929T105322",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 10.92,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "唐納德·肯德爾的遠見卓識與冒險精神， 不僅為百事可樂創造了巨大的商業價值， 也為後世留下了關於商業外交，權力博弈， 以及時代變遷的深刻思考，",
+      "text_cn": "唐纳德·肯德尔的远见卓识与冒险精神， 不仅为百事可乐创造了巨大的商业价值， 也为后世留下了关于商业外交，权力博弈， 以及时代变迁的深刻思考，",
+      "start_sec": 0.0,
+      "end_sec": 10.92,
+      "duration_sec": 10.92
+    }
+  ],
+  "created_at": "2026-09-29T10:53:22.611957+00:00"
+}

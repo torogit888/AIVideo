@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260929T103113",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 11.8,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "百事可樂在蘇聯市場，獲得了超乎想像的巨大成功， 那個時代的蘇聯人民，對西方產品充滿了好奇與渴望， 百事可樂的銷量不斷激增，簡直像一場席捲全國的狂潮，",
+      "text_cn": "百事可乐在苏联市场，获得了超乎想像的巨大成功， 那个时代的苏联人民，对西方产品充满了好奇与渴望， 百事可乐的销量不断激增，简直像一场席卷全国的狂潮，",
+      "start_sec": 0.0,
+      "end_sec": 11.8,
+      "duration_sec": 11.8
+    }
+  ],
+  "created_at": "2026-09-29T10:31:13.428320+00:00"
+}

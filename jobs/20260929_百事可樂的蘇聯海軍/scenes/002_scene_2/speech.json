@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260929T100254",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.88,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "今天，我們就來層層剝開這段塵封的歷史迷霧， 看看百事可樂是如何從一瓶普通的碳酸飲料， 搖身一變，成為了理論上的世界第六大海軍， 以及這背後，究竟隱藏著怎樣的時代洪流與商業權謀，",
+      "text_cn": "今天，我们就来层层剥开这段尘封的历史迷雾， 看看百事可乐是如何从一瓶普通的碳酸饮料， 摇身一变，成为了理论上的世界第六大海军， 以及这背后，究竟隐藏着怎样的时代洪流与商业权谋，",
+      "start_sec": 0.0,
+      "end_sec": 13.88,
+      "duration_sec": 13.88
+    }
+  ],
+  "created_at": "2026-09-29T10:02:54.953145+00:00"
+}

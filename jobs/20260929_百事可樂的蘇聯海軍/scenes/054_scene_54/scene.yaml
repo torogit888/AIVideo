@@ -1,0 +1,25 @@
+id: 054_scene_54
+index: 54
+title: 第 54 幕
+narration: 這段歷史也折射出蘇聯末期經濟體制的僵化與無力， 以及對外匯的極度匱乏，那種近乎絕望的境地， 同時也揭示了西方消費文化，對鐵幕國家人民， 那種難以抵擋的巨大吸引力與滲透力，
+image_prompt: Q版 2D 卡通插畫 style, a medium shot with a split screen. On one side, a
+  generic Soviet official, looking desperate and holding empty pockets, with a crumbling
+  Ruble symbol. On the other side, generic Soviet citizens eagerly reaching for a
+  glowing Pepsi-Cola bottle/can, which is radiating attractive light. The atmosphere
+  conveys desperation and powerful cultural attraction, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260929T105221
+  image_take: image_20260929T105148
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Soviet economic decline 1980s
+  fetch_error: 未找到合適照片

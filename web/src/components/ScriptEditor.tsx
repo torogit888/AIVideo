@@ -16,6 +16,9 @@ import {
   Info,
   Plus,
   Trash2,
+  FileText,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 import { useStudioStore } from "../store";
 import { api } from "../api";
@@ -26,6 +29,13 @@ export const ScriptEditor: React.FC = () => {
   const currentJob = jobs.find((j) => j.id === selectedJobId);
 
   const [topic, setTopic] = useState("美國太空總署羅曼太空望遠鏡的秘密");
+  const [customPrompt, setCustomPrompt] = useState("");
+  const [showCustomPrompt, setShowCustomPrompt] = useState(false);
+  const [outlineNotes, setOutlineNotes] = useState("");
+  const [showOutlineBox, setShowOutlineBox] = useState(false);
+  const [isGeneratingOutline, setIsGeneratingOutline] = useState(false);
+  const [isExpandingScript, setIsExpandingScript] = useState(false);
+
   const [scriptText, setScriptText] = useState(
     "如果你今天想看清整個宇宙最深處的終極秘密！\n你敢相信……NASA 接下來最強大的宇宙神鏡，它的心臟……居然是來自軍方情報機構淘汰不要的間諜衛星嗎？\n這不是地攤文學，這是貨真價實的航太傳奇。\n2012 年，美國國家偵察局突然打電話給 NASA，詢問要不要兩顆頂級哈勃等級望遠鏡鏡片。\n天文學家興奮得手舞足蹈，一場顛覆天文觀測的壯麗計畫就此展開……"
   );
@@ -35,7 +45,7 @@ export const ScriptEditor: React.FC = () => {
   const [voices, setVoices] = useState<AssetVoice[]>([]);
   const [styles, setStyles] = useState<AssetStyle[]>([]);
 
-  const [selectedTone, setSelectedTone] = useState("tech_business_deepdive");
+  const [selectedTone, setSelectedTone] = useState("michelin_curious");
   const [selectedVoice, setSelectedVoice] = useState("female01");
   const [selectedStyle, setSelectedStyle] = useState("otomo_katsuhiro");
   const [visualPacing, setVisualPacing] = useState<"fast" | "balanced" | "slow">("balanced");
@@ -58,7 +68,15 @@ export const ScriptEditor: React.FC = () => {
   const [showAnchors, setShowAnchors] = useState(false);
 
   useEffect(() => {
-    api.getTones().then(setTones).catch(() => {});
+    api
+      .getTones()
+      .then((list) => {
+        setTones(list);
+        if (list.length > 0) {
+          setSelectedTone((prev) => (list.some((t) => t.id === prev) ? prev : list[0].id));
+        }
+      })
+      .catch(() => {});
     api.getVoices().then(setVoices).catch(() => {});
     api.getStyles().then(setStyles).catch(() => {});
   }, []);
@@ -130,11 +148,46 @@ export const ScriptEditor: React.FC = () => {
     return true;
   });
 
+  const handleGenerateOutline = async () => {
+    if (!topic.trim()) {
+      showToast("請先輸入腳本主題！", "error");
+      return;
+    }
+    setIsGeneratingOutline(true);
+    try {
+      const res = await api.generateOutline(
+        topic,
+        selectedTone,
+        selectedAiModel,
+        customPrompt.trim() || undefined
+      );
+      setOutlineNotes(res.outline);
+      setShowOutlineBox(true);
+      showToast(
+        customPrompt.trim()
+          ? "已緊扣您指定的 Prompt 規劃出 6 幕深度大綱！"
+          : "AI 6 幕深度大綱規劃完成！可依需求微調後生成逐句台詞",
+        "success"
+      );
+    } catch (e: any) {
+      showToast("大綱規劃失敗: " + e.message, "error");
+    } finally {
+      setIsGeneratingOutline(false);
+    }
+  };
+
   const handleGenerateScript = async () => {
     if (!topic.trim()) return;
     setGenerating(true);
     try {
-      const res = await api.generateScript(topic, selectedTone, wordCount, selectedAiModel);
+      const res = await api.generateScript(
+        topic,
+        selectedTone,
+        wordCount,
+        selectedAiModel,
+        outlineNotes.trim() || undefined,
+        customPrompt.trim() || undefined
+      );
       setScriptText(res.script);
       showToast("深度故事腳本生成完成！已自動移至下方預覽區", "success");
       // 生成完成後平滑滾動至預覽編輯框
@@ -145,6 +198,29 @@ export const ScriptEditor: React.FC = () => {
       showToast("生成失敗: " + e.message, "error");
     } finally {
       setGenerating(false);
+    }
+  };
+
+  const handleExpandScript = async () => {
+    if (!scriptText.trim()) {
+      showToast("目前尚無腳本內容可供擴寫！", "error");
+      return;
+    }
+    setIsExpandingScript(true);
+    try {
+      const res = await api.expandScript(
+        scriptText,
+        topic,
+        selectedTone,
+        Math.max(wordCount, 3500),
+        selectedAiModel
+      );
+      setScriptText(res.script);
+      showToast("腳本情節深度擴寫完成！篇幅已大幅強化", "success");
+    } catch (e: any) {
+      showToast("情節擴寫失敗: " + e.message, "error");
+    } finally {
+      setIsExpandingScript(false);
     }
   };
 
@@ -189,6 +265,7 @@ export const ScriptEditor: React.FC = () => {
         tone_id: selectedTone,
         voice_id: selectedVoice,
         style_id: selectedStyle,
+        image_model: useStudioStore.getState().selectedImageModel,
         visual_pacing: visualPacing,
         subject_anchor: subjectAnchor.trim() || undefined,
         environment_anchor: environmentAnchor.trim() || undefined,
@@ -212,7 +289,7 @@ export const ScriptEditor: React.FC = () => {
   const totalChars = scriptText.replace(/\s/g, "").length;
 
   return (
-    <div className="flex-1 flex flex-col h-full overflow-y-auto p-6 max-w-5xl mx-auto space-y-5">
+    <div className="flex-1 flex flex-col h-full overflow-y-auto p-6 pb-20 max-w-5xl mx-auto space-y-5">
       {/* 標題與引導說明 */}
       <div className="flex items-center justify-between">
         <div>
@@ -250,6 +327,164 @@ export const ScriptEditor: React.FC = () => {
             className="w-full accent-amber-cta cursor-pointer h-10"
           />
         </div>
+      </div>
+
+      {/* 區塊一：自訂故事要求與指定 Prompt（獨立永久保存，不被大綱生成覆蓋） */}
+      <div className="p-3.5 rounded-lg bg-cinema-card/90 border border-cinema-border space-y-2">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <span className="text-amber-cta text-sm">🎯</span>
+            <span className="text-xs font-semibold text-cinema-text">
+              指定 Prompt 與故事特定要求（選填，獨立保存不被覆蓋）
+            </span>
+            {customPrompt.trim() && (
+              <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-cta/15 text-amber-cta border border-amber-cta/30 font-mono">
+                {customPrompt.trim().length} 字 Prompt
+              </span>
+            )}
+          </div>
+          <div className="flex items-center space-x-2">
+            {customPrompt.trim() && (
+              <button
+                type="button"
+                onClick={() => setCustomPrompt("")}
+                className="text-[11px] text-cinema-muted/60 hover:text-red-400 transition-colors mr-1 cursor-pointer"
+              >
+                清空 Prompt
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={() => setShowCustomPrompt(!showCustomPrompt)}
+              className="p-1 rounded text-cinema-muted hover:text-cinema-text border border-cinema-border/60 hover:border-cinema-border cursor-pointer"
+              title={showCustomPrompt ? "收起 Prompt 輸入框" : "展開 Prompt 輸入框"}
+            >
+              {showCustomPrompt ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+            </button>
+          </div>
+        </div>
+
+        {showCustomPrompt || customPrompt.trim() ? (
+          <div className="space-y-1">
+            <textarea
+              rows={3}
+              value={customPrompt}
+              onChange={(e) => setCustomPrompt(e.target.value)}
+              placeholder="在此輸入您個人的指定 Prompt、特定劇情限制或核心看點...例如：
+- 希望視角聚焦在台積電林本堅如何說服張忠謀賭上浸潤式微影
+- 必須描繪阿斯麥與德國蔡司鏡頭千錘百鍊的同盟生死戰
+- 開場要製造強烈好奇心懸念，切勿冗長客套
+（此處輸入的內容永久獨立保存，點擊下方「規劃 6 幕大綱」時不會被覆蓋，且生成腳本時會一併約束 AI）"
+              className="w-full p-2.5 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text font-mono leading-relaxed focus:outline-none focus:border-amber-cta resize-y"
+            />
+            <div className="text-[10px] text-cinema-muted flex items-center justify-between">
+              <span>💡 提示：輸入完畢後，點擊下方「⚡ 依上方 Prompt 規劃 6 幕大綱」即可展開骨架；生成腳本時亦會深度遵循此處要求。</span>
+            </div>
+          </div>
+        ) : (
+          <div className="text-[11px] text-cinema-muted flex items-center justify-between py-0.5">
+            <span>有特定想講的衝突、名場面或指定劇情？可先在此輸入，內容獨立保留不被大綱覆蓋。</span>
+            <button
+              type="button"
+              onClick={() => setShowCustomPrompt(true)}
+              className="text-amber-cta text-[11px] hover:underline ml-2 shrink-0 cursor-pointer"
+            >
+              輸入指定 Prompt
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* 區塊二：6 幕故事大綱（依上方 Prompt 智慧規劃或手動微調） */}
+      <div className="p-3.5 rounded-lg bg-cinema-card/90 border border-cinema-border space-y-2.5">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <FileText className="w-4 h-4 text-amber-cta" />
+            <span className="text-xs font-semibold text-cinema-text">
+              📑 6 幕故事大綱（長篇 3500+ 字必備骨架）
+            </span>
+            {outlineNotes.trim() && (
+              <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono">
+                大綱已就緒
+              </span>
+            )}
+          </div>
+          <div className="flex items-center space-x-2">
+            <button
+              type="button"
+              onClick={handleGenerateOutline}
+              disabled={isGeneratingOutline || !topic.trim()}
+              className="flex items-center h-7 px-2.5 rounded bg-amber-cta/15 hover:bg-amber-cta/25 text-amber-cta border border-amber-cta/40 text-[11px] font-medium transition-colors disabled:opacity-40 cursor-pointer"
+              title={
+                customPrompt.trim()
+                  ? "依據上方指定的 Prompt 要求，聯網規劃出 6~8 幕深度大綱"
+                  : "由 AI 聯網檢索該主題並規劃 6~8 幕核心情節大綱"
+              }
+            >
+              {isGeneratingOutline ? (
+                <>
+                  <Loader2 className="w-3 h-3 mr-1 animate-spin" />
+                  <span>規劃大綱中...</span>
+                </>
+              ) : (
+                <>
+                  <Sparkles className="w-3 h-3 mr-1" />
+                  <span>
+                    {customPrompt.trim()
+                      ? "⚡ 依上方 Prompt 規劃 6 幕大綱"
+                      : outlineNotes.trim()
+                      ? "重新規劃 6 幕大綱"
+                      : "⚡ AI 智慧規劃 6 幕大綱"}
+                  </span>
+                </>
+              )}
+            </button>
+            <button
+              type="button"
+              onClick={() => setShowOutlineBox(!showOutlineBox)}
+              className="p-1 rounded text-cinema-muted hover:text-cinema-text border border-cinema-border/60 hover:border-cinema-border cursor-pointer"
+              title={showOutlineBox ? "收起大綱輸入框" : "展開大綱輸入框"}
+            >
+              {showOutlineBox ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+            </button>
+          </div>
+        </div>
+
+        {/* 大綱文字編輯區 */}
+        {showOutlineBox || outlineNotes.trim() ? (
+          <div className="space-y-1.5">
+            <textarea
+              rows={4}
+              value={outlineNotes}
+              onChange={(e) => setOutlineNotes(e.target.value)}
+              placeholder="點擊右上角「⚡ 規劃 6 幕大綱」後，生成的大綱會出現在此處，不會覆蓋上方的指定 Prompt；您亦可直接手動條列大綱..."
+              className="w-full p-2.5 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text font-mono leading-relaxed focus:outline-none focus:border-amber-cta resize-y"
+            />
+            <div className="flex items-center justify-between text-[10px] text-cinema-muted">
+              <span>💡 提示：大綱規劃產出在此，可自由微調；上方指定 Prompt 依然被完整保留。</span>
+              {outlineNotes.trim() && (
+                <button
+                  type="button"
+                  onClick={() => setOutlineNotes("")}
+                  className="text-cinema-muted/60 hover:text-red-400 cursor-pointer"
+                >
+                  清空大綱
+                </button>
+              )}
+            </div>
+          </div>
+        ) : (
+          <div className="text-[11px] text-cinema-muted flex items-center justify-between py-0.5">
+            <span>點擊右側按鈕即可一鍵規劃 6 幕大綱（若上方有指定 Prompt 將自動融合）。</span>
+            <button
+              type="button"
+              onClick={() => setShowOutlineBox(true)}
+              className="text-amber-cta text-[11px] hover:underline ml-2 shrink-0 cursor-pointer"
+            >
+              手動輸入大綱 / 展開
+            </button>
+          </div>
+        )}
       </div>
 
       {/* 說書人口吻、發音人與 AI 核心模型 (三欄) */}
@@ -339,6 +574,27 @@ export const ScriptEditor: React.FC = () => {
             >
               <Copy className="w-3.5 h-3.5 mr-1" />
               <span>複製</span>
+            </button>
+
+            {/* 深度擴寫情節按鈕 */}
+            <button
+              type="button"
+              onClick={handleExpandScript}
+              disabled={isExpandingScript || generating || !scriptText.trim()}
+              className="flex items-center h-8 px-3 rounded bg-cinema-card hover:bg-cinema-cardHover text-amber-cta border border-amber-cta/50 hover:border-amber-cta text-xs font-medium transition-colors whitespace-nowrap disabled:opacity-40 cursor-pointer shadow-sm active:scale-95"
+              title={!scriptText.trim() ? "請先生成或填寫腳本口白後再進行擴寫" : "針對目前情節對白、衝突與歷史數據深入展開，大幅增加篇幅與字數"}
+            >
+              {isExpandingScript ? (
+                <>
+                  <Loader2 className="w-3.5 h-3.5 animate-spin mr-1.5" />
+                  <span>AI 深度擴寫中...</span>
+                </>
+              ) : (
+                <>
+                  <Sparkles className="w-3.5 h-3.5 mr-1" />
+                  <span>🔍 深度擴寫情節</span>
+                </>
+              )}
             </button>
 
             {/* 生成腳本主按鈕 */}
@@ -498,7 +754,7 @@ export const ScriptEditor: React.FC = () => {
       </div>
 
       {/* 視覺切鏡節奏 (Visual Pacing) */}
-      <div className="space-y-2 p-3.5 rounded-lg bg-cinema-card border border-cinema-border">
+      <div className="shrink-0 space-y-2 p-3.5 rounded-lg bg-cinema-card border border-cinema-border">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <Film className="w-4 h-4 text-amber-cta" />
@@ -567,7 +823,7 @@ export const ScriptEditor: React.FC = () => {
       </div>
 
       {/* 視覺一致性特徵分析與進入分鏡工作台（整合一體化前製面板） */}
-      <div className="rounded-lg bg-cinema-card border border-cinema-border overflow-hidden shadow-md">
+      <div className="shrink-0 rounded-lg bg-cinema-card border border-cinema-border overflow-hidden shadow-md">
         {/* 卡片頂部 Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 border-b border-cinema-border/60 bg-cinema-darker/40">
           <div className="flex items-center space-x-2.5">

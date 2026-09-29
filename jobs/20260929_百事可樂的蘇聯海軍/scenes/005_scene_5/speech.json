@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260929T100501",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.72,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "在這樣一個高度政治對立的冰冷環境裡， 一家來自美國的汽水公司，百事可樂， 卻懷抱著一個看似瘋狂，甚至有些愚蠢的夢想， 那就是要將他們那甜美的泡沫，滲透進這片被鐵幕封鎖的土地，",
+      "text_cn": "在这样一个高度政治对立的冰冷环境里， 一家来自美国的汽水公司，百事可乐， 却怀抱着一个看似疯狂，甚至有些愚蠢的梦想， 那就是要将他们那甜美的泡沫，渗透进这片被铁幕封锁的土地，",
+      "start_sec": 0.0,
+      "end_sec": 13.72,
+      "duration_sec": 13.72
+    }
+  ],
+  "created_at": "2026-09-29T10:05:01.790864+00:00"
+}

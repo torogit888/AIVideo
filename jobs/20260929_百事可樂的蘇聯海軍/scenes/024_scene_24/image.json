@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20260929T102139",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-2.5-flash-image",
+  "seed": 29462800,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, \nchibi characters, clean line art, cell shading, flat colors, \nvisual novel style, crisp details, vibrant and cheerful color palette, \nsingle coherent scene, non-split screen, unified single viewpoint, \nwide-angle coherent view, one main environment, \nhighly detailed and intricate background, \npacked with objects and props, \ndynamic composition within a single panel，Q版 2D 卡通插畫 style, a medium shot showing a pile of stylized Soviet Ruble banknotes, looking like crumpled, worthless paper, being swept away by a stylized broom. Next to it, a dejected Pepsi-Cola bottle/can looks on, while stylized US Dollar bills fly freely. The atmosphere conveys a financial dilemma and the worthlessness of the Ruble, 16:9 widescreen.",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-09-29T10:21:39.789270+00:00"
+}

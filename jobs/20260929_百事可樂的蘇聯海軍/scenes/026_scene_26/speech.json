@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260929T102423",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 8.92,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "最終，在尼克森政府積極的斡旋下， 以及美蘇關係緩和的大背景下， 1972年，百事可樂終於成功與蘇聯政府達成協議，",
+      "text_cn": "最终，在尼克森政府积极的斡旋下， 以及美苏关系缓和的大背景下， 1972年，百事可乐终于成功与苏联政府达成协议，",
+      "start_sec": 0.0,
+      "end_sec": 8.92,
+      "duration_sec": 8.92
+    }
+  ],
+  "created_at": "2026-09-29T10:24:23.031497+00:00"
+}

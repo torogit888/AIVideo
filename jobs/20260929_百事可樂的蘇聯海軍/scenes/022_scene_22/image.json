@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20260929T101935",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-2.5-flash-image",
+  "seed": 79448499,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, \nchibi characters, clean line art, cell shading, flat colors, \nvisual novel style, crisp details, vibrant and cheerful color palette, \nsingle coherent scene, non-split screen, unified single viewpoint, \nwide-angle coherent view, one main environment, \nhighly detailed and intricate background, \npacked with objects and props, \ndynamic composition within a single panel，Q版 2D 卡通插畫 style, a medium shot of a Pepsi-Cola bottle/can acting as a lever, attempting to pry open a massive, stylized 'Iron Curtain' wall. From the opening, a bright, colorful light and stylized images of Western lifestyle (e.g., happy families, modern homes) are visible. The atmosphere conveys breaking barriers and cultural temptation, 16:9 widescreen.",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-09-29T10:19:35.854362+00:00"
+}

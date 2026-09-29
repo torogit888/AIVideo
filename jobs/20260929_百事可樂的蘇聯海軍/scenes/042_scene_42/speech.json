@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260929T104032",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.8,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "1989年，面對伏特加供應不足的窘境， 以及日益惡化的國家經濟困境， 蘇聯政府提出了一個令人匪夷所思的解決方案， 他們竟然提議，用退役的軍艦來交換百事可樂的濃縮液 [surprise-wa]，",
+      "text_cn": "1989年，面对伏特加供应不足的窘境， 以及日益恶化的国家经济困境， 苏联政府提出了一个令人匪夷所思的解决方案， 他们竟然提议，用退役的军舰来交换百事可乐的浓缩液 [surprise-wa]，",
+      "start_sec": 0.0,
+      "end_sec": 13.8,
+      "duration_sec": 13.8
+    }
+  ],
+  "created_at": "2026-09-29T10:40:32.107042+00:00"
+}

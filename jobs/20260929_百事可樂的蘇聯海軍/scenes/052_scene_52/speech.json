@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260929T105014",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 9.78,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "一個超級大國的解體，如何在一夜之間， 讓一家公司的商業佈局面臨崩潰呢 [question-ei]， 這場看似荒誕的交易，最終留下了什麼樣的警示，",
+      "text_cn": "一个超级大国的解体，如何在一夜之间， 让一家公司的商业布局面临崩溃呢 [question-ei]， 这场看似荒诞的交易，最终留下了什么样的警示，",
+      "start_sec": 0.0,
+      "end_sec": 9.78,
+      "duration_sec": 9.78
+    }
+  ],
+  "created_at": "2026-09-29T10:50:14.244779+00:00"
+}

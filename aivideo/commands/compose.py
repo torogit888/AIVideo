@@ -302,14 +302,28 @@ def run_compose(args: argparse.Namespace, progress_callback: Any = None) -> int:
     if cb:
         cb(len(scene_folders), len(scene_folders), "正在合流輸出 1080p 成片...", stage_ratio=0.96)
 
+    # 支援音訊音量最佳化 (預設開啟 YouTube/廣播級響度標準化，將平均音量由偏低的 -38dB 提升至標準 -14 LUFS，大幅提升清晰度且絕不破音)
+    audio_cfg = job_cfg.get("audio", {}) if isinstance(job_cfg.get("audio"), dict) else {}
+    volume_gain = audio_cfg.get("volume")
+    use_loudnorm = audio_cfg.get("loudnorm", True)
+
+    audio_filters: list[str] = []
+    if volume_gain:
+        audio_filters.append(f"volume={volume_gain}")
+    if use_loudnorm:
+        audio_filters.append("loudnorm=I=-14:TP=-1.5:LRA=11")
+
+    af_args = ["-filter:a", ",".join(audio_filters)] if audio_filters else []
+
     if burn_subtitles:
-        print("[gen]  正在合流音訊、燒錄 1080p ASS 字幕並輸出影片...")
+        print("[gen]  正在合流音訊、提升音量至廣播級響度 (-14 LUFS)、燒錄 1080p ASS 字幕並輸出影片...")
         escaped_ass = str(ass_path.resolve().as_posix()).replace(":", r"\:")
         cmd_final = [
             "ffmpeg", "-y",
             "-i", str(raw_video_mp4),
             "-i", str(narration_wav),
             "-vf", f"subtitles='{escaped_ass}'",
+            *af_args,
             "-c:v", "libx264",
             "-preset", "veryfast",
             "-crf", "20",
@@ -319,12 +333,13 @@ def run_compose(args: argparse.Namespace, progress_callback: Any = None) -> int:
             str(final_film),
         ]
     else:
-        print("[gen]  [極速直通] 依設定不燒錄字幕至畫面，正在直接合流視訊與旁白（免二次重編碼）...")
+        print("[gen]  [極速直通] 依設定不燒錄字幕至畫面，正在合流視訊並將音量提升至廣播級響度 (-14 LUFS)...")
         cmd_final = [
             "ffmpeg", "-y",
             "-i", str(raw_video_mp4),
             "-i", str(narration_wav),
             "-c:v", "copy",
+            *af_args,
             "-c:a", "aac",
             "-b:a", "192k",
             "-shortest",

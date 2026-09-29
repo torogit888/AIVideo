@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260929T104631",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.88,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "這些軍艦當然並未用於軍事用途， 百事公司隨後將它們，轉售給了一家瑞典的拆船公司， 這些曾經的龐然大物，最終被當作廢鐵回收處理， 這個過程，最終為百事公司帶來了近百萬美元的收入，",
+      "text_cn": "这些军舰当然并未用于军事用途， 百事公司随后将它们，转售给了一家瑞典的拆船公司， 这些曾经的庞然大物，最终被当作废铁回收处理， 这个过程，最终为百事公司带来了近百万美元的收入，",
+      "start_sec": 0.0,
+      "end_sec": 13.88,
+      "duration_sec": 13.88
+    }
+  ],
+  "created_at": "2026-09-29T10:46:31.445487+00:00"
+}

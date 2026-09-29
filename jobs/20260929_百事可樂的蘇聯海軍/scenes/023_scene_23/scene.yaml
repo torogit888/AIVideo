@@ -1,0 +1,25 @@
+id: 023_scene_23
+index: 23
+title: 第 23 幕
+narration: 然而，僅憑一杯可樂，是無法真正打開蘇聯這個龐大市場的， 擺在百事可樂面前的，是一個巨大的貨幣壁壘， 這是當時所有西方企業，進入蘇聯市場都必須面對的難題，
+image_prompt: Q版 2D 卡通插畫 style, a low angle shot emphasizing a frustrated Pepsi-Cola
+  bottle/can standing before an even larger, more imposing wall than the 'Iron Curtain.'
+  This wall is made of stylized, crumbling Ruble signs and strong dollar signs, representing
+  the 'currency barrier.' The atmosphere is one of a new, difficult financial obstacle,
+  16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260929T102117
+  image_take: image_20260929T102052
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Soviet ruble currency 1970s
+  fetch_error: 未找到合適照片

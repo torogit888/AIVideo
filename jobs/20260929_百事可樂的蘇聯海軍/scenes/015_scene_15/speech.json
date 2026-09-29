@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260929T101321",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 9.88,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "肯德爾看準時機，沒有絲毫猶豫， 他巧妙地將一杯冰鎮透涼的百事可樂，遞到了赫魯雪夫面前， 這是一個大膽的舉動，充滿了未知的風險，",
+      "text_cn": "肯德尔看准时机，没有丝毫犹豫， 他巧妙地将一杯冰镇透凉的百事可乐，递到了赫鲁晓夫面前， 这是一个大胆的举动，充满了未知的风险，",
+      "start_sec": 0.0,
+      "end_sec": 9.88,
+      "duration_sec": 9.88
+    }
+  ],
+  "created_at": "2026-09-29T10:13:21.259247+00:00"
+}

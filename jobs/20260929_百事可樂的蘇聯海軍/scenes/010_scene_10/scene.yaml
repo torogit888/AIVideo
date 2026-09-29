@@ -1,0 +1,27 @@
+id: 010_scene_10
+index: 10
+title: 第 10 幕
+narration: 在這場備受矚目的展覽會上，發生了一場著名的廚房辯論， 時任美國副總統的理查·尼克森，與蘇聯最高領導人尼基塔·赫魯雪夫， 在一個展示美國現代化廚房的樣板間裡，
+  展開了一場激烈且充滿火藥味的唇槍舌戰，
+image_prompt: Q版 2D 卡通插畫 style, a medium shot of Richard Nixon and Nikita Khrushchev
+  facing each other in a brightly lit, clean, modern American kitchen display. Both
+  have stern, debating expressions, with stylized 'fireworks' or 'sparks' between
+  them. Exaggerated, simplified appliances are visible. The atmosphere is one of intense
+  political tension, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260929T100825
+  image_take: image_20260929T100751
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Kitchen Debate Nixon Khrushchev
+  source_title: File:1959 Events montage 16-grid version.jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/e/ef/1959_Events_montage_16-grid_version.jpg

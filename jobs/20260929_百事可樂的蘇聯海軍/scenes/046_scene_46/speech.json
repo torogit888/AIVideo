@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260929T104434",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.36,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "這一交易，讓百事可樂在短時間內， 理論上擁有了全球第六大的海軍艦隊， 一家賣汽水的公司，竟然成為了世界第一大私人海軍 [surprise-oh]， 這簡直是人類商業史上，最為離奇的一頁篇章，",
+      "text_cn": "这一交易，让百事可乐在短时间内， 理论上拥有了全球第六大的海军舰队， 一家卖汽水的公司，竟然成为了世界第一大私人海军 [surprise-oh]， 这简直是人类商业史上，最为离奇的一页篇章，",
+      "start_sec": 0.0,
+      "end_sec": 13.36,
+      "duration_sec": 13.36
+    }
+  ],
+  "created_at": "2026-09-29T10:44:34.304468+00:00"
+}

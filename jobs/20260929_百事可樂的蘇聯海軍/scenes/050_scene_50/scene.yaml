@@ -1,0 +1,25 @@
+id: 050_scene_50
+index: 50
+title: 第 50 幕
+narration: 然而，這場可樂外交的終章，卻來得比所有人想像的都要快， 1991年12月，龐大的蘇聯帝國轟然解體， 分裂成了多個獨立的國家，
+image_prompt: Q版 2D 卡通插畫 style, a wide shot showing a stylized map of the Soviet Union
+  dramatically cracking and breaking apart into multiple smaller, distinct country
+  shapes. A stylized calendar shows 'December 1991.' The background is dark and dramatic.
+  The atmosphere is one of dramatic collapse and the end of an empire, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260929T104819
+  image_take: image_20260929T104736
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Collapse of Soviet Union 1991
+  source_title: File:1991 Events Collage.png
+  source_url: https://upload.wikimedia.org/wikipedia/commons/b/bd/1991_Events_Collage.png

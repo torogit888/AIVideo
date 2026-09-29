@@ -1,0 +1,24 @@
+id: 018_scene_18
+index: 18
+title: 第 18 幕
+narration: 一張赫魯雪夫手持百事可樂，滿臉笑容的照片， 迅速傳遍了全球各大媒體的頭版頭條， 成為了轟動一時，且極具象徵意義的歷史性畫面 [surprise-wa]，
+image_prompt: Q版 2D 卡通插畫 style, a wide shot showing a montage of multiple newspaper
+  front pages. Each page features the iconic image of Nikita Khrushchev smiling with
+  the Pepsi-Cola. Stylized bold shapes suggest headlines like 'PEPSI!' or 'KHRUSHCHEV
+  SMILES!' The atmosphere is a global media sensation, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260929T101634
+  image_take: image_20260929T101534
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Khrushchev Pepsi photo 1959
+  fetch_error: 未找到合適照片

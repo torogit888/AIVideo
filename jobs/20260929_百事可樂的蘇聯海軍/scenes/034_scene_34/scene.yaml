@@ -1,0 +1,16 @@
+id: 034_scene_34
+index: 34
+title: 第 34 幕
+narration: 從莫斯科到西伯利亞，百事可樂迅速成為了時尚的象徵， 人們排著長隊，只為嚐一口來自西方的甜蜜，
+image_prompt: Q版 2D 卡通插畫 style, a wide establishing shot showing a long, winding queue
+  of generic Soviet citizens (diverse ages, eager faces) stretching across a stylized
+  Soviet landscape, from Moscow's imposing buildings to a snowy Siberian backdrop.
+  At the front of the line, a Pepsi-Cola bottle/can is being served. The atmosphere
+  is one of craze and longing for a symbol of modernity, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260929T103230
+  image_take: image_20260929T103134

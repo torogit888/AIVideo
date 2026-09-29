@@ -1,0 +1,15 @@
+id: 052_scene_52
+index: 52
+title: 第 52 幕
+narration: 一個超級大國的解體，如何在一夜之間， 讓一家公司的商業佈局面臨崩潰呢 [question-ei]， 這場看似荒誕的交易，最終留下了什麼樣的警示，
+image_prompt: Q版 2D 卡通插畫 style, a medium shot of a bewildered Pepsi-Cola bottle/can
+  standing in front of the crumbling Soviet symbol. Above it, a large, stylized question
+  mark looms, reflecting the profound implications of the event. The atmosphere is
+  one of bewilderment and a profound historical question, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260929T105014
+  image_take: image_20260929T104941

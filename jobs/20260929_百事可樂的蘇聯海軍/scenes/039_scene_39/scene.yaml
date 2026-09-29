@@ -1,0 +1,17 @@
+id: 039_scene_39
+index: 39
+title: 第 39 幕
+narration: 更糟糕的是，到了1988年，形勢變得更加嚴峻， 百事可樂在蘇聯的銷量增長速度， 已經遠遠超出了伏特加的供應能力， 蘇聯已經無法提供足夠的伏特加，
+  來抵扣日益增長的可樂濃縮液費用了，
+image_prompt: Q版 2D 卡通插畫 style, a medium shot showing a Pepsi-Cola bottle/can growing
+  larger and larger, almost bursting, symbolizing exploding sales. Next to it, a Stolichnaya
+  Vodka Bottle is shrinking, looking depleted. A stylized calendar shows '1988.' The
+  extreme imbalance is evident. The atmosphere is one of crisis and an unsustainable
+  model, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260929T103726
+  image_take: image_20260929T103633

@@ -1,0 +1,16 @@
+id: 031_scene_31
+index: 31
+title: 第 31 幕
+narration: 伏特加，這種蘇聯的象徵性飲品， 將如何成為資本主義可樂的燃料， 這不僅僅是一場商業談判的藝術， 更是一場跨越意識形態的創意博弈，
+image_prompt: Q版 2D 卡通插畫 style, a medium shot showing a Stolichnaya Vodka Bottle with
+  stylized 'fuel' lines connecting to a Pepsi-Cola bottle/can, which then powers a
+  stylized 'capitalist machine' (e.g., a simplified factory or conveyor belt). The
+  background shows co-existing symbols of capitalism and socialism. The atmosphere
+  is one of creative solution and ideological game, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260929T102933
+  image_take: image_20260929T102837

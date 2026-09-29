@@ -15,7 +15,7 @@ import {
   RefreshCw,
 } from "lucide-react";
 import { useStudioStore } from "../store";
-import { NavTab, AI_TEXT_MODELS } from "../types";
+import { NavTab, AI_TEXT_MODELS, AI_IMAGE_MODELS } from "../types";
 import { api } from "../api";
 
 interface NavItem {
@@ -47,9 +47,27 @@ export const SidebarRail: React.FC = () => {
     showToast,
     selectedAiModel,
     setSelectedAiModel,
+    selectedImageModel,
+    setSelectedImageModel,
   } = useStudioStore();
   const [copied, setCopied] = useState(false);
   const [isServerOnline, setIsServerOnline] = useState<boolean | null>(null);
+
+  const handleImageModelChange = async (newModel: string) => {
+    setSelectedImageModel(newModel);
+    const item = AI_IMAGE_MODELS.find((m) => m.id === newModel);
+    if (selectedJobId) {
+      try {
+        await api.updateJob(selectedJobId, { image_model: newModel });
+        await loadJobs();
+        showToast(`已切換當前專案生圖模型為 ${item?.badge || newModel}`, "success");
+      } catch {
+        showToast(`已切換預設生圖模型為 ${item?.badge || newModel}`, "info");
+      }
+    } else {
+      showToast(`已切換預設生圖模型為 ${item?.badge || newModel}`, "info");
+    }
+  };
 
   useEffect(() => {
     loadJobs();
@@ -109,11 +127,19 @@ export const SidebarRail: React.FC = () => {
                   className="w-full h-8 pl-2.5 pr-6 rounded-lg bg-cinema-card border border-cinema-border/70 hover:border-cinema-muted text-xs text-cinema-text focus:outline-none focus:border-amber-cta appearance-none cursor-pointer font-medium truncate"
                 >
                   {jobs.length === 0 && <option value="">載入專案中...</option>}
-                  {jobs.map((j) => (
-                    <option key={j.id} value={j.id}>
-                      {j.title || j.id}
-                    </option>
-                  ))}
+                  {jobs.map((j) => {
+                    const datePrefix = j.id.slice(0, 8);
+                    const tag = j.progress.film_ready
+                      ? "🟢已成片"
+                      : j.progress.images_ready > 0
+                      ? `🟡製作中(${j.progress.scenes_count}幕)`
+                      : "⚪草稿";
+                    return (
+                      <option key={j.id} value={j.id}>
+                        {j.title || j.id} [{datePrefix} · {tag}]
+                      </option>
+                    );
+                  })}
                 </select>
                 <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-1.5 text-cinema-muted text-[10px]">
                   ▾
@@ -239,12 +265,12 @@ export const SidebarRail: React.FC = () => {
           )
         ) : null}
 
-        {/* 左下角：全域 AI 核心模型切換器 */}
+        {/* 左下角：全域 AI 核心文本模型切換器 */}
         {isSidebarExpanded ? (
-          <div className="mb-2 px-1">
+          <div className="mb-1.5 px-1">
             <div
               className="flex items-center h-8 px-2.5 rounded-lg bg-cinema-card/70 hover:bg-cinema-card border border-cinema-border/70 text-xs transition-colors"
-              title="切換核心文本大模型 (Google Cloud Vertex AI)"
+              title="切換核心文本大模型 (分鏡/腳本/提煉)"
             >
               <span className="text-[11px] mr-1.5 text-amber-cta">⚡</span>
               <select
@@ -266,12 +292,45 @@ export const SidebarRail: React.FC = () => {
             </div>
           </div>
         ) : (
-          <div className="mb-2 flex justify-center">
+          <div className="mb-1.5 flex justify-center">
             <div
-              title={`核心 AI 模型：${AI_TEXT_MODELS.find((m) => m.id === selectedAiModel)?.name || selectedAiModel}`}
+              title={`核心文本模型：${AI_TEXT_MODELS.find((m) => m.id === selectedAiModel)?.name || selectedAiModel}`}
               className="flex items-center justify-center w-8 h-8 rounded-lg bg-cinema-card/60 text-amber-cta cursor-default border border-cinema-border/50"
             >
               <span className="text-xs">⚡</span>
+            </div>
+          </div>
+        )}
+
+        {/* 左下角：全域 AI 生圖模型切換器 */}
+        {isSidebarExpanded ? (
+          <div className="mb-2 px-1">
+            <div
+              className="flex items-center h-8 px-2.5 rounded-lg bg-cinema-card/70 hover:bg-cinema-card border border-cinema-border/70 text-xs transition-colors"
+              title="切換 AI 生圖模型 (Google Gemini / Imagen)"
+            >
+              <span className="text-[11px] mr-1.5 text-purple-400">🎨</span>
+              <select
+                value={selectedImageModel}
+                onChange={(e) => handleImageModelChange(e.target.value)}
+                className="w-full bg-transparent text-cinema-text text-xs font-medium focus:outline-none appearance-none cursor-pointer pr-3 truncate"
+              >
+                {AI_IMAGE_MODELS.map((m) => (
+                  <option key={m.id} value={m.id} className="bg-cinema-card text-cinema-text py-1">
+                    {m.badge} · {m.tag}
+                  </option>
+                ))}
+              </select>
+              <span className="text-[9px] text-cinema-muted -ml-2 pointer-events-none">▾</span>
+            </div>
+          </div>
+        ) : (
+          <div className="mb-2 flex justify-center">
+            <div
+              title={`生圖模型：${AI_IMAGE_MODELS.find((m) => m.id === selectedImageModel)?.name || selectedImageModel}`}
+              className="flex items-center justify-center w-8 h-8 rounded-lg bg-cinema-card/60 text-purple-400 cursor-default border border-cinema-border/50"
+            >
+              <span className="text-xs">🎨</span>
             </div>
           </div>
         )}

@@ -1,0 +1,25 @@
+id: 007_scene_7
+index: 7
+title: 第 7 幕
+narration: 百事國際業務總裁，唐納德·肯德爾， 正是這個野心勃勃，充滿膽識的男人， 他將自己銳利的目光，投向了那個看似不可能的蘇聯市場，
+image_prompt: Q版 2D 卡通插畫 style, a close-up on Donald Kendall's face and upper body,
+  with his confident smirk and sharp eyes, looking intently at a stylized, monochromatic
+  map of the Soviet Union in the background. His gaze is focused and piercing. The
+  atmosphere is ambitious and strategic, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260929T100609
+  image_take: image_20260929T100554
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Donald Kendall PepsiCo
+  source_title: File:KendallSculptGardensSouthSide122008.JPG
+  source_url: https://upload.wikimedia.org/wikipedia/commons/b/b0/KendallSculptGardensSouthSide122008.JPG

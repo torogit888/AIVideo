@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260929T100926",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 7.91,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "他們就資本主義與社會主義的優劣，展開了針鋒相對的爭論， 現場氣氛緊張，兩位超級大國的代表互不相讓，",
+      "text_cn": "他们就资本主义与社会主义的优劣，展开了针锋相对的争论， 现场气氛紧张，两位超级大国的代表互不相让，",
+      "start_sec": 0.0,
+      "end_sec": 7.91,
+      "duration_sec": 7.91
+    }
+  ],
+  "created_at": "2026-09-29T10:09:26.920624+00:00"
+}

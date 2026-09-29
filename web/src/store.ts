@@ -51,12 +51,22 @@ interface StudioState {
   // 全域 AI 模型設定
   selectedAiModel: string;
   setSelectedAiModel: (model: string) => void;
+  selectedImageModel: string;
+  setSelectedImageModel: (model: string) => void;
 }
 
 export const useStudioStore = create<StudioState>((set, get) => ({
-  // 導航
-  currentTab: "storyboard",
-  setTab: (tab) => set({ currentTab: tab }),
+  // 導航（支援本地儲存記憶，重新整理不迷路）
+  currentTab:
+    typeof window !== "undefined"
+      ? (localStorage.getItem("aivideo_current_tab") as NavTab) || "storyboard"
+      : "storyboard",
+  setTab: (tab) => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("aivideo_current_tab", tab);
+    }
+    set({ currentTab: tab });
+  },
   isSidebarExpanded: true,
   toggleSidebar: () => set((state) => ({ isSidebarExpanded: !state.isSidebarExpanded })),
 
@@ -87,6 +97,13 @@ export const useStudioStore = create<StudioState>((set, get) => ({
     if (typeof window !== "undefined" && jobId) {
       localStorage.setItem("aivideo_selected_job", jobId);
     }
+    const targetJob = get().jobs.find((j) => j.id === jobId);
+    if (targetJob?.image_model) {
+      if (typeof window !== "undefined") {
+        localStorage.setItem("aivideo_selected_image_model", targetJob.image_model);
+      }
+      set({ selectedImageModel: targetJob.image_model });
+    }
     set({ selectedJobId: jobId, activeSceneId: null, isInspectorOpen: false });
     get().loadScenes(jobId);
   },
@@ -96,6 +113,10 @@ export const useStudioStore = create<StudioState>((set, get) => ({
   activeSceneId: null,
   isInspectorOpen: false,
   loadScenes: async (jobId) => {
+    if (!jobId || !jobId.trim()) {
+      set({ scenes: [] });
+      return;
+    }
     try {
       const scenes = await api.getScenes(jobId);
       set({ scenes });
@@ -146,5 +167,17 @@ export const useStudioStore = create<StudioState>((set, get) => ({
       localStorage.setItem("aivideo_selected_model", model);
     }
     set({ selectedAiModel: model });
+  },
+
+  // 全域 生圖 AI 模型設定 (持久化存入 localStorage)
+  selectedImageModel:
+    typeof window !== "undefined"
+      ? localStorage.getItem("aivideo_selected_image_model") || "gemini-3.6-flash-image"
+      : "gemini-3.6-flash-image",
+  setSelectedImageModel: (model) => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("aivideo_selected_image_model", model);
+    }
+    set({ selectedImageModel: model });
   },
 }));

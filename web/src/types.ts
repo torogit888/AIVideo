@@ -11,6 +11,7 @@ export interface JobSummary {
   language: string;
   voice_id: string;
   style_id?: string;
+  image_model?: string;
   progress: JobProgress;
   updated_at?: string;
 }
@@ -72,6 +73,7 @@ export interface SceneDetail {
   locks: { speech: boolean; image: boolean };
   current: Record<string, string | null>;
   pip: ScenePipConfig;
+  pip_mode?: "pip" | "spotlight";
   status: SceneStatus;
 }
 
@@ -120,6 +122,13 @@ export const AI_TEXT_MODELS: AiModelOption[] = [
   { id: "gemini-3.5-flash", name: "Gemini 3.5 Flash", badge: "3.5 Flash", tag: "經典平衡・推薦" },
   { id: "gemini-2.5-flash", name: "Gemini 2.5 Flash", badge: "2.5 Flash", tag: "主流穩定" },
   { id: "gemini-2.0-flash", name: "Gemini 2.0 Flash", badge: "2.0 Flash", tag: "備用核心" },
+];
+
+export const AI_IMAGE_MODELS: AiModelOption[] = [
+  { id: "gemini-3.6-flash-image", name: "Gemini 3.6 Flash Image", badge: "3.6 Flash", tag: "極速高擬真・首選" },
+  { id: "gemini-3.1-flash-image", name: "Gemini 3.1 Flash Image", badge: "3.1 Flash", tag: "平衡高效" },
+  { id: "gemini-2.5-flash-image", name: "Gemini 2.5 Flash Image", badge: "2.5 Flash", tag: "主流相容" },
+  { id: "imagen-3.0-generate-002", name: "Imagen 3 (002)", badge: "Imagen 3", tag: "專業生圖" },
 ];
 
 export interface CharacterAnchor {

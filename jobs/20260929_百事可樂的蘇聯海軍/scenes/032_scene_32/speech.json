@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260929T103026",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 5.68,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "酒精與糖漿的奇異交換，開啟了這段商業史上， 最為獨特，也最為曲折的旅程，",
+      "text_cn": "酒精与糖浆的奇异交换，开启了这段商业史上， 最为独特，也最为曲折的旅程，",
+      "start_sec": 0.0,
+      "end_sec": 5.68,
+      "duration_sec": 5.68
+    }
+  ],
+  "created_at": "2026-09-29T10:30:26.254563+00:00"
+}

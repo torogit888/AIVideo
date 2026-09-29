@@ -30,6 +30,7 @@ class JobSummary(BaseModel):
     language: str = "zh-Hant"
     voice_id: str = "female01"
     style_id: Optional[str] = None
+    image_model: Optional[str] = None
     progress: JobProgress
     updated_at: Optional[str] = None
 
@@ -59,6 +60,7 @@ class CreateJobRequest(BaseModel):
     tone_id: Optional[str] = None
     voice_id: str = "female01"
     style_id: str = "future_workplace"
+    image_model: Optional[str] = Field(default="gemini-3.6-flash-image", description="生圖模型")
     visual_pacing: str = Field(default="balanced", description="視覺換鏡節奏: fast, balanced, slow")
     lines_per_scene: Optional[int] = Field(default=None, ge=1, le=5)
     subject_anchor: Optional[str] = Field(default=None, description="主體外觀特徵錨點（多人時為彙總字串）")
@@ -70,6 +72,7 @@ class UpdateJobRequest(BaseModel):
     title: Optional[str] = None
     voice_id: Optional[str] = None
     style_id: Optional[str] = None
+    image_model: Optional[str] = None
 
 
 # ==========================================
@@ -195,14 +198,27 @@ class ScenePatchRequest(BaseModel):
 
 
 # ==========================================
-# 腳本生成
+# 腳本與大綱生成
 # ==========================================
+class GenerateOutlineRequest(BaseModel):
+    topic: str
+    tone_id: str = "michelin_curious"
+    model: Optional[str] = Field("gemini-3.8-flash", description="指定 Vertex AI 文本生成模型")
+    user_prompt: Optional[str] = Field(default=None, description="使用者先輸入的基本提示詞或靈感要求")
+
+
+class GenerateOutlineResponse(BaseModel):
+    outline: str
+
+
 class GenerateScriptRequest(BaseModel):
     topic: str
-    tone_id: str = "tech_business_deepdive"
+    tone_id: str = "michelin_curious"
     word_count: int = Field(default=1500, ge=300, le=5000)
     internet_search: bool = True
     model: Optional[str] = Field("gemini-3.8-flash", description="指定 Vertex AI 文本生成模型")
+    notes: Optional[str] = Field(default=None, description="故事核心看點或大綱備忘")
+    user_prompt: Optional[str] = Field(default=None, description="使用者獨立的指定 Prompt / 核心要求")
 
 
 class GenerateScriptResponse(BaseModel):
@@ -210,6 +226,14 @@ class GenerateScriptResponse(BaseModel):
     word_count: int
     estimated_scenes: int
     estimated_seconds: int
+
+
+class ExpandScriptRequest(BaseModel):
+    script: str
+    topic: Optional[str] = ""
+    tone_id: str = "michelin_curious"
+    target_word_count: int = Field(default=3500, ge=500, le=5000)
+    model: Optional[str] = Field("gemini-3.8-flash", description="指定 Vertex AI 文本生成模型")
 
 
 # ==========================================

@@ -1,0 +1,15 @@
+id: 041_scene_41
+index: 41
+title: 第 41 幕
+narration: 這場看似荒謬的商業困境，即將演變成一場震驚世界的交易 [sigh]， 所有人都沒有預料到，接下來會發生什麼，
+image_prompt: Q版 2D 卡通插畫 style, a medium shot showing a dramatic, swirling vortex
+  or portal opening up. A Pepsi-Cola bottle/can is looking into it with wide eyes.
+  Stylized 'shockwaves' emanate from the vortex. The background is dark and mysterious.
+  The atmosphere is one of shock and unexpected anticipation, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260929T103914
+  image_take: image_20260929T103836

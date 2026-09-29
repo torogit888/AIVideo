@@ -1,0 +1,16 @@
+id: 011_scene_11
+index: 11
+title: 第 11 幕
+narration: 他們就資本主義與社會主義的優劣，展開了針鋒相對的爭論， 現場氣氛緊張，兩位超級大國的代表互不相讓，
+image_prompt: Q版 2D 卡通插畫 style, a close-up on Richard Nixon and Nikita Khrushchev's
+  faces, showing heightened expressions of debate. Nixon is stern, Khrushchev is exasperated
+  and gesticulating. Stylized thought bubbles above their heads show clashing symbols
+  of capitalism and socialism. The atmosphere is high tension and ideological clash,
+  16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260929T100926
+  image_take: image_20260929T100850

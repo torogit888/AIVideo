@@ -1,0 +1,25 @@
+id: 027_scene_27
+index: 27
+title: 第 27 幕
+narration: 這是一個具有里程碑意義的時刻， 百事可樂成為第一個正式進入蘇聯市場的美國消費品牌， 並被允許在蘇聯境內，開設自己的生產工廠，
+image_prompt: Q版 2D 卡通插畫 style, a wide shot showing a Pepsi-Cola bottle/can proudly
+  standing on a stylized map of the Soviet Union. Behind it, a factory with a Pepsi
+  logo on its smokestack is being built, emitting stylized 'production' smoke. A banner
+  with 'First US Brand' is visible. The atmosphere is a milestone and industrial expansion,
+  16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260929T102518
+  image_take: image_20260929T102447
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Pepsi factory Soviet Union 1970s
+  fetch_error: 未找到合適照片

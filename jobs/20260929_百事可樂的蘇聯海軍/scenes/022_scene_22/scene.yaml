@@ -1,0 +1,16 @@
+id: 022_scene_22
+index: 22
+title: 第 22 幕
+narration: 他不僅僅是在賣可樂，他更是在兜售一種生活方式， 一種打破鐵幕禁錮的甜蜜誘惑， 這杯可樂，彷彿成了撬動鐵幕的第一個支點，
+image_prompt: Q版 2D 卡通插畫 style, a medium shot of a Pepsi-Cola bottle/can acting as
+  a lever, attempting to pry open a massive, stylized 'Iron Curtain' wall. From the
+  opening, a bright, colorful light and stylized images of Western lifestyle (e.g.,
+  happy families, modern homes) are visible. The atmosphere conveys breaking barriers
+  and cultural temptation, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260929T102034
+  image_take: image_20260929T101935

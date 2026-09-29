@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260929T101634",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 10.52,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "一張赫魯雪夫手持百事可樂，滿臉笑容的照片， 迅速傳遍了全球各大媒體的頭版頭條， 成為了轟動一時，且極具象徵意義的歷史性畫面 [surprise-wa]，",
+      "text_cn": "一张赫鲁晓夫手持百事可乐，满脸笑容的照片， 迅速传遍了全球各大媒体的头版头条， 成为了轰动一时，且极具象征意义的历史性画面 [surprise-wa]，",
+      "start_sec": 0.0,
+      "end_sec": 10.52,
+      "duration_sec": 10.52
+    }
+  ],
+  "created_at": "2026-09-29T10:16:34.847954+00:00"
+}

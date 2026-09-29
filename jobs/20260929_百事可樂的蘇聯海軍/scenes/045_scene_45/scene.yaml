@@ -1,0 +1,25 @@
+id: 045_scene_45
+index: 45
+title: 第 45 幕
+narration: 不僅如此，蘇聯甚至還提供了10艘重型貨輪， 這些貨輪對於百事公司來說，也具有一定的商業價值，
+image_prompt: Q版 2D 卡通插畫 style, a wide shot showing a fleet of 10 stylized cargo ships,
+  simplified and blocky, carrying generic cargo containers. They are also being transferred
+  to an even more overwhelmed Pepsi-Cola bottle/can, which has a thought bubble of
+  dollar signs. The atmosphere conveys additional commercial assets, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260929T104314
+  image_take: image_20260929T104242
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Soviet cargo ship 1980s
+  source_title: File:Soviet cargo ship Sarny.jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/a/a0/Soviet_cargo_ship_Sarny.jpg

@@ -1,0 +1,25 @@
+id: 033_scene_33
+index: 33
+title: 第 33 幕
+narration: 百事可樂在蘇聯市場，獲得了超乎想像的巨大成功， 那個時代的蘇聯人民，對西方產品充滿了好奇與渴望， 百事可樂的銷量不斷激增，簡直像一場席捲全國的狂潮，
+image_prompt: Q版 2D 卡通插畫 style, a wide shot showing a wave of Pepsi-Cola bottles/cans
+  sweeping across a stylized map of the Soviet Union. Generic Soviet citizens with
+  eager expressions are reaching out for the Pepsi. Stylized 'sales charts' in the
+  background show a dramatic upward curve. The atmosphere is one of massive consumer
+  craze and overwhelming demand, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260929T103113
+  image_take: image_20260929T103042
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Soviet people drinking Pepsi 1970s
+  fetch_error: 未找到合適照片

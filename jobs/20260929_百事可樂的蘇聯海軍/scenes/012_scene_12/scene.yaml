@@ -1,0 +1,15 @@
+id: 012_scene_12
+index: 12
+title: 第 12 幕
+narration: 在這樣一個高度政治對立的敏感背景下， 一瓶看似微不足道的汽水，如何能跨越， 那道看似不可逾越的意識形態鴻溝呢 [question-ei]，
+image_prompt: Q版 2D 卡通插畫 style, a low angle shot emphasizing a small, isolated Pepsi-Cola
+  bottle/can standing before a massive, seemingly impossible-to-cross, stylized 'Iron
+  Curtain' wall. The background subtly shows clashing symbols of capitalism and socialism.
+  The atmosphere conveys impossibility and challenge, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260929T101015
+  image_take: image_20260929T100944

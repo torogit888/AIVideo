@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260929T100650",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 11.31,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "肯德爾堅信，即使是鐵幕之後的人民， 也無法抗拒甜美清爽的誘惑， 他看見了巨大的潛在需求，即使道路艱難重重， 這份挑戰，點燃了他內心深處的冒險精神，",
+      "text_cn": "肯德尔坚信，即使是铁幕之后的人民， 也无法抗拒甜美清爽的诱惑， 他看见了巨大的潜在需求，即使道路艰难重重， 这份挑战，点燃了他内心深处的冒险精神，",
+      "start_sec": 0.0,
+      "end_sec": 11.31,
+      "duration_sec": 11.31
+    }
+  ],
+  "created_at": "2026-09-29T10:06:50.059124+00:00"
+}

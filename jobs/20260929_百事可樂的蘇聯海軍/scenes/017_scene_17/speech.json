@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260929T101518",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 5.44,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "這一幕，被現場的攝影師精準捕捉， 快門聲響起，定格了這個歷史性的瞬間，",
+      "text_cn": "这一幕，被现场的摄影师精准捕捉， 快门声响起，定格了这个历史性的瞬间，",
+      "start_sec": 0.0,
+      "end_sec": 5.44,
+      "duration_sec": 5.44
+    }
+  ],
+  "created_at": "2026-09-29T10:15:18.537319+00:00"
+}

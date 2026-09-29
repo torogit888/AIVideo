@@ -1,0 +1,15 @@
+id: 051_scene_51
+index: 51
+title: 第 51 幕
+narration: 百事可樂與蘇聯簽訂的世紀協議， 瞬間變成了一個牽涉多個獨立國家的複雜局面， 原有的營運體系四分五裂，一夜之間， 百事可樂的商業佈局面臨崩潰的邊緣，
+image_prompt: Q版 2D 卡通插畫 style, a medium shot of a distressed Pepsi-Cola bottle/can
+  standing amidst the fractured pieces of the former Soviet map. Stylized torn 'business
+  plans' or 'agreements' are scattered around it. The operational network is represented
+  by broken lines. The atmosphere is one of chaos and a business crisis, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260929T104922
+  image_take: image_20260929T104840

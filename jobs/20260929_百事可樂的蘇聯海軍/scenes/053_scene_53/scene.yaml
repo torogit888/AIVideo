@@ -1,0 +1,16 @@
+id: 053_scene_53
+index: 53
+title: 第 53 幕
+narration: 百事可樂的蘇聯海軍事件，成為了全球商業史上， 一個獨一無二，且充滿啟發性的案例， 它展現了在特殊地緣政治環境下， 企業為開拓市場所能展現出的極限創新與適應能力，
+image_prompt: Q版 2D 卡通插畫 style, a medium shot of a wise and experienced Pepsi-Cola
+  bottle/can standing on a stylized 'history book' titled 'Business History.' Around
+  it, stylized gears and lightbulbs represent innovation and adaptability. A subtle
+  image of the 'Pepsi Navy' fleet is visible in the background. The atmosphere is
+  one of learning and inspiration from a unique case study, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260929T105128
+  image_take: image_20260929T105031

@@ -1,0 +1,15 @@
+id: 005_scene_5
+index: 5
+title: 第 5 幕
+narration: 在這樣一個高度政治對立的冰冷環境裡， 一家來自美國的汽水公司，百事可樂， 卻懷抱著一個看似瘋狂，甚至有些愚蠢的夢想， 那就是要將他們那甜美的泡沫，滲透進這片被鐵幕封鎖的土地，
+image_prompt: Q版 2D 卡通插畫 style, a medium shot of a determined Pepsi-Cola bottle/can
+  attempting to push through a massive, cold, stylized 'Iron Curtain' wall. Small,
+  sweet-looking bubbles emanate from the Pepsi, contrasting with the imposing barrier.
+  The atmosphere conveys audacity and a seemingly impossible dream, 16:9 widescreen.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260929T100501
+  image_take: image_20260929T100439

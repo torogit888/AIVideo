@@ -55,7 +55,7 @@ def run_images(args: Any = None, progress_callback=None, **kwargs) -> int:
     img_cfg = job_cfg.get("image", {}) if isinstance(job_cfg.get("image"), dict) else {}
     style_key = img_cfg.get("style") or job_cfg.get("style") or ""
     style_prefix = resolve_style(style_key)["prefix"] or str(job_cfg.get("style_prefix", "")).strip()
-    model = img_cfg.get("model", "gemini-3.1-flash-image")
+    model = img_cfg.get("model", "gemini-3.6-flash-image")
     resolution = img_cfg.get("resolution", "1K")
     aspect_ratio = img_cfg.get("aspect_ratio", "16:9")
 

@@ -150,28 +150,37 @@ export const SceneInspector: React.FC = () => {
       setDetail(updated);
       await loadScenes(selectedJobId);
 
+      // 記錄重抽前的 Take ID 與 URL
+      const oldImageTake = detail.current?.image_take || "";
+      const oldImageUrl = detail.status?.image_url || "";
+
       // 2. 觸發重抽畫面
       await api.regenerateImage(selectedJobId, activeSceneId);
       showToast(`第 ${detail.index} 幕已開始重新生圖...`, "info");
 
-      // 3. 背景輪詢狀態（每 2 秒輪詢一次，最多 15 次）
+      // 3. 背景輪詢狀態（每 2 秒輪詢一次，最多 45 次 = 90 秒）
       let attempts = 0;
       const timer = setInterval(async () => {
         attempts++;
         try {
           const fresh = await api.getSceneDetail(selectedJobId, activeSceneId);
-          if (fresh.status.has_image) {
+          const hasNewTake = fresh.current?.image_take && fresh.current.image_take !== oldImageTake;
+          const hasNewUrl = fresh.status?.image_url && fresh.status.image_url !== oldImageUrl;
+          const isInitialImage = !oldImageTake && !oldImageUrl && fresh.status?.has_image && fresh.status?.image_url;
+
+          if (hasNewTake || hasNewUrl || isInitialImage) {
             setDetail(fresh);
             await loadScenes(selectedJobId);
             setIsRegeneratingImage(false);
             showToast(`第 ${detail.index} 幕畫面更新完成！`, "success");
             clearInterval(timer);
-          } else if (attempts >= 15) {
+          } else if (attempts >= 45) {
             setIsRegeneratingImage(false);
+            showToast(`第 ${detail.index} 幕出圖耗時較長，請稍後檢視`, "info");
             clearInterval(timer);
           }
         } catch {
-          if (attempts >= 15) {
+          if (attempts >= 45) {
             setIsRegeneratingImage(false);
             clearInterval(timer);
           }
@@ -202,28 +211,37 @@ export const SceneInspector: React.FC = () => {
       setDetail(updated);
       await loadScenes(selectedJobId);
 
+      // 記錄重錄前的 Take ID 與 URL
+      const oldAudioTake = detail.current?.speech_take || "";
+      const oldAudioUrl = detail.status?.audio_url || "";
+
       // 2. 觸發配音重錄
       await api.regenerateAudio(selectedJobId, activeSceneId);
       showToast(`第 ${detail.index} 幕已開始重錄配音...`, "info");
 
-      // 3. 背景輪詢狀態（每 2 秒輪詢一次，最多 15 次）
+      // 3. 背景輪詢狀態（每 2 秒輪詢一次，最多 35 次 = 70 秒）
       let attempts = 0;
       const timer = setInterval(async () => {
         attempts++;
         try {
           const fresh = await api.getSceneDetail(selectedJobId, activeSceneId);
-          if (fresh.status.has_audio) {
+          const hasNewTake = fresh.current?.speech_take && fresh.current.speech_take !== oldAudioTake;
+          const hasNewUrl = fresh.status?.audio_url && fresh.status.audio_url !== oldAudioUrl;
+          const isInitialAudio = !oldAudioTake && !oldAudioUrl && fresh.status?.has_audio && fresh.status?.audio_url;
+
+          if (hasNewTake || hasNewUrl || isInitialAudio) {
             setDetail(fresh);
             await loadScenes(selectedJobId);
             setIsRegeneratingAudio(false);
             showToast(`第 ${detail.index} 幕配音已更新完成！`, "success");
             clearInterval(timer);
-          } else if (attempts >= 15) {
+          } else if (attempts >= 35) {
             setIsRegeneratingAudio(false);
+            showToast(`第 ${detail.index} 幕配音重錄耗時較長，請稍後檢視`, "info");
             clearInterval(timer);
           }
         } catch {
-          if (attempts >= 15) {
+          if (attempts >= 35) {
             setIsRegeneratingAudio(false);
             clearInterval(timer);
           }
@@ -298,9 +316,19 @@ export const SceneInspector: React.FC = () => {
           <>
             {/* 1. 16:9 大預覽 */}
             <div className="relative aspect-video w-full rounded-md bg-black overflow-hidden border border-cinema-border flex items-center justify-center">
+              {/* 重繪畫面中的浮層 Loading 指示 */}
+              {isRegeneratingImage && (
+                <div className="absolute inset-0 bg-black/70 backdrop-blur-[2px] flex flex-col items-center justify-center z-20 text-amber-cta animate-in fade-in duration-200">
+                  <Loader2 className="w-8 h-8 animate-spin mb-2" />
+                  <span className="text-xs font-semibold tracking-wide">AI 正在重新繪製畫面...</span>
+                  <span className="text-[10px] text-cinema-muted mt-0.5">完成後將立即自動更新預覽</span>
+                </div>
+              )}
+
               {detail?.pip_mode === "spotlight" && detail?.status?.has_pip && detail?.status?.pip_url ? (
                 <div className="relative w-full h-full bg-black flex items-center justify-center">
                   <img
+                    key={detail.status.pip_url}
                     src={detail.status.pip_url}
                     alt="Spotlight Archival"
                     className="max-h-[85%] max-w-[85%] object-contain rounded border border-white/80 shadow-2xl"
@@ -311,6 +339,7 @@ export const SceneInspector: React.FC = () => {
                 </div>
               ) : detail?.status.image_url ? (
                 <img
+                  key={detail.status.image_url}
                   src={detail.status.image_url}
                   alt={detail.title}
                   className="w-full h-full object-cover"

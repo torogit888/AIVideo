@@ -130,7 +130,7 @@ def _generate_one_character_sheet(job_dir: Path, cfg: dict, character: dict[str,
         appearance=character.get("appearance") or character.get("name") or "distinct character",
         environment=str(environment),
     )
-    img_model = cfg.get("image", {}).get("model", "gemini-2.5-flash-image")
+    img_model = cfg.get("image", {}).get("model", "gemini-3.6-flash-image")
     generate_image(
         prompt=prompt,
         dest=dest,
@@ -178,6 +178,7 @@ def list_jobs() -> List[JobSummary]:
         title = jdir.name
         voice_id = "female01"
         style_id = None
+        image_model = None
         lang = "zh-Hant"
 
         if job_yaml_path.is_file():
@@ -187,6 +188,7 @@ def list_jobs() -> List[JobSummary]:
                 voice_id = data.get("voice_id", voice_id)
                 lang = data.get("language", lang)
                 style_id = data.get("image", {}).get("style")
+                image_model = data.get("image", {}).get("model")
             except Exception:
                 pass
 
@@ -200,6 +202,7 @@ def list_jobs() -> List[JobSummary]:
                 language=lang,
                 voice_id=voice_id,
                 style_id=style_id,
+                image_model=image_model,
                 progress=progress,
                 updated_at=mtime,
             )
@@ -308,6 +311,7 @@ def create_job(req: CreateJobRequest) -> JobSummary:
         subject_anchor=subject_anchor,
         environment_anchor=env_anchor,
         characters=characters,
+        image_model=req.image_model,
     )
 
     # 同步寫入 script.md
@@ -319,6 +323,7 @@ def create_job(req: CreateJobRequest) -> JobSummary:
         title=req.topic,
         voice_id=req.voice_id,
         style_id=req.style_id,
+        image_model=req.image_model,
         progress=progress,
     )
 
@@ -627,6 +632,11 @@ def update_job(job_id: str, req: UpdateJobRequest) -> JobSummary:
         data["title"] = req.title
     if req.voice_id is not None:
         data["voice_id"] = req.voice_id
+    if req.image_model is not None:
+        if "image" not in data or not isinstance(data["image"], dict):
+            data["image"] = {}
+        data["image"]["model"] = req.image_model
+        data["image"]["model_final"] = req.image_model
     if req.style_id is not None:
         if "image" not in data or not isinstance(data["image"], dict):
             data["image"] = {}
@@ -653,6 +663,7 @@ def update_job(job_id: str, req: UpdateJobRequest) -> JobSummary:
         language=data.get("language", "zh-Hant"),
         voice_id=data.get("voice_id", "female01"),
         style_id=data.get("image", {}).get("style", "otomo_katsuhiro"),
+        image_model=data.get("image", {}).get("model"),
         progress=progress,
         updated_at=mtime,
     )

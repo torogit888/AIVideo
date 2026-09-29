@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260929T105128",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 12.64,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "百事可樂的蘇聯海軍事件，成為了全球商業史上， 一個獨一無二，且充滿啟發性的案例， 它展現了在特殊地緣政治環境下， 企業為開拓市場所能展現出的極限創新與適應能力，",
+      "text_cn": "百事可乐的苏联海军事件，成为了全球商业史上， 一个独一无二，且充满启发性的案例， 它展现了在特殊地缘政治环境下， 企业为开拓市场所能展现出的极限创新与适应能力，",
+      "start_sec": 0.0,
+      "end_sec": 12.64,
+      "duration_sec": 12.64
+    }
+  ],
+  "created_at": "2026-09-29T10:51:28.718510+00:00"
+}
