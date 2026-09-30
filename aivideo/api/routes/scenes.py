@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import shutil
 from pathlib import Path
 from typing import List, Optional
 from fastapi import APIRouter, HTTPException, BackgroundTasks
@@ -288,3 +289,56 @@ def fetch_scene_pip(job_id: str, scene_id: str):
     if not ok:
         raise HTTPException(status_code=400, detail="未檢索到合適考據照片或未指定檢索詞")
     return {"message": "考據照片已成功下載並套用", "job_id": job_id, "scene_id": scene_id}
+
+
+@router.delete("/{scene_id}/image")
+def clear_scene_image(job_id: str, scene_id: str):
+    """單幕清空已生成圖片，重置為待出圖狀態"""
+    job_dir = JOBS_DIR / job_id
+    scene_dir = job_dir / "scenes" / scene_id
+    if not scene_dir.is_dir():
+        raise HTTPException(status_code=404, detail="分鏡不存在")
+
+    for fname in ("image.png", "image.json"):
+        f = scene_dir / fname
+        if f.is_file():
+            try:
+                f.unlink()
+            except Exception:
+                pass
+
+    # 清除 takes 下的圖片檔案
+    takes_dir = scene_dir / "takes"
+    if takes_dir.is_dir():
+        for png_file in takes_dir.glob("*.png"):
+            try:
+                png_file.unlink()
+                json_file = png_file.with_suffix(".json")
+                if json_file.is_file():
+                    json_file.unlink()
+            except Exception:
+                pass
+
+    # 更新 scene.yaml 中的 current.image_take
+    s_yaml = scene_dir / "scene.yaml"
+    if s_yaml.is_file():
+        try:
+            scfg = yaml.safe_load(s_yaml.read_text(encoding="utf-8")) or {}
+            if "current" in scfg and isinstance(scfg["current"], dict):
+                scfg["current"]["image_take"] = None
+            else:
+                scfg["current"] = {"speech_take": None, "image_take": None}
+            s_yaml.write_text(yaml.safe_dump(scfg, allow_unicode=True, sort_keys=False), encoding="utf-8")
+        except Exception:
+            pass
+
+    # 清空成片目錄
+    compose_dir = job_dir / "compose"
+    if compose_dir.is_dir():
+        try:
+            shutil.rmtree(compose_dir)
+        except Exception:
+            pass
+
+    return get_scene_detail(job_id, scene_id)
+

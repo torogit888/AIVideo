@@ -1,13 +1,13 @@
 {
-  "take_id": "image_20260929T103042",
+  "take_id": "image_20260929T165528",
   "kind": "image",
   "backend": "gemini",
-  "model": "gemini-2.5-flash-image",
-  "seed": 93540754,
+  "model": "gemini-3.1-flash-image",
+  "seed": 94299789,
   "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, \nchibi characters, clean line art, cell shading, flat colors, \nvisual novel style, crisp details, vibrant and cheerful color palette, \nsingle coherent scene, non-split screen, unified single viewpoint, \nwide-angle coherent view, one main environment, \nhighly detailed and intricate background, \npacked with objects and props, \ndynamic composition within a single panel，Q版 2D 卡通插畫 style, a wide shot showing a wave of Pepsi-Cola bottles/cans sweeping across a stylized map of the Soviet Union. Generic Soviet citizens with eager expressions are reaching out for the Pepsi. Stylized 'sales charts' in the background show a dramatic upward curve. The atmosphere is one of massive consumer craze and overwhelming demand, 16:9 widescreen.",
   "aspect_ratio": "16:9",
   "resolution": "1K",
   "width": 1920,
   "height": 1080,
-  "created_at": "2026-09-29T10:30:42.286897+00:00"
+  "created_at": "2026-09-29T16:55:28.018185+00:00"
 }

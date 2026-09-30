@@ -5,6 +5,7 @@ import {
   ChevronRight,
   RotateCw,
   Image as ImageIcon,
+  ImageOff,
   Mic,
   Save,
   Loader2,
@@ -34,6 +35,7 @@ export const SceneInspector: React.FC = () => {
   const [saving, setSaving] = useState(false);
   const [isRegeneratingAudio, setIsRegeneratingAudio] = useState(false);
   const [isRegeneratingImage, setIsRegeneratingImage] = useState(false);
+  const [isClearingImage, setIsClearingImage] = useState(false);
   const [isFetchingPip, setIsFetchingPip] = useState(false);
   const [voices, setVoices] = useState<AssetVoice[]>([]);
 
@@ -270,6 +272,27 @@ export const SceneInspector: React.FC = () => {
     }
   };
 
+  const handleClearImage = async () => {
+    if (!selectedJobId || !activeSceneId || !detail) return;
+    const ok = window.confirm(
+      `確定要清空第 ${detail.index} 幕已生成的圖片嗎？\n\n清空後此幕將回到初始「待出圖」狀態，口白台詞與語音將完整保留。`
+    );
+    if (!ok) return;
+
+    setIsClearingImage(true);
+    try {
+      const fresh = await api.clearSceneImage(selectedJobId, activeSceneId);
+      setDetail(fresh);
+      await loadScenes(selectedJobId);
+      await loadJobs();
+      showToast(`第 ${detail.index} 幕圖片已清空，回到待出圖狀態`, "success");
+    } catch (e: any) {
+      showToast("清空圖片失敗: " + (e.message || "未知錯誤"), "error");
+    } finally {
+      setIsClearingImage(false);
+    }
+  };
+
   return (
     <aside className="w-[380px] h-full flex flex-col border-l border-cinema-border bg-cinema-card z-20 shadow-2xl transition-all duration-200">
       {/* 頂部導航與關閉 */}
@@ -385,6 +408,20 @@ export const SceneInspector: React.FC = () => {
                       <RotateCw className="w-3.5 h-3.5 mr-1" />
                       <span>重抽畫面</span>
                     </>
+                  )}
+                </button>
+              )}
+              {detail?.status?.has_image && detail?.pip_mode !== "spotlight" && (
+                <button
+                  onClick={handleClearImage}
+                  disabled={isRegeneratingImage || isRegeneratingAudio || isClearingImage}
+                  className="flex items-center justify-center h-8 px-2.5 rounded bg-cinema-darker hover:bg-red-950/40 border border-cinema-border hover:border-red-900/60 text-xs text-cinema-muted hover:text-red-400 transition-colors disabled:opacity-50 shrink-0"
+                  title="清空此幕已生成的圖片，重置為待出圖狀態"
+                >
+                  {isClearingImage ? (
+                    <Loader2 className="w-3.5 h-3.5 animate-spin text-red-400" />
+                  ) : (
+                    <ImageOff className="w-3.5 h-3.5" />
                   )}
                 </button>
               )}

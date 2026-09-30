@@ -93,11 +93,23 @@ export const App: React.FC = () => {
           loadScenes(selectedJobId);
           loadJobs();
         }
+      } else {
+        // 任務已結束且非正常完成（中斷、失敗或手動停止）
+        if (data.error || (data.message && data.message.includes("失敗"))) {
+          showToast(data.error || data.message, "error");
+        }
+        setPipelineRunning(
+          false,
+          0,
+          data.message || data.error || "任務已結束",
+          0,
+          0
+        );
       }
     });
 
     return () => cleanup();
-  }, [selectedJobId, setPipelineRunning, loadScenes, loadJobs]);
+  }, [selectedJobId, setPipelineRunning, loadScenes, loadJobs, showToast]);
 
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-cinema-bg text-cinema-text">

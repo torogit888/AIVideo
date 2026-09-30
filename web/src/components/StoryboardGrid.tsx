@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Image as ImageIcon, Volume2, CheckCircle2, AlertCircle, Mic, Camera, Search, Trash2, Play, Sparkles } from "lucide-react";
+import { Image as ImageIcon, ImageOff, Volume2, CheckCircle2, AlertCircle, Mic, Camera, Search, Trash2, Play, Sparkles } from "lucide-react";
 import { useStudioStore } from "../store";
 import { SceneSummary, AssetVoice } from "../types";
 import { api } from "../api";
@@ -61,6 +61,26 @@ export const StoryboardGrid: React.FC = () => {
       burnSubtitles ? "正在合成 1080p 影片 (燒錄 ASS 字幕)..." : "正在極速合成 1080p 影片 (純淨畫面直通合流)..."
     );
     await api.runPipeline(selectedJobId, "compose", false, burnSubtitles);
+  };
+
+  const handleClearImagesOnly = async () => {
+    if (!selectedJobId) return;
+    const ok = window.confirm(
+      `⚠️ 確定要清空本專案所有分鏡已生成的圖片嗎？\n\n` +
+        `• 將刪除：所有已生成的畫面 (image.png) 與歷史圖片 Takes。\n` +
+        `• 將保留：所有分鏡的語音 (speech.wav)、考據圖 (pip.png)、逐幕口白台詞與提示詞 (Prompt)。\n\n` +
+        `重置後，所有分鏡將回到初始「待出圖」狀態，您可以更換生圖風格或模型後重新一鍵出圖。`
+    );
+    if (!ok) return;
+
+    try {
+      await api.clearJobImages(selectedJobId);
+      await loadScenes(selectedJobId);
+      await loadJobs();
+      showToast("已成功清空所有分鏡圖片！語音配音與台詞已完整保留。", "success");
+    } catch (e: any) {
+      showToast("清空圖片失敗: " + (e.message || "未知錯誤"), "error");
+    }
   };
 
   const handleClearAllMedia = async () => {
@@ -181,7 +201,15 @@ export const StoryboardGrid: React.FC = () => {
         </div>
 
         {/* 右側：提示與危險操作 */}
-        <div className="flex items-center space-x-3 shrink-0">
+        <div className="flex items-center space-x-2 shrink-0">
+          <button
+            onClick={handleClearImagesOnly}
+            className="flex items-center h-6 px-2 rounded hover:bg-amber-950/40 text-cinema-muted/80 hover:text-amber-400 border border-transparent hover:border-amber-900/60 transition-colors whitespace-nowrap text-[11px]"
+            title="僅清空所有分鏡已生成的畫面圖片，保留語音配音、考據圖與台詞"
+          >
+            <ImageOff className="w-3 h-3 mr-1 text-amber-400/80" />
+            <span>清空圖片</span>
+          </button>
           <button
             onClick={handleClearAllMedia}
             className="flex items-center h-6 px-2 rounded hover:bg-red-950/40 text-cinema-muted/60 hover:text-red-400 border border-transparent hover:border-red-900/60 transition-colors whitespace-nowrap text-[11px]"

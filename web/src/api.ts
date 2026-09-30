@@ -46,6 +46,7 @@ export const api = {
     request<JobSummary>(`/jobs/${id}`, { method: "PATCH", body: JSON.stringify(patch) }),
   deleteJob: (id: string) => request<any>(`/jobs/${id}`, { method: "DELETE" }),
   clearJobMedia: (id: string) => request<any>(`/jobs/${id}/clear`, { method: "POST" }),
+  clearJobImages: (id: string) => request<any>(`/jobs/${id}/clear-images`, { method: "POST" }),
 
   // 視覺一致性與主體定裝參考 (Visual Continuity)
   analyzeAnchors: (topic: string, script: string, styleId?: string) =>
@@ -125,6 +126,8 @@ export const api = {
     }),
   regenerateImage: (jobId: string, sceneId: string) =>
     request<any>(`/jobs/${jobId}/scenes/${sceneId}/image`, { method: "POST" }),
+  clearSceneImage: (jobId: string, sceneId: string) =>
+    request<SceneDetail>(`/jobs/${jobId}/scenes/${sceneId}/image`, { method: "DELETE" }),
   regenerateAudio: (jobId: string, sceneId: string) =>
     request<any>(`/jobs/${jobId}/scenes/${sceneId}/audio`, { method: "POST" }),
   fetchScenePip: (jobId: string, sceneId: string) =>

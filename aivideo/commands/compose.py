@@ -48,12 +48,12 @@ def _render_single_segment(
             pass
 
     pip_cfg = scene_cfg.get("pip", {})
-    pip_enabled = pip_cfg.get("enabled", True) if isinstance(pip_cfg, dict) else False
-    pip_img_name = pip_cfg.get("image", "pip.png") if isinstance(pip_cfg, dict) else "pip.png"
+    pip_enabled = bool(pip_cfg.get("enabled", False)) if isinstance(pip_cfg, dict) else False
+    pip_img_name = (pip_cfg.get("image") or "pip.png") if isinstance(pip_cfg, dict) else "pip.png"
     pip_path = s_dir / pip_img_name
     has_pip = pip_enabled and pip_path.is_file()
 
-    pip_mode = str(pip_cfg.get("mode", "pip")).lower() if has_pip else ""
+    pip_mode = str(pip_cfg.get("mode") or "pip").lower() if has_pip else ""
     is_spotlight = has_pip and pip_mode in ("spotlight", "focus", "black_bg", "fullscreen")
 
     # 若為黑底歷史聚焦 (spotlight) 且已有考據真實照片，則畫面以此為主角，不強制要求 image.png

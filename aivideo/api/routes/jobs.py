@@ -730,6 +730,77 @@ def clear_job_media(job_id: str):
     }
 
 
+@router.post("/{job_id}/clear-images")
+def clear_job_images(job_id: str):
+    """
+    僅清空所有分鏡已生成的圖片：
+    刪除各分鏡目錄下的 image.png, image.json 以及 takes/ 目錄下的圖片 take (*.png)，
+    將 scene.yaml 內的 current.image_take 重置為 None，並清空 compose/ 成片目錄。
+    完整保留語音 (speech.wav)、考據圖 (pip.png) 與分鏡台詞腳本。
+    """
+    job_dir = JOBS_DIR / job_id
+    if not job_dir.is_dir():
+        raise HTTPException(status_code=404, detail="專案不存在")
+
+    scenes_dir = job_dir / "scenes"
+    cleared_scenes = 0
+
+    if scenes_dir.is_dir():
+        for s_dir in scenes_dir.iterdir():
+            if not s_dir.is_dir():
+                continue
+
+            # 刪除根層級圖片與中繼資料
+            for fname in ("image.png", "image.json"):
+                f = s_dir / fname
+                if f.is_file():
+                    try:
+                        f.unlink()
+                    except Exception:
+                        pass
+
+            # 刪除 takes 目錄下的所有圖片歷史版本
+            takes_dir = s_dir / "takes"
+            if takes_dir.is_dir():
+                for png_file in takes_dir.glob("*.png"):
+                    try:
+                        png_file.unlink()
+                        # 若對應同名 json 存在且不包含語音資訊，一併清除
+                        json_file = png_file.with_suffix(".json")
+                        if json_file.is_file():
+                            json_file.unlink()
+                    except Exception:
+                        pass
+
+            # 重置 scene.yaml 內的 image_take
+            s_yaml = s_dir / "scene.yaml"
+            if s_yaml.is_file():
+                try:
+                    scfg = yaml.safe_load(s_yaml.read_text(encoding="utf-8")) or {}
+                    if "current" in scfg and isinstance(scfg["current"], dict):
+                        scfg["current"]["image_take"] = None
+                    else:
+                        scfg["current"] = {"speech_take": None, "image_take": None}
+                    s_yaml.write_text(yaml.safe_dump(scfg, allow_unicode=True, sort_keys=False), encoding="utf-8")
+                except Exception:
+                    pass
+            cleared_scenes += 1
+
+    # 清空成片合成目錄（畫面變動後需重新合成）
+    compose_dir = job_dir / "compose"
+    if compose_dir.is_dir():
+        try:
+            shutil.rmtree(compose_dir)
+        except Exception:
+            pass
+
+    return {
+        "success": True,
+        "message": f"已成功清空專案 {job_id} 的全部已生成圖片（共 {cleared_scenes} 幕重置回待出圖狀態，語音與台詞已完整保留）",
+        "cleared_scenes": cleared_scenes,
+    }
+
+
 @router.delete("/{job_id}")
 def delete_job(job_id: str):
     job_dir = JOBS_DIR / job_id

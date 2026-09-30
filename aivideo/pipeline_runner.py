@@ -4,6 +4,7 @@ import threading
 import time
 from pathlib import Path
 from typing import Any, Callable
+import yaml
 
 from aivideo.commands.compose import run_compose
 from aivideo.commands.images import run_images
@@ -509,7 +510,10 @@ class PipelineRunner:
                         except Exception:
                             pass
                     missing_images.append(s.name)
-                missing_audios = [s.name for s in scene_folders if not (s / "speech.wav").is_file()]
+                missing_audios = [
+                    s.name for s in scene_folders
+                    if not (s / "speech.wav").is_file() and not (s / "audio.wav").is_file()
+                ]
 
                 if missing_images or missing_audios:
                     err_details = []
@@ -517,10 +521,9 @@ class PipelineRunner:
                         err_details.append(f"缺圖: {', '.join(missing_images[:4])}{'...' if len(missing_images) > 4 else ''}")
                     if missing_audios:
                         err_details.append(f"缺音: {', '.join(missing_audios[:4])}{'...' if len(missing_audios) > 4 else ''}")
-                    self.pause()
-                    self.status_msg = f"⚠️ [成片暫停] 分鏡素材未就緒 ({' ｜ '.join(err_details)})。請先補齊出圖與配音。"
-                    if self.check_control(phase="成片素材確認"):
-                        return
+                    self.error_msg = f"分鏡素材未就緒 ({' ｜ '.join(err_details)})，請先補齊出圖與配音。"
+                    self.status_msg = f"⚠️ [合成終止] 分鏡素材未就緒 ({' ｜ '.join(err_details)})"
+                    return
 
                 self.status_msg = "正在透過 FFmpeg 合成 1080p 影片、推鏡、畫中畫與字幕..."
                 self.progress = 0.05
@@ -529,7 +532,11 @@ class PipelineRunner:
 
                 def on_compose_solo(curr: int, total: int, msg: str, stage_ratio: float = 0.0):
                     self.stage = "🎬 [成片合成]"
-                    self.progress = round(max(0.05, stage_ratio * 0.98), 2)
+                    if total > 0 and curr > 0:
+                        prog = 0.05 + 0.90 * (curr / total)
+                    else:
+                        prog = max(0.05, stage_ratio)
+                    self.progress = round(min(0.98, prog), 2)
                     self.status_msg = f"🎬 {msg}"
 
                 cmd_args = CmdArgs(
