@@ -1,0 +1,26 @@
+id: 009_scene_9
+index: 9
+title: 第 9 幕
+narration: 讓我們把時間線拉回到冷戰初期， 那是一個美蘇兩大陣營劍拔弩張的時代，鐵幕降臨，世界被一分為二
+image_prompt: Q版 2D 卡通插畫 style, a wide establishing shot of a Q-version world map,
+  clearly divided down the middle by a stylized, jagged, dark grey 'Iron Curtain'
+  wall. On one side, sleek, taller, and more colorful Q-version American buildings.
+  On the other, blocky, geometric, and muted Q-version Soviet buildings. The overall
+  impression is stark division and tension, with flat, bright lighting.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260930T084443
+  image_take: null
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Cold War map NATO Warsaw Pact
+  source_title: Warsaw Pact
+  source_url: https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a8/Warsaw_Pact_in_1990_%28orthographic_projection%29.svg/960px-Warsaw_Pact_in_1990_%28orthographic_projection%29.svg.png

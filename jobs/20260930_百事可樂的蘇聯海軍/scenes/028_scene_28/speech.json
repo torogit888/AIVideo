@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260930T090041",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 8.36,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "這筆交易不僅是商業上的奇聞，更是蘇聯帝國衰落前夕， 那種瘋狂與無奈的真實寫照，",
+      "text_cn": "这笔交易不仅是商业上的奇闻，更是苏联帝国衰落前夕， 那种疯狂与无奈的真实写照，",
+      "start_sec": 0.0,
+      "end_sec": 8.36,
+      "duration_sec": 8.36
+    }
+  ],
+  "created_at": "2026-09-30T09:00:41.397607+00:00"
+}

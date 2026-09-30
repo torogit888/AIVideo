@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260930T090930",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.12,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "它提供了稀缺的西方商品，滿足了人們對美好生活的渴望， 但另一方面，它也反映了國家資源的流失，和經濟的混亂， 甚至可以說，是國家尊嚴的一種折損 [sigh]，",
+      "text_cn": "它提供了稀缺的西方商品，满足了人们对美好生活的渴望， 但另一方面，它也反映了国家资源的流失，和经济的混乱， 甚至可以说，是国家尊严的一种折损 [sigh]，",
+      "start_sec": 0.0,
+      "end_sec": 15.12,
+      "duration_sec": 15.12
+    }
+  ],
+  "created_at": "2026-09-30T09:09:30.609375+00:00"
+}

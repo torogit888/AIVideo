@@ -19,6 +19,8 @@ import {
   FileText,
   ChevronDown,
   ChevronUp,
+  Save,
+  Wand2,
 } from "lucide-react";
 import { useStudioStore } from "../store";
 import { api } from "../api";
@@ -39,7 +41,15 @@ export const ScriptEditor: React.FC = () => {
   const [scriptText, setScriptText] = useState(
     "如果你今天想看清整個宇宙最深處的終極秘密！\n你敢相信……NASA 接下來最強大的宇宙神鏡，它的心臟……居然是來自軍方情報機構淘汰不要的間諜衛星嗎？\n這不是地攤文學，這是貨真價實的航太傳奇。\n2012 年，美國國家偵察局突然打電話給 NASA，詢問要不要兩顆頂級哈勃等級望遠鏡鏡片。\n天文學家興奮得手舞足蹈，一場顛覆天文觀測的壯麗計畫就此展開……"
   );
-  const [wordCount, setWordCount] = useState(1500);
+  const [wordCount, setWordCount] = useState<number>(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("aivideo_target_word_count");
+      if (saved && !isNaN(Number(saved))) {
+        return Number(saved);
+      }
+    }
+    return 1500;
+  });
 
   const [tones, setTones] = useState<AssetTone[]>([]);
   const [voices, setVoices] = useState<AssetVoice[]>([]);
@@ -59,6 +69,7 @@ export const ScriptEditor: React.FC = () => {
 
   const [generating, setGenerating] = useState(false);
   const [creatingProject, setCreatingProject] = useState(false);
+  const [isSavingOutlinePrompt, setIsSavingOutlinePrompt] = useState(false);
 
   // 視覺一致性主體分析狀態
   const [subjectAnchor, setSubjectAnchor] = useState("");
@@ -88,9 +99,22 @@ export const ScriptEditor: React.FC = () => {
     }
   }, [currentJob?.voice_id]);
 
-  // 切換不同專案時自動載入該專案的最新腳本內容與設定
+  // 切換不同專案時自動載入該專案的最新腳本內容與設定（含指定 Prompt 與 6 幕大綱）
   useEffect(() => {
-    if (!selectedJobId) return;
+    if (!selectedJobId) {
+      // 若為全新發想草稿，還原 localStorage 快取
+      const draftPrompt = localStorage.getItem("aivideo_draft_custom_prompt") || "";
+      const draftOutline = localStorage.getItem("aivideo_draft_outline") || "";
+      if (draftPrompt) {
+        setCustomPrompt(draftPrompt);
+        setShowCustomPrompt(true);
+      }
+      if (draftOutline) {
+        setOutlineNotes(draftOutline);
+        setShowOutlineBox(true);
+      }
+      return;
+    }
     api
       .getJobDetail(selectedJobId)
       .then((detail) => {
@@ -98,9 +122,44 @@ export const ScriptEditor: React.FC = () => {
         if (detail.script_content) setScriptText(detail.script_content);
         if (detail.config?.voice_id) setSelectedVoice(detail.config.voice_id);
         if (detail.config?.image?.style) setSelectedStyle(detail.config.image.style);
+        if (detail.config?.tone_id) setSelectedTone(detail.config.tone_id);
+
+        const savedPrompt = detail.custom_prompt || detail.config?.custom_prompt || "";
+        setCustomPrompt(savedPrompt);
+        if (savedPrompt.trim()) setShowCustomPrompt(true);
+
+        const savedOutline = detail.outline || detail.config?.outline || "";
+        setOutlineNotes(savedOutline);
+        if (savedOutline.trim()) setShowOutlineBox(true);
       })
       .catch((e) => console.error("載入專案詳情失敗", e));
   }, [selectedJobId]);
+
+  // 儲存或同步指定 Prompt 與 6 幕大綱
+  const persistPromptAndOutline = async (
+    promptVal: string,
+    outlineVal: string,
+    silent: boolean = false
+  ) => {
+    setIsSavingOutlinePrompt(true);
+    try {
+      if (selectedJobId) {
+        await api.updateJob(selectedJobId, {
+          custom_prompt: promptVal,
+          outline: outlineVal,
+        });
+        if (!silent) showToast("已成功儲存指定 Prompt 與 6 幕故事大綱至專案！", "success");
+      } else {
+        localStorage.setItem("aivideo_draft_custom_prompt", promptVal);
+        localStorage.setItem("aivideo_draft_outline", outlineVal);
+        if (!silent) showToast("已儲存指定 Prompt 與大綱至本機草稿！", "success");
+      }
+    } catch (e: any) {
+      if (!silent) showToast("儲存失敗: " + (e.message || "未知錯誤"), "error");
+    } finally {
+      setIsSavingOutlinePrompt(false);
+    }
+  };
 
   const handleVoiceChange = async (voiceId: string) => {
     setSelectedVoice(voiceId);
@@ -163,10 +222,12 @@ export const ScriptEditor: React.FC = () => {
       );
       setOutlineNotes(res.outline);
       setShowOutlineBox(true);
+      // 自動持久化儲存大綱與指定 Prompt
+      await persistPromptAndOutline(customPrompt, res.outline, true);
       showToast(
         customPrompt.trim()
-          ? "已緊扣您指定的 Prompt 規劃出 6 幕深度大綱！"
-          : "AI 6 幕深度大綱規劃完成！可依需求微調後生成逐句台詞",
+          ? "已緊扣指定 Prompt 規劃出 6 幕深度大綱，並已自動儲存！"
+          : "AI 6 幕深度大綱規劃完成，並已自動儲存！可微調後生成逐句台詞",
         "success"
       );
     } catch (e: any) {
@@ -208,20 +269,67 @@ export const ScriptEditor: React.FC = () => {
     }
     setIsExpandingScript(true);
     try {
+      // 若目前字數尚未達到使用者設定的 wordCount，以 wordCount 為目標精準補足；
+      // 若目前字數已達到或超越設定值，則依現有長度微幅擴展 20%
+      const currentWords = scriptText.replace(/\s/g, "").length;
+      const targetWords = currentWords < wordCount ? wordCount : Math.round(currentWords * 1.2);
+
       const res = await api.expandScript(
         scriptText,
         topic,
         selectedTone,
-        Math.max(wordCount, 3500),
+        targetWords,
         selectedAiModel
       );
       setScriptText(res.script);
-      showToast("腳本情節深度擴寫完成！篇幅已大幅強化", "success");
+      showToast(`腳本情節深度擴寫完成！目標精準控制在約 ${targetWords} 字`, "success");
     } catch (e: any) {
       showToast("情節擴寫失敗: " + e.message, "error");
     } finally {
       setIsExpandingScript(false);
     }
+  };
+
+  // 智慧斷句排版：將長句子自動拆解為「一句一行」（約 15~25 字）
+  const handleAutoFormatScript = () => {
+    if (!scriptText.trim()) return;
+    const lines: string[] = [];
+    const preSplit = scriptText.replace(/[。；]/g, "\n").split("\n");
+    for (const rawLine of preSplit) {
+      let line = rawLine.trim();
+      if (!line) continue;
+      line = line
+        .replace(/[「」『』\"'“”‘’《》〈〉（）()]/g, "")
+        .replace(/[、：:]/g, "，")
+        .replace(/[—…]+/g, "，")
+        .replace(/！+/g, "！")
+        .replace(/？+/g, "？")
+        .replace(/，+/g, "，")
+        .replace(/^[，,]+/, "")
+        .trim();
+      if (!line) continue;
+
+      if (line.length <= 30 || !line.includes("，")) {
+        lines.push(line);
+      } else {
+        const parts = line.split("，").map((p) => p.trim()).filter(Boolean);
+        let currentChunk = "";
+        for (const p of parts) {
+          if (!currentChunk) {
+            currentChunk = p;
+          } else if (currentChunk.length + p.length + 1 <= 30) {
+            currentChunk += "，" + p;
+          } else {
+            lines.push(currentChunk + "，");
+            currentChunk = p;
+          }
+        }
+        if (currentChunk) lines.push(currentChunk);
+      }
+    }
+    const formatted = lines.join("\n");
+    setScriptText(formatted);
+    showToast("✨ 已完成智慧斷句排版，每行呈現一句獨立口白！", "success");
   };
 
   const handleAnalyzeAnchors = async () => {
@@ -272,10 +380,15 @@ export const ScriptEditor: React.FC = () => {
         characters: characters
           .filter((c) => c.name.trim() || c.appearance.trim())
           .map((c) => ({ id: c.id, name: c.name.trim(), appearance: c.appearance.trim() })),
+        custom_prompt: customPrompt.trim() || undefined,
+        outline: outlineNotes.trim() || undefined,
       });
+      // 成功建案後清理本機草稿快取
+      localStorage.removeItem("aivideo_draft_custom_prompt");
+      localStorage.removeItem("aivideo_draft_outline");
       await loadJobs();
       useStudioStore.getState().selectJob(res.id);
-      showToast(`專案【${topic}】建立成功！`, "success");
+      showToast(`專案【${topic}】建立成功（已儲存指定 Prompt 與 6 幕大綱）！`, "success");
       setTab("storyboard");
     } catch (e: any) {
       showToast("建立專案失敗: " + e.message, "error");
@@ -323,7 +436,13 @@ export const ScriptEditor: React.FC = () => {
             max={5000}
             step={100}
             value={wordCount}
-            onChange={(e) => setWordCount(Number(e.target.value))}
+            onChange={(e) => {
+              const val = Number(e.target.value);
+              setWordCount(val);
+              if (typeof window !== "undefined") {
+                localStorage.setItem("aivideo_target_word_count", String(val));
+              }
+            }}
             className="w-full accent-amber-cta cursor-pointer h-10"
           />
         </div>
@@ -345,13 +464,28 @@ export const ScriptEditor: React.FC = () => {
           </div>
           <div className="flex items-center space-x-2">
             {customPrompt.trim() && (
-              <button
-                type="button"
-                onClick={() => setCustomPrompt("")}
-                className="text-[11px] text-cinema-muted/60 hover:text-red-400 transition-colors mr-1 cursor-pointer"
-              >
-                清空 Prompt
-              </button>
+              <>
+                <button
+                  type="button"
+                  onClick={() => persistPromptAndOutline(customPrompt, outlineNotes, false)}
+                  disabled={isSavingOutlinePrompt}
+                  className="flex items-center text-[11px] text-amber-cta hover:text-amber-300 transition-colors mr-1 cursor-pointer"
+                  title="儲存指定 Prompt 與特定要求"
+                >
+                  <Save className="w-3 h-3 mr-1" />
+                  <span>儲存</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setCustomPrompt("");
+                    persistPromptAndOutline("", outlineNotes, true);
+                  }}
+                  className="text-[11px] text-cinema-muted/60 hover:text-red-400 transition-colors mr-1 cursor-pointer"
+                >
+                  清空 Prompt
+                </button>
+              </>
             )}
             <button
               type="button"
@@ -369,7 +503,14 @@ export const ScriptEditor: React.FC = () => {
             <textarea
               rows={3}
               value={customPrompt}
-              onChange={(e) => setCustomPrompt(e.target.value)}
+              onChange={(e) => {
+                const val = e.target.value;
+                setCustomPrompt(val);
+                if (!selectedJobId) {
+                  localStorage.setItem("aivideo_draft_custom_prompt", val);
+                }
+              }}
+              onBlur={() => persistPromptAndOutline(customPrompt, outlineNotes, true)}
               placeholder="在此輸入您個人的指定 Prompt、特定劇情限制或核心看點...例如：
 - 希望視角聚焦在台積電林本堅如何說服張忠謀賭上浸潤式微影
 - 必須描繪阿斯麥與德國蔡司鏡頭千錘百鍊的同盟生死戰
@@ -378,7 +519,7 @@ export const ScriptEditor: React.FC = () => {
               className="w-full p-2.5 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text font-mono leading-relaxed focus:outline-none focus:border-amber-cta resize-y"
             />
             <div className="text-[10px] text-cinema-muted flex items-center justify-between">
-              <span>💡 提示：輸入完畢後，點擊下方「⚡ 依上方 Prompt 規劃 6 幕大綱」即可展開骨架；生成腳本時亦會深度遵循此處要求。</span>
+              <span>💡 提示：輸入完畢後自動保存；點擊下方「⚡ 依上方 Prompt 規劃 6 幕大綱」即可展開骨架；生成腳本時亦會深度遵循此處要求。</span>
             </div>
           </div>
         ) : (
@@ -410,6 +551,18 @@ export const ScriptEditor: React.FC = () => {
             )}
           </div>
           <div className="flex items-center space-x-2">
+            {outlineNotes.trim() && (
+              <button
+                type="button"
+                onClick={() => persistPromptAndOutline(customPrompt, outlineNotes, false)}
+                disabled={isSavingOutlinePrompt}
+                className="flex items-center h-7 px-2 rounded bg-cinema-darker hover:bg-cinema-card border border-cinema-border hover:border-amber-cta text-amber-cta text-[11px] font-medium transition-colors cursor-pointer mr-0.5"
+                title="儲存 6 幕故事大綱"
+              >
+                <Save className="w-3 h-3 mr-1" />
+                <span>儲存大綱</span>
+              </button>
+            )}
             <button
               type="button"
               onClick={handleGenerateOutline}
@@ -456,16 +609,26 @@ export const ScriptEditor: React.FC = () => {
             <textarea
               rows={4}
               value={outlineNotes}
-              onChange={(e) => setOutlineNotes(e.target.value)}
+              onChange={(e) => {
+                const val = e.target.value;
+                setOutlineNotes(val);
+                if (!selectedJobId) {
+                  localStorage.setItem("aivideo_draft_outline", val);
+                }
+              }}
+              onBlur={() => persistPromptAndOutline(customPrompt, outlineNotes, true)}
               placeholder="點擊右上角「⚡ 規劃 6 幕大綱」後，生成的大綱會出現在此處，不會覆蓋上方的指定 Prompt；您亦可直接手動條列大綱..."
               className="w-full p-2.5 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text font-mono leading-relaxed focus:outline-none focus:border-amber-cta resize-y"
             />
             <div className="flex items-center justify-between text-[10px] text-cinema-muted">
-              <span>💡 提示：大綱規劃產出在此，可自由微調；上方指定 Prompt 依然被完整保留。</span>
+              <span>💡 提示：大綱規劃產出在此並已自動保存，可自由微調；上方指定 Prompt 依然被完整保留。</span>
               {outlineNotes.trim() && (
                 <button
                   type="button"
-                  onClick={() => setOutlineNotes("")}
+                  onClick={() => {
+                    setOutlineNotes("");
+                    persistPromptAndOutline(customPrompt, "", true);
+                  }}
                   className="text-cinema-muted/60 hover:text-red-400 cursor-pointer"
                 >
                   清空大綱
@@ -574,6 +737,18 @@ export const ScriptEditor: React.FC = () => {
             >
               <Copy className="w-3.5 h-3.5 mr-1" />
               <span>複製</span>
+            </button>
+
+            {/* 智慧斷句分行按鈕 */}
+            <button
+              type="button"
+              onClick={handleAutoFormatScript}
+              disabled={generating || !scriptText.trim()}
+              className="flex items-center hover:text-amber-cta transition-colors text-xs text-cinema-muted px-2 py-1 rounded bg-cinema-card border border-cinema-border cursor-pointer"
+              title="將長段落或長句自動按標點拆分為標準的一句一行（每行約 15~25 字）"
+            >
+              <Wand2 className="w-3.5 h-3.5 mr-1 text-amber-cta" />
+              <span>智慧分行</span>
             </button>
 
             {/* 深度擴寫情節按鈕 */}

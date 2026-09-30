@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20260930T085954",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 82299551,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, \nchibi characters, clean line art, cell shading, flat colors, \nvisual novel style, crisp details, vibrant and cheerful color palette, \nsingle coherent scene, non-split screen, unified single viewpoint, \nwide-angle coherent view, one main environment, \nhighly detailed and intricate background, \npacked with objects and props, \ndynamic composition within a single panel，Q版 2D 卡通插畫 style, a wide shot depicting a Q-version Soviet building (blocky, muted) visibly crumbling and cracking, with a stylized, dramatic sunset behind it, rendered with soft gradients. A Q-version Pepsi-Cola bottle/can stands nearby, looking slightly bewildered but also witnessing the historical moment. The atmosphere is one of dramatic decline, with bright, even lighting on the foreground elements.",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-09-30T08:59:54.953992+00:00"
+}

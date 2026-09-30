@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260930T085430",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.24,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "為後來那場更為驚人的軍艦交易，埋下了伏筆， 它證明了在極端限制下，商業創意如何能夠突破政治與經濟的壁壘， 這也預示著資本的力量，遠比我們想像的更具穿透力",
+      "text_cn": "为后来那场更为惊人的军舰交易，埋下了伏笔， 它证明了在极端限制下，商业创意如何能够突破政治与经济的壁垒， 这也预示著资本的力量，远比我们想像的更具穿透力",
+      "start_sec": 0.0,
+      "end_sec": 16.24,
+      "duration_sec": 16.24
+    }
+  ],
+  "created_at": "2026-09-30T08:54:30.684102+00:00"
+}

@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20260930T091149",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 13334104,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, \nchibi characters, clean line art, cell shading, flat colors, \nvisual novel style, crisp details, vibrant and cheerful color palette, \nsingle coherent scene, non-split screen, unified single viewpoint, \nwide-angle coherent view, one main environment, \nhighly detailed and intricate background, \npacked with objects and props, \ndynamic composition within a single panel，Q版 2D 卡通插畫 style, a medium shot of a Q-version Pepsi-Cola bottle/can, looking thoughtful and slightly burdened, standing on a simplified, shifting globe. Around it, abstract symbols representing ethics (e.g., scales of justice) and historical consequences (e.g., broken chains, faded flags) are swirling. The lighting is bright and even.",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-09-30T09:11:49.271313+00:00"
+}

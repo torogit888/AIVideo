@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260930T092329",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.12,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "百事可樂的故事，為我們提供了一個極端卻又真實的案例， 去審視這一切，它讓我們看到，在歷史的長河中，一杯汽水， 也能攪動風雲，甚至，成為影響世界格局的隱形力量",
+      "text_cn": "百事可乐的故事，为我们提供了一个极端却又真实的案例， 去审视这一切，它让我们看到，在历史的长河中，一杯汽水， 也能搅动风云，甚至，成为影响世界格局的隐形力量",
+      "start_sec": 0.0,
+      "end_sec": 16.12,
+      "duration_sec": 16.12
+    }
+  ],
+  "created_at": "2026-09-30T09:23:29.288130+00:00"
+}

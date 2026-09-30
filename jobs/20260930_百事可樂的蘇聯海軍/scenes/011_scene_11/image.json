@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20260930T084522",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 45921590,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, \nchibi characters, clean line art, cell shading, flat colors, \nvisual novel style, crisp details, vibrant and cheerful color palette, \nsingle coherent scene, non-split screen, unified single viewpoint, \nwide-angle coherent view, one main environment, \nhighly detailed and intricate background, \npacked with objects and props, \ndynamic composition within a single panel，Q版 2D 卡通插畫 style, a medium shot of Richard Nixon and Nikita Khrushchev, in their distinctive Q-version styles, standing in a brightly lit, toy-like Q-version model kitchen. Nixon, with his angular, determined face, and Khrushchev, with his round, bald head and bushy eyebrows, are facing each other, gesticulating animatedly with exaggerated expressions of debate. Simplified, clean kitchen appliances are visible. The lighting is even and bright.",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-09-30T08:45:22.677998+00:00"
+}

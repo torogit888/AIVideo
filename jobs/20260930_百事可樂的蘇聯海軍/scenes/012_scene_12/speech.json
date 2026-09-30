@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260930T084622",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.73,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "也為百事可樂創造了歷史性的機遇 [surprise-oh]， 關鍵人物登場，他就是百事可樂國際部的總裁唐納德·肯德爾， 肯德爾是個頂級的商業策略家，他敏銳地抓住了這個機會，",
+      "text_cn": "也为百事可乐创造了历史性的机遇 [surprise-oh]， 关键人物登场，他就是百事可乐国际部的总裁唐纳德·肯德尔， 肯德尔是个顶级的商业策略家，他敏锐地抓住了这个机会，",
+      "start_sec": 0.0,
+      "end_sec": 15.73,
+      "duration_sec": 15.73
+    }
+  ],
+  "created_at": "2026-09-30T08:46:22.974518+00:00"
+}

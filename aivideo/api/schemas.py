@@ -45,6 +45,8 @@ class JobDetail(BaseModel):
     has_film: bool = False
     film_url: Optional[str] = None
     preview_html_url: Optional[str] = None
+    custom_prompt: Optional[str] = None
+    outline: Optional[str] = None
 
 
 class CharacterAnchorInput(BaseModel):
@@ -66,6 +68,8 @@ class CreateJobRequest(BaseModel):
     subject_anchor: Optional[str] = Field(default=None, description="主體外觀特徵錨點（多人時為彙總字串）")
     environment_anchor: Optional[str] = Field(default=None, description="環境與光影基調錨點")
     characters: Optional[List[CharacterAnchorInput]] = Field(default=None, description="每人獨立外觀錨點")
+    custom_prompt: Optional[str] = Field(default=None, description="指定 Prompt 與故事特定要求")
+    outline: Optional[str] = Field(default=None, description="6 幕故事大綱")
 
 
 class UpdateJobRequest(BaseModel):
@@ -73,6 +77,10 @@ class UpdateJobRequest(BaseModel):
     voice_id: Optional[str] = None
     style_id: Optional[str] = None
     image_model: Optional[str] = None
+    custom_prompt: Optional[str] = None
+    outline: Optional[str] = None
+    tone_id: Optional[str] = None
+    script: Optional[str] = None
 
 
 # ==========================================
@@ -170,6 +178,7 @@ class SceneSummary(BaseModel):
     narration: str
     pip_query: Optional[str] = None
     has_pip: bool = False
+    pip_enabled: bool = False
     pip_mode: str = "pip"
     pip_error: Optional[str] = None
     status: SceneStatus
@@ -195,6 +204,10 @@ class ScenePatchRequest(BaseModel):
     image_negative: Optional[str] = None
     locks: Optional[Dict[str, bool]] = None
     pip: Optional[ScenePipConfig] = None
+
+
+class FetchScenePipRequest(BaseModel):
+    query: Optional[str] = None
 
 
 # ==========================================

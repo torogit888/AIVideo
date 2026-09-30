@@ -12,6 +12,8 @@ import {
   Volume2,
   Camera,
   CheckCircle2,
+  Search,
+  Trash2,
 } from "lucide-react";
 import { useStudioStore } from "../store";
 import { api } from "../api";
@@ -36,12 +38,14 @@ export const SceneInspector: React.FC = () => {
   const [isRegeneratingAudio, setIsRegeneratingAudio] = useState(false);
   const [isRegeneratingImage, setIsRegeneratingImage] = useState(false);
   const [isClearingImage, setIsClearingImage] = useState(false);
+  const [isClearingPip, setIsClearingPip] = useState(false);
   const [isFetchingPip, setIsFetchingPip] = useState(false);
   const [voices, setVoices] = useState<AssetVoice[]>([]);
 
   // 表單內部暫存狀態
   const [narration, setNarration] = useState("");
   const [prompt, setPrompt] = useState("");
+  const [pipQuery, setPipQuery] = useState("");
   const [pipEnabled, setPipEnabled] = useState(false);
   const [pipPos, setPipPos] = useState("right-center");
   const [pipMode, setPipMode] = useState<"pip" | "spotlight">("pip");
@@ -71,6 +75,7 @@ export const SceneInspector: React.FC = () => {
         setDetail(data);
         setNarration(data.narration || "");
         setPrompt(data.image_prompt || "");
+        setPipQuery(data.pip?.query || "");
         setPipEnabled(data.pip?.enabled || false);
         setPipPos(data.pip?.position || "right-center");
         setPipMode(data.pip?.mode || "pip");
@@ -118,6 +123,7 @@ export const SceneInspector: React.FC = () => {
           position: pipPos,
           mode: pipMode,
           scale: pipScale,
+          query: pipQuery.trim() || undefined,
         },
       });
       setDetail(updated);
@@ -147,6 +153,7 @@ export const SceneInspector: React.FC = () => {
           position: pipPos,
           mode: pipMode,
           scale: pipScale,
+          query: pipQuery.trim() || undefined,
         },
       });
       setDetail(updated);
@@ -208,6 +215,7 @@ export const SceneInspector: React.FC = () => {
           position: pipPos,
           mode: pipMode,
           scale: pipScale,
+          query: pipQuery.trim() || undefined,
         },
       });
       setDetail(updated);
@@ -257,14 +265,18 @@ export const SceneInspector: React.FC = () => {
 
   const handleFetchPip = async () => {
     if (!selectedJobId || !activeSceneId) return;
+    if (!pipQuery.trim()) {
+      showToast("請先輸入考據實體檢索詞！", "error");
+      return;
+    }
     setIsFetchingPip(true);
     try {
-      await api.fetchScenePip(selectedJobId, activeSceneId);
+      await api.fetchScenePip(selectedJobId, activeSceneId, pipQuery.trim());
       const fresh = await api.getSceneDetail(selectedJobId, activeSceneId);
       setDetail(fresh);
       setPipEnabled(fresh.pip?.enabled || false);
       await loadScenes(selectedJobId);
-      showToast("考據照片已成功下載並套用！", "success");
+      showToast(`已成功依【${pipQuery.trim()}】檢索並套用真實考據照片！`, "success");
     } catch (e: any) {
       showToast("下載考據照片失敗: " + (e.message || "未知錯誤"), "error");
     } finally {
@@ -290,6 +302,29 @@ export const SceneInspector: React.FC = () => {
       showToast("清空圖片失敗: " + (e.message || "未知錯誤"), "error");
     } finally {
       setIsClearingImage(false);
+    }
+  };
+
+  const handleClearPip = async () => {
+    if (!selectedJobId || !activeSceneId || !detail) return;
+    const ok = window.confirm(
+      `確定要清除第 ${detail.index} 幕的真實考據照片 (pip.png) 嗎？\n\n清除後此幕將不再疊加或聚焦該考據圖，完全以 AI 生圖為主畫面。`
+    );
+    if (!ok) return;
+
+    setIsClearingPip(true);
+    try {
+      const fresh = await api.clearScenePip(selectedJobId, activeSceneId);
+      setDetail(fresh);
+      setPipEnabled(false);
+      setPipMode("pip");
+      await loadScenes(selectedJobId);
+      await loadJobs();
+      showToast(`第 ${detail.index} 幕考據照片已成功清除`, "success");
+    } catch (e: any) {
+      showToast("清除考據圖失敗: " + (e.message || "未知錯誤"), "error");
+    } finally {
+      setIsClearingPip(false);
     }
   };
 
@@ -348,7 +383,7 @@ export const SceneInspector: React.FC = () => {
                 </div>
               )}
 
-              {detail?.pip_mode === "spotlight" && detail?.status?.has_pip && detail?.status?.pip_url ? (
+              {pipMode === "spotlight" && pipEnabled && detail?.status?.has_pip && detail?.status?.pip_url ? (
                 <div className="relative w-full h-full bg-black flex items-center justify-center">
                   <img
                     key={detail.status.pip_url}
@@ -361,13 +396,20 @@ export const SceneInspector: React.FC = () => {
                   </div>
                 </div>
               ) : detail?.status.image_url ? (
-                <img
-                  key={detail.status.image_url}
-                  src={detail.status.image_url}
-                  alt={detail.title}
-                  className="w-full h-full object-cover"
-                />
-              ) : detail?.pip_mode === "spotlight" ? (
+                <div className="relative w-full h-full bg-cinema-darker overflow-hidden">
+                  <img
+                    key={detail.status.image_url}
+                    src={detail.status.image_url}
+                    alt={detail.title}
+                    className="w-full h-full object-cover"
+                  />
+                  {pipEnabled && pipMode === "pip" && detail?.status?.has_pip && detail?.status?.pip_url && (
+                    <div className="absolute top-1/2 -translate-y-1/2 right-2 max-w-[28%] max-h-[75%] rounded border-[1.5px] border-white/90 bg-black/95 p-0.5 overflow-hidden shadow-xl z-10 flex items-center justify-center">
+                      <img src={detail.status.pip_url} alt="PiP Preview" className="max-h-[110px] max-w-full object-contain rounded-sm" />
+                    </div>
+                  )}
+                </div>
+              ) : pipMode === "spotlight" && pipEnabled ? (
                 <div className="flex flex-col items-center justify-center w-full h-full bg-black text-amber-cta/90 p-4 text-center select-none">
                   <Camera className="w-10 h-10 stroke-1 mb-2 text-amber-cta" />
                   <span className="text-sm font-semibold text-amber-cta">🏛️ 待檢索黑底歷史考據原照</span>
@@ -385,7 +427,7 @@ export const SceneInspector: React.FC = () => {
 
             {/* 2. 重抽 / 換圖 / 重錄快速小按鈕列 */}
             <div className="flex items-center space-x-2">
-              {detail?.pip_mode === "spotlight" && detail?.status?.has_pip ? (
+              {pipMode === "spotlight" && pipEnabled && detail?.status?.has_pip ? (
                 <div
                   className="flex-1 flex items-center justify-center h-8 rounded bg-amber-cta/10 border border-amber-cta/30 text-xs text-amber-cta select-none"
                   title="此幕成片直接採用真實歷史照片慢推，已自動跳過 AI 生圖"
@@ -411,7 +453,7 @@ export const SceneInspector: React.FC = () => {
                   )}
                 </button>
               )}
-              {detail?.status?.has_image && detail?.pip_mode !== "spotlight" && (
+              {detail?.status?.has_image && (
                 <button
                   onClick={handleClearImage}
                   disabled={isRegeneratingImage || isRegeneratingAudio || isClearingImage}
@@ -532,87 +574,123 @@ export const SceneInspector: React.FC = () => {
                 />
               </div>
 
-              {/* 顯示 AI 分析的檢索詞與圖片狀態 */}
-              {detail?.pip?.query && (
-                <div className="text-[11px] bg-cinema-card p-2 rounded border border-cinema-border/70 space-y-1.5">
-                  <div className="text-cinema-muted flex items-center justify-between">
-                    <span>AI 考據實體檢索詞:</span>
-                    <div className="flex items-center space-x-1.5">
-                      <span className="font-mono text-amber-cta text-[10px] font-semibold">{detail.pip.query}</span>
-                      <button
-                        onClick={handleFetchPip}
-                        disabled={isFetchingPip}
-                        className="px-1.5 py-0.5 rounded bg-cinema-darker hover:bg-cinema-cardHover border border-cinema-border text-cinema-muted hover:text-amber-cta text-[10px] transition-colors"
-                        title="立即向 NASA / 維基百科檢索下載照片"
+              {/* 實體檢索詞編輯與多圖源抓取 */}
+              <div className="text-[11px] bg-cinema-card p-2.5 rounded border border-cinema-border/70 space-y-2">
+                <div className="flex items-center justify-between text-cinema-muted">
+                  <span className="font-medium text-cinema-text">考據實體檢索詞 (NASA/全網/國會圖書館/維基):</span>
+                  <button
+                    onClick={handleFetchPip}
+                    disabled={isFetchingPip || !pipQuery.trim()}
+                    className="flex items-center px-2 py-0.5 rounded bg-amber-cta/15 hover:bg-amber-cta/25 text-amber-cta border border-amber-cta/30 text-[10px] font-medium transition-colors disabled:opacity-40 cursor-pointer"
+                    title="立即向 NASA、全網新聞歷史照片、國會圖書館與維基百科檢索"
+                  >
+                    {isFetchingPip ? (
+                      <>
+                        <Loader2 className="w-3 h-3 mr-1 animate-spin" />
+                        <span>檢索中...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Search className="w-3 h-3 mr-1" />
+                        <span>重新抓圖</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+
+                <input
+                  type="text"
+                  value={pipQuery}
+                  onChange={(e) => setPipQuery(e.target.value)}
+                  placeholder="輸入具體型號、人物全名或條目名 (例如：Whiskey-class submarine)"
+                  className="w-full h-7 px-2 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text font-mono focus:outline-none focus:border-amber-cta"
+                />
+
+                {detail?.status?.has_pip && detail?.status?.pip_url && (
+                  <div className="pt-1.5 border-t border-cinema-border/50 space-y-1">
+                    <div className="text-[10px] text-emerald-400 flex items-center justify-between">
+                      <span className="flex items-center">
+                        <CheckCircle2 className="w-3 h-3 mr-1" /> 已下載真實考據照片
+                      </span>
+                      <div className="flex items-center space-x-1.5">
+                        {detail.pip?.source_title && (
+                          <span className="text-[9px] text-cinema-muted truncate max-w-[100px]" title={detail.pip.source_title}>
+                            {detail.pip.source_title}
+                          </span>
+                        )}
+                        <button
+                          onClick={handleClearPip}
+                          disabled={isClearingPip}
+                          className="flex items-center px-1.5 py-0.5 rounded bg-red-950/50 hover:bg-red-900/70 border border-red-800 text-[10px] text-red-300 transition-colors cursor-pointer disabled:opacity-40"
+                          title="徹底刪除此考據圖檔案，完全回歸 AI 純繪圖畫面"
+                        >
+                          {isClearingPip ? (
+                            <Loader2 className="w-2.5 h-2.5 animate-spin mr-0.5" />
+                          ) : (
+                            <Trash2 className="w-2.5 h-2.5 mr-0.5" />
+                          )}
+                          <span>清除</span>
+                        </button>
+                      </div>
+                    </div>
+                    <div className="relative max-w-[170px] max-h-[120px] p-0.5 rounded overflow-hidden border border-cinema-border bg-black flex items-center justify-center">
+                      <img src={detail.status.pip_url} alt="PiP Preview" className="max-w-full max-h-[110px] object-contain rounded-sm" />
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* 呈現方式：無論是否勾選啟用，都讓創作者一眼看清並能隨時切換 */}
+              <div className="pt-1 text-xs space-y-2.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-cinema-muted">呈現方式</span>
+                  <select
+                    value={pipMode}
+                    onChange={(e) => setPipMode(e.target.value as "pip" | "spotlight")}
+                    className="h-7 px-2 rounded bg-cinema-card border border-cinema-border text-cinema-text text-[11px] font-medium"
+                  >
+                    <option value="pip">📌 畫中畫小卡 (PiP · 角落小卡)</option>
+                    <option value="spotlight">🏛️ 黑底歷史聚焦 (慢推浮現 · 主角)</option>
+                  </select>
+                </div>
+
+                {pipEnabled && pipMode === "pip" && (
+                  <>
+                    <div className="flex items-center justify-between">
+                      <span className="text-cinema-muted">卡片大小比例</span>
+                      <select
+                        value={pipScale}
+                        onChange={(e) => setPipScale(parseFloat(e.target.value))}
+                        className="h-7 px-2 rounded bg-cinema-card border border-cinema-border text-cinema-text text-[11px]"
                       >
-                        {isFetchingPip ? "抓取中..." : "重新抓圖"}
-                      </button>
+                        <option value="0.20">精巧微縮 (20%)</option>
+                        <option value="0.24">標準考據 (24%・推薦)</option>
+                        <option value="0.30">清晰放大 (30%)</option>
+                      </select>
                     </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-cinema-muted">疊加位置</span>
+                      <select
+                        value={pipPos}
+                        onChange={(e) => setPipPos(e.target.value)}
+                        className="h-7 px-2 rounded bg-cinema-card border border-cinema-border text-cinema-text text-[11px]"
+                      >
+                        <option value="right-center">右半部置中 (推薦)</option>
+                        <option value="top-right">右上角</option>
+                        <option value="top-left">左上角</option>
+                        <option value="bottom-right">右下角</option>
+                        <option value="bottom-left">左下角</option>
+                        <option value="center">正中央</option>
+                      </select>
+                    </div>
+                  </>
+                )}
+                {pipEnabled && pipMode === "spotlight" && (
+                  <div className="text-[11px] text-amber-cta/90 bg-amber-500/10 p-2 rounded border border-amber-500/20 leading-relaxed">
+                    🏛️ 本幕將以深邃黑底為背景，真實考據照片在中央緩慢推鏡淡入，營造紀錄片大片沉浸感。
                   </div>
-                  {detail.status?.has_pip && detail.status?.pip_url && (
-                    <div className="pt-1 border-t border-cinema-border/50 space-y-1">
-                      <div className="text-[10px] text-emerald-400 flex items-center">
-                        <CheckCircle2 className="w-3 h-3 mr-1" /> 已下載真實考據照片:
-                      </div>
-                      <div className="relative max-w-[160px] max-h-[120px] p-0.5 rounded overflow-hidden border border-cinema-border bg-black flex items-center justify-center">
-                        <img src={detail.status.pip_url} alt="PiP Preview" className="max-w-full max-h-[110px] object-contain rounded-sm" />
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {pipEnabled && (
-                <div className="pt-1 text-xs space-y-2.5">
-                  <div className="flex items-center justify-between">
-                    <span className="text-cinema-muted">呈現方式</span>
-                    <select
-                      value={pipMode}
-                      onChange={(e) => setPipMode(e.target.value as "pip" | "spotlight")}
-                      className="h-7 px-2 rounded bg-cinema-card border border-cinema-border text-cinema-text text-[11px] font-medium"
-                    >
-                      <option value="pip">📌 畫中畫小卡 (PiP)</option>
-                      <option value="spotlight">🏛️ 黑底歷史聚焦 (慢推浮現)</option>
-                    </select>
-                  </div>
-
-                  {pipMode === "pip" ? (
-                    <>
-                      <div className="flex items-center justify-between">
-                        <span className="text-cinema-muted">卡片大小比例</span>
-                        <select
-                          value={pipScale}
-                          onChange={(e) => setPipScale(parseFloat(e.target.value))}
-                          className="h-7 px-2 rounded bg-cinema-card border border-cinema-border text-cinema-text text-[11px]"
-                        >
-                          <option value="0.20">精巧微縮 (20%)</option>
-                          <option value="0.24">標準考據 (24%・推薦)</option>
-                          <option value="0.30">清晰放大 (30%)</option>
-                        </select>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-cinema-muted">疊加位置</span>
-                        <select
-                          value={pipPos}
-                          onChange={(e) => setPipPos(e.target.value)}
-                          className="h-7 px-2 rounded bg-cinema-card border border-cinema-border text-cinema-text text-[11px]"
-                        >
-                          <option value="right-center">右半部置中 (推薦)</option>
-                          <option value="top-right">右上角</option>
-                          <option value="top-left">左上角</option>
-                          <option value="bottom-right">右下角</option>
-                          <option value="bottom-left">左下角</option>
-                          <option value="center">正中央</option>
-                        </select>
-                      </div>
-                    </>
-                  ) : (
-                    <div className="text-[11px] text-amber-cta/90 bg-amber-500/10 p-2 rounded border border-amber-500/20 leading-relaxed">
-                      🏛️ 本幕將以深邃黑底為背景，真實考據照片在中央緩慢推鏡淡入，營造紀錄片大片沉浸感。
-                    </div>
-                  )}
-                </div>
-              )}
+                )}
+              </div>
             </div>
 
             {/* 6. 儲存變更按鈕 */}

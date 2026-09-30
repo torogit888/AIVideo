@@ -1,0 +1,28 @@
+id: 005_scene_5
+index: 5
+title: 第 5 幕
+narration: 一杯汽水與一支海軍，資本帝國的荒誕擴張，這不是科幻小說， 而是真實發生過的故事，百事可樂，這家全球飲料巨頭， 真的曾經擁有一支蘇聯海軍艦隊 [surprise-wa]，
+image_prompt: Q版 2D 卡通插畫 style, a medium shot with a slightly low angle. A Q-version
+  Pepsi-Cola bottle/can, with a proud and slightly smug expression, stands firmly
+  on the deck of a simplified, Q-version Soviet Cruiser (generic, not decommissioned
+  yet). The cruiser looks imposing but cartoonish, rendered in flat, muted battleship
+  grey. The Pepsi bottle holds a tiny, stylized flag with its iconic red, white, and
+  blue swirl. The scene is set on simplified blue water under a clear, flat blue sky
+  with bright, even lighting.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260930T084149
+  image_take: image_20260930T084111
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Soviet Navy fleet 1980s
+  source_title: Soviet Navy
+  source_url: https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d1/Naval_Ensign_of_the_Soviet_Union_%281950%E2%80%931991%29.svg/1920px-Naval_Ensign_of_the_Soviet_Union_%281950%E2%80%931991%29.svg.png

@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260930T084848",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.34,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "然而，進入蘇聯市場並非易事，百事可樂面臨著一個核心困境， 蘇聯盧布是非可兌換貨幣， 這意味著百事可樂無法將在蘇聯銷售的利潤，直接匯回美國，",
+      "text_cn": "然而，进入苏联市场并非易事，百事可乐面临着一个核心困境， 苏联卢布是非可兑换货币， 这意味着百事可乐无法将在苏联销售的利润，直接汇回美国，",
+      "start_sec": 0.0,
+      "end_sec": 14.34,
+      "duration_sec": 14.34
+    }
+  ],
+  "created_at": "2026-09-30T08:48:48.677189+00:00"
+}

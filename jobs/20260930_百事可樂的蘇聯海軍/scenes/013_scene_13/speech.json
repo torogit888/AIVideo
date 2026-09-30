@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260930T084655",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 17.39,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "在眾目睽睽之下，他成功說服赫魯雪夫品嚐百事可樂， 赫魯雪夫喝下汽水，露出了滿意的笑容，這一幕被攝影師捕捉下來， 成為了歷史性的一刻，這張照片，不僅登上了全球各大報紙的頭版，",
+      "text_cn": "在众目睽睽之下，他成功说服赫鲁晓夫品尝百事可乐， 赫鲁晓夫喝下汽水，露出了满意的笑容，这一幕被摄影师捕捉下来， 成为了历史性的一刻，这张照片，不仅登上了全球各大报纸的头版，",
+      "start_sec": 0.0,
+      "end_sec": 17.39,
+      "duration_sec": 17.39
+    }
+  ],
+  "created_at": "2026-09-30T08:46:55.561022+00:00"
+}

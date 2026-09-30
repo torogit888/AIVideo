@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260930T085832",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.52,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "你沒聽錯，是海軍艦隊，具體交易細節令人咋舌， 百事可樂獲得了十七艘潛水艇，一艘巡洋艦，一艘護衛艦， 和一艘驅逐艦，這些雖然是蘇聯退役的舊軍艦，",
+      "text_cn": "你没听错，是海军舰队，具体交易细节令人咋舌， 百事可乐获得了十七艘潜水艇，一艘巡洋舰，一艘护卫舰， 和一艘驱逐舰，这些虽然是苏联退役的旧军舰，",
+      "start_sec": 0.0,
+      "end_sec": 14.52,
+      "duration_sec": 14.52
+    }
+  ],
+  "created_at": "2026-09-30T08:58:32.232046+00:00"
+}

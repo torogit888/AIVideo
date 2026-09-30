@@ -1,0 +1,16 @@
+id: 051_scene_51
+index: 51
+title: 第 51 幕
+narration: 演變到處理軍事資產的驚人操作，回顧唐納德·肯德爾的商業哲學， 他不僅將一個飲料品牌，提升到了地緣政治的層面， 更證明了商業的靈活性和適應性，是多麼的強大，無論時代如何變遷
+image_prompt: Q版 2D 卡通插畫 style, a medium shot of Donald Kendall, in his Q-version
+  style, looking wise and visionary, standing next to a Q-version Pepsi-Cola bottle/can.
+  He points towards a stylized, glowing path that transforms from a simple soda bottle
+  into a warship, then connects to a simplified Q-version globe. The background is
+  abstract, with bright, even lighting.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260930T092150
+  image_take: image_20260930T092047

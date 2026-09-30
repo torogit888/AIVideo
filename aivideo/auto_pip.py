@@ -56,26 +56,110 @@ def search_nasa_image(query: str, limit: int = 4) -> list[dict[str, object]]:
 
 
 def search_wikipedia_summary_image(query: str, lang: str = "en") -> dict[str, object] | None:
-    """呼叫維基百科 REST API 取得條目代表圖（封面圖）。支援中、英文名詞檢索。"""
+    """呼叫維基百科 API 取得條目代表圖。先透過 search 模糊匹配最適條目名，再取原圖。"""
     clean_q = re.sub(r'["\'\(\)\[\]]', '', query).strip()
     if not clean_q:
         return None
-    url = f"https://{lang}.wikipedia.org/api/rest_v1/page/summary/{urllib.parse.quote(clean_q)}"
+
+    target_title = clean_q
+    search_url = f"https://{lang}.wikipedia.org/w/api.php?action=query&list=search&srsearch={urllib.parse.quote(clean_q)}&format=json&srlimit=1"
     try:
-        resp = requests.get(url, headers=WIKIMEDIA_HEADERS, timeout=10)
+        s_resp = requests.get(search_url, headers=WIKIMEDIA_HEADERS, timeout=6)
+        if s_resp.status_code == 200:
+            s_data = s_resp.json().get("query", {}).get("search", [])
+            if s_data and s_data[0].get("title"):
+                target_title = s_data[0]["title"]
+    except Exception:
+        pass
+
+    url = f"https://{lang}.wikipedia.org/api/rest_v1/page/summary/{urllib.parse.quote(target_title)}"
+    try:
+        resp = requests.get(url, headers=WIKIMEDIA_HEADERS, timeout=8)
         if resp.status_code == 200:
             data = resp.json()
             orig = data.get("originalimage", {})
             img_url = str(orig.get("source", "")).split("?")[0]
             if img_url:
                 return {
-                    "title": data.get("title", clean_q),
+                    "title": data.get("title", target_title),
                     "url": img_url,
                     "source": f"維基百科條目 ({lang.upper()})",
                     "width": orig.get("width", 1024),
                     "height": orig.get("height", 768),
                     "mime": "image/jpeg",
                 }
+    except Exception:
+        pass
+    return None
+
+
+def search_duckduckgo_image(query: str, limit: int = 3) -> list[dict[str, object]]:
+    """透過全網即時圖片檢索真實歷史、科技、新聞與事件照片（超越維基百科限制）。"""
+    clean_q = re.sub(r'["\'\(\)\[\]]', '', query).strip()
+    if not clean_q:
+        return []
+    try:
+        url = f"https://duckduckgo.com/?q={urllib.parse.quote(clean_q)}&iax=images&ia=images"
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        }
+        res = requests.get(url, headers=headers, timeout=6)
+        m = re.search(r'vqd=([\"\']?)([\d-]+)\1', res.text)
+        if not m:
+            return []
+        vqd = m.group(2)
+        api_url = f"https://duckduckgo.com/i.js?q={urllib.parse.quote(clean_q)}&o=json&vqd={vqd}&p=1"
+        resp = requests.get(api_url, headers=headers, timeout=6)
+        if resp.status_code != 200:
+            return []
+        results = resp.json().get("results", [])
+        candidates = []
+        for it in results:
+            img_url = it.get("image")
+            if not img_url:
+                continue
+            w = it.get("width", 0)
+            h = it.get("height", 0)
+            if w >= 360 and h >= 240:
+                candidates.append({
+                    "title": it.get("title") or clean_q,
+                    "url": img_url,
+                    "source": "全網新聞與歷史照片 (Web)",
+                    "width": w,
+                    "height": h,
+                    "mime": "image/jpeg",
+                })
+                if len(candidates) >= limit:
+                    break
+        return candidates
+    except Exception:
+        return []
+
+
+def search_loc_image(query: str) -> dict[str, object] | None:
+    """呼叫美國國會圖書館 (Library of Congress) 開放 API 檢索公有領域高畫質歷史原版照片。"""
+    clean_q = re.sub(r'["\'\(\)\[\]]', '', query).strip()
+    if not clean_q:
+        return None
+    url = f"https://www.loc.gov/photos/?q={urllib.parse.quote(clean_q)}&fo=json"
+    try:
+        resp = requests.get(url, headers=WIKIMEDIA_HEADERS, timeout=8)
+        if resp.status_code == 200:
+            results = resp.json().get("results", [])
+            for it in results[:4]:
+                imgs = it.get("image_url", [])
+                if imgs and isinstance(imgs, list):
+                    img_url = imgs[-1]
+                    if img_url:
+                        return {
+                            "title": it.get("title", clean_q),
+                            "url": img_url,
+                            "source": "美國國會圖書館 (Library of Congress)",
+                            "width": 1280,
+                            "height": 720,
+                            "mime": "image/jpeg",
+                        }
     except Exception:
         pass
     return None
@@ -140,7 +224,7 @@ def search_wikimedia_image(query: str) -> dict[str, object] | None:
 
 
 def search_all_source_candidates(query: str, limit: int = 6) -> list[dict[str, object]]:
-    """跨多個高可信來源（NASA 官方影像庫、維基共享資源、中英文維基百科代表圖）聚合檢索真實照片。"""
+    """跨多個高可信來源（NASA 官方影像庫、全網新聞與歷史照片、中英文維基百科、美國國會圖書館、維基共享資源）聚合檢索真實照片。"""
     candidates: list[dict[str, object]] = []
     seen_urls: set[str] = set()
 
@@ -157,28 +241,44 @@ def search_all_source_candidates(query: str, limit: int = 6) -> list[dict[str, o
                 seen_urls.add(it["url"])
                 candidates.append(it)
 
-    # 2. 檢索 Wikimedia Commons
-    w_img = search_wikimedia_image(clean_q)
-    if w_img and w_img["url"] not in seen_urls:
-        seen_urls.add(w_img["url"])
-        candidates.append(w_img)
-
-    # 3. 檢索英文維基百科條目代表圖
+    # 2. 檢索英文維基百科條目代表圖（智慧模糊搜尋匹配）
     en_img = search_wikipedia_summary_image(clean_q, lang="en")
     if en_img and en_img["url"] not in seen_urls:
         seen_urls.add(en_img["url"])
         candidates.append(en_img)
 
-    # 4. 檢索中文維基百科條目代表圖（支援中文人名、公司與事件）
+    # 3. 檢索中文維基百科條目代表圖（支援中文人名、公司與事件）
     zh_img = search_wikipedia_summary_image(clean_q, lang="zh")
     if zh_img and zh_img["url"] not in seen_urls:
         seen_urls.add(zh_img["url"])
         candidates.append(zh_img)
 
-    # 5. 若候選不足，嘗試簡化詞再向 Wikimedia 擴展
+    # 4. 檢索全網即時歷史與新聞真實照片 (Web Image Search)
+    for it in search_duckduckgo_image(clean_q, limit=3):
+        if it["url"] not in seen_urls:
+            seen_urls.add(it["url"])
+            candidates.append(it)
+
+    # 5. 檢索美國國會圖書館歷史檔案 (Library of Congress)
+    loc_img = search_loc_image(clean_q)
+    if loc_img and loc_img["url"] not in seen_urls:
+        seen_urls.add(loc_img["url"])
+        candidates.append(loc_img)
+
+    # 6. 檢索 Wikimedia Commons
+    w_img = search_wikimedia_image(clean_q)
+    if w_img and w_img["url"] not in seen_urls:
+        seen_urls.add(w_img["url"])
+        candidates.append(w_img)
+
+    # 7. 若候選不足，嘗試簡化詞向全網與 Wikimedia 擴展
     if len(candidates) < limit:
         simplified = re.sub(r'\b(diagram|concept|artist concept|illustration|blueprint|image|galaxy image)\b', '', clean_q, flags=re.I).strip()
         if simplified and simplified != clean_q:
+            for it in search_duckduckgo_image(simplified, limit=2):
+                if it["url"] not in seen_urls:
+                    seen_urls.add(it["url"])
+                    candidates.append(it)
             sim_img = search_wikimedia_image(simplified)
             if sim_img and sim_img["url"] not in seen_urls:
                 seen_urls.add(sim_img["url"])

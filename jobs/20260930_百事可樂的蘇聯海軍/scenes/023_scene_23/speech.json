@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260930T085535",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.92,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "時間來到一九八零年代末，蘇聯的經濟已經瀕臨崩潰， 帝國的黃昏籠罩著這片廣袤的土地，曾經用於交換百事可樂的伏特加 其出口額已經不足以支付不斷增長的百事可樂需求了，",
+      "text_cn": "时间来到一九八零年代末，苏联的经济已经濒临崩溃， 帝国的黄昏笼罩着这片广袤的土地，曾经用于交换百事可乐的伏特加 其出口额已经不足以支付不断增长的百事可乐需求了，",
+      "start_sec": 0.0,
+      "end_sec": 15.92,
+      "duration_sec": 15.92
+    }
+  ],
+  "created_at": "2026-09-30T08:55:35.666798+00:00"
+}

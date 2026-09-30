@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20260930T091556",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 98651243,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, \nchibi characters, clean line art, cell shading, flat colors, \nvisual novel style, crisp details, vibrant and cheerful color palette, \nsingle coherent scene, non-split screen, unified single viewpoint, \nwide-angle coherent view, one main environment, \nhighly detailed and intricate background, \npacked with objects and props, \ndynamic composition within a single panel，Q版 2D 卡通插畫 style, a medium shot of a Q-version Pepsi-Cola bottle/can, looking defensive, surrounded by stylized, cartoonish newspaper headlines (visually implied, no text) and graphs showing upward profit lines. From the sides, stylized, cartoonish hands with pointing fingers are accusing it. The background is abstract, with bright, even lighting.",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-09-30T09:15:56.261615+00:00"
+}

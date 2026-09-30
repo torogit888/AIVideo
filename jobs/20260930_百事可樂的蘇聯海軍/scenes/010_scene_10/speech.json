@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260930T084506",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.18,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "然而，即便在最冰冷的對峙中，商業的觸角依然試圖尋找縫隙， 一九五九年，莫斯科舉辦了一場美國國家展覽會， 這是一個極其特殊的場合，旨在向蘇聯人民展示美國的生活方式，",
+      "text_cn": "然而，即便在最冰冷的对峙中，商业的触角依然试图寻找缝隙， 一九五九年，莫斯科举办了一场美国国家展览会， 这是一个极其特殊的场合，旨在向苏联人民展示美国的生活方式，",
+      "start_sec": 0.0,
+      "end_sec": 16.18,
+      "duration_sec": 16.18
+    }
+  ],
+  "created_at": "2026-09-30T08:45:06.331647+00:00"
+}

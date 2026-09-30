@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260930T085641",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.74,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "蘇聯人民對西方消費品的渴望有增無減， 而國家卻拿不出足夠的硬通貨來購買，在這樣的背景下，一九八九年 百事可樂與蘇聯政府簽署了一項新的易貨協議，",
+      "text_cn": "苏联人民对西方消费品的渴望有增无减， 而国家却拿不出足够的硬通货来购买，在这样的背景下，一九八九年 百事可乐与苏联政府签署了一项新的易货协议，",
+      "start_sec": 0.0,
+      "end_sec": 14.74,
+      "duration_sec": 14.74
+    }
+  ],
+  "created_at": "2026-09-30T08:56:41.083072+00:00"
+}

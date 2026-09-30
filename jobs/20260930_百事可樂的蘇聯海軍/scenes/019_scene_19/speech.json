@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260930T085139",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 9.2,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "蘇聯將提供他們國產的史托利契納伏特加， 百事可樂獲得了這款伏特加在美國的獨家銷售權，",
+      "text_cn": "苏联将提供他们国产的史托利契纳伏特加， 百事可乐获得了这款伏特加在美国的独家销售权，",
+      "start_sec": 0.0,
+      "end_sec": 9.2,
+      "duration_sec": 9.2
+    }
+  ],
+  "created_at": "2026-09-30T08:51:39.248262+00:00"
+}

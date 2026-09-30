@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260930T092232",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 10.8,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "商業的本質，資本的逐利性，以及它與國家權力，國際政治之間， 錯綜複雜的關係， 都將是人類社會永恆的命題 [confirmation-en]，",
+      "text_cn": "商业的本质，资本的逐利性，以及它与国家权力，国际政治之间， 错综复杂的关系， 都将是人类社会永恒的命题 [confirmation-en]，",
+      "start_sec": 0.0,
+      "end_sec": 10.8,
+      "duration_sec": 10.8
+    }
+  ],
+  "created_at": "2026-09-30T09:22:32.132716+00:00"
+}

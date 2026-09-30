@@ -1,0 +1,16 @@
+id: 017_scene_17
+index: 17
+title: 第 17 幕
+narration: 這就好像你賣了很多貨，卻只能收到一堆無法在國際上使用的錢， 那該怎麼辦 [question-ei]，
+image_prompt: Q版 2D 卡通插畫 style, a close-up on a Q-version Pepsi-Cola bottle/can, looking
+  utterly perplexed and shrugging its tiny, stubby shoulders. It is surrounded by
+  piles of stylized, cartoonish Soviet Ruble coins and bills, which glow with a faint,
+  unusable grey light. A big, cartoonish question mark hangs in the air above its
+  head. The lighting is bright and even.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260930T084932
+  image_take: image_20260930T084919

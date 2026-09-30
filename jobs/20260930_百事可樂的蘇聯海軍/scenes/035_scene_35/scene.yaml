@@ -1,0 +1,26 @@
+id: 035_scene_35
+index: 35
+title: 第 35 幕
+narration: 百事可樂也在蘇聯市場獲得了持續的擴張，即便在蘇聯解體後， 它在俄羅斯市場的地位依然穩固，
+image_prompt: Q版 2D 卡通插畫 style, a wide shot of a Q-version Pepsi-Cola bottle/can,
+  looking strong and established, standing firmly on a simplified map of Russia (post-USSR).
+  Around it, new Q-version Pepsi factories (simplified, cartoonish) are popping up,
+  and happy Q-version Russian citizens (archetypes) are enjoying Pepsi. The lighting
+  is bright and even.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260930T090650
+  image_take: null
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Pepsi-Cola advertisement Soviet Union 1980s
+  source_title: Pepsi
+  source_url: https://thumb.wikimedia.org/wikipedia/commons/thumb/6/68/Pepsi_2023.svg/960px-Pepsi_2023.svg.png

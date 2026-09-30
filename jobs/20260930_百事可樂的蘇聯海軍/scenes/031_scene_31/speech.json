@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260930T090337",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 10.4,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "百事可樂是如何處理這些龐大的軍艦的呢， 他們將這些軍艦轉售給了一家瑞典的廢品回收公司，將其拆解，",
+      "text_cn": "百事可乐是如何处理这些庞大的军舰的呢， 他们将这些军舰转售给了一家瑞典的废品回收公司，将其拆解，",
+      "start_sec": 0.0,
+      "end_sec": 10.4,
+      "duration_sec": 10.4
+    }
+  ],
+  "created_at": "2026-09-30T09:03:37.428761+00:00"
+}

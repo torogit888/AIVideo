@@ -26,6 +26,8 @@ export interface JobDetail {
   has_film: boolean;
   film_url?: string | null;
   preview_html_url?: string | null;
+  custom_prompt?: string | null;
+  outline?: string | null;
 }
 
 export interface SceneStatus {
@@ -58,6 +60,7 @@ export interface SceneSummary {
   narration: string;
   pip_query?: string | null;
   has_pip?: boolean;
+  pip_enabled?: boolean;
   pip_mode?: "pip" | "spotlight";
   pip_error?: string | null;
   status: SceneStatus;

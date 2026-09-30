@@ -1,0 +1,16 @@
+id: 002_scene_2
+index: 2
+title: 第 2 幕
+narration: 一家靠賣糖水維生的企業，怎麼會搖身一變，成了擁抱巡洋艦， 護衛艦甚至潛水艇的軍事玩家 [question-ei]，
+image_prompt: 'Q版 2D 卡通插畫 style, a medium shot focusing on a Q-version Pepsi-Cola
+  bottle/can, looking bewildered but also a bit mischievous, with a cartoonish question
+  mark floating above its head. It is surrounded by simplified, toy-like Q-version
+  warships: a generic cruiser, a generic frigate, and a generic submarine, all floating
+  on simplified blue water. The lighting is even and bright.'
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260930T083927
+  image_take: image_20260930T083914

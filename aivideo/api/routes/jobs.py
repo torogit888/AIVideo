@@ -237,6 +237,14 @@ def get_job_detail(job_id: str) -> JobDetail:
     film_url = f"/media/jobs/{job_id}/compose/film.mp4" if has_film else None
     preview_url = f"/media/jobs/{job_id}/preview.html" if (job_dir / "preview.html").is_file() else None
 
+    custom_prompt = config.get("custom_prompt") or None
+    outline = config.get("outline") or None
+    if not outline and (job_dir / "outline.md").is_file():
+        try:
+            outline = (job_dir / "outline.md").read_text(encoding="utf-8")
+        except Exception:
+            pass
+
     return JobDetail(
         id=job_id,
         title=title,
@@ -247,6 +255,8 @@ def get_job_detail(job_id: str) -> JobDetail:
         has_film=has_film,
         film_url=film_url,
         preview_html_url=preview_url,
+        custom_prompt=custom_prompt,
+        outline=outline,
     )
 
 
@@ -312,6 +322,9 @@ def create_job(req: CreateJobRequest) -> JobSummary:
         environment_anchor=env_anchor,
         characters=characters,
         image_model=req.image_model,
+        custom_prompt=req.custom_prompt,
+        outline=req.outline,
+        tone_id=req.tone_id,
     )
 
     # 同步寫入 script.md
@@ -646,6 +659,34 @@ def update_job(job_id: str, req: UpdateJobRequest) -> JobSummary:
             data["style_prefix"] = style_info["prefix"]
         if style_info.get("negative"):
             data["style_negative"] = style_info["negative"]
+    if req.tone_id is not None:
+        data["tone_id"] = req.tone_id
+    if req.custom_prompt is not None:
+        data["custom_prompt"] = req.custom_prompt
+    if req.outline is not None:
+        data["outline"] = req.outline
+
+    # 若有更新大綱或自訂 Prompt，同步更新 outline.md
+    if req.outline is not None or req.custom_prompt is not None:
+        cur_title = data.get("title", job_id)
+        cur_prompt = data.get("custom_prompt", "")
+        cur_outline = data.get("outline", "")
+        if cur_prompt or cur_outline:
+            outline_md_lines = [f"# {cur_title} - 故事大綱與企劃設定\n"]
+            if cur_prompt:
+                outline_md_lines.append(f"## 指定 Prompt 與故事特定要求\n\n{cur_prompt}\n")
+            if cur_outline:
+                outline_md_lines.append(f"## 6 幕故事大綱\n\n{cur_outline}\n")
+            try:
+                (job_dir / "outline.md").write_text("\n".join(outline_md_lines), encoding="utf-8")
+            except Exception:
+                pass
+
+    if req.script is not None:
+        try:
+            (job_dir / "script.md").write_text(req.script, encoding="utf-8")
+        except Exception:
+            pass
 
     try:
         job_yaml_path.write_text(

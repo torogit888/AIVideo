@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260930T085930",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.19,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "但它們依然是實打實的軍事資產，彼時的蘇聯， 已經急於出售這些資產，來換取急需的西方商品， 這無疑反映了其經濟的絕望狀況， 和國家財政的極度困窘 [sigh]，",
+      "text_cn": "但它们依然是实打实的军事资产，彼时的苏联， 已经急于出售这些资产，来换取急需的西方商品， 这无疑反映了其经济的绝望状况， 和国家财政的极度困窘 [sigh]，",
+      "start_sec": 0.0,
+      "end_sec": 15.19,
+      "duration_sec": 15.19
+    }
+  ],
+  "created_at": "2026-09-30T08:59:30.902610+00:00"
+}

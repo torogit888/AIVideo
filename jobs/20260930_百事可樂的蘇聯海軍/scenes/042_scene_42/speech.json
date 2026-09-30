@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260930T091228",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.92,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "更是冷戰結束後，全球格局變化的縮影，它讓我們看到了， 在宏大歷史變革中，商業行為所扮演的複雜角色， 以及它所帶來的倫理困境與歷史代價",
+      "text_cn": "更是冷战结束后，全球格局变化的缩影，它让我们看到了， 在宏大历史变革中，商业行为所扮演的复杂角色， 以及它所带来的伦理困境与历史代价",
+      "start_sec": 0.0,
+      "end_sec": 13.92,
+      "duration_sec": 13.92
+    }
+  ],
+  "created_at": "2026-09-30T09:12:28.078213+00:00"
+}

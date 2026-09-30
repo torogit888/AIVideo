@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260930T084049",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 12.96,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "看看它如何從一杯尋常的可樂， 攪動了半個世紀的全球政治與商業格局，甚至在今天的俄烏戰場上， 依然能看見它所留下的複雜印記",
+      "text_cn": "看看它如何从一杯寻常的可乐， 搅动了半个世纪的全球政治与商业格局，甚至在今天的俄乌战场上， 依然能看见它所留下的复杂印记",
+      "start_sec": 0.0,
+      "end_sec": 12.96,
+      "duration_sec": 12.96
+    }
+  ],
+  "created_at": "2026-09-30T08:40:49.368118+00:00"
+}

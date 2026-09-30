@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260930T084233",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.52,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "其中包括一艘巡洋艦，一艘護衛艦，甚至還有十七艘潛水艇， 它的規模在當時足以位列世界第六大海軍， 比當時的阿根廷或義大利海軍還要強大，這讓美國軍方都感到震驚，",
+      "text_cn": "其中包括一艘巡洋舰，一艘护卫舰，甚至还有十七艘潜水艇， 它的规模在当时足以位列世界第六大海军， 比当时的阿根廷或意大利海军还要强大，这让美国军方都感到震惊，",
+      "start_sec": 0.0,
+      "end_sec": 16.52,
+      "duration_sec": 16.52
+    }
+  ],
+  "created_at": "2026-09-30T08:42:33.429841+00:00"
+}

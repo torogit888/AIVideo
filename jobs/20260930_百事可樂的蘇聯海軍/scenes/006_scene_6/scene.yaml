@@ -1,0 +1,29 @@
+id: 006_scene_6
+index: 6
+title: 第 6 幕
+narration: 其中包括一艘巡洋艦，一艘護衛艦，甚至還有十七艘潛水艇， 它的規模在當時足以位列世界第六大海軍， 比當時的阿根廷或義大利海軍還要強大，這讓美國軍方都感到震驚，
+image_prompt: Q版 2D 卡通插畫 style, a wide shot showing a Q-version Pepsi-Cola bottle/can,
+  hands on its tiny hips, looking very confident. It oversees a vast, cartoonishly
+  rendered fleet of Q-version Soviet warships on simplified blue water. The fleet
+  clearly includes one generic cruiser, one generic frigate, and multiple submarines
+  (represented by several periscopes and conning towers poking out of the water).
+  In the background, a simplified, shocked Q-version American military general (generic,
+  not a specific character) has wide eyes and a dropped jaw. The lighting is bright
+  and even.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260930T084233
+  image_take: image_20260930T084219
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Soviet Navy Kresta II-class cruiser
+  source_title: Kresta II-class cruiser
+  source_url: https://upload.wikimedia.org/wikipedia/commons/2/23/Cruiser_Admiral_Yumashev.jpg

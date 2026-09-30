@@ -1,8 +1,7 @@
 id: 001_scene_1
 index: 1
 title: 第 1 幕
-narration: 你敢相信一家賣汽水的公司，在冷戰最高峰時期，曾經坐擁一支比許多國家海軍還龐大的艦隊嗎 [surprise-wa]， 這聽起來像是天方夜譚，卻是真實發生在人類歷史上，
-  沒錯，就是那個我們耳熟能詳的百事可樂， 一場跨越意識形態的商業奇蹟，顛覆了所有人的想像，
+narration: 這件雅州氣業的氣劃能過關是個奇基。在奇趴的截止日其前。有膽世界到樂色。用包刮的時厚。品直汗直量也有什麼關西啊？
 image_prompt: a dramatic wide establishing shot of a classic Pepsi-Cola bottle standing
   proudly on a stylized vintage world map, surrounded by a fleet of stylized cute
   Soviet Submarines and Naval Cruisers. The atmosphere is full of historical wonder
@@ -12,8 +11,8 @@ locks:
   speech: false
   image: false
 current:
-  speech_take: speech_20260929T100217
-  image_take: image_20260929T163316
+  speech_take: null
+  image_take: null
 pip:
   enabled: false
   image: null

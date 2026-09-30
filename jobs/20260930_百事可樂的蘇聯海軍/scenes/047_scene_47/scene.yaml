@@ -1,0 +1,18 @@
+id: 047_scene_47
+index: 47
+title: 第 47 幕
+narration: 這與冷戰時期百事可樂作為破冰者的角色形成了強烈對比， 當時它是將西方商品帶入蘇聯的先鋒，而現在， 它卻在衝突中堅守俄羅斯市場，這兩者背後， 是否都隱藏著對市場和利潤的考量呢
+  [question-ei]，
+image_prompt: Q版 2D 卡通插畫 style, a wide shot with a split image. On one side, a Q-version
+  Pepsi-Cola bottle/can, looking heroic, breaks through a stylized 'Iron Curtain'
+  (depicted as ice). On the other side, the same Q-version Pepsi-Cola bottle/can,
+  looking determined, stands firm on a simplified map of Russia amidst abstract conflict
+  symbols. A stylized question mark visually connects the two sides. The lighting
+  is bright and even.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260930T091733
+  image_take: image_20260930T091651

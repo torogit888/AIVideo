@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260930T084411",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 18.59,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "這句話背後，藏著怎樣的驚天交易，又折射出怎樣的時代變革， 一家飲料公司，怎麼會捲入如此深層的軍事與政治交易， 這一切究竟是如何發生的，這段歷史的荒謬與真實， 足以讓所有人瞠目結舌",
+      "text_cn": "这句话背后，藏着怎样的惊天交易，又折射出怎样的时代变革， 一家饮料公司，怎么会卷入如此深层的军事与政治交易， 这一切究竟是如何发生的，这段历史的荒谬与真实， 足以让所有人瞠目结舌",
+      "start_sec": 0.0,
+      "end_sec": 18.59,
+      "duration_sec": 18.59
+    }
+  ],
+  "created_at": "2026-09-30T08:44:11.405128+00:00"
+}

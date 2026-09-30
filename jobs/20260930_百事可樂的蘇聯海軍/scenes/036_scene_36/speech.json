@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260930T090739",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.92,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "這充分展現了百事可樂作為一家跨國企業， 在面對複雜國際政治與經濟環境時， 其靈活的商業策略和驚人的資源整合能力，將不可能變為可能，",
+      "text_cn": "这充分展现了百事可乐作为一家跨国企业， 在面对复杂国际政治与经济环境时， 其灵活的商业策略和惊人的资源整合能力，将不可能变为可能，",
+      "start_sec": 0.0,
+      "end_sec": 13.92,
+      "duration_sec": 13.92
+    }
+  ],
+  "created_at": "2026-09-30T09:07:39.439900+00:00"
+}

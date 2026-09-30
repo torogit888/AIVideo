@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20260930T083914",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 85369347,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, \nchibi characters, clean line art, cell shading, flat colors, \nvisual novel style, crisp details, vibrant and cheerful color palette, \nsingle coherent scene, non-split screen, unified single viewpoint, \nwide-angle coherent view, one main environment, \nhighly detailed and intricate background, \npacked with objects and props, \ndynamic composition within a single panel，Q版 2D 卡通插畫 style, a medium shot focusing on a Q-version Pepsi-Cola bottle/can, looking bewildered but also a bit mischievous, with a cartoonish question mark floating above its head. It is surrounded by simplified, toy-like Q-version warships: a generic cruiser, a generic frigate, and a generic submarine, all floating on simplified blue water. The lighting is even and bright.",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-09-30T08:39:14.251320+00:00"
+}

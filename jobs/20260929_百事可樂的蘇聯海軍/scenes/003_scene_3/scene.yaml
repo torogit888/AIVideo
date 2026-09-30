@@ -11,10 +11,10 @@ locks:
   speech: false
   image: false
 current:
-  speech_take: speech_20260929T100333
+  speech_take: null
   image_take: null
 pip:
-  enabled: true
+  enabled: false
   image: pip.png
   position: right-center
   mode: spotlight

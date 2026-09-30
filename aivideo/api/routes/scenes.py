@@ -8,6 +8,7 @@ from fastapi import APIRouter, HTTPException, BackgroundTasks
 import yaml
 
 from aivideo.api.schemas import (
+    FetchScenePipRequest,
     SceneDetail,
     ScenePatchRequest,
     ScenePipConfig,
@@ -161,6 +162,7 @@ def list_scenes(job_id: str) -> List[SceneSummary]:
                     narration=data.get("narration", ""),
                     pip_query=pip_query,
                     has_pip=status.has_pip,
+                    pip_enabled=bool(pip_data.get("enabled", False)),
                     pip_mode=pip_data.get("mode", "pip"),
                     pip_error=None if status.has_pip else pip_error,
                     status=status,
@@ -278,14 +280,15 @@ def regenerate_scene_audio(
 
 
 @router.post("/{scene_id}/pip")
-def fetch_scene_pip(job_id: str, scene_id: str):
-    """為單一分鏡檢索並下載考據照片 (pip.png)"""
+def fetch_scene_pip(job_id: str, scene_id: str, req: Optional[FetchScenePipRequest] = None):
+    """為單一分鏡檢索並下載考據照片 (pip.png)，支援傳入自訂檢索詞覆蓋。"""
     scene_dir = JOBS_DIR / job_id / "scenes" / scene_id
     if not scene_dir.is_dir():
         raise HTTPException(status_code=404, detail="分鏡不存在")
 
+    custom_q = req.query.strip() if (req and req.query and req.query.strip()) else None
     from aivideo.auto_pip import fetch_single_scene_pip
-    ok = fetch_single_scene_pip(scene_dir)
+    ok = fetch_single_scene_pip(scene_dir, query=custom_q)
     if not ok:
         raise HTTPException(status_code=400, detail="未檢索到合適考據照片或未指定檢索詞")
     return {"message": "考據照片已成功下載並套用", "job_id": job_id, "scene_id": scene_id}
@@ -341,4 +344,48 @@ def clear_scene_image(job_id: str, scene_id: str):
             pass
 
     return get_scene_detail(job_id, scene_id)
+
+
+@router.delete("/{scene_id}/pip")
+def clear_scene_pip(job_id: str, scene_id: str):
+    """單幕清空考據圖 (pip.png) 並重置考據狀態"""
+    job_dir = JOBS_DIR / job_id
+    scene_dir = job_dir / "scenes" / scene_id
+    if not scene_dir.is_dir():
+        raise HTTPException(status_code=404, detail="分鏡不存在")
+
+    pip_file = scene_dir / "pip.png"
+    if pip_file.is_file():
+        try:
+            pip_file.unlink()
+        except Exception:
+            pass
+
+    # 更新 scene.yaml
+    s_yaml = scene_dir / "scene.yaml"
+    if s_yaml.is_file():
+        try:
+            scfg = yaml.safe_load(s_yaml.read_text(encoding="utf-8")) or {}
+            pip_dict = scfg.get("pip", {}) if isinstance(scfg.get("pip"), dict) else {}
+            pip_dict["enabled"] = False
+            pip_dict["image"] = None
+            pip_dict["mode"] = "pip"
+            pip_dict["source_title"] = None
+            pip_dict["source_url"] = None
+            pip_dict["fetch_error"] = None
+            scfg["pip"] = pip_dict
+            s_yaml.write_text(yaml.safe_dump(scfg, allow_unicode=True, sort_keys=False), encoding="utf-8")
+        except Exception:
+            pass
+
+    # 清空成片目錄以利重新合成
+    compose_dir = job_dir / "compose"
+    if compose_dir.is_dir():
+        try:
+            shutil.rmtree(compose_dir)
+        except Exception:
+            pass
+
+    return get_scene_detail(job_id, scene_id)
+
 

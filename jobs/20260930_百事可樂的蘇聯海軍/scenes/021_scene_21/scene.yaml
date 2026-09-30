@@ -1,0 +1,16 @@
+id: 021_scene_21
+index: 21
+title: 第 21 幕
+narration: 它成為了第一家在蘇聯生產和銷售的西方消費品公司， 這筆交易不僅解決了盧布的困境， 也讓百事可樂在蘇聯市場站穩了腳跟，伏特加的成功交換，
+image_prompt: Q版 2D 卡通插畫 style, a wide shot of a Q-version Pepsi-Cola bottle/can,
+  looking triumphant, standing firmly on a simplified map of the Soviet Union. Around
+  it, several Q-version Soviet Citizens (archetypes), with happy expressions, are
+  drinking Pepsi. A stylized, broken padlock, representing the Ruble problem, lies
+  on the ground. The lighting is bright and even.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260930T085343
+  image_take: image_20260930T085300

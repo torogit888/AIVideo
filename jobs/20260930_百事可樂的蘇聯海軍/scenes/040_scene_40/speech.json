@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260930T091051",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.57,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "這筆交易在西方也引起了爭議， 一家美國公司是否應該從一個衰落大國的軍事資產中獲利， 這種行為是否加速了蘇聯的解體，這些問題至今仍引人深思，",
+      "text_cn": "这笔交易在西方也引起了争议， 一家美国公司是否应该从一个衰落大国的军事资产中获利， 这种行为是否加速了苏联的解体，这些问题至今仍引人深思，",
+      "start_sec": 0.0,
+      "end_sec": 14.57,
+      "duration_sec": 14.57
+    }
+  ],
+  "created_at": "2026-09-30T09:10:51.322695+00:00"
+}

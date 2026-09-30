@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260930T090836",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 11.8,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "這是一個關於資本如何在全球範圍內， 尋找機會並創造價值的經典案例，即便這個機會， 來自於一個超級大國的崩潰邊緣",
+      "text_cn": "这是一个关于资本如何在全球范围内， 寻找机会并创造价值的经典案例，即便这个机会， 来自于一个超级大国的崩溃边缘",
+      "start_sec": 0.0,
+      "end_sec": 11.8,
+      "duration_sec": 11.8
+    }
+  ],
+  "created_at": "2026-09-30T09:08:36.304055+00:00"
+}

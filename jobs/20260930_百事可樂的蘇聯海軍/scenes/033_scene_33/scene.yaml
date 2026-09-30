@@ -1,0 +1,16 @@
+id: 033_scene_33
+index: 33
+title: 第 33 幕
+narration: 百事可樂不僅成功解決了蘇聯盧布無法兌換的貨幣問題， 還通過這種方式，以極低的成本獲得了巨大的商業宣傳， 和在蘇聯市場的獨佔地位，試想一下，一家飲料公司買下了軍艦，
+image_prompt: Q版 2D 卡通插畫 style, a medium shot of a Q-version Pepsi-Cola bottle/can,
+  looking triumphant, standing on a stylized 'Exclusive Market' pedestal on a simplified
+  map of the Soviet Union. Around it, stylized spotlights are shining, representing
+  publicity. The broken Ruble padlock lies at its feet. The lighting is bright and
+  even.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260930T090531
+  image_take: image_20260930T090451

@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20260930T110530",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 33358393,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, \nchibi characters, clean line art, cell shading, flat colors, \nvisual novel style, crisp details, vibrant and cheerful color palette, \nsingle coherent scene, non-split screen, unified single viewpoint, \nwide-angle coherent view, one main environment, \nhighly detailed and intricate background, \npacked with objects and props, \ndynamic composition within a single panel，Q版 2D 卡通插畫 style, a medium shot of Nikita Khrushchev, with his distinctive round, bald head and expressive eyes, taking a sip from a Q-version Pepsi-Cola bottle/can. He has a wide, satisfied smile on his face. Donald Kendall, with his confident smile, stands nearby, beaming with triumph. A simplified Q-version camera flash is going off, and a generic Q-version photographer is visible in the background. The setting is bright and exhibition-like, with even lighting.",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-09-30T11:05:30.947189+00:00"
+}

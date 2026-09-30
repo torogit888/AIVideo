@@ -42,8 +42,19 @@ export const api = {
   getJobs: () => request<JobSummary[]>("/jobs"),
   getJobDetail: (id: string) => request<JobDetail>(`/jobs/${id}`),
   createJob: (data: any) => request<JobSummary>("/jobs", { method: "POST", body: JSON.stringify(data) }),
-  updateJob: (id: string, patch: { title?: string; voice_id?: string; style_id?: string; image_model?: string }) =>
-    request<JobSummary>(`/jobs/${id}`, { method: "PATCH", body: JSON.stringify(patch) }),
+  updateJob: (
+    id: string,
+    patch: {
+      title?: string;
+      voice_id?: string;
+      style_id?: string;
+      image_model?: string;
+      custom_prompt?: string;
+      outline?: string;
+      tone_id?: string;
+      script?: string;
+    }
+  ) => request<JobSummary>(`/jobs/${id}`, { method: "PATCH", body: JSON.stringify(patch) }),
   deleteJob: (id: string) => request<any>(`/jobs/${id}`, { method: "DELETE" }),
   clearJobMedia: (id: string) => request<any>(`/jobs/${id}/clear`, { method: "POST" }),
   clearJobImages: (id: string) => request<any>(`/jobs/${id}/clear-images`, { method: "POST" }),
@@ -128,10 +139,15 @@ export const api = {
     request<any>(`/jobs/${jobId}/scenes/${sceneId}/image`, { method: "POST" }),
   clearSceneImage: (jobId: string, sceneId: string) =>
     request<SceneDetail>(`/jobs/${jobId}/scenes/${sceneId}/image`, { method: "DELETE" }),
+  clearScenePip: (jobId: string, sceneId: string) =>
+    request<SceneDetail>(`/jobs/${jobId}/scenes/${sceneId}/pip`, { method: "DELETE" }),
   regenerateAudio: (jobId: string, sceneId: string) =>
     request<any>(`/jobs/${jobId}/scenes/${sceneId}/audio`, { method: "POST" }),
-  fetchScenePip: (jobId: string, sceneId: string) =>
-    request<any>(`/jobs/${jobId}/scenes/${sceneId}/pip`, { method: "POST" }),
+  fetchScenePip: (jobId: string, sceneId: string, query?: string) =>
+    request<any>(`/jobs/${jobId}/scenes/${sceneId}/pip`, {
+      method: "POST",
+      body: JSON.stringify(query ? { query } : {}),
+    }),
 
   // 腳本與大綱
   generateOutline: (topic: string, toneId: string, model?: string, userPrompt?: string) =>

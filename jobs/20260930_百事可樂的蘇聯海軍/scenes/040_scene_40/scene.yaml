@@ -1,0 +1,16 @@
+id: 040_scene_40
+index: 40
+title: 第 40 幕
+narration: 這筆交易在西方也引起了爭議， 一家美國公司是否應該從一個衰落大國的軍事資產中獲利， 這種行為是否加速了蘇聯的解體，這些問題至今仍引人深思，
+image_prompt: Q版 2D 卡通插畫 style, a medium shot of a Q-version Pepsi-Cola bottle/can,
+  looking slightly defensive, standing on a simplified scale. On one side, a pile
+  of stylized money. On the other, a crumbling Q-version Soviet building. Above the
+  scale, stylized question marks are floating, representing the controversy. The lighting
+  is bright and even.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260930T091051
+  image_take: image_20260930T090947

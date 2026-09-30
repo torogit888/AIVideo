@@ -293,7 +293,7 @@ export const StoryboardGrid: React.FC = () => {
                         )}
 
                         {/* 右半部置中真實考據畫中畫 (PiP) 浮動預覽卡（依原照比例自適應，不裁切） */}
-                        {scene.status.has_pip && scene.status.pip_url && (
+                        {scene.pip_enabled && scene.status.has_pip && scene.status.pip_url && (
                           <div
                             className="absolute top-1/2 -translate-y-1/2 right-2 max-w-[28%] max-h-[75%] rounded border-[1.5px] border-white/90 bg-black/95 p-0.5 overflow-hidden shadow-xl z-10 transition-transform group-hover:scale-105 flex items-center justify-center"
                             title={`PiP 真實考據圖 (右半部置中): ${scene.pip_query || "pip.png"}`}
@@ -342,7 +342,7 @@ export const StoryboardGrid: React.FC = () => {
                     </div>
 
                     {/* 左下角 PiP 考據實體標籤 */}
-                    {(scene.status.has_pip || scene.pip_query || scene.pip_error) && (
+                    {scene.pip_enabled && (scene.status.has_pip || scene.pip_query || scene.pip_error) && (
                       <div className="absolute bottom-1.5 left-1.5 max-w-[62%] z-10">
                         {scene.status.has_pip ? (
                           <span

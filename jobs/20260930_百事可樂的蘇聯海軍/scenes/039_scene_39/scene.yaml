@@ -1,0 +1,17 @@
+id: 039_scene_39
+index: 39
+title: 第 39 幕
+narration: 它提供了稀缺的西方商品，滿足了人們對美好生活的渴望， 但另一方面，它也反映了國家資源的流失，和經濟的混亂， 甚至可以說，是國家尊嚴的一種折損
+  [sigh]，
+image_prompt: Q版 2D 卡通插畫 style, a close-up on a Q-version Soviet Citizen (archetype),
+  happily holding a Q-version Pepsi-Cola bottle/can, but with a stylized tear rolling
+  down their cheek. In the background, simplified, cartoonish national symbols (e.g.,
+  a flag, a building) are cracking or fading, representing loss of dignity and resources.
+  The lighting is bright and even.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260930T090930
+  image_take: image_20260930T090907

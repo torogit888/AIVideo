@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260930T084932",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 8.35,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "這就好像你賣了很多貨，卻只能收到一堆無法在國際上使用的錢， 那該怎麼辦 [question-ei]，",
+      "text_cn": "这就好像你卖了很多货，却只能收到一堆无法在国际上使用的钱， 那该怎么办 [question-ei]，",
+      "start_sec": 0.0,
+      "end_sec": 8.35,
+      "duration_sec": 8.35
+    }
+  ],
+  "created_at": "2026-09-30T08:49:32.601195+00:00"
+}

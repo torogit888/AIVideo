@@ -1,0 +1,27 @@
+id: 010_scene_10
+index: 10
+title: 第 10 幕
+narration: 然而，即便在最冰冷的對峙中，商業的觸角依然試圖尋找縫隙， 一九五九年，莫斯科舉辦了一場美國國家展覽會， 這是一個極其特殊的場合，旨在向蘇聯人民展示美國的生活方式，
+image_prompt: Q版 2D 卡通插畫 style, a wide shot depicting the American National Exhibition
+  in Moscow. A simplified, modern-looking exhibition hall in vibrant, American-style
+  colors stands out against the blocky, muted Q-version Soviet architecture in the
+  background. Several Q-version Soviet Citizens (archetypes), with large, hopeful
+  eyes and slightly parted mouths, are peeking curiously into the exhibition, looking
+  intrigued. The lighting is bright and even.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260930T084506
+  image_take: null
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: 1959 American National Exhibition Moscow
+  source_title: American National Exhibition
+  source_url: https://upload.wikimedia.org/wikipedia/commons/d/d4/Nixon_and_Krushchev_%2846792026815%29.jpg

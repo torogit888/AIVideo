@@ -1,0 +1,15 @@
+id: 041_scene_41
+index: 41
+title: 第 41 幕
+narration: 這筆交易也標誌著一個時代的終結，冷戰時期的冰冷對峙， 逐漸被資本的熱潮所取代，曾經代表國家力量的軍艦， 最終淪為商業交易的籌碼，這不僅是百事可樂的歷史，
+image_prompt: Q版 2D 卡通插畫 style, a medium shot of a Q-version Soviet Cruiser (Decommissioned)
+  being used as a poker chip on a stylized poker table. A Q-version Pepsi-Cola bottle/can,
+  looking serious, is pushing the chip forward. The background shows a fading 'Iron
+  Curtain' dissolving into stylized dollar signs. The lighting is bright and even.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260930T091131
+  image_take: image_20260930T091109

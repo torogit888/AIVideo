@@ -1,0 +1,18 @@
+id: 020_scene_20
+index: 20
+title: 第 20 幕
+narration: 這不僅僅是簡單的商品交換，更是兩種意識形態下， 經濟模式的奇妙融合，在計劃經濟的蘇聯，和市場經濟的美國之間， 百事可樂找到了這樣一種獨特的易貨貿易模式
+  [surprise-wa]，
+image_prompt: Q版 2D 卡通插畫 style, a medium shot depicting a stylized Q-version scale.
+  On one side, a simplified Q-version Soviet hammer and sickle symbol (generic, cartoonish)
+  with a pile of vodka bottles. On the other side, a simplified Q-version American
+  dollar sign with a pile of Pepsi-Cola bottles/cans. The scale is perfectly balanced.
+  A Q-version Pepsi-Cola bottle/can stands in the middle, looking like a bridge. The
+  background is abstract with even, bright lighting.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260930T085233
+  image_take: image_20260930T085219

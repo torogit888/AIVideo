@@ -161,17 +161,50 @@ def load_tone_sample(tone_id: str) -> str:
     return tone_file.read_text(encoding="utf-8")
 
 
+def split_long_narration_line(line: str, max_chars: int = 30) -> list[str]:
+    """若單行口白包含多個逗號子句且過長，在適當的逗號停頓處拆分為多行獨立口白（每行約 15~25 字）。"""
+    line = line.strip()
+    line = re.sub(r"^[，,]+", "", line).strip()
+    if not line:
+        return []
+    if len(line) <= max_chars or "，" not in line:
+        return [line]
+
+    parts = [p.strip() for p in line.split("，") if p.strip()]
+    if len(parts) <= 1:
+        return [line]
+
+    result = []
+    current_chunk = ""
+    for part in parts:
+        if not current_chunk:
+            current_chunk = part
+        elif len(current_chunk) + len(part) + 1 <= max_chars:
+            current_chunk += "，" + part
+        else:
+            result.append(current_chunk + "，")
+            current_chunk = part
+    if current_chunk:
+        result.append(current_chunk)
+    return result
+
+
 def sanitize_script_punctuation(text: str) -> str:
     """自動清理並嚴格規範口白標點符號：
     1. 僅允許使用全形逗號「，」、問號「？」、感嘆號「！」
-    2. 嚴禁句號「。」、頓號「、」、冒號「：」、分號「；」，一律替換為全形逗號「，」
-    3. 移除各類引號「」『』""''“”‘’、括號、書名號
-    4. 壓縮過多重複標點，保留 OmniVoice [tag]
-    5. 嚴格過濾章節、幕次、場景標題行（例如：第一幕、第1幕、第二章、[第一幕]、【第3幕】等），確保純口白
+    2. 句號「。」、分號「；」自動切分為獨立換行
+    3. 頓號「、」、冒號「：」一律替換為全形逗號「，」
+    4. 移除各類引號「」『』""''“”‘’、括號、書名號
+    5. 若單行過長（>30字）且包含逗號，自動在停頓處智慧分行，維持「一句一行」
+    6. 壓縮過多重複標點，保留 OmniVoice [tag]
+    7. 嚴格過濾章節、幕次、場景標題行（例如：第一幕、第1幕、第二章、[第一幕]、【第3幕】等），確保純口白
     """
+    # 句號與分號視為句子結束，優先轉換為斷行
+    text = re.sub(r"[。；]", "\n", text)
+
     cleaned_lines = []
-    for line in text.splitlines():
-        line = line.strip()
+    for raw_line in text.splitlines():
+        line = raw_line.strip()
         if not line:
             continue
         # 嚴格過濾章節、幕次、場景標題行（避免被當成台詞朗讀）
@@ -183,8 +216,8 @@ def sanitize_script_punctuation(text: str) -> str:
             continue
         # 移除引號、書名號、圓括號（保留中括號供 OmniVoice [tag] 使用）
         line = re.sub(r"[「」『』\"'“”‘’《》〈〉（）()]", "", line)
-        # 嚴格將句號、頓號、冒號、分號轉為逗號
-        line = re.sub(r"[。、：:;；]", "，", line)
+        # 頓號、冒號轉為逗號
+        line = re.sub(r"[、：:]", "，", line)
         # 破折號、省略號轉為逗號
         line = re.sub(r"[—…]+", "，", line)
         # 壓縮重複標點
@@ -193,8 +226,16 @@ def sanitize_script_punctuation(text: str) -> str:
         line = re.sub(r"，+", "，", line)
         # 去除行首逗號
         line = re.sub(r"^[，,]+", "", line).strip()
-        if line:
-            cleaned_lines.append(line)
+        if not line:
+            continue
+
+        # 過長單行智慧切分，保證一行一句（約 15~25 字）
+        sub_lines = split_long_narration_line(line, max_chars=30)
+        for sl in sub_lines:
+            sl = re.sub(r"^[，,]+", "", sl).strip()
+            if sl:
+                cleaned_lines.append(sl)
+
     return "\n".join(cleaned_lines)
 
 
@@ -312,6 +353,13 @@ def generate_story_script(
 請嚴格依據上述大綱架構逐幕深入鋪陳，每幕展開足夠的台詞與名場面細節，切忌一筆帶過！
 """
 
+    # 依目標字數動態量化行數與每幕配額（中文口白每行約 18~22 字，以平均 20 字估算）
+    target_total_lines = max(20, round(word_count / 20))
+    min_words = int(word_count * 0.9)
+    max_words = int(word_count * 1.1)
+    # 預期 6~8 幕，以 6 幕估算每幕平均句數
+    target_lines_per_scene = max(5, round(target_total_lines / 6))
+
     prompt = f"""你是一位頂級深度故事與影片腳本創作者。
 請完全依照指定的主題、使用者要求與口吻風格範本，為我撰寫一篇深度故事腳本：
 
@@ -319,11 +367,12 @@ def generate_story_script(
 介紹：{topic}
 {user_prompt_section}
 {notes_section}
-【基本需求】
-- 字數規模：目標約 {word_count} 字的中文深度故事（適合約 10~15 分鐘的 YouTube 專題影片）
-- 篇幅與章節配額（關鍵）：
+【基本需求與字數規模配額（極重要）】
+- 字數規模：目標嚴格控制在約 {word_count} 字左右（容許區間：{min_words} ～ {max_words} 字，絕不可草率縮水亦不可無節制灌水）
+- 總口白行數要求：全文必須輸出約 {target_total_lines} 行獨立口白（一句一行）
+- 篇幅與幕次分配（關鍵）：
   * 故事請涵蓋 6～8 個完整轉折幕次（起承轉合、危機爆發、生死對決、技術/商業本質拆解、高潮反轉與歷史昇華）。
-  * 每一幕必須包含充足的口白量（每幕約 15~25 句台詞），嚴格禁止浮光掠影般草草收尾。
+  * 每一幕必須包含充足飽滿的口白量（平均每幕請分配約 {target_lines_per_scene} 行台詞），情節層層推進，嚴格禁止浮光掠影般草草收尾。
 - 人設與禁令（極為關鍵）：
   * 【絕對嚴格禁止自稱「說書人」、「小編」或出現任何「我是說書人」的語句】！
   * 開場與全篇人設視角必須 100% 嚴格依照下方【口吻風格參照】的範本與語調發聲（例如若風格範本是以提問或直接點題開場，請直接切入，切勿加入多餘自稱）。
@@ -336,7 +385,9 @@ def generate_story_script(
 - 標點符號嚴格約束：
   * 全文標點符號只允許使用全形逗號「，」、問號「？」、感嘆號「！」（絕對嚴禁使用句號「。」、冒號「：」、頓號「、」、各類引號「」“”‘’、省略號……、破折號——與括號）。
   * 問號「？」與感嘆號「！」切忌過多：絕大多數句子（90%以上）請使用全形逗號「，」銜接或行末直接換行斷句；問號與感嘆號必須極度克制，僅在真正強烈懸念或極具震撼的情緒高潮時偶爾使用（每 10~15 句至多出現 1 次），保持沉穩洗鍊的頂級質感。
-- 排版格式：請以「一句一行口白腳本」的樣式輸出，每行獨立一句話（每行約 15~25 字，適合語音逐句合成與字幕顯示）
+- 排版格式（絕對死命令：一句一行，嚴禁輸出大段落！）：
+  * 必須是「一句一行獨立口白腳本」，每行只講一句話（每行嚴格限制在 15~25 字左右，說完一句必須立即按下 Enter 換行）！
+  * 絕對嚴格禁止把多個分句用逗號串聯成一長段，每一行都必須是獨立簡潔的一句話！
 - 語氣情緒標籤（OmniVoice 專用情緒副語言）：
   請參考 OmniVoice 官方規範，在故事關鍵轉折、懸念或情緒起伏處，自然且克制地在句首或語意處嵌入對應標籤（不用太多，平均每 4~6 句至多出現 1 個，保持沉穩專業，切忌過度頻繁）：
   * [surprise-wa] 或 [surprise-ah]：發現驚人數據、歷史反轉、不可思議的名場面
@@ -401,14 +452,23 @@ def expand_story_script(
 
     tone_sample = load_tone_sample(tone_id)
 
+    target_lines = max(20, round(target_word_count / 20))
+    min_expand_words = int(target_word_count * 0.9)
+    max_expand_words = int(target_word_count * 1.1)
+
     prompt = f"""你是一位頂級專題故事與紀錄片資深編劇。
-下方是目前已經初步撰寫的一篇口白腳本。由於目前篇幅偏短、部分情節推進過快或細節不夠豐富，請你進行「深度情節擴寫與細節補強」，將其擴寫為目標約 {target_word_count} 字的宏大深度故事：
+下方是目前已經初步撰寫的一篇口白腳本。請你進行「深度情節擴寫與細節補強」，將其精準擴寫為目標約 {target_word_count} 字的深度故事：
 
 【主題】
 {topic if topic else "原腳本核心主題"}
 
 【原始腳本口白】
 {current_script.strip()}
+
+【擴寫字數與篇幅嚴格限制（極重要）】
+- 目標總字數：擴寫後全文必須嚴格控制在約 {target_word_count} 字左右（容許區間：{min_expand_words} ～ {max_expand_words} 字，嚴禁超出上限過度膨脹，亦不可擴寫不足）
+- 擴寫後總行數：全文請維持在約 {target_lines} 行獨立口白左右（每行約 18~22 字）
+- 擴寫重點：請精準針對情節薄弱或節奏跳躍處補充實質對峙、對白細節與關鍵歷史/技術數據，切忌漫無邊際冗長灌水，達到上述字數範圍即告完成！
 
 【擴寫指令與原則】
 1. 保留原本故事主線與精華亮點，在其基礎上進行「血肉充實」：
@@ -418,7 +478,7 @@ def expand_story_script(
 2. 標點符號與格式約束（極為嚴格）：
    - 全文標點符號只允許「，」、「？」、「！」（嚴禁句號「。」、頓號「、」、冒號「：」、引號、括號與破折號）。
    - 問號與感嘆號極度克制（每 10~15 句至多出現 1 次）。
-   - 必須維持「一行一句獨立口白」（每行約 15~25 字）。
+   - 必須維持「一行一句獨立口白」（每行約 15~25 字，說完一句必須立即按下 Enter 換行，絕對嚴禁多句連成大長行）。
    - 【絕對嚴格禁止】輸出任何章節標題、幕次名稱或提示前綴（嚴禁出現「第一幕」、「第X幕」等結構標籤），每一行都必須是純口白！
    - 【絕對嚴禁自稱「說書人」或「小編」】！全篇語氣人設嚴格遵照下方風格範本。
    - 外國人名、機構名一律中文通譯，避免英文。
@@ -661,23 +721,30 @@ def batch_detect_pip_queries(narrations: list[str]) -> list[str | None]:
 
     scene_items = [{"index": idx + 1, "text": text} for idx, text in enumerate(narrations)]
 
-    prompt = f"""You are an archival visual researcher and documentary editor.
+    prompt = f"""You are a master archival visual researcher and senior documentary film archivist.
 Analyze the following scene narrations for a documentary video.
-Identify scenes that mention or describe a SPECIFIC REAL-WORLD entity, historical person, actual scientific instrument/device, spacecraft, telescope, historical event, organism/species, document, or blueprint where displaying a REAL archival photograph (as a Picture-in-Picture card) would strongly enhance documentary credibility.
+Your mission is to identify scenes that describe a SPECIFIC, CONCRETE, REAL-WORLD ENTITY where showing a REAL archival photograph or authentic blueprint (as a Picture-in-Picture card) will dramatically boost audience immersion and documentary credibility.
 
 Scenes:
 {json.dumps(scene_items, ensure_ascii=False, indent=2)}
 
-INSTRUCTIONS:
-1. For scenes that clearly describe a real-world entity, person, device, spacecraft, organism, or document:
-   Provide a concise, precise search query in English suitable for image archives (e.g. "Nancy Grace Roman Space Telescope", "Hubble Space Telescope mirror", "Edward O. Wilson biologist", "Solenopsis invicta fire ant", "ASML EUV lithography machine").
-2. For scenes that are purely metaphorical, abstract transitions, or generic narrative where real photo is NOT needed or inappropriate:
-   Set query to null.
-3. Be selective: only 20%~45% of scenes usually need real archival reference cards to avoid visual clutter.
+CRITICAL QUERY GUIDELINES (STRICT SPECIFICITY, NO ABSTRACT TERMS):
+1. ABSOLUTELY FORBIDDEN TERMS:
+   - Do NOT output abstract concepts, emotions, or generic topics (e.g. "Cold War diplomacy", "naval power", "military tension", "secret trade", "space mystery", "ancient history"). Image archives and web engines return useless maps, random flags, or modern stock logos for these.
+2. MUST BE HIGHLY CONCRETE & ARCHIVAL:
+   - Military / Vehicles / Ships: Specify exact model, class, or NATO reporting name (e.g., "Project 613 Whiskey-class submarine", "KH-11 KENNEN reconnaissance satellite", "Soyuz TMA spacecraft", "Lockheed U-2 spy plane").
+   - Historical figures / Key persons: Full official name with title/role (e.g., "Donald Kendall Pepsi CEO", "Mikhail Gorbachev portrait", "Burn-Jeng Lin TSMC", "Nancy Grace Roman astronomer").
+   - Scientific Instruments / Technology: Specific device or component name (e.g., "ASML Twinscan immersion lithography", "Hubble primary mirror polishing Perkin-Elmer", "James Webb Space Telescope gold mirror").
+   - Historical events / Artifacts / Factories: Concrete archival subject (e.g., "Pepsi USSR fleet barter 1989", "Apollo 11 mission control 1969", "TSMC Hsinchu Fab 12").
+   - Chinese-specific figures, organizations or locations: You can provide English name or Chinese keyword (e.g., "林本堅 浸潤式微影", "張忠謀 台積電", "ASML 光刻機").
+3. WHEN TO RETURN NULL:
+   - If the scene narration is generic commentary, transition, philosophical thought, or purely conceptual without a tangible real-world entity, return null.
+4. SELECTIVITY:
+   - Only 25%~45% of scenes deserve an authentic archival PiP card. Quality and accuracy over quantity.
 
 OUTPUT FORMAT:
 Return a JSON array of strings or nulls, with EXACTLY {len(narrations)} items corresponding to the scenes in order:
-["Hubble Space Telescope", null, "Nancy Grace Roman", null]
+["Hubble primary mirror", null, "Donald Kendall Pepsi CEO", null]
 """
 
     for model_name in TEXT_MODELS:
@@ -1067,6 +1134,9 @@ def create_job_bundle(
     environment_anchor: str = "",
     characters: list[dict[str, str]] | None = None,
     image_model: str | None = None,
+    custom_prompt: str | None = None,
+    outline: str | None = None,
+    tone_id: str | None = None,
 ) -> Path:
     job_dir = REPO_ROOT / "jobs" / job_id
     job_dir.mkdir(parents=True, exist_ok=True)
@@ -1092,6 +1162,9 @@ def create_job_bundle(
         "title": title,
         "language": "zh-Hant",
         "voice_id": voice_id,
+        "tone_id": tone_id or "",
+        "custom_prompt": custom_prompt or "",
+        "outline": outline or "",
         "visual_anchors": visual_anchors,
         "frame": {
             "aspect": "16:9",
@@ -1138,6 +1211,15 @@ def create_job_bundle(
         script_md_lines.append(f"畫面：{s['image_prompt']}")
         script_md_lines.append(f"旁白：{s['narration']}\n")
     (job_dir / "script.md").write_text("\n".join(script_md_lines), encoding="utf-8")
+
+    # 寫入 outline.md（若有自訂 Prompt 或大綱）
+    if outline or custom_prompt:
+        outline_md_lines = [f"# {title} - 故事大綱與企劃設定\n"]
+        if custom_prompt:
+            outline_md_lines.append(f"## 指定 Prompt 與故事特定要求\n\n{custom_prompt}\n")
+        if outline:
+            outline_md_lines.append(f"## 6 幕故事大綱\n\n{outline}\n")
+        (job_dir / "outline.md").write_text("\n".join(outline_md_lines), encoding="utf-8")
 
     # 寫入各場景 scene.yaml
     for s in scenes:

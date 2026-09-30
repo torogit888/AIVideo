@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260930T091932",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 11.6,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "從一杯汽水到擁有一支海軍，再到在當代衝突中面臨道德審判， 百事可樂的整個歷程，為我們揭示了資本永不眠的本質，",
+      "text_cn": "从一杯汽水到拥有一支海军，再到在当代冲突中面临道德审判， 百事可乐的整个历程，为我们揭示了资本永不眠的本质，",
+      "start_sec": 0.0,
+      "end_sec": 11.6,
+      "duration_sec": 11.6
+    }
+  ],
+  "created_at": "2026-09-30T09:19:32.242247+00:00"
+}

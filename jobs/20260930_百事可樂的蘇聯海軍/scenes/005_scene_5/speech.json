@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260930T084149",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.59,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "一杯汽水與一支海軍，資本帝國的荒誕擴張，這不是科幻小說， 而是真實發生過的故事，百事可樂，這家全球飲料巨頭， 真的曾經擁有一支蘇聯海軍艦隊 [surprise-wa]，",
+      "text_cn": "一杯汽水与一支海军，资本帝国的荒诞扩张，这不是科幻小说， 而是真实发生过的故事，百事可乐，这家全球饮料巨头， 真的曾经拥有一支苏联海军舰队 [surprise-wa]，",
+      "start_sec": 0.0,
+      "end_sec": 14.59,
+      "duration_sec": 14.59
+    }
+  ],
+  "created_at": "2026-09-30T08:41:49.132916+00:00"
+}

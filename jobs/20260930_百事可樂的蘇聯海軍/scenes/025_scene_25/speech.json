@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260930T085729",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.76,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "這份協議的價值高達三十億美元，然而，由於缺乏足夠的伏特加， 蘇聯方面提出了一個令人震驚的替代品， 他們提出用海軍艦隊來交換百事可樂 [surprise-wa]，",
+      "text_cn": "这份协议的价值高达三十亿美元，然而，由于缺乏足够的伏特加， 苏联方面提出了一个令人震惊的替代品， 他们提出用海军舰队来交换百事可乐 [surprise-wa]，",
+      "start_sec": 0.0,
+      "end_sec": 14.76,
+      "duration_sec": 14.76
+    }
+  ],
+  "created_at": "2026-09-30T08:57:29.240632+00:00"
+}

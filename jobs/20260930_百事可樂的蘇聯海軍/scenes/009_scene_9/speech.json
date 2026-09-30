@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260930T084443",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 9.96,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "讓我們把時間線拉回到冷戰初期， 那是一個美蘇兩大陣營劍拔弩張的時代，鐵幕降臨，世界被一分為二",
+      "text_cn": "让我们把时间线拉回到冷战初期， 那是一个美苏两大阵营剑拔弩张的时代，铁幕降临，世界被一分为二",
+      "start_sec": 0.0,
+      "end_sec": 9.96,
+      "duration_sec": 9.96
+    }
+  ],
+  "created_at": "2026-09-30T08:44:43.667144+00:00"
+}

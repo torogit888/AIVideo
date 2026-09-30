@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260930T091436",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 9.96,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "作為仍在俄羅斯運營的少數西方大型企業之一， 再次面臨巨大的道德壓力與公眾審視，百事可樂聲稱，",
+      "text_cn": "作为仍在俄罗斯运营的少数西方大型企业之一， 再次面临巨大的道德压力与公众审视，百事可乐声称，",
+      "start_sec": 0.0,
+      "end_sec": 9.96,
+      "duration_sec": 9.96
+    }
+  ],
+  "created_at": "2026-09-30T09:14:36.941508+00:00"
+}

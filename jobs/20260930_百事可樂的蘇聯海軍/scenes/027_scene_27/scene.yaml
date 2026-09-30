@@ -1,0 +1,17 @@
+id: 027_scene_27
+index: 27
+title: 第 27 幕
+narration: 但它們依然是實打實的軍事資產，彼時的蘇聯， 已經急於出售這些資產，來換取急需的西方商品， 這無疑反映了其經濟的絕望狀況， 和國家財政的極度困窘
+  [sigh]，
+image_prompt: Q版 2D 卡通插畫 style, a medium shot of a generic Q-version Soviet official,
+  with a desperate expression and cartoon sweat beads, pushing the Soviet Cruiser
+  (Decommissioned) and a Soviet Submarine (Decommissioned) towards a Q-version Pepsi-Cola
+  bottle/can, which is holding a stack of stylized, colorful Western goods. The background
+  is simple and neutral, implying a transaction, with bright, even lighting.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20260930T085930
+  image_take: image_20260930T085918

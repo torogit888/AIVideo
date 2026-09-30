@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20260930T091131",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 0.95,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.01,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "這筆交易也標誌著一個時代的終結，冷戰時期的冰冷對峙， 逐漸被資本的熱潮所取代，曾經代表國家力量的軍艦， 最終淪為商業交易的籌碼，這不僅是百事可樂的歷史，",
+      "text_cn": "这笔交易也标志着一个时代的终结，冷战时期的冰冷对峙， 逐渐被资本的热潮所取代，曾经代表国家力量的军舰， 最终沦为商业交易的筹码，这不仅是百事可乐的历史，",
+      "start_sec": 0.0,
+      "end_sec": 16.01,
+      "duration_sec": 16.01
+    }
+  ],
+  "created_at": "2026-09-30T09:11:31.145746+00:00"
+}
