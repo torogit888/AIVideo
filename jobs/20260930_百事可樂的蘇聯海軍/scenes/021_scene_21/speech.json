@@ -1,5 +1,5 @@
 {
-  "take_id": "speech_20260930T085343",
+  "take_id": "speech_20261001T074901",
   "kind": "speech",
   "engine": "omnivoice",
   "model": "OmniVoice-bf16",
@@ -11,16 +11,40 @@
   "dtype": "fp16",
   "attention": "eager",
   "seed": 42,
-  "duration_sec": 14.36,
+  "duration_sec": 15.68,
   "sentences": [
     {
       "index": 1,
-      "text": "它成為了第一家在蘇聯生產和銷售的西方消費品公司， 這筆交易不僅解決了盧布的困境， 也讓百事可樂在蘇聯市場站穩了腳跟，伏特加的成功交換，",
-      "text_cn": "它成为了第一家在苏联生产和销售的西方消费品公司， 这笔交易不仅解决了卢布的困境， 也让百事可乐在苏联市场站稳了脚跟，伏特加的成功交换，",
+      "text": "它成為了第一家在蘇聯生產和銷售的西方消費品公司，",
+      "text_cn": "它成为了第一家在苏联生产和销售的西方消费品公司，",
       "start_sec": 0.0,
-      "end_sec": 14.36,
-      "duration_sec": 14.36
+      "end_sec": 5.48,
+      "duration_sec": 5.48
+    },
+    {
+      "index": 2,
+      "text": "這筆交易不僅解決了盧布的困境，",
+      "text_cn": "这笔交易不仅解决了卢布的困境，",
+      "start_sec": 5.73,
+      "end_sec": 9.15,
+      "duration_sec": 3.42
+    },
+    {
+      "index": 3,
+      "text": "也讓百事可樂在蘇聯市場站穩了腳跟，",
+      "text_cn": "也让百事可乐在苏联市场站稳了脚跟，",
+      "start_sec": 9.4,
+      "end_sec": 13.23,
+      "duration_sec": 3.83
+    },
+    {
+      "index": 4,
+      "text": "伏特加的成功交換，",
+      "text_cn": "伏特加的成功交换，",
+      "start_sec": 13.48,
+      "end_sec": 15.68,
+      "duration_sec": 2.2
     }
   ],
-  "created_at": "2026-09-30T08:53:43.045861+00:00"
+  "created_at": "2026-10-01T07:49:01.339979+00:00"
 }

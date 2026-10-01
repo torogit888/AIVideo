@@ -1,5 +1,5 @@
 {
-  "take_id": "speech_20260930T084813",
+  "take_id": "speech_20261001T074650",
   "kind": "speech",
   "engine": "omnivoice",
   "model": "OmniVoice-bf16",
@@ -11,16 +11,32 @@
   "dtype": "fp16",
   "attention": "eager",
   "seed": 42,
-  "duration_sec": 8.76,
+  "duration_sec": 9.55,
   "sentences": [
     {
       "index": 1,
-      "text": "肯德爾的遠見與手腕，為百事可樂敲開了鐵幕下的大門， 也為後來的奇聞軼事埋下了伏筆",
-      "text_cn": "肯德尔的远见与手腕，为百事可乐敲开了铁幕下的大门， 也为后来的奇闻轶事埋下了伏笔",
+      "text": "肯德爾的遠見與手腕，",
+      "text_cn": "肯德尔的远见与手腕，",
       "start_sec": 0.0,
-      "end_sec": 8.76,
-      "duration_sec": 8.76
+      "end_sec": 2.28,
+      "duration_sec": 2.28
+    },
+    {
+      "index": 2,
+      "text": "為百事可樂敲開了鐵幕下的大門，",
+      "text_cn": "为百事可乐敲开了铁幕下的大门，",
+      "start_sec": 2.53,
+      "end_sec": 5.97,
+      "duration_sec": 3.44
+    },
+    {
+      "index": 3,
+      "text": "也為後來的奇聞軼事埋下了伏筆",
+      "text_cn": "也为后来的奇闻轶事埋下了伏笔",
+      "start_sec": 6.22,
+      "end_sec": 9.55,
+      "duration_sec": 3.33
     }
   ],
-  "created_at": "2026-09-30T08:48:13.718650+00:00"
+  "created_at": "2026-10-01T07:46:50.836131+00:00"
 }

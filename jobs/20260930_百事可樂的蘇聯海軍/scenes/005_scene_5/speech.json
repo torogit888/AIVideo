@@ -1,5 +1,5 @@
 {
-  "take_id": "speech_20260930T084149",
+  "take_id": "speech_20261001T074213",
   "kind": "speech",
   "engine": "omnivoice",
   "model": "OmniVoice-bf16",
@@ -11,16 +11,40 @@
   "dtype": "fp16",
   "attention": "eager",
   "seed": 42,
-  "duration_sec": 14.59,
+  "duration_sec": 16.63,
   "sentences": [
     {
       "index": 1,
-      "text": "一杯汽水與一支海軍，資本帝國的荒誕擴張，這不是科幻小說， 而是真實發生過的故事，百事可樂，這家全球飲料巨頭， 真的曾經擁有一支蘇聯海軍艦隊 [surprise-wa]，",
-      "text_cn": "一杯汽水与一支海军，资本帝国的荒诞扩张，这不是科幻小说， 而是真实发生过的故事，百事可乐，这家全球饮料巨头， 真的曾经拥有一支苏联海军舰队 [surprise-wa]，",
+      "text": "一杯汽水與一支海軍，資本帝國的荒誕擴張，",
+      "text_cn": "一杯汽水与一支海军，资本帝国的荒诞扩张，",
       "start_sec": 0.0,
-      "end_sec": 14.59,
-      "duration_sec": 14.59
+      "end_sec": 4.4,
+      "duration_sec": 4.4
+    },
+    {
+      "index": 2,
+      "text": "這不是科幻小說，而是真實發生過的故事，",
+      "text_cn": "这不是科幻小说，而是真实发生过的故事，",
+      "start_sec": 4.65,
+      "end_sec": 8.81,
+      "duration_sec": 4.16
+    },
+    {
+      "index": 3,
+      "text": "百事可樂，這家全球飲料巨頭，",
+      "text_cn": "百事可乐，这家全球饮料巨头，",
+      "start_sec": 9.06,
+      "end_sec": 12.06,
+      "duration_sec": 3.0
+    },
+    {
+      "index": 4,
+      "text": "真的曾經擁有一支蘇聯海軍艦隊 [surprise-wa]，",
+      "text_cn": "真的曾经拥有一支苏联海军舰队 [surprise-wa]，",
+      "start_sec": 12.31,
+      "end_sec": 16.63,
+      "duration_sec": 4.32
     }
   ],
-  "created_at": "2026-09-30T08:41:49.132916+00:00"
+  "created_at": "2026-10-01T07:42:13.925040+00:00"
 }

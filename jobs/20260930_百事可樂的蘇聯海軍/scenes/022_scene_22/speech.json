@@ -1,5 +1,5 @@
 {
-  "take_id": "speech_20260930T085430",
+  "take_id": "speech_20261001T074924",
   "kind": "speech",
   "engine": "omnivoice",
   "model": "OmniVoice-bf16",
@@ -11,16 +11,48 @@
   "dtype": "fp16",
   "attention": "eager",
   "seed": 42,
-  "duration_sec": 16.24,
+  "duration_sec": 17.92,
   "sentences": [
     {
       "index": 1,
-      "text": "為後來那場更為驚人的軍艦交易，埋下了伏筆， 它證明了在極端限制下，商業創意如何能夠突破政治與經濟的壁壘， 這也預示著資本的力量，遠比我們想像的更具穿透力",
-      "text_cn": "为后来那场更为惊人的军舰交易，埋下了伏笔， 它证明了在极端限制下，商业创意如何能够突破政治与经济的壁垒， 这也预示著资本的力量，远比我们想像的更具穿透力",
+      "text": "為後來那場更為驚人的軍艦交易，埋下了伏筆，",
+      "text_cn": "为后来那场更为惊人的军舰交易，埋下了伏笔，",
       "start_sec": 0.0,
-      "end_sec": 16.24,
-      "duration_sec": 16.24
+      "end_sec": 4.6,
+      "duration_sec": 4.6
+    },
+    {
+      "index": 2,
+      "text": "它證明了在極端限制下，",
+      "text_cn": "它证明了在极端限制下，",
+      "start_sec": 4.85,
+      "end_sec": 7.37,
+      "duration_sec": 2.52
+    },
+    {
+      "index": 3,
+      "text": "商業創意如何能夠突破政治與經濟的壁壘，",
+      "text_cn": "商业创意如何能够突破政治与经济的壁垒，",
+      "start_sec": 7.62,
+      "end_sec": 11.98,
+      "duration_sec": 4.36
+    },
+    {
+      "index": 4,
+      "text": "這也預示著資本的力量，",
+      "text_cn": "这也预示著资本的力量，",
+      "start_sec": 12.23,
+      "end_sec": 14.75,
+      "duration_sec": 2.52
+    },
+    {
+      "index": 5,
+      "text": "遠比我們想像的更具穿透力",
+      "text_cn": "远比我们想像的更具穿透力",
+      "start_sec": 15.0,
+      "end_sec": 17.92,
+      "duration_sec": 2.92
     }
   ],
-  "created_at": "2026-09-30T08:54:30.684102+00:00"
+  "created_at": "2026-10-01T07:49:24.220652+00:00"
 }

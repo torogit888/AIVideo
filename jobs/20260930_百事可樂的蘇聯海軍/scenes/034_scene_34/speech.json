@@ -1,5 +1,5 @@
 {
-  "take_id": "speech_20260930T090628",
+  "take_id": "speech_20261001T075351",
   "kind": "speech",
   "engine": "omnivoice",
   "model": "OmniVoice-bf16",
@@ -11,16 +11,32 @@
   "dtype": "fp16",
   "attention": "eager",
   "seed": 42,
-  "duration_sec": 10.42,
+  "duration_sec": 11.26,
   "sentences": [
     {
       "index": 1,
-      "text": "這個故事本身就充滿了傳奇色彩，足以在全球範圍內引起轟動， 這為百事可樂帶來了巨大的品牌曝光，同時，",
-      "text_cn": "这个故事本身就充满了传奇色彩，足以在全球范围内引起轰动， 这为百事可乐带来了巨大的品牌曝光，同时，",
+      "text": "這個故事本身就充滿了傳奇色彩，",
+      "text_cn": "这个故事本身就充满了传奇色彩，",
       "start_sec": 0.0,
-      "end_sec": 10.42,
-      "duration_sec": 10.42
+      "end_sec": 3.44,
+      "duration_sec": 3.44
+    },
+    {
+      "index": 2,
+      "text": "足以在全球範圍內引起轟動，",
+      "text_cn": "足以在全球范围内引起轰动，",
+      "start_sec": 3.69,
+      "end_sec": 6.61,
+      "duration_sec": 2.92
+    },
+    {
+      "index": 3,
+      "text": "這為百事可樂帶來了巨大的品牌曝光，同時，",
+      "text_cn": "这为百事可乐带来了巨大的品牌曝光，同时，",
+      "start_sec": 6.86,
+      "end_sec": 11.26,
+      "duration_sec": 4.4
     }
   ],
-  "created_at": "2026-09-30T09:06:28.425513+00:00"
+  "created_at": "2026-10-01T07:53:51.286921+00:00"
 }

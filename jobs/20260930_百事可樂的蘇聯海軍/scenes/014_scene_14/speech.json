@@ -1,5 +1,5 @@
 {
-  "take_id": "speech_20260930T084734",
+  "take_id": "speech_20261001T074623",
   "kind": "speech",
   "engine": "omnivoice",
   "model": "OmniVoice-bf16",
@@ -11,16 +11,48 @@
   "dtype": "fp16",
   "attention": "eager",
   "seed": 42,
-  "duration_sec": 14.39,
+  "duration_sec": 16.75,
   "sentences": [
     {
       "index": 1,
-      "text": "更成了百事可樂打入蘇聯市場的入場券，當時的蘇聯， 對西方消費品充滿渴望，但又受到嚴格的限制， 百事可樂作為美國生活方式的象徵，其吸引力是巨大的，",
-      "text_cn": "更成了百事可乐打入苏联市场的入场券，当时的苏联， 对西方消费品充满渴望，但又受到严格的限制， 百事可乐作为美国生活方式的象征，其吸引力是巨大的，",
+      "text": "更成了百事可樂打入蘇聯市場的入場券，",
+      "text_cn": "更成了百事可乐打入苏联市场的入场券，",
       "start_sec": 0.0,
-      "end_sec": 14.39,
-      "duration_sec": 14.39
+      "end_sec": 4.07,
+      "duration_sec": 4.07
+    },
+    {
+      "index": 2,
+      "text": "當時的蘇聯，對西方消費品充滿渴望，",
+      "text_cn": "当时的苏联，对西方消费品充满渴望，",
+      "start_sec": 4.32,
+      "end_sec": 8.0,
+      "duration_sec": 3.68
+    },
+    {
+      "index": 3,
+      "text": "但又受到嚴格的限制，",
+      "text_cn": "但又受到严格的限制，",
+      "start_sec": 8.25,
+      "end_sec": 10.41,
+      "duration_sec": 2.16
+    },
+    {
+      "index": 4,
+      "text": "百事可樂作為美國生活方式的象徵，",
+      "text_cn": "百事可乐作为美国生活方式的象征，",
+      "start_sec": 10.66,
+      "end_sec": 14.3,
+      "duration_sec": 3.64
+    },
+    {
+      "index": 5,
+      "text": "其吸引力是巨大的，",
+      "text_cn": "其吸引力是巨大的，",
+      "start_sec": 14.55,
+      "end_sec": 16.75,
+      "duration_sec": 2.2
     }
   ],
-  "created_at": "2026-09-30T08:47:34.877033+00:00"
+  "created_at": "2026-10-01T07:46:23.851178+00:00"
 }

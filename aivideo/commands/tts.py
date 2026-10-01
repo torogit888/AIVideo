@@ -21,9 +21,45 @@ from aivideo.commands.check import _load_dotenv
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
+TAG_PATTERN = re.compile(r"\[[a-zA-Z0-9_\-]+\]")
 
-def split_sentences(text: str) -> list[str]:
-    """將台詞以標點符號與換行切分為句子，保留標點與引號，避免拆散省略號與孤立引號。"""
+
+def _visible_text_len(text: str) -> int:
+    """計算扣除 OmniVoice [tag] 後的實際可讀字元長度。"""
+    return len(TAG_PATTERN.sub("", text).strip())
+
+
+def _split_long_clause(clause: str, max_chars: int = 22) -> list[str]:
+    """若單句包含逗號且實際字數過長，在全形逗號停頓處拆為短子句（每句約 12~22 字）。"""
+    clause = clause.strip()
+    if _visible_text_len(clause) <= max_chars or "，" not in clause:
+        return [clause] if clause else []
+
+    parts = [p.strip() for p in clause.split("，") if p.strip()]
+    if len(parts) <= 1:
+        return [clause] if clause else []
+
+    sub_sentences: list[str] = []
+    current_chunk = ""
+    for part in parts:
+        if not current_chunk:
+            current_chunk = part
+        elif _visible_text_len(current_chunk + "，" + part) <= max_chars:
+            current_chunk += "，" + part
+        else:
+            sub_sentences.append(current_chunk + "，")
+            current_chunk = part
+
+    if current_chunk:
+        if clause.endswith("，") and not current_chunk.endswith("，"):
+            current_chunk += "，"
+        sub_sentences.append(current_chunk)
+
+    return sub_sentences
+
+
+def split_sentences(text: str, max_clause_chars: int = 22) -> list[str]:
+    """將台詞以換行、終止標點及全形逗號切分為句子，保留標點與引號，確保符合說書人節奏與字幕長度。"""
     lines = [line.strip() for line in text.strip().splitlines() if line.strip()]
     sentences: list[str] = []
     for line in lines:
@@ -32,8 +68,14 @@ def split_sentences(text: str) -> list[str]:
             text_part = parts[i].strip()
             punct_part = parts[i + 1].strip() if i + 1 < len(parts) else ""
             sent = (text_part + punct_part).strip()
-            if sent:
-                sentences.append(sent)
+            if not sent:
+                continue
+
+            clauses = _split_long_clause(sent, max_chars=max_clause_chars)
+            for c in clauses:
+                c = c.strip()
+                if c:
+                    sentences.append(c)
 
     return sentences or [text.strip()]
 

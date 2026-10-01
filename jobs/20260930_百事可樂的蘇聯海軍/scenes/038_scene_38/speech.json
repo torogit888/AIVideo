@@ -1,5 +1,5 @@
 {
-  "take_id": "speech_20260930T090856",
+  "take_id": "speech_20261001T075508",
   "kind": "speech",
   "engine": "omnivoice",
   "model": "OmniVoice-bf16",
@@ -11,16 +11,48 @@
   "dtype": "fp16",
   "attention": "eager",
   "seed": 42,
-  "duration_sec": 17.58,
+  "duration_sec": 20.15,
   "sentences": [
     {
       "index": 1,
-      "text": "然而，這場用汽水換軍艦的交易，也帶來了殘酷的反噬和歷史的悲劇 蘇聯解體後，百事可樂的易貨協議面臨新的挑戰和調整， 這筆交易對於當時的蘇聯人民來說，是喜憂參半的，一方面，",
-      "text_cn": "然而，这场用汽水换军舰的交易，也带来了残酷的反噬和历史的悲剧 苏联解体后，百事可乐的易货协议面临新的挑战和调整， 这笔交易对于当时的苏联人民来说，是喜忧参半的，一方面，",
+      "text": "然而，這場用汽水換軍艦的交易，",
+      "text_cn": "然而，这场用汽水换军舰的交易，",
       "start_sec": 0.0,
-      "end_sec": 17.58,
-      "duration_sec": 17.58
+      "end_sec": 3.24,
+      "duration_sec": 3.24
+    },
+    {
+      "index": 2,
+      "text": "也帶來了殘酷的反噬和歷史的悲劇 蘇聯解體後，",
+      "text_cn": "也带来了残酷的反噬和历史的悲剧 苏联解体后，",
+      "start_sec": 3.49,
+      "end_sec": 8.33,
+      "duration_sec": 4.84
+    },
+    {
+      "index": 3,
+      "text": "百事可樂的易貨協議面臨新的挑戰和調整，",
+      "text_cn": "百事可乐的易货协议面临新的挑战和调整，",
+      "start_sec": 8.58,
+      "end_sec": 12.94,
+      "duration_sec": 4.36
+    },
+    {
+      "index": 4,
+      "text": "這筆交易對於當時的蘇聯人民來說，是喜憂參半的，",
+      "text_cn": "这笔交易对于当时的苏联人民来说，是喜忧参半的，",
+      "start_sec": 13.19,
+      "end_sec": 18.26,
+      "duration_sec": 5.07
+    },
+    {
+      "index": 5,
+      "text": "一方面，",
+      "text_cn": "一方面，",
+      "start_sec": 18.51,
+      "end_sec": 20.15,
+      "duration_sec": 1.64
     }
   ],
-  "created_at": "2026-09-30T09:08:56.908792+00:00"
+  "created_at": "2026-10-01T07:55:08.411510+00:00"
 }

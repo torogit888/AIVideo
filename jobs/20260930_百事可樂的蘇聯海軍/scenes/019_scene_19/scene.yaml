@@ -11,7 +11,7 @@ locks:
   speech: false
   image: false
 current:
-  speech_take: speech_20260930T085139
+  speech_take: speech_20261001T074825
   image_take: image_20260930T085058
 pip:
   enabled: true

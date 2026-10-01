@@ -1,5 +1,5 @@
 {
-  "take_id": "speech_20260930T083927",
+  "take_id": "speech_20261001T074106",
   "kind": "speech",
   "engine": "omnivoice",
   "model": "OmniVoice-bf16",
@@ -11,16 +11,24 @@
   "dtype": "fp16",
   "attention": "eager",
   "seed": 42,
-  "duration_sec": 9.69,
+  "duration_sec": 10.41,
   "sentences": [
     {
       "index": 1,
-      "text": "一家靠賣糖水維生的企業，怎麼會搖身一變，成了擁抱巡洋艦， 護衛艦甚至潛水艇的軍事玩家 [question-ei]，",
-      "text_cn": "一家靠卖糖水维生的企业，怎么会摇身一变，成了拥抱巡洋舰， 护卫舰甚至潜水艇的军事玩家 [question-ei]，",
+      "text": "一家靠賣糖水維生的企業，怎麼會搖身一變，",
+      "text_cn": "一家靠卖糖水维生的企业，怎么会摇身一变，",
       "start_sec": 0.0,
-      "end_sec": 9.69,
-      "duration_sec": 9.69
+      "end_sec": 4.4,
+      "duration_sec": 4.4
+    },
+    {
+      "index": 2,
+      "text": "成了擁抱巡洋艦，護衛艦甚至潛水艇的軍事玩家 [question-ei]，",
+      "text_cn": "成了拥抱巡洋舰，护卫舰甚至潜水艇的军事玩家 [question-ei]，",
+      "start_sec": 4.65,
+      "end_sec": 10.41,
+      "duration_sec": 5.76
     }
   ],
-  "created_at": "2026-09-30T08:39:27.938954+00:00"
+  "created_at": "2026-10-01T07:41:06.669237+00:00"
 }

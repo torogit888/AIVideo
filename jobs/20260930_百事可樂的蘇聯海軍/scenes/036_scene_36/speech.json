@@ -1,5 +1,5 @@
 {
-  "take_id": "speech_20260930T090739",
+  "take_id": "speech_20261001T075424",
   "kind": "speech",
   "engine": "omnivoice",
   "model": "OmniVoice-bf16",
@@ -11,16 +11,40 @@
   "dtype": "fp16",
   "attention": "eager",
   "seed": 42,
-  "duration_sec": 13.92,
+  "duration_sec": 15.31,
   "sentences": [
     {
       "index": 1,
-      "text": "這充分展現了百事可樂作為一家跨國企業， 在面對複雜國際政治與經濟環境時， 其靈活的商業策略和驚人的資源整合能力，將不可能變為可能，",
-      "text_cn": "这充分展现了百事可乐作为一家跨国企业， 在面对复杂国际政治与经济环境时， 其灵活的商业策略和惊人的资源整合能力，将不可能变为可能，",
+      "text": "這充分展現了百事可樂作為一家跨國企業，",
+      "text_cn": "这充分展现了百事可乐作为一家跨国企业，",
       "start_sec": 0.0,
-      "end_sec": 13.92,
-      "duration_sec": 13.92
+      "end_sec": 4.36,
+      "duration_sec": 4.36
+    },
+    {
+      "index": 2,
+      "text": "在面對複雜國際政治與經濟環境時，",
+      "text_cn": "在面对复杂国际政治与经济环境时，",
+      "start_sec": 4.61,
+      "end_sec": 8.25,
+      "duration_sec": 3.64
+    },
+    {
+      "index": 3,
+      "text": "其靈活的商業策略和驚人的資源整合能力，",
+      "text_cn": "其灵活的商业策略和惊人的资源整合能力，",
+      "start_sec": 8.5,
+      "end_sec": 12.86,
+      "duration_sec": 4.36
+    },
+    {
+      "index": 4,
+      "text": "將不可能變為可能，",
+      "text_cn": "将不可能变为可能，",
+      "start_sec": 13.11,
+      "end_sec": 15.31,
+      "duration_sec": 2.2
     }
   ],
-  "created_at": "2026-09-30T09:07:39.439900+00:00"
+  "created_at": "2026-10-01T07:54:24.838495+00:00"
 }

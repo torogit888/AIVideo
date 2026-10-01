@@ -1,5 +1,5 @@
 {
-  "take_id": "speech_20260930T090650",
+  "take_id": "speech_20261001T075407",
   "kind": "speech",
   "engine": "omnivoice",
   "model": "OmniVoice-bf16",
@@ -11,16 +11,32 @@
   "dtype": "fp16",
   "attention": "eager",
   "seed": 42,
-  "duration_sec": 9.45,
+  "duration_sec": 10.5,
   "sentences": [
     {
       "index": 1,
-      "text": "百事可樂也在蘇聯市場獲得了持續的擴張，即便在蘇聯解體後， 它在俄羅斯市場的地位依然穩固，",
-      "text_cn": "百事可乐也在苏联市场获得了持续的扩张，即便在苏联解体后， 它在俄罗斯市场的地位依然稳固，",
+      "text": "百事可樂也在蘇聯市場獲得了持續的擴張，",
+      "text_cn": "百事可乐也在苏联市场获得了持续的扩张，",
       "start_sec": 0.0,
-      "end_sec": 9.45,
-      "duration_sec": 9.45
+      "end_sec": 4.36,
+      "duration_sec": 4.36
+    },
+    {
+      "index": 2,
+      "text": "即便在蘇聯解體後，",
+      "text_cn": "即便在苏联解体后，",
+      "start_sec": 4.61,
+      "end_sec": 6.81,
+      "duration_sec": 2.2
+    },
+    {
+      "index": 3,
+      "text": "它在俄羅斯市場的地位依然穩固，",
+      "text_cn": "它在俄罗斯市场的地位依然稳固，",
+      "start_sec": 7.06,
+      "end_sec": 10.5,
+      "duration_sec": 3.44
     }
   ],
-  "created_at": "2026-09-30T09:06:50.612391+00:00"
+  "created_at": "2026-10-01T07:54:07.390063+00:00"
 }

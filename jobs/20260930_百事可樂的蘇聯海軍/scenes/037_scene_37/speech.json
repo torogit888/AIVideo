@@ -1,5 +1,5 @@
 {
-  "take_id": "speech_20260930T090836",
+  "take_id": "speech_20261001T075449",
   "kind": "speech",
   "engine": "omnivoice",
   "model": "OmniVoice-bf16",
@@ -11,16 +11,32 @@
   "dtype": "fp16",
   "attention": "eager",
   "seed": 42,
-  "duration_sec": 11.8,
+  "duration_sec": 12.62,
   "sentences": [
     {
       "index": 1,
-      "text": "這是一個關於資本如何在全球範圍內， 尋找機會並創造價值的經典案例，即便這個機會， 來自於一個超級大國的崩潰邊緣",
-      "text_cn": "这是一个关于资本如何在全球范围内， 寻找机会并创造价值的经典案例，即便这个机会， 来自于一个超级大国的崩溃边缘",
+      "text": "這是一個關於資本如何在全球範圍內，",
+      "text_cn": "这是一个关于资本如何在全球范围内，",
       "start_sec": 0.0,
-      "end_sec": 11.8,
-      "duration_sec": 11.8
+      "end_sec": 3.88,
+      "duration_sec": 3.88
+    },
+    {
+      "index": 2,
+      "text": "尋找機會並創造價值的經典案例，即便這個機會，",
+      "text_cn": "寻找机会并创造价值的经典案例，即便这个机会，",
+      "start_sec": 4.13,
+      "end_sec": 8.97,
+      "duration_sec": 4.84
+    },
+    {
+      "index": 3,
+      "text": "來自於一個超級大國的崩潰邊緣",
+      "text_cn": "来自于一个超级大国的崩溃边缘",
+      "start_sec": 9.22,
+      "end_sec": 12.62,
+      "duration_sec": 3.4
     }
   ],
-  "created_at": "2026-09-30T09:08:36.304055+00:00"
+  "created_at": "2026-10-01T07:54:49.008019+00:00"
 }
