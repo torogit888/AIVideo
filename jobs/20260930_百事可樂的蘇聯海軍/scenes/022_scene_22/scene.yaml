@@ -12,5 +12,5 @@ locks:
   speech: false
   image: false
 current:
-  speech_take: speech_20261001T074924
-  image_take: image_20260930T085407
+  speech_take: null
+  image_take: null
