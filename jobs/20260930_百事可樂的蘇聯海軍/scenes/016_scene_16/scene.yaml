@@ -21,6 +21,7 @@ pip:
   mode: pip
   scale: 0.24
   border: 5
-  query: Soviet Ruble banknote 1970s
-  source_title: Belarus
-  source_url: https://thumb.wikimedia.org/wikipedia/commons/thumb/8/85/Flag_of_Belarus.svg/1280px-Flag_of_Belarus.svg.png
+  query: 蘇聯盧布
+  source_title: 蘇聯盧布
+  source_url: https://thumb.wikimedia.org/wikipedia/commons/thumb/0/03/Rouble-1961-Paper-1-Obverse.jpg/3840px-Rouble-1961-Paper-1-Obverse.jpg
+  fetch_error: null

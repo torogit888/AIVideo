@@ -11,6 +11,7 @@ from aivideo.commands.srt import run_srt
 from aivideo.commands.tones import run_tones
 from aivideo.commands.tts import run_tts
 from aivideo.commands.voices import run_voices
+from aivideo.commands.youtube import run_youtube
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -76,6 +77,16 @@ def build_parser() -> argparse.ArgumentParser:
     tones.add_argument("--id", help="指定口吻 ID (選填，未填由 Vertex AI 自動產生)")
     tones.add_argument("--model", help="指定使用的 Gemini Flash 模型 (例如: gemini-3.8-flash, gemini-3.5-flash)")
     tones.set_defaults(func=run_tones)
+
+    youtube = sub.add_parser("youtube", help="將合成完畢的 1080p 成片自動發布至 YouTube")
+    youtube.add_argument("--job", required=True, help="Job 目錄路徑，例如 jobs/20260916_roman_telescope")
+    youtube.add_argument("--title", help="影片標題 (預設使用 job.yaml 標題)")
+    youtube.add_argument("--description", help="影片說明內容 (預設自動組合故事大綱與時間軸章節)")
+    youtube.add_argument("--tags", help="影片標籤，逗號分隔 (例如: AI說書,宇宙,天文)")
+    youtube.add_argument("--privacy", choices=["private", "unlisted", "public"], default="unlisted", help="發布隱私狀態 (預設: unlisted 不公開)")
+    youtube.add_argument("--no-subtitles", action="store_true", help="不上傳 timeline.srt 字幕")
+    youtube.add_argument("--no-thumbnail", action="store_true", help="不上傳首幕分鏡封面圖")
+    youtube.set_defaults(func=run_youtube)
 
     for name, help_text in (
         ("parse", "把 script.md 切成場景（尚未實作）"),

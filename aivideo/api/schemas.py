@@ -22,6 +22,10 @@ class JobProgress(BaseModel):
     images_ready: int = 0
     audio_ready: int = 0
     film_ready: bool = False
+    youtube_published: bool = False
+    youtube_video_id: Optional[str] = None
+    youtube_video_url: Optional[str] = None
+    youtube_uploaded_at: Optional[str] = None
 
 
 class JobSummary(BaseModel):
@@ -78,6 +82,103 @@ class UpdateJobRequest(BaseModel):
     style_id: Optional[str] = None
     image_model: Optional[str] = None
     custom_prompt: Optional[str] = None
+
+
+# ==========================================
+# YouTube 發布
+# ==========================================
+class YouTubeChannelInfo(BaseModel):
+    id: Optional[str] = None
+    title: Optional[str] = None
+    custom_url: Optional[str] = None
+    thumbnail: Optional[str] = None
+
+
+class YouTubeAuthStatusResponse(BaseModel):
+    has_client_secret: bool
+    client_secret_path: Optional[str] = None
+    is_authenticated: bool
+    channel: Optional[YouTubeChannelInfo] = None
+    token_path: Optional[str] = None
+
+
+class YouTubePrepareResponse(BaseModel):
+    job_id: str
+    has_film: bool
+    has_srt: bool
+    has_thumbnail: bool
+    thumbnail_url: Optional[str] = None
+    default_title: str
+    default_description: str
+    default_tags: List[str]
+    default_privacy: str = "unlisted"
+    candidate_titles: List[str] = Field(default_factory=list)
+    existing_youtube: Optional[Dict[str, Any]] = None
+
+
+class YouTubeSaveMetadataRequest(BaseModel):
+    job_id: str
+    title: str
+    description: Optional[str] = None
+    tags: Optional[List[str]] = None
+    privacy_status: Optional[str] = "unlisted"
+    candidate_titles: Optional[List[str]] = None
+
+
+class YouTubeUpdateExistingRequest(BaseModel):
+    job_id: str
+    video_id: Optional[str] = None
+    title: Optional[str] = None
+    description: Optional[str] = None
+    tags: Optional[List[str]] = None
+    privacy_status: Optional[str] = None
+    upload_thumbnail: bool = True
+
+
+class YouTubeOptimizeRequest(BaseModel):
+    job_id: str
+
+
+class YouTubeOptimizeResponse(BaseModel):
+    titles: List[str]
+    best_title: str
+    description: str
+    tags: List[str]
+    thumbnail_prompt: str
+
+
+class YouTubeGenerateThumbnailRequest(BaseModel):
+    job_id: str
+    title: Optional[str] = None
+    prompt: Optional[str] = None
+
+
+class YouTubeGenerateThumbnailResponse(BaseModel):
+    success: bool
+    thumbnail_url: str
+    prompt: str
+    model: Optional[str] = None
+
+
+class YouTubeUploadRequest(BaseModel):
+    job_id: str
+    title: str
+    description: str = ""
+    tags: List[str] = Field(default_factory=lambda: ["AIVideo", "說書人", "紀錄片"])
+    privacy_status: str = Field(default="unlisted", description="private, unlisted, public")
+    upload_subtitles: bool = True
+    upload_thumbnail: bool = True
+    old_video_id: Optional[str] = None
+    old_video_action: str = Field(default="private", description="private, delete, keep")
+
+
+class YouTubeUploadStatusResponse(BaseModel):
+    is_uploading: bool
+    progress: float = 0.0
+    message: str = ""
+    error: Optional[str] = None
+    result: Optional[Dict[str, Any]] = None
+
     outline: Optional[str] = None
     tone_id: Optional[str] = None
     script: Optional[str] = None

@@ -22,6 +22,9 @@ RUN pip install --no-cache-dir \
     "zhconv>=1.4.3" \
     "streamlit>=1.35.0" \
     "fastapi>=0.110.0" \
-    "uvicorn[standard]>=0.28.0"
+    "uvicorn[standard]>=0.28.0", \
+    "google-api-python-client>=2.120.0", \
+    "google-auth-oauthlib>=1.2.0", \
+    "google-auth-httplib2>=0.2.0"
 
 WORKDIR /workspace

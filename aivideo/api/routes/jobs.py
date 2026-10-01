@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import os
 import re
 import shutil
@@ -152,11 +153,33 @@ def _calculate_job_progress(job_dir: Path) -> JobProgress:
     audio_ready = sum(1 for d in scene_dirs if (d / "speech.wav").is_file() or (d / "audio.wav").is_file())
     film_ready = (job_dir / "compose" / "film.mp4").is_file()
 
+    yt_published = False
+    yt_id = None
+    yt_url = None
+    yt_uploaded_at = None
+
+    yt_file = job_dir / "compose" / "youtube.json"
+    if yt_file.is_file():
+        try:
+            with open(yt_file, "r", encoding="utf-8") as f:
+                ydata = json.load(f)
+            if ydata.get("video_id"):
+                yt_published = True
+                yt_id = ydata.get("video_id")
+                yt_url = ydata.get("video_url")
+                yt_uploaded_at = ydata.get("uploaded_at")
+        except Exception:
+            pass
+
     return JobProgress(
         scenes_count=total_scenes,
         images_ready=images_ready,
         audio_ready=audio_ready,
         film_ready=film_ready,
+        youtube_published=yt_published,
+        youtube_video_id=yt_id,
+        youtube_video_url=yt_url,
+        youtube_uploaded_at=yt_uploaded_at,
     )
 
 

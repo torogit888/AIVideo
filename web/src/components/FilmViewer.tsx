@@ -1,19 +1,16 @@
-import React from "react";
-import { PlaySquare, Download, FileText, Film } from "lucide-react";
+import React, { useState } from "react";
+import { PlaySquare, Download, FileText, Youtube } from "lucide-react";
 import { useStudioStore } from "../store";
+import { YouTubeUploadModal } from "./YouTubeUploadModal";
 
 export const FilmViewer: React.FC = () => {
-  const { selectedJobId, scenes, openInspector, setTab } = useStudioStore();
+  const { selectedJobId } = useStudioStore();
+  const [showYouTubeModal, setShowYouTubeModal] = useState(false);
 
   const encodedJobId = selectedJobId ? encodeURIComponent(selectedJobId) : "";
   const filmUrl = encodedJobId ? `/media/jobs/${encodedJobId}/compose/film.mp4` : null;
   const srtUrl = encodedJobId ? `/media/jobs/${encodedJobId}/compose/timeline.srt` : null;
   const assUrl = encodedJobId ? `/media/jobs/${encodedJobId}/compose/timeline.ass` : null;
-
-  const handleSceneClick = (sceneId: string) => {
-    openInspector(sceneId);
-    setTab("storyboard");
-  };
 
   return (
     <div className="flex-1 flex flex-col h-full overflow-y-auto p-6 pb-20 max-w-5xl mx-auto space-y-6">
@@ -22,10 +19,20 @@ export const FilmViewer: React.FC = () => {
         <div>
           <h2 className="text-lg font-semibold text-cinema-text">成片劇院預覽</h2>
           <p className="text-xs text-cinema-muted">
-            1080p 說書人成片播放與分鏡切片時間軸 · 支援直接下載純淨影片與 YouTube SRT 字幕檔
+            1080p 說書人成片播放 · 支援一鍵發布至 YouTube 或下載純淨影片與 SRT 字幕檔
           </p>
         </div>
         <div className="flex items-center space-x-2">
+          {filmUrl && (
+            <button
+              onClick={() => setShowYouTubeModal(true)}
+              className="flex items-center h-8 px-3 rounded bg-red-600 hover:bg-red-700 text-white text-xs font-medium shadow-md transition-colors"
+              title="將成片與字幕一鍵發布至 YouTube"
+            >
+              <Youtube className="w-4 h-4 mr-1.5" />
+              <span>發布至 YouTube</span>
+            </button>
+          )}
           {filmUrl && (
             <a
               href={filmUrl}
@@ -79,44 +86,14 @@ export const FilmViewer: React.FC = () => {
         )}
       </div>
 
-      {/* 下方分鏡時間軸切片 (帶秒數標記) */}
-      <div>
-        <div className="text-xs font-medium text-cinema-muted mb-2">分鏡時間軸 (點擊跳轉精修該幕)</div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-          {scenes.map((s, idx) => {
-            const startSec = idx * 6;
-            const endSec = (idx + 1) * 6;
-            const formatTime = (sec: number) =>
-              `00:${String(sec).padStart(2, "0")}`;
-
-            return (
-              <div
-                key={s.id}
-                onClick={() => handleSceneClick(s.id)}
-                className="group relative rounded-md bg-cinema-card border border-cinema-border overflow-hidden cursor-pointer hover:border-amber-cta transition-all"
-              >
-                <div className="text-[10px] text-center font-mono py-1 text-cinema-muted bg-cinema-darker border-b border-cinema-border/50">
-                  {formatTime(startSec)} - {formatTime(endSec)}
-                </div>
-                <div className="aspect-video w-full bg-black/40 overflow-hidden">
-                  {s.status.image_url ? (
-                    <img
-                      src={s.status.image_url}
-                      alt={s.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform"
-                    />
-                  ) : (
-                    <Film className="w-6 h-6 m-auto text-cinema-muted/30" />
-                  )}
-                </div>
-                <div className="p-1.5 text-center truncate text-[11px] text-cinema-text">
-                  {s.title}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+      {/* YouTube 發布彈窗 */}
+      {selectedJobId && (
+        <YouTubeUploadModal
+          jobId={selectedJobId}
+          isOpen={showYouTubeModal}
+          onClose={() => setShowYouTubeModal(false)}
+        />
+      )}
     </div>
   );
 };

@@ -16,6 +16,11 @@ jobs/**/compose/narration.wav
 jobs/**/scenes/**/speech.wav
 jobs/**/scenes/**/image.png
 
+# 金鑰與 OAuth 憑證
+assets/credentials/*.json
+client_secret*.json
+*token*.json
+
 # 本機工具
 .vscode/
 *.log

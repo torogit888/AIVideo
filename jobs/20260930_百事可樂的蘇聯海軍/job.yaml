@@ -259,3 +259,13 @@ subtitle:
   font: NotoSansTC-Regular.otf
   font_size: 48
 kenburns: slow_zoom_in
+youtube:
+  video_id: CXNsNwm5liY
+  video_url: https://youtu.be/CXNsNwm5liY
+  studio_url: https://studio.youtube.com/video/CXNsNwm5liY/edit
+  title: 百事可樂曾是世界第六大海軍？揭秘冷戰最荒謬交易！
+  privacy_status: unlisted
+  has_subtitles: true
+  has_thumbnail: true
+  thumbnail_error: null
+  uploaded_at: '2026-10-01 06:21:47'

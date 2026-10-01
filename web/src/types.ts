@@ -3,6 +3,10 @@ export interface JobProgress {
   images_ready: number;
   audio_ready: number;
   film_ready: boolean;
+  youtube_published?: boolean;
+  youtube_video_id?: string | null;
+  youtube_video_url?: string | null;
+  youtube_uploaded_at?: string | null;
 }
 
 export interface JobSummary {
@@ -159,3 +163,86 @@ export interface AnalyzeAnchorsResponse {
 }
 
 export type NavTab = "overview" | "script" | "storyboard" | "film" | "assets" | "settings";
+
+export interface YouTubeChannelInfo {
+  id?: string;
+  title?: string;
+  custom_url?: string;
+  thumbnail?: string;
+}
+
+export interface YouTubeAuthStatus {
+  has_client_secret: boolean;
+  client_secret_path?: string | null;
+  is_authenticated: boolean;
+  channel?: YouTubeChannelInfo | null;
+  token_path?: string | null;
+}
+
+export interface YouTubePrepareData {
+  job_id: string;
+  has_film: boolean;
+  has_srt: boolean;
+  has_thumbnail: boolean;
+  thumbnail_url?: string | null;
+  default_title: string;
+  default_description: string;
+  default_tags: string[];
+  default_privacy: "private" | "unlisted" | "public";
+  candidate_titles?: string[];
+  existing_youtube?: {
+    video_id: string;
+    video_url: string;
+    studio_url: string;
+    title: string;
+    privacy_status: string;
+    has_subtitles: boolean;
+    has_thumbnail: boolean;
+    thumbnail_error?: string | null;
+    uploaded_at?: string;
+  } | null;
+}
+
+export interface YouTubeOptimizeResponse {
+  titles: string[];
+  best_title: string;
+  description: string;
+  tags: string[];
+  thumbnail_prompt: string;
+}
+
+export interface YouTubeGenerateThumbnailResponse {
+  success: boolean;
+  thumbnail_url: string;
+  prompt: string;
+  model?: string | null;
+}
+
+export interface YouTubeUploadPayload {
+  job_id: string;
+  title: string;
+  description: string;
+  tags: string[];
+  privacy_status: "private" | "unlisted" | "public";
+  upload_subtitles: boolean;
+  upload_thumbnail: boolean;
+  old_video_id?: string | null;
+  old_video_action?: "private" | "delete" | "keep";
+}
+
+export interface YouTubeUploadStatus {
+  is_uploading: boolean;
+  progress: number;
+  message: string;
+  error?: string | null;
+  result?: {
+    video_id: string;
+    video_url: string;
+    studio_url: string;
+    title: string;
+    privacy_status: string;
+    has_subtitles: boolean;
+    has_thumbnail: boolean;
+  } | null;
+}
+

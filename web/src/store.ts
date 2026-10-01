@@ -82,7 +82,9 @@ export const useStudioStore = create<StudioState>((set, get) => ({
       const currentSelected = get().selectedJobId || savedJobId;
       if (jobs.length > 0) {
         if (currentSelected && jobs.some((j) => j.id === currentSelected)) {
-          get().selectJob(currentSelected);
+          if (get().selectedJobId !== currentSelected) {
+            get().selectJob(currentSelected);
+          }
         } else {
           get().selectJob(jobs[0].id);
         }

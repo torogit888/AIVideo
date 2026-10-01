@@ -188,19 +188,34 @@ export const App: React.FC = () => {
                             <h3 className="text-sm font-semibold text-cinema-text truncate" title={j.title}>
                               {j.title}
                             </h3>
-                            {isSelected && (
-                              <span className="text-[10px] px-2 py-0.5 rounded bg-amber-cta/20 text-amber-cta font-medium shrink-0">
-                                當前作用中
-                              </span>
-                            )}
+                            <div className="flex items-center gap-1.5 shrink-0">
+                              {j.progress.youtube_published && (
+                                <a
+                                  href={j.progress.youtube_video_url || `https://youtu.be/${j.progress.youtube_video_id}`}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  onClick={(e) => e.stopPropagation()}
+                                  className="text-[10px] px-2 py-0.5 rounded bg-red-600/20 hover:bg-red-600/30 text-red-400 border border-red-500/30 font-medium flex items-center gap-1 transition-colors"
+                                  title={`已於 ${j.progress.youtube_uploaded_at || "YouTube"} 發布，點擊前往觀看`}
+                                >
+                                  <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+                                  <span>YouTube 已上架</span>
+                                </a>
+                              )}
+                              {isSelected && (
+                                <span className="text-[10px] px-2 py-0.5 rounded bg-amber-cta/20 text-amber-cta font-medium">
+                                  當前作用中
+                                </span>
+                              )}
+                            </div>
                           </div>
                           <div className="text-[11px] font-mono text-cinema-muted truncate">
                             ID: {j.id}
                           </div>
                         </div>
 
-                        {/* 進度指標 */}
-                        <div className="grid grid-cols-3 gap-2 py-2 border-y border-cinema-border/50 text-[11px]">
+                        {/* 進度指標 (4 欄位：畫面、配音、成片、YouTube) */}
+                        <div className="grid grid-cols-4 gap-2 py-2 border-y border-cinema-border/50 text-[11px]">
                           <div>
                             <span className="text-cinema-muted block text-[10px]">畫面產出</span>
                             <span className={`font-semibold ${imgReady === total && total > 0 ? "text-emerald-400" : "text-cinema-text"}`}>
@@ -217,6 +232,12 @@ export const App: React.FC = () => {
                             <span className="text-cinema-muted block text-[10px]">成片狀態</span>
                             <span className={`font-semibold ${filmReady ? "text-emerald-400" : "text-amber-500"}`}>
                               {filmReady ? "已合成" : "待合成"}
+                            </span>
+                          </div>
+                          <div>
+                            <span className="text-cinema-muted block text-[10px]">YouTube</span>
+                            <span className={`font-semibold ${j.progress.youtube_published ? "text-red-400" : "text-cinema-muted"}`}>
+                              {j.progress.youtube_published ? "已發布" : "未發布"}
                             </span>
                           </div>
                         </div>

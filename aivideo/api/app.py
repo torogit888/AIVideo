@@ -6,7 +6,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
-from aivideo.api.routes import assets, jobs, pipeline, scenes, system
+from aivideo.api.routes import assets, jobs, pipeline, scenes, system, youtube
 from aivideo.commands.check import _load_dotenv
 
 _load_dotenv()
@@ -35,6 +35,7 @@ app.include_router(jobs.router, prefix=api_v1_prefix)
 app.include_router(scenes.router, prefix=api_v1_prefix)
 app.include_router(pipeline.router, prefix=api_v1_prefix)
 app.include_router(assets.router, prefix=api_v1_prefix)
+app.include_router(youtube.router, prefix=api_v1_prefix)
 
 # 掛載靜態媒體目錄，直接支援圖片預覽與影片串流播放
 if REPO_ROOT.is_dir():

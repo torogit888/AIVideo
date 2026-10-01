@@ -8,6 +8,12 @@ import {
   SceneSummary,
   JobVisualAnchors,
   AnalyzeAnchorsResponse,
+  YouTubeAuthStatus,
+  YouTubePrepareData,
+  YouTubeOptimizeResponse,
+  YouTubeGenerateThumbnailResponse,
+  YouTubeUploadPayload,
+  YouTubeUploadStatus,
 } from "./types";
 
 const BASE_URL = "/api/v1";
@@ -245,4 +251,61 @@ export const api = {
     };
     return () => es.close();
   },
+
+  // YouTube 發布整合
+  getYouTubeStatus: () => request<YouTubeAuthStatus>("/youtube/status"),
+  uploadYouTubeSecret: (content: string) =>
+    request<{ status: string; message: string }>("/youtube/auth/secret", {
+      method: "POST",
+      body: JSON.stringify({ content }),
+    }),
+  getYouTubeAuthUrl: (redirectUri?: string) =>
+    request<{ auth_url: string }>(`/youtube/auth/url${redirectUri ? `?redirect_uri=${encodeURIComponent(redirectUri)}` : ""}`),
+  exchangeYouTubeCode: (code: string, redirectUri?: string) =>
+    request<YouTubeAuthStatus>("/youtube/auth/exchange", {
+      method: "POST",
+      body: JSON.stringify({ code, redirect_uri: redirectUri }),
+    }),
+  prepareYouTubeUpload: (jobId: string) => request<YouTubePrepareData>(`/youtube/prepare/${encodeURIComponent(jobId)}`),
+  saveYouTubeMetadata: (payload: {
+    job_id: string;
+    title: string;
+    description?: string;
+    tags?: string[];
+    privacy_status?: string;
+    candidate_titles?: string[];
+  }) =>
+    request<{ status: string; message: string }>("/youtube/metadata", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    }),
+  updateExistingYouTubeVideo: (payload: {
+    job_id: string;
+    video_id?: string;
+    title?: string;
+    description?: string;
+    tags?: string[];
+    privacy_status?: string;
+    upload_thumbnail?: boolean;
+  }) =>
+    request<any>("/youtube/update-existing", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    }),
+  optimizeYouTubeMetadata: (jobId: string) =>
+    request<YouTubeOptimizeResponse>("/youtube/optimize-metadata", {
+      method: "POST",
+      body: JSON.stringify({ job_id: jobId }),
+    }),
+  generateYouTubeThumbnail: (jobId: string, title?: string, prompt?: string) =>
+    request<YouTubeGenerateThumbnailResponse>("/youtube/generate-thumbnail", {
+      method: "POST",
+      body: JSON.stringify({ job_id: jobId, title, prompt }),
+    }),
+  uploadToYouTube: (payload: YouTubeUploadPayload) =>
+    request<{ status: string; job_id: string; message: string }>("/youtube/upload", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    }),
+  getYouTubeUploadStatus: () => request<YouTubeUploadStatus>("/youtube/upload/status"),
 };
