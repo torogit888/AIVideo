@@ -15,7 +15,7 @@ locks:
   speech: false
   image: false
 current:
-  speech_take: null
+  speech_take: speech_20261001T121226
   image_take: null
 pip:
   enabled: false
@@ -27,3 +27,4 @@ pip:
   query: Vintage Pepsi-Cola logo
   source_title: Pepsi
   source_url: https://thumb.wikimedia.org/wikipedia/commons/thumb/6/68/Pepsi_2023.svg/960px-Pepsi_2023.svg.png
+  fetch_error: null
