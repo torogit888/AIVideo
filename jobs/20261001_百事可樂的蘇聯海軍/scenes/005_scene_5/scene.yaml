@@ -1,0 +1,29 @@
+id: 005_scene_5
+index: 5
+title: 第 5 幕
+narration: 一杯汽水與一支海軍，這是資本帝國的荒誕擴張 你沒聽錯，百事可樂曾擁有的蘇聯海軍軍艦 包括十七艘潛水艇，一艘巡洋艦，一艘護衛艦，還有一艘驅逐艦
+image_prompt: A wide, slightly low-angle shot in Q版 2D 卡通插畫 style, showcasing a vast
+  fleet of chunky, toy-like Soviet Navy ships – numerous short, fat submarines, a
+  blocky cruiser, a sturdy frigate, and a destroyer – all rendered in muted Soviet
+  naval grey with simplified red stars. In the foreground, a single, vibrant, chibi-style
+  Pepsi-Cola bottle, glossy and with a bold logo, stands in stark, whimsical contrast
+  to the immense fleet. The ships float on a clean, bright blue stylized sea. Soft,
+  diffused lighting enhances the playful absurdity. 16:9 widescreen composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261002T133021
+  image_take: image_20261001T145529
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Soviet Navy fleet 1980s archival photo
+  source_title: People's Liberation Army Navy
+  source_url: https://upload.wikimedia.org/wikipedia/commons/2/25/Emblem_of_the_People%27s_Liberation_Army_Navy.png
+  fetch_error: null

@@ -1,0 +1,27 @@
+id: 036_scene_36
+index: 36
+title: 第 36 幕
+narration: 但其碳酸飲料業務並未完全停止 相關新聞報導揭示了百事可樂在俄羅斯市場的持續盈利 以及因此遭受的國際社會批評
+image_prompt: A medium shot in Q版 2D 卡通插畫 style. A vibrant, glossy, chibi-style Pepsi-Cola
+  bottle (representing soda) is playfully peeking out from behind cute, stylized illustrations
+  of milk cartons and baby food jars. Above them, stylized, blank newspaper headlines
+  and critical, chibi-style faces represent international criticism. The background
+  is a simplified, muted Russian market scene. Soft, diffused lighting highlights
+  the subtle deception. 16:9 widescreen composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261002T133754
+  image_take: image_20261001T152059
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: 百事可樂
+  source_title: 百事可樂
+  source_url: https://thumb.wikimedia.org/wikipedia/commons/thumb/6/68/Pepsi_2023.svg/langzh-960px-Pepsi_2023.svg.png

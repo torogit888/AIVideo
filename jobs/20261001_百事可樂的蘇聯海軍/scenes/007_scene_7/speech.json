@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261002T133055",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 9.85,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "我們正在比你們更快地解除蘇聯的武裝，這句話",
+      "text_cn": "我们正在比你们更快地解除苏联的武装，这句话",
+      "start_sec": 0.0,
+      "end_sec": 4.2,
+      "duration_sec": 4.2
+    },
+    {
+      "index": 2,
+      "text": "道出了多少的荒謬與不可思議 [laughter] 強烈的荒謬感與好奇心",
+      "text_cn": "道出了多少的荒谬与不可思议 [laughter] 强烈的荒谬感与好奇心",
+      "start_sec": 4.45,
+      "end_sec": 9.85,
+      "duration_sec": 5.4
+    }
+  ],
+  "created_at": "2026-10-02T13:30:55.207551+00:00"
+}

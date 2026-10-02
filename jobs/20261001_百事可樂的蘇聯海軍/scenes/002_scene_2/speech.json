@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261002T132931",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.74,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "沒錯，就是那個藍紅相間，充滿歡樂氣泡的百事可樂",
+      "text_cn": "没错，就是那个蓝红相间，充满欢乐气泡的百事可乐",
+      "start_sec": 0.0,
+      "end_sec": 4.44,
+      "duration_sec": 4.44
+    },
+    {
+      "index": 2,
+      "text": "這聽起來簡直荒謬絕倫，一家靠賣糖水維生的企業",
+      "text_cn": "这听起来简直荒谬绝伦，一家靠卖糖水维生的气业",
+      "start_sec": 4.69,
+      "end_sec": 9.09,
+      "duration_sec": 4.4
+    },
+    {
+      "index": 3,
+      "text": "怎麼會搖身一變，成了擁抱巡洋艦，護衛艦甚至潛水艇的軍事玩家 [question-ei]",
+      "text_cn": "怎么会摇身一变，成了拥抱巡洋舰，护卫舰甚至潜水艇的军事玩家 [question-ei]",
+      "start_sec": 9.34,
+      "end_sec": 15.74,
+      "duration_sec": 6.4
+    }
+  ],
+  "created_at": "2026-10-02T13:29:31.883043+00:00"
+}

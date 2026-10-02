@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261002T133726",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.26,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "西方世界對俄羅斯實施了嚴厲的制裁",
+      "text_cn": "西方世界对俄罗斯实施了严厉的制裁",
+      "start_sec": 0.0,
+      "end_sec": 3.36,
+      "duration_sec": 3.36
+    },
+    {
+      "index": 2,
+      "text": "許多跨國企業紛紛撤出俄羅斯市場，然而",
+      "text_cn": "许多跨国气业纷纷撤出俄罗斯市场，然而",
+      "start_sec": 3.61,
+      "end_sec": 7.21,
+      "duration_sec": 3.6
+    },
+    {
+      "index": 3,
+      "text": "百事可樂公司PepsiCo卻是少數仍在俄羅斯運營的西方大型企業之一",
+      "text_cn": "百事可乐公司PepsiCo却是少数仍在俄罗斯运营的西方大型气业之一",
+      "start_sec": 7.46,
+      "end_sec": 13.26,
+      "duration_sec": 5.8
+    }
+  ],
+  "created_at": "2026-10-02T13:37:26.655649+00:00"
+}

@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261001T152709",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 56973652,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, \nchibi characters, clean line art, cell shading, flat colors, \nvisual novel style, crisp details, vibrant and cheerful color palette, \nsingle coherent scene, non-split screen, unified single viewpoint, \nwide-angle coherent view, one main environment, \nhighly detailed and intricate background, \npacked with objects and props, \ndynamic composition within a single panel，A grand, epic wide shot in Q版 2D 卡通插畫 style. A vibrant, glossy, chibi-style Pepsi-Cola bottle stands at the center, radiating influence. It is surrounded by interconnected, stylized symbols representing capital (floating dollar signs), power (miniature crowns and simplified national flags), and humanity (a diverse array of chibi-style faces with various expressions). The background is a simplified, dynamic world map with subtle, swirling lines connecting these elements. The scene is brightly lit with soft, even light, creating a sense of a profound, interconnected narrative. 16:9 widescreen composition.",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-01T15:27:09.977418+00:00"
+}

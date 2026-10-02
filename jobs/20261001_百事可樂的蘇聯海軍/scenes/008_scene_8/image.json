@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261001T145756",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 68357839,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, \nchibi characters, clean line art, cell shading, flat colors, \nvisual novel style, crisp details, vibrant and cheerful color palette, \nsingle coherent scene, non-split screen, unified single viewpoint, \nwide-angle coherent view, one main environment, \nhighly detailed and intricate background, \npacked with objects and props, \ndynamic composition within a single panel，A wide, inquisitive shot in Q版 2D 卡通插畫 style. A large, stylized question mark hovers above a vibrant, glossy, chibi-style Pepsi-Cola bottle and a cluster of muted grey, toy-like Soviet Navy ships. The scene then transitions to a stylized world map with a soft, grey 'Iron Curtain'. A determined, slightly personified Pepsi-Cola bottle is shown playfully pushing against the 'Iron Curtain', attempting to 'knock' on a simplified, chunky silhouette of the Kremlin. Soft, diffused lighting creates an air of mystery and anticipation. 16:9 widescreen composition.",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-01T14:57:56.176868+00:00"
+}

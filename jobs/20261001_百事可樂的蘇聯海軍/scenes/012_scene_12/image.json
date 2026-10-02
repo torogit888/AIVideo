@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261001T150054",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 29880090,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, \nchibi characters, clean line art, cell shading, flat colors, \nvisual novel style, crisp details, vibrant and cheerful color palette, \nsingle coherent scene, non-split screen, unified single viewpoint, \nwide-angle coherent view, one main environment, \nhighly detailed and intricate background, \npacked with objects and props, \ndynamic composition within a single panel，A close-up shot in Q版 2D 卡通插畫 style, focusing on Nikita Khrushchev, his round, bald head and a small, wide smile, holding a glossy, chibi-style Pepsi-Cola bottle. Stylized, cartoonish lines radiate outwards from the bottle, indicating its global impact. In the background, blurred but visible, are several chibi-style Soviet Citizens with friendly, longing faces and large, hopeful eyes, looking towards the Pepsi bottle. The scene is brightly lit with soft, even light. 16:9 widescreen composition.",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-01T15:00:54.332224+00:00"
+}

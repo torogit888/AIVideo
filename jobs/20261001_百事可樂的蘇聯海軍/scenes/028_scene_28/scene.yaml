@@ -1,0 +1,18 @@
+id: 028_scene_28
+index: 28
+title: 第 28 幕
+narration: 百事可樂在蘇聯市場的獨佔地位也因此得到了鞏固 並在後續的俄羅斯市場持續擴張 這揭示了百事可樂作為一家跨國企業 在面對複雜國際政治與經濟環境時
+  其靈活的商業策略和驚人的資源整合能力 [confirmation-en]
+image_prompt: A wide shot in Q版 2D 卡通插畫 style. A vibrant, glossy, chibi-style Pepsi-Cola
+  bottle, with its bold red, white, and blue logo, stands proudly on a stylized, chunky
+  map of Russia. A small, cute crown hovers above the bottle, symbolizing its dominant
+  market position. The background is a simplified, vibrant Q版 2D 卡通插畫 world, brightly
+  lit with soft, even light, emphasizing Pepsi's strategic prowess and market expansion.
+  16:9 widescreen composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261002T133550
+  image_take: image_20261001T151343

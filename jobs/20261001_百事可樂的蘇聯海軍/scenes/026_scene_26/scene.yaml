@@ -1,0 +1,27 @@
+id: 026_scene_26
+index: 26
+title: 第 26 幕
+narration: 百事可樂隨後將這些獲得的軍艦 轉售給了一家瑞典的廢品回收公司 這些昔日威風凜凜的戰艦，最終被拆解成廢鐵
+image_prompt: A wide shot in Q版 2D 卡通插畫 style. A vibrant, glossy, chibi-style Pepsi-Cola
+  bottle is depicted comically handing over miniature, toy-like Soviet Navy ships
+  to a stylized recycling symbol or a cute, chunky recycling truck. In the background,
+  the same ships are shown in various stages of being playfully dismantled into piles
+  of stylized scrap metal. The scene is brightly lit with soft, even light, illustrating
+  the transformation from war machines to raw materials. 16:9 widescreen composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261002T133527
+  image_take: image_20261001T151148
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Ship breaking yard Soviet naval vessels archival photo
+  source_title: Icebreaker
+  source_url: https://upload.wikimedia.org/wikipedia/commons/9/97/120106-G-IA651-272_%286668116881%29.jpg

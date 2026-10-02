@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Sparkles, MoreVertical, Play, Square, Loader2, Trash2 } from "lucide-react";
+import { Sparkles, MoreVertical, Play, Square, Loader2, Trash2, Clock } from "lucide-react";
 import { useStudioStore } from "../store";
 import { api } from "../api";
 
@@ -47,6 +47,41 @@ export const Topbar: React.FC = () => {
   const readyImages = scenes.filter((s) => s.status.has_image).length;
   const readyAudio = scenes.filter((s) => s.status.has_audio).length;
   const hasFilm = currentJob?.progress.film_ready ?? false;
+
+  // 依據目前分鏡語音時間加總並預估成片時間
+  const readyAudioScenes = scenes.filter((s) => s.status.has_audio && (s.status.duration || 0) > 0);
+  const totalAudioSec = readyAudioScenes.reduce((sum, s) => sum + (s.status.duration || 0), 0);
+
+  let estimatedTotalSec = 0;
+  if (readyAudio === totalScenes && totalScenes > 0 && totalAudioSec > 0) {
+    estimatedTotalSec = totalAudioSec;
+  } else if (readyAudioScenes.length > 0 && totalScenes > 0) {
+    const avgSec = totalAudioSec / readyAudioScenes.length;
+    estimatedTotalSec = totalAudioSec + avgSec * (totalScenes - readyAudioScenes.length);
+  } else if (currentJob?.progress.estimated_duration_sec) {
+    estimatedTotalSec = currentJob.progress.estimated_duration_sec;
+  } else if (totalScenes > 0) {
+    estimatedTotalSec = totalScenes * 5.5;
+  }
+
+  const formatDurationText = (sec: number): string => {
+    const total = Math.round(sec);
+    const m = Math.floor(total / 60);
+    const s = total % 60;
+    if (m >= 60) {
+      const h = Math.floor(m / 60);
+      const remM = m % 60;
+      return `${h}:${String(remM).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+    }
+    return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+  };
+
+  const isAllAudioDone = readyAudio === totalScenes && totalScenes > 0;
+  const durationTooltip = isAllAudioDone
+    ? `全部分鏡已完成配音，成片總長度預計為 ${formatDurationText(estimatedTotalSec)} (${Math.round(totalAudioSec)} 秒)`
+    : readyAudioScenes.length > 0
+    ? `已完成 ${readyAudio}/${totalScenes} 幕配音 (${formatDurationText(totalAudioSec)})，依平均時長預估全片長度約 ${formatDurationText(estimatedTotalSec)}`
+    : `尚未生成語音，依標準每幕 5.5 秒預估全片長度約 ${formatDurationText(estimatedTotalSec)}`;
 
   const cooldownRemaining =
     pipelineCooldown > 0
@@ -198,6 +233,14 @@ export const Topbar: React.FC = () => {
               <span className="text-cinema-muted mr-1">聲</span>
               <span className={`font-mono font-semibold ${readyAudio === totalScenes && totalScenes > 0 ? "text-emerald-400" : "text-cinema-text"}`}>
                 {readyAudio}/{totalScenes}
+              </span>
+            </span>
+            <span className="text-cinema-border/80">·</span>
+            <span className="flex items-center" title={durationTooltip}>
+              <Clock className="w-3 h-3 mr-1 text-amber-cta/80" />
+              <span className="text-cinema-muted mr-1">片長</span>
+              <span className="font-mono font-semibold text-cinema-text">
+                {isAllAudioDone ? "" : "~"}{formatDurationText(estimatedTotalSec)}
               </span>
             </span>
             <span className="text-cinema-border/80">·</span>

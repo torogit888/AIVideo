@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20261002T133754",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 10.4,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "但其碳酸飲料業務並未完全停止，相關新聞報導揭示了百事可樂在俄羅斯市場的持續盈利，以及因此遭受的國際社會批評",
+      "text_cn": "但其碳酸饮料业务并未完全停止，相关新闻报导揭示了百事可乐在俄罗斯市场的持续盈利，以及因此遭受的国际社会批评",
+      "start_sec": 0.0,
+      "end_sec": 10.4,
+      "duration_sec": 10.4
+    }
+  ],
+  "created_at": "2026-10-02T13:37:54.417246+00:00"
+}

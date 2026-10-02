@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261002T133210",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 7.85,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "但又受到嚴格的限制，而百事可樂",
+      "text_cn": "但又受到严格的限制，而百事可乐",
+      "start_sec": 0.0,
+      "end_sec": 3.0,
+      "duration_sec": 3.0
+    },
+    {
+      "index": 2,
+      "text": "作為美國生活方式的象徵，對他們有著巨大的吸引力",
+      "text_cn": "作为美国生活方式的象征，对他们有着巨大的吸引力",
+      "start_sec": 3.25,
+      "end_sec": 7.85,
+      "duration_sec": 4.6
+    }
+  ],
+  "created_at": "2026-10-02T13:32:10.333631+00:00"
+}

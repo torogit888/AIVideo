@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Image as ImageIcon, ImageOff, Volume2, CheckCircle2, AlertCircle, Mic, Camera, Search, Trash2, Play, Sparkles } from "lucide-react";
+import { Image as ImageIcon, ImageOff, Volume2, CheckCircle2, AlertCircle, Mic, MicOff, Camera, Search, Trash2, Play, Sparkles, Clock } from "lucide-react";
 import { useStudioStore } from "../store";
 import { SceneSummary, AssetVoice } from "../types";
 import { api } from "../api";
@@ -34,6 +34,42 @@ export const StoryboardGrid: React.FC = () => {
   }, [selectedJobId, loadScenes]);
 
   const currentJob = jobs.find((j) => j.id === selectedJobId);
+
+  // 依據目前分鏡語音時間加總並預估成片時間
+  const totalScenes = scenes.length;
+  const readyAudioScenes = scenes.filter((s) => s.status.has_audio && (s.status.duration || 0) > 0);
+  const totalAudioSec = readyAudioScenes.reduce((sum, s) => sum + (s.status.duration || 0), 0);
+
+  let estimatedTotalSec = 0;
+  if (readyAudioScenes.length === totalScenes && totalScenes > 0 && totalAudioSec > 0) {
+    estimatedTotalSec = totalAudioSec;
+  } else if (readyAudioScenes.length > 0 && totalScenes > 0) {
+    const avgSec = totalAudioSec / readyAudioScenes.length;
+    estimatedTotalSec = totalAudioSec + avgSec * (totalScenes - readyAudioScenes.length);
+  } else if (currentJob?.progress.estimated_duration_sec) {
+    estimatedTotalSec = currentJob.progress.estimated_duration_sec;
+  } else if (totalScenes > 0) {
+    estimatedTotalSec = totalScenes * 5.5;
+  }
+
+  const formatTime = (sec: number): string => {
+    const total = Math.round(sec);
+    const m = Math.floor(total / 60);
+    const s = total % 60;
+    if (m >= 60) {
+      const h = Math.floor(m / 60);
+      const remM = m % 60;
+      return `${h}:${String(remM).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+    }
+    return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+  };
+
+  const isAllAudioDone = readyAudioScenes.length === totalScenes && totalScenes > 0;
+  const durationTooltip = isAllAudioDone
+    ? `全部分鏡已完成配音，成片總長度預計為 ${formatTime(estimatedTotalSec)} (${Math.round(totalAudioSec)} 秒)`
+    : readyAudioScenes.length > 0
+    ? `已完成 ${readyAudioScenes.length}/${totalScenes} 幕配音 (${formatTime(totalAudioSec)})，依平均時長預估全片長度約 ${formatTime(estimatedTotalSec)}`
+    : `尚未生成語音，依標準每幕 5.5 秒預估全片長度約 ${formatTime(estimatedTotalSec)}`;
 
   const handleBatchImages = async () => {
     if (!selectedJobId) return;
@@ -80,6 +116,26 @@ export const StoryboardGrid: React.FC = () => {
       showToast("已成功清空所有分鏡圖片！語音配音與台詞已完整保留。", "success");
     } catch (e: any) {
       showToast("清空圖片失敗: " + (e.message || "未知錯誤"), "error");
+    }
+  };
+
+  const handleClearAudioOnly = async () => {
+    if (!selectedJobId) return;
+    const ok = window.confirm(
+      `⚠️ 確定要清空本專案所有分鏡已生成的配音嗎？\n\n` +
+        `• 將刪除：所有已生成的語音 (speech.wav, speech.json) 與歷史語音 Takes。\n` +
+        `• 將保留：所有分鏡已生成的畫面 (image.png)、考據圖 (pip.png)、逐幕口白台詞與提示詞 (Prompt)。\n\n` +
+        `重置後，所有分鏡將回到「待配音」狀態，您可以更換發音人或重新切句後一鍵批次配音。`
+    );
+    if (!ok) return;
+
+    try {
+      await api.clearJobAudio(selectedJobId);
+      await loadScenes(selectedJobId);
+      await loadJobs();
+      showToast("已成功清空所有分鏡配音！畫面圖片與台詞已完整保留。", "success");
+    } catch (e: any) {
+      showToast("清空配音失敗: " + (e.message || "未知錯誤"), "error");
     }
   };
 
@@ -198,6 +254,25 @@ export const StoryboardGrid: React.FC = () => {
               ))}
             </select>
           </div>
+
+          {/* 預估成片時間標籤 */}
+          {totalScenes > 0 && (
+            <div
+              className="flex items-center h-7 px-2.5 rounded-md bg-cinema-card/70 border border-cinema-border/70 text-cinema-muted space-x-1.5 shrink-0 select-none"
+              title={durationTooltip}
+            >
+              <Clock className="w-3.5 h-3.5 text-amber-cta" />
+              <span className="text-[11px]">預估片長</span>
+              <span className="font-mono font-semibold text-cinema-text text-[11px]">
+                {isAllAudioDone ? "" : "~"}{formatTime(estimatedTotalSec)}
+              </span>
+              {readyAudioScenes.length < totalScenes && readyAudioScenes.length > 0 && (
+                <span className="font-mono text-[10px] text-cinema-muted/60">
+                  (已配 {formatTime(totalAudioSec)})
+                </span>
+              )}
+            </div>
+          )}
         </div>
 
         {/* 右側：提示與危險操作 */}
@@ -209,6 +284,14 @@ export const StoryboardGrid: React.FC = () => {
           >
             <ImageOff className="w-3 h-3 mr-1 text-amber-400/80" />
             <span>清空圖片</span>
+          </button>
+          <button
+            onClick={handleClearAudioOnly}
+            className="flex items-center h-6 px-2 rounded hover:bg-sky-950/40 text-cinema-muted/80 hover:text-sky-400 border border-transparent hover:border-sky-900/60 transition-colors whitespace-nowrap text-[11px]"
+            title="僅清空所有分鏡已生成的語音配音，保留畫面圖片、考據圖與台詞"
+          >
+            <MicOff className="w-3 h-3 mr-1 text-sky-400/80" />
+            <span>清空配音</span>
           </button>
           <button
             onClick={handleClearAllMedia}
@@ -338,7 +421,7 @@ export const StoryboardGrid: React.FC = () => {
 
                     {/* 右下角秒數標籤 */}
                     <div className="absolute bottom-1.5 right-1.5 px-1.5 py-0.5 rounded bg-black/80 font-mono text-[10px] text-zinc-300 z-10">
-                      00:{String(Math.round(scene.status.duration)).padStart(2, "0")}
+                      {formatTime(scene.status.duration)}
                     </div>
 
                     {/* 左下角 PiP 考據實體標籤 */}

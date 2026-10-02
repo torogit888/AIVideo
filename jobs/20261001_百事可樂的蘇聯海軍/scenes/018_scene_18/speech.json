@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261002T133329",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 18.06,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "百事可樂也因此成為了第一家在蘇聯生產和銷售的西方消費品公司",
+      "text_cn": "百事可乐也因此成为了第一家在苏联生产和销售的西方消费品公司",
+      "start_sec": 0.0,
+      "end_sec": 5.96,
+      "duration_sec": 5.96
+    },
+    {
+      "index": 2,
+      "text": "這種易貨貿易在計劃經濟與市場經濟交界處顯得如此獨特",
+      "text_cn": "这种易货贸易在计划经济与市场经济交界处显得如此独特",
+      "start_sec": 6.21,
+      "end_sec": 11.37,
+      "duration_sec": 5.16
+    },
+    {
+      "index": 3,
+      "text": "它揭示了在極端限制下，商業創意如何突破政治與經濟的壁壘 [confirmation-en]",
+      "text_cn": "它揭示了在极端限制下，商业创意如何图破政治与经济的壁垒 [confirmation-en]",
+      "start_sec": 11.62,
+      "end_sec": 18.06,
+      "duration_sec": 6.44
+    }
+  ],
+  "created_at": "2026-10-02T13:33:29.515665+00:00"
+}

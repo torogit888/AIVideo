@@ -1,0 +1,18 @@
+id: 037_scene_37
+index: 37
+title: 第 37 幕
+narration: 這強烈對比了冷戰時期百事可樂的破冰角色 與現在其在衝突中的堅守立場 兩者背後，其實都是對市場和利潤的考量
+image_prompt: A split-screen image in Q版 2D 卡通插畫 style. On the left, a vibrant, glossy,
+  chibi-style Pepsi-Cola bottle is depicted playfully breaking through a stylized
+  'Iron Curtain', symbolizing its Cold War 'ice-breaking' role. On the right, the
+  same Pepsi bottle stands firmly on a stylized map of Russia during a conflict. Both
+  sides feature subtle, stylized dollar signs floating above the Pepsi bottle, emphasizing
+  the underlying profit motive. Soft, even lighting illuminates both scenes. 16:9
+  widescreen composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261002T133801
+  image_take: image_20261001T152146

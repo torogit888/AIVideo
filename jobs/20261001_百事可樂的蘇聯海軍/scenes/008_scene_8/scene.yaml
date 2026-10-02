@@ -1,0 +1,18 @@
+id: 008_scene_8
+index: 8
+title: 第 8 幕
+narration: 究竟這一切是如何發生的，為何一家飲料公司 會捲入如此深層的軍事與政治交易呢 [question-ei] 冷戰前線的味蕾爭奪，百事可樂如何敲開蘇聯大門
+image_prompt: A wide, inquisitive shot in Q版 2D 卡通插畫 style. A large, stylized question
+  mark hovers above a vibrant, glossy, chibi-style Pepsi-Cola bottle and a cluster
+  of muted grey, toy-like Soviet Navy ships. The scene then transitions to a stylized
+  world map with a soft, grey 'Iron Curtain'. A determined, slightly personified Pepsi-Cola
+  bottle is shown playfully pushing against the 'Iron Curtain', attempting to 'knock'
+  on a simplified, chunky silhouette of the Kremlin. Soft, diffused lighting creates
+  an air of mystery and anticipation. 16:9 widescreen composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261002T133106
+  image_take: image_20261001T145756

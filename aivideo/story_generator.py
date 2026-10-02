@@ -161,6 +161,38 @@ def load_tone_sample(tone_id: str) -> str:
     return tone_file.read_text(encoding="utf-8")
 
 
+# ========================================================
+# 繁體語音破音/多音字校正諧音映射字典
+# ========================================================
+PRONUNCIATION_WORD_MAPPINGS: dict[str, str] = {
+    "企": "氣",
+    "垃": "勒",
+    "圾": "色",
+    "角": "腳",
+    "亞": "雅",
+    "質": "直",
+    "括": "瓜",
+    "期": "棋",
+    "微": "圍",
+    "究": "舊",
+    "擊": "集",
+    "突": "圖",
+    "暫": "戰",
+    "艘": "騷",
+    "蝸": "瓜",
+    "綜": "縱",
+}
+
+
+def apply_pronunciation_mapping(text: str) -> str:
+    """將容易在語音合成模型（如 OmniVoice）中讀錯音的繁體中文字轉換為指定發音諧音字。"""
+    if not text:
+        return ""
+    for src, dst in PRONUNCIATION_WORD_MAPPINGS.items():
+        text = text.replace(src, dst)
+    return text
+
+
 def split_long_narration_line(line: str, max_chars: int = 30) -> list[str]:
     """若單行口白包含多個逗號子句且過長，在適當的逗號停頓處拆分為多行獨立口白（每行約 15~25 字）。"""
     line = line.strip()
@@ -957,7 +989,19 @@ def parse_script_lines_to_scenes(
             topic=topic,
         )
 
-    narrations = [" ".join(c) for c in chunks]
+    def _join_scene_sentences(lines: list[str]) -> str:
+        processed = []
+        for l in lines:
+            t = l.strip()
+            if not t:
+                continue
+            # 若句子末尾沒有任何標點符號，自動補上全形逗號
+            if not t.endswith(("，", "、", "。", "！", "？", "!", "?", "；")):
+                t += "，"
+            processed.append(t)
+        return "".join(processed)
+
+    narrations = [_join_scene_sentences(c) for c in chunks]
     english_prompts = batch_generate_english_image_prompts(
         narrations,
         subject_anchor=subject_anchor,
@@ -981,12 +1025,16 @@ def parse_script_lines_to_scenes(
         )
         q = pip_queries[idx - 1] if idx - 1 < len(pip_queries) else None
 
+        # 套用繁體破音/多音字校正諧音映射（確保分鏡台詞與逐句符合指定發音）
+        mapped_narration = apply_pronunciation_mapping(narration)
+        mapped_chunk = [apply_pronunciation_mapping(s) for s in chunk]
+
         scenes.append({
             "id": scene_id,
             "index": idx,
             "title": f"第 {idx} 幕",
-            "narration": narration,
-            "sentences": chunk,
+            "narration": mapped_narration,
+            "sentences": mapped_chunk,
             "image_prompt": img_prompt,
             "pip_query": q,
         })

@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261002T133923",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 19.19,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "以及它與國家權力，國際政治之間錯綜複雜的關係",
+      "text_cn": "以及它与国家权力，国际政治之间错纵复杂的关系",
+      "start_sec": 0.0,
+      "end_sec": 4.4,
+      "duration_sec": 4.4
+    },
+    {
+      "index": 2,
+      "text": "都將是人類社會永恆的命題，百事可樂的故事",
+      "text_cn": "都将是人类社会永恒的命题，百事可乐的故事",
+      "start_sec": 4.65,
+      "end_sec": 8.65,
+      "duration_sec": 4.0
+    },
+    {
+      "index": 3,
+      "text": "為我們提供了一個極端卻又真實的案例，去審視這一切",
+      "text_cn": "为我们提供了一个极端却又真实的案例，去审视这一切",
+      "start_sec": 8.9,
+      "end_sec": 13.7,
+      "duration_sec": 4.8
+    },
+    {
+      "index": 4,
+      "text": "這是一個關於商業，也是關於權力與人性的史詩 [confirmation-en]",
+      "text_cn": "这是一个关于商业，也是关于权力与人性的史诗 [confirmation-en]",
+      "start_sec": 13.95,
+      "end_sec": 19.19,
+      "duration_sec": 5.24
+    }
+  ],
+  "created_at": "2026-10-02T13:39:23.853245+00:00"
+}

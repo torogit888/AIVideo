@@ -1,0 +1,18 @@
+id: 012_scene_12
+index: 12
+title: 第 12 幕
+narration: 這張赫魯雪夫手持百事可樂的照片，迅速傳遍全球 成為了百事可樂打入蘇聯市場的入場券 當時的蘇聯人民對西方消費品充滿了渴望
+image_prompt: A close-up shot in Q版 2D 卡通插畫 style, focusing on Nikita Khrushchev,
+  his round, bald head and a small, wide smile, holding a glossy, chibi-style Pepsi-Cola
+  bottle. Stylized, cartoonish lines radiate outwards from the bottle, indicating
+  its global impact. In the background, blurred but visible, are several chibi-style
+  Soviet Citizens with friendly, longing faces and large, hopeful eyes, looking towards
+  the Pepsi bottle. The scene is brightly lit with soft, even light. 16:9 widescreen
+  composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261002T133153
+  image_take: image_20261001T150054

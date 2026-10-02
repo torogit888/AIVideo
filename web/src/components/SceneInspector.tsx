@@ -7,6 +7,7 @@ import {
   Image as ImageIcon,
   ImageOff,
   Mic,
+  MicOff,
   Save,
   Loader2,
   Volume2,
@@ -38,6 +39,7 @@ export const SceneInspector: React.FC = () => {
   const [isRegeneratingAudio, setIsRegeneratingAudio] = useState(false);
   const [isRegeneratingImage, setIsRegeneratingImage] = useState(false);
   const [isClearingImage, setIsClearingImage] = useState(false);
+  const [isClearingAudio, setIsClearingAudio] = useState(false);
   const [isClearingPip, setIsClearingPip] = useState(false);
   const [isFetchingPip, setIsFetchingPip] = useState(false);
   const [voices, setVoices] = useState<AssetVoice[]>([]);
@@ -305,6 +307,27 @@ export const SceneInspector: React.FC = () => {
     }
   };
 
+  const handleClearAudio = async () => {
+    if (!selectedJobId || !activeSceneId || !detail) return;
+    const ok = window.confirm(
+      `確定要清空第 ${detail.index} 幕已生成的語音嗎？\n\n清空後此幕將回到初始「待配音」狀態，畫面圖片與口白台詞將完整保留。`
+    );
+    if (!ok) return;
+
+    setIsClearingAudio(true);
+    try {
+      const fresh = await api.clearSceneAudio(selectedJobId, activeSceneId);
+      setDetail(fresh);
+      await loadScenes(selectedJobId);
+      await loadJobs();
+      showToast(`第 ${detail.index} 幕語音已清空，回到待配音狀態`, "success");
+    } catch (e: any) {
+      showToast("清空語音失敗: " + (e.message || "未知錯誤"), "error");
+    } finally {
+      setIsClearingAudio(false);
+    }
+  };
+
   const handleClearPip = async () => {
     if (!selectedJobId || !activeSceneId || !detail) return;
     const ok = window.confirm(
@@ -469,7 +492,7 @@ export const SceneInspector: React.FC = () => {
               )}
               <button
                 onClick={handleRegenAudio}
-                disabled={isRegeneratingAudio || isRegeneratingImage}
+                disabled={isRegeneratingAudio || isRegeneratingImage || isClearingAudio}
                 className="flex-1 flex items-center justify-center h-8 rounded bg-cinema-darker hover:bg-cinema-cardHover border border-cinema-border text-xs text-cinema-text hover:text-amber-cta transition-colors disabled:opacity-50"
               >
                 {isRegeneratingAudio ? (
@@ -484,6 +507,21 @@ export const SceneInspector: React.FC = () => {
                   </>
                 )}
               </button>
+              {detail?.status.has_audio && (
+                <button
+                  type="button"
+                  onClick={handleClearAudio}
+                  disabled={isClearingAudio || isRegeneratingAudio}
+                  className="flex items-center justify-center h-8 px-2.5 rounded bg-cinema-darker hover:bg-sky-950/40 border border-cinema-border hover:border-sky-900/60 text-xs text-cinema-muted hover:text-sky-400 transition-colors disabled:opacity-50"
+                  title="清空本幕已生成的配音，回到待配音狀態"
+                >
+                  {isClearingAudio ? (
+                    <Loader2 className="w-3.5 h-3.5 animate-spin text-sky-400" />
+                  ) : (
+                    <MicOff className="w-3.5 h-3.5" />
+                  )}
+                </button>
+              )}
             </div>
 
             {/* 2.2 專案發音人切換 */}

@@ -1,0 +1,17 @@
+id: 021_scene_21
+index: 21
+title: 第 21 幕
+narration: 這筆交易的價值高達三十億美元 由於缺乏足夠的伏特加來支付這筆巨額交易 蘇聯提出了一個令人震驚的替代品， 那就是他們的海軍艦隊 [surprise-wa]
+image_prompt: A dynamic wide shot in Q版 2D 卡通插畫 style. On the left, a large, stylized
+  dollar sign, rendered in bright, cheerful tones, with a tiny, muted bottle of Stolichnaya
+  vodka next to it, looking comically inadequate. On the right, a vast, chunky, toy-like
+  Soviet Navy Fleet, consisting of numerous submarines and surface ships in muted
+  grey, dramatically appears as a surprising alternative. The scene is brightly lit
+  with soft, even light, highlighting the shocking proposal. 16:9 widescreen composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261002T133418
+  image_take: image_20261001T150750

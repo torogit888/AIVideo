@@ -23,6 +23,8 @@ def generate_preview_html(job_dir: Path) -> Path:
     scene_folders = sorted([p for p in scenes_dir.iterdir() if p.is_dir()])
 
     rows_html: list[str] = []
+    total_audio_sec = 0.0
+    ready_audio_count = 0
 
     for s_dir in scene_folders:
         s_id = s_dir.name
@@ -52,6 +54,10 @@ def generate_preview_html(job_dir: Path) -> Path:
         if speech_json.is_file():
             try:
                 speech_meta = json.loads(speech_json.read_text(encoding="utf-8"))
+                d_sec = float(speech_meta.get("duration_sec", 0.0))
+                if d_sec > 0:
+                    total_audio_sec += d_sec
+                    ready_audio_count += 1
             except Exception:
                 pass
 
@@ -119,6 +125,19 @@ def generate_preview_html(job_dir: Path) -> Path:
           </div>
         </div>
         """
+
+    total_scenes_cnt = len(scene_folders)
+    if ready_audio_count == total_scenes_cnt and total_scenes_cnt > 0:
+        dur_desc = f"預估成片總長度：{int(total_audio_sec // 60):02d}分{int(total_audio_sec % 60):02d}秒 ({total_audio_sec:.1f}s)"
+    elif ready_audio_count > 0 and total_scenes_cnt > 0:
+        avg_s = total_audio_sec / ready_audio_count
+        est_sec = total_audio_sec + avg_s * (total_scenes_cnt - ready_audio_count)
+        dur_desc = f"預估成片時長：約 {int(est_sec // 60):02d}分{int(est_sec % 60):02d}秒 (已配 {ready_audio_count}/{total_scenes_cnt} 幕，{int(total_audio_sec // 60):02d}分{int(total_audio_sec % 60):02d}秒)"
+    elif total_scenes_cnt > 0:
+        est_sec = total_scenes_cnt * 5.5
+        dur_desc = f"預估成片時長：約 {int(est_sec // 60):02d}分{int(est_sec % 60):02d}秒"
+    else:
+        dur_desc = "無分鏡資料"
 
     full_html = f"""<!DOCTYPE html>
 <html lang="zh-TW">
@@ -267,7 +286,7 @@ def generate_preview_html(job_dir: Path) -> Path:
 <body>
   <div class="container">
     <h1>{title}</h1>
-    <p class="subtitle">AIVideo 故事板與成片預覽系統 · 自動生成於 {scenes_dir.parent.name}</p>
+    <p class="subtitle">共 {total_scenes_cnt} 幕分鏡 · {dur_desc} · 自動生成於 {scenes_dir.parent.name}</p>
     
     {film_section}
 

@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261002T133311",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.54,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "百事可樂用濃縮液交換蘇聯國產的史托利契納伏特加",
+      "text_cn": "百事可乐用浓缩液交换苏联国产的史托利契纳伏特加",
+      "start_sec": 0.0,
+      "end_sec": 4.76,
+      "duration_sec": 4.76
+    },
+    {
+      "index": 2,
+      "text": "百事可樂隨後獲得了在美國獨家銷售這種伏特加的權利 [surprise-wa] 這不僅僅是商品交換",
+      "text_cn": "百事可乐随后获得了在美国独家销售这种伏特加的权利 [surprise-wa] 这不仅仅是商品交换",
+      "start_sec": 5.01,
+      "end_sec": 12.53,
+      "duration_sec": 7.52
+    },
+    {
+      "index": 3,
+      "text": "更是兩種意識形態下經濟模式的奇妙融合",
+      "text_cn": "更是两种意识形态下经济模式的奇妙融合",
+      "start_sec": 12.78,
+      "end_sec": 16.54,
+      "duration_sec": 3.76
+    }
+  ],
+  "created_at": "2026-10-02T13:33:11.992063+00:00"
+}

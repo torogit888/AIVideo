@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261001T150527",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 16685792,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, \nchibi characters, clean line art, cell shading, flat colors, \nvisual novel style, crisp details, vibrant and cheerful color palette, \nsingle coherent scene, non-split screen, unified single viewpoint, \nwide-angle coherent view, one main environment, \nhighly detailed and intricate background, \npacked with objects and props, \ndynamic composition within a single panel，A wide shot in Q版 2D 卡通插畫 style. A vibrant, glossy, chibi-style Pepsi-Cola bottle stands proudly in front of a simplified, chunky Soviet factory building, rendered in muted greys and browns. In the foreground, two stylized gears, one labeled 'Plan' (muted tones) and the other 'Market' (brighter tones), are playfully meshing together. The scene is brightly lit with soft, even light, symbolizing commercial creativity breaking through barriers. 16:9 widescreen composition.",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-01T15:05:27.208844+00:00"
+}

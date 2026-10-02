@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261002T133550",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 19.47,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "百事可樂在蘇聯市場的獨佔地位也因此得到了鞏固",
+      "text_cn": "百事可乐在苏联市场的独占地位也因此得到了巩固",
+      "start_sec": 0.0,
+      "end_sec": 4.56,
+      "duration_sec": 4.56
+    },
+    {
+      "index": 2,
+      "text": "並在後續的俄羅斯市場持續擴張，這揭示了百事可樂作為一家跨國企業",
+      "text_cn": "并在后续的俄罗斯市场持续扩张，这揭示了百事可乐作为一家跨国气业",
+      "start_sec": 4.81,
+      "end_sec": 11.01,
+      "duration_sec": 6.2
+    },
+    {
+      "index": 3,
+      "text": "在面對複雜國際政治與經濟環境時",
+      "text_cn": "在面对复杂国际政治与经济环境时",
+      "start_sec": 11.26,
+      "end_sec": 14.42,
+      "duration_sec": 3.16
+    },
+    {
+      "index": 4,
+      "text": "其靈活的商業策略和驚人的資源整合能力 [confirmation-en]",
+      "text_cn": "其灵活的商业策略和惊人的资源整合能力 [confirmation-en]",
+      "start_sec": 14.67,
+      "end_sec": 19.47,
+      "duration_sec": 4.8
+    }
+  ],
+  "created_at": "2026-10-02T13:35:50.511823+00:00"
+}

@@ -346,6 +346,65 @@ def clear_scene_image(job_id: str, scene_id: str):
     return get_scene_detail(job_id, scene_id)
 
 
+@router.delete("/{scene_id}/audio")
+def clear_scene_audio(job_id: str, scene_id: str):
+    """單幕清空已生成語音，重置為待配音狀態"""
+    job_dir = JOBS_DIR / job_id
+    scene_dir = job_dir / "scenes" / scene_id
+    if not scene_dir.is_dir():
+        raise HTTPException(status_code=404, detail="分鏡不存在")
+
+    for fname in ("speech.wav", "speech.json", "audio.wav"):
+        f = scene_dir / fname
+        if f.is_file():
+            try:
+                f.unlink()
+            except Exception:
+                pass
+
+    # 清除 takes 下的語音檔案
+    takes_dir = scene_dir / "takes"
+    if takes_dir.is_dir():
+        for wav_file in takes_dir.glob("*.wav"):
+            try:
+                wav_file.unlink()
+            except Exception:
+                pass
+        for j_file in takes_dir.glob("speech_*.json"):
+            try:
+                j_file.unlink()
+            except Exception:
+                pass
+        for txt_file in takes_dir.glob("*_concat.txt"):
+            try:
+                txt_file.unlink()
+            except Exception:
+                pass
+
+    # 更新 scene.yaml 中的 current.speech_take
+    s_yaml = scene_dir / "scene.yaml"
+    if s_yaml.is_file():
+        try:
+            scfg = yaml.safe_load(s_yaml.read_text(encoding="utf-8")) or {}
+            if "current" in scfg and isinstance(scfg["current"], dict):
+                scfg["current"]["speech_take"] = None
+            else:
+                scfg["current"] = {"speech_take": None, "image_take": None}
+            s_yaml.write_text(yaml.safe_dump(scfg, allow_unicode=True, sort_keys=False), encoding="utf-8")
+        except Exception:
+            pass
+
+    # 清空成片目錄
+    compose_dir = job_dir / "compose"
+    if compose_dir.is_dir():
+        try:
+            shutil.rmtree(compose_dir)
+        except Exception:
+            pass
+
+    return get_scene_detail(job_id, scene_id)
+
+
 @router.delete("/{scene_id}/pip")
 def clear_scene_pip(job_id: str, scene_id: str):
     """單幕清空考據圖 (pip.png) 並重置考據狀態"""

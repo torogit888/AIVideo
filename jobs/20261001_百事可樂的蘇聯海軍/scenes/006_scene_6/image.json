@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261001T145632",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 42708476,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, \nchibi characters, clean line art, cell shading, flat colors, \nvisual novel style, crisp details, vibrant and cheerful color palette, \nsingle coherent scene, non-split screen, unified single viewpoint, \nwide-angle coherent view, one main environment, \nhighly detailed and intricate background, \npacked with objects and props, \ndynamic composition within a single panel，A medium shot in Q版 2D 卡通插畫 style, featuring Donald Kendall, depicted with a friendly, shrewd face, large twinkling eyes, and a confident smile. He is chibi-style, short and stout, wearing a crisp charcoal business suit and a red tie. He holds a glossy, chibi-style Pepsi-Cola bottle in one hand and gestures humorously towards a distant, toy-like Soviet Navy Fleet on a bright blue stylized sea. The background shows a simplified, stylized world map. Soft, even lighting highlights Kendall's expression. 16:9 widescreen composition.",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-01T14:56:32.414701+00:00"
+}

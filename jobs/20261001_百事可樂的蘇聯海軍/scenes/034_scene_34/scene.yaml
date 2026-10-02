@@ -1,0 +1,28 @@
+id: 034_scene_34
+index: 34
+title: 第 34 幕
+narration: 西方世界對俄羅斯實施了嚴厲的制裁 許多跨國企業紛紛撤出俄羅斯市場 然而， 百事可樂公司PepsiCo卻是少數仍在俄羅斯運營的西方大型企業之一
+image_prompt: A wide shot in Q版 2D 卡通插畫 style. A simplified, chunky map of Russia
+  is in the center. Numerous generic, stylized corporate logos (not real brands, just
+  abstract shapes) are depicted comically flying away from Russia. In contrast, a
+  vibrant, glossy, chibi-style Pepsi-Cola bottle, with its bold logo, remains firmly
+  planted on the map, standing out as one of the few. The background is a simplified,
+  muted global map. Soft, diffused lighting highlights the contrast. 16:9 widescreen
+  composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261002T133726
+  image_take: image_20261001T151900
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: PepsiCo Russia operations news report 2022
+  source_title: PepsiCo
+  source_url: https://upload.wikimedia.org/wikipedia/commons/9/93/PepsiCoHQPurchaseNY.jpg

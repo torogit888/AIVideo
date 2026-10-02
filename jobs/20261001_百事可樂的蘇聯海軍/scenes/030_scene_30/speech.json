@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261002T133629",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.46,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "這筆交易對於當時的蘇聯人民產生了深遠的影響，一方面",
+      "text_cn": "这笔交易对于当时的苏联人民产生了深远的影响，一方面",
+      "start_sec": 0.0,
+      "end_sec": 5.0,
+      "duration_sec": 5.0
+    },
+    {
+      "index": 2,
+      "text": "它提供了稀缺的西方商品，滿足了部分消費需求，另一方面",
+      "text_cn": "它提供了稀缺的西方商品，满足了部分消费需求，另一方面",
+      "start_sec": 5.25,
+      "end_sec": 10.29,
+      "duration_sec": 5.04
+    },
+    {
+      "index": 3,
+      "text": "也反映了國家資源的流失與經濟的混亂 [sigh]",
+      "text_cn": "也反映了国家资源的流失与经济的混乱 [sigh]",
+      "start_sec": 10.54,
+      "end_sec": 14.46,
+      "duration_sec": 3.92
+    }
+  ],
+  "created_at": "2026-10-02T13:36:29.162703+00:00"
+}

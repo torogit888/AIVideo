@@ -153,6 +153,34 @@ def _calculate_job_progress(job_dir: Path) -> JobProgress:
     audio_ready = sum(1 for d in scene_dirs if (d / "speech.wav").is_file() or (d / "audio.wav").is_file())
     film_ready = (job_dir / "compose" / "film.mp4").is_file()
 
+    # 計算已生成語音時長與全片預估成片總時長
+    total_audio_sec = 0.0
+    for d in scene_dirs:
+        sp_json = d / "speech.json"
+        if sp_json.is_file():
+            try:
+                data = json.loads(sp_json.read_text(encoding="utf-8"))
+                for k in ("duration_sec", "duration"):
+                    if data.get(k) is not None:
+                        val = float(data[k])
+                        if val > 0.05:
+                            total_audio_sec += val
+                            break
+            except Exception:
+                pass
+
+    total_audio_sec = round(total_audio_sec, 2)
+    if total_scenes > 0:
+        if audio_ready == total_scenes and total_audio_sec > 0:
+            estimated_duration_sec = total_audio_sec
+        elif audio_ready > 0 and total_audio_sec > 0:
+            avg_sec = total_audio_sec / audio_ready
+            estimated_duration_sec = round(total_audio_sec + avg_sec * (total_scenes - audio_ready), 2)
+        else:
+            estimated_duration_sec = round(total_scenes * 5.5, 2)
+    else:
+        estimated_duration_sec = 0.0
+
     yt_published = False
     yt_id = None
     yt_url = None
@@ -180,6 +208,8 @@ def _calculate_job_progress(job_dir: Path) -> JobProgress:
         youtube_video_id=yt_id,
         youtube_video_url=yt_url,
         youtube_uploaded_at=yt_uploaded_at,
+        total_audio_sec=total_audio_sec,
+        estimated_duration_sec=estimated_duration_sec,
     )
 
 
@@ -861,6 +891,83 @@ def clear_job_images(job_id: str):
     return {
         "success": True,
         "message": f"已成功清空專案 {job_id} 的全部已生成圖片（共 {cleared_scenes} 幕重置回待出圖狀態，語音與台詞已完整保留）",
+        "cleared_scenes": cleared_scenes,
+    }
+
+
+@router.post("/{job_id}/clear-audio")
+def clear_job_audio(job_id: str):
+    """
+    僅清空所有分鏡已生成的配音：
+    刪除各分鏡目錄下的 speech.wav, speech.json, audio.wav 以及 takes/ 目錄下的音訊 take (*.wav 及 speech_*.json)，
+    將 scene.yaml 內的 current.speech_take 重置為 None，並清空 compose/ 成片目錄。
+    完整保留畫面 (image.png)、考據圖 (pip.png) 與分鏡台詞腳本。
+    """
+    job_dir = JOBS_DIR / job_id
+    if not job_dir.is_dir():
+        raise HTTPException(status_code=404, detail="專案不存在")
+
+    scenes_dir = job_dir / "scenes"
+    cleared_scenes = 0
+
+    if scenes_dir.is_dir():
+        for s_dir in scenes_dir.iterdir():
+            if not s_dir.is_dir():
+                continue
+
+            # 刪除根層級語音與中繼資料
+            for fname in ("speech.wav", "speech.json", "audio.wav"):
+                f = s_dir / fname
+                if f.is_file():
+                    try:
+                        f.unlink()
+                    except Exception:
+                        pass
+
+            # 刪除 takes 目錄下的所有語音歷史版本
+            takes_dir = s_dir / "takes"
+            if takes_dir.is_dir():
+                for wav_file in takes_dir.glob("*.wav"):
+                    try:
+                        wav_file.unlink()
+                    except Exception:
+                        pass
+                for j_file in takes_dir.glob("speech_*.json"):
+                    try:
+                        j_file.unlink()
+                    except Exception:
+                        pass
+                for txt_file in takes_dir.glob("*_concat.txt"):
+                    try:
+                        txt_file.unlink()
+                    except Exception:
+                        pass
+
+            # 重置 scene.yaml 內的 speech_take
+            s_yaml = s_dir / "scene.yaml"
+            if s_yaml.is_file():
+                try:
+                    scfg = yaml.safe_load(s_yaml.read_text(encoding="utf-8")) or {}
+                    if "current" in scfg and isinstance(scfg["current"], dict):
+                        scfg["current"]["speech_take"] = None
+                    else:
+                        scfg["current"] = {"speech_take": None, "image_take": None}
+                    s_yaml.write_text(yaml.safe_dump(scfg, allow_unicode=True, sort_keys=False), encoding="utf-8")
+                except Exception:
+                    pass
+            cleared_scenes += 1
+
+    # 清空成片合成目錄（音訊變動後需重新合成）
+    compose_dir = job_dir / "compose"
+    if compose_dir.is_dir():
+        try:
+            shutil.rmtree(compose_dir)
+        except Exception:
+            pass
+
+    return {
+        "success": True,
+        "message": f"已成功清空專案 {job_id} 的全部已生成配音（共 {cleared_scenes} 幕重置回待配音狀態，圖片與台詞已完整保留）",
         "cleared_scenes": cleared_scenes,
     }
 

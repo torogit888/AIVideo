@@ -7,6 +7,8 @@ export interface JobProgress {
   youtube_video_id?: string | null;
   youtube_video_url?: string | null;
   youtube_uploaded_at?: string | null;
+  total_audio_sec?: number;
+  estimated_duration_sec?: number;
 }
 
 export interface JobSummary {

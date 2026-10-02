@@ -1,0 +1,29 @@
+id: 001_scene_1
+index: 1
+title: 第 1 幕
+narration: 你敢相信，一家專門賣氣泡飲料的公司， 曾經一度擁有全世界第六大的海軍艦隊嗎 [surprise-wa] 甚至比某些國家的海軍規模還要龐大嗎
+image_prompt: A wide establishing shot in Q版 2D 卡通插畫 style, showing a stylized, slightly
+  personified Pepsi-Cola bottle, squatter and rounder with a glossy finish and a bold
+  red, white, and blue logo, standing confidently next to a vast, toy-like Soviet
+  Navy Fleet. The fleet consists of chunky, grey submarines and blocky surface ships
+  with exaggerated features, all floating on a clean, bright blue stylized sea. The
+  scene is brightly lit with soft, diffused light, emphasizing the playful yet grand
+  scale of the absurdity. 16:9 widescreen composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261002T132915
+  image_take: image_20261001T145202
+pip:
+  enabled: false
+  image: null
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: null
+  source_title: null
+  source_url: null
+  fetch_error: null

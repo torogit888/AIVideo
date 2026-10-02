@@ -26,6 +26,8 @@ class JobProgress(BaseModel):
     youtube_video_id: Optional[str] = None
     youtube_video_url: Optional[str] = None
     youtube_uploaded_at: Optional[str] = None
+    total_audio_sec: float = 0.0
+    estimated_duration_sec: float = 0.0
 
 
 class JobSummary(BaseModel):
@@ -81,7 +83,10 @@ class UpdateJobRequest(BaseModel):
     voice_id: Optional[str] = None
     style_id: Optional[str] = None
     image_model: Optional[str] = None
+    tone_id: Optional[str] = None
     custom_prompt: Optional[str] = None
+    outline: Optional[str] = None
+    script: Optional[str] = None
 
 
 # ==========================================

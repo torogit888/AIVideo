@@ -18,6 +18,7 @@ import requests
 import zhconv
 
 from aivideo.commands.check import _load_dotenv
+from aivideo.story_generator import apply_pronunciation_mapping
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
@@ -29,8 +30,16 @@ def _visible_text_len(text: str) -> int:
     return len(TAG_PATTERN.sub("", text).strip())
 
 
-def _split_long_clause(clause: str, max_chars: int = 22) -> list[str]:
-    """若單句包含逗號且實際字數過長，在全形逗號停頓處拆為短子句（每句約 12~22 字）。"""
+def _clean_trailing_comma(text: str) -> str:
+    """清理句子末尾的多餘逗號，包含語氣標籤前後的尾隨逗號，使 TTS 朗讀收尾俐落且字幕排版乾淨。"""
+    t = text.strip()
+    t = re.sub(r"[，,]+\s*$", "", t)
+    t = re.sub(r"[，,]+\s*(\[[a-zA-Z0-9_\-]+\])\s*$", r" \1", t)
+    return t.strip()
+
+
+def _split_long_clause(clause: str, min_chars: int = 15, max_chars: int = 26) -> list[str]:
+    """若單句包含逗號且實際字數過長，在全形逗號停頓處拆為短子句，嚴格維持每句最少約 15 字（約 15~26 字）。"""
     clause = clause.strip()
     if _visible_text_len(clause) <= max_chars or "，" not in clause:
         return [clause] if clause else []
@@ -47,21 +56,64 @@ def _split_long_clause(clause: str, max_chars: int = 22) -> list[str]:
         elif _visible_text_len(current_chunk + "，" + part) <= max_chars:
             current_chunk += "，" + part
         else:
-            sub_sentences.append(current_chunk + "，")
-            current_chunk = part
+            # 只有當累積字數達標最少 15 字時才獨立切出
+            if _visible_text_len(current_chunk) >= min_chars:
+                sub_sentences.append(current_chunk + "，")
+                current_chunk = part
+            else:
+                # 若未達 15 字，即便略超過上限也優先整併
+                current_chunk += "，" + part
 
     if current_chunk:
         if clause.endswith("，") and not current_chunk.endswith("，"):
             current_chunk += "，"
-        sub_sentences.append(current_chunk)
+        # 若最後一個 chunk 太短 (< min_chars) 且前面已有句子，自動併入上一句
+        if sub_sentences and _visible_text_len(current_chunk) < min_chars:
+            last = sub_sentences.pop()
+            sub_sentences.append(last + current_chunk)
+        else:
+            sub_sentences.append(current_chunk)
 
     return sub_sentences
 
 
-def split_sentences(text: str, max_clause_chars: int = 22) -> list[str]:
-    """將台詞以換行、終止標點及全形逗號切分為句子，保留標點與引號，確保符合說書人節奏與字幕長度。"""
-    lines = [line.strip() for line in text.strip().splitlines() if line.strip()]
-    sentences: list[str] = []
+def _merge_short_sentences(sentences: list[str], min_chars: int = 15, max_chars: int = 30) -> list[str]:
+    """後處理保護：將未達 15 字的過短碎句安全整併入相鄰句中。"""
+    if len(sentences) <= 1:
+        return sentences
+
+    merged: list[str] = []
+    for s in sentences:
+        s = s.strip()
+        if not s:
+            continue
+        if not merged:
+            merged.append(s)
+            continue
+
+        prev = merged[-1]
+        # 若前一句或當前句太短 (< min_chars)，且整併後不超過上限 (<= 30 字)
+        if (_visible_text_len(prev) < min_chars or _visible_text_len(s) < min_chars) and _visible_text_len(prev + s) <= max_chars:
+            sep = "" if prev.endswith(("，", "、", "。", "！", "？", "!", "?", "；")) else "，"
+            merged[-1] = prev + sep + s
+        else:
+            merged.append(s)
+
+    # 再次確認最後一句是否依然小於 min_chars
+    if len(merged) > 1 and _visible_text_len(merged[-1]) < min_chars:
+        last = merged.pop()
+        sep = "" if merged[-1].endswith(("，", "、", "。", "！", "？", "!", "?", "；")) else "，"
+        merged[-1] = merged[-1] + sep + last
+
+    return merged
+
+
+def split_sentences(text: str, min_chars: int = 15, max_chars: int = 26) -> list[str]:
+    """將台詞以換行、終止標點及全形逗號切分為句子，保證每句最少約 15 字（約 15~26 字），符合說書人沉穩節奏與字幕體驗。"""
+    # 自動將中文字元之間的孤立空格規範化為全形逗號「，」
+    normalized_text = re.sub(r"(?<=[\u4e00-\u9fff\w])\s+(?=[\u4e00-\u9fff\w])", "，", text.strip())
+    lines = [line.strip() for line in normalized_text.splitlines() if line.strip()]
+    raw_sentences: list[str] = []
     for line in lines:
         parts = re.split(r"([。！？!?][」”』\)]*)", line)
         for i in range(0, len(parts), 2):
@@ -71,13 +123,15 @@ def split_sentences(text: str, max_clause_chars: int = 22) -> list[str]:
             if not sent:
                 continue
 
-            clauses = _split_long_clause(sent, max_chars=max_clause_chars)
+            clauses = _split_long_clause(sent, min_chars=min_chars, max_chars=max_chars)
             for c in clauses:
                 c = c.strip()
                 if c:
-                    sentences.append(c)
+                    raw_sentences.append(c)
 
-    return sentences or [text.strip()]
+    merged = _merge_short_sentences(raw_sentences, min_chars=min_chars, max_chars=max_chars + 4) or [normalized_text]
+    # 清除每句末尾的多餘逗號，使 TTS 合成發音收尾俐落且字幕排版整潔
+    return [_clean_trailing_comma(s) for s in merged if _clean_trailing_comma(s)]
 
 
 def _synthesize_sentence(
@@ -471,9 +525,12 @@ def run_tts(args: Any = None, progress_callback=None, **kwargs) -> int:
             )
 
             for idx, s_tc in enumerate(sentences, 1):
-                # 轉成簡體中文傳給 OmniVoice
-                s_cn = zhconv.convert(s_tc, "zh-cn")
+                # 套用多音/破音字諧音映射後轉成簡體中文傳給 OmniVoice
+                s_tc_mapped = apply_pronunciation_mapping(s_tc)
+                s_cn = zhconv.convert(s_tc_mapped, "zh-cn")
                 print(f"       [{idx}/{len(sentences)}] 繁: {s_tc}")
+                if s_tc_mapped != s_tc:
+                    print(f"             校音: {s_tc_mapped}")
                 print(f"             簡: {s_cn}")
 
                 sent_wav = takes_dir / f"{take_id}_sent_{idx}.wav"

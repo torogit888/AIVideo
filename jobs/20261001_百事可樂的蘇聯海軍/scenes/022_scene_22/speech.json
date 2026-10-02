@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261002T133430",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 12.14,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "是的，你沒聽錯，他們提議用軍艦來換汽水",
+      "text_cn": "是的，你没听错，他们提议用军舰来换汽水",
+      "start_sec": 0.0,
+      "end_sec": 3.64,
+      "duration_sec": 3.64
+    },
+    {
+      "index": 2,
+      "text": "具體交易細節是，百事可樂獲得了十七艘潛水艇",
+      "text_cn": "具体交易细节是，百事可乐获得了十七骚潜水艇",
+      "start_sec": 3.89,
+      "end_sec": 8.09,
+      "duration_sec": 4.2
+    },
+    {
+      "index": 3,
+      "text": "還有一艘巡洋艦，一艘護衛艦和一艘驅逐艦",
+      "text_cn": "还有一骚巡洋舰，一骚护卫舰和一骚驱逐舰",
+      "start_sec": 8.34,
+      "end_sec": 12.14,
+      "duration_sec": 3.8
+    }
+  ],
+  "created_at": "2026-10-02T13:34:30.903922+00:00"
+}

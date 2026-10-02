@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261002T133828",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.1,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "超越國界的商業邏輯，資本，權力與人性的永恆博弈",
+      "text_cn": "超越国界的商业逻辑，资本，权力与人性的永恒博弈",
+      "start_sec": 0.0,
+      "end_sec": 4.44,
+      "duration_sec": 4.44
+    },
+    {
+      "index": 2,
+      "text": "我們回顧百事可樂從一杯汽水，到擁有一支海軍",
+      "text_cn": "我们回顾百事可乐从一杯汽水，到拥有一支海军",
+      "start_sec": 4.69,
+      "end_sec": 8.89,
+      "duration_sec": 4.2
+    },
+    {
+      "index": 3,
+      "text": "再到在當代衝突中面臨道德審判的整個歷程",
+      "text_cn": "再到在当代冲图中面临道德审判的整个历程",
+      "start_sec": 9.14,
+      "end_sec": 13.1,
+      "duration_sec": 3.96
+    }
+  ],
+  "created_at": "2026-10-02T13:38:28.608978+00:00"
+}

@@ -1,0 +1,18 @@
+id: 013_scene_13
+index: 13
+title: 第 13 幕
+narration: 但又受到嚴格的限制 而百事可樂，作為美國生活方式的象徵 對他們有著巨大的吸引力
+image_prompt: A medium shot in Q版 2D 卡通插畫 style. A group of chibi-style Soviet Citizens,
+  with longing faces and hopeful eyes, are depicted behind a stylized, semi-transparent
+  barrier or 'curtain' in muted grey tones. On the other side of the barrier, a vibrant,
+  glossy, chibi-style Pepsi-Cola bottle, with its bold red, white, and blue logo,
+  glows brightly, symbolizing an attractive American lifestyle. The lighting is soft
+  and diffused, emphasizing the contrast between the muted background and the bright
+  Pepsi bottle. 16:9 widescreen composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261002T133210
+  image_take: image_20261001T150138

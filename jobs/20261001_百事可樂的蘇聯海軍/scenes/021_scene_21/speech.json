@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261002T133418",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.01,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "這筆交易的價值高達三十億美元，由於缺乏足夠的伏特加來支付這筆巨額交易",
+      "text_cn": "这笔交易的价值高达三十亿美元，由于缺乏足够的伏特加来支付这笔巨额交易",
+      "start_sec": 0.0,
+      "end_sec": 6.8,
+      "duration_sec": 6.8
+    },
+    {
+      "index": 2,
+      "text": "蘇聯提出了一個令人震驚的替代品，那就是他們的海軍艦隊 [surprise-wa]",
+      "text_cn": "苏联提出了一个令人震惊的替代品，那就是他们的海军舰队 [surprise-wa]",
+      "start_sec": 7.05,
+      "end_sec": 13.01,
+      "duration_sec": 5.96
+    }
+  ],
+  "created_at": "2026-10-02T13:34:18.919226+00:00"
+}

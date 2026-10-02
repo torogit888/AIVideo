@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261001T151758",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 29557109,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, \nchibi characters, clean line art, cell shading, flat colors, \nvisual novel style, crisp details, vibrant and cheerful color palette, \nsingle coherent scene, non-split screen, unified single viewpoint, \nwide-angle coherent view, one main environment, \nhighly detailed and intricate background, \npacked with objects and props, \ndynamic composition within a single panel，A dynamic wide shot in Q版 2D 卡通插畫 style. A slightly personified, glossy, chibi-style Pepsi-Cola bottle, with a comically stylized, keen nose, is depicted 'sniffing' out opportunities. The scene then transitions to a stylized map of Ukraine and Russia, rendered in muted blues and reds, with subtle, cartoonish conflict symbols (e.g., small, stylized explosions or crossed swords) indicating the 2022 invasion. The lighting is soft but slightly more somber, reflecting the conflict. 16:9 widescreen composition.",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-01T15:17:58.402764+00:00"
+}

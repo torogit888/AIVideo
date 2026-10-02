@@ -1,0 +1,30 @@
+id: 002_scene_2
+index: 2
+title: 第 2 幕
+narration: 沒錯，就是那個藍紅相間，充滿歡樂氣泡的百事可樂 這聽起來簡直荒謬絕倫，一家靠賣糖水維生的企業 怎麼會搖身一變，成了擁抱巡洋艦， 護衛艦甚至潛水艇的軍事玩家
+  [question-ei]
+image_prompt: A medium shot in Q版 2D 卡通插畫 style, featuring a vibrant, chibi-style
+  Pepsi-Cola bottle, its red, white, and blue logo prominent and glossy, with cartoonish
+  highlights suggesting effervescence. Behind it, slightly out of focus but clearly
+  visible, are the silhouettes of chunky, toy-like Soviet Navy ships – a submarine,
+  a cruiser, and a frigate – rendered in muted grey tones. The contrast between the
+  cheerful Pepsi bottle and the military vessels is stark and whimsical. Soft, even
+  lighting fills the scene. 16:9 widescreen composition.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261002T132931
+  image_take: image_20261001T145244
+pip:
+  enabled: false
+  image: null
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: null
+  source_title: null
+  source_url: null
+  fetch_error: null

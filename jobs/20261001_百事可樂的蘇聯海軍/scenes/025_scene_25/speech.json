@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261002T133515",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 12.81,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "從海軍司令到廢鐵掮客，百事可樂的軍艦處理術",
+      "text_cn": "从海军司令到废铁掮客，百事可乐的军舰处理术",
+      "start_sec": 0.0,
+      "end_sec": 4.2,
+      "duration_sec": 4.2
+    },
+    {
+      "index": 2,
+      "text": "百事可樂當然不是真的要經營一支海軍艦隊 [laughter] 他們的目的是將這些軍艦視為資產進行變現",
+      "text_cn": "百事可乐当然不是真的要经营一支海军舰队 [laughter] 他们的目的是将这些军舰视为资产进行变现",
+      "start_sec": 4.45,
+      "end_sec": 12.81,
+      "duration_sec": 8.36
+    }
+  ],
+  "created_at": "2026-10-02T13:35:15.276261+00:00"
+}

@@ -8,7 +8,7 @@ attention: eager
 steps: 32
 speed: 1.0
 seed: 42
-position_temperature: 0.25
+position_temperature: 0.1
 class_temperature: 0.0
 instruct: ''
 gender: 女性
