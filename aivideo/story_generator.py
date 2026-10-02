@@ -703,8 +703,12 @@ Scenes:
     return fallbacks
 
 
-def batch_detect_pip_queries(narrations: list[str]) -> list[str | None]:
-    """呼叫 Gemini 批次分析各場景分鏡台詞，判定哪些場景適合搭配真實考據照片 (PiP)，輸出英文檢索詞或 None。"""
+def batch_detect_pip_queries(
+    narrations: list[str],
+    topic: str = "",
+    subject_anchor: str = "",
+) -> list[str | None]:
+    """呼叫 Gemini 批次分析各場景分鏡台詞，結合紀錄片主題與核心錨點，判定哪些場景適合搭配真實考據照片 (PiP)，輸出精準檢索詞或 None。"""
     if not narrations:
         return []
 
@@ -721,9 +725,16 @@ def batch_detect_pip_queries(narrations: list[str]) -> list[str | None]:
 
     scene_items = [{"index": idx + 1, "text": text} for idx, text in enumerate(narrations)]
 
+    context_lines = []
+    if topic:
+        context_lines.append(f"- Documentary Core Topic: {topic}")
+    if subject_anchor:
+        context_lines.append(f"- Core Subject Anchor & Era: {subject_anchor}")
+    context_block = f"\nDOCUMENTARY CONTEXT:\n" + "\n".join(context_lines) + "\n" if context_lines else ""
+
     prompt = f"""You are a master archival visual researcher and senior documentary film archivist.
-Analyze the following scene narrations for a documentary video.
-Your mission is to identify scenes that describe a SPECIFIC, CONCRETE, REAL-WORLD ENTITY where showing a REAL archival photograph or authentic blueprint (as a Picture-in-Picture card) will dramatically boost audience immersion and documentary credibility.
+Analyze the following scene narrations for a documentary video.{context_block}
+Your mission is to identify scenes that describe a SPECIFIC, CONCRETE, REAL-WORLD ENTITY where showing a REAL archival photograph, authentic blueprint, genuine historical document/contract, or news clipping (as a Picture-in-Picture card) will dramatically boost audience immersion and documentary credibility.
 
 Scenes:
 {json.dumps(scene_items, ensure_ascii=False, indent=2)}
@@ -731,16 +742,16 @@ Scenes:
 CRITICAL QUERY GUIDELINES (STRICT SPECIFICITY, NO ABSTRACT TERMS):
 1. ABSOLUTELY FORBIDDEN TERMS:
    - Do NOT output abstract concepts, emotions, or generic topics (e.g. "Cold War diplomacy", "naval power", "military tension", "secret trade", "space mystery", "ancient history"). Image archives and web engines return useless maps, random flags, or modern stock logos for these.
-2. MUST BE HIGHLY CONCRETE & ARCHIVAL:
-   - Military / Vehicles / Ships: Specify exact model, class, or NATO reporting name (e.g., "Project 613 Whiskey-class submarine", "KH-11 KENNEN reconnaissance satellite", "Soyuz TMA spacecraft", "Lockheed U-2 spy plane").
-   - Historical figures / Key persons: Full official name with title/role (e.g., "Donald Kendall Pepsi CEO", "Mikhail Gorbachev portrait", "Burn-Jeng Lin TSMC", "Nancy Grace Roman astronomer").
-   - Scientific Instruments / Technology: Specific device or component name (e.g., "ASML Twinscan immersion lithography", "Hubble primary mirror polishing Perkin-Elmer", "James Webb Space Telescope gold mirror").
-   - Historical events / Artifacts / Factories: Concrete archival subject (e.g., "Pepsi USSR fleet barter 1989", "Apollo 11 mission control 1969", "TSMC Hsinchu Fab 12").
-   - Chinese-specific figures, organizations or locations: You can provide English name or Chinese keyword (e.g., "林本堅 浸潤式微影", "張忠謀 台積電", "ASML 光刻機").
+2. PRIORITY ENTITY TYPES (FOCUS ON AUTHENTIC ARCHIVAL EVIDENCE):
+   - Priority 1: Genuine Historical Documents / Contracts / Blueprints / News Clippings (e.g., "Pepsi USSR barter trade agreement 1989", "Apollo 11 flight plan NASA", "Perkin-Elmer mirror polish blueprint").
+   - Priority 2: Key Historical Figures / Decision Makers: Full official name with title or era (e.g., "Donald Kendall Pepsi CEO", "Mikhail Gorbachev portrait", "Burn-Jeng Lin TSMC", "Nancy Grace Roman astronomer").
+   - Priority 3: Specific Vehicles / Ships / Spacecraft / Weapons: Exact official model, class, or NATO reporting name (e.g., "Project 613 Whiskey-class submarine", "KH-11 KENNEN reconnaissance satellite", "Soyuz TMA spacecraft", "Lockheed U-2 spy plane").
+   - Priority 4: Specific Instruments / Technology / Facilities: Concrete device or facility (e.g., "ASML Twinscan immersion lithography", "Hubble primary mirror polishing Perkin-Elmer", "James Webb Space Telescope gold mirror").
+   - Chinese-specific figures, organizations or locations: Provide English name or well-known Chinese keyword (e.g., "林本堅 浸潤式微影", "張忠謀 台積電", "ASML 光刻機").
 3. WHEN TO RETURN NULL:
    - If the scene narration is generic commentary, transition, philosophical thought, or purely conceptual without a tangible real-world entity, return null.
 4. SELECTIVITY:
-   - Only 25%~45% of scenes deserve an authentic archival PiP card. Quality and accuracy over quantity.
+   - Only 25%~45% of scenes deserve an authentic archival PiP card. Quality, credibility, and relevance over quantity.
 
 OUTPUT FORMAT:
 Return a JSON array of strings or nulls, with EXACTLY {len(narrations)} items corresponding to the scenes in order:
@@ -954,7 +965,11 @@ def parse_script_lines_to_scenes(
         characters=characters,
         style_key=style_key,
     )
-    pip_queries = batch_detect_pip_queries(narrations)
+    pip_queries = batch_detect_pip_queries(
+        narrations,
+        topic=topic,
+        subject_anchor=subject_anchor,
+    )
 
     scenes: list[dict[str, object]] = []
     for idx, (chunk, narration) in enumerate(zip(chunks, narrations), start=1):

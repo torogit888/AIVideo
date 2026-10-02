@@ -529,10 +529,22 @@ def fetch_single_scene_pip(scene_dir: Path, query: str | None = None) -> bool:
 
 
 def auto_detect_scene_reference_entities(job_dir: Path) -> dict[str, str]:
-    """呼叫 Gemini 掃描該 Job 所有分鏡台詞，智能判定哪些幕需要真實歷史/設備/生物參考圖，並輸出檢索詞。"""
+    """呼叫 Gemini 掃描該 Job 所有分鏡台詞，結合主題背景，智能判定哪些幕需要真實歷史/設備/生物參考圖，並輸出檢索詞。"""
     scenes_dir = job_dir / "scenes"
     if not scenes_dir.is_dir():
         return {}
+
+    job_yaml_p = job_dir / "job.yaml"
+    topic = ""
+    subject_anchor = ""
+    if job_yaml_p.is_file():
+        try:
+            with open(job_yaml_p, "r", encoding="utf-8") as yf:
+                jcfg = yaml.safe_load(yf) or {}
+            topic = str(jcfg.get("topic") or "")
+            subject_anchor = str(jcfg.get("visual_anchors", {}).get("subject") or "")
+        except Exception:
+            pass
 
     scene_folders = sorted([p for p in scenes_dir.iterdir() if p.is_dir()])
     scene_inputs = []
@@ -562,19 +574,30 @@ def auto_detect_scene_reference_entities(job_dir: Path) -> dict[str, str]:
     client_kwargs = get_gemini_client_kwargs()
     client = genai.Client(**client_kwargs)
 
-    prompt = f"""You are an archival visual researcher and documentary editor.
-Analyze the following scene narrations for a documentary video.
-Identify scenes that mention or describe a SPECIFIC REAL-WORLD entity, historical person, actual scientific instrument/telescope/satellite, historical event, organism/species, blueprint, or document where displaying a REAL archival photograph or factual diagram (as a Picture-in-Picture card) would strongly enhance documentary credibility.
+    context_lines = []
+    if topic:
+        context_lines.append(f"- Documentary Core Topic: {topic}")
+    if subject_anchor:
+        context_lines.append(f"- Core Subject Anchor & Era: {subject_anchor}")
+    context_block = f"\nDOCUMENTARY CONTEXT:\n" + "\n".join(context_lines) + "\n" if context_lines else ""
+
+    prompt = f"""You are an archival visual researcher and documentary film archivist.
+Analyze the following scene narrations for a documentary video.{context_block}
+Identify scenes that mention or describe a SPECIFIC REAL-WORLD entity, historical person, actual scientific instrument/telescope/satellite, historical event, organism/species, blueprint, or document where displaying a REAL archival photograph, blueprint, or factual diagram (as a Picture-in-Picture card) would strongly enhance documentary credibility.
 
 Scenes:
 {json.dumps(scene_inputs, ensure_ascii=False, indent=2)}
 
-INSTRUCTIONS:
-1. For scenes that clearly describe a real-world entity, person, device, spacecraft, or document:
-   Provide a concise, precise English search query suitable for Wikimedia Commons / public domain archives (e.g., "Nancy Grace Roman Space Telescope", "Hubble Space Telescope mirror", "Edward O. Wilson biologist", "Solenopsis invicta fire ant").
-2. For scenes that are purely metaphorical, abstract transitions, or generic narrative where real photo is NOT needed or inappropriate:
-   Set search_query to null.
-3. Be selective: only 20%~45% of scenes usually need real archival reference cards to avoid visual clutter.
+INSTRUCTIONS & PRIORITY:
+1. FOCUS ON AUTHENTIC ARCHIVAL EVIDENCE:
+   - Priority 1: Genuine Historical Documents / Contracts / Blueprints / News Clippings (e.g., "Pepsi USSR barter trade agreement 1989", "Apollo 11 flight plan NASA", "Perkin-Elmer mirror polish blueprint").
+   - Priority 2: Key Historical Figures / Decision Makers: Full official name with title or era (e.g., "Donald Kendall Pepsi CEO", "Mikhail Gorbachev portrait", "Burn-Jeng Lin TSMC").
+   - Priority 3: Specific Vehicles / Ships / Spacecraft / Weapons: Exact official model, class, or NATO reporting name (e.g., "Project 613 Whiskey-class submarine", "Lockheed U-2 spy plane").
+   - Priority 4: Specific Instruments / Technology / Facilities: Concrete device or facility (e.g., "Hubble primary mirror", "ASML Twinscan immersion lithography").
+2. FORBIDDEN ABSTRACT TERMS:
+   - Do NOT output abstract emotions, philosophical concepts, or generic topics (e.g., "Cold War diplomacy", "secret trade", "military tension"). Return null for these.
+3. SELECTIVITY:
+   - Be selective: only 20%~45% of scenes usually need real archival reference cards to avoid visual clutter.
 
 OUTPUT FORMAT:
 Return a JSON object mapping scene_id to the search query string (or null):
