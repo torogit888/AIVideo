@@ -1,0 +1,25 @@
+id: 026_scene_26
+index: 26
+title: 第 26 幕
+narration: 他們提出了一個讓全世界都為之震驚的替代品，那就是蘇聯海軍的艦隊[surprise-wa]，
+image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。A dramatic, wide shot. Donald
+  Kendall, with a look of surprise and shrewdness, gestures towards a vast, stylized
+  fleet of Soviet Navy Fleet warships, depicted with slightly exaggerated silhouettes
+  and soft, rounded edges, emerging from a misty, watercolor sea. The ships are imposing
+  yet whimsical, like meticulously crafted toys. The scene is bathed in a perpetual
+  golden hour glow, emphasizing the unexpected nature of the offer.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Soviet Navy fleet photo (late 1980s)

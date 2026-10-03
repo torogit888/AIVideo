@@ -1,0 +1,26 @@
+id: 007_scene_7
+index: 7
+title: 第 7 幕
+narration: 當時的百事可樂執行長唐納德·肯德爾，甚至還對美國國家安全顧問布倫特·斯考克羅夫特幽默地說，我們正在比你們更快地解除蘇聯的武裝[laughter]，
+image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。Donald Kendall, with his
+  kindly, shrewd face and gentle, engaging smile, is depicted in a cozy, inviting
+  interior setting with rich, muted colors. He gestures subtly, with an intelligent
+  twinkle in his eye, as if sharing a clever secret. In the background, subtly hinted
+  through a window, stylized Soviet Navy Fleet warships appear to gradually fade or
+  diminish. The room is bathed in soft, ambient light from a perpetual golden hour
+  glow.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Donald Kendall Pepsi CEO

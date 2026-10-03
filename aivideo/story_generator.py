@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 import re
+from difflib import SequenceMatcher
 from pathlib import Path
 import yaml
 
@@ -193,6 +194,114 @@ def apply_pronunciation_mapping(text: str) -> str:
     return text
 
 
+_OMNIVOICE_TAG_RE = re.compile(r"\[[a-zA-Z0-9_\-]+\]")
+_SCENE_HEADER_RE = re.compile(
+    r"^\s*([【\[\(（#*]*\s*第[一二三四五六七八九十\d]+[幕章節集場次]|幕[一二三四五六七八九十\d]+[：:]|Act\s*\d+|Chapter\s*\d+|Scene\s*\d+)",
+    re.IGNORECASE,
+)
+_OUTLINE_LABEL_RE = re.compile(
+    r"(幕次標題|核心矛盾衝突|關鍵真實歷史|此幕要帶給觀眾|情節大綱|關鍵看點)"
+)
+_META_DIRECTION_RE = re.compile(
+    r"(讓觀眾(思考|理解|迫切|知道)|帶給觀眾|要帶給觀眾|"
+    r"我們深入探討了|這也讓我們探討|讓我們探討|"
+    r"鋪陳出.{0,24}(潛力|艱難|背景)|"
+    r"展現了.{0,24}(遠見|手腕|能力))"
+)
+_VISUAL_DIRECTION_RE = re.compile(r"^(畫面|分鏡|鏡頭|場景提示)\s*[：:]")
+_NARRATION_PREFIX_RE = re.compile(r"^(旁白|解說|口白)\s*[：:]\s*")
+_OUTLINE_TITLE_FIELD_RE = re.compile(
+    r"(?:幕次標題[^\n：:]*|核心矛盾衝突)[：:]\s*(.+)"
+)
+_OUTLINE_MOOD_FIELD_RE = re.compile(r"此幕要帶給觀眾[^\n：:]*[：:]\s*(.+)")
+
+
+def _spoken_text_for_compare(line: str) -> str:
+    text = _OMNIVOICE_TAG_RE.sub("", line or "")
+    return re.sub(r"[^\u4e00-\u9fffA-Za-z0-9]", "", text)
+
+
+def _strip_md_phrase(text: str) -> str:
+    return re.sub(r"\*+", "", text or "").strip()
+
+
+def extract_outline_leak_phrases(notes: str | None) -> list[str]:
+    """從大綱場記抽出不該被唸出口白的標題與短情緒標註（不含整段筆記正文）。"""
+    if not notes:
+        return []
+    phrases: list[str] = []
+    for raw_line in notes.splitlines():
+        line = _strip_md_phrase(raw_line).lstrip("-# ").strip()
+        if not line:
+            continue
+        title_match = _OUTLINE_TITLE_FIELD_RE.search(line)
+        if title_match:
+            phrases.append(_strip_md_phrase(title_match.group(1)))
+        mood_match = _OUTLINE_MOOD_FIELD_RE.search(line)
+        if mood_match:
+            rest = _strip_md_phrase(mood_match.group(1))
+            first_clause = re.split(r"[，。？！、；：:]", rest, maxsplit=1)[0].strip()
+            if first_clause:
+                phrases.append(first_clause)
+            # 只收短場記，避免長段情緒說明把正常口白子句一起濾掉
+            if rest and len(_spoken_text_for_compare(rest)) <= 24:
+                phrases.append(rest)
+    return phrases
+
+
+def _line_copies_outline_note(line: str, phrases: list[str]) -> bool:
+    spoken = _spoken_text_for_compare(line)
+    if len(spoken) < 6 or not phrases:
+        return False
+    for phrase in phrases:
+        target = _spoken_text_for_compare(phrase)
+        if len(target) < 6:
+            continue
+        if spoken == target:
+            return True
+        # 短標題／情緒頭：口白幾乎就是那句場記，或只多了「這是／這一幕」之類前綴
+        if target in spoken and len(spoken) <= len(target) + 8:
+            return True
+        if spoken in target and len(spoken) <= 18 and len(target) <= 24:
+            return True
+        if len(spoken) >= 10 and len(target) >= 10:
+            if SequenceMatcher(None, spoken, target).ratio() >= 0.82:
+                return True
+    return False
+
+
+def is_non_spoken_script_line(line: str, outline_phrases: list[str] | None = None) -> bool:
+    """判斷一行是否為場記、幕次標題、情緒標註或後設說明，而非可朗讀口白。"""
+    raw = (line or "").strip()
+    if not raw:
+        return True
+    if _SCENE_HEADER_RE.match(raw) or _VISUAL_DIRECTION_RE.match(raw):
+        return True
+    if _OUTLINE_LABEL_RE.search(raw) or _META_DIRECTION_RE.search(raw):
+        return True
+    spoken = _spoken_text_for_compare(raw)
+    if 4 <= len(spoken) <= 16 and not re.search(r"[你我他她您咱這那是否嗎呢吧]", spoken):
+        if re.search(r"(感|好奇心|張力|震撼|無奈|荒誕|荒謬|情緒)", spoken):
+            return True
+    if outline_phrases and _line_copies_outline_note(raw, outline_phrases):
+        return True
+    return False
+
+
+def extract_tone_spoken_sample(tone_md: str) -> str:
+    """只取出語氣範本中的口白範例，避免結構公式被模型當台詞輸出。"""
+    if not tone_md:
+        return ""
+    match = re.search(
+        r"##\s*(核心口白範例[^\n]*|參考口白[^\n]*)\n+(.*?)(?=\n##\s+|\Z)",
+        tone_md,
+        re.S,
+    )
+    if match:
+        return match.group(2).strip()
+    return tone_md.strip()
+
+
 def split_long_narration_line(line: str, max_chars: int = 30) -> list[str]:
     """若單行口白包含多個逗號子句且過長，在適當的逗號停頓處拆分為多行獨立口白（每行約 15~25 字）。"""
     line = line.strip()
@@ -221,7 +330,7 @@ def split_long_narration_line(line: str, max_chars: int = 30) -> list[str]:
     return result
 
 
-def sanitize_script_punctuation(text: str) -> str:
+def sanitize_script_punctuation(text: str, outline_notes: str | None = None) -> str:
     """自動清理並嚴格規範口白標點符號：
     1. 僅允許使用全形逗號「，」、問號「？」、感嘆號「！」
     2. 句號「。」、分號「；」自動切分為獨立換行
@@ -229,23 +338,20 @@ def sanitize_script_punctuation(text: str) -> str:
     4. 移除各類引號「」『』""''“”‘’、括號、書名號
     5. 若單行過長（>30字）且包含逗號，自動在停頓處智慧分行，維持「一句一行」
     6. 壓縮過多重複標點，保留 OmniVoice [tag]
-    7. 嚴格過濾章節、幕次、場景標題行（例如：第一幕、第1幕、第二章、[第一幕]、【第3幕】等），確保純口白
+    7. 過濾章節／幕次標題、畫面提示、大綱場記、情緒標註與「讓觀眾思考」等後設說明，確保純口白
     """
     # 句號與分號視為句子結束，優先轉換為斷行
     text = re.sub(r"[。；]", "\n", text)
+    outline_phrases = extract_outline_leak_phrases(outline_notes)
 
     cleaned_lines = []
     for raw_line in text.splitlines():
         line = raw_line.strip()
         if not line:
             continue
-        # 嚴格過濾章節、幕次、場景標題行（避免被當成台詞朗讀）
-        if re.match(
-            r"^\s*([【\[\(（#*]*\s*第[一二三四五六七八九十\d]+[幕章節集場次]|幕[一二三四五六七八九十\d]+[：:]|Act\s*\d+|Chapter\s*\d+|Scene\s*\d+)",
-            line,
-            re.IGNORECASE,
-        ):
+        if is_non_spoken_script_line(line, outline_phrases):
             continue
+        line = _NARRATION_PREFIX_RE.sub("", line).strip()
         # 移除引號、書名號、圓括號（保留中括號供 OmniVoice [tag] 使用）
         line = re.sub(r"[「」『』\"'“”‘’《》〈〉（）()]", "", line)
         # 頓號、冒號轉為逗號
@@ -258,14 +364,14 @@ def sanitize_script_punctuation(text: str) -> str:
         line = re.sub(r"，+", "，", line)
         # 去除行首逗號
         line = re.sub(r"^[，,]+", "", line).strip()
-        if not line:
+        if not line or is_non_spoken_script_line(line, outline_phrases):
             continue
 
         # 過長單行智慧切分，保證一行一句（約 15~25 字）
         sub_lines = split_long_narration_line(line, max_chars=30)
         for sl in sub_lines:
             sl = re.sub(r"^[，,]+", "", sl).strip()
-            if sl:
+            if sl and not is_non_spoken_script_line(sl, outline_phrases):
                 cleaned_lines.append(sl)
 
     return "\n".join(cleaned_lines)
@@ -313,6 +419,7 @@ def generate_story_outline(
    - 此幕要帶給觀眾的懸念或情緒高潮
 2. 避免空泛概述，請給出具體人物姓名、時間點、關鍵事件與技術關鍵詞
 3. 排版請簡潔有力，條列式輸出（例如「第一幕：...」、「第二幕：...」）
+4. 「幕次標題」與「此幕要帶給觀眾的懸念或情緒高潮」是給下一階段編劇看的場記，不是口白。請用內部筆記語氣書寫，後續腳本必須改寫成聽眾聽得懂的台詞，不得把這些欄位原句唸出來。
 
 請直接輸出繁體中文的大綱內容："""
 
@@ -367,7 +474,7 @@ def generate_story_script(
     client_kwargs = get_gemini_client_kwargs()
     client = genai.Client(**client_kwargs)
 
-    tone_sample = load_tone_sample(tone_id)
+    tone_sample = extract_tone_spoken_sample(load_tone_sample(tone_id))
 
     user_prompt_section = ""
     if user_prompt and user_prompt.strip():
@@ -380,9 +487,11 @@ def generate_story_script(
     notes_section = ""
     if notes and notes.strip():
         notes_section = f"""
-【故事核心大綱與關鍵看點（務必作為情節骨架深度展開）】
+【故事核心大綱與關鍵看點（僅供內部情節骨架，禁止照抄欄位文字）】
 {notes.strip()}
 請嚴格依據上述大綱架構逐幕深入鋪陳，每幕展開足夠的台詞與名場面細節，切忌一筆帶過！
+大綱裡的「幕次標題」「核心矛盾衝突」「此幕要帶給觀眾的懸念或情緒高潮」是給編劇看的場記。
+必須改寫成聽眾聽得懂的說書口白，嚴禁把標題或情緒標註原句唸出來。
 """
 
     # 依目標字數動態量化行數與每幕配額（中文口白每行約 18~22 字，以平均 20 字估算）
@@ -409,9 +518,11 @@ def generate_story_script(
   * 【絕對嚴格禁止自稱「說書人」、「小編」或出現任何「我是說書人」的語句】！
   * 開場與全篇人設視角必須 100% 嚴格依照下方【口吻風格參照】的範本與語調發聲（例如若風格範本是以提問或直接點題開場，請直接切入，切勿加入多餘自稱）。
 - 絕對最高禁令（純口白保證）：
-  * 全文 100% 必須為直接說出的純台詞口白！
+  * 全文 100% 必須為直接說出的純台詞口白！每一行都必須是說書人會對聽眾親口講出的句子。
   * 【絕對嚴格禁止】輸出任何章節標題、幕次名稱、場景標號或過渡前綴（嚴格禁止出現「第一幕：...」、「第二幕」、「第1幕」、「【第一幕】」、「幕次一」、「引言」、「結語」等任何結構標記）。
-  * 聽眾只會聽到你嘴巴講出來的故事台詞，因此嚴禁出現任何給讀者看的章節小標題！
+  * 大綱場記一律禁止唸出：幕次標題、核心矛盾衝突、「此幕要帶給觀眾的懸念或情緒高潮」及其內容（例如「強烈的荒謬感與好奇心」這類情緒標註）。
+  * 嚴禁輸出導演筆記、畫面說明、結構標籤，以及「讓觀眾思考／讓觀眾理解／帶給觀眾／鋪陳出／展現了…手腕」等對製作人員說話的後設句子。
+  * 聽眾只會聽到你嘴巴講出來的故事台詞，因此嚴禁出現任何給讀者看的章節小標題或場記！
 - 資料深度：盡可能挖掘該主題的真實歷史、人物細節、爭議轉折點、技術與商業本質、傳奇名場面
 - 語言規範：盡量不要有英文，外國人名、機構名、專業術語一律標準中文通譯（避免中文語音模型拼讀字母破音）
 - 標點符號嚴格約束：
@@ -431,7 +542,7 @@ def generate_story_script(
   * [confirmation-en]：肯定共識、篤定結論
   * [dissatisfaction-hnn]：質疑抗衡、不滿冷笑
 
-【口吻風格參照】
+【口吻風格參照（只模仿語氣與句式，禁止輸出結構標題或節奏公式名稱）】
 {tone_sample if tone_sample else "請使用極具感染力、短句頓挫、反詰質疑後驚喜反轉的敘事風格。"}
 
 請直接輸出逐行口白內容，不要輸出開頭客套話，切勿自稱說書人："""
@@ -459,7 +570,7 @@ def generate_story_script(
                 config=config,
             )
             if resp.text:
-                return sanitize_script_punctuation(resp.text.strip())
+                return sanitize_script_punctuation(resp.text.strip(), outline_notes=notes)
         except Exception as exc:
             errors.append(f"{model_name}: {exc}")
             continue
@@ -482,7 +593,7 @@ def expand_story_script(
     client_kwargs = get_gemini_client_kwargs()
     client = genai.Client(**client_kwargs)
 
-    tone_sample = load_tone_sample(tone_id)
+    tone_sample = extract_tone_spoken_sample(load_tone_sample(tone_id))
 
     target_lines = max(20, round(target_word_count / 20))
     min_expand_words = int(target_word_count * 0.9)
@@ -512,11 +623,12 @@ def expand_story_script(
    - 問號與感嘆號極度克制（每 10~15 句至多出現 1 次）。
    - 必須維持「一行一句獨立口白」（每行約 15~25 字，說完一句必須立即按下 Enter 換行，絕對嚴禁多句連成大長行）。
    - 【絕對嚴格禁止】輸出任何章節標題、幕次名稱或提示前綴（嚴禁出現「第一幕」、「第X幕」等結構標籤），每一行都必須是純口白！
+   - 嚴禁把大綱場記唸出來：幕次標題、情緒標註（例如「強烈的荒謬感與好奇心」）、以及「讓觀眾思考／帶給觀眾／鋪陳出」等後設說明。
    - 【絕對嚴禁自稱「說書人」或「小編」】！全篇語氣人設嚴格遵照下方風格範本。
    - 外國人名、機構名一律中文通譯，避免英文。
    - 自然嵌入 OmniVoice 情緒標籤（如 [surprise-wa]、[sigh]、[question-ei] 等，每 4~6 句至多 1 個）。
 
-【口吻風格參照】
+【口吻風格參照（只模仿語氣與句式，禁止輸出結構標題或節奏公式名稱）】
 {tone_sample if tone_sample else "請使用極具感染力、短句頓挫、反詰質疑後驚喜反轉的敘事風格。"}
 
 請直接輸出擴寫後的完整逐行口白腳本，不要輸出任何前言或客套話，切勿自稱說書人："""

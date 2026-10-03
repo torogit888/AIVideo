@@ -1,0 +1,25 @@
+id: 037_scene_37
+index: 37
+title: 第 37 幕
+narration: 蘇聯解體之後，百事可樂的易貨協議面臨了新的挑戰和調整，這場交易對於當時的蘇聯人民來說，舊竟意味著什麼呢，
+image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。A wide, symbolic landscape.
+  A grand, but crumbling, Soviet-era structure is depicted, with soft cracks and a
+  sense of disarray. The glowing Pepsi-Cola Brand logo is shown at a crossroads, facing
+  new, ethereal pathways and challenges. In the foreground, stylized Soviet people,
+  with softened features, look on with a mix of hope and uncertainty. The scene is
+  bathed in a perpetual golden hour glow, tinged with change.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Mikhail Gorbachev portrait

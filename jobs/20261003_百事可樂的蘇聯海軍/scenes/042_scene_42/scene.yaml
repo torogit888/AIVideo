@@ -1,0 +1,17 @@
+id: 042_scene_42
+index: 42
+title: 第 42 幕
+narration: 它讓我們思考，商業行為在宏大歷史變革中，舊竟扮演著怎樣的腳色，又承擔著怎樣的責任，
+image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。A contemplative, wide shot.
+  A glowing Pepsi-Cola Brand logo is placed at the center of a swirling, dreamlike
+  vortex of historical events and abstract symbols of change. Ethereal question marks
+  and subtle, illustrative scales of justice or responsibility are balanced around
+  it, prompting reflection. The scene is bathed in a perpetual golden hour glow, with
+  a thoughtful atmosphere.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

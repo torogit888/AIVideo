@@ -1,0 +1,18 @@
+id: 008_scene_8
+index: 8
+title: 第 8 幕
+narration: 這句話背後，隱藏著多少令人驚訝的商業操作，以及那段特殊歷史時棋的荒誕與現實，一家賣汽水的公司，舊竟是如何捲入如此深層的軍事與政治交易呢，
+image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。A whimsical, dreamlike composition.
+  A large, elegant glass of Pepsi, with tiny, translucent white bubbles, is placed
+  prominently. Around it, like swirling secrets or hidden mechanisms, intricate, delicate
+  brushstrokes depict stylized gears and cogs, subtly intertwined with miniature,
+  toy-like Soviet Navy Fleet warships and abstract representations of political documents.
+  The scene is bathed in a warm, diffused perpetual golden hour glow, emphasizing
+  hidden complexities.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

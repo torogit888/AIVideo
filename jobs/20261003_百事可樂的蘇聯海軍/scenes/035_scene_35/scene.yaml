@@ -1,0 +1,17 @@
+id: 035_scene_35
+index: 35
+title: 第 35 幕
+narration: 在面對複雜國際政治與經濟環境時，其靈活的商業策略和驚人的資源整合能力，將不可能變為可能，
+image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。A symbolic, whimsical illustration.
+  The glowing Pepsi-Cola Brand logo is depicted as a nimble, ethereal entity, gracefully
+  navigating through a complex, swirling maze of abstract political symbols and economic
+  charts, all rendered with soft, watercolor brushstrokes. It transforms 'impossible'
+  barriers into open pathways, radiating a warm, inviting light. The scene is bathed
+  in a perpetual golden hour glow.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

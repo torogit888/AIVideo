@@ -1,0 +1,25 @@
+id: 032_scene_32
+index: 32
+title: 第 32 幕
+narration: 百事可樂很快就將這些軍艦，轉售給了瑞典的一家廢品回收公司，這些曾經威風凜凜的戰艦，最終的命運，是被拆解成廢鐵，
+image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。A poignant, dreamlike illustration.
+  Stylized Soviet Navy Fleet warships, once grand, are depicted in various stages
+  of gentle disassembly, their soft-edged forms gradually transforming into piles
+  of stylized, muted scrap metal. A subtle, ethereal representation of a Swedish flag
+  or a recycling symbol is faintly visible in the background. The scene is bathed
+  in a perpetual golden hour glow, but with a melancholic undertone.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Ship breaking yard

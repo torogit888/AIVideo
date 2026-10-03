@@ -1,0 +1,17 @@
+id: 039_scene_39
+index: 39
+title: 第 39 幕
+narration: 許多人開始直疑，一家美國公司是否應該從一個衰落大國的軍事資產中獲利，這筆交易是否加速了蘇聯的解體呢[question-ah]，
+image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。A symbolic, dreamlike illustration.
+  A grand, but crumbling, Soviet-era structure is depicted. A glowing Pepsi-Cola Brand
+  logo is shown, with ethereal question marks hovering around it, representing ethical
+  queries. Stylized Soviet Navy Fleet warships, now appearing as fading silhouettes,
+  are subtly integrated into the crumbling landscape, hinting at accelerated decline.
+  The scene is bathed in a perpetual golden hour glow, with a somber undertone.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

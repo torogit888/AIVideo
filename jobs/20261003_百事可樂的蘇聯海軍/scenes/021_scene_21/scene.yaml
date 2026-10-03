@@ -1,0 +1,17 @@
+id: 021_scene_21
+index: 21
+title: 第 21 幕
+narration: 它打破了傳統的貨幣交易模式，展現了在極端限制下，商業創意如何圖破政治與經濟的壁壘，
+image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。A whimsical, illustrative
+  scene. A glowing Pepsi-Cola Brand logo is depicted as a creative force, gently pushing
+  aside or dissolving stylized, soft-edged barriers made of abstract currency symbols
+  and political motifs. The barriers are rendered with muted colors, while Pepsi radiates
+  a warm, inviting light, symbolizing ingenuity breaking through limitations. The
+  scene is bathed in a perpetual golden hour glow.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

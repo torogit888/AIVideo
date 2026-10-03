@@ -1,0 +1,18 @@
+id: 009_scene_9
+index: 9
+title: 第 9 幕
+narration: 這一切又是怎麼發生的，時間拉回到冷戰初棋，那是一個美蘇兩大陣營劍拔弩張的時代，世界被鐵幕一分為二，東方與西方，意識形態水火不容，
+image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。A wide, symbolic landscape.
+  The scene is dramatically split down the middle by an ethereal, shimmering 'Iron
+  Curtain' rendered with soft, blurred edges. On one side, romanticized European capitals
+  with warm, inviting lights (West). On the other, stark, but softened, Soviet structures
+  under a cooler, muted sky (East). The sky above is a blend of warm oranges and serene
+  blues, with wispy clouds, showing subtle tension where colors meet the 'curtain.'
+  The scene is bathed in a perpetual golden hour glow.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

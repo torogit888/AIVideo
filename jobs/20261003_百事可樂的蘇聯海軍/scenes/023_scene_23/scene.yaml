@@ -1,0 +1,17 @@
+id: 023_scene_23
+index: 23
+title: 第 23 幕
+narration: 時間來到了1980年代末，蘇聯的經濟已經瀕臨崩潰的邊緣，曾經成功的伏特加易貨模式，也開始顯得捉襟見肘，伏特加的出口額，已經不足以支付不斷增長的百事可樂需求，
+image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。A wide, symbolic landscape.
+  A grand, but softened, Soviet-era building is depicted as crumbling slightly at
+  the edges, with subtle cracks rendered in soft watercolors. A shimmering Stolichnaya
+  Vodka Bottle appears small and insufficient next to a much larger, glowing Pepsi-Cola
+  Brand logo, symbolizing the imbalance of the barter. The sky is a blend of muted
+  blues and grays, with a fading perpetual golden hour glow, suggesting decline.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

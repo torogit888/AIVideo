@@ -1,0 +1,18 @@
+id: 004_scene_4
+index: 4
+title: 第 4 幕
+narration: 今天，我們就來揭開百事可樂這段用汽水換軍艦的超現實歷史，看看它如何從一杯尋常的可樂，攪動了半個世紀的全球政治與商業格局，甚至在今天的俄烏戰場上，依然能看見它所留下的複雜印記，
+image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。A single, elegantly drawn
+  glass of Pepsi, with tiny, translucent white bubbles, sits at the center of a swirling,
+  dreamlike watercolor map of the world. Stylized Soviet Navy Fleet warships are subtly
+  integrated into the swirling patterns around the glass, representing the 'soda for
+  warships' exchange. The map shows faint, illustrative lines suggesting global political
+  and commercial currents. The overall atmosphere is one of nostalgic wonder, bathed
+  in a perpetual golden hour glow.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

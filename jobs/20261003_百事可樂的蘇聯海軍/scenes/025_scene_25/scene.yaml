@@ -1,0 +1,25 @@
+id: 025_scene_25
+index: 25
+title: 第 25 幕
+narration: 到了1989年，百事可樂與蘇聯政府簽署了一項新的易貨協議，這筆交易的價值，高達令人震驚的三十億美元，然而，這次蘇聯已經沒有足夠的伏特加來支付了，
+image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。Donald Kendall, with his
+  kindly, shrewd face, and Nikita Khrushchev, with his robust, expressive face, are
+  depicted at a grand, softened negotiating table. Between them, a glowing Pepsi-Cola
+  Brand logo is prominent. A shimmering Stolichnaya Vodka Bottle is shown, looking
+  empty or diminished, symbolizing the lack of vodka. The scene is bathed in a perpetual
+  golden hour glow, with a hint of urgency.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Pepsi-Cola USSR barter trade agreement 1989

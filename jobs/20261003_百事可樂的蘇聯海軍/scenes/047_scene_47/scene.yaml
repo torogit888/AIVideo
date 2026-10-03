@@ -1,0 +1,24 @@
+id: 047_scene_47
+index: 47
+title: 第 47 幕
+narration: 相關的報導和數據顯示，百事可樂在俄羅斯市場的持續盈利，也因此遭受了國際社會的廣泛批評，
+image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。A glowing Pepsi-Cola Brand
+  logo is depicted within a stylized, romanticized Russian market. Around it, ethereal,
+  soft-edged speech bubbles (without text) or abstract, muted patterns represent 'international
+  criticism' and 'reports/data,' swirling like disapproving whispers. The perpetual
+  golden hour glow is present but with a slightly uneasy atmosphere.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: 'News clipping: Criticism of PepsiCo''s Russia profits'

@@ -1,0 +1,18 @@
+id: 049_scene_49
+index: 49
+title: 第 49 幕
+narration: 在新的地緣政治衝圖中，跨國氣業的商業利益與道德責任之間，又該如何權衡，
+image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。A symbolic, dreamlike illustration.
+  A glowing Pepsi-Cola Brand logo is depicted at the center of a delicate, illustrative
+  balance scale. On one side, abstract, shimmering symbols of 'commercial interest'
+  (gold coins, currency flows). On the other, ethereal, muted patterns representing
+  'moral responsibility' (perhaps a gentle, guiding hand or a soft light). The scale
+  is subtly swaying, emphasizing the dilemma. The scene is bathed in a perpetual golden
+  hour glow.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

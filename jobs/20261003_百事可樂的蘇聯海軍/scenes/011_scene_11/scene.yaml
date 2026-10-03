@@ -1,0 +1,26 @@
+id: 011_scene_11
+index: 11
+title: 第 11 幕
+narration: 那裡上演了一場舉世聞名的廚房辯論，美國副總統理查德·尼克森與蘇聯總理尼基塔·赫魯雪夫，在一個現代化的樣板廚房裡，唇槍舌劍，爭論著資本主義與共產主義的優劣，
+image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。Richard Nixon, with his distinctive,
+  somewhat angular face and dark suit, and Nikita Khrushchev, with his robust, expressive
+  face and dark suit, stand in a stylized, modern kitchen. They are engaged in a lively,
+  animated discussion, their expressions conveying a mix of intensity and theatricality.
+  The kitchen is rendered with softened edges and warm, inviting colors, but with
+  a subtle tension in the air. Soft, ambient light filters through a window, casting
+  gentle shadows. The scene is bathed in a perpetual golden hour glow.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Richard Nixon and Nikita Khrushchev Kitchen Debate photo

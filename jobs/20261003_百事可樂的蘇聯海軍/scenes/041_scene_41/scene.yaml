@@ -1,0 +1,18 @@
+id: 041_scene_41
+index: 41
+title: 第 41 幕
+narration: 曾經的意識形態鬥爭，最終在商業利益面前，顯得如此脆弱與不堪一集，這場交易的背後，充滿了倫理困境與歷史代價，
+image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。A symbolic, dreamlike illustration.
+  Two grand, romanticized architectural structures, representing opposing ideologies,
+  are depicted as fragile, almost transparent, crumbling under the weight of a shimmering,
+  abstract wave of 'commercial interest' (represented by flowing gold and currency
+  symbols). Ethereal question marks and muted patterns representing 'ethical dilemmas'
+  and 'historical cost' subtly float around them. The scene is bathed in a perpetual
+  golden hour glow, with a poignant sense of fragility.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

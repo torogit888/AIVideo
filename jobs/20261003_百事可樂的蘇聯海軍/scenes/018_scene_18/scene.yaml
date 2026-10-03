@@ -1,0 +1,26 @@
+id: 018_scene_18
+index: 18
+title: 第 18 幕
+narration: 在1972年，百事可樂與蘇聯政府達成了一項開創性的協議，百事可樂將以濃縮液的形式進入蘇聯，作為交換，蘇聯則提供他們國產的史托利契納伏特加，百事可樂獲得了在美國獨家銷售這種伏特加的權利[surprise-oh]，
+image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。A whimsical, illustrative
+  scene depicting a stylized exchange. On one side, a glowing Pepsi-Cola Brand logo,
+  with tiny, translucent white bubbles, gently floats towards a stylized, romanticized
+  Soviet building. On the other side, a Stolichnaya Vodka Bottle, with its translucent,
+  shimmering glass, gracefully moves towards a dreamlike representation of America.
+  The exchange is depicted as a soft, flowing movement, bathed in a perpetual golden
+  hour glow.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Pepsi-Cola USSR barter trade agreement 1972

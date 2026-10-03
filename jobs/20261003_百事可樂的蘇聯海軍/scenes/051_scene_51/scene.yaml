@@ -1,0 +1,19 @@
+id: 051_scene_51
+index: 51
+title: 第 51 幕
+narration: 再到在當代衝圖中面臨道德審判的整個歷程，這不僅僅是百事可樂的歷史，更是資本力量如何在不同時代背景下，不斷試探，擴張，甚至重塑地緣政治格局的縮影[confirmation-en]，
+image_prompt: '歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。A grand, sweeping, dreamlike
+  narrative. A glowing Pepsi-Cola Brand logo is depicted moving through different
+  historical vignettes: first, breaking through an ''Iron Curtain'' (Cold War), then
+  surrounded by stylized Soviet Navy Fleet warships, and finally, under ethereal ''moral
+  scrutiny'' in a modern, conflict-ridden landscape. Abstract, shimmering patterns
+  of ''capital''s power'' subtly connect and influence these scenes, showing its constant
+  expansion and reshaping of geopolitics. The scene is bathed in a perpetual golden
+  hour glow, with varying emotional tones.'
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

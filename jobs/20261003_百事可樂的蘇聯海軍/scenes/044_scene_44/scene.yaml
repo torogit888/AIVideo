@@ -1,0 +1,25 @@
+id: 044_scene_44
+index: 44
+title: 第 44 幕
+narration: 時間線拉到2022年，俄羅斯全面入侵烏克蘭，西方世界對俄羅斯實施了嚴厲的制裁，許多跨國氣業紛紛撤出俄羅斯市場，
+image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。A symbolic, dreamlike map
+  of Russia and Ukraine, rendered in muted, somber watercolors, with abstract, illustrative
+  lines representing conflict. Around Russia, ethereal, soft-edged chains or barriers
+  symbolize 'sanctions.' Stylized, fading silhouettes of various corporate logos (not
+  Pepsi) are depicted retreating from the Russian border. The perpetual golden hour
+  glow is present but tinged with a somber, almost stormy, hue.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: 'News clipping: Western sanctions on Russia 2022'

@@ -1,0 +1,17 @@
+id: 030_scene_30
+index: 30
+title: 第 30 幕
+narration: 百事可樂精準地捕捉到了這一歷史性裂縫，將商業觸腳伸向了前所未有的領域，但是，一家飲料公司，要這些軍艦做什麼呢，
+image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。A whimsical, symbolic illustration.
+  The glowing Pepsi-Cola Brand logo, with its gentle, almost glowing quality, is depicted
+  as a curious, ethereal entity, extending soft, illustrative tendrils into a swirling,
+  dreamlike 'historical crack' or chasm. Within the chasm, stylized Soviet Navy Fleet
+  warships are visible, raising the question of their purpose for a beverage company.
+  The scene is bathed in a perpetual golden hour glow.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

@@ -1,0 +1,25 @@
+id: 013_scene_13
+index: 13
+title: 第 13 幕
+narration: 赫魯雪夫手持百事可樂的照片，迅速傳遍全球，這張照片，簡直就是百事可樂打入蘇聯市場的入場券[surprise-oh]，
+image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。A stylized, iconic image
+  of Nikita Khrushchev, with his robust, expressive face, holding a glass of Pepsi.
+  The image is depicted as if it's a cherished, slightly faded illustration, radiating
+  outwards across a dreamlike, watercolor map of the world, symbolizing its global
+  spread. The Pepsi-Cola Brand logo is subtly integrated into the glass. The scene
+  is bathed in a perpetual golden hour glow.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Nikita Khrushchev drinking Pepsi photo

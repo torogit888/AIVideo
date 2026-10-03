@@ -1,0 +1,17 @@
+id: 015_scene_15
+index: 15
+title: 第 15 幕
+narration: 那麼，在盧布無法自由兌換的困境下，百事可樂又是如何實現盈利的呢，
+image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。A whimsical, symbolic scene.
+  A stylized, soft-edged Ruble coin is depicted as being trapped or unable to move,
+  perhaps entangled in delicate, illustrative chains. Nearby, a glowing Pepsi-Cola
+  Brand logo is shown, with subtle question marks or thought bubbles rendered with
+  soft brushstrokes, conveying the challenge of profitability. The background is a
+  dreamlike, muted landscape, bathed in a perpetual golden hour glow.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

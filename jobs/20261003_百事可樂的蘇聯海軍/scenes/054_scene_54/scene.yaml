@@ -1,0 +1,17 @@
+id: 054_scene_54
+index: 54
+title: 第 54 幕
+narration: 無論時代如何變遷，商業的本直，資本的逐利性，以及它與國家權力，國際政治之間錯縱複雜的關係，都將是人類社會永恆的命題，
+image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。A grand, symbolic, wide shot.
+  A glowing Pepsi-Cola Brand logo is at the center of a complex, swirling tapestry
+  of abstract symbols representing 'business,' 'capital,' 'state power,' and 'international
+  politics.' These elements are intricately intertwined with soft, watercolor brushstrokes,
+  forming an eternal, evolving pattern. The scene is bathed in a perpetual golden
+  hour glow, with a sense of profoundness.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

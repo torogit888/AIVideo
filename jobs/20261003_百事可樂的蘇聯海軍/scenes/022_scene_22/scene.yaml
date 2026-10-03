@@ -1,0 +1,18 @@
+id: 022_scene_22
+index: 22
+title: 第 22 幕
+narration: 然而，當伏特加也無法滿足日益增長的百事可樂需求時，更為驚人的交易，即將浮出水面，
+image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。A stylized, dreamlike scene.
+  A shimmering Stolichnaya Vodka Bottle, with its translucent glass, is depicted as
+  slowly diminishing or becoming transparent, unable to keep up with a rapidly expanding,
+  glowing Pepsi-Cola Brand logo. In the background, a subtle, ethereal silhouette
+  of a Soviet Navy Fleet warship begins to emerge from a misty, watercolor horizon,
+  hinting at a 'more surprising deal.' The scene is bathed in a perpetual golden hour
+  glow.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

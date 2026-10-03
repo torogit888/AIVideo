@@ -1,0 +1,17 @@
+id: 050_scene_50
+index: 50
+title: 第 50 幕
+narration: 百事可樂的選擇，是否再次印證了資本的逐利本性，回顧百事可樂從一杯汽水，到擁有一支海軍，
+image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。A sweeping, dreamlike panorama.
+  On one side, an elegant glass of Pepsi, with tiny, translucent white bubbles. This
+  seamlessly transitions, through a swirling watercolor path, to a fleet of stylized
+  Soviet Navy Fleet warships, depicted with soft, rounded edges. Above this journey,
+  ethereal, shimmering symbols of 'capital's profit motive' subtly hover, connecting
+  the narrative. The scene is bathed in a perpetual golden hour glow.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

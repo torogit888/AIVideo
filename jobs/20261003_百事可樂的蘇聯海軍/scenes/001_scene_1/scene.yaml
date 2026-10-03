@@ -1,0 +1,24 @@
+id: 001_scene_1
+index: 1
+title: 第 1 幕
+narration: 你敢相信，一家專門賣氣泡飲料的公司，曾經一度擁有全世界第六大的海軍艦隊嗎，甚至比某些國家的海軍規模還要龐大[surprise-wa]，沒錯，就是那個藍紅相間，充滿歡樂氣泡的百事可樂，
+image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。A majestic, glowing Pepsi-Cola
+  Brand logo floats above a vast, dreamlike watercolor sea. In the distance, a stylized,
+  whimsical fleet of Soviet Navy Fleet warships sails gracefully, suggesting the logo's
+  ownership. The scene is bathed in a perpetual golden hour glow, with warm oranges,
+  soft pinks, and serene blues in the sky, and wispy, ethereal clouds.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Pepsi-Cola logo (1970s-1980s)

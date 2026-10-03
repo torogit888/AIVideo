@@ -1,0 +1,18 @@
+id: 003_scene_3
+index: 3
+title: 第 3 幕
+narration: 這背後，不僅僅是一樁匪夷所思的商業奇聞，更是冷戰時棋美蘇兩大陣營意識形態交鋒，經濟體系碰撞，以及資本力量無孔不入的終極寫照，
+image_prompt: '歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。A symbolic illustration
+  depicting two grand, romanticized architectural structures: one a classical Capitol-like
+  building (representing the US) and the other a stark, softened Soviet-era building
+  (representing the USSR). They face each other across a chasm, with a shimmering,
+  ethereal river of gold coins and abstract capital flows subtly connecting and influencing
+  both sides. The sky is a blend of warm oranges and serene blues, with wispy clouds,
+  under a perpetual golden hour glow.'
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

@@ -1,0 +1,25 @@
+id: 010_scene_10
+index: 10
+title: 第 10 幕
+narration: 然而，就在這樣緊張的氛圍下，卻也醞釀著一些意想不到的商業契機，讓我們將目光聚焦到1959年的莫斯科美國國家展覽會，
+image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。A grand, romanticized illustration
+  of the 1959 Moscow American National Exhibition. Architectural details are softened,
+  with intricate brushwork. The atmosphere is bustling yet dreamlike, with soft, ambient
+  light filtering through large windows. In the foreground, a subtle, glowing Pepsi-Cola
+  Brand logo hints at the impending commercial opportunity. The sky outside is a warm
+  blend of oranges and pinks, suggesting a perpetual golden hour glow.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: 1959 Moscow American National Exhibition

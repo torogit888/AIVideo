@@ -1,0 +1,25 @@
+id: 005_scene_5
+index: 5
+title: 第 5 幕
+narration: 舊竟是誰擁有世界第六大的海軍艦隊呢，答案竟然是百事可樂，這家飲料巨頭，曾經一度坐擁蘇聯海軍的軍艦，包瓜一騷巡洋艦，一騷護衛艦，甚至還有潛水艇[surprise-wa]，
+image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。A whimsical, wide shot shows
+  the Pepsi-Cola Brand logo, depicted as a grand, floating emblem with a gentle, almost
+  glowing quality. Beneath it, a fleet of stylized Soviet Navy Fleet warships (a cruiser,
+  a frigate, and a submarine) gracefully sails on a vast, watercolor sea. The ships
+  have soft, rounded edges and intricate details, like meticulously crafted toys.
+  The scene is bathed in a perpetual golden hour glow.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Soviet Navy Project 68 Sverdlov-class cruiser

@@ -1,0 +1,17 @@
+id: 043_scene_43
+index: 43
+title: 第 43 幕
+narration: 然而，歷史的車輪從未停止轉動，資本的逐利本性，也從未改變，
+image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。A symbolic, dreamlike illustration.
+  A grand, stylized 'wheel of history,' rendered with soft, intricate details, is
+  depicted as perpetually turning. Within its spokes, shimmering, abstract symbols
+  of 'capital' (gold coins, currency flows) are subtly integrated, emphasizing their
+  unchanging, profit-seeking nature. The scene is bathed in a perpetual golden hour
+  glow, with a sense of timeless motion.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

@@ -1,0 +1,17 @@
+id: 033_scene_33
+index: 33
+title: 第 33 幕
+narration: 這筆交易，不僅成功解決了百事可樂的貨幣問題，更讓他們以極低的成本，獲得了巨大的商業宣傳和市場份額[confirmation-en]，
+image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。A triumphant, whimsical illustration.
+  The glowing Pepsi-Cola Brand logo is depicted as radiating outwards, expanding its
+  market share across a dreamlike, watercolor map. Around it, stylized currency symbols
+  flow freely, and ethereal headlines or speech bubbles (without actual text) signify
+  'massive publicity,' all rendered with soft, illustrative brushstrokes. The scene
+  is bathed in a perpetual golden hour glow.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null

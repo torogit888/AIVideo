@@ -1,0 +1,25 @@
+id: 045_scene_45
+index: 45
+title: 第 45 幕
+narration: 然而，百事可樂卻作為仍在俄羅斯運營的少數西方大型氣業之一，面臨著巨大的道德壓力與公眾審視，百事可樂聲稱，其在俄羅斯主要銷售的是必需品，
+image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。A glowing Pepsi-Cola Brand
+  logo is prominently displayed within a stylized, romanticized Russian market scene,
+  with soft-edged stalls. Around it, ethereal, shimmering eyes or subtle, illustrative
+  spotlights represent 'public scrutiny' and 'moral pressure.' Nearby, abstract, soft-edged
+  representations of 'essential goods' (milk cartons, baby food) are subtly highlighted.
+  The scene is bathed in a perpetual golden hour glow, with a sense of being watched.
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: null
+  image_take: null
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: 'News clipping: PepsiCo''s continued operations in Russia 2022'
