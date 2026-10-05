@@ -11,8 +11,10 @@ import yaml
 
 from aivideo.commands.check import _load_dotenv
 from aivideo.gemini_image import generate_image, has_gemini_credentials
-from aivideo.visual_anchors import collect_character_ref_images
+from aivideo.visual_anchors import collect_character_ref_images, collect_scene_character_ref_images
+from aivideo.job_files import load_job_config
 from aivideo.story_generator import resolve_style
+from aivideo.style_prompt import compose_styled_prompt
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
@@ -49,8 +51,7 @@ def run_images(args: Any = None, progress_callback=None, **kwargs) -> int:
         print(f"[fail] 找不到 job.yaml：{job_yaml_path}", file=sys.stderr)
         return 1
 
-    with open(job_yaml_path, "r", encoding="utf-8") as f:
-        job_cfg = yaml.safe_load(f) or {}
+    job_cfg = load_job_config(job_dir)
 
     img_cfg = job_cfg.get("image", {}) if isinstance(job_cfg.get("image"), dict) else {}
     style_key = img_cfg.get("style") or job_cfg.get("style") or ""
@@ -147,7 +148,9 @@ def run_images(args: Any = None, progress_callback=None, **kwargs) -> int:
             print(f"[skip] {s_id}: 未提供 image_prompt")
             continue
 
-        full_prompt = f"{style_prefix}，{prompt}".strip("，") if style_prefix else prompt
+        full_prompt = compose_styled_prompt(style_prefix, prompt)
+        if "no text" not in full_prompt.lower():
+            full_prompt += ", 16:9 widescreen composition, no text, no words, no watermark"
         takes_dir = s_dir / "takes"
         takes_dir.mkdir(parents=True, exist_ok=True)
 
@@ -172,6 +175,14 @@ def run_images(args: Any = None, progress_callback=None, **kwargs) -> int:
         dest_png = takes_dir / f"{take_id}.png"
         dest_json = takes_dir / f"{take_id}.json"
 
+        # 依據此分鏡之台詞與英文 Prompt 智慧匹配出場角色，精確掛載該角色的定裝圖進行一致性生圖
+        scene_refs = collect_scene_character_ref_images(
+            job_dir,
+            visual_anchors,
+            narration=str(scene_cfg.get("narration", "")),
+            image_prompt=prompt,
+        )
+
         # 場景原地重試機制 (In-Place Scene Retry)，遇暫時性限制絕不直接跳過
         scene_success = False
         max_scene_attempts = 3
@@ -192,7 +203,7 @@ def run_images(args: Any = None, progress_callback=None, **kwargs) -> int:
                     image_size=resolution,
                     model=model,
                     seed=seed,
-                    ref_images=ref_images_to_use or None,
+                    ref_images=scene_refs or None,
                 )
                 scene_success = True
                 break
@@ -287,7 +298,9 @@ def run_images(args: Any = None, progress_callback=None, **kwargs) -> int:
                 prompt = str(scene_cfg.get("image_prompt", "")).strip()
                 if not prompt:
                     continue
-                full_prompt = f"{style_prefix}，{prompt}".strip("，") if style_prefix else prompt
+                full_prompt = compose_styled_prompt(style_prefix, prompt)
+                if "no text" not in full_prompt.lower():
+                    full_prompt += ", 16:9 widescreen composition, no text, no words, no watermark"
                 takes_dir = s_dir / "takes"
                 takes_dir.mkdir(parents=True, exist_ok=True)
                 now = datetime.now(timezone.utc).astimezone()

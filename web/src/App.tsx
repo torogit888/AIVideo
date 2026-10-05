@@ -9,7 +9,114 @@ import { FilmViewer } from "./components/FilmViewer";
 import { AssetsView } from "./components/AssetsView";
 import { useStudioStore } from "./store";
 import { api } from "./api";
-import { AI_TEXT_MODELS } from "./types";
+import { AI_IMAGE_MODELS, AI_TEXT_MODELS } from "./types";
+import { ConnectionLights } from "./components/ConnectionLights";
+
+const SettingsHealthPanel: React.FC = () => {
+  const { refreshConnectionLights, showToast } = useStudioStore();
+  const [checking, setChecking] = useState(false);
+  const [defaults, setDefaults] = useState<{
+    default_voice_id?: string;
+    tones?: string[];
+    font_path?: string | null;
+    font_ok?: boolean;
+  }>({});
+
+  useEffect(() => {
+    api
+      .getSystemStatus()
+      .then((st: any) =>
+        setDefaults({
+          default_voice_id: st.default_voice_id,
+          tones: st.tones,
+          font_path: st.font_path,
+          font_ok: st.font_ok,
+        })
+      )
+      .catch(() => undefined);
+  }, []);
+
+  const runCheck = async (target: string) => {
+    setChecking(true);
+    try {
+      await api.checkConnections(target);
+      await refreshConnectionLights();
+      showToast(target === "gemini" ? "已檢測 Gemini 憑證" : target === "comfy" ? "已檢測 Comfy" : "已檢測連線", "success");
+    } catch (e: any) {
+      showToast("檢測失敗: " + (e.message || "未知錯誤"), "error");
+    } finally {
+      setChecking(false);
+    }
+  };
+
+  return (
+    <div className="p-5 rounded-lg bg-cinema-card border border-cinema-border space-y-4 text-xs">
+      <div className="flex items-center justify-between">
+        <h3 className="text-sm font-semibold text-cinema-text">連線與預設資產</h3>
+        <ConnectionLights />
+      </div>
+      <div className="flex flex-wrap gap-2">
+        <button
+          type="button"
+          disabled={checking}
+          onClick={() => runCheck("gemini")}
+          className="h-8 px-3 rounded-lg border border-cinema-border bg-cinema-darker text-cinema-text hover:border-amber-cta/60 hover:text-amber-cta"
+        >
+          檢測 Gemini
+        </button>
+        <button
+          type="button"
+          disabled={checking}
+          onClick={() => runCheck("comfy")}
+          className="h-8 px-3 rounded-lg border border-cinema-border bg-cinema-darker text-cinema-text hover:border-amber-cta/60 hover:text-amber-cta"
+        >
+          檢測 Comfy
+        </button>
+        <button
+          type="button"
+          disabled={checking}
+          onClick={() => runCheck("all")}
+          className="h-8 px-3 rounded-lg bg-amber-cta text-cinema-bg font-semibold hover:bg-amber-ctaHover"
+        >
+          全部檢測
+        </button>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-[11px]">
+        <div className="p-3 rounded-md bg-cinema-darker border border-cinema-border/70">
+          <div className="text-cinema-muted mb-1">預設發音人</div>
+          <div className="font-mono text-cinema-text">{defaults.default_voice_id || "tw_female01"}</div>
+        </div>
+        <div className="p-3 rounded-md bg-cinema-darker border border-cinema-border/70">
+          <div className="text-cinema-muted mb-1">口吻庫</div>
+          <div className="text-cinema-text">{(defaults.tones || []).join("、") || "—"}</div>
+        </div>
+        <div className="p-3 rounded-md bg-cinema-darker border border-cinema-border/70">
+          <div className="text-cinema-muted mb-1">字幕字型</div>
+          <div className={`font-mono truncate ${defaults.font_ok ? "text-emerald-400" : "text-amber-400"}`} title={defaults.font_path || ""}>
+            {defaults.font_ok ? defaults.font_path : "未找到檔案，ASS 用 Noto Sans CJK TC"}
+          </div>
+        </div>
+      </div>
+      <details className="pt-1">
+        <summary className="cursor-pointer text-cinema-muted hover:text-cinema-text">開發端點</summary>
+        <div className="space-y-1.5 text-cinema-muted mt-2">
+          <div className="flex justify-between py-1 border-b border-cinema-border/40">
+            <span>後端 API</span>
+            <span className="text-cinema-text font-mono">http://localhost:8000</span>
+          </div>
+          <div className="flex justify-between py-1 border-b border-cinema-border/40">
+            <span>靜態媒體</span>
+            <span className="text-cinema-text font-mono">/media/jobs</span>
+          </div>
+          <div className="flex justify-between py-1">
+            <span>ComfyUI</span>
+            <span className="text-cinema-text font-mono">http://127.0.0.1:8188</span>
+          </div>
+        </div>
+      </details>
+    </div>
+  );
+};
 
 export const App: React.FC = () => {
   const {
@@ -18,6 +125,7 @@ export const App: React.FC = () => {
     setPipelineRunning,
     loadScenes,
     loadJobs,
+    patchSceneCard,
     jobs,
     selectJob,
     setTab,
@@ -26,6 +134,9 @@ export const App: React.FC = () => {
     removeToast,
     selectedAiModel,
     setSelectedAiModel,
+    selectedImageModel,
+    setSelectedImageModel,
+    startNewDraft,
   } = useStudioStore();
 
   const [copiedToastId, setCopiedToastId] = useState<string | null>(null);
@@ -63,8 +174,7 @@ export const App: React.FC = () => {
   useEffect(() => {
     if (!selectedJobId) return;
 
-    let lastReloadTime = 0;
-    let lastMessage = "";
+    let lastSceneId = "";
     let isAlreadyDone = false;
 
     const cleanup = api.subscribePipeline(selectedJobId, (data) => {
@@ -75,16 +185,21 @@ export const App: React.FC = () => {
           data.progress,
           data.message,
           data.cooldown_remaining || 0,
-          data.cooldown_total || 0
+          data.cooldown_total || 0,
+          Boolean(data.is_paused)
         );
-        
-        const now = Date.now();
-        // 當前進度訊息改變（如完成一幕），或每隔 1.5 秒即時重新載入分鏡與專案進度
-        if (data.message !== lastMessage || now - lastReloadTime > 1500) {
-          lastMessage = data.message;
-          lastReloadTime = now;
-          loadScenes(selectedJobId);
-          loadJobs();
+        if (data.scene_id) {
+          patchSceneCard(data.scene_id, {
+            has_image: data.has_image,
+            has_audio: data.has_audio,
+          });
+          if (data.scene_id !== lastSceneId) {
+            if (lastSceneId) {
+              // 上一幕已全線完成，即時刷新全畫布分鏡狀態
+              loadScenes(selectedJobId);
+            }
+            lastSceneId = data.scene_id;
+          }
         }
       } else if (data.is_done) {
         if (!isAlreadyDone) {
@@ -109,7 +224,7 @@ export const App: React.FC = () => {
     });
 
     return () => cleanup();
-  }, [selectedJobId, setPipelineRunning, loadScenes, loadJobs, showToast]);
+  }, [selectedJobId, setPipelineRunning, loadScenes, loadJobs, patchSceneCard, showToast]);
 
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-cinema-bg text-cinema-text">
@@ -146,7 +261,7 @@ export const App: React.FC = () => {
                   </p>
                 </div>
                 <button
-                  onClick={() => setTab("script")}
+                  onClick={() => startNewDraft()}
                   className="px-3.5 py-1.5 rounded bg-amber-cta hover:bg-amber-ctaHover text-cinema-bg font-semibold text-xs transition-colors shadow"
                 >
                   + 新建專案
@@ -158,7 +273,7 @@ export const App: React.FC = () => {
                   <Film className="w-8 h-8 text-cinema-muted/50 mx-auto" />
                   <p className="text-xs text-cinema-muted">目前尚無任何專案</p>
                   <button
-                    onClick={() => setTab("script")}
+                    onClick={() => startNewDraft()}
                     className="text-xs text-amber-cta hover:underline font-medium"
                   >
                     立即點此建立第一個說書故事
@@ -176,7 +291,10 @@ export const App: React.FC = () => {
                     return (
                       <div
                         key={j.id}
-                        onClick={() => selectJob(j.id)}
+                        onClick={() => {
+                          selectJob(j.id);
+                          setTab("storyboard");
+                        }}
                         className={`p-4 rounded-lg bg-cinema-card border cursor-pointer transition-all space-y-3 flex flex-col justify-between ${
                           isSelected
                             ? "border-amber-cta ring-2 ring-amber-cta/30"
@@ -324,28 +442,53 @@ export const App: React.FC = () => {
                 </div>
               </div>
 
-              {/* 系統環境資訊 */}
-              <div className="p-5 rounded-lg bg-cinema-card border border-cinema-border space-y-3 text-xs">
-                <h3 className="text-sm font-semibold text-cinema-text">環境端點與渲染服務</h3>
-                <div className="space-y-1.5 text-cinema-muted">
-                  <div className="flex justify-between py-1 border-b border-cinema-border/40">
-                    <span>介面外觀風格</span>
-                    <span className="text-cinema-text font-medium">近黑電影風 (Dark Cinema UI)</span>
-                  </div>
-                  <div className="flex justify-between py-1 border-b border-cinema-border/40">
-                    <span>後端 API 代理</span>
-                    <span className="text-cinema-text font-mono">http://localhost:8000</span>
-                  </div>
-                  <div className="flex justify-between py-1 border-b border-cinema-border/40">
-                    <span>靜態媒體掛載</span>
-                    <span className="text-cinema-text font-mono">/media (支援 Range 串流快進)</span>
-                  </div>
-                  <div className="flex justify-between py-1">
-                    <span>ComfyUI 生圖與語音服務</span>
-                    <span className="text-cinema-text font-mono">http://127.0.0.1:8188 (GPU)</span>
-                  </div>
+              <div className="p-5 rounded-lg bg-cinema-card border border-cinema-border space-y-4">
+                <div className="border-b border-cinema-border/60 pb-3">
+                  <h3 className="text-sm font-semibold text-cinema-text">生圖模型</h3>
+                  <p className="text-xs text-cinema-muted mt-0.5">分鏡出圖使用的 Gemini／Imagen 模型。</p>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {AI_IMAGE_MODELS.map((m) => {
+                    const isSelected = selectedImageModel === m.id;
+                    return (
+                      <div
+                        key={m.id}
+                        onClick={async () => {
+                          setSelectedImageModel(m.id);
+                          if (selectedJobId) {
+                            try {
+                              await api.updateJob(selectedJobId, { image_model: m.id });
+                              await loadJobs();
+                            } catch {
+                              /* 預設仍寫入本機 */
+                            }
+                          }
+                          showToast(`已切換生圖模型為 ${m.name}`, "success");
+                        }}
+                        className={`p-3 rounded-lg border cursor-pointer transition-all ${
+                          isSelected
+                            ? "border-amber-cta bg-amber-cta/10 ring-1 ring-amber-cta/30"
+                            : "border-cinema-border bg-cinema-darker/60 hover:border-cinema-muted"
+                        }`}
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className={`text-xs font-semibold ${isSelected ? "text-amber-cta" : "text-cinema-text"}`}>
+                            {m.name}
+                          </span>
+                          <span className={`text-[10px] px-1.5 py-0.5 rounded font-mono ${
+                            isSelected ? "bg-amber-cta text-cinema-bg font-bold" : "bg-cinema-card text-cinema-muted"
+                          }`}>
+                            {m.badge}
+                          </span>
+                        </div>
+                        <div className="text-[11px] text-cinema-muted mt-1">{m.tag}</div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
+
+              <SettingsHealthPanel />
             </div>
           )}
 

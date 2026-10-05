@@ -2,17 +2,16 @@ id: 008_scene_8
 index: 8
 title: 第 8 幕
 narration: 這句話背後，隱藏著多少令人驚訝的商業操作，以及那段特殊歷史時棋的荒誕與現實，一家賣汽水的公司，舊竟是如何捲入如此深層的軍事與政治交易呢，
-image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。A whimsical, dreamlike composition.
-  A large, elegant glass of Pepsi, with tiny, translucent white bubbles, is placed
-  prominently. Around it, like swirling secrets or hidden mechanisms, intricate, delicate
-  brushstrokes depict stylized gears and cogs, subtly intertwined with miniature,
-  toy-like Soviet Navy Fleet warships and abstract representations of political documents.
-  The scene is bathed in a warm, diffused perpetual golden hour glow, emphasizing
-  hidden complexities.
+image_prompt: 2D Chibi Cell style, 16:9 widescreen. A bright, evenly lit educational
+  storyboard world. A classic contour glass Pepsi-Cola Bottle is at the center. Around
+  it, abstract, simplified symbols of commerce (money bags, gears) and military power
+  (a stylized Soviet Submarine, a simplified tank silhouette) orbit and intertwine,
+  illustrating complex and surprising transactions. Bold black contours, flat color
+  fills, simple highlight bands, creating a clear infographic atmosphere.
 image_negative: ''
 locks:
   speech: false
   image: false
 current:
-  speech_take: null
-  image_take: null
+  speech_take: speech_20261005T051515
+  image_take: image_20261005T051438

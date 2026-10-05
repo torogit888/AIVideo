@@ -15,6 +15,8 @@ from aivideo.api.schemas import (
     SystemStatusResponse,
 )
 from aivideo.commands.check import has_gemini_credentials
+from aivideo.fonts import resolve_subtitle_font
+from aivideo.naming import DEFAULT_VOICE_ID
 from aivideo.story_generator import (
     expand_story_script,
     generate_story_outline,
@@ -36,12 +38,43 @@ def get_system_status() -> SystemStatusResponse:
     except Exception:
         comfy_ok = False
 
+    tones_dir = REPO_ROOT / "assets" / "tones"
+    tones = sorted(
+        p.stem
+        for p in tones_dir.glob("*.md")
+        if p.is_file() and p.name.lower() != "readme.md"
+    ) if tones_dir.is_dir() else []
+    font = resolve_subtitle_font()
     return SystemStatusResponse(
         gemini_configured=gemini_ok,
         comfyui_url=comfy_url,
         comfyui_online=comfy_ok,
         repo_root=str(REPO_ROOT),
+        default_voice_id=DEFAULT_VOICE_ID,
+        tones=tones,
+        font_path=font.get("font_path"),
+        font_ok=bool(font.get("ok")),
     )
+
+
+@router.post("/system/check")
+def check_connections(target: str = "all"):
+    """設定頁檢測：gemini 看憑證，comfy 看 :8188。"""
+    want = (target or "all").strip().lower()
+    result: dict = {}
+    if want in ("all", "gemini"):
+        result["gemini_configured"] = has_gemini_credentials()
+    if want in ("all", "comfy"):
+        comfy_url = os.getenv("COMFY_URL", "http://comfyui:8188").rstrip("/")
+        ok = False
+        try:
+            resp = requests.get(f"{comfy_url}/system_stats", timeout=1.5)
+            ok = resp.status_code == 200
+        except Exception:
+            ok = False
+        result["comfyui_online"] = ok
+        result["comfyui_url"] = comfy_url
+    return result
 
 
 @router.post("/script/generate-outline", response_model=GenerateOutlineResponse)

@@ -18,7 +18,7 @@ import requests
 import zhconv
 
 from aivideo.commands.check import _load_dotenv
-from aivideo.story_generator import apply_pronunciation_mapping
+from aivideo.spoken import prepare_tts_text
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
@@ -526,7 +526,7 @@ def run_tts(args: Any = None, progress_callback=None, **kwargs) -> int:
 
             for idx, s_tc in enumerate(sentences, 1):
                 # 套用多音/破音字諧音映射後轉成簡體中文傳給 OmniVoice
-                s_tc_mapped = apply_pronunciation_mapping(s_tc)
+                s_tc_mapped = prepare_tts_text(s_tc)
                 s_cn = zhconv.convert(s_tc_mapped, "zh-cn")
                 print(f"       [{idx}/{len(sentences)}] 繁: {s_tc}")
                 if s_tc_mapped != s_tc:

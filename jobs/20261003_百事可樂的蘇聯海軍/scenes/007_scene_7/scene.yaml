@@ -2,25 +2,26 @@ id: 007_scene_7
 index: 7
 title: 第 7 幕
 narration: 當時的百事可樂執行長唐納德·肯德爾，甚至還對美國國家安全顧問布倫特·斯考克羅夫特幽默地說，我們正在比你們更快地解除蘇聯的武裝[laughter]，
-image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。Donald Kendall, with his
-  kindly, shrewd face and gentle, engaging smile, is depicted in a cozy, inviting
-  interior setting with rich, muted colors. He gestures subtly, with an intelligent
-  twinkle in his eye, as if sharing a clever secret. In the background, subtly hinted
-  through a window, stylized Soviet Navy Fleet warships appear to gradually fade or
-  diminish. The room is bathed in soft, ambient light from a perpetual golden hour
-  glow.
+image_prompt: 2D Chibi Cell style, 16:9 widescreen. A bright, evenly lit educational
+  storyboard world with a clean, neutral background. Donald Kendall, a chibi-proportioned
+  middle-aged Caucasian businessman, with his oversized round head, short neatly side-parted
+  brown hair, and confident half-smile, stands in his charcoal business suit. He gestures
+  subtly with one hand, a knowing look in his warm eyes. Flat cel shading, crisp black
+  outlines, minimal graphic highlights.
 image_negative: ''
 locks:
   speech: false
   image: false
 current:
-  speech_take: null
-  image_take: null
+  speech_take: speech_20261005T051414
+  image_take: image_20261005T051350
 pip:
-  enabled: false
+  enabled: true
   image: pip.png
   position: right-center
   mode: pip
   scale: 0.24
   border: 5
   query: Donald Kendall Pepsi CEO
+  source_title: Donald M. Kendall
+  source_url: https://upload.wikimedia.org/wikipedia/commons/7/72/Donald_Mcintosh_Kendall_%28cropped%29.jpg

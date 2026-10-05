@@ -1,0 +1,77 @@
+subject: 'Donald Kendall: Chibi-proportioned middle-aged Caucasian businessman with
+  an oversized round head and small compact body. Short neatly side-parted brown hair,
+  clean-shaven square jaw, warm eyes and a confident half-smile. Wears a charcoal
+  1960s-70s business suit, white shirt, and red-and-blue Pepsi-striped tie with simple
+  black shoes. Flat cel shading, crisp black outlines, and minimal graphic highlights
+  in a bright educational storyboard style. | Nikita Khrushchev: Chibi Soviet premier
+  with a very large bald head, short gray hair fringe at the sides, round flushed
+  face, small eyes, and a broad expressive mouth. Stocky short body dressed in a plain
+  gray wool suit, white shirt, dark tie, and a tiny red lapel pin. Rendered with flat
+  cel colors, bold contour lines, and clear diagrammatic simplicity. | Richard Nixon:
+  Chibi American vice president with a large head, dark wavy hair, thick eyebrows,
+  prominent nose, and a serious thin-lipped expression. Compact body in a dark navy
+  suit, white shirt, and narrow tie. Clean 2D cel shading with hard black outlines
+  and flat color blocks suited to educational panels. | Pepsi-Cola Bottle: Classic
+  contour glass Pepsi bottle filled with dark cola and rising white bubbles, silver
+  crown cap, and a red-white-blue label bearing the circular Pepsi globe logo. Simplified
+  into clean geometric curves and flat color blocks with bold outlines; a static inanimate
+  object with absolutely no face, eyes, limbs, or personality. | Stolichnaya Vodka
+  Bottle: Tall clear glass vodka bottle with a narrow neck, transparent liquid, and
+  a red-and-gold label displaying traditional ornament and Cyrillic branding. Precise
+  straight edges, flat cel fills, and crisp black linework; remains a non-living product
+  prop with no anthropomorphic features. | Soviet Submarine: Cold War Soviet diesel-electric
+  submarine shown in clean side view: long dark-gray steel hull, raised conning tower
+  with railings, periscopes and snorkel, bow planes, stern propellers and rudder,
+  and a small red star on the sail. Flat naval-gray cel shading and hard mechanical
+  outlines; strictly a non-living vessel with no eyes, mouth, arms, legs, or creature
+  traits.'
+environment: Bright, evenly lit 2D chibi-cell educational storyboard world contrasting
+  a pastel 1959 Moscow American Exhibition model kitchen—mint cabinets, chrome appliances,
+  checkered linoleum—with a muted gray Soviet naval dock of cranes and cold water.
+  Palette centers on Pepsi red and blue, Soviet crimson, and steel gray against clean
+  white panels. Bold black contours, flat color fills, simple highlight bands, and
+  floating diagram labels create a clear infographic atmosphere without realistic
+  light, grain, or texture.
+use_image_reference: true
+characters:
+- id: donald_kendall
+  name: Donald Kendall
+  appearance: Chibi-proportioned middle-aged Caucasian businessman with an oversized
+    round head and small compact body. Short neatly side-parted brown hair, clean-shaven
+    square jaw, warm eyes and a confident half-smile. Wears a charcoal 1960s-70s business
+    suit, white shirt, and red-and-blue Pepsi-striped tie with simple black shoes.
+    Flat cel shading, crisp black outlines, and minimal graphic highlights in a bright
+    educational storyboard style.
+- id: nikita_khrushchev
+  name: Nikita Khrushchev
+  appearance: Chibi Soviet premier with a very large bald head, short gray hair fringe
+    at the sides, round flushed face, small eyes, and a broad expressive mouth. Stocky
+    short body dressed in a plain gray wool suit, white shirt, dark tie, and a tiny
+    red lapel pin. Rendered with flat cel colors, bold contour lines, and clear diagrammatic
+    simplicity.
+- id: richard_nixon
+  name: Richard Nixon
+  appearance: Chibi American vice president with a large head, dark wavy hair, thick
+    eyebrows, prominent nose, and a serious thin-lipped expression. Compact body in
+    a dark navy suit, white shirt, and narrow tie. Clean 2D cel shading with hard
+    black outlines and flat color blocks suited to educational panels.
+- id: pepsi_cola_bottle
+  name: Pepsi-Cola Bottle
+  appearance: Classic contour glass Pepsi bottle filled with dark cola and rising
+    white bubbles, silver crown cap, and a red-white-blue label bearing the circular
+    Pepsi globe logo. Simplified into clean geometric curves and flat color blocks
+    with bold outlines; a static inanimate object with absolutely no face, eyes, limbs,
+    or personality.
+- id: stolichnaya_vodka_bottle
+  name: Stolichnaya Vodka Bottle
+  appearance: Tall clear glass vodka bottle with a narrow neck, transparent liquid,
+    and a red-and-gold label displaying traditional ornament and Cyrillic branding.
+    Precise straight edges, flat cel fills, and crisp black linework; remains a non-living
+    product prop with no anthropomorphic features.
+- id: soviet_submarine
+  name: Soviet Submarine
+  appearance: 'Cold War Soviet diesel-electric submarine shown in clean side view:
+    long dark-gray steel hull, raised conning tower with railings, periscopes and
+    snorkel, bow planes, stern propellers and rudder, and a small red star on the
+    sail. Flat naval-gray cel shading and hard mechanical outlines; strictly a non-living
+    vessel with no eyes, mouth, arms, legs, or creature traits.'

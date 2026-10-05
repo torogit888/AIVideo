@@ -2,23 +2,32 @@ id: 001_scene_1
 index: 1
 title: 第 1 幕
 narration: 你敢相信，一家專門賣氣泡飲料的公司，曾經一度擁有全世界第六大的海軍艦隊嗎，甚至比某些國家的海軍規模還要龐大[surprise-wa]，沒錯，就是那個藍紅相間，充滿歡樂氣泡的百事可樂，
-image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。A majestic, glowing Pepsi-Cola
-  Brand logo floats above a vast, dreamlike watercolor sea. In the distance, a stylized,
-  whimsical fleet of Soviet Navy Fleet warships sails gracefully, suggesting the logo's
-  ownership. The scene is bathed in a perpetual golden hour glow, with warm oranges,
-  soft pinks, and serene blues in the sky, and wispy, ethereal clouds.
+image_prompt: A surreal conceptual art piece, a wide educational storyboard panel
+  of one colossal classic contour glass soda bottle filled with dark cola and rising
+  white bubbles, silver crown cap and clean red white and blue bands, strictly faceless
+  and limbless, towering at impossible scale over a muted gray naval dock of cranes
+  and cold water while an immense fleet of flat-cel dark-gray diesel-electric submarines
+  with long steel hulls, conning towers, periscopes, snorkels, bow planes, propellers
+  and tiny red stars spreads farther than a nation’s navy, bright even 2D chibi-cell
+  infographic clarity, bold black contours, flat color fills, simple highlight bands,
+  clean white panels, soda red and blue, Soviet crimson and steel gray, impossible
+  scale, dreamlike atmosphere, dramatic lighting, highly detailed, 8k resolution,
+  masterpiece, trending on ArtStation
 image_negative: ''
 locks:
   speech: false
   image: false
 current:
-  speech_take: null
-  image_take: null
+  speech_take: speech_20261005T050936
+  image_take: image_20261005T130542
 pip:
-  enabled: false
+  enabled: true
   image: pip.png
   position: right-center
   mode: pip
   scale: 0.24
   border: 5
   query: Pepsi-Cola logo (1970s-1980s)
+  source_title: Pepsi-Cola Soda Shop Made with Real Sugar
+  source_url: https://thumb.wikimedia.org/wikipedia/commons/thumb/2/29/Pepsi-Cola_Soda_Shop_Made_with_Real_Sugar_logo_%282024%29.svg/960px-Pepsi-Cola_Soda_Shop_Made_with_Real_Sugar_logo_%282024%29.svg.png
+  fetch_error: null

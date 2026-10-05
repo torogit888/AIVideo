@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20261005T055317",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 6.34,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "例如乳製品和嬰兒食品，但其碳酸飲料業務，卻並未完全停止[dissatisfaction-hnn]",
+      "text_cn": "例如乳制品和婴儿食品，但其碳酸饮料业务，却并未完全停止[dissatisfaction-hnn]",
+      "start_sec": 0.0,
+      "end_sec": 6.34,
+      "duration_sec": 6.34
+    }
+  ],
+  "created_at": "2026-10-05T05:53:17.224816+00:00"
+}

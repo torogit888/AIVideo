@@ -1,21 +1,263 @@
 otomo_katsuhiro:
   name: 大友克洋漫畫與動畫電影風格 (Katsuhiro Otomo)
-  prefix: 大友克洋漫畫與動畫電影風格，80年代經典賽璐珞手繪質感，寫實精準的人物與硬科幻機械結構，極高密度的管線與金屬細節，電影感寬銀幕分鏡，自然手繪光影與陰影線條，16:9
-    橫式構圖
-  negative: 文字浮水印、現代3D塑料感、低細節模糊、走形手部
+  description: 80年代經典賽璐珞手繪質感，寫實精準的人物與硬科幻機械結構，極高密度的管線與金屬細節，電影感寬銀幕分鏡。
+  prefix: Katsuhiro Otomo anime style, 1980s cel-shaded hand-drawn animation, realistic
+    characters, intricate hard-sci-fi mechanical structures, dense cables and metal
+    pipes, cinematic widescreen composition, natural hand-drawn lighting and shadows,
+    16:9 widescreen
+  negative: 文字浮水印、現代3D塑料感、低細節模糊、走形手部, text, words, Chinese characters, subtitles,
+    watermark
+  preview: assets/styles/previews/otomo_katsuhiro.jpg
 cinematic_realistic:
   name: 電影寫實風格 (Cinematic Realistic)
-  prefix: 電影感靜幀，35mm鏡頭，膠片顆粒，自然電影光影，高動態範圍，精細細節，16:9 橫式構圖
-  negative: 文字浮水印、過曝、變形、塑料感
+  description: 電影感靜幀，35mm鏡頭，膠片顆粒，自然電影光影，高動態範圍，精細細節。
+  prefix: Cinematic realistic still, 35mm film photography, fine film grain, natural
+    cinematic lighting, high dynamic range, intricate real-world textures, 16:9 widescreen
+    composition
+  negative: 文字浮水印、過曝、變形、塑料感, text, words, Chinese characters, subtitles, watermark
+  preview: assets/styles/previews/otomo_katsuhiro.jpg
 japanese_anime:
   name: 新海誠日系動漫風格 (Japanese Anime)
-  prefix: 新海誠日系動漫風格，精緻線條，通透唯美光影，色彩飽和，二次元手繪質感，16:9 橫式構圖
-  negative: 文字浮水印、寫實暗沉、粗糙雜訊
+  description: 精緻線條，通透唯美光影，色彩飽和，二次元手繪質感，情緒風景。
+  prefix: Makoto Shinkai anime aesthetic, refined clean linework, translucent atmospheric
+    lighting, vibrant saturated colors, emotional landscape background, 16:9 widescreen
+    composition
+  negative: 文字浮水印、寫實暗沉、粗糙雜訊, text, words, Chinese characters, subtitles, watermark
+  preview: assets/styles/previews/shinkai_makoto.jpg
 european_fairytale:
   name: 歐式古典童話繪本風格 (European Fairytale)
-  prefix: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖
-  negative: 文字浮水印、照片寫實、現代冰冷科技感
+  description: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸。
+  prefix: Classic European fairytale picture book illustration, warm gouache and watercolor
+    texture, soft blended edges, whimsical fantasy charm, intricate storybook brushwork,
+    16:9 widescreen composition
+  negative: 文字浮水印、照片寫實、現代冰冷科技感, text, words, Chinese characters, subtitles, watermark
+  preview: assets/styles/previews/european_fairytale.jpg
 retro_scifi:
   name: 70年代復古科幻太空風格 (Retro Sci-Fi)
-  prefix: 70年代復古科幻太空插畫，NASA復古海報風格，顆粒質質感，深邃星空，機械構造，16:9 橫式構圖
-  negative: 文字浮水印、數碼平滑、雜亂畸形
+  description: 70年代復古科幻太空插畫，NASA復古海報風格，顆粒質感，深邃星空，機械構造。
+  prefix: 1970s retro sci-fi space concept art, NASA vintage poster aesthetic, grainy
+    paper texture, deep cosmic nebula, retrofuturistic machinery, 16:9 widescreen
+    composition
+  negative: 文字浮水印、數碼平滑、雜亂畸形, text, words, Chinese characters, subtitles, watermark
+  preview: assets/styles/previews/nihei_tsutomu.jpg
+studio_ghibli:
+  name: 吉卜力經典手繪動畫風格 (Studio Ghibli)
+  description: 宮崎駿手繪賽璐珞質感，溫暖陽光與清澈天空，豐富的自然植被與歐陸奇幻建築。
+  prefix: Classic Studio Ghibli hand-drawn animation style, Hayao Miyazaki cel aesthetic,
+    lush green countryside, warm sunlight and fluffy cumulus clouds, hand-painted
+    watercolor background, 16:9 widescreen composition
+  negative: 文字浮水印、現代3D渲染、暗沉無光、噪點雜色, text, words, Chinese characters, subtitles, watermark
+  preview: assets/styles/previews/studio_ghibli.jpg
+kyoto_animation:
+  name: 京都動畫細膩日常光影風格 (Kyoto Animation)
+  description: 極致精緻的人物刻畫與通透空氣感，溫柔柔和的漫射光與日常生動細節。
+  prefix: Kyoto Animation style, extremely delicate character detailing, soft volumetric
+    lighting, translucent skin and expressive eyes, photorealistic animated backgrounds,
+    high-end 2D animation, 16:9 widescreen
+  negative: 文字浮水印、粗糙線條、走形畸變、低解析度, text, words, Chinese characters, subtitles, watermark
+  preview: assets/styles/previews/kyoto_animation.jpg
+ufotable:
+  name: ufotable數位光效劇場級動畫風格 (Ufotable)
+  description: 劇場版級華麗光影粒子特效，強烈動態光線，深邃陰影與高度精緻的背景合成。
+  prefix: Ufotable theatrical anime style, dynamic lighting and glowing particle effects,
+    intense chiaroscuro contrast, cinematic digital compositing, dramatic atmosphere,
+    16:9 widescreen
+  negative: 文字浮水印、低對比平淡、粗糙線條、模糊, text, words, Chinese characters, subtitles, watermark
+  preview: assets/styles/previews/ufotable.jpg
+trigger_style:
+  name: TRIGGER扳機社狂氣極限動態風格 (Studio Trigger)
+  description: 極限張力粗墨線，透視誇張，高飽和撞色與速度裂紋，充滿搖滾靈魂。
+  prefix: Studio Trigger anime aesthetic, bold dynamic ink outlines, extreme perspective
+    foreshortening, high-contrast neon vibrant colors, explosive energy lines, 16:9
+    widescreen
+  negative: 文字浮水印、柔弱暗淡、平靜無力、現代塑料感, text, words, Chinese characters, subtitles, watermark
+  preview: assets/styles/previews/trigger_style.jpg
+shinkai_makoto:
+  name: 新海誠黃金時刻情緒光影風格 (Makoto Shinkai)
+  description: 如壁紙般精美的夕陽與雲彩，鏡頭光斑與通透空氣感，極度浪漫唯美。
+  prefix: Makoto Shinkai movie still, golden hour sunset, dramatic towering cumulonimbus
+    clouds, lens flare and backlighting, romantic atmospheric depth, 16:9 widescreen
+  negative: 文字浮水印、暗沉陰鬱、粗糙線條、低細節, text, words, Chinese characters, subtitles, watermark
+  preview: assets/styles/previews/shinkai_makoto.jpg
+watanabe_shinichiro:
+  name: 渡邊信一郎冷調爵士黑電影風格 (Shinichiro Watanabe)
+  description: 90年代星際牛仔冷調氛圍，都市霓虹夜景，黑電影式光影對比與成人寫實感。
+  prefix: Shinichiro Watanabe anime style, 1990s retro cel aesthetic, neo-noir moody
+    urban night, glowing neon signs reflecting on wet pavement, grounded realistic
+    character design, 16:9 widescreen
+  negative: 文字浮水印、過度飽和幼稚、平淡光影、現代3D感, text, words, Chinese characters, subtitles, watermark
+  preview: assets/styles/previews/watanabe_shinichiro.jpg
+yuasa_masaaki:
+  name: 湯淺政明極致變形迷幻色彩風格 (Masaaki Yuasa)
+  description: 打破物理常規的自由流暢曲線，波普迷幻色彩，奔放又富有哲思的藝術構圖。
+  prefix: Masaaki Yuasa animation style, fluid loose expressive linework, psychedelic
+    pop-art color palette, surreal distorted perspective, rhythmic dynamic motion,
+    16:9 widescreen
+  negative: 文字浮水印、死板幾何、寫實照片感、單調灰色, text, words, Chinese characters, subtitles, watermark
+  preview: assets/styles/previews/yuasa_masaaki.jpg
+toriyama_akira:
+  name: 鳥山明經典冒險少年漫畫風格 (Akira Toriyama)
+  description: 乾淨有力的線條，圓潤獨特的機械設計與恐龍地貌，經典熱血冒險氛圍。
+  prefix: Akira Toriyama vintage manga style, bold clean ink lines, rounded retro-tech
+    vehicles, prehistoric fantasy rock formations, warm optimistic color palette,
+    classic 1980s shonen adventure, 16:9 widescreen
+  negative: 文字浮水印、細碎雜亂、現代冰冷3D、暗沉陰森, text, words, Chinese characters, subtitles, watermark
+  preview: assets/styles/previews/toriyama_akira.jpg
+araki_hirohiko:
+  name: 荒木飛呂彥奇妙冒險風格 (Hirohiko Araki)
+  description: 極具時尚感的經典姿勢，強烈陰影排線，浮世繪般的高飽和裝飾花紋與替身靈體。
+  prefix: Hirohiko Araki manga style, dramatic high-fashion posing, heavy crosshatching
+    shadows, ornate decorative borders, vivid saturated color scheme, stand aura,
+    16:9 widescreen
+  negative: 文字浮水印、平淡柔弱、低對比無力、普通日常, text, words, Chinese characters, subtitles, watermark
+  preview: assets/styles/previews/araki_hirohiko.jpg
+inoue_takehiko:
+  name: 井上雄彥寫實墨韻水彩風格 (Takehiko Inoue)
+  description: 如浪人崛起與灌籃高手後期的墨水筆觸，真實生動的人物神韻與清雅日式意境。
+  prefix: Takehiko Inoue manga art style, masterful expressive sumi-ink brushstrokes,
+    realistic anatomical proportions, subtle watercolor wash, serene atmospheric Japanese
+    garden, 16:9 widescreen
+  negative: 文字浮水印、大眼萌系、過曝高彩、塑料平滑, text, words, Chinese characters, subtitles, watermark
+  preview: assets/styles/previews/inoue_takehiko.jpg
+miura_kentaro:
+  name: 三浦建太郎黑暗奇幻硬派風格 (Kentaro Miura)
+  description: 烙印勇士極致細密的鋼筆排線，中世紀殘破遺跡，古老雕像與沉重深邃的史詩宿命感。
+  prefix: Kentaro Miura dark fantasy manga style, hyper-dense crosshatching pen linework,
+    gothic medieval ruins, weathered stone statues, atmospheric somber epic mood,
+    16:9 widescreen
+  negative: 文字浮水印、輕飄明亮、卡通低幼、平淡無細節, text, words, Chinese characters, subtitles, watermark
+  preview: assets/styles/previews/miura_kentaro.jpg
+nihei_tsutomu:
+  name: 弐瓶勉巨構硬科幻風格 (Tsutomu Nihei)
+  description: 超巨型工業都市結構，無盡的鋼鐵管線與鋼架，渺小的人物與深沉工業壓迫感。
+  prefix: Tsutomu Nihei manga aesthetic, gargantuan megastructure architecture, sprawling
+    industrial pipes and rusted steel girders, cold desaturated blue-gray palette,
+    lonely hard sci-fi exploration, 16:9 widescreen
+  negative: 文字浮水印、色彩明媚、童話可愛、溫馨日常, text, words, Chinese characters, subtitles, watermark
+  preview: assets/styles/previews/nihei_tsutomu.jpg
+shirow_masamune:
+  name: 士郎正宗賽博龐克機甲風格 (Masamune Shirow)
+  description: 攻殼機動隊賽博龐克，機械義肢，繁雜電路與高樓資訊招牌，寫實科幻工藝。
+  prefix: Masamune Shirow cyberpunk illustration style, Ghost in the Shell aesthetic,
+    intricate cybernetic limbs, circuit board textures, towering futuristic cityscape
+    with holographic billboards, 16:9 widescreen
+  negative: 文字浮水印、粗糙模糊、古典童話、非科技題材, text, words, Chinese characters, subtitles, watermark
+  preview: assets/styles/previews/shirow_masamune.jpg
+sadamoto_yoshiyuki:
+  name: 貞本義行新世紀經典動漫風格 (Yoshiyuki Sadamoto)
+  description: 新世紀福音戰士經典人物設計，簡潔清澈的面容，憂鬱眼神與近未來都市荒原。
+  prefix: Yoshiyuki Sadamoto character design style, classic Evangelion cel animation
+    aesthetic, sharp refined linework, melancholic expression, near-future dystopian
+    city ruins, 16:9 widescreen
+  negative: 文字浮水印、誇張萌系、高飽和花俏、粗俗走形, text, words, Chinese characters, subtitles, watermark
+  preview: assets/styles/previews/sadamoto_yoshiyuki.jpg
+murata_yusuke:
+  name: 村田雄介極致動態美學風格 (Yusuke Murata)
+  description: 一拳超人極致立體感與衝擊力，精美的人物骨骼與肌肉曲線，電影分鏡張力。
+  prefix: Yusuke Murata manga style, hyper-dynamic foreshortened perspective, crisp
+    sharp black ink lines, high impact composition, dramatic lighting filtering through
+    towering city skyscrapers, 16:9 widescreen
+  negative: 文字浮水印、線條軟弱、比例失調、平面無深度, text, words, Chinese characters, subtitles, watermark
+  preview: assets/styles/previews/murata_yusuke.jpg
+nagano_mamoru:
+  name: 永野護精密機械神話風格 (Mamoru Nagano)
+  description: 五星物語哥德騎士與精靈貴族氣息，極其華麗繁複的機械雕花與古典花草邊框。
+  prefix: Mamoru Nagano art style, Five Star Stories aesthetic, ornate baroque mechanical
+    filigree, elf ears, gothic knight armor, aristocratic fantasy illustration, 16:9
+    widescreen
+  negative: 文字浮水印、粗製濫造、簡陋平淡、現代速食卡通, text, words, Chinese characters, subtitles, watermark
+  preview: assets/styles/previews/nagano_mamoru.jpg
+amano_yoshitaka:
+  name: 天野喜孝奇幻插畫風格 (Yoshitaka Amano)
+  description: 最終幻想經典水彩墨水畫，隨風飄揚的青絲，夢幻彩雲，半透明神靈與浪漫宿命。
+  prefix: Yoshitaka Amano fantasy concept art, Final Fantasy style, ethereal flowing
+    delicate ink lines, dreamy pastel watercolor washes, flowing hair and mystical
+    aura, 16:9 widescreen
+  negative: 文字浮水印、生硬幾何、現代照片寫實、厚重塑料, text, words, Chinese characters, subtitles, watermark
+  preview: assets/styles/previews/amano_yoshitaka.jpg
+clamp_style:
+  name: CLAMP華麗少女漫畫風格 (CLAMP Style)
+  description: 庫洛魔法使與翼年代記，華麗繁複的蕾絲服飾，纖長體態，古典神殿柱與柔美星光。
+  prefix: Classic CLAMP manga style, Cardcaptor Sakura aesthetic, hyper-detailed lace
+    costumes, elongated elegant silhouettes, classical Romanesque pillars and glittering
+    starlight, romantic shoujo illustration, 16:9 widescreen
+  negative: 文字浮水印、硬派粗獷、暗黑寫實、低細節, text, words, Chinese characters, subtitles, watermark
+  preview: assets/styles/previews/clamp_style.jpg
+oda_eiichiro:
+  name: 尾田榮一郎熱血冒險漫畫風格 (Eiichiro Oda)
+  description: 航海王極具辨識度的大笑面容，奇異怪誕的奇幻生物與寶箱，無拘無束的冒險世界。
+  prefix: Eiichiro Oda manga style, One Piece aesthetic, expressive joyful smile and
+    large eyes, whimsical fantastical plants and treasure chests, bright vibrant saturated
+    colors, adventurous cartoon feel, 16:9 widescreen
+  negative: 文字浮水印、憂鬱寫實、灰暗陰冷、3D數碼感, text, words, Chinese characters, subtitles, watermark
+  preview: assets/styles/previews/oda_eiichiro.jpg
+takahashi_rumiko:
+  name: 高橋留美子80年代經典喜劇漫畫風格 (Rumiko Takahashi)
+  description: 犬夜叉與亂馬，富有彈性的人性線條，詼諧可愛的小妖精怪，溫暖懷舊賽璐珞。
+  prefix: Rumiko Takahashi manga style, 1980s retro anime cel texture, lively comedic
+    facial expressions, bouncy rounded line art, quirky cute monsters, nostalgic anime
+    palette, 16:9 widescreen
+  negative: 文字浮水印、生冷機械、過度銳化、現代3D, text, words, Chinese characters, subtitles, watermark
+  preview: assets/styles/previews/takahashi_rumiko.jpg
+tezuka_osamu:
+  name: 手塚治虫手繪漫畫始祖風格 (Osamu Tezuka)
+  description: 漫畫之神手塚治虫，圓滾滾大眼睛，笑臉太陽與蘑菇精靈，充滿童心與人道關懷。
+  prefix: Osamu Tezuka classic manga style, 1960s retro animation aesthetic, round
+    expressive eyes, smiling cartoon sun and mushroom creatures, whimsical vintage
+    innocence, 16:9 widescreen
+  negative: 文字浮水印、複雜科技、過度寫實、黑暗壓抑, text, words, Chinese characters, subtitles, watermark
+  preview: assets/styles/previews/tezuka_osamu.jpg
+matsumoto_taiyo:
+  name: 松本大洋裝飾性漫畫手繪風格 (Taiyo Matsumoto)
+  description: 乒乓與惡童，略帶稚拙的手繪線條，歐洲童話繪本般的花草裝飾邊框與小鎮透視。
+  prefix: Taiyo Matsumoto manga style, naive yet energetic organic hand-drawn linework,
+    decorative floral vine borders, warm textured risograph print aesthetic, allegorical
+    fable mood, 16:9 widescreen
+  negative: 文字浮水印、商業平滑、千篇一律日漫臉、死板電腦繪圖, text, words, Chinese characters, subtitles,
+    watermark
+  preview: assets/styles/previews/matsumoto_taiyo.jpg
+demizu_posuka:
+  name: 出水ぽすか奇幻高密度風格 (Posuka Demizu)
+  description: 約定的夢幻島插畫師，畫面塞滿不可思議的生物器官花卉，令人目不暇接的奇異幻想。
+  prefix: Posuka Demizu illustration style, hyper-dense surreal fantasy world, anthropomorphic
+    floral creatures and eye flowers, twilight whimsical lighting, 16:9 widescreen
+  negative: 文字浮水印、單調空曠、低細節模糊、普通寫實, text, words, Chinese characters, subtitles, watermark
+  preview: assets/styles/previews/demizu_posuka.jpg
+sumi_e:
+  name: 東方傳統水墨淡彩意境風格 (Sumi-e / Ink Wash)
+  description: 傳統宣紙水墨浸潤，淡彩點染，古塔石橋，錦鯉戲水，留白深遠的東方禪意。
+  prefix: Traditional East Asian sumi-e ink wash painting, rice paper texture, expressive
+    black ink diffusion, delicate subtle watercolor tints, serene koi pond and pagoda,
+    minimalist Zen atmosphere, 16:9 widescreen
+  negative: 文字浮水印、西方厚塗、現代霓虹、生硬塑料感, text, words, Chinese characters, subtitles, watermark
+  preview: assets/styles/previews/sumi_e.jpg
+pixel_art:
+  name: 16-bit 復古像素藝術風格 (Pixel Art)
+  description: SFC 超任時代經典像素點陣，溫暖的色塊拼接，庭園花朵與紅磚小木屋。
+  prefix: 16-bit retro pixel art, crisp dithering, nostalgic SNES video game aesthetic,
+    cozy brick house and colorful garden path, clean pixel grid, 16:9 widescreen
+  negative: 文字浮水印、模糊抗鋸齒、真實照片、現代高多邊形, text, words, Chinese characters, subtitles, watermark
+  preview: assets/styles/previews/pixel_art.jpg
+chibi_kawaii:
+  name: 日系粉彩可愛Q版風格 (Chibi Kawaii)
+  description: 三麗鷗式粉彩童趣，圓滾小臉與星星眼，漂浮的微笑花朵和小蜜蜂，軟萌治癒。
+  prefix: Super cute chibi kawaii illustration, rounded blushing cheeks, sparkling
+    star eyes, pastel soft color palette, floating smiling flowers and bees, cozy
+    healing fairy tale, 16:9 widescreen
+  negative: 文字浮水印、寫實陰暗、尖銳骨骼、血腥恐怖, text, words, Chinese characters, subtitles, watermark
+  preview: assets/styles/previews/chibi_kawaii.jpg
+2d_chibi_cell:
+  name: 2D分鏡教育賽璐珞Q版風格 (2D Chibi Cell)
+  description: 清晰明快的分鏡教學風格，大頭Q版角色，科學儀器與日常對比，通俗易懂的圖解感。
+  prefix: '(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style,
+    chibi characters, clean line art, cell shading, flat colors, cute mobile game
+    UI art, visual novel style, crisp details, vibrant and cheerful color palette,
+    single coherent scene, non-split screen, unified single viewpoint, wide-angle
+    coherent view, one main environment, highly detailed and intricate background
+
+    Vibrant contrasting color palettes, crisp details throughout, expressive chibi
+    faces, rich background props. '
+  negative: (worst quality, low quality:1.4), rough lines, messy sketch, blur, deformed,
+    bad anatomy, bad proportions, missing fingers, extra digits, signature, watermark,
+    text, words, Chinese characters, subtitles, logos
+  preview: assets/styles/previews/2d_chibi_cell.jpg

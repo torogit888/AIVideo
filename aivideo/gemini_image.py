@@ -43,6 +43,10 @@ def get_candidate_locations_for_model(model_name: str, env_location: str = "") -
     if model_name in _MODEL_LOCATION_CACHE:
         return [_MODEL_LOCATION_CACHE[model_name]]
 
+    # grok 系列模型在 Vertex AI 僅支援 global 端點
+    if "grok" in m:
+        return ["global"]
+
     # 使用者環境變數指定
     if env_location:
         locs.append(env_location)

@@ -130,9 +130,9 @@ def _render_single_segment(
                 f"[0:v]scale=4*iw:-1:flags=bicubic,"
                 f"zoompan=z='min(zoom+0.0006,1.15)':d={frames}:"
                 f"x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s={width}x{height}:fps={fps}[bg];"
-                f"[1:v]scale={pip_w}:-1:force_original_aspect_ratio=decrease,"
-                f"pad=w='trunc((iw+{border_px*2})/2)*2':h='trunc((ih+{border_px*2})/2)*2':x={border_px}:y={border_px}:color=white@0.9,"
-                f"format=rgba,fade=t=in:st={fade_st:.2f}:d={fade_d:.2f}:alpha=1[pip_card];"
+                f"[1:v]format=rgba,scale={pip_w}:-1:force_original_aspect_ratio=decrease,"
+                f"pad=w='trunc((iw+{border_px*2})/2)*2':h='trunc((ih+{border_px*2})/2)*2':x={border_px}:y={border_px}:color=white,"
+                f"fade=t=in:st={fade_st:.2f}:d={fade_d:.2f}:alpha=1[pip_card];"
                 f"[bg][pip_card]overlay=x='{pos_x}':y='{pos_y}':format=auto:shortest=1[v]"
             )
 

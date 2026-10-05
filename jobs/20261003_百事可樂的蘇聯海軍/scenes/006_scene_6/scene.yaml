@@ -2,16 +2,16 @@ id: 006_scene_6
 index: 6
 title: 第 6 幕
 narration: 這些軍艦的規模，在當時足以讓百事可樂位列世界第六大海軍，比許多中等國家的海軍都還要強大，這聽起來是不是像天方夜譚一樣，簡直讓人難以置信，
-image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。An exaggerated, dreamlike
-  wide shot. The Pepsi-Cola Brand logo, glowing softly, is positioned like a benevolent,
-  whimsical sun in the sky. Below it, a vast, stylized fleet of Soviet Navy Fleet
-  warships, depicted with slightly exaggerated silhouettes and soft, rounded edges,
-  stretches across a watercolor sea, dwarfing smaller, generic ships representing
-  'medium nations.' The scene is bathed in a perpetual golden hour glow.
+image_prompt: 2D Chibi Cell style, 16:9 widescreen. A bright, evenly lit educational
+  storyboard world, featuring a muted gray Soviet naval dock. A small, classic contour
+  glass Pepsi-Cola Bottle is positioned in the foreground, looking up in disbelief.
+  Stretching into the background is an immense, simplified fleet of Soviet naval vessels,
+  including multiple Soviet Submarines, cruisers, and frigates, conveying vast scale.
+  Bold black contours, flat color fills, simple highlight bands.
 image_negative: ''
 locks:
   speech: false
   image: false
 current:
-  speech_take: null
-  image_take: null
+  speech_take: speech_20261005T051326
+  image_take: image_20261005T051248

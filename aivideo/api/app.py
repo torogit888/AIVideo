@@ -8,6 +8,7 @@ from fastapi.staticfiles import StaticFiles
 
 from aivideo.api.routes import assets, jobs, pipeline, scenes, system, youtube
 from aivideo.commands.check import _load_dotenv
+from aivideo.media import media_mounts, spa_dist_dir
 
 _load_dotenv()
 
@@ -37,19 +38,34 @@ app.include_router(pipeline.router, prefix=api_v1_prefix)
 app.include_router(assets.router, prefix=api_v1_prefix)
 app.include_router(youtube.router, prefix=api_v1_prefix)
 
-# 掛載靜態媒體目錄，直接支援圖片預覽與影片串流播放
-if REPO_ROOT.is_dir():
-    app.mount("/media", StaticFiles(directory=str(REPO_ROOT)), name="media")
+for mount_url, mount_dir in media_mounts(REPO_ROOT):
+    app.mount(mount_url, StaticFiles(directory=str(mount_dir)), name=mount_url.strip("/").replace("/", "_"))
 
 
-@app.get("/")
-def root():
+@app.get("/api")
+def api_root():
     return {
         "service": "AIVideo Studio API",
         "version": "1.0.0",
         "docs": "/docs",
         "status": "ready",
     }
+
+
+_spa = spa_dist_dir(REPO_ROOT)
+if _spa is not None:
+    app.mount("/", StaticFiles(directory=str(_spa), html=True), name="studio")
+else:
+
+    @app.get("/")
+    def root():
+        return {
+            "service": "AIVideo Studio API",
+            "version": "1.0.0",
+            "docs": "/docs",
+            "status": "ready",
+            "studio": "http://localhost:5173",
+        }
 
 
 if __name__ == "__main__":

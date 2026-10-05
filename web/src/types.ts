@@ -18,6 +18,8 @@ export interface JobSummary {
   voice_id: string;
   style_id?: string;
   image_model?: string;
+  use_pip?: boolean;
+  metaphor_style?: string;
   progress: JobProgress;
   updated_at?: string;
 }
@@ -64,11 +66,14 @@ export interface SceneSummary {
   index: number;
   title: string;
   narration: string;
+  act_index?: number;
+  act_title?: string;
   pip_query?: string | null;
   has_pip?: boolean;
   pip_enabled?: boolean;
   pip_mode?: "pip" | "spotlight";
   pip_error?: string | null;
+  locks?: { speech: boolean; image: boolean };
   status: SceneStatus;
 }
 
@@ -79,11 +84,28 @@ export interface SceneDetail {
   narration: string;
   image_prompt: string;
   image_negative?: string;
+  act_index?: number;
+  act_title?: string;
   locks: { speech: boolean; image: boolean };
   current: Record<string, string | null>;
   pip: ScenePipConfig;
   pip_mode?: "pip" | "spotlight";
   status: SceneStatus;
+  takes?: SceneTakes;
+}
+
+export interface SceneTake {
+  take_id: string;
+  kind: "image" | "speech" | string;
+  filename: string;
+  url?: string | null;
+  created_at?: string | null;
+  is_current: boolean;
+}
+
+export interface SceneTakes {
+  images: SceneTake[];
+  speeches: SceneTake[];
 }
 
 export interface AssetStyle {

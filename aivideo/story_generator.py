@@ -9,17 +9,43 @@ import yaml
 
 from aivideo.commands.check import _load_dotenv
 from aivideo.gemini_image import get_gemini_client_kwargs
+from aivideo.naming import DEFAULT_VOICE_ID, scene_folder_id, scene_title_from_narration
+from aivideo.spoken import OMNIVOICE_TAG_RE as _OMNIVOICE_TAG_RE
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 TEXT_MODELS = (
     "gemini-3.8-flash",
+    "grok-4.7",
     "gemini-3.5-flash",
     "gemini-2.5-flash",
     "gemini-2.0-flash",
     "gemini-1.5-flash",
     "gemini-flash-latest",
 )
+
+
+def resolve_text_model_name(model_name: str | None) -> str:
+    """將使用者或前端傳入的模型名稱映射為 Vertex AI 支援的真實名稱（如 xai/grok-4.7）。"""
+    m = (model_name or "").strip()
+    if not m:
+        return "gemini-3.8-flash"
+    if m.lower() in {"grok-4.7", "grok4.7", "grok", "xai-grok-4.7"}:
+        return "xai/grok-4.7"
+    return m
+
+
+def get_candidate_text_models(preferred_model: str | None = None) -> list[str]:
+    """取得依優先權排列的候選文本模型清單，指定模型排最前，並自動正規化名稱。"""
+    resolved_preferred = resolve_text_model_name(preferred_model) if preferred_model and preferred_model.strip() else None
+    candidates: list[str] = []
+    if resolved_preferred:
+        candidates.append(resolved_preferred)
+    for m in TEXT_MODELS:
+        resolved = resolve_text_model_name(m)
+        if resolved not in candidates:
+            candidates.append(resolved)
+    return candidates
 
 STYLES_FILE = REPO_ROOT / "assets" / "styles.yaml"
 
@@ -162,39 +188,6 @@ def load_tone_sample(tone_id: str) -> str:
     return tone_file.read_text(encoding="utf-8")
 
 
-# ========================================================
-# 繁體語音破音/多音字校正諧音映射字典
-# ========================================================
-PRONUNCIATION_WORD_MAPPINGS: dict[str, str] = {
-    "企": "氣",
-    "垃": "勒",
-    "圾": "色",
-    "角": "腳",
-    "亞": "雅",
-    "質": "直",
-    "括": "瓜",
-    "期": "棋",
-    "微": "圍",
-    "究": "舊",
-    "擊": "集",
-    "突": "圖",
-    "暫": "戰",
-    "艘": "騷",
-    "蝸": "瓜",
-    "綜": "縱",
-}
-
-
-def apply_pronunciation_mapping(text: str) -> str:
-    """將容易在語音合成模型（如 OmniVoice）中讀錯音的繁體中文字轉換為指定發音諧音字。"""
-    if not text:
-        return ""
-    for src, dst in PRONUNCIATION_WORD_MAPPINGS.items():
-        text = text.replace(src, dst)
-    return text
-
-
-_OMNIVOICE_TAG_RE = re.compile(r"\[[a-zA-Z0-9_\-]+\]")
 _SCENE_HEADER_RE = re.compile(
     r"^\s*([【\[\(（#*]*\s*第[一二三四五六七八九十\d]+[幕章節集場次]|幕[一二三四五六七八九十\d]+[：:]|Act\s*\d+|Chapter\s*\d+|Scene\s*\d+)",
     re.IGNORECASE,
@@ -388,9 +381,6 @@ def generate_story_outline(
     from google import genai
     from google.genai import types
 
-    client_kwargs = get_gemini_client_kwargs()
-    client = genai.Client(**client_kwargs)
-
     tone_sample = load_tone_sample(tone_id)
 
     user_prompt_section = ""
@@ -428,14 +418,11 @@ def generate_story_outline(
         tools=[{"google_search": {}}],
     )
 
-    models_to_try = list(TEXT_MODELS)
-    if model and model.strip():
-        m = model.strip()
-        models_to_try = [m] + [x for x in TEXT_MODELS if x != m]
-
+    models_to_try = get_candidate_text_models(model)
     errors = []
     for model_name in models_to_try:
         try:
+            client = genai.Client(**get_gemini_client_kwargs(model=model_name))
             resp = client.models.generate_content(
                 model=model_name,
                 contents=prompt,
@@ -447,7 +434,7 @@ def generate_story_outline(
             errors.append(f"{model_name}: {exc}")
             continue
 
-    raise RuntimeError("Gemini 大綱規劃失敗：\n" + "\n".join(errors))
+    raise RuntimeError("AI 大綱規劃失敗：\n" + "\n".join(errors))
 
 
 def generate_story_script(
@@ -470,9 +457,6 @@ def generate_story_script(
     _load_dotenv()
     from google import genai
     from google.genai import types
-
-    client_kwargs = get_gemini_client_kwargs()
-    client = genai.Client(**client_kwargs)
 
     tone_sample = extract_tone_spoken_sample(load_tone_sample(tone_id))
 
@@ -556,14 +540,12 @@ def generate_story_script(
     config = types.GenerateContentConfig(**config_kwargs)
 
     # 候選模型清單：若使用者指定特定模型，優先排在第一個嘗試
-    models_to_try = list(TEXT_MODELS)
-    if model and model.strip():
-        m = model.strip()
-        models_to_try = [m] + [x for x in TEXT_MODELS if x != m]
+    models_to_try = get_candidate_text_models(model)
 
     errors = []
     for model_name in models_to_try:
         try:
+            client = genai.Client(**get_gemini_client_kwargs(model=model_name))
             resp = client.models.generate_content(
                 model=model_name,
                 contents=prompt,
@@ -575,7 +557,7 @@ def generate_story_script(
             errors.append(f"{model_name}: {exc}")
             continue
 
-    raise RuntimeError("Gemini 腳本生成失敗：\n" + "\n".join(errors))
+    raise RuntimeError("AI 腳本生成失敗：\n" + "\n".join(errors))
 
 
 def expand_story_script(
@@ -589,9 +571,6 @@ def expand_story_script(
     _load_dotenv()
     from google import genai
     from google.genai import types
-
-    client_kwargs = get_gemini_client_kwargs()
-    client = genai.Client(**client_kwargs)
 
     tone_sample = extract_tone_spoken_sample(load_tone_sample(tone_id))
 
@@ -638,14 +617,11 @@ def expand_story_script(
         tools=[{"google_search": {}}],
     )
 
-    models_to_try = list(TEXT_MODELS)
-    if model and model.strip():
-        m = model.strip()
-        models_to_try = [m] + [x for x in TEXT_MODELS if x != m]
-
+    models_to_try = get_candidate_text_models(model)
     errors = []
     for model_name in models_to_try:
         try:
+            client = genai.Client(**get_gemini_client_kwargs(model=model_name))
             resp = client.models.generate_content(
                 model=model_name,
                 contents=prompt,
@@ -657,13 +633,14 @@ def expand_story_script(
             errors.append(f"{model_name}: {exc}")
             continue
 
-    raise RuntimeError("Gemini 腳本擴寫失敗：\n" + "\n".join(errors))
+    raise RuntimeError("AI 腳本擴寫失敗：\n" + "\n".join(errors))
 
 
 def extract_story_visual_anchors(
     topic: str,
     script_text: str,
     style_key: str = "",
+    model: str | None = None,
 ) -> dict[str, object]:
     """從腳本提煉多名角色外觀（每人獨立）與全片環境光影錨點，並依專案生圖風格書寫。"""
     from aivideo.visual_anchors import compose_subject_anchor, normalize_characters
@@ -682,21 +659,24 @@ def extract_story_visual_anchors(
         from google import genai
         from google.genai import types
 
-        client_kwargs = get_gemini_client_kwargs()
-        client = genai.Client(**client_kwargs)
-
         prompt = f"""You are a master concept artist and visual continuity director.
 Analyze the story topic and script excerpt below.
-Extract a CHARACTER BIBLE and one ENVIRONMENT ANCHOR in high-detail ENGLISH.
+Extract a CHARACTER & KEY ENTITY BIBLE and one ENVIRONMENT ANCHOR in high-detail ENGLISH.
 
 {style_lock}
 
-Rules:
-- List EVERY visually distinct recurring person, creature, or signature machine (up to 8).
-- Each character is a separate entry with its own face, body, clothing, colors, and era-accurate details, described as they would appear IN THE LOCKED ART STYLE.
-- Do not merge multiple people into one description.
-- If the script is about a single protagonist or object, return exactly one character.
-- "environment_anchor" is the shared world, architecture, palette, and lighting — not a person — and must match the locked art style (medium, line, color, lighting).
+CRITICAL ENTITY CATEGORIZATION RULES:
+1. DISTINGUISH PERSONS VS. INANIMATE OBJECTS/VEHICLES:
+   - For HUMAN CHARACTERS (e.g., historical figures, CEOs, soldiers, civilians):
+     Describe their realistic/chibi face, hairstyle, facial hair, body build, and era-appropriate clothing in the selected art style.
+   - For INANIMATE OBJECTS, PROPS, PRODUCTS & VEHICLES (e.g., soda bottles/cans, warships, submarines, machinery, telescopes, aircraft, weapons):
+     Describe their authentic mechanical structure, hull/chassis design, materials (metal, glass), brand logo, colors, and proportions.
+2. STRICT NO-ANTHROPOMORPHISM RULE:
+   - NEVER anthropomorphize inanimate objects or military vehicles!
+   - DO NOT give warships, submarines, bottles, cans, or machines human eyes, faces, smiles, arms, hands, legs, or feet!
+   - An object/vehicle must remain a physical, authentic non-living item/vehicle (even in stylized or chibi art styles, simplify the geometric shape and clean lines, but NEVER turn it into a walking creature with limbs).
+3. Do not merge multiple entities into one entry. List up to 6 key recurring entities.
+4. "environment_anchor" is the shared world, architecture, palette, and lighting — not an entity — and must match the locked art style (medium, line, color, lighting).
 
 Story Topic: {topic}
 Selected image style: {style["name"]}
@@ -710,14 +690,15 @@ Output JSON with exact keys:
     {{
       "id": "ascii_slug",
       "name": "Character or entity name",
-      "appearance": "English visual description of THIS character only"
+      "appearance": "English visual description. For humans: face, hair, clothing. For objects/vehicles: authentic physical model, materials, colors (NO face/limbs)."
     }}
   ],
   "environment_anchor": "English description of world, architecture, lighting..."
 }}
 """
-        for model_name in TEXT_MODELS:
+        for model_name in get_candidate_text_models(model):
             try:
+                client = genai.Client(**get_gemini_client_kwargs(model=model_name))
                 resp = client.models.generate_content(
                     model=model_name,
                     contents=prompt,
@@ -756,28 +737,58 @@ Output JSON with exact keys:
     }
 
 
+METAPHOR_PERSPECTIVES = {
+    "fantasy": {
+        "name": "超現實主義風格 (Surrealism · 預設)",
+        "instruction": (
+            "STYLE 1: SURREALISM (Default) - For absurd, dreamlike, or exaggerated scale narration.\n"
+            "MANDATORY OUTPUT FORMAT TEMPLATE:\n"
+            "A surreal conceptual art piece, [subject and action description], impossible scale, dreamlike atmosphere, dramatic lighting, highly detailed, 8k resolution, masterpiece, trending on ArtStation\n"
+            "Directives: Replace [subject and action description] with evocative surreal visual imagery representing the scene (e.g. a colossal glowing bottle rising in an enchanted ocean surrounded by miniature warships). Keep inanimate objects strictly physical (no human limbs)."
+        ),
+    },
+    "vintage_realistic": {
+        "name": "電影寫實風格 (Cinematic Realism)",
+        "instruction": (
+            "STYLE 2: CINEMATIC REALISM - For historic, serious, or authentic atmospheric narration.\n"
+            "MANDATORY OUTPUT FORMAT TEMPLATE:\n"
+            "Cinematic wide shot, moody atmosphere, [subject and scene description], photorealistic, 35mm film photography, cinematic lighting, Unreal Engine 5 render, extremely detailed\n"
+            "Directives: Replace [subject and scene description] with authentic historical room, tension, archival props, table, or environment."
+        ),
+    },
+    "symbolic": {
+        "name": "象徵概念藝術 (Symbolic Concept Art)",
+        "instruction": (
+            "STYLE 3: SYMBOLIC CONCEPT ART - For abstract concepts, geopolitical metaphors, or ideological contrasts.\n"
+            "MANDATORY OUTPUT FORMAT TEMPLATE:\n"
+            "An epic symbolic digital illustration, [subject and symbolic elements description], dramatic chiaroscuro lighting, deep contrast, thought-provoking, award-winning concept art\n"
+            "Directives: Replace [subject and symbolic elements description] with powerful metaphorical symbols (e.g. scales of balance, clockwork mechanisms, divided chessboards)."
+        ),
+    },
+}
+
+
 def batch_generate_english_image_prompts(
     narrations: list[str],
     subject_anchor: str = "",
     environment_anchor: str = "",
     characters: list[dict[str, str]] | None = None,
     style_key: str = "",
+    metaphor_style: str = "fantasy",
 ) -> list[str]:
-    """呼叫 Gemini 將中文旁白台詞批次轉換為專業電影感英文出圖提示詞 (Image Prompts)，並強制融合主體與環境視覺錨點。"""
+    """呼叫 Gemini 依據選定的視覺轉譯視角（奇幻/寫實/象徵），將中文旁白轉換為專業英文畫面提示詞。"""
     if not narrations:
         return []
 
     from aivideo.visual_anchors import character_bible_for_prompts
 
     bible = character_bible_for_prompts(characters or [])
+    persp_cfg = METAPHOR_PERSPECTIVES.get(metaphor_style, METAPHOR_PERSPECTIVES["fantasy"])
 
     # 嘗試呼叫 Gemini API 批次產生純英文分鏡畫面描述
     try:
         from google import genai
         from google.genai import types
-
-        client_kwargs = get_gemini_client_kwargs()
-        client = genai.Client(**client_kwargs)
 
         tag_pattern = re.compile(r"\[[a-zA-Z0-9_\-]+\]")
         items_text = "\n".join([f"[{i+1}] {tag_pattern.sub('', n).strip()}" for i, n in enumerate(narrations)])
@@ -786,8 +797,9 @@ def batch_generate_english_image_prompts(
         if bible or subject_anchor or environment_anchor:
             if bible:
                 subject_rule = (
-                    "CHARACTER BIBLE (include a character's visual details ONLY when that character actually appears in the scene; never force unused characters into the frame):\n"
-                    f"{bible}"
+                    "CHARACTER & ENTITY BIBLE (include visual details ONLY when that entity actually appears in the scene; never force unused entities into the frame):\n"
+                    f"{bible}\n"
+                    "- STRICT NO-ANTHROPOMORPHISM: Never give inanimate objects/ships/bottles human eyes, faces, arms, or legs."
                 )
             else:
                 subject_rule = f'- MAIN SUBJECT ANCHOR: Whenever the main protagonist/object appears, incorporate these specific physical details: "{subject_anchor}"'
@@ -801,23 +813,30 @@ STRICT VISUAL CONTINUITY RULES (Apply to all scenes to maintain consistency):
 
         style = resolve_style(style_key)
         style_lock = style_lock_instructions(style_key)
-        prompt = f"""You are a professional storyboard visual artist working strictly in the project's selected art style.
-Below is a numbered list of scene narrations from a video.
-For each scene, craft an evocative text-to-image prompt strictly in ENGLISH.
+        prompt = f"""You are a master storyboard visual director and concept artist.
+Analyze the following scene narrations from a video documentary.
+Transform each narration into a compelling, evocative visual text-to-image prompt strictly in ENGLISH.
+
+VISUAL METAPHOR PERSPECTIVE:
+{persp_cfg["instruction"]}
+
 {style_lock}
 {anchor_rules}
-CRITICAL REQUIREMENTS:
+
+CRITICAL PROMPT CRAFTING REQUIREMENTS:
 1. Every prompt MUST be written completely in ENGLISH.
-2. Focus on visual description in the locked art style: subjects, character actions/expressions, lighting and materials that belong to "{style["name"]}", camera angle (wide establishing shot, close-up, low angle), environment, atmosphere, and 16:9 widescreen composition.
-3. Do not inject a conflicting medium (for example photoreal live-action if the style is illustration, anime, chibi, or pixel art).
-4. NEVER include any dialogue, speech bubbles, quotes, text, subtitles, words, letters, logos, or watermarks.
-5. Output EXACTLY a JSON array of strings containing exactly {len(narrations)} prompts in the same order as the input scenes.
+2. Follow the MANDATORY OUTPUT FORMAT TEMPLATE specified in VISUAL METAPHOR PERSPECTIVE, filling in the subject/action/scene description accurately from the scene narration.
+3. Translate abstract voiceover concepts into CONCRETE, VISUALLY STRIKING PHYSICAL SCENES: subjects, dynamic character action or expressive posture, tangible props, lighting, atmosphere, and camera framing (wide establishing shot, medium close-up, dramatic low angle).
+4. Strictly adhere to "{persp_cfg["name"]}" while respecting the locked project art medium.
+5. NEVER include any dialogue, speech bubbles, quotes, text, subtitles, words, letters, logos, or watermarks.
+6. Output EXACTLY a JSON array of strings containing exactly {len(narrations)} prompts in the same order as the input scenes.
 
 Scenes:
 {items_text}
 """
-        for model_name in TEXT_MODELS:
+        for model_name in get_candidate_text_models():
             try:
+                client = genai.Client(**get_gemini_client_kwargs(model=model_name))
                 resp = client.models.generate_content(
                     model=model_name,
                     contents=prompt,
@@ -835,7 +854,7 @@ Scenes:
     except Exception:
         pass
 
-    # 備援 (Fallback)：若 API 無法連線時，保證提示詞為純英文且帶入錨點與風格
+    # 備援 (Fallback)
     fallbacks = []
     style = resolve_style(style_key)
     base_sub = subject_anchor if subject_anchor else "the central subject"
@@ -845,6 +864,26 @@ Scenes:
             f"{style['name']} wide angle shot featuring {base_sub}, {base_env}, 16:9 widescreen composition"
         )
     return fallbacks
+
+
+def translate_single_scene_prompt(
+    narration: str,
+    metaphor_style: str = "fantasy",
+    style_key: str = "",
+    subject_anchor: str = "",
+    environment_anchor: str = "",
+    characters: list[dict[str, str]] | None = None,
+) -> str:
+    """為單一分鏡依據所選視角（奇幻/寫實/象徵）將旁白台詞重新轉譯為高品質英文出圖 Prompt。"""
+    res = batch_generate_english_image_prompts(
+        [narration],
+        subject_anchor=subject_anchor,
+        environment_anchor=environment_anchor,
+        characters=characters,
+        style_key=style_key,
+        metaphor_style=metaphor_style,
+    )
+    return res[0] if res else ""
 
 
 def batch_detect_pip_queries(
@@ -1072,6 +1111,8 @@ def parse_script_lines_to_scenes(
     environment_anchor: str = "",
     topic: str = "",
     characters: list[dict[str, str]] | None = None,
+    outline: str | None = None,
+    metaphor_style: str = "fantasy",
 ) -> list[dict[str, object]]:
     """將逐行台詞依據 AI 語意情節與設定的視覺節奏 (Visual Pacing) 自動切分為分鏡場景，
     並為每場分鏡產生英文提示詞與前置分析考據實體 (PiP)。若傳入 sentences_per_scene 則保留向下相容。"""
@@ -1120,6 +1161,7 @@ def parse_script_lines_to_scenes(
         environment_anchor=environment_anchor,
         characters=characters,
         style_key=style_key,
+        metaphor_style=metaphor_style,
     )
     pip_queries = batch_detect_pip_queries(
         narrations,
@@ -1129,7 +1171,6 @@ def parse_script_lines_to_scenes(
 
     scenes: list[dict[str, object]] = []
     for idx, (chunk, narration) in enumerate(zip(chunks, narrations), start=1):
-        scene_id = f"{idx:03d}_scene_{idx}"
         img_prompt = (
             english_prompts[idx - 1]
             if idx - 1 < len(english_prompts)
@@ -1137,20 +1178,19 @@ def parse_script_lines_to_scenes(
         )
         q = pip_queries[idx - 1] if idx - 1 < len(pip_queries) else None
 
-        # 套用繁體破音/多音字校正諧音映射（確保分鏡台詞與逐句符合指定發音）
-        mapped_narration = apply_pronunciation_mapping(narration)
-        mapped_chunk = [apply_pronunciation_mapping(s) for s in chunk]
-
         scenes.append({
-            "id": scene_id,
+            "id": scene_folder_id(idx),
             "index": idx,
-            "title": f"第 {idx} 幕",
-            "narration": mapped_narration,
-            "sentences": mapped_chunk,
+            "title": scene_title_from_narration(narration),
+            "narration": narration,
+            "sentences": list(chunk),
             "image_prompt": img_prompt,
             "pip_query": q,
         })
 
+    from aivideo.acts import apply_acts_to_scenes, parse_outline_acts
+
+    apply_acts_to_scenes(scenes, parse_outline_acts(outline or ""))
     return scenes
 
 
@@ -1304,7 +1344,7 @@ def create_job_bundle(
     title: str,
     scenes: list[dict[str, object]],
     style_key: str = "otomo_katsuhiro",
-    voice_id: str = "female01",
+    voice_id: str = DEFAULT_VOICE_ID,
     subject_anchor: str = "",
     environment_anchor: str = "",
     characters: list[dict[str, str]] | None = None,
@@ -1312,6 +1352,8 @@ def create_job_bundle(
     custom_prompt: str | None = None,
     outline: str | None = None,
     tone_id: str | None = None,
+    use_pip: bool = True,
+    metaphor_style: str = "fantasy",
 ) -> Path:
     job_dir = REPO_ROOT / "jobs" / job_id
     job_dir.mkdir(parents=True, exist_ok=True)
@@ -1332,12 +1374,17 @@ def create_job_bundle(
         persist_characters_on_anchors(visual_anchors, characters)
         visual_anchors["subject"] = compose_subject_anchor(characters) or subject_anchor
 
+    from aivideo.fonts import subtitle_font_for_job
+    from aivideo.job_files import save_job_config
+
     job_yaml = {
         "id": job_id,
         "title": title,
         "language": "zh-Hant",
         "voice_id": voice_id,
+        "use_pip": bool(use_pip),
         "tone_id": tone_id or "",
+        "metaphor_style": metaphor_style or "fantasy",
         "custom_prompt": custom_prompt or "",
         "outline": outline or "",
         "visual_anchors": visual_anchors,
@@ -1361,12 +1408,12 @@ def create_job_bundle(
         "style_negative": style_cfg["negative"],
         "subtitle": {
             "mode": "none",
-            "font": "NotoSansTC-Regular.otf",
+            "font": subtitle_font_for_job(),
             "font_size": 48,
         },
         "kenburns": "slow_zoom_in",
     }
-    (job_dir / "job.yaml").write_text(yaml.safe_dump(job_yaml, allow_unicode=True, sort_keys=False), encoding="utf-8")
+    save_job_config(job_dir, job_yaml)
 
     # 寫入 script.md
     script_md_lines = [f"# {title}\n"]
@@ -1387,15 +1434,6 @@ def create_job_bundle(
         script_md_lines.append(f"旁白：{s['narration']}\n")
     (job_dir / "script.md").write_text("\n".join(script_md_lines), encoding="utf-8")
 
-    # 寫入 outline.md（若有自訂 Prompt 或大綱）
-    if outline or custom_prompt:
-        outline_md_lines = [f"# {title} - 故事大綱與企劃設定\n"]
-        if custom_prompt:
-            outline_md_lines.append(f"## 指定 Prompt 與故事特定要求\n\n{custom_prompt}\n")
-        if outline:
-            outline_md_lines.append(f"## 6 幕故事大綱\n\n{outline}\n")
-        (job_dir / "outline.md").write_text("\n".join(outline_md_lines), encoding="utf-8")
-
     # 寫入各場景 scene.yaml
     for s in scenes:
         s_dir = scenes_dir / s["id"]
@@ -1409,6 +1447,8 @@ def create_job_bundle(
             "narration": s["narration"],
             "image_prompt": s["image_prompt"],
             "image_negative": "",
+            "act_index": s.get("act_index") or 0,
+            "act_title": s.get("act_title") or "",
             "locks": {
                 "speech": False,
                 "image": False,
@@ -1423,7 +1463,7 @@ def create_job_bundle(
             from aivideo.auto_pip import infer_pip_mode
             auto_mode = infer_pip_mode(q, str(s.get("narration", "")))
             scfg["pip"] = {
-                "enabled": False,  # 標記建議實體，待出圖或一鍵全流程時直接下載啟用
+                "enabled": True,  # 預設啟用考據，出圖或一鍵全流程時自動下載生效
                 "image": "pip.png",
                 "position": "right-center",
                 "mode": auto_mode,
@@ -1441,8 +1481,9 @@ def regenerate_job_scene_prompts(
     subject_anchor: str,
     environment_anchor: str,
     characters: list[dict[str, str]] | None = None,
+    metaphor_style: str = "fantasy",
 ) -> int:
-    """依據最新主體與環境錨點，重新為現有 Job 的所有場景批次產生並更新英文提示詞 (Image Prompts)。"""
+    """依據最新主體與環境錨點及轉譯視角，重新為現有 Job 的所有場景批次產生並更新英文提示詞 (Image Prompts)。"""
     scenes_dir = job_dir / "scenes"
     if not scenes_dir.is_dir():
         return 0
@@ -1465,18 +1506,18 @@ def regenerate_job_scene_prompts(
         except Exception:
             pass
 
-    job_yaml = job_dir / "job.yaml"
     style_key = ""
-    if job_yaml.is_file():
-        try:
-            cfg = yaml.safe_load(job_yaml.read_text(encoding="utf-8")) or {}
-            style_key = str((cfg.get("image") or {}).get("style") or cfg.get("style") or "")
-            if not characters:
-                from aivideo.visual_anchors import ensure_characters
-                v = cfg.get("visual_anchors") if isinstance(cfg.get("visual_anchors"), dict) else {}
-                characters = ensure_characters(v)
-        except Exception:
-            style_key = ""
+    try:
+        from aivideo.job_files import load_job_config
+
+        cfg = load_job_config(job_dir)
+        style_key = str((cfg.get("image") or {}).get("style") or cfg.get("style") or "")
+        if not characters:
+            from aivideo.visual_anchors import ensure_characters
+            v = cfg.get("visual_anchors") if isinstance(cfg.get("visual_anchors"), dict) else {}
+            characters = ensure_characters(v)
+    except Exception:
+        style_key = ""
 
     new_prompts = batch_generate_english_image_prompts(
         narrations,
@@ -1484,6 +1525,7 @@ def regenerate_job_scene_prompts(
         environment_anchor=environment_anchor,
         characters=characters,
         style_key=style_key,
+        metaphor_style=metaphor_style,
     )
 
     updated_count = 0

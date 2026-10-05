@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261005T060010",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 8.69,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "唐納德·肯德爾的商業哲學，以及他如何將一個飲料品牌",
+      "text_cn": "唐纳德·肯德尔的商业哲学，以及他如何将一个饮料品牌",
+      "start_sec": 0.0,
+      "end_sec": 4.84,
+      "duration_sec": 4.84
+    },
+    {
+      "index": 2,
+      "text": "提升到地緣政治的層面，都值得我們深思",
+      "text_cn": "提升到地缘政治的层面，都值得我们深思",
+      "start_sec": 5.09,
+      "end_sec": 8.69,
+      "duration_sec": 3.6
+    }
+  ],
+  "created_at": "2026-10-05T06:00:10.948684+00:00"
+}

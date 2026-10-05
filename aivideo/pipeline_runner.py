@@ -88,7 +88,7 @@ class PipelineRunner:
         self,
         mode: str = "all",
         skip_done: bool = True,
-        auto_pip: bool = True,
+        auto_pip: bool = False,
         pause_between_stages: bool = False,
         burn_subtitles: bool | None = None,
     ) -> bool:
@@ -124,6 +124,9 @@ class PipelineRunner:
                 daemon=True,
             )
             self.thread.start()
+            from aivideo.run_state import persist_runner
+
+            persist_runner(self)
             return True
 
     def pause(self) -> None:
@@ -133,6 +136,9 @@ class PipelineRunner:
                 self.is_paused = True
                 self._pause_event.clear()
                 self.status_msg = f"⏸️ 已請求暫停（將在當前分鏡儲存完畢後暫停）"
+        from aivideo.run_state import persist_runner
+
+        persist_runner(self)
 
     def resume(self) -> None:
         """喚醒執行緒，自暫停位置繼續執行。"""
@@ -141,6 +147,9 @@ class PipelineRunner:
                 self.is_paused = False
                 self._pause_event.set()
                 self.status_msg = "▶️ 已恢復執行，接續處理下一幕分鏡..."
+        from aivideo.run_state import persist_runner
+
+        persist_runner(self)
 
     def stop(self) -> None:
         """請求中止任務。已完成的分鏡將完整保留。"""
@@ -568,6 +577,9 @@ class PipelineRunner:
                 self.is_running = False
                 if self._stop_event.is_set():
                     self.is_stopped = True
+            from aivideo.run_state import persist_runner
+
+            persist_runner(self)
 
 
 # 全域 Job 執行器快取（以 job_name 為索引，跨頁面刷新保持狀態）

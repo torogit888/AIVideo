@@ -12,6 +12,7 @@ from aivideo.commands.tones import run_tones
 from aivideo.commands.tts import run_tts
 from aivideo.commands.voices import run_voices
 from aivideo.commands.youtube import run_youtube
+from aivideo.commands.lock import run_gc, run_lock, run_select, run_unlock
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -88,13 +89,37 @@ def build_parser() -> argparse.ArgumentParser:
     youtube.add_argument("--no-thumbnail", action="store_true", help="不上傳首幕分鏡封面圖")
     youtube.set_defaults(func=run_youtube)
 
+    lock = sub.add_parser("lock", help="鎖定分鏡畫面或配音，批次與重抽會跳過")
+    lock.add_argument("--job", required=True)
+    lock.add_argument("--scene", required=True)
+    lock.add_argument("--image", action="store_true")
+    lock.add_argument("--speech", action="store_true")
+    lock.set_defaults(func=run_lock)
+
+    unlock = sub.add_parser("unlock", help="解除分鏡鎖定")
+    unlock.add_argument("--job", required=True)
+    unlock.add_argument("--scene", required=True)
+    unlock.add_argument("--image", action="store_true")
+    unlock.add_argument("--speech", action="store_true")
+    unlock.set_defaults(func=run_unlock)
+
+    select = sub.add_parser("select", help="把某個 take 設為 current")
+    select.add_argument("--job", required=True)
+    select.add_argument("--scene", required=True)
+    select.add_argument("--take", required=True)
+    select.add_argument("--kind", choices=["image", "speech"])
+    select.set_defaults(func=run_select)
+
+    gc = sub.add_parser("gc", help="清理過舊 takes，保留 current 與最新 N 個")
+    gc.add_argument("--job", required=True)
+    gc.add_argument("--scene", help="只清某一場")
+    gc.add_argument("--keep", type=int, default=3)
+    gc.set_defaults(func=run_gc)
+
     for name, help_text in (
         ("parse", "把 script.md 切成場景（尚未實作）"),
         ("run", "缺什麼補什麼（尚未實作）"),
         ("regen", "單場重產（尚未實作）"),
-        ("lock", "鎖定產物（尚未實作）"),
-        ("unlock", "解除鎖定（尚未實作）"),
-        ("select", "選定某個 take（尚未實作）"),
     ):
         pending = sub.add_parser(name, help=help_text)
         pending.set_defaults(func=_not_implemented, pending_name=name)

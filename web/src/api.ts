@@ -6,6 +6,7 @@ import {
   JobDetail,
   SceneDetail,
   SceneSummary,
+  SceneTakes,
   JobVisualAnchors,
   AnalyzeAnchorsResponse,
   YouTubeAuthStatus,
@@ -59,8 +60,17 @@ export const api = {
       outline?: string;
       tone_id?: string;
       script?: string;
+      use_pip?: boolean;
+      subject_anchor?: string;
+      environment_anchor?: string;
+      characters?: { id?: string; name: string; appearance?: string }[];
+      metaphor_style?: string;
     }
   ) => request<JobSummary>(`/jobs/${id}`, { method: "PATCH", body: JSON.stringify(patch) }),
+  recutJob: (
+    id: string,
+    data?: { script?: string; visual_pacing?: string; lines_per_scene?: number; metaphor_style?: string }
+  ) => request<JobSummary>(`/jobs/${id}/recut`, { method: "POST", body: JSON.stringify(data || {}) }),
   deleteJob: (id: string) => request<any>(`/jobs/${id}`, { method: "DELETE" }),
   clearJobMedia: (id: string) => request<any>(`/jobs/${id}/clear`, { method: "POST" }),
   clearJobImages: (id: string) => request<any>(`/jobs/${id}/clear-images`, { method: "POST" }),
@@ -152,10 +162,22 @@ export const api = {
     request<SceneDetail>(`/jobs/${jobId}/scenes/${sceneId}/pip`, { method: "DELETE" }),
   regenerateAudio: (jobId: string, sceneId: string) =>
     request<any>(`/jobs/${jobId}/scenes/${sceneId}/audio`, { method: "POST" }),
+  getSceneTakes: (jobId: string, sceneId: string) =>
+    request<SceneTakes>(`/jobs/${jobId}/scenes/${sceneId}/takes`),
+  selectSceneTake: (jobId: string, sceneId: string, takeId: string, kind: "image" | "speech") =>
+    request<SceneDetail>(`/jobs/${jobId}/scenes/${sceneId}/takes/select`, {
+      method: "POST",
+      body: JSON.stringify({ take_id: takeId, kind }),
+    }),
   fetchScenePip: (jobId: string, sceneId: string, query?: string) =>
     request<any>(`/jobs/${jobId}/scenes/${sceneId}/pip`, {
       method: "POST",
       body: JSON.stringify(query ? { query } : {}),
+    }),
+  translateScenePrompt: (jobId: string, sceneId: string, metaphorStyle = "fantasy", narration?: string) =>
+    request<{ image_prompt: string; metaphor_style: string }>(`/jobs/${jobId}/scenes/${sceneId}/translate-prompt`, {
+      method: "POST",
+      body: JSON.stringify({ metaphor_style: metaphorStyle, narration }),
     }),
 
   // 腳本與大綱
@@ -240,6 +262,20 @@ export const api = {
     }),
   stopPipeline: (jobId: string) =>
     request<any>(`/pipeline/stop?job_id=${jobId}`, { method: "POST" }),
+  pausePipeline: (jobId: string) =>
+    request<any>(`/pipeline/pause?job_id=${jobId}`, { method: "POST" }),
+  resumePipeline: (jobId: string) =>
+    request<any>(`/pipeline/resume?job_id=${jobId}`, { method: "POST" }),
+  checkConnections: (target = "all") =>
+    request<{ gemini_configured?: boolean; comfyui_online?: boolean; comfyui_url?: string }>(
+      `/system/check?target=${encodeURIComponent(target)}`,
+      { method: "POST" }
+    ),
+  gcSceneTakes: (jobId: string, sceneId: string, keep = 3) =>
+    request<{ removed: number; keep: number }>(`/jobs/${jobId}/scenes/${sceneId}/takes/gc`, {
+      method: "POST",
+      body: JSON.stringify({ keep }),
+    }),
 
   // SSE 即時串流
   subscribePipeline: (jobId: string, onMessage: (data: any) => void) => {

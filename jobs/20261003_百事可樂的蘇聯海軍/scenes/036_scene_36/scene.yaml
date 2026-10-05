@@ -2,16 +2,16 @@ id: 036_scene_36
 index: 36
 title: 第 36 幕
 narration: 然而，當這些軍艦被拆解成廢鐵時，這場交易的背後，又隱藏著怎樣的倫理困境和歷史代價呢，
-image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。A melancholic, dreamlike
-  illustration. Stylized Soviet Navy Fleet warships, once grand, are shown as piles
-  of soft-edged scrap metal, subtly dissolving into the landscape. Above them, ethereal,
-  shimmering question marks and abstract, muted patterns representing 'ethical dilemmas'
-  and 'historical cost' subtly float in the air. The perpetual golden hour glow is
-  tinged with a somber hue.
+image_prompt: 2D Chibi Cell style, 16:9 widescreen. A bright, evenly lit educational
+  storyboard world with a simplified industrial backdrop. A large, abstract pile of
+  scrap metal, representing the dismantled Soviet fleet, is in the foreground. A stylized,
+  somber shadow in the shape of a question mark or a thoughtful face is cast over
+  the scrap, symbolizing ethical dilemmas and historical cost. Bold black contours,
+  flat color fills, simple highlight bands.
 image_negative: ''
 locks:
   speech: false
   image: false
 current:
-  speech_take: null
-  image_take: null
+  speech_take: speech_20261005T054313
+  image_take: image_20261005T054236

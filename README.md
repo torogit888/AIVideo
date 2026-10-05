@@ -75,7 +75,7 @@ cd dev-kit
 在容器中安裝本專案：
 
 ```bash
-pip install -e .
+pip install -e ".[dev]"
 ```
 
 然後可檢查環境：
@@ -83,6 +83,26 @@ pip install -e .
 ```bash
 aivideo check
 ```
+
+### Studio（日常入口）
+
+產品介面是 **Vite React :5173** + **FastAPI :8000**。兩個服務都要開。
+
+在 pipeline 容器裡啟動 API：
+
+```bash
+uvicorn aivideo.api.app:app --host 0.0.0.0 --port 8000 --reload
+```
+
+在 `web/` 啟動前端（容器內或主機皆可）：
+
+```bash
+cd web
+npm install
+npm run dev
+```
+
+瀏覽器開 `http://localhost:5173`。VS Code Task：`Studio: 啟動 API (uvicorn :8000)`、`Studio: 啟動前端 (npm run dev :5173)`。
 
 進階檢查：
 

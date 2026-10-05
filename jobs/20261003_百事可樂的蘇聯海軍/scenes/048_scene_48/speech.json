@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261005T055517",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 12.42,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "這不禁讓人思考，冷戰時棋百事可樂扮演的破冰腳色",
+      "text_cn": "这不禁让人思考，冷战时棋百事可乐扮演的破冰脚色",
+      "start_sec": 0.0,
+      "end_sec": 4.6,
+      "duration_sec": 4.6
+    },
+    {
+      "index": 2,
+      "text": "與現在其在衝圖中的堅守立場，兩者背後",
+      "text_cn": "与现在其在冲图中的坚守立场，两者背后",
+      "start_sec": 4.85,
+      "end_sec": 8.45,
+      "duration_sec": 3.6
+    },
+    {
+      "index": 3,
+      "text": "是否都是對市場和利潤的考量呢[question-ah]",
+      "text_cn": "是否都是对市场和利润的考量呢[question-ah]",
+      "start_sec": 8.7,
+      "end_sec": 12.42,
+      "duration_sec": 3.72
+    }
+  ],
+  "created_at": "2026-10-05T05:55:17.288075+00:00"
+}

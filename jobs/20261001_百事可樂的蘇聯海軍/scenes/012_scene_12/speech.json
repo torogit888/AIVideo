@@ -4,7 +4,7 @@
   "engine": "omnivoice",
   "model": "OmniVoice-bf16",
   "mode": "clone",
-  "voice_id": "female01",
+  "voice_id": "tw_female01",
   "voice_instruct": "女，青年，中音调",
   "steps": 32,
   "speed": 1.0,

@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261005T051515",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.66,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "這句話背後，隱藏著多少令人驚訝的商業操作",
+      "text_cn": "这句话背后，隐藏着多少令人惊讶的商业操作",
+      "start_sec": 0.0,
+      "end_sec": 4.0,
+      "duration_sec": 4.0
+    },
+    {
+      "index": 2,
+      "text": "以及那段特殊歷史時棋的荒誕與現實，一家賣汽水的公司",
+      "text_cn": "以及那段特殊历史时棋的荒诞与现实，一家卖汽水的公司",
+      "start_sec": 4.25,
+      "end_sec": 9.25,
+      "duration_sec": 5.0
+    },
+    {
+      "index": 3,
+      "text": "舊竟是如何捲入如此深層的軍事與政治交易呢",
+      "text_cn": "旧竟是如何卷入如此深层的军事与政治交易呢",
+      "start_sec": 9.5,
+      "end_sec": 13.66,
+      "duration_sec": 4.16
+    }
+  ],
+  "created_at": "2026-10-05T05:15:15.144057+00:00"
+}

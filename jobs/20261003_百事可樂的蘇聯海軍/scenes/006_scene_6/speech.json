@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261005T051326",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.66,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "這些軍艦的規模，在當時足以讓百事可樂位列世界第六大海軍",
+      "text_cn": "这些军舰的规模，在当时足以让百事可乐位列世界第六大海军",
+      "start_sec": 0.0,
+      "end_sec": 5.4,
+      "duration_sec": 5.4
+    },
+    {
+      "index": 2,
+      "text": "比許多中等國家的海軍都還要強大",
+      "text_cn": "比许多中等国家的海军都还要强大",
+      "start_sec": 5.65,
+      "end_sec": 8.81,
+      "duration_sec": 3.16
+    },
+    {
+      "index": 3,
+      "text": "這聽起來是不是像天方夜譚一樣，簡直讓人難以置信",
+      "text_cn": "这听起来是不是像天方夜谭一样，简直让人难以置信",
+      "start_sec": 9.06,
+      "end_sec": 13.66,
+      "duration_sec": 4.6
+    }
+  ],
+  "created_at": "2026-10-05T05:13:26.865702+00:00"
+}

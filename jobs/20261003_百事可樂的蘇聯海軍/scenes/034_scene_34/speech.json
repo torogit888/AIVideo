@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261005T054114",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.06,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "在全球範圍內，還有什麼比用汽水換軍艦更具話題性的呢",
+      "text_cn": "在全球范围内，还有什么比用汽水换军舰更具话题性的呢",
+      "start_sec": 0.0,
+      "end_sec": 5.0,
+      "duration_sec": 5.0
+    },
+    {
+      "index": 2,
+      "text": "百事可樂在蘇聯市場的獨佔地位，也因此得到了鞏固",
+      "text_cn": "百事可乐在苏联市场的独占地位，也因此得到了巩固",
+      "start_sec": 5.25,
+      "end_sec": 9.85,
+      "duration_sec": 4.6
+    },
+    {
+      "index": 3,
+      "text": "並在其後的俄羅斯市場持續擴張",
+      "text_cn": "并在其后的俄罗斯市场持续扩张",
+      "start_sec": 10.1,
+      "end_sec": 13.06,
+      "duration_sec": 2.96
+    }
+  ],
+  "created_at": "2026-10-05T05:41:14.423540+00:00"
+}

@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261005T050936",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.47,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "你敢相信，一家專門賣氣泡飲料的公司",
+      "text_cn": "你敢相信，一家专门卖气泡饮料的公司",
+      "start_sec": 0.0,
+      "end_sec": 3.4,
+      "duration_sec": 3.4
+    },
+    {
+      "index": 2,
+      "text": "曾經一度擁有全世界第六大的海軍艦隊嗎",
+      "text_cn": "曾经一度拥有全世界第六大的海军舰队吗",
+      "start_sec": 3.65,
+      "end_sec": 7.41,
+      "duration_sec": 3.76
+    },
+    {
+      "index": 3,
+      "text": "甚至比某些國家的海軍規模還要龐大[surprise-wa]，沒錯",
+      "text_cn": "甚至比某些国家的海军规模还要庞大[surprise-wa]，没错",
+      "start_sec": 7.66,
+      "end_sec": 12.22,
+      "duration_sec": 4.56
+    },
+    {
+      "index": 4,
+      "text": "就是那個藍紅相間，充滿歡樂氣泡的百事可樂",
+      "text_cn": "就是那个蓝红相间，充满欢乐气泡的百事可乐",
+      "start_sec": 12.47,
+      "end_sec": 16.47,
+      "duration_sec": 4.0
+    }
+  ],
+  "created_at": "2026-10-05T05:09:36.321020+00:00"
+}

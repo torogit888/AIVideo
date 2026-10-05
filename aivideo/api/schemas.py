@@ -12,6 +12,10 @@ class SystemStatusResponse(BaseModel):
     comfyui_url: str
     comfyui_online: bool
     repo_root: str
+    default_voice_id: str = "tw_female01"
+    tones: List[str] = Field(default_factory=list)
+    font_path: Optional[str] = None
+    font_ok: bool = False
 
 
 # ==========================================
@@ -34,9 +38,11 @@ class JobSummary(BaseModel):
     id: str
     title: str
     language: str = "zh-Hant"
-    voice_id: str = "female01"
+    voice_id: str = "tw_female01"
     style_id: Optional[str] = None
     image_model: Optional[str] = None
+    use_pip: bool = False
+    metaphor_style: Optional[str] = "fantasy"
     progress: JobProgress
     updated_at: Optional[str] = None
 
@@ -66,7 +72,7 @@ class CreateJobRequest(BaseModel):
     slug: Optional[str] = None
     script: str
     tone_id: Optional[str] = None
-    voice_id: str = "female01"
+    voice_id: str = "tw_female01"
     style_id: str = "future_workplace"
     image_model: Optional[str] = Field(default="gemini-3.1-flash-image", description="生圖模型")
     visual_pacing: str = Field(default="balanced", description="視覺換鏡節奏: fast, balanced, slow")
@@ -74,8 +80,10 @@ class CreateJobRequest(BaseModel):
     subject_anchor: Optional[str] = Field(default=None, description="主體外觀特徵錨點（多人時為彙總字串）")
     environment_anchor: Optional[str] = Field(default=None, description="環境與光影基調錨點")
     characters: Optional[List[CharacterAnchorInput]] = Field(default=None, description="每人獨立外觀錨點")
-    custom_prompt: Optional[str] = Field(default=None, description="指定 Prompt 與故事特定要求")
+    custom_prompt: Optional[str] = Field(default=None, description="故事要求／必寫看點")
     outline: Optional[str] = Field(default=None, description="6 幕故事大綱")
+    use_pip: bool = Field(default=True, description="Job 級考據 PiP 開關，預設開")
+    metaphor_style: str = Field(default="fantasy", description="視覺轉譯風格: fantasy | vintage_realistic | symbolic")
 
 
 class UpdateJobRequest(BaseModel):
@@ -87,6 +95,18 @@ class UpdateJobRequest(BaseModel):
     custom_prompt: Optional[str] = None
     outline: Optional[str] = None
     script: Optional[str] = None
+    use_pip: Optional[bool] = None
+    subject_anchor: Optional[str] = None
+    environment_anchor: Optional[str] = None
+    characters: Optional[List[CharacterAnchorInput]] = None
+    metaphor_style: Optional[str] = None
+
+
+class RecutJobRequest(BaseModel):
+    script: Optional[str] = None
+    visual_pacing: str = Field(default="balanced", description="視覺換鏡節奏: fast, balanced, slow")
+    lines_per_scene: Optional[int] = Field(default=None, ge=1, le=5)
+    metaphor_style: Optional[str] = None
 
 
 # ==========================================
@@ -254,6 +274,29 @@ class GenerateHeroAnchorResponse(BaseModel):
 # ==========================================
 # 分鏡 (Scene)
 # ==========================================
+class SceneTake(BaseModel):
+    take_id: str
+    kind: str
+    filename: str
+    url: Optional[str] = None
+    created_at: Optional[str] = None
+    is_current: bool = False
+
+
+class SceneTakes(BaseModel):
+    images: List[SceneTake] = Field(default_factory=list)
+    speeches: List[SceneTake] = Field(default_factory=list)
+
+
+class GcTakesRequest(BaseModel):
+    keep: int = Field(default=3, ge=1, le=50)
+
+
+class SelectTakeRequest(BaseModel):
+    take_id: str
+    kind: str = Field(..., description="image | speech")
+
+
 class SceneStatus(BaseModel):
     has_image: bool = False
     has_audio: bool = False
@@ -282,11 +325,14 @@ class SceneSummary(BaseModel):
     index: int
     title: str
     narration: str
+    act_index: int = 0
+    act_title: str = ""
     pip_query: Optional[str] = None
     has_pip: bool = False
     pip_enabled: bool = False
     pip_mode: str = "pip"
     pip_error: Optional[str] = None
+    locks: Dict[str, bool] = Field(default_factory=lambda: {"speech": False, "image": False})
     status: SceneStatus
 
 
@@ -297,10 +343,13 @@ class SceneDetail(BaseModel):
     narration: str
     image_prompt: str
     image_negative: Optional[str] = ""
+    act_index: int = 0
+    act_title: str = ""
     locks: Dict[str, bool] = Field(default_factory=lambda: {"speech": False, "image": False})
     current: Dict[str, Optional[str]] = Field(default_factory=dict)
     pip: ScenePipConfig = Field(default_factory=ScenePipConfig)
     status: SceneStatus
+    takes: SceneTakes = Field(default_factory=SceneTakes)
 
 
 class ScenePatchRequest(BaseModel):
@@ -310,6 +359,16 @@ class ScenePatchRequest(BaseModel):
     image_negative: Optional[str] = None
     locks: Optional[Dict[str, bool]] = None
     pip: Optional[ScenePipConfig] = None
+
+
+class TranslatePromptRequest(BaseModel):
+    narration: Optional[str] = None
+    metaphor_style: str = Field(default="fantasy", description="fantasy | vintage_realistic | symbolic")
+
+
+class TranslatePromptResponse(BaseModel):
+    image_prompt: str
+    metaphor_style: str
 
 
 class FetchScenePipRequest(BaseModel):
@@ -369,11 +428,19 @@ class PipelineRunRequest(BaseModel):
 
 class PipelineStatusResponse(BaseModel):
     is_running: bool
+    is_paused: bool = False
     current_job: Optional[str] = None
     current_action: Optional[str] = None
     progress: float = 0.0
     message: str = ""
+    scene_id: Optional[str] = None
     recent_logs: List[str] = Field(default_factory=list)
+
+
+class PipelineControlResponse(BaseModel):
+    message: str
+    is_running: bool = False
+    is_paused: bool = False
 
 
 # ==========================================

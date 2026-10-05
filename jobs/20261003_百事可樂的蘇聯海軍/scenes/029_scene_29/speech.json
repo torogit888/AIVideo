@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261005T053618",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 12.29,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "曾經的超級大國，如今卻不得不變賣軍備以維持日常",
+      "text_cn": "曾经的超级大国，如今却不得不变卖军备以维持日常",
+      "start_sec": 0.0,
+      "end_sec": 4.6,
+      "duration_sec": 4.6
+    },
+    {
+      "index": 2,
+      "text": "這筆交易，不僅僅是商業的奇蹟，它更是蘇聯帝國衰落前夕，那種瘋狂與無奈的真實寫照",
+      "text_cn": "这笔交易，不仅仅是商业的奇迹，它更是苏联帝国衰落前夕，那种疯狂与无奈的真实写照",
+      "start_sec": 4.85,
+      "end_sec": 12.29,
+      "duration_sec": 7.44
+    }
+  ],
+  "created_at": "2026-10-05T05:36:18.423435+00:00"
+}

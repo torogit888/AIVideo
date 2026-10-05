@@ -7,8 +7,11 @@ from pathlib import Path
 from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import StreamingResponse
 
-from aivideo.api.schemas import PipelineRunRequest, PipelineStatusResponse
+from aivideo.api.schemas import PipelineControlResponse, PipelineRunRequest, PipelineStatusResponse
+from aivideo.job_files import load_job_config
+from aivideo.naming import job_use_pip, should_auto_pip
 from aivideo.pipeline_runner import get_pipeline_runner
+from aivideo.run_state import load_run_json, persist_runner, snapshot_runner
 
 router = APIRouter(prefix="/pipeline", tags=["流水線批次作業"])
 REPO_ROOT = Path(__file__).resolve().parents[3]
@@ -35,22 +38,54 @@ def run_pipeline(req: PipelineRunRequest) -> PipelineStatusResponse:
     }
     target_mode = mode_map.get(req.action, "all")
 
+    job_cfg = {}
+    try:
+        job_cfg = load_job_config(job_dir)
+    except Exception:
+        job_cfg = {}
+
     runner.start(
         mode=target_mode,
         skip_done=req.only_missing and not req.force,
-        auto_pip=True if req.action in ("all", "pip") else False,
+        auto_pip=should_auto_pip(req.action, job_use_pip(job_cfg)),
         pause_between_stages=False,
         burn_subtitles=req.burn_subtitles,
     )
 
+    persist_runner(runner)
+    snap = snapshot_runner(runner)
     return PipelineStatusResponse(
         is_running=runner.is_running,
+        is_paused=runner.is_paused,
         current_job=req.job_id,
         current_action=req.action,
         progress=runner.progress,
         message=runner.status_msg,
+        scene_id=snap.get("scene_id"),
         recent_logs=[],
     )
+
+
+@router.post("/pause", response_model=PipelineControlResponse)
+def pause_pipeline(job_id: str):
+    job_dir = JOBS_DIR / job_id
+    runner = get_pipeline_runner(job_id, job_dir)
+    if not runner.is_running:
+        return PipelineControlResponse(message="目前無執行中任務", is_running=False, is_paused=False)
+    runner.pause()
+    persist_runner(runner)
+    return PipelineControlResponse(message="已請求暫停", is_running=True, is_paused=True)
+
+
+@router.post("/resume", response_model=PipelineControlResponse)
+def resume_pipeline(job_id: str):
+    job_dir = JOBS_DIR / job_id
+    runner = get_pipeline_runner(job_id, job_dir)
+    if not runner.is_running:
+        return PipelineControlResponse(message="目前無執行中任務", is_running=False, is_paused=False)
+    runner.resume()
+    persist_runner(runner)
+    return PipelineControlResponse(message="已繼續", is_running=True, is_paused=False)
 
 
 @router.post("/stop")
@@ -61,6 +96,7 @@ def stop_pipeline(job_id: str):
         return {"message": "目前無執行中任務"}
 
     runner.stop()
+    persist_runner(runner)
     return {"message": "已發送中止請求"}
 
 
@@ -68,13 +104,29 @@ def stop_pipeline(job_id: str):
 def get_pipeline_status(job_id: str) -> PipelineStatusResponse:
     job_dir = JOBS_DIR / job_id
     runner = get_pipeline_runner(job_id, job_dir)
+    snap = snapshot_runner(runner)
+    if not runner.is_running:
+        disk = load_run_json(job_dir)
+        if disk:
+            return PipelineStatusResponse(
+                is_running=False,
+                is_paused=False,
+                current_job=job_id,
+                current_action=disk.get("mode"),
+                progress=float(disk.get("progress") or 0),
+                message=disk.get("message") or ("完成" if disk.get("is_done") else "閒置"),
+                scene_id=disk.get("scene_id"),
+                recent_logs=[],
+            )
 
     return PipelineStatusResponse(
         is_running=runner.is_running,
+        is_paused=runner.is_paused,
         current_job=job_id,
         current_action=runner.mode,
         progress=runner.progress,
         message=runner.status_msg or ("完成" if runner.is_done else "閒置"),
+        scene_id=snap.get("scene_id"),
         recent_logs=[],
     )
 
@@ -102,13 +154,19 @@ async def stream_pipeline_events(request: Request, job_id: str):
                 is_done = runner.is_done
                 error = runner.error_msg
 
+                snap = persist_runner(runner)
                 data = {
                     "job_id": job_id,
                     "is_running": is_running,
+                    "is_paused": bool(getattr(runner, "is_paused", False)),
                     "is_done": is_done,
                     "progress": round(cur_prog * 100, 1),
                     "message": cur_msg,
                     "error": error,
+                    "scene_id": snap.get("scene_id"),
+                    "phase": snap.get("phase"),
+                    "has_image": snap.get("has_image"),
+                    "has_audio": snap.get("has_audio"),
                     "cooldown_remaining": int(getattr(runner, "cooldown_remaining", 0) or 0),
                     "cooldown_total": int(getattr(runner, "cooldown_total", 0) or 0),
                     "notice_seq": int(getattr(runner, "notice_seq", 0) or 0),

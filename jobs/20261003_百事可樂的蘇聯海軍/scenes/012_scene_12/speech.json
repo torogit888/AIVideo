@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261005T051928",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.21,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "就在這個關鍵時刻，一個關鍵人物登場了",
+      "text_cn": "就在这个关键时刻，一个关键人物登场了",
+      "start_sec": 0.0,
+      "end_sec": 3.07,
+      "duration_sec": 3.07
+    },
+    {
+      "index": 2,
+      "text": "他就是百事可樂國際部的總裁唐納德·肯德爾",
+      "text_cn": "他就是百事可乐国际部的总裁唐纳德·肯德尔",
+      "start_sec": 3.32,
+      "end_sec": 7.32,
+      "duration_sec": 4.0
+    },
+    {
+      "index": 3,
+      "text": "他巧妙地抓住機會，讓赫魯雪夫在眾目睽睽之下，暢飲了百事可樂",
+      "text_cn": "他巧妙地抓住机会，让赫鲁晓夫在众目睽睽之下，畅饮了百事可乐",
+      "start_sec": 7.57,
+      "end_sec": 13.21,
+      "duration_sec": 5.64
+    }
+  ],
+  "created_at": "2026-10-05T05:19:28.146151+00:00"
+}

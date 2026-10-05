@@ -1,57 +1,80 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import { PlaySquare, Download, FileText, Youtube } from "lucide-react";
 import { useStudioStore } from "../store";
 import { YouTubeUploadModal } from "./YouTubeUploadModal";
 
 export const FilmViewer: React.FC = () => {
-  const { selectedJobId } = useStudioStore();
-  const [showYouTubeModal, setShowYouTubeModal] = useState(false);
+  const { selectedJobId, scenes, loadScenes, setTab, openInspector } = useStudioStore();
+  const [showYouTubeModal, setShowYouTubeModal] = React.useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (selectedJobId) loadScenes(selectedJobId);
+  }, [selectedJobId, loadScenes]);
 
   const encodedJobId = selectedJobId ? encodeURIComponent(selectedJobId) : "";
   const filmUrl = encodedJobId ? `/media/jobs/${encodedJobId}/compose/film.mp4` : null;
   const srtUrl = encodedJobId ? `/media/jobs/${encodedJobId}/compose/timeline.srt` : null;
   const assUrl = encodedJobId ? `/media/jobs/${encodedJobId}/compose/timeline.ass` : null;
 
+  const cues = useMemo(() => {
+    let t = 0;
+    return scenes.map((s) => {
+      const dur = s.status.duration > 0 ? s.status.duration : 5.5;
+      const cue = { id: s.id, title: s.title, start: t, end: t + dur };
+      t += dur;
+      return cue;
+    });
+  }, [scenes]);
+  const totalDur = cues.length ? cues[cues.length - 1].end : 1;
+
+  const jumpToScene = (sceneId: string, startSec: number) => {
+    if (videoRef.current) {
+      videoRef.current.currentTime = startSec;
+    }
+    setTab("storyboard");
+    openInspector(sceneId);
+  };
+
   return (
     <div className="flex-1 flex flex-col h-full overflow-y-auto p-6 pb-20 max-w-5xl mx-auto space-y-6">
-      {/* 頂部標題與下載 */}
       <div className="shrink-0 flex items-center justify-between">
         <div>
           <h2 className="text-lg font-semibold text-cinema-text">成片劇院預覽</h2>
           <p className="text-xs text-cinema-muted">
-            1080p 說書人成片播放 · 支援一鍵發布至 YouTube 或下載純淨影片與 SRT 字幕檔
+            1080p 說書人成片播放 · 點時間軸可跳到該場分鏡精修
           </p>
         </div>
         <div className="flex items-center space-x-2">
           {filmUrl && (
             <button
               onClick={() => setShowYouTubeModal(true)}
-              className="flex items-center h-8 px-3 rounded bg-red-600 hover:bg-red-700 text-white text-xs font-medium shadow-md transition-colors"
-              title="將成片與字幕一鍵發布至 YouTube"
+              className="flex items-center h-8 px-3 rounded bg-cinema-card hover:bg-cinema-cardHover border border-cinema-border text-white text-xs font-medium transition-colors"
+              title="將成片發布至 YouTube"
             >
-              <Youtube className="w-4 h-4 mr-1.5" />
-              <span>發布至 YouTube</span>
+              <Youtube className="w-3.5 h-3.5 mr-1.5" />
+              <span>YouTube</span>
             </button>
           )}
           {filmUrl && (
             <a
               href={filmUrl}
               download
-              className="flex items-center h-8 px-3 rounded bg-cinema-card hover:bg-cinema-cardHover border border-cinema-border text-xs text-cinema-text hover:text-amber-cta transition-colors"
+              className="flex items-center h-8 px-2.5 rounded bg-cinema-card hover:bg-cinema-cardHover border border-cinema-border text-xs text-cinema-muted hover:text-cinema-text transition-colors"
             >
-              <Download className="w-3.5 h-3.5 mr-1.5" />
-              <span>下載 MP4 成片</span>
+              <Download className="w-3.5 h-3.5 mr-1" />
+              <span>.mp4</span>
             </a>
           )}
           {srtUrl && (
             <a
               href={srtUrl}
               download
-              className="flex items-center h-8 px-3 rounded bg-amber-cta/15 hover:bg-amber-cta/25 border border-amber-cta/40 text-xs text-amber-cta font-medium transition-colors"
-              title="下載 YouTube 專用 SRT 時間軸字幕檔，可在 YouTube Studio 直接上傳"
+              className="flex items-center h-8 px-2.5 rounded bg-cinema-card hover:bg-cinema-cardHover border border-cinema-border text-xs text-cinema-muted hover:text-cinema-text transition-colors"
+              title="下載 SRT 字幕"
             >
-              <FileText className="w-3.5 h-3.5 mr-1.5" />
-              <span>下載 YouTube 字幕 (.srt)</span>
+              <FileText className="w-3.5 h-3.5 mr-1" />
+              <span>.srt</span>
             </a>
           )}
           {assUrl && (
@@ -59,7 +82,7 @@ export const FilmViewer: React.FC = () => {
               href={assUrl}
               download
               className="flex items-center h-8 px-2.5 rounded bg-cinema-card hover:bg-cinema-cardHover border border-cinema-border text-xs text-cinema-muted hover:text-cinema-text transition-colors"
-              title="下載帶絕對定位與樣式設定的 ASS 字幕檔"
+              title="下載 ASS 字幕檔"
             >
               <FileText className="w-3.5 h-3.5 mr-1" />
               <span>.ass</span>
@@ -68,10 +91,10 @@ export const FilmViewer: React.FC = () => {
         </div>
       </div>
 
-      {/* 16:9 主劇院播放器（加上 shrink-0 防止被 flex 壓縮為 0） */}
       <div className="shrink-0 relative aspect-video w-full rounded-xl bg-black overflow-hidden border border-cinema-border shadow-2xl">
         {filmUrl ? (
           <video
+            ref={videoRef}
             src={filmUrl}
             controls
             className="w-full h-full object-contain"
@@ -86,7 +109,32 @@ export const FilmViewer: React.FC = () => {
         )}
       </div>
 
-      {/* YouTube 發布彈窗 */}
+      {cues.length > 0 && (
+        <div className="shrink-0 space-y-2">
+          <div className="flex items-center justify-between text-[11px] text-cinema-muted">
+            <span>時間軸（點一場進入分鏡 Inspector）</span>
+            <span className="font-mono">{cues.length} 場</span>
+          </div>
+          <div className="flex h-10 rounded-lg overflow-hidden border border-cinema-border bg-cinema-darker">
+            {cues.map((cue) => {
+              const pct = ((cue.end - cue.start) / totalDur) * 100;
+              return (
+                <button
+                  key={cue.id}
+                  type="button"
+                  title={`${cue.title} · ${cue.start.toFixed(1)}s`}
+                  onClick={() => jumpToScene(cue.id, cue.start)}
+                  style={{ width: `${Math.max(pct, 0.8)}%` }}
+                  className="h-full min-w-[4px] border-r border-cinema-border/60 last:border-r-0 bg-cinema-card hover:bg-amber-cta/40 text-[9px] text-cinema-muted hover:text-cinema-text truncate px-0.5 transition-colors"
+                >
+                  {pct >= 3 ? cue.title : ""}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
       {selectedJobId && (
         <YouTubeUploadModal
           jobId={selectedJobId}

@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import json
 import os
-import re
 import shutil
 from datetime import datetime, timezone
 from pathlib import Path
@@ -12,6 +11,7 @@ import yaml
 
 from aivideo.api.schemas import (
     CreateJobRequest,
+    RecutJobRequest,
     UpdateJobRequest,
     JobDetail,
     JobProgress,
@@ -59,17 +59,18 @@ def _job_yaml_path(job_dir: Path) -> Path:
 
 
 def _load_job_cfg(job_dir: Path) -> dict:
+    from aivideo.job_files import load_job_config
+
     path = _job_yaml_path(job_dir)
     if not path.is_file():
         raise HTTPException(status_code=404, detail="找不到 job.yaml")
-    return yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    return load_job_config(job_dir)
 
 
 def _save_job_cfg(job_dir: Path, cfg: dict) -> None:
-    _job_yaml_path(job_dir).write_text(
-        yaml.safe_dump(cfg, allow_unicode=True, sort_keys=False),
-        encoding="utf-8",
-    )
+    from aivideo.job_files import save_job_config
+
+    save_job_config(job_dir, cfg)
 
 
 def _ensure_visual_anchors(cfg: dict) -> dict:
@@ -213,53 +214,42 @@ def _calculate_job_progress(job_dir: Path) -> JobProgress:
     )
 
 
+def _to_job_summary(job_dir: Path, data: dict | None = None) -> JobSummary:
+    if data is None:
+        path = _job_yaml_path(job_dir)
+        data = yaml.safe_load(path.read_text(encoding="utf-8")) or {} if path.is_file() else {}
+    img = data.get("image") if isinstance(data.get("image"), dict) else {}
+    mtime = datetime.fromtimestamp(job_dir.stat().st_mtime, tz=timezone.utc).isoformat()
+    return JobSummary(
+        id=job_dir.name,
+        title=data.get("title", job_dir.name),
+        language=data.get("language", "zh-Hant"),
+        voice_id=data.get("voice_id", "tw_female01"),
+        style_id=img.get("style"),
+        image_model=img.get("model"),
+        use_pip=bool(data.get("use_pip", False)),
+        metaphor_style=str(data.get("metaphor_style") or "fantasy"),
+        progress=_calculate_job_progress(job_dir),
+        updated_at=mtime,
+    )
+
+
 @router.get("", response_model=List[JobSummary])
 def list_jobs() -> List[JobSummary]:
     if not JOBS_DIR.is_dir():
         return []
 
     results: List[JobSummary] = []
-    # 按照資料夾修改時間倒序
     job_dirs = sorted(
         [d for d in JOBS_DIR.iterdir() if d.is_dir() and not d.name.startswith("_")],
         key=lambda p: p.stat().st_mtime,
         reverse=True,
     )
-
     for jdir in job_dirs:
-        job_yaml_path = jdir / "job.yaml"
-        title = jdir.name
-        voice_id = "female01"
-        style_id = None
-        image_model = None
-        lang = "zh-Hant"
-
-        if job_yaml_path.is_file():
-            try:
-                data = yaml.safe_load(job_yaml_path.read_text(encoding="utf-8")) or {}
-                title = data.get("title", title)
-                voice_id = data.get("voice_id", voice_id)
-                lang = data.get("language", lang)
-                style_id = data.get("image", {}).get("style")
-                image_model = data.get("image", {}).get("model")
-            except Exception:
-                pass
-
-        mtime = datetime.fromtimestamp(jdir.stat().st_mtime, tz=timezone.utc).isoformat()
-        progress = _calculate_job_progress(jdir)
-
-        results.append(
-            JobSummary(
-                id=jdir.name,
-                title=title,
-                language=lang,
-                voice_id=voice_id,
-                style_id=style_id,
-                image_model=image_model,
-                progress=progress,
-                updated_at=mtime,
-            )
-        )
+        try:
+            results.append(_to_job_summary(jdir))
+        except Exception:
+            continue
     return results
 
 
@@ -269,13 +259,13 @@ def get_job_detail(job_id: str) -> JobDetail:
     if not job_dir.is_dir():
         raise HTTPException(status_code=404, detail=f"找不到專案 {job_id}")
 
-    job_yaml_path = job_dir / "job.yaml"
+    from aivideo.job_files import load_job_config
+
     config: Dict[str, Any] = {}
-    if job_yaml_path.is_file():
-        try:
-            config = yaml.safe_load(job_yaml_path.read_text(encoding="utf-8")) or {}
-        except Exception as e:
-            config = {"error": f"讀取 job.yaml 失敗: {str(e)}"}
+    try:
+        config = load_job_config(job_dir)
+    except Exception as e:
+        config = {"error": f"讀取 job.yaml 失敗: {str(e)}"}
 
     title = config.get("title", job_id)
     anchors = config.get("visual_anchors", {})
@@ -292,11 +282,6 @@ def get_job_detail(job_id: str) -> JobDetail:
 
     custom_prompt = config.get("custom_prompt") or None
     outline = config.get("outline") or None
-    if not outline and (job_dir / "outline.md").is_file():
-        try:
-            outline = (job_dir / "outline.md").read_text(encoding="utf-8")
-        except Exception:
-            pass
 
     return JobDetail(
         id=job_id,
@@ -315,15 +300,9 @@ def get_job_detail(job_id: str) -> JobDetail:
 
 @router.post("", response_model=JobSummary)
 def create_job(req: CreateJobRequest) -> JobSummary:
-    # 產生合法 slug
-    today_str = datetime.now().strftime("%Y%m%d")
-    slug = req.slug.strip() if req.slug else ""
-    if not slug:
-        # 由 topic 生成簡短英文或拼音/主題
-        clean_name = re.sub(r"[^\w\s-]", "", req.topic).strip()
-        slug = re.sub(r"[-\s]+", "_", clean_name)[:30] or "new_project"
-    
-    job_id = f"{today_str}_{slug}"
+    from aivideo.naming import build_job_id
+
+    job_id = build_job_id(req.topic, req.slug)
     job_dir = JOBS_DIR / job_id
 
     # 決定視覺錨點：前端已確認的角色／環境優先，否則自動分析
@@ -353,7 +332,7 @@ def create_job(req: CreateJobRequest) -> JobSummary:
             characters = provided_characters
             subject_anchor = compose_subject_anchor(characters) or subject_anchor
 
-    # 拆解分鏡
+    # 拆解分鏡（依據選定之視覺轉譯風格產生各幕英文 Prompt）
     scenes_data = parse_script_lines_to_scenes(
         script_lines_text=req.script,
         visual_pacing=req.visual_pacing,
@@ -363,6 +342,8 @@ def create_job(req: CreateJobRequest) -> JobSummary:
         environment_anchor=env_anchor,
         topic=req.topic,
         characters=characters,
+        outline=req.outline,
+        metaphor_style=req.metaphor_style or "fantasy",
     )
 
     created_dir = create_job_bundle(
@@ -378,20 +359,13 @@ def create_job(req: CreateJobRequest) -> JobSummary:
         custom_prompt=req.custom_prompt,
         outline=req.outline,
         tone_id=req.tone_id,
+        use_pip=req.use_pip,
+        metaphor_style=req.metaphor_style or "fantasy",
     )
 
     # 同步寫入 script.md
     (created_dir / "script.md").write_text(req.script, encoding="utf-8")
-
-    progress = _calculate_job_progress(created_dir)
-    return JobSummary(
-        id=job_id,
-        title=req.topic,
-        voice_id=req.voice_id,
-        style_id=req.style_id,
-        image_model=req.image_model,
-        progress=progress,
-    )
+    return _to_job_summary(created_dir)
 
 
 @router.post("/analyze-anchors", response_model=AnalyzeAnchorsResponse)
@@ -668,12 +642,14 @@ def sync_job_prompts(job_id: str):
     characters = ensure_characters(v_anchors)
     sub = v_anchors.get("subject", "") or compose_subject_anchor(characters)
     env = v_anchors.get("environment", "")
+    metaphor = str(cfg.get("metaphor_style") or "fantasy")
 
     updated_count = regenerate_job_scene_prompts(
         job_dir=job_dir,
         subject_anchor=sub,
         environment_anchor=env,
         characters=characters,
+        metaphor_style=metaphor,
     )
     return {
         "success": True,
@@ -692,7 +668,7 @@ def update_job(job_id: str, req: UpdateJobRequest) -> JobSummary:
     if not job_yaml_path.is_file():
         raise HTTPException(status_code=404, detail="找不到 job.yaml")
 
-    data = yaml.safe_load(job_yaml_path.read_text(encoding="utf-8")) or {}
+    data = _load_job_cfg(job_dir)
 
     if req.title is not None:
         data["title"] = req.title
@@ -714,53 +690,91 @@ def update_job(job_id: str, req: UpdateJobRequest) -> JobSummary:
             data["style_negative"] = style_info["negative"]
     if req.tone_id is not None:
         data["tone_id"] = req.tone_id
+    if req.metaphor_style is not None:
+        data["metaphor_style"] = req.metaphor_style
     if req.custom_prompt is not None:
         data["custom_prompt"] = req.custom_prompt
     if req.outline is not None:
         data["outline"] = req.outline
-
-    # 若有更新大綱或自訂 Prompt，同步更新 outline.md
-    if req.outline is not None or req.custom_prompt is not None:
-        cur_title = data.get("title", job_id)
-        cur_prompt = data.get("custom_prompt", "")
-        cur_outline = data.get("outline", "")
-        if cur_prompt or cur_outline:
-            outline_md_lines = [f"# {cur_title} - 故事大綱與企劃設定\n"]
-            if cur_prompt:
-                outline_md_lines.append(f"## 指定 Prompt 與故事特定要求\n\n{cur_prompt}\n")
-            if cur_outline:
-                outline_md_lines.append(f"## 6 幕故事大綱\n\n{cur_outline}\n")
-            try:
-                (job_dir / "outline.md").write_text("\n".join(outline_md_lines), encoding="utf-8")
-            except Exception:
-                pass
 
     if req.script is not None:
         try:
             (job_dir / "script.md").write_text(req.script, encoding="utf-8")
         except Exception:
             pass
+    if req.use_pip is not None:
+        data["use_pip"] = bool(req.use_pip)
+
+    # 視覺錨點與角色定裝更新
+    if req.characters is not None or req.subject_anchor is not None or req.environment_anchor is not None:
+        v_anchors = _ensure_visual_anchors(data)
+        if req.environment_anchor is not None:
+            v_anchors["environment"] = req.environment_anchor.strip()
+        if req.characters is not None:
+            norm_chars = normalize_characters(
+                [c.model_dump() if hasattr(c, "model_dump") else c.dict() for c in req.characters]
+            )
+            persist_characters_on_anchors(v_anchors, norm_chars)
+        elif req.subject_anchor is not None:
+            v_anchors["subject"] = req.subject_anchor.strip()
+            if not v_anchors.get("characters"):
+                persist_characters_on_anchors(
+                    v_anchors,
+                    normalize_characters([{"id": "main", "name": "Main Subject", "appearance": req.subject_anchor.strip()}]),
+                )
+        data["visual_anchors"] = v_anchors
 
     try:
-        job_yaml_path.write_text(
-            yaml.dump(data, sort_keys=False, allow_unicode=True),
-            encoding="utf-8",
-        )
+        _save_job_cfg(job_dir, data)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"更新專案失敗: {str(e)}")
 
-    mtime = datetime.fromtimestamp(job_dir.stat().st_mtime, tz=timezone.utc).isoformat()
-    progress = _calculate_job_progress(job_dir)
-    return JobSummary(
-        id=job_id,
-        title=data.get("title", job_id),
-        language=data.get("language", "zh-Hant"),
-        voice_id=data.get("voice_id", "female01"),
-        style_id=data.get("image", {}).get("style", "otomo_katsuhiro"),
-        image_model=data.get("image", {}).get("model"),
-        progress=progress,
-        updated_at=mtime,
+    return _to_job_summary(job_dir, data)
+
+
+@router.post("/{job_id}/recut", response_model=JobSummary)
+def recut_job(job_id: str, req: RecutJobRequest) -> JobSummary:
+    """依目前（或傳入）口白重切分鏡。同 id 保留 takes；多餘鏡頭資料夾刪除。"""
+    from aivideo.scene_cut import apply_scene_cut
+    from aivideo.visual_anchors import compose_subject_anchor, ensure_characters
+
+    job_dir = JOBS_DIR / job_id
+    if not job_dir.is_dir():
+        raise HTTPException(status_code=404, detail="專案不存在")
+
+    script = (req.script or "").strip()
+    if not script:
+        script_path = job_dir / "script.md"
+        if script_path.is_file():
+            script = script_path.read_text(encoding="utf-8")
+    if not script.strip():
+        raise HTTPException(status_code=400, detail="沒有可切鏡的口白")
+
+    (job_dir / "script.md").write_text(script, encoding="utf-8")
+
+    cfg = _load_job_cfg(job_dir)
+    v_anchors = cfg.get("visual_anchors", {}) if isinstance(cfg.get("visual_anchors"), dict) else {}
+    characters = ensure_characters(v_anchors)
+    subject = v_anchors.get("subject") or compose_subject_anchor(characters)
+    environment = v_anchors.get("environment") or ""
+    style_key = (cfg.get("image") or {}).get("style") or "otomo_katsuhiro"
+    title = cfg.get("title") or job_id
+
+    metaphor = req.metaphor_style or str(cfg.get("metaphor_style") or "fantasy")
+    scenes_data = parse_script_lines_to_scenes(
+        script_lines_text=script,
+        visual_pacing=req.visual_pacing,
+        sentences_per_scene=req.lines_per_scene,
+        style_key=style_key,
+        subject_anchor=subject,
+        environment_anchor=environment,
+        topic=title,
+        characters=characters,
+        outline=str(cfg.get("outline") or ""),
+        metaphor_style=metaphor,
     )
+    apply_scene_cut(job_dir, scenes_data)
+    return _to_job_summary(job_dir, cfg)
 
 
 @router.post("/{job_id}/clear")

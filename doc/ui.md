@@ -1,6 +1,10 @@
-# AIVideo WebUI 操作介面與功能全手冊 (ui.md)
+# AIVideo Studio 操作介面
 
-本文件完整收錄 **AIVideo 說書人工作室** 網頁控制台（Streamlit WebUI，Port 8501）的所有功能模組、介面佈局、按鈕操作與最佳實踐流程。
+**現行產品介面是 React Studio（Vite :5173）+ FastAPI（:8000）。Streamlit 與 Port 8501 已移除。**
+
+啟動步驟見 `README.md`「Studio（日常入口）」與 VS Code Tasks：`Studio: 啟動 API`、`Studio: 啟動前端`。線框見 `doc/ui-redesign.md`，優化方向見 `doc/優化.md`。
+
+以下章節是舊 Streamlit 手冊，不再對應現行畫面。
 
 ---
 

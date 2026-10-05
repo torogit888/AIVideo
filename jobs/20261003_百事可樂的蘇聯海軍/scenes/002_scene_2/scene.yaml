@@ -2,15 +2,32 @@ id: 002_scene_2
 index: 2
 title: 第 2 幕
 narration: 這聽起來簡直荒謬絕倫，一家靠賣糖水維生的氣業，怎麼會搖身一變，成了擁抱巡洋艦，護衛艦甚至潛水艇的軍事玩家[question-ei]，
-image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。An oversized, whimsical Pepsi-Cola
-  Brand logo, with tiny, translucent white bubbles subtly rising, gently cradles and
-  embraces stylized, toy-like Soviet Navy Fleet warships (a cruiser, a frigate, and
-  a submarine) within its soft, illustrative curves. The background is an expansive,
-  dreamlike landscape, bathed in a perpetual golden hour glow.
+image_prompt: A dramatic low-angle, wide establishing shot reveals a colossal, classic
+  contour glass Pepsi-Cola Bottle, filled with dark cola and rising white bubbles,
+  silver crown cap, and a red-white-blue label bearing the circular Pepsi globe logo,
+  towering like a monolithic, non-living monument over a muted gray Soviet naval dock.
+  Miniature Soviet Submarines, depicted in clean side view with flat naval-gray cel
+  shading and hard mechanical outlines, are strategically positioned around the base
+  of the gigantic bottle, as if under its surreal command, dwarfed by its immense
+  scale. The scene is rendered in a bright, evenly lit 2D chibi-cell educational storyboard
+  style, with bold black contours, flat color fills in Pepsi red and blue, Soviet
+  crimson, and steel gray, against a backdrop of cold water and distant cranes, creating
+  a clear infographic atmosphere without realistic light or texture.
 image_negative: ''
 locks:
   speech: false
   image: false
 current:
-  speech_take: null
-  image_take: null
+  speech_take: speech_20261005T051009
+  image_take: image_20261005T124618
+pip:
+  enabled: false
+  image: null
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: null
+  source_title: null
+  source_url: null
+  fetch_error: null

@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261005T055214",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.46,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "然而，百事可樂卻作為仍在俄羅斯運營的少數西方大型氣業之一",
+      "text_cn": "然而，百事可乐却作为仍在俄罗斯运营的少数西方大型气业之一",
+      "start_sec": 0.0,
+      "end_sec": 5.6,
+      "duration_sec": 5.6
+    },
+    {
+      "index": 2,
+      "text": "面臨著巨大的道德壓力與公眾審視，百事可樂聲稱",
+      "text_cn": "面临着巨大的道德压力与公众审视，百事可乐声称",
+      "start_sec": 5.85,
+      "end_sec": 10.25,
+      "duration_sec": 4.4
+    },
+    {
+      "index": 3,
+      "text": "其在俄羅斯主要銷售的是必需品",
+      "text_cn": "其在俄罗斯主要销售的是必需品",
+      "start_sec": 10.5,
+      "end_sec": 13.46,
+      "duration_sec": 2.96
+    }
+  ],
+  "created_at": "2026-10-05T05:52:14.752049+00:00"
+}

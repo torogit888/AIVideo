@@ -2,25 +2,27 @@ id: 011_scene_11
 index: 11
 title: 第 11 幕
 narration: 那裡上演了一場舉世聞名的廚房辯論，美國副總統理查德·尼克森與蘇聯總理尼基塔·赫魯雪夫，在一個現代化的樣板廚房裡，唇槍舌劍，爭論著資本主義與共產主義的優劣，
-image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。Richard Nixon, with his distinctive,
-  somewhat angular face and dark suit, and Nikita Khrushchev, with his robust, expressive
-  face and dark suit, stand in a stylized, modern kitchen. They are engaged in a lively,
-  animated discussion, their expressions conveying a mix of intensity and theatricality.
-  The kitchen is rendered with softened edges and warm, inviting colors, but with
-  a subtle tension in the air. Soft, ambient light filters through a window, casting
-  gentle shadows. The scene is bathed in a perpetual golden hour glow.
+image_prompt: 2D Chibi Cell style, 16:9 widescreen. A bright, evenly lit educational
+  storyboard world set in a pastel 1959 Moscow American Exhibition model kitchen,
+  featuring mint cabinets, chrome appliances, and checkered linoleum. Richard Nixon,
+  a chibi American vice president with dark wavy hair and a serious thin-lipped expression,
+  stands facing Nikita Khrushchev, a chibi Soviet premier with a very large bald head
+  and a broad expressive mouth. Both are engaged in an animated debate, with expressive
+  gestures. Clean 2D cel shading with hard black outlines and flat color blocks.
 image_negative: ''
 locks:
   speech: false
   image: false
 current:
-  speech_take: null
-  image_take: null
+  speech_take: speech_20261005T051818
+  image_take: image_20261005T051739
 pip:
-  enabled: false
+  enabled: true
   image: pip.png
   position: right-center
   mode: pip
   scale: 0.24
   border: 5
   query: Richard Nixon and Nikita Khrushchev Kitchen Debate photo
+  source_title: Kitchen Debate
+  source_url: https://upload.wikimedia.org/wikipedia/commons/a/a6/Vice_President_Nixon_delivering_his_presidential_campaign_speech_-_Saint_Petersburg%2C_Florida.jpg

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Image as ImageIcon, ImageOff, Volume2, CheckCircle2, AlertCircle, Mic, MicOff, Camera, Search, Trash2, Play, Sparkles, Clock } from "lucide-react";
+import { Image as ImageIcon, Volume2, CheckCircle2, AlertCircle, Camera, Search, Play, Sparkles, Clock, Lock } from "lucide-react";
 import { useStudioStore } from "../store";
-import { SceneSummary, AssetVoice } from "../types";
+import { SceneSummary } from "../types";
 import { api } from "../api";
 import { VisualContinuityModal } from "./VisualContinuityModal";
 
@@ -18,13 +18,48 @@ export const StoryboardGrid: React.FC = () => {
     showToast,
   } = useStudioStore();
 
-  const [voices, setVoices] = useState<AssetVoice[]>([]);
   const [isContinuityOpen, setIsContinuityOpen] = useState(false);
   const [burnSubtitles, setBurnSubtitles] = useState(false);
+  const [dismissSetup, setDismissSetup] = useState(false);
+  const [hasHeroImage, setHasHeroImage] = useState<boolean | null>(null);
+
+  const checkAnchorsStatus = async () => {
+    if (!selectedJobId) {
+      setHasHeroImage(null);
+      return;
+    }
+    try {
+      const anchors = await api.getJobAnchors(selectedJobId);
+      const isConfigured = Boolean(
+        anchors.has_hero_image || (anchors.characters && anchors.characters.some((c) => c.has_image))
+      );
+      setHasHeroImage(isConfigured);
+    } catch {
+      setHasHeroImage(null);
+    }
+  };
 
   useEffect(() => {
-    api.getVoices().then(setVoices).catch(console.error);
-  }, []);
+    const open = () => setIsContinuityOpen(true);
+    const burn = (e: Event) => {
+      const detail = (e as CustomEvent<boolean>).detail;
+      if (typeof detail === "boolean") setBurnSubtitles(detail);
+    };
+    window.addEventListener("aivideo:open-continuity", open);
+    window.addEventListener("aivideo:burn-subtitles", burn as EventListener);
+    window.addEventListener("aivideo:anchors-updated", checkAnchorsStatus);
+    return () => {
+      window.removeEventListener("aivideo:open-continuity", open);
+      window.removeEventListener("aivideo:burn-subtitles", burn as EventListener);
+      window.removeEventListener("aivideo:anchors-updated", checkAnchorsStatus);
+    };
+  }, [selectedJobId]);
+
+  useEffect(() => {
+    if (!selectedJobId) return;
+    setDismissSetup(localStorage.getItem(`aivideo_continuity_dismissed_${selectedJobId}`) === "1");
+    checkAnchorsStatus();
+  }, [selectedJobId]);
 
   // 當專案存在時，確保分鏡列表自動載入
   useEffect(() => {
@@ -77,12 +112,6 @@ export const StoryboardGrid: React.FC = () => {
     await api.runPipeline(selectedJobId, "images");
   };
 
-  const handleBatchPip = async () => {
-    if (!selectedJobId) return;
-    setPipelineRunning(true, 10, "正在跨來源檢索真實考據照片 (PiP)...");
-    await api.runPipeline(selectedJobId, "pip");
-  };
-
   const handleBatchTTS = async () => {
     if (!selectedJobId) return;
     setPipelineRunning(true, 10, "正在批次配音...");
@@ -99,85 +128,64 @@ export const StoryboardGrid: React.FC = () => {
     await api.runPipeline(selectedJobId, "compose", false, burnSubtitles);
   };
 
-  const handleClearImagesOnly = async () => {
+  const handleTogglePip = async (on: boolean) => {
     if (!selectedJobId) return;
-    const ok = window.confirm(
-      `⚠️ 確定要清空本專案所有分鏡已生成的圖片嗎？\n\n` +
-        `• 將刪除：所有已生成的畫面 (image.png) 與歷史圖片 Takes。\n` +
-        `• 將保留：所有分鏡的語音 (speech.wav)、考據圖 (pip.png)、逐幕口白台詞與提示詞 (Prompt)。\n\n` +
-        `重置後，所有分鏡將回到初始「待出圖」狀態，您可以更換生圖風格或模型後重新一鍵出圖。`
-    );
-    if (!ok) return;
-
     try {
-      await api.clearJobImages(selectedJobId);
-      await loadScenes(selectedJobId);
+      await api.updateJob(selectedJobId, { use_pip: on });
       await loadJobs();
-      showToast("已成功清空所有分鏡圖片！語音配音與台詞已完整保留。", "success");
+      showToast(on ? "已開啟本片考據 PiP" : "已關閉本片考據 PiP", "success");
     } catch (e: any) {
-      showToast("清空圖片失敗: " + (e.message || "未知錯誤"), "error");
+      showToast("更新 PiP 開關失敗: " + (e.message || "未知錯誤"), "error");
     }
   };
 
-  const handleClearAudioOnly = async () => {
-    if (!selectedJobId) return;
-    const ok = window.confirm(
-      `⚠️ 確定要清空本專案所有分鏡已生成的配音嗎？\n\n` +
-        `• 將刪除：所有已生成的語音 (speech.wav, speech.json) 與歷史語音 Takes。\n` +
-        `• 將保留：所有分鏡已生成的畫面 (image.png)、考據圖 (pip.png)、逐幕口白台詞與提示詞 (Prompt)。\n\n` +
-        `重置後，所有分鏡將回到「待配音」狀態，您可以更換發音人或重新切句後一鍵批次配音。`
-    );
-    if (!ok) return;
+  const showSetupBanner =
+    Boolean(selectedJobId) && totalScenes > 0 && !dismissSetup && hasHeroImage === false;
 
-    try {
-      await api.clearJobAudio(selectedJobId);
-      await loadScenes(selectedJobId);
-      await loadJobs();
-      showToast("已成功清空所有分鏡配音！畫面圖片與台詞已完整保留。", "success");
-    } catch (e: any) {
-      showToast("清空配音失敗: " + (e.message || "未知錯誤"), "error");
-    }
-  };
-
-  const handleClearAllMedia = async () => {
-    if (!selectedJobId) return;
-    const ok = window.confirm(
-      `⚠️ 確定要全部清除本專案所有分鏡已生成的素材嗎？\n\n` +
-        `• 將刪除：所有已生成的畫面 (image.png)、語音 (speech.wav)、考據圖 (pip.png) 與 1080p 成片。\n` +
-        `• 將保留：所有分鏡的逐幕口白台詞、提示詞 (Prompt) 與各項設定。\n\n` +
-        `重置後，所有分鏡卡片將回到初始「待出圖」狀態，便於全新一鍵生成。`
-    );
-    if (!ok) return;
-
-    try {
-      await api.clearJobMedia(selectedJobId);
-      await loadScenes(selectedJobId);
-      await loadJobs();
-      showToast("已成功清空所有分鏡素材，所有分鏡已重置回初始待出圖狀態！", "success");
-    } catch (e: any) {
-      showToast("清除失敗: " + (e.message || "未知錯誤"), "error");
-    }
-  };
+  const actCount = new Set(scenes.map((s) => s.act_index || 0).filter((n) => n > 0)).size;
+  const groups: { key: string; title: string; items: SceneSummary[] }[] = [];
+  for (const scene of scenes) {
+    const idx = scene.act_index || 0;
+    const title = idx
+      ? `第 ${idx} 幕 · ${scene.act_title || "鏡頭"}`
+      : "鏡頭";
+    const last = groups[groups.length - 1];
+    if (last && last.key === String(idx)) last.items.push(scene);
+    else groups.push({ key: String(idx), title, items: [scene] });
+  }
 
   return (
     <div className="flex-1 flex flex-col h-full overflow-hidden bg-cinema-bg">
-      {/* 矮版全幽靈指揮列 */}
+      {showSetupBanner && (
+        <div className="flex items-center justify-between px-5 py-2 border-b border-amber-cta/30 bg-amber-cta/8 text-xs">
+          <div className="flex items-center text-amber-cta">
+            <Sparkles className="w-3.5 h-3.5 mr-2" />
+            <span>尚未定裝。先為角色產出參考圖，後面出圖才會長得像同一個人。</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <button
+              onClick={() => setIsContinuityOpen(true)}
+              className="h-7 px-3 rounded bg-amber-cta text-cinema-bg font-semibold"
+            >
+              開始定裝
+            </button>
+            <button
+              onClick={() => {
+                if (selectedJobId) {
+                  localStorage.setItem(`aivideo_continuity_dismissed_${selectedJobId}`, "1");
+                }
+                setDismissSetup(true);
+              }}
+              className="h-7 px-2 text-cinema-muted hover:text-cinema-text"
+            >
+              略過
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="flex items-center justify-between px-5 py-2 border-b border-cinema-border/50 text-xs overflow-x-auto gap-4 bg-cinema-bg/95 backdrop-blur-sm">
-        {/* 左側：管線工具分組 */}
         <div className="flex items-center space-x-2.5 shrink-0">
-          {/* 群組 1: 視覺一致性 (定裝圖) */}
-          <button
-            onClick={() => setIsContinuityOpen(true)}
-            className="flex items-center h-7 px-3 rounded-md bg-amber-cta/15 hover:bg-amber-cta/25 text-amber-cta border border-amber-cta/40 hover:border-amber-cta transition-all whitespace-nowrap shrink-0 font-medium shadow-sm"
-            title="開啟視覺一致性中心：設定主體定裝參考圖 (Hero Shot) 與各角色視覺特徵錨點"
-          >
-            <Sparkles className="w-3.5 h-3.5 mr-1.5" />
-            <span>視覺一致性</span>
-          </button>
-
-          <div className="h-4 w-[1px] bg-cinema-border/60 shrink-0" />
-
-          {/* 群組 2: 分段式管線操作 (Segmented Pipeline Buttons) */}
           <div className="flex items-center bg-cinema-card/70 rounded-md border border-cinema-border/70 p-0.5 space-x-0.5">
             <button
               onClick={handleBatchImages}
@@ -186,14 +194,6 @@ export const StoryboardGrid: React.FC = () => {
             >
               <ImageIcon className="w-3 h-3 mr-1" />
               <span>出圖</span>
-            </button>
-            <button
-              onClick={handleBatchPip}
-              className="flex items-center h-6 px-2.5 rounded text-cinema-muted hover:text-amber-cta hover:bg-cinema-card transition-colors whitespace-nowrap text-[11px] font-medium"
-              title="依據台詞自動向維基與 NASA 檢索真實歷史考據原照 (PiP)"
-            >
-              <Camera className="w-3 h-3 mr-1" />
-              <span>考據 (PiP)</span>
             </button>
             <button
               onClick={handleBatchTTS}
@@ -206,56 +206,32 @@ export const StoryboardGrid: React.FC = () => {
             <button
               onClick={handleCompose}
               className="flex items-center h-6 px-2.5 rounded text-cinema-text hover:text-amber-cta hover:bg-cinema-card transition-colors whitespace-nowrap text-[11px] font-medium"
-              title={burnSubtitles ? "合成 1080p 成片（將燒錄 ASS 字幕）" : "合成 1080p 成片（極速直通，可下載 SRT 字幕）"}
+              title={burnSubtitles ? "合成 1080p 成片（將燒錄 ASS 字幕）" : "合成 1080p 成片"}
             >
               <Play className="w-3 h-3 mr-1 fill-current text-amber-cta" />
               <span>合成</span>
             </button>
           </div>
 
-          {/* 燒錄字幕開關 */}
           <label
             className="flex items-center space-x-1.5 cursor-pointer text-cinema-muted hover:text-cinema-text text-[11px] select-none px-1.5 shrink-0"
-            title="開啟時將 ASS 字幕壓制至影片畫面內；關閉時極速合流純淨畫面（免重編碼），並產出可供 YouTube 使用的 SRT 字幕檔"
+            title="Job 級考據開關。預設關閉；打開後一鍵 all 才會跑考據"
           >
             <input
               type="checkbox"
-              checked={burnSubtitles}
-              onChange={(e) => setBurnSubtitles(e.target.checked)}
+              checked={Boolean(currentJob?.use_pip)}
+              onChange={(e) => handleTogglePip(e.target.checked)}
               className="rounded border-cinema-border bg-cinema-darker text-amber-cta focus:ring-0 w-3.5 h-3.5 cursor-pointer"
             />
-            <span>燒錄字幕</span>
+            <span>考據 PiP</span>
           </label>
 
-          <div className="h-4 w-[1px] bg-cinema-border/60 shrink-0" />
+          {totalScenes > 0 && (
+            <div className="hidden sm:flex items-center h-7 px-2.5 rounded-md text-[11px] text-cinema-muted shrink-0">
+              大綱 {actCount || "—"} 幕 · 鏡頭 {totalScenes} 張
+            </div>
+          )}
 
-          {/* 專案預設發音人切換 */}
-          <div className="flex items-center space-x-1 text-cinema-muted whitespace-nowrap shrink-0">
-            <Mic className="w-3.5 h-3.5 text-amber-cta" />
-            <select
-              value={currentJob?.voice_id || "female01"}
-              onChange={async (e) => {
-                if (!selectedJobId) return;
-                try {
-                  await api.updateJob(selectedJobId, { voice_id: e.target.value });
-                  await loadJobs();
-                  showToast("專案發音人已更新", "success");
-                } catch (err: any) {
-                  showToast("更新專案發音人失敗: " + (err.message || "未知錯誤"), "error");
-                }
-              }}
-              className="h-7 px-2 rounded-md bg-cinema-card border border-cinema-border text-cinema-text text-[11px] focus:outline-none focus:border-amber-cta cursor-pointer font-medium"
-              title="切換專案預設發音人"
-            >
-              {voices.map((v) => (
-                <option key={v.id} value={v.id}>
-                  {v.name} ({v.gender})
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* 預估成片時間標籤 */}
           {totalScenes > 0 && (
             <div
               className="flex items-center h-7 px-2.5 rounded-md bg-cinema-card/70 border border-cinema-border/70 text-cinema-muted space-x-1.5 shrink-0 select-none"
@@ -264,43 +240,11 @@ export const StoryboardGrid: React.FC = () => {
               <Clock className="w-3.5 h-3.5 text-amber-cta" />
               <span className="text-[11px]">預估片長</span>
               <span className="font-mono font-semibold text-cinema-text text-[11px]">
-                {isAllAudioDone ? "" : "~"}{formatTime(estimatedTotalSec)}
+                {isAllAudioDone ? "" : "~"}
+                {formatTime(estimatedTotalSec)}
               </span>
-              {readyAudioScenes.length < totalScenes && readyAudioScenes.length > 0 && (
-                <span className="font-mono text-[10px] text-cinema-muted/60">
-                  (已配 {formatTime(totalAudioSec)})
-                </span>
-              )}
             </div>
           )}
-        </div>
-
-        {/* 右側：提示與危險操作 */}
-        <div className="flex items-center space-x-2 shrink-0">
-          <button
-            onClick={handleClearImagesOnly}
-            className="flex items-center h-6 px-2 rounded hover:bg-amber-950/40 text-cinema-muted/80 hover:text-amber-400 border border-transparent hover:border-amber-900/60 transition-colors whitespace-nowrap text-[11px]"
-            title="僅清空所有分鏡已生成的畫面圖片，保留語音配音、考據圖與台詞"
-          >
-            <ImageOff className="w-3 h-3 mr-1 text-amber-400/80" />
-            <span>清空圖片</span>
-          </button>
-          <button
-            onClick={handleClearAudioOnly}
-            className="flex items-center h-6 px-2 rounded hover:bg-sky-950/40 text-cinema-muted/80 hover:text-sky-400 border border-transparent hover:border-sky-900/60 transition-colors whitespace-nowrap text-[11px]"
-            title="僅清空所有分鏡已生成的語音配音，保留畫面圖片、考據圖與台詞"
-          >
-            <MicOff className="w-3 h-3 mr-1 text-sky-400/80" />
-            <span>清空配音</span>
-          </button>
-          <button
-            onClick={handleClearAllMedia}
-            className="flex items-center h-6 px-2 rounded hover:bg-red-950/40 text-cinema-muted/60 hover:text-red-400 border border-transparent hover:border-red-900/60 transition-colors whitespace-nowrap text-[11px]"
-            title="清空所有已生成的圖片、配音、考據圖與成片，重置為初始待出圖狀態"
-          >
-            <Trash2 className="w-3 h-3 mr-1 text-red-400/70" />
-            <span>清空素材</span>
-          </button>
         </div>
       </div>
 
@@ -312,8 +256,17 @@ export const StoryboardGrid: React.FC = () => {
             <p>目前尚無分鏡資料，請先至「腳本」頁面建立專案。</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {scenes.map((scene: SceneSummary) => {
+          <div className="space-y-8">
+            {groups.map((group) => (
+              <section key={group.key} className="space-y-3">
+                {groups.length > 1 && (
+                  <div className="flex items-baseline justify-between px-0.5">
+                    <h3 className="text-sm font-semibold text-cinema-text">{group.title}</h3>
+                    <span className="text-[11px] text-cinema-muted font-mono">{group.items.length} 鏡</span>
+                  </div>
+                )}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            {group.items.map((scene: SceneSummary) => {
               const isSelected = activeSceneId === scene.id;
               const hasImg = scene.status.has_image;
               const hasAud = scene.status.has_audio;
@@ -335,14 +288,14 @@ export const StoryboardGrid: React.FC = () => {
                 >
                   {/* 16:9 圖片縮圖區（支援黑底歷史聚焦與右側置中 PiP） */}
                   <div className="relative aspect-video w-full bg-black/40 overflow-hidden">
-                    {/* 右上角黑底歷史聚焦常駐標籤（無論有無出圖，皆一眼可辨識） */}
-                    {scene.pip_mode === "spotlight" && (
+                    {/* 右上角黑底歷史聚焦常駐標籤（需同時滿足已啟用考據，無論有無出圖皆可辨識） */}
+                    {scene.pip_enabled && scene.pip_mode === "spotlight" && (
                       <div className="absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded bg-amber-500/95 text-black font-semibold text-[9px] z-20 shadow-md flex items-center">
                         <span>🏛️ 黑底歷史聚焦</span>
                       </div>
                     )}
 
-                    {scene.status.has_pip && scene.status.pip_url && scene.pip_mode === "spotlight" ? (
+                    {scene.pip_enabled && scene.status.has_pip && scene.status.pip_url && scene.pip_mode === "spotlight" ? (
                       <div className="w-full h-full bg-black flex items-center justify-center overflow-hidden">
                         <img
                           src={scene.status.pip_url}
@@ -361,7 +314,7 @@ export const StoryboardGrid: React.FC = () => {
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                             loading="lazy"
                           />
-                        ) : scene.pip_mode === "spotlight" ? (
+                        ) : scene.pip_enabled && scene.pip_mode === "spotlight" ? (
                           /* 黑底歷史聚焦的空狀態：純黑底 + 金色考據相機圖示 + 清楚標明免 AI 生圖 */
                           <div className="flex flex-col items-center justify-center w-full h-full bg-black text-amber-cta/90 p-2 text-center select-none">
                             <Camera className="w-7 h-7 stroke-1 mb-1 text-amber-cta" />
@@ -375,11 +328,11 @@ export const StoryboardGrid: React.FC = () => {
                           </div>
                         )}
 
-                        {/* 右半部置中真實考據畫中畫 (PiP) 浮動預覽卡（依原照比例自適應，不裁切） */}
+                        {/* 右半部置中真實考據畫中畫 (PiP) 浮動預覽卡（白底拍立得/博物館實體卡片風格，黑底聚焦保持黑底） */}
                         {scene.pip_enabled && scene.status.has_pip && scene.status.pip_url && (
                           <div
-                            className="absolute top-1/2 -translate-y-1/2 right-2 max-w-[28%] max-h-[75%] rounded border-[1.5px] border-white/90 bg-black/95 p-0.5 overflow-hidden shadow-xl z-10 transition-transform group-hover:scale-105 flex items-center justify-center"
-                            title={`PiP 真實考據圖 (右半部置中): ${scene.pip_query || "pip.png"}`}
+                            className="absolute top-1/2 -translate-y-1/2 right-2 max-w-[30%] max-h-[75%] rounded-[6px] border-[2px] border-white/95 bg-white p-1 overflow-hidden shadow-2xl z-10 transition-transform group-hover:scale-105 flex items-center justify-center"
+                            title={`PiP 真實考據圖 (白底卡片): ${scene.pip_query || "pip.png"}`}
                           >
                             <img
                               src={scene.status.pip_url}
@@ -400,7 +353,7 @@ export const StoryboardGrid: React.FC = () => {
                           <span>已完成</span>
                         </span>
                       ) : !hasImg ? (
-                        scene.pip_mode === "spotlight" ? (
+                        scene.pip_enabled && scene.pip_mode === "spotlight" ? (
                           <span className="flex items-center px-1.5 py-0.5 rounded bg-amber-950/90 border border-amber-600/80 text-amber-300 text-[10px] shadow-sm">
                             <Camera className="w-3 h-3 mr-0.5 text-amber-400" />
                             <span>待考據</span>
@@ -479,6 +432,11 @@ export const StoryboardGrid: React.FC = () => {
                       <h4 className="text-xs font-medium text-cinema-text truncate" title={scene.title}>
                         {scene.title}
                       </h4>
+                      {(scene.locks?.image || scene.locks?.speech) && (
+                        <span title="已鎖定">
+                          <Lock className="w-3 h-3 text-amber-cta shrink-0" />
+                        </span>
+                      )}
                     </div>
                     <p className="mt-1 text-[11px] text-cinema-muted line-clamp-2 leading-relaxed">
                       {scene.narration}
@@ -487,11 +445,14 @@ export const StoryboardGrid: React.FC = () => {
                 </div>
               );
             })}
+                </div>
+              </section>
+            ))}
           </div>
         )}
       </div>
 
-      {/* 視覺一致性與定裝參考中心彈窗 */}
+      {/* 定裝參考中心彈窗 */}
       <VisualContinuityModal
         isOpen={isContinuityOpen}
         onClose={() => setIsContinuityOpen(false)}

@@ -2,16 +2,16 @@ id: 017_scene_17
 index: 17
 title: 第 17 幕
 narration: 這對於任何一家跨國氣業來說，都是致命的障礙，然而，百事可樂沒有放棄，他們找到了一種極富創意，甚至可以說是匪夷所思的解決方案，
-image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。A stylized, dreamlike illustration
-  of a towering, soft-edged wall or barrier, representing a 'fatal obstacle.' A glowing
-  Pepsi-Cola Brand logo is depicted creatively finding a whimsical, almost magical,
-  path around or over it, perhaps transforming into a flight of birds or a winding
-  river. The scene is bathed in a warm, diffused perpetual golden hour glow, emphasizing
-  ingenuity.
+image_prompt: 2D Chibi Cell style, 16:9 widescreen. A bright, evenly lit educational
+  storyboard world. A classic contour glass Pepsi-Cola Bottle is shown with a determined,
+  resolute posture (implied through graphic lines). A stylized, glowing lightbulb
+  appears above it, symbolizing a breakthrough idea or creative solution. Bold black
+  contours, flat color fills, simple highlight bands, creating a clear infographic
+  atmosphere.
 image_negative: ''
 locks:
   speech: false
   image: false
 current:
-  speech_take: null
-  image_take: null
+  speech_take: speech_20261005T052414
+  image_take: image_20261005T052352

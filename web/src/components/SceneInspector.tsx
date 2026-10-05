@@ -15,10 +15,14 @@ import {
   CheckCircle2,
   Search,
   Trash2,
+  Lock,
+  Unlock,
+  Sparkles,
+  RefreshCw,
 } from "lucide-react";
 import { useStudioStore } from "../store";
 import { api } from "../api";
-import { SceneDetail, AssetVoice } from "../types";
+import { SceneDetail, SceneTake } from "../types";
 
 export const SceneInspector: React.FC = () => {
   const {
@@ -28,7 +32,6 @@ export const SceneInspector: React.FC = () => {
     selectedJobId,
     scenes,
     loadScenes,
-    jobs,
     loadJobs,
     showToast,
   } = useStudioStore();
@@ -42,7 +45,8 @@ export const SceneInspector: React.FC = () => {
   const [isClearingAudio, setIsClearingAudio] = useState(false);
   const [isClearingPip, setIsClearingPip] = useState(false);
   const [isFetchingPip, setIsFetchingPip] = useState(false);
-  const [voices, setVoices] = useState<AssetVoice[]>([]);
+  const [selectingTake, setSelectingTake] = useState<string | null>(null);
+  const [gcing, setGcing] = useState(false);
 
   // 表單內部暫存狀態
   const [narration, setNarration] = useState("");
@@ -52,16 +56,34 @@ export const SceneInspector: React.FC = () => {
   const [pipPos, setPipPos] = useState("right-center");
   const [pipMode, setPipMode] = useState<"pip" | "spotlight">("pip");
   const [pipScale, setPipScale] = useState(0.24);
+  const [metaphorStyle, setMetaphorStyle] = useState<"fantasy" | "vintage_realistic" | "symbolic">("fantasy");
+  const [isTranslatingPrompt, setIsTranslatingPrompt] = useState(false);
 
-  const currentJob = jobs.find((j) => j.id === selectedJobId);
+  const handleTranslatePrompt = async () => {
+    if (!selectedJobId || !activeSceneId || !narration.trim()) {
+      showToast("請先輸入本幕口白台詞！", "error");
+      return;
+    }
+    setIsTranslatingPrompt(true);
+    try {
+      const res = await api.translateScenePrompt(selectedJobId, activeSceneId, metaphorStyle, narration.trim());
+      setPrompt(res.image_prompt);
+      await api.patchScene(selectedJobId, activeSceneId, {
+        narration,
+        image_prompt: res.image_prompt,
+      });
+      await loadScenes(selectedJobId);
+      showToast("✨ 已依指定視角重構為電影感出圖 Prompt！", "success");
+    } catch (e: any) {
+      showToast("重構 Prompt 失敗: " + (e.message || "未知錯誤"), "error");
+    } finally {
+      setIsTranslatingPrompt(false);
+    }
+  };
+
   const liveScene = scenes.find((s) => s.id === activeSceneId);
   const liveAudioUrl = liveScene?.status?.audio_url || "";
   const liveDuration = liveScene?.status?.duration ?? 0;
-
-  // 載入可用音色庫
-  useEffect(() => {
-    api.getVoices().then(setVoices).catch(console.error);
-  }, []);
 
   // 載入當前鏡頭細節（一鍵生成過程中語音就緒時會再抓一次）
   useEffect(() => {
@@ -100,15 +122,82 @@ export const SceneInspector: React.FC = () => {
   const prevScene = currentIndex > 0 ? scenes[currentIndex - 1] : null;
   const nextScene = currentIndex < scenes.length - 1 ? scenes[currentIndex + 1] : null;
 
-  const handleVoiceChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newVoice = e.target.value;
-    if (!selectedJobId) return;
+  const imageLocked = Boolean(detail?.locks?.image);
+  const speechLocked = Boolean(detail?.locks?.speech);
+
+  const handleToggleLock = async (kind: "image" | "speech") => {
+    if (!selectedJobId || !activeSceneId || !detail) return;
+    const next = {
+      image: kind === "image" ? !detail.locks?.image : Boolean(detail.locks?.image),
+      speech: kind === "speech" ? !detail.locks?.speech : Boolean(detail.locks?.speech),
+    };
     try {
-      await api.updateJob(selectedJobId, { voice_id: newVoice });
-      await loadJobs();
-      showToast("專案發音人已更新", "success");
-    } catch (err: any) {
-      showToast("更新發音人失敗: " + (err.message || "未知錯誤"), "error");
+      const fresh = await api.patchScene(selectedJobId, activeSceneId, { locks: next });
+      setDetail(fresh);
+      await loadScenes(selectedJobId);
+      showToast(next[kind] ? `已鎖定${kind === "image" ? "畫面" : "配音"}` : `已解鎖${kind === "image" ? "畫面" : "配音"}`, "success");
+    } catch (e: any) {
+      showToast("鎖定失敗: " + (e.message || "未知錯誤"), "error");
+    }
+  };
+
+  const handleGcTakes = async () => {
+    if (!selectedJobId || !activeSceneId) return;
+    const ok = window.confirm("清理本場過舊 takes，保留 current 與最新 3 個？");
+    if (!ok) return;
+    setGcing(true);
+    try {
+      const result = await api.gcSceneTakes(selectedJobId, activeSceneId, 3);
+      const fresh = await api.getSceneDetail(selectedJobId, activeSceneId);
+      setDetail(fresh);
+      showToast(`已清理 ${result.removed} 個舊檔`, "success");
+    } catch (e: any) {
+      showToast("清理 takes 失敗: " + (e.message || "未知錯誤"), "error");
+    } finally {
+      setGcing(false);
+    }
+  };
+
+  const handleSelectTake = async (take: SceneTake) => {
+    if (!selectedJobId || !activeSceneId) return;
+    setSelectingTake(take.take_id);
+    try {
+      const fresh = await api.selectSceneTake(
+        selectedJobId,
+        activeSceneId,
+        take.take_id,
+        take.kind === "speech" ? "speech" : "image"
+      );
+      setDetail(fresh);
+      await loadScenes(selectedJobId);
+      showToast(`已設為 current：${take.take_id}`, "success");
+    } catch (e: any) {
+      showToast("設為 current 失敗: " + (e.message || "未知錯誤"), "error");
+    } finally {
+      setSelectingTake(null);
+    }
+  };
+
+  const handleQuickUpdatePip = async (nextEnabled: boolean, nextMode: "pip" | "spotlight") => {
+    setPipEnabled(nextEnabled);
+    setPipMode(nextMode);
+    if (!selectedJobId || !activeSceneId || !detail) return;
+    try {
+      const updated = await api.patchScene(selectedJobId, activeSceneId, {
+        pip: {
+          ...detail.pip,
+          enabled: nextEnabled,
+          mode: nextMode,
+          position: pipPos,
+          scale: pipScale,
+          query: pipQuery.trim() || undefined,
+        },
+      });
+      setDetail(updated);
+      await loadScenes(selectedJobId);
+      showToast(nextEnabled ? "已啟用本幕考據" : "已取消本幕考據", "info");
+    } catch (e: any) {
+      showToast("更新考據狀態失敗: " + (e.message || "未知錯誤"), "error");
     }
   };
 
@@ -143,6 +232,10 @@ export const SceneInspector: React.FC = () => {
 
   const handleRegenImage = async () => {
     if (!selectedJobId || !activeSceneId || !detail) return;
+    if (detail.locks?.image) {
+      showToast("畫面已鎖定，請先解鎖再重抽", "info");
+      return;
+    }
     setIsRegeneratingImage(true);
     try {
       // 1. 自動先儲存目前輸入框內容
@@ -205,6 +298,10 @@ export const SceneInspector: React.FC = () => {
 
   const handleRegenAudio = async () => {
     if (!selectedJobId || !activeSceneId || !detail) return;
+    if (detail.locks?.speech) {
+      showToast("配音已鎖定，請先解鎖再重錄", "info");
+      return;
+    }
     setIsRegeneratingAudio(true);
     try {
       // 1. 自動先儲存最新修改的口白與設定
@@ -427,7 +524,7 @@ export const SceneInspector: React.FC = () => {
                     className="w-full h-full object-cover"
                   />
                   {pipEnabled && pipMode === "pip" && detail?.status?.has_pip && detail?.status?.pip_url && (
-                    <div className="absolute top-1/2 -translate-y-1/2 right-2 max-w-[28%] max-h-[75%] rounded border-[1.5px] border-white/90 bg-black/95 p-0.5 overflow-hidden shadow-xl z-10 flex items-center justify-center">
+                    <div className="absolute top-1/2 -translate-y-1/2 right-2 max-w-[30%] max-h-[75%] rounded-[6px] border-[2px] border-white/95 bg-white p-1 overflow-hidden shadow-2xl z-10 flex items-center justify-center">
                       <img src={detail.status.pip_url} alt="PiP Preview" className="max-h-[110px] max-w-full object-contain rounded-sm" />
                     </div>
                   )}
@@ -448,6 +545,33 @@ export const SceneInspector: React.FC = () => {
               )}
             </div>
 
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => handleToggleLock("image")}
+                className={`flex-1 h-8 px-2 rounded-lg border text-[11px] flex items-center justify-center ${
+                  imageLocked
+                    ? "border-amber-cta/70 bg-amber-cta/10 text-amber-cta"
+                    : "border-cinema-border bg-cinema-darker text-cinema-muted hover:text-cinema-text"
+                }`}
+              >
+                {imageLocked ? <Lock className="w-3 h-3 mr-1" /> : <Unlock className="w-3 h-3 mr-1" />}
+                {imageLocked ? "畫面已鎖" : "鎖畫面"}
+              </button>
+              <button
+                type="button"
+                onClick={() => handleToggleLock("speech")}
+                className={`flex-1 h-8 px-2 rounded-lg border text-[11px] flex items-center justify-center ${
+                  speechLocked
+                    ? "border-amber-cta/70 bg-amber-cta/10 text-amber-cta"
+                    : "border-cinema-border bg-cinema-darker text-cinema-muted hover:text-cinema-text"
+                }`}
+              >
+                {speechLocked ? <Lock className="w-3 h-3 mr-1" /> : <Unlock className="w-3 h-3 mr-1" />}
+                {speechLocked ? "配音已鎖" : "鎖配音"}
+              </button>
+            </div>
+
             {/* 2. 重抽 / 換圖 / 重錄快速小按鈕列 */}
             <div className="flex items-center space-x-2">
               {pipMode === "spotlight" && pipEnabled && detail?.status?.has_pip ? (
@@ -460,7 +584,7 @@ export const SceneInspector: React.FC = () => {
               ) : (
                 <button
                   onClick={handleRegenImage}
-                  disabled={isRegeneratingImage || isRegeneratingAudio}
+                  disabled={isRegeneratingImage || isRegeneratingAudio || imageLocked}
                   className="flex-1 flex items-center justify-center h-8 rounded bg-cinema-darker hover:bg-cinema-cardHover border border-cinema-border text-xs text-cinema-text hover:text-amber-cta transition-colors disabled:opacity-50"
                 >
                   {isRegeneratingImage ? (
@@ -492,7 +616,7 @@ export const SceneInspector: React.FC = () => {
               )}
               <button
                 onClick={handleRegenAudio}
-                disabled={isRegeneratingAudio || isRegeneratingImage || isClearingAudio}
+                disabled={isRegeneratingAudio || isRegeneratingImage || isClearingAudio || speechLocked}
                 className="flex-1 flex items-center justify-center h-8 rounded bg-cinema-darker hover:bg-cinema-cardHover border border-cinema-border text-xs text-cinema-text hover:text-amber-cta transition-colors disabled:opacity-50"
               >
                 {isRegeneratingAudio ? (
@@ -524,27 +648,75 @@ export const SceneInspector: React.FC = () => {
               )}
             </div>
 
-            {/* 2.2 專案發音人切換 */}
-            <div className="p-2.5 rounded bg-cinema-darker border border-cinema-border space-y-1.5">
-              <div className="flex items-center justify-between text-xs">
-                <span className="font-medium text-cinema-text flex items-center">
-                  <Mic className="w-3.5 h-3.5 mr-1 text-amber-cta" />
-                  <span>專案發音人</span>
-                </span>
-                <span className="text-[11px] text-cinema-muted">重錄或批次配音即套用</span>
+            {/* 歷史 takes */}
+            {(detail?.takes?.images?.length || detail?.takes?.speeches?.length) ? (
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <div className="text-[11px] text-cinema-muted">
+                    本場 {detail.takes.images.length} 張圖 · {detail.takes.speeches.length} 段聲
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleGcTakes}
+                    disabled={gcing}
+                    className="h-7 px-2 rounded text-[10px] text-cinema-muted hover:text-amber-cta border border-cinema-border"
+                  >
+                    {gcing ? "清理中..." : "gc 舊 takes"}
+                  </button>
+                </div>
+                {detail.takes.images.length > 0 && (
+                  <div>
+                    <div className="text-[11px] font-medium text-cinema-muted mb-1.5">畫面 takes</div>
+                    <div className="flex gap-1.5 overflow-x-auto pb-1">
+                      {detail.takes.images.map((t) => (
+                        <button
+                          key={t.take_id}
+                          onClick={() => handleSelectTake(t)}
+                          disabled={selectingTake === t.take_id}
+                          title={`設為 current：${t.take_id}`}
+                          className={`relative w-20 h-12 shrink-0 rounded overflow-hidden border ${
+                            t.is_current ? "border-amber-cta ring-1 ring-amber-cta/40" : "border-cinema-border"
+                          }`}
+                        >
+                          {t.url ? (
+                            <img src={t.url} alt={t.take_id} className="w-full h-full object-cover" />
+                          ) : (
+                            <span className="text-[9px]">{t.take_id}</span>
+                          )}
+                          {t.is_current && (
+                            <span className="absolute bottom-0 inset-x-0 bg-black/70 text-[8px] text-amber-cta text-center">
+                              current
+                            </span>
+                          )}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {detail.takes.speeches.length > 0 && (
+                  <div>
+                    <div className="text-[11px] font-medium text-cinema-muted mb-1.5">配音 takes</div>
+                    <div className="space-y-1">
+                      {detail.takes.speeches.map((t) => (
+                        <button
+                          key={t.take_id}
+                          onClick={() => handleSelectTake(t)}
+                          disabled={selectingTake === t.take_id}
+                          className={`w-full flex items-center justify-between h-7 px-2 rounded text-[10px] font-mono border ${
+                            t.is_current
+                              ? "border-amber-cta text-amber-cta bg-amber-cta/10"
+                              : "border-cinema-border text-cinema-muted hover:text-cinema-text"
+                          }`}
+                        >
+                          <span className="truncate">{t.take_id}</span>
+                          <span>{t.is_current ? "current" : "設為 current"}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
-              <select
-                value={currentJob?.voice_id || "female01"}
-                onChange={handleVoiceChange}
-                className="w-full h-8 px-2.5 rounded bg-cinema-card border border-cinema-border text-xs text-cinema-text focus:outline-none focus:border-amber-cta cursor-pointer"
-              >
-                {voices.map((v) => (
-                  <option key={v.id} value={v.id}>
-                    {v.name} ({v.gender})
-                  </option>
-                ))}
-              </select>
-            </div>
+            ) : null}
 
             {/* 2.5 語音試聽播放器 */}
             {detail?.status.has_audio && detail.status.audio_url && (
@@ -583,10 +755,44 @@ export const SceneInspector: React.FC = () => {
               />
             </div>
 
-            {/* 4. 英文 Prompt */}
-            <div>
-              <div className="flex justify-between items-center mb-1 text-xs">
-                <label className="font-medium text-cinema-text">畫面提示詞 (English Prompt)</label>
+            {/* 4. 英文 Prompt (含二階視覺轉譯視角切換器) */}
+            <div className="space-y-1.5">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs">
+                <label className="font-medium text-cinema-text flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-amber-cta" />
+                  <span>畫面提示詞 (English Prompt)</span>
+                </label>
+                <div className="flex items-center space-x-1.5">
+                  <select
+                    value={metaphorStyle}
+                    onChange={(e) => setMetaphorStyle(e.target.value as any)}
+                    className="h-6 px-1.5 rounded bg-cinema-darker border border-cinema-border text-[10px] text-cinema-text focus:outline-none focus:border-amber-cta cursor-pointer"
+                    title="選擇將口白轉譯為畫面時的敘事視角"
+                  >
+                    <option value="fantasy">🌟 超現實主義 (Surrealism · 預設)</option>
+                    <option value="vintage_realistic">🏛️ 電影寫實 (Cinematic Realism)</option>
+                    <option value="symbolic">🎭 象徵概念 (Symbolic Concept)</option>
+                  </select>
+                  <button
+                    type="button"
+                    onClick={handleTranslatePrompt}
+                    disabled={isTranslatingPrompt || !narration.trim()}
+                    className="flex items-center h-6 px-2 rounded bg-amber-cta/15 hover:bg-amber-cta/25 text-amber-cta border border-amber-cta/30 text-[10px] font-medium transition-colors disabled:opacity-40 cursor-pointer"
+                    title="由 AI 依據上方口白與選定視角，重新轉譯生成最適合生圖的英文 Prompt"
+                  >
+                    {isTranslatingPrompt ? (
+                      <>
+                        <Loader2 className="w-3 h-3 mr-1 animate-spin" />
+                        <span>轉譯中...</span>
+                      </>
+                    ) : (
+                      <>
+                        <RefreshCw className="w-2.5 h-2.5 mr-1" />
+                        <span>重構 Prompt</span>
+                      </>
+                    )}
+                  </button>
+                </div>
               </div>
               <textarea
                 value={prompt}
@@ -595,6 +801,9 @@ export const SceneInspector: React.FC = () => {
                 className="w-full p-2.5 rounded bg-cinema-darker border border-cinema-border font-mono text-[11px] text-zinc-300 focus:outline-none focus:border-amber-cta leading-relaxed resize-none"
                 placeholder="Cinematic 16:9 composition prompt..."
               />
+              <div className="text-[10px] text-cinema-muted/80 flex items-center justify-between">
+                <span>出圖時將自動拼接所選風格前綴並過濾文字浮水印</span>
+              </div>
             </div>
 
             {/* 5. PiP 圖中圖設定 */}
@@ -607,7 +816,7 @@ export const SceneInspector: React.FC = () => {
                 <input
                   type="checkbox"
                   checked={pipEnabled}
-                  onChange={(e) => setPipEnabled(e.target.checked)}
+                  onChange={(e) => handleQuickUpdatePip(e.target.checked, pipMode)}
                   className="rounded bg-cinema-card border-cinema-border text-amber-cta focus:ring-0 cursor-pointer"
                 />
               </div>
@@ -671,7 +880,9 @@ export const SceneInspector: React.FC = () => {
                         </button>
                       </div>
                     </div>
-                    <div className="relative max-w-[170px] max-h-[120px] p-0.5 rounded overflow-hidden border border-cinema-border bg-black flex items-center justify-center">
+                    <div className={`relative max-w-[170px] max-h-[120px] p-1 rounded overflow-hidden border ${
+                      pipMode === "spotlight" ? "border-cinema-border bg-black" : "border-white/80 bg-white shadow-md"
+                    } flex items-center justify-center`}>
                       <img src={detail.status.pip_url} alt="PiP Preview" className="max-w-full max-h-[110px] object-contain rounded-sm" />
                     </div>
                   </div>
@@ -684,7 +895,7 @@ export const SceneInspector: React.FC = () => {
                   <span className="text-cinema-muted">呈現方式</span>
                   <select
                     value={pipMode}
-                    onChange={(e) => setPipMode(e.target.value as "pip" | "spotlight")}
+                    onChange={(e) => handleQuickUpdatePip(pipEnabled, e.target.value as "pip" | "spotlight")}
                     className="h-7 px-2 rounded bg-cinema-card border border-cinema-border text-cinema-text text-[11px] font-medium"
                   >
                     <option value="pip">📌 畫中畫小卡 (PiP · 角落小卡)</option>

@@ -2,16 +2,31 @@ id: 014_scene_14
 index: 14
 title: 第 14 幕
 narration: 當時的蘇聯，對西方消費品充滿了渴望，卻又受到嚴格的限制，百事可樂作為美國生活方式的象徵，對蘇聯人民有著巨大的吸引力，更為百事可樂打開了通往鐵幕深處的大門，
-image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。A symbolic illustration.
-  Stylized Soviet people, with softened features, gaze longingly towards a shimmering,
-  ethereal crack in a soft, illustrative 'Iron Curtain.' Through the crack, a glowing
-  Pepsi-Cola Brand logo is visible, surrounded by a warm, inviting light, symbolizing
-  hope and desire for Western goods. The scene is bathed in a perpetual golden hour
-  glow.
+image_prompt: A surreal conceptual art piece, a dramatic low-angle 2D chibi-cell educational
+  storyboard where a colossal classic contour glass soda bottle, dark cola and white
+  bubbles inside, silver crown cap and red-white-blue bands, rises as an impossible
+  physical gateway splitting a towering riveted steel curtain, tiny chibi Soviet citizens
+  with oversized heads and plain coats reaching toward a pastel mint model kitchen
+  of chrome appliances and checkered linoleum while heavy chains and checkpoint bars
+  hold them back on a muted gray street, bright even flat cel shading, bold black
+  outlines, simple highlight bands, clean white panels, red and blue against crimson
+  and steel gray, impossible scale, dreamlike atmosphere, dramatic lighting, highly
+  detailed, 8k resolution, masterpiece, trending on ArtStation
 image_negative: ''
 locks:
   speech: false
   image: false
 current:
-  speech_take: null
-  image_take: null
+  speech_take: speech_20261005T052112
+  image_take: image_20261005T131016
+pip:
+  enabled: false
+  image: null
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: null
+  source_title: null
+  source_url: null
+  fetch_error: null

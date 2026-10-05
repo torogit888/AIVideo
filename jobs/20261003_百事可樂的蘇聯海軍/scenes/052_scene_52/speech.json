@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20261005T070005",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 6.24,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "從賣汽水，再到處理軍事資產，創造使用場景的底層邏輯，也在不斷地演變",
+      "text_cn": "从卖汽水，再到处理军事资产，创造使用场景的底层逻辑，也在不断地演变",
+      "start_sec": 0.0,
+      "end_sec": 6.24,
+      "duration_sec": 6.24
+    }
+  ],
+  "created_at": "2026-10-05T07:00:05.817621+00:00"
+}

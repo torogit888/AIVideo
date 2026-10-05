@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261005T054516",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 12.38,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "一方面，它確實提供了稀缺的西方商品",
+      "text_cn": "一方面，它确实提供了稀缺的西方商品",
+      "start_sec": 0.0,
+      "end_sec": 3.4,
+      "duration_sec": 3.4
+    },
+    {
+      "index": 2,
+      "text": "讓蘇聯人民體驗到了久違的甜蜜誘惑，但另一方面",
+      "text_cn": "让苏联人民体验到了久违的甜蜜诱惑，但另一方面",
+      "start_sec": 3.65,
+      "end_sec": 8.05,
+      "duration_sec": 4.4
+    },
+    {
+      "index": 3,
+      "text": "它也反映了國家資源的流失與經濟的混亂[sigh]",
+      "text_cn": "它也反映了国家资源的流失与经济的混乱[sigh]",
+      "start_sec": 8.3,
+      "end_sec": 12.38,
+      "duration_sec": 4.08
+    }
+  ],
+  "created_at": "2026-10-05T05:45:16.380799+00:00"
+}

@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261005T051222",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.66,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "舊竟是誰擁有世界第六大的海軍艦隊呢",
+      "text_cn": "旧竟是谁拥有世界第六大的海军舰队呢",
+      "start_sec": 0.0,
+      "end_sec": 3.56,
+      "duration_sec": 3.56
+    },
+    {
+      "index": 2,
+      "text": "答案竟然是百事可樂，這家飲料巨頭",
+      "text_cn": "答案竟然是百事可乐，这家饮料巨头",
+      "start_sec": 3.81,
+      "end_sec": 7.01,
+      "duration_sec": 3.2
+    },
+    {
+      "index": 3,
+      "text": "曾經一度坐擁蘇聯海軍的軍艦，包瓜一騷巡洋艦，一騷護衛艦，甚至還有潛水艇[surprise-wa]",
+      "text_cn": "曾经一度坐拥苏联海军的军舰，包瓜一骚巡洋舰，一骚护卫舰，甚至还有潜水艇[surprise-wa]",
+      "start_sec": 7.26,
+      "end_sec": 14.66,
+      "duration_sec": 7.4
+    }
+  ],
+  "created_at": "2026-10-05T05:12:22.592554+00:00"
+}

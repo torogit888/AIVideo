@@ -2,24 +2,26 @@ id: 026_scene_26
 index: 26
 title: 第 26 幕
 narration: 他們提出了一個讓全世界都為之震驚的替代品，那就是蘇聯海軍的艦隊[surprise-wa]，
-image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。A dramatic, wide shot. Donald
-  Kendall, with a look of surprise and shrewdness, gestures towards a vast, stylized
-  fleet of Soviet Navy Fleet warships, depicted with slightly exaggerated silhouettes
-  and soft, rounded edges, emerging from a misty, watercolor sea. The ships are imposing
-  yet whimsical, like meticulously crafted toys. The scene is bathed in a perpetual
-  golden hour glow, emphasizing the unexpected nature of the offer.
+image_prompt: 2D Chibi Cell style, 16:9 widescreen. A bright, evenly lit educational
+  storyboard world. A dramatic reveal of a powerful Soviet naval fleet, including
+  multiple Soviet Submarines, cruisers, and frigates, emerging from behind a stylized,
+  parting curtain or mist. The vessels are depicted in clean side view against a muted
+  gray, cold water background. Bold black contours, flat color fills, simple highlight
+  bands, conveying a shocking revelation.
 image_negative: ''
 locks:
   speech: false
   image: false
 current:
-  speech_take: null
-  image_take: null
+  speech_take: speech_20261005T053318
+  image_take: image_20261005T053257
 pip:
-  enabled: false
+  enabled: true
   image: pip.png
   position: right-center
   mode: pip
   scale: 0.24
   border: 5
   query: Soviet Navy fleet photo (late 1980s)
+  source_title: Soviet submarine K-129 (1960)
+  source_url: https://upload.wikimedia.org/wikipedia/commons/3/3e/Soviet_ballistic_missile_submarine_K-129.jpg

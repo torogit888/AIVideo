@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261005T052517",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 19.55,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "在1972年，百事可樂與蘇聯政府達成了一項開創性的協議",
+      "text_cn": "在1972年，百事可乐与苏联政府达成了一项开创性的协议",
+      "start_sec": 0.0,
+      "end_sec": 5.52,
+      "duration_sec": 5.52
+    },
+    {
+      "index": 2,
+      "text": "百事可樂將以濃縮液的形式進入蘇聯，作為交換",
+      "text_cn": "百事可乐将以浓缩液的形式进入苏联，作为交换",
+      "start_sec": 5.77,
+      "end_sec": 9.97,
+      "duration_sec": 4.2
+    },
+    {
+      "index": 3,
+      "text": "蘇聯則提供他們國產的史托利契納伏特加",
+      "text_cn": "苏联则提供他们国产的史托利契纳伏特加",
+      "start_sec": 10.22,
+      "end_sec": 13.98,
+      "duration_sec": 3.76
+    },
+    {
+      "index": 4,
+      "text": "百事可樂獲得了在美國獨家銷售這種伏特加的權利[surprise-oh]",
+      "text_cn": "百事可乐获得了在美国独家销售这种伏特加的权利[surprise-oh]",
+      "start_sec": 14.23,
+      "end_sec": 19.55,
+      "duration_sec": 5.32
+    }
+  ],
+  "created_at": "2026-10-05T05:25:17.648878+00:00"
+}

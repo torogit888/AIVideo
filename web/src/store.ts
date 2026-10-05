@@ -18,8 +18,10 @@ interface StudioState {
   // 專案
   jobs: JobSummary[];
   selectedJobId: string | null;
+  isDraftMode: boolean;
   loadJobs: () => Promise<void>;
   selectJob: (jobId: string) => void;
+  startNewDraft: () => void;
 
   // 分鏡與右側抽屜
   scenes: SceneSummary[];
@@ -31,6 +33,7 @@ interface StudioState {
 
   // 流水線即時狀態
   isPipelineRunning: boolean;
+  isPipelinePaused: boolean;
   pipelineProgress: number;
   pipelineMessage: string;
   pipelineCooldown: number;
@@ -40,7 +43,18 @@ interface StudioState {
     progress?: number,
     msg?: string,
     cooldown?: number,
-    cooldownTotal?: number
+    cooldownTotal?: number,
+    paused?: boolean
+  ) => void;
+  patchSceneCard: (
+    sceneId: string,
+    patch: Partial<SceneSummary["status"]> & {
+      has_image?: boolean;
+      has_audio?: boolean;
+      has_pip?: boolean;
+      pip_enabled?: boolean;
+      pip_mode?: "pip" | "spotlight";
+    }
   ) => void;
 
   // 全域輕量級 Toast 通知
@@ -53,6 +67,11 @@ interface StudioState {
   setSelectedAiModel: (model: string) => void;
   selectedImageModel: string;
   setSelectedImageModel: (model: string) => void;
+
+  geminiOnline: boolean | null;
+  comfyOnline: boolean | null;
+  apiOnline: boolean | null;
+  refreshConnectionLights: () => Promise<void>;
 }
 
 export const useStudioStore = create<StudioState>((set, get) => ({
@@ -74,10 +93,14 @@ export const useStudioStore = create<StudioState>((set, get) => ({
   jobs: [],
   selectedJobId:
     typeof window !== "undefined" ? localStorage.getItem("aivideo_selected_job") || null : null,
+  isDraftMode: false,
   loadJobs: async () => {
     try {
       const jobs = await api.getJobs();
       set({ jobs });
+      if (get().isDraftMode) {
+        return;
+      }
       const savedJobId = typeof window !== "undefined" ? localStorage.getItem("aivideo_selected_job") : null;
       const currentSelected = get().selectedJobId || savedJobId;
       if (jobs.length > 0) {
@@ -106,8 +129,21 @@ export const useStudioStore = create<StudioState>((set, get) => ({
       }
       set({ selectedImageModel: targetJob.image_model });
     }
-    set({ selectedJobId: jobId, activeSceneId: null, isInspectorOpen: false });
+    set({ selectedJobId: jobId, isDraftMode: false, activeSceneId: null, isInspectorOpen: false });
     get().loadScenes(jobId);
+  },
+  startNewDraft: () => {
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("aivideo_selected_job");
+    }
+    set({
+      selectedJobId: null,
+      isDraftMode: true,
+      scenes: [],
+      activeSceneId: null,
+      isInspectorOpen: false,
+    });
+    get().setTab("script");
   },
 
   // 分鏡
@@ -131,17 +167,66 @@ export const useStudioStore = create<StudioState>((set, get) => ({
 
   // 流水線
   isPipelineRunning: false,
+  isPipelinePaused: false,
   pipelineProgress: 0,
   pipelineMessage: "",
   pipelineCooldown: 0,
   pipelineCooldownTotal: 0,
-  setPipelineRunning: (running, progress = 0, msg = "", cooldown = 0, cooldownTotal = 0) =>
+  setPipelineRunning: (running, progress = 0, msg = "", cooldown = 0, cooldownTotal = 0, paused = false) =>
     set({
       isPipelineRunning: running,
+      isPipelinePaused: Boolean(paused),
       pipelineProgress: progress,
       pipelineMessage: msg,
       pipelineCooldown: cooldown,
       pipelineCooldownTotal: cooldownTotal,
+    }),
+  patchSceneCard: (sceneId, patch) =>
+    set((state) => {
+      const jobId = state.selectedJobId;
+      const encodedJob = jobId ? encodeURIComponent(jobId) : "";
+      return {
+        scenes: state.scenes.map((s) => {
+          if (s.id !== sceneId) return s;
+          const hasImage = patch.has_image ?? s.status.has_image;
+          const hasAudio = patch.has_audio ?? s.status.has_audio;
+          const hasPip = patch.has_pip ?? s.status.has_pip;
+          const pipEnabled = patch.pip_enabled ?? s.pip_enabled;
+          const pipMode = patch.pip_mode ?? s.pip_mode;
+
+          // 若有新圖或已出圖但原本無 url，自動組裝帶時間戳的 URL 擊破瀏覽器快取
+          let imgUrl = patch.image_url ?? s.status.image_url;
+          if (hasImage && (!imgUrl || patch.has_image)) {
+            imgUrl = `/media/jobs/${encodedJob}/scenes/${sceneId}/image.png?t=${Date.now()}`;
+          }
+
+          let audUrl = patch.audio_url ?? s.status.audio_url;
+          if (hasAudio && (!audUrl || patch.has_audio)) {
+            audUrl = `/media/jobs/${encodedJob}/scenes/${sceneId}/speech.wav?t=${Date.now()}`;
+          }
+
+          let pipUrl = patch.pip_url ?? s.status.pip_url;
+          if (hasPip && (!pipUrl || patch.has_pip)) {
+            pipUrl = `/media/jobs/${encodedJob}/scenes/${sceneId}/pip.png?t=${Date.now()}`;
+          }
+
+          return {
+            ...s,
+            pip_enabled: pipEnabled,
+            pip_mode: pipMode,
+            status: {
+              ...s.status,
+              has_image: hasImage,
+              has_audio: hasAudio,
+              has_pip: hasPip,
+              image_url: imgUrl,
+              audio_url: audUrl,
+              pip_url: pipUrl,
+              duration: patch.duration ?? s.status.duration,
+            },
+          };
+        }),
+      };
     }),
 
   // 全域輕量級 Toast 通知
@@ -181,5 +266,21 @@ export const useStudioStore = create<StudioState>((set, get) => ({
       localStorage.setItem("aivideo_selected_image_model", model);
     }
     set({ selectedImageModel: model });
+  },
+
+  geminiOnline: null,
+  comfyOnline: null,
+  apiOnline: null,
+  refreshConnectionLights: async () => {
+    try {
+      const st = await api.getSystemStatus();
+      set({
+        apiOnline: true,
+        geminiOnline: Boolean(st.gemini_configured),
+        comfyOnline: Boolean(st.comfyui_online),
+      });
+    } catch {
+      set({ apiOnline: false, geminiOnline: false, comfyOnline: false });
+    }
   },
 }));

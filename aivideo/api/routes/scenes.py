@@ -9,11 +9,17 @@ import yaml
 
 from aivideo.api.schemas import (
     FetchScenePipRequest,
+    GcTakesRequest,
     SceneDetail,
     ScenePatchRequest,
     ScenePipConfig,
     SceneStatus,
     SceneSummary,
+    SceneTake,
+    SceneTakes,
+    SelectTakeRequest,
+    TranslatePromptRequest,
+    TranslatePromptResponse,
 )
 from aivideo.commands.images import run_images
 from aivideo.commands.tts import run_tts
@@ -137,6 +143,16 @@ def _load_scene_yaml(scene_dir: Path) -> dict:
         raise HTTPException(status_code=500, detail=f"讀取 scene.yaml 失敗: {str(e)}")
 
 
+def _scene_takes(scene_dir: Path, job_id: str, scene_id: str) -> SceneTakes:
+    from aivideo.takes import list_scene_takes
+
+    raw = list_scene_takes(scene_dir, job_id=job_id, scene_id=scene_id)
+    return SceneTakes(
+        images=[SceneTake(**t) for t in raw["images"]],
+        speeches=[SceneTake(**t) for t in raw["speeches"]],
+    )
+
+
 @router.get("", response_model=List[SceneSummary])
 def list_scenes(job_id: str) -> List[SceneSummary]:
     job_dir = JOBS_DIR / job_id
@@ -146,25 +162,46 @@ def list_scenes(job_id: str) -> List[SceneSummary]:
 
     scene_dirs = sorted([d for d in scenes_dir.iterdir() if d.is_dir()])
     summaries: List[SceneSummary] = []
-
+    loaded: list[tuple] = []
     for d in scene_dirs:
         try:
-            data = _load_scene_yaml(d)
+            loaded.append((d, _load_scene_yaml(d)))
+        except Exception:
+            continue
+
+    from aivideo.acts import acts_from_job, assign_acts
+
+    need_acts = any(not int(data.get("act_index") or 0) for _d, data in loaded)
+    inferred = []
+    if need_acts:
+        inferred = assign_acts(len(loaded), acts_from_job(job_dir))
+
+    for i, (d, data) in enumerate(loaded):
+        try:
             status = _get_scene_status(d, job_id)
             pip_data = data.get("pip", {}) if isinstance(data.get("pip"), dict) else {}
             pip_query = pip_data.get("query")
             pip_error = str(pip_data.get("fetch_error") or "").strip() or None
+            act_index = int(data.get("act_index") or 0)
+            act_title = str(data.get("act_title") or "")
+            if (not act_index) and inferred:
+                act_index = int(inferred[i]["index"])
+                act_title = str(inferred[i]["title"])
+            locks = data.get("locks") if isinstance(data.get("locks"), dict) else {}
             summaries.append(
                 SceneSummary(
                     id=d.name,
                     index=data.get("index", 1),
                     title=data.get("title", d.name),
                     narration=data.get("narration", ""),
+                    act_index=act_index,
+                    act_title=act_title,
                     pip_query=pip_query,
                     has_pip=status.has_pip,
                     pip_enabled=bool(pip_data.get("enabled", False)),
                     pip_mode=pip_data.get("mode", "pip"),
                     pip_error=None if status.has_pip else pip_error,
+                    locks={"image": bool(locks.get("image", False)), "speech": bool(locks.get("speech", False))},
                     status=status,
                 )
             )
@@ -203,11 +240,49 @@ def get_scene_detail(job_id: str, scene_id: str) -> SceneDetail:
         narration=data.get("narration", ""),
         image_prompt=data.get("image_prompt", ""),
         image_negative=data.get("image_negative", ""),
+        act_index=int(data.get("act_index") or 0),
+        act_title=str(data.get("act_title") or ""),
         locks=data.get("locks", {"speech": False, "image": False}),
         current=data.get("current", {}),
         pip=pip_cfg,
         status=status,
+        takes=_scene_takes(scene_dir, job_id, scene_id),
     )
+
+
+@router.get("/{scene_id}/takes", response_model=SceneTakes)
+def get_scene_takes(job_id: str, scene_id: str) -> SceneTakes:
+    scene_dir = JOBS_DIR / job_id / "scenes" / scene_id
+    if not scene_dir.is_dir():
+        raise HTTPException(status_code=404, detail=f"找不到分鏡 {scene_id}")
+    return _scene_takes(scene_dir, job_id, scene_id)
+
+
+@router.post("/{scene_id}/takes/select", response_model=SceneDetail)
+def select_scene_take(job_id: str, scene_id: str, req: SelectTakeRequest) -> SceneDetail:
+    from aivideo.takes import select_current_take
+
+    scene_dir = JOBS_DIR / job_id / "scenes" / scene_id
+    if not scene_dir.is_dir():
+        raise HTTPException(status_code=404, detail=f"找不到分鏡 {scene_id}")
+    try:
+        select_current_take(scene_dir, req.take_id, req.kind)
+    except FileNotFoundError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    return get_scene_detail(job_id, scene_id)
+
+
+@router.post("/{scene_id}/takes/gc")
+def gc_scene_takes_route(job_id: str, scene_id: str, req: Optional[GcTakesRequest] = None):
+    from aivideo.takes import gc_scene_takes
+
+    scene_dir = JOBS_DIR / job_id / "scenes" / scene_id
+    if not scene_dir.is_dir():
+        raise HTTPException(status_code=404, detail=f"找不到分鏡 {scene_id}")
+    keep = req.keep if req else 3
+    return gc_scene_takes(scene_dir, keep=keep)
 
 
 @router.patch("/{scene_id}", response_model=SceneDetail)
@@ -242,6 +317,49 @@ def patch_scene(job_id: str, scene_id: str, req: ScenePatchRequest) -> SceneDeta
         raise HTTPException(status_code=500, detail=f"儲存分鏡失敗: {str(e)}")
 
     return get_scene_detail(job_id, scene_id)
+
+
+@router.post("/{scene_id}/translate-prompt", response_model=TranslatePromptResponse)
+def translate_scene_prompt_route(job_id: str, scene_id: str, req: TranslatePromptRequest) -> TranslatePromptResponse:
+    """依據指定視角（奇幻/寫實/象徵），將本幕口白轉譯為具備高度畫面感的英文出圖提示詞。"""
+    job_dir = JOBS_DIR / job_id
+    scene_dir = job_dir / "scenes" / scene_id
+    if not scene_dir.is_dir():
+        raise HTTPException(status_code=404, detail="分鏡不存在")
+
+    from aivideo.job_files import load_job_config
+    from aivideo.story_generator import translate_single_scene_prompt
+    from aivideo.visual_anchors import ensure_characters
+
+    jcfg = load_job_config(job_dir)
+    scfg = _load_scene_yaml(scene_dir)
+
+    narr = (req.narration or scfg.get("narration") or "").strip()
+    if not narr:
+        raise HTTPException(status_code=400, detail="本幕尚無口白台詞可供轉譯")
+
+    v_anchors = jcfg.get("visual_anchors", {}) if isinstance(jcfg.get("visual_anchors"), dict) else {}
+    characters = ensure_characters(v_anchors)
+    sub = v_anchors.get("subject", "")
+    env = v_anchors.get("environment", "")
+    style_key = (jcfg.get("image") or {}).get("style") or jcfg.get("style") or "otomo_katsuhiro"
+
+    new_prompt = translate_single_scene_prompt(
+        narration=narr,
+        metaphor_style=req.metaphor_style,
+        style_key=style_key,
+        subject_anchor=sub,
+        environment_anchor=env,
+        characters=characters,
+    )
+
+    if not new_prompt:
+        raise HTTPException(status_code=500, detail="AI 視覺轉譯失敗，請稍後重試")
+
+    return TranslatePromptResponse(
+        image_prompt=new_prompt,
+        metaphor_style=req.metaphor_style,
+    )
 
 
 @router.post("/{scene_id}/image")

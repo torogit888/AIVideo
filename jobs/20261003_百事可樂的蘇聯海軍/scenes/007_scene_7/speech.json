@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261005T051414",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.1,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "當時的百事可樂執行長唐納德·肯德爾",
+      "text_cn": "当时的百事可乐执行长唐纳德·肯德尔",
+      "start_sec": 0.0,
+      "end_sec": 3.4,
+      "duration_sec": 3.4
+    },
+    {
+      "index": 2,
+      "text": "甚至還對美國國家安全顧問布倫特·斯考克羅夫特幽默地說",
+      "text_cn": "甚至还对美国国家安全顾问布伦特·斯考克罗夫特幽默地说",
+      "start_sec": 3.65,
+      "end_sec": 8.69,
+      "duration_sec": 5.04
+    },
+    {
+      "index": 3,
+      "text": "我們正在比你們更快地解除蘇聯的武裝[laughter]",
+      "text_cn": "我们正在比你们更快地解除苏联的武装[laughter]",
+      "start_sec": 8.94,
+      "end_sec": 13.1,
+      "duration_sec": 4.16
+    }
+  ],
+  "created_at": "2026-10-05T05:14:14.219819+00:00"
+}

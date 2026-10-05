@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261005T054435",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 10.25,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "蘇聯解體之後，百事可樂的易貨協議面臨了新的挑戰和調整",
+      "text_cn": "苏联解体之后，百事可乐的易货协议面临了新的挑战和调整",
+      "start_sec": 0.0,
+      "end_sec": 5.2,
+      "duration_sec": 5.2
+    },
+    {
+      "index": 2,
+      "text": "這場交易對於當時的蘇聯人民來說，舊竟意味著什麼呢",
+      "text_cn": "这场交易对于当时的苏联人民来说，旧竟意味着什么呢",
+      "start_sec": 5.45,
+      "end_sec": 10.25,
+      "duration_sec": 4.8
+    }
+  ],
+  "created_at": "2026-10-05T05:44:35.630162+00:00"
+}

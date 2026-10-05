@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261005T052414",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 12.3,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "這對於任何一家跨國氣業來說，都是致命的障礙，然而",
+      "text_cn": "这对于任何一家跨国气业来说，都是致命的障碍，然而",
+      "start_sec": 0.0,
+      "end_sec": 4.64,
+      "duration_sec": 4.64
+    },
+    {
+      "index": 2,
+      "text": "百事可樂沒有放棄，他們找到了一種極富創意",
+      "text_cn": "百事可乐没有放弃，他们找到了一种极富创意",
+      "start_sec": 4.89,
+      "end_sec": 8.89,
+      "duration_sec": 4.0
+    },
+    {
+      "index": 3,
+      "text": "甚至可以說是匪夷所思的解決方案",
+      "text_cn": "甚至可以说是匪夷所思的解决方案",
+      "start_sec": 9.14,
+      "end_sec": 12.3,
+      "duration_sec": 3.16
+    }
+  ],
+  "created_at": "2026-10-05T05:24:14.912061+00:00"
+}

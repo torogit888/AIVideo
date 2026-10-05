@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20261005T053318",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 6.96,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "他們提出了一個讓全世界都為之震驚的替代品，那就是蘇聯海軍的艦隊[surprise-wa]",
+      "text_cn": "他们提出了一个让全世界都为之震惊的替代品，那就是苏联海军的舰队[surprise-wa]",
+      "start_sec": 0.0,
+      "end_sec": 6.96,
+      "duration_sec": 6.96
+    }
+  ],
+  "created_at": "2026-10-05T05:33:18.844248+00:00"
+}

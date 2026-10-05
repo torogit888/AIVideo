@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261005T051041",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 12.46,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "這背後，不僅僅是一樁匪夷所思的商業奇聞",
+      "text_cn": "这背后，不仅仅是一桩匪夷所思的商业奇闻",
+      "start_sec": 0.0,
+      "end_sec": 3.8,
+      "duration_sec": 3.8
+    },
+    {
+      "index": 2,
+      "text": "更是冷戰時棋美蘇兩大陣營意識形態交鋒，經濟體系碰撞",
+      "text_cn": "更是冷战时棋美苏两大阵营意识形态交锋，经济体系碰撞",
+      "start_sec": 4.05,
+      "end_sec": 9.05,
+      "duration_sec": 5.0
+    },
+    {
+      "index": 3,
+      "text": "以及資本力量無孔不入的終極寫照",
+      "text_cn": "以及资本力量无孔不入的终极写照",
+      "start_sec": 9.3,
+      "end_sec": 12.46,
+      "duration_sec": 3.16
+    }
+  ],
+  "created_at": "2026-10-05T05:10:41.832033+00:00"
+}

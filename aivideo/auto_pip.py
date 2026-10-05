@@ -534,17 +534,16 @@ def auto_detect_scene_reference_entities(job_dir: Path) -> dict[str, str]:
     if not scenes_dir.is_dir():
         return {}
 
-    job_yaml_p = job_dir / "job.yaml"
     topic = ""
     subject_anchor = ""
-    if job_yaml_p.is_file():
-        try:
-            with open(job_yaml_p, "r", encoding="utf-8") as yf:
-                jcfg = yaml.safe_load(yf) or {}
-            topic = str(jcfg.get("topic") or "")
-            subject_anchor = str(jcfg.get("visual_anchors", {}).get("subject") or "")
-        except Exception:
-            pass
+    try:
+        from aivideo.job_files import load_job_config
+
+        jcfg = load_job_config(job_dir)
+        topic = str(jcfg.get("title") or jcfg.get("topic") or "")
+        subject_anchor = str((jcfg.get("visual_anchors") or {}).get("subject") or "")
+    except Exception:
+        pass
 
     scene_folders = sorted([p for p in scenes_dir.iterdir() if p.is_dir()])
     scene_inputs = []

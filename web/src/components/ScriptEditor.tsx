@@ -24,13 +24,16 @@ import {
 } from "lucide-react";
 import { useStudioStore } from "../store";
 import { api } from "../api";
-import { AssetStyle, AssetTone, AssetVoice, AI_TEXT_MODELS } from "../types";
+import { AssetStyle, AssetTone, AssetVoice } from "../types";
+import { asciiSlug, DEFAULT_VOICE_ID, scriptWorkspaceMode } from "../studioActions";
 
 export const ScriptEditor: React.FC = () => {
-  const { setTab, loadJobs, selectedJobId, jobs, showToast, selectedAiModel, setSelectedAiModel } = useStudioStore();
+  const { setTab, loadJobs, selectedJobId, jobs, showToast, selectedAiModel, startNewDraft } = useStudioStore();
   const currentJob = jobs.find((j) => j.id === selectedJobId);
+  const workspaceMode = scriptWorkspaceMode(selectedJobId);
+  const isEditMode = workspaceMode === "edit";
 
-  const [topic, setTopic] = useState("美國太空總署羅曼太空望遠鏡的秘密");
+  const [topic, setTopic] = useState("");
   const [customPrompt, setCustomPrompt] = useState("");
   const [showCustomPrompt, setShowCustomPrompt] = useState(false);
   const [outlineNotes, setOutlineNotes] = useState("");
@@ -38,9 +41,9 @@ export const ScriptEditor: React.FC = () => {
   const [isGeneratingOutline, setIsGeneratingOutline] = useState(false);
   const [isExpandingScript, setIsExpandingScript] = useState(false);
 
-  const [scriptText, setScriptText] = useState(
-    "如果你今天想看清整個宇宙最深處的終極秘密！\n你敢相信……NASA 接下來最強大的宇宙神鏡，它的心臟……居然是來自軍方情報機構淘汰不要的間諜衛星嗎？\n這不是地攤文學，這是貨真價實的航太傳奇。\n2012 年，美國國家偵察局突然打電話給 NASA，詢問要不要兩顆頂級哈勃等級望遠鏡鏡片。\n天文學家興奮得手舞足蹈，一場顛覆天文觀測的壯麗計畫就此展開……"
-  );
+  const [scriptText, setScriptText] = useState("");
+  const [savedScript, setSavedScript] = useState("");
+  const [isRecutting, setIsRecutting] = useState(false);
   const [wordCount, setWordCount] = useState<number>(() => {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("aivideo_target_word_count");
@@ -56,7 +59,9 @@ export const ScriptEditor: React.FC = () => {
   const [styles, setStyles] = useState<AssetStyle[]>([]);
 
   const [selectedTone, setSelectedTone] = useState("michelin_curious");
-  const [selectedVoice, setSelectedVoice] = useState("female01");
+  const [selectedVoice, setSelectedVoice] = useState(DEFAULT_VOICE_ID);
+  const [jobSlug, setJobSlug] = useState("");
+  const [slugTouched, setSlugTouched] = useState(false);
   const [selectedStyle, setSelectedStyle] = useState("otomo_katsuhiro");
   const [visualPacing, setVisualPacing] = useState<"fast" | "balanced" | "slow">("balanced");
 
@@ -77,6 +82,7 @@ export const ScriptEditor: React.FC = () => {
   const [characters, setCharacters] = useState<{ id: string; name: string; appearance: string }[]>([]);
   const [isAnalyzingAnchors, setIsAnalyzingAnchors] = useState(false);
   const [showAnchors, setShowAnchors] = useState(false);
+  const [metaphorStyle, setMetaphorStyle] = useState<"fantasy" | "vintage_realistic" | "symbolic">("fantasy");
 
   useEffect(() => {
     api
@@ -102,35 +108,38 @@ export const ScriptEditor: React.FC = () => {
   // 切換不同專案時自動載入該專案的最新腳本內容與設定（含指定 Prompt 與 6 幕大綱）
   useEffect(() => {
     if (!selectedJobId) {
-      // 若為全新發想草稿，還原 localStorage 快取
+      setTopic("");
+      setScriptText("");
+      setSavedScript("");
+      setJobSlug("");
+      setSlugTouched(false);
+      setShowCustomPrompt(false);
+      setShowOutlineBox(false);
+      setShowAnchors(false);
       const draftPrompt = localStorage.getItem("aivideo_draft_custom_prompt") || "";
       const draftOutline = localStorage.getItem("aivideo_draft_outline") || "";
-      if (draftPrompt) {
-        setCustomPrompt(draftPrompt);
-        setShowCustomPrompt(true);
-      }
-      if (draftOutline) {
-        setOutlineNotes(draftOutline);
-        setShowOutlineBox(true);
-      }
+      setCustomPrompt(draftPrompt);
+      setOutlineNotes(draftOutline);
       return;
     }
     api
       .getJobDetail(selectedJobId)
       .then((detail) => {
         if (detail.title) setTopic(detail.title);
-        if (detail.script_content) setScriptText(detail.script_content);
+        const sc = detail.script_content || "";
+        if (sc) {
+          setScriptText(sc);
+          setSavedScript(sc);
+        }
         if (detail.config?.voice_id) setSelectedVoice(detail.config.voice_id);
         if (detail.config?.image?.style) setSelectedStyle(detail.config.image.style);
         if (detail.config?.tone_id) setSelectedTone(detail.config.tone_id);
+        if (detail.config?.metaphor_style) setMetaphorStyle(detail.config.metaphor_style as any);
 
         const savedPrompt = detail.custom_prompt || detail.config?.custom_prompt || "";
         setCustomPrompt(savedPrompt);
-        if (savedPrompt.trim()) setShowCustomPrompt(true);
-
         const savedOutline = detail.outline || detail.config?.outline || "";
         setOutlineNotes(savedOutline);
-        if (savedOutline.trim()) setShowOutlineBox(true);
       })
       .catch((e) => console.error("載入專案詳情失敗", e));
   }, [selectedJobId]);
@@ -148,11 +157,11 @@ export const ScriptEditor: React.FC = () => {
           custom_prompt: promptVal,
           outline: outlineVal,
         });
-        if (!silent) showToast("已成功儲存指定 Prompt 與 6 幕故事大綱至專案！", "success");
+        if (!silent) showToast("已儲存故事要求與大綱", "success");
       } else {
         localStorage.setItem("aivideo_draft_custom_prompt", promptVal);
         localStorage.setItem("aivideo_draft_outline", outlineVal);
-        if (!silent) showToast("已儲存指定 Prompt 與大綱至本機草稿！", "success");
+        if (!silent) showToast("已儲存故事要求與大綱至本機草稿", "success");
       }
     } catch (e: any) {
       if (!silent) showToast("儲存失敗: " + (e.message || "未知錯誤"), "error");
@@ -369,6 +378,7 @@ export const ScriptEditor: React.FC = () => {
     try {
       const res = await api.createJob({
         topic,
+        slug: (jobSlug.trim() || asciiSlug(topic)),
         script: scriptText,
         tone_id: selectedTone,
         voice_id: selectedVoice,
@@ -382,18 +392,75 @@ export const ScriptEditor: React.FC = () => {
           .map((c) => ({ id: c.id, name: c.name.trim(), appearance: c.appearance.trim() })),
         custom_prompt: customPrompt.trim() || undefined,
         outline: outlineNotes.trim() || undefined,
+        use_pip: true,
+        metaphor_style: metaphorStyle,
       });
       // 成功建案後清理本機草稿快取
       localStorage.removeItem("aivideo_draft_custom_prompt");
       localStorage.removeItem("aivideo_draft_outline");
       await loadJobs();
       useStudioStore.getState().selectJob(res.id);
-      showToast(`專案【${topic}】建立成功（已儲存指定 Prompt 與 6 幕大綱）！`, "success");
+      showToast(`專案【${topic}】建立成功`, "success");
       setTab("storyboard");
     } catch (e: any) {
       showToast("建立專案失敗: " + e.message, "error");
     } finally {
       setCreatingProject(false);
+    }
+  };
+
+  const handleSaveExisting = async () => {
+    if (!selectedJobId || !scriptText.trim()) return;
+    setCreatingProject(true);
+    try {
+      const validChars = characters
+        .filter((c) => c.name.trim() || c.appearance.trim())
+        .map((c) => ({ id: c.id, name: c.name.trim(), appearance: c.appearance.trim() }));
+
+      await api.updateJob(selectedJobId, {
+        title: topic,
+        voice_id: selectedVoice,
+        style_id: selectedStyle,
+        tone_id: selectedTone,
+        script: scriptText,
+        custom_prompt: customPrompt.trim() || undefined,
+        outline: outlineNotes.trim() || undefined,
+        subject_anchor: subjectAnchor.trim() || undefined,
+        environment_anchor: environmentAnchor.trim() || undefined,
+        characters: validChars.length ? validChars : undefined,
+        metaphor_style: metaphorStyle,
+      });
+      setSavedScript(scriptText);
+      await loadJobs();
+      const hasScenes = (currentJob?.progress.scenes_count || 0) > 0;
+      const recut =
+        hasScenes &&
+        scriptText !== savedScript &&
+        window.confirm("口白已寫回此專案。要依新口白重切分鏡嗎？既有 takes 會依同鏡頭 id 保留。");
+      if (recut) {
+        setIsRecutting(true);
+        await api.recutJob(selectedJobId, { script: scriptText, visual_pacing: visualPacing, metaphor_style: metaphorStyle });
+        await loadJobs();
+        showToast("已儲存並重切分鏡", "success");
+        setTab("storyboard");
+      } else {
+        // 若未重切分鏡，但有分鏡且更新了定裝或風格，提醒或自動同步 Prompt
+        if (hasScenes && validChars.length > 0) {
+          try {
+            await api.syncScenePrompts(selectedJobId);
+            showToast("已寫回此專案，並同步更新全片分鏡出圖 Prompt！", "success");
+          } catch {
+            showToast("已寫回此專案", "success");
+          }
+        } else {
+          showToast("已寫回此專案", "success");
+        }
+      }
+    } catch (e: any) {
+      showToast("儲存失敗: " + e.message, "error");
+    } finally {
+      setCreatingProject(false);
+      setIsRecutting(false);
     }
   };
 
@@ -403,14 +470,26 @@ export const ScriptEditor: React.FC = () => {
 
   return (
     <div className="flex-1 flex flex-col h-full overflow-y-auto p-6 pb-20 max-w-5xl mx-auto space-y-5">
-      {/* 標題與引導說明 */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-lg font-semibold text-cinema-text">故事發想與腳本創作</h2>
+          <h2 className="text-lg font-semibold text-cinema-text">
+            {isEditMode ? "編輯此專案口白" : "新專案草稿"}
+          </h2>
           <p className="text-xs text-cinema-muted">
-            設定故事主題與各項規格，於下方生成深度腳本並直接預覽編輯，滿意後一鍵進入分鏡。
+            {isEditMode
+              ? `寫回 ${selectedJobId}。改口白後可選擇是否重切分鏡。`
+              : "空白草稿。可貼上已有口白，或填主題後生成。"}
           </p>
         </div>
+        {isEditMode && (
+          <button
+            type="button"
+            onClick={() => startNewDraft()}
+            className="h-8 px-3 rounded border border-cinema-border text-xs text-cinema-muted hover:text-amber-cta"
+          >
+            開始新草稿
+          </button>
+        )}
       </div>
 
       {/* 故事主題與字數規模 */}
@@ -420,7 +499,11 @@ export const ScriptEditor: React.FC = () => {
           <input
             type="text"
             value={topic}
-            onChange={(e) => setTopic(e.target.value)}
+            onChange={(e) => {
+              const v = e.target.value;
+              setTopic(v);
+              if (!slugTouched) setJobSlug(asciiSlug(v));
+            }}
             className="w-full h-10 px-3 rounded-md bg-cinema-card border border-cinema-border text-sm text-cinema-text focus:outline-none focus:border-amber-cta"
             placeholder="例如：光刻機霸主艾司摩爾的崛起傳奇、旅行者號金唱片的孤獨旅程"
           />
@@ -448,13 +531,32 @@ export const ScriptEditor: React.FC = () => {
         </div>
       </div>
 
+      {!isEditMode && (
+        <div>
+          <label className="block text-xs font-medium text-cinema-muted mb-1.5">資料夾英文名（slug）</label>
+          <input
+            type="text"
+            value={jobSlug}
+            onChange={(e) => {
+              setSlugTouched(true);
+              setJobSlug(asciiSlug(e.target.value, ""));
+            }}
+            placeholder={asciiSlug(topic)}
+            className="w-full h-10 px-3 rounded-md bg-cinema-card border border-cinema-border text-sm font-mono text-cinema-text focus:outline-none focus:border-amber-cta"
+          />
+          <p className="text-[10px] text-cinema-muted mt-1">
+            建案資料夾：jobs/日期_{jobSlug.trim() || asciiSlug(topic)}（僅 ASCII）
+          </p>
+        </div>
+      )}
+
       {/* 區塊一：自訂故事要求與指定 Prompt（獨立永久保存，不被大綱生成覆蓋） */}
       <div className="p-3.5 rounded-lg bg-cinema-card/90 border border-cinema-border space-y-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <span className="text-amber-cta text-sm">🎯</span>
             <span className="text-xs font-semibold text-cinema-text">
-              指定 Prompt 與故事特定要求（選填，獨立保存不被覆蓋）
+              故事要求／必寫看點（選填）
             </span>
             {customPrompt.trim() && (
               <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-cta/15 text-amber-cta border border-amber-cta/30 font-mono">
@@ -530,7 +632,7 @@ export const ScriptEditor: React.FC = () => {
               onClick={() => setShowCustomPrompt(true)}
               className="text-amber-cta text-[11px] hover:underline ml-2 shrink-0 cursor-pointer"
             >
-              輸入指定 Prompt
+              輸入故事要求
             </button>
           </div>
         )}
@@ -689,27 +791,16 @@ export const ScriptEditor: React.FC = () => {
           </select>
         </div>
 
-        {/* AI 創作核心模型選擇 */}
         <div>
-          <div className="flex justify-between items-center mb-1.5">
-            <label className="text-xs font-medium text-cinema-muted">AI 創作核心模型</label>
-            <span className="text-[10px] text-amber-cta font-mono">⚡ Vertex AI</span>
-          </div>
-          <select
-            value={selectedAiModel}
-            onChange={(e) => {
-              setSelectedAiModel(e.target.value);
-              const m = AI_TEXT_MODELS.find((item) => item.id === e.target.value);
-              if (m) showToast(`已切換核心 AI 模型為 ${m.name}`, "info");
-            }}
-            className="w-full h-9 px-3 rounded bg-cinema-card border border-amber-cta/40 hover:border-amber-cta text-xs text-amber-cta font-medium focus:outline-none focus:border-amber-cta cursor-pointer"
+          <label className="block text-xs font-medium text-cinema-muted mb-1.5">視覺風格</label>
+          <button
+            type="button"
+            onClick={() => setIsGalleryOpen(true)}
+            className="w-full h-9 px-3 rounded bg-cinema-card border border-cinema-border text-xs text-cinema-text hover:border-amber-cta flex items-center justify-between"
           >
-            {AI_TEXT_MODELS.map((m) => (
-              <option key={m.id} value={m.id} className="bg-cinema-card text-cinema-text">
-                {m.name} ({m.tag})
-              </option>
-            ))}
-          </select>
+            <span className="truncate">{currentStyleObj?.name || "選擇風格"}</span>
+            <span className="text-amber-cta shrink-0 ml-2">更換</span>
+          </button>
         </div>
       </div>
 
@@ -812,8 +903,8 @@ export const ScriptEditor: React.FC = () => {
         </div>
       </div>
 
-      {/* 電影級視覺分鏡風格膠卷選擇器 */}
-      <div className="space-y-2.5">
+      {/* 風格大海報牆改由 modal「更換」開啟 */}
+      <div className="hidden space-y-2.5">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <Palette className="w-4 h-4 text-amber-cta" />
@@ -928,12 +1019,11 @@ export const ScriptEditor: React.FC = () => {
         )}
       </div>
 
-      {/* 視覺切鏡節奏 (Visual Pacing) */}
       <div className="shrink-0 space-y-2 p-3.5 rounded-lg bg-cinema-card border border-cinema-border">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <Film className="w-4 h-4 text-amber-cta" />
-            <label className="text-xs font-semibold text-cinema-text">視覺切鏡節奏 (AI 智能語意分鏡)</label>
+            <label className="text-xs font-semibold text-cinema-text">切鏡節奏（進階）</label>
           </div>
           <span className="text-[11px] text-cinema-muted">
             由 AI 依據情節單元與視覺轉折自動決定段落合併，並參考此節奏
@@ -991,6 +1081,75 @@ export const ScriptEditor: React.FC = () => {
                   </span>
                 </div>
                 <div className="text-[11px] leading-relaxed opacity-80">{p.desc}</div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* 視覺轉譯風格視角 (二階視覺轉換：奇幻 / 寫實 / 象徵) */}
+      <div className="shrink-0 space-y-2 p-3.5 rounded-lg bg-cinema-card border border-cinema-border">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <Sparkles className="w-4 h-4 text-amber-cta" />
+            <label className="text-xs font-semibold text-cinema-text">視覺轉譯風格 (出圖 Prompt 轉譯視角)</label>
+          </div>
+          <span className="text-[11px] text-cinema-muted">
+            切鏡時自動依此視角將抽象口白「轉譯」為電影級英文出圖 Prompt
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5">
+          {[
+            {
+              id: "fantasy" as const,
+              icon: "🌟",
+              title: "超現實主義 (Surrealism)",
+              badge: "預設推薦",
+              desc: "表現荒誕、夢境與誇張比例，A surreal conceptual art piece 模板構建",
+            },
+            {
+              id: "vintage_realistic" as const,
+              icon: "🏛️",
+              title: "電影寫實 (Cinematic)",
+              badge: "歷史現場",
+              desc: "具歷史感、真實環境氛圍，Cinematic wide shot, 35mm film 模板構建",
+            },
+            {
+              id: "symbolic" as const,
+              icon: "🎭",
+              title: "象徵概念 (Symbolic)",
+              badge: "哲思隱喻",
+              desc: "探討抽象概念、政治隱喻，An epic symbolic digital illustration 模板構建",
+            },
+          ].map((m) => {
+            const isSelected = metaphorStyle === m.id;
+            return (
+              <div
+                key={m.id}
+                onClick={() => setMetaphorStyle(m.id)}
+                className={`p-2.5 rounded-md border cursor-pointer transition-all duration-200 ${
+                  isSelected
+                    ? "bg-amber-cta/10 border-amber-cta text-cinema-text shadow-sm"
+                    : "bg-cinema-darker/60 border-cinema-border/70 text-cinema-muted hover:border-cinema-muted hover:text-cinema-text"
+                }`}
+              >
+                <div className="flex items-center justify-between mb-1">
+                  <div className="flex items-center space-x-1.5 font-medium text-xs">
+                    <span>{m.icon}</span>
+                    <span className={isSelected ? "text-amber-cta font-semibold" : ""}>{m.title}</span>
+                  </div>
+                  <span
+                    className={`text-[10px] px-1.5 py-0.5 rounded font-mono ${
+                      isSelected
+                        ? "bg-amber-cta text-cinema-bg font-bold"
+                        : "bg-cinema-card border border-cinema-border text-cinema-muted"
+                    }`}
+                  >
+                    {m.badge}
+                  </span>
+                </div>
+                <div className="text-[11px] leading-relaxed opacity-80">{m.desc}</div>
               </div>
             );
           })}
@@ -1130,33 +1289,33 @@ export const ScriptEditor: React.FC = () => {
           </div>
         )}
 
-        {/* 卡片底欄 Footer Action Bar：建立專案並進入分鏡 */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 border-t border-cinema-border/70 bg-cinema-darker/70 gap-3">
           <div className="text-[11px] text-cinema-muted">
-            {scriptText.trim()
-              ? "腳本與前製設定已就緒，點擊右側即可解析分鏡並進入工作台。"
-              : "請先在上方點擊「✨ 生成逐句腳本」或貼入口白後即可建立專案。"}
+            {isEditMode
+              ? "寫回此專案後，若口白有改會再問是否重切分鏡。"
+              : scriptText.trim()
+              ? "可貼上已有口白或從主題生成，滿意後建立專案。"
+              : "請貼入口白，或先填主題再生成腳本。"}
           </div>
 
           <div className="flex items-center space-x-3 shrink-0">
             <button
-              onClick={handleCreateProject}
-              disabled={creatingProject || generating || !scriptText.trim()}
+              onClick={isEditMode ? handleSaveExisting : handleCreateProject}
+              disabled={creatingProject || generating || isRecutting || !scriptText.trim()}
               className={`flex items-center h-9 px-5 rounded font-semibold text-xs tracking-wide transition-all ${
                 !scriptText.trim()
                   ? "bg-cinema-darker border border-cinema-border/70 text-cinema-muted/40 cursor-not-allowed opacity-40 shadow-none"
                   : "bg-amber-cta hover:bg-amber-ctaHover text-cinema-bg shadow glow-amber active:scale-95 disabled:opacity-50 cursor-pointer"
               }`}
-              title={!scriptText.trim() ? "目前尚無腳本，請先點擊上方「生成逐句腳本」或手動輸入口白" : "建立專案並進入分鏡"}
             >
-              {creatingProject ? (
+              {creatingProject || isRecutting ? (
                 <>
                   <Loader2 className="w-3.5 h-3.5 animate-spin mr-1.5" />
-                  <span>解析分鏡中...</span>
+                  <span>{isRecutting ? "重切分鏡中..." : isEditMode ? "寫回中..." : "解析分鏡中..."}</span>
                 </>
               ) : (
                 <>
-                  <span>建立專案並進入分鏡</span>
+                  <span>{isEditMode ? "寫回此專案" : "建立專案並進入分鏡"}</span>
                   <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
                 </>
               )}

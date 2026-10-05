@@ -2,24 +2,26 @@ id: 044_scene_44
 index: 44
 title: 第 44 幕
 narration: 時間線拉到2022年，俄羅斯全面入侵烏克蘭，西方世界對俄羅斯實施了嚴厲的制裁，許多跨國氣業紛紛撤出俄羅斯市場，
-image_prompt: 歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖。A symbolic, dreamlike map
-  of Russia and Ukraine, rendered in muted, somber watercolors, with abstract, illustrative
-  lines representing conflict. Around Russia, ethereal, soft-edged chains or barriers
-  symbolize 'sanctions.' Stylized, fading silhouettes of various corporate logos (not
-  Pepsi) are depicted retreating from the Russian border. The perpetual golden hour
-  glow is present but tinged with a somber, almost stormy, hue.
+image_prompt: 2D Chibi Cell style, 16:9 widescreen. A bright, evenly lit educational
+  storyboard world. A stylized map of Russia and Ukraine is in the background, with
+  abstract, non-graphic conflict symbols (e.g., jagged lines, muted red zones) indicating
+  invasion. Numerous generic corporate logos are depicted as flying away from the
+  Russian territory, symbolizing mass withdrawal and sanctions. Bold black contours,
+  flat color fills, simple highlight bands, creating a clear infographic atmosphere.
 image_negative: ''
 locks:
   speech: false
   image: false
 current:
-  speech_take: null
-  image_take: null
+  speech_take: speech_20261005T055130
+  image_take: image_20261005T055029
 pip:
-  enabled: false
+  enabled: true
   image: pip.png
   position: right-center
   mode: pip
   scale: 0.24
   border: 5
   query: 'News clipping: Western sanctions on Russia 2022'
+  source_title: Vladimir Putin
+  source_url: https://upload.wikimedia.org/wikipedia/commons/6/65/%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D0%BC%D0%B8%D1%80_%D0%9F%D1%83%D1%82%D0%B8%D0%BD_%2808-03-2024%29_%28cropped%29_%28higher_res%29_2.jpg

@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261005T053232",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.42,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "到了1989年，百事可樂與蘇聯政府簽署了一項新的易貨協議",
+      "text_cn": "到了1989年，百事可乐与苏联政府签署了一项新的易货协议",
+      "start_sec": 0.0,
+      "end_sec": 5.72,
+      "duration_sec": 5.72
+    },
+    {
+      "index": 2,
+      "text": "這筆交易的價值，高達令人震驚的三十億美元，然而",
+      "text_cn": "这笔交易的价值，高达令人震惊的三十亿美元，然而",
+      "start_sec": 5.97,
+      "end_sec": 10.41,
+      "duration_sec": 4.44
+    },
+    {
+      "index": 3,
+      "text": "這次蘇聯已經沒有足夠的伏特加來支付了",
+      "text_cn": "这次苏联已经没有足够的伏特加来支付了",
+      "start_sec": 10.66,
+      "end_sec": 14.42,
+      "duration_sec": 3.76
+    }
+  ],
+  "created_at": "2026-10-05T05:32:32.816049+00:00"
+}

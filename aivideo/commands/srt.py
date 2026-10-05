@@ -6,6 +6,9 @@ import sys
 from pathlib import Path
 import yaml
 
+from aivideo.fonts import resolve_subtitle_font
+from aivideo.spoken import prepare_subtitle_text
+
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
 
@@ -33,7 +36,7 @@ def _format_ass_time(seconds: float) -> str:
 
 def wrap_subtitle_text(text: str, max_chars: int = 18) -> list[str]:
     """智慧折行中文字幕，嚴格限制最多 2 行，遵守避頭尾法則與自然語意斷句。"""
-    clean = text.strip()
+    clean = prepare_subtitle_text(text)
     if len(clean) <= max_chars:
         return [clean]
 
@@ -97,7 +100,6 @@ def generate_srt(job_dir: Path) -> tuple[Path, Path]:
             scene_cfg = yaml.safe_load(f) or {}
 
         narration = str(scene_cfg.get("narration", "")).strip()
-        import re
 
         speech_json = s_dir / "speech.json"
         meta = {}
@@ -113,7 +115,7 @@ def generate_srt(job_dir: Path) -> tuple[Path, Path]:
         if sentences_meta and isinstance(sentences_meta, list):
             for s_info in sentences_meta:
                 s_text = str(s_info.get("text", "")).strip()
-                clean_s = re.sub(r"\[[a-zA-Z0-9_\-]+\]", "", s_text).strip()
+                clean_s = prepare_subtitle_text(s_text)
                 if not clean_s:
                     continue
                 s_start = current_time + float(s_info.get("start_sec", 0.0))
@@ -134,7 +136,7 @@ def generate_srt(job_dir: Path) -> tuple[Path, Path]:
                 index += 1
             current_time += duration
         else:
-            clean_text = re.sub(r"\[[a-zA-Z0-9_\-]+\]", "", narration).strip()
+            clean_text = prepare_subtitle_text(narration)
             start_str = _format_srt_time(current_time)
             end_time = current_time + duration
             end_str = _format_srt_time(end_time)
@@ -157,6 +159,7 @@ def generate_srt(job_dir: Path) -> tuple[Path, Path]:
 
     srt_path.write_text("\n".join(srt_lines), encoding="utf-8")
 
+    font_name = str(resolve_subtitle_font().get("font_name") or "Noto Sans CJK TC")
     # 輸出 1920x1080 專用 ASS 字幕檔
     ass_template = f"""[Script Info]
 Title: AIVideo Subtitles
@@ -168,7 +171,7 @@ ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Default,Noto Sans CJK TC,48,&H00FFFFFF,&H000000FF,&H00000000,&H80000000,1,0,0,0,100,100,0,0,1,3.2,1.5,2,100,100,65,1
+Style: Default,{font_name},48,&H00FFFFFF,&H000000FF,&H00000000,&H80000000,1,0,0,0,100,100,0,0,1,3.2,1.5,2,100,100,65,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text

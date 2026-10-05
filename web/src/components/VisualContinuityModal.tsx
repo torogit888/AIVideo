@@ -84,6 +84,7 @@ export const VisualContinuityModal: React.FC<Props> = ({ isOpen, onClose }) => {
       });
       applyAnchors(updated);
       await loadJobs();
+      window.dispatchEvent(new CustomEvent("aivideo:anchors-updated"));
       if (showSuccessToast) {
         showToast("視覺錨點與參考圖設定已儲存！", "success");
       }
@@ -106,6 +107,7 @@ export const VisualContinuityModal: React.FC<Props> = ({ isOpen, onClose }) => {
       const res = await api.generateHeroAnchor(selectedJobId);
       await fetchAnchors();
       await loadJobs();
+      window.dispatchEvent(new CustomEvent("aivideo:anchors-updated"));
       showToast(res.message || "已依專案風格為各角色生成定裝圖", "success");
     } catch (e: any) {
       showToast("生成定裝圖失敗: " + (e.message || "未知錯誤"), "error");
@@ -126,6 +128,7 @@ export const VisualContinuityModal: React.FC<Props> = ({ isOpen, onClose }) => {
       const updated = await api.generateCharacterHero(selectedJobId, charId);
       applyAnchors(updated);
       await loadJobs();
+      window.dispatchEvent(new CustomEvent("aivideo:anchors-updated"));
       showToast("已依專案風格生成此角色定裝圖", "success");
     } catch (e: any) {
       showToast("生成定裝圖失敗: " + (e.message || "未知錯誤"), "error");
@@ -142,6 +145,7 @@ export const VisualContinuityModal: React.FC<Props> = ({ isOpen, onClose }) => {
       const updated = await api.uploadCharacterHero(selectedJobId, charId, file);
       applyAnchors(updated);
       await loadJobs();
+      window.dispatchEvent(new CustomEvent("aivideo:anchors-updated"));
       showToast("角色定裝參考圖上傳成功", "success");
     } catch (err: any) {
       showToast("上傳失敗: " + (err.message || "未知錯誤"), "error");
@@ -157,6 +161,7 @@ export const VisualContinuityModal: React.FC<Props> = ({ isOpen, onClose }) => {
       const updated = await api.deleteCharacterHero(selectedJobId, charId);
       applyAnchors(updated);
       await loadJobs();
+      window.dispatchEvent(new CustomEvent("aivideo:anchors-updated"));
       showToast("已移除此角色定裝圖", "info");
     } catch (e: any) {
       showToast("移除失敗: " + (e.message || "未知錯誤"), "error");

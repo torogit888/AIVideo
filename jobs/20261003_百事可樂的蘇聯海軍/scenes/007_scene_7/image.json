@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261005T051350",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 15978966,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background, packed with objects and props, dynamic composition within a single panel, 16:9 widescreen, 2D Chibi Cell style, 16:9 widescreen. A bright, evenly lit educational storyboard world with a clean, neutral background. Donald Kendall, a chibi-proportioned middle-aged Caucasian businessman, with his oversized round head, short neatly side-parted brown hair, and confident half-smile, stands in his charcoal business suit. He gestures subtly with one hand, a knowing look in his warm eyes. Flat cel shading, crisp black outlines, minimal graphic highlights.",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-05T05:13:50.787534+00:00"
+}

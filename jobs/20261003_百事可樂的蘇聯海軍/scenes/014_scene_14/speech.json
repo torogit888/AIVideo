@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261005T052112",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.16,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "當時的蘇聯，對西方消費品充滿了渴望",
+      "text_cn": "当时的苏联，对西方消费品充满了渴望",
+      "start_sec": 0.0,
+      "end_sec": 3.4,
+      "duration_sec": 3.4
+    },
+    {
+      "index": 2,
+      "text": "卻又受到嚴格的限制，百事可樂作為美國生活方式的象徵",
+      "text_cn": "却又受到严格的限制，百事可乐作为美国生活方式的象征",
+      "start_sec": 3.65,
+      "end_sec": 8.65,
+      "duration_sec": 5.0
+    },
+    {
+      "index": 3,
+      "text": "對蘇聯人民有著巨大的吸引力，更為百事可樂打開了通往鐵幕深處的大門",
+      "text_cn": "对苏联人民有着巨大的吸引力，更为百事可乐打开了通往铁幕深处的大门",
+      "start_sec": 8.9,
+      "end_sec": 15.16,
+      "duration_sec": 6.26
+    }
+  ],
+  "created_at": "2026-10-05T05:21:12.815841+00:00"
+}

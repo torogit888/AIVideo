@@ -459,19 +459,6 @@ def upload_video_to_youtube(
     except Exception as e:
         print(f"[YouTube] 儲存 youtube.json 失敗：{e}")
 
-    # 2. 同步寫入 job.yaml
-    job_yaml = job_dir / "job.yaml"
-    if job_yaml.is_file():
-        try:
-            import yaml
-            with open(job_yaml, "r", encoding="utf-8") as f:
-                ydata = yaml.safe_load(f) or {}
-            ydata["youtube"] = publish_info
-            with open(job_yaml, "w", encoding="utf-8") as f:
-                yaml.safe_dump(ydata, f, allow_unicode=True, sort_keys=False)
-        except Exception as e:
-            print(f"[YouTube] 同步 job.yaml 失敗：{e}")
-
     return publish_info
 
 
@@ -755,15 +742,13 @@ def generate_youtube_thumbnail(
     from aivideo.visual_anchors import character_image_path, legacy_hero_path
 
     # 1. 讀取專案設定
-    job_yaml = job_dir / "job.yaml"
     cfg = {}
-    if job_yaml.is_file():
-        try:
-            import yaml
-            with open(job_yaml, "r", encoding="utf-8") as f:
-                cfg = yaml.safe_load(f) or {}
-        except Exception:
-            pass
+    try:
+        from aivideo.job_files import load_job_config
+
+        cfg = load_job_config(job_dir)
+    except Exception:
+        pass
 
     chosen_title = (title or cfg.get("title") or job_dir.name).strip()
     img_cfg = cfg.get("image") if isinstance(cfg.get("image"), dict) else {}
@@ -797,8 +782,9 @@ def generate_youtube_thumbnail(
             "dramatic cinematic lighting, high contrast, rim light, tension and curiosity, hyper detailed, 8k."
         )
 
-    # 組合：畫風前綴 + 畫面主體描述 + 黃白醒目標題排版指令
-    full_prompt = f"{style_prefix}，{prompt_body}，{text_instruction}" if style_prefix else f"{prompt_body}，{text_instruction}"
+    from aivideo.style_prompt import compose_styled_prompt
+
+    full_prompt = compose_styled_prompt(style_prefix, f"{prompt_body}，{text_instruction}")
 
     # 3. 收集角色定裝參考圖 (Maintain visual continuity)
     ref_images = []
