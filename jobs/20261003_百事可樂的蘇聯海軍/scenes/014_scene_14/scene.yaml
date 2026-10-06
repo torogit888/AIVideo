@@ -2,23 +2,17 @@ id: 014_scene_14
 index: 14
 title: 第 14 幕
 narration: 當時的蘇聯，對西方消費品充滿了渴望，卻又受到嚴格的限制，百事可樂作為美國生活方式的象徵，對蘇聯人民有著巨大的吸引力，更為百事可樂打開了通往鐵幕深處的大門，
-image_prompt: A surreal conceptual art piece, a dramatic low-angle 2D chibi-cell educational
-  storyboard where a colossal classic contour glass soda bottle, dark cola and white
-  bubbles inside, silver crown cap and red-white-blue bands, rises as an impossible
-  physical gateway splitting a towering riveted steel curtain, tiny chibi Soviet citizens
-  with oversized heads and plain coats reaching toward a pastel mint model kitchen
-  of chrome appliances and checkered linoleum while heavy chains and checkpoint bars
-  hold them back on a muted gray street, bright even flat cel shading, bold black
-  outlines, simple highlight bands, clean white panels, red and blue against crimson
-  and steel gray, impossible scale, dreamlike atmosphere, dramatic lighting, highly
-  detailed, 8k resolution, masterpiece, trending on ArtStation
+image_prompt: Wide shot of chibi Soviet citizens in muted gray coats pressing toward
+  a heavy iron door opening in a tall curtain wall, warm pastel light and stacks of
+  contour cola bottles spilling through from a bright display beyond, longing oversized
+  faces, flat cel shading, bold outlines, 16:9 widescreen composition
 image_negative: ''
 locks:
   speech: false
   image: false
 current:
   speech_take: speech_20261005T052112
-  image_take: image_20261005T131016
+  image_take: image_20261006T042828
 pip:
   enabled: false
   image: null

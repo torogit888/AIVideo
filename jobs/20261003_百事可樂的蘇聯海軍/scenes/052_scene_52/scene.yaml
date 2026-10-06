@@ -2,18 +2,17 @@ id: 052_scene_52
 index: 52
 title: 第 52 幕
 narration: 從賣汽水，再到處理軍事資產，創造使用場景的底層邏輯，也在不斷地演變，
-image_prompt: '2D Chibi Cell style, 16:9 widescreen. A bright, evenly lit educational
-  storyboard world. A clear, multi-panel infographic shows the evolution of business
-  logic: first a classic contour glass Pepsi-Cola Bottle, and finally, a Soviet Submarine
-  being processed into scrap metal, illustrating the changing nature of creating value
-  and usage scenarios. Bold black contours, flat color fills, simple highlight bands.'
+image_prompt: Single widescreen triptych showing a cheerful soda counter, then an
+  exchange table of concentrate drums and tall clear spirit bottles, then a scrap
+  dock turning a submarine hull into neat metal blocks, connected by simple blank
+  arrows, flat infographic cel shading, crisp outlines, 16:9 widescreen composition
 image_negative: ''
 locks:
   speech: false
   image: false
 current:
   speech_take: speech_20261005T070005
-  image_take: image_20261005T070129
+  image_take: image_20261006T050323
 pip:
   enabled: false
   image: null

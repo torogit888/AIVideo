@@ -1,17 +1,15 @@
 id: 054_scene_54
 index: 54
 title: 第 54 幕
-narration: 無論時代如何變遷，商業的本直，資本的逐利性，以及它與國家權力，國際政治之間錯縱複雜的關係，都將是人類社會永恆的命題，
-image_prompt: '2D Chibi Cell style, 16:9 widescreen. A bright, evenly lit educational
-  storyboard world. A complex, intricate web of stylized symbols intertwines: money
-  bags, national flags, abstract power fists, and a classic contour glass Pepsi-Cola
-  Bottle, illustrating the enduring and complex relationship between commerce, capital,
-  state power, and international politics. Bold black contours, flat color fills,
-  simple highlight bands.'
+narration: 無論時代如何變遷，商業的本質，資本的逐利性，以及它與國家權力，國際政治之間錯綜複雜的關係，都將是人類社會永恆的命題，
+image_prompt: Wide allegorical shot of a contour cola bottle, a stone government column,
+  and a gray submarine conning tower tightly bound by a red-and-blue ribbon on a clean
+  white stage, chibi Donald Kendall studying the knot with folded arms, bright even
+  flat cel shading, no inscriptions, 16:9 widescreen composition
 image_negative: ''
 locks:
   speech: false
   image: false
 current:
   speech_take: speech_20261005T060133
-  image_take: image_20261005T060030
+  image_take: image_20261006T050527

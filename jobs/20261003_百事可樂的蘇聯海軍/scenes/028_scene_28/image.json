@@ -1,13 +1,13 @@
 {
-  "take_id": "image_20261005T053455",
+  "take_id": "image_20261006T044037",
   "kind": "image",
   "backend": "gemini",
   "model": "gemini-3.1-flash-image",
-  "seed": 32072062,
-  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background, packed with objects and props, dynamic composition within a single panel, 16:9 widescreen, 2D Chibi Cell style, 16:9 widescreen. A bright, evenly lit educational storyboard world. A simplified, chibi-style figure representing the Soviet Union, with a distressed expression, holds out a Soviet Submarine as if offering it. Across from them, a classic contour glass Pepsi-Cola Bottle stands, representing the desired Western goods. Bold black contours, flat color fills, simple highlight bands, conveying a desperate and unusual trade.",
+  "seed": 67146011,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background\nVibrant contrasting color palettes, crisp details throughout, expressive chibi faces, rich background props., Medium-wide dock scene of downcast chibi Soviet officers and workers watching weathered gray warships receive blank tags while crates of colorful goods and cola bottles roll toward them, slumped desperate postures, flat cel shading, crisp outlines, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
   "aspect_ratio": "16:9",
   "resolution": "1K",
   "width": 1920,
   "height": 1080,
-  "created_at": "2026-10-05T05:34:55.518256+00:00"
+  "created_at": "2026-10-06T04:40:37.423363+00:00"
 }

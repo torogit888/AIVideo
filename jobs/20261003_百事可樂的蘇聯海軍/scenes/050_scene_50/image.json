@@ -1,13 +1,13 @@
 {
-  "take_id": "image_20261005T055633",
+  "take_id": "image_20261006T050138",
   "kind": "image",
   "backend": "gemini",
   "model": "gemini-3.1-flash-image",
-  "seed": 99406273,
-  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background, packed with objects and props, dynamic composition within a single panel, 16:9 widescreen, 2D Chibi Cell style, 16:9 widescreen. A bright, evenly lit educational storyboard world. A horizontal timeline stretches across the frame. Along this timeline, a classic contour glass Pepsi-Cola Bottle is shown in three stages: first as a simple bottle, then next to a stylized Soviet Submarine representing its fleet, and finally surrounded by money symbols, illustrating its journey and the nature of capital. Bold black contours, flat color fills, simple highlight bands, creating a clear infographic atmosphere.",
+  "seed": 94850779,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background\nVibrant contrasting color palettes, crisp details throughout, expressive chibi faces, rich background props., Wide perspective along a path from a single glass of dark cola in front to a distant gray naval fleet, chibi Donald Kendall walking and glancing back along a red-and-blue trail, bright even cel-shaded chibi illustration, bold contours, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
   "aspect_ratio": "16:9",
   "resolution": "1K",
   "width": 1920,
   "height": 1080,
-  "created_at": "2026-10-05T05:56:33.152264+00:00"
+  "created_at": "2026-10-06T05:01:38.517582+00:00"
 }

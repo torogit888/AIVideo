@@ -2,16 +2,14 @@ id: 053_scene_53
 index: 53
 title: 第 53 幕
 narration: 唐納德·肯德爾的商業哲學，以及他如何將一個飲料品牌，提升到地緣政治的層面，都值得我們深思，
-image_prompt: 2D Chibi Cell style, 16:9 widescreen. A bright, evenly lit educational
-  storyboard world. Donald Kendall, the chibi businessman, stands with a thoughtful,
-  strategic expression. In the background, a classic contour glass Pepsi-Cola Bottle
-  is subtly integrated with a stylized globe or geopolitical map, symbolizing his
-  elevation of a brand to a geopolitical level. Flat cel shading, crisp black outlines,
-  minimal graphic highlights.
+image_prompt: Dramatic medium-wide shot of chibi Donald Kendall atop an unmarked globe,
+  charcoal suit and striped tie, confident half-smile, one hand raising a contour
+  cola bottle and the other indicating tiny warships and city blocks, bright even
+  2D cel cartoon, 16:9 widescreen composition
 image_negative: ''
 locks:
   speech: false
   image: false
 current:
   speech_take: speech_20261005T060010
-  image_take: image_20261005T055932
+  image_take: image_20261006T050425

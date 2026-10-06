@@ -1,13 +1,13 @@
 {
-  "take_id": "image_20261005T130542",
+  "take_id": "image_20261006T042006",
   "kind": "image",
   "backend": "gemini",
   "model": "gemini-3.1-flash-image",
-  "seed": 73883368,
-  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background\nVibrant contrasting color palettes, crisp details throughout, expressive chibi faces, rich background props., A surreal conceptual art piece, a wide educational storyboard panel of one colossal classic contour glass soda bottle filled with dark cola and rising white bubbles, silver crown cap and clean red white and blue bands, strictly faceless and limbless, towering at impossible scale over a muted gray naval dock of cranes and cold water while an immense fleet of flat-cel dark-gray diesel-electric submarines with long steel hulls, conning towers, periscopes, snorkels, bow planes, propellers and tiny red stars spreads farther than a nation’s navy, bright even 2D chibi-cell infographic clarity, bold black contours, flat color fills, simple highlight bands, clean white panels, soda red and blue, Soviet crimson and steel gray, impossible scale, dreamlike atmosphere, dramatic lighting, highly detailed, 8k resolution, masterpiece, trending on ArtStation, 16:9 widescreen composition, no text, no words, no watermark",
+  "seed": 33048588,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background\nVibrant contrasting color palettes, crisp details throughout, expressive chibi faces, rich background props., Wide establishing shot of a classic contour glass cola bottle with red, white, and blue label bands and rising white bubbles standing before an immense gray Cold War fleet of submarines and warships along a muted steel dock, bright evenly lit chibi 2D cartoon cel illustration with bold black contours, flat colors, and simple highlight bands, clean white sky, faceless bottle and vessels, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
   "aspect_ratio": "16:9",
   "resolution": "1K",
   "width": 1920,
   "height": 1080,
-  "created_at": "2026-10-05T13:05:42.799637+00:00"
+  "created_at": "2026-10-06T04:20:06.849355+00:00"
 }

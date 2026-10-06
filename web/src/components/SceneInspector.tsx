@@ -56,7 +56,6 @@ export const SceneInspector: React.FC = () => {
   const [pipPos, setPipPos] = useState("right-center");
   const [pipMode, setPipMode] = useState<"pip" | "spotlight">("pip");
   const [pipScale, setPipScale] = useState(0.24);
-  const [metaphorStyle, setMetaphorStyle] = useState<"fantasy" | "vintage_realistic" | "symbolic">("fantasy");
   const [isTranslatingPrompt, setIsTranslatingPrompt] = useState(false);
 
   const handleTranslatePrompt = async () => {
@@ -66,14 +65,14 @@ export const SceneInspector: React.FC = () => {
     }
     setIsTranslatingPrompt(true);
     try {
-      const res = await api.translateScenePrompt(selectedJobId, activeSceneId, metaphorStyle, narration.trim());
+      const res = await api.translateScenePrompt(selectedJobId, activeSceneId, narration.trim());
       setPrompt(res.image_prompt);
       await api.patchScene(selectedJobId, activeSceneId, {
         narration,
         image_prompt: res.image_prompt,
       });
       await loadScenes(selectedJobId);
-      showToast("✨ 已依指定視角重構為電影感出圖 Prompt！", "success");
+      showToast("✨ 已依全域視覺風格重構為電影感出圖 Prompt！", "success");
     } catch (e: any) {
       showToast("重構 Prompt 失敗: " + (e.message || "未知錯誤"), "error");
     } finally {
@@ -755,44 +754,32 @@ export const SceneInspector: React.FC = () => {
               />
             </div>
 
-            {/* 4. 英文 Prompt (含二階視覺轉譯視角切換器) */}
+            {/* 4. 英文 Prompt */}
             <div className="space-y-1.5">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs">
+              <div className="flex items-center justify-between text-xs">
                 <label className="font-medium text-cinema-text flex items-center gap-1.5">
                   <Sparkles className="w-3.5 h-3.5 text-amber-cta" />
                   <span>畫面提示詞 (English Prompt)</span>
                 </label>
-                <div className="flex items-center space-x-1.5">
-                  <select
-                    value={metaphorStyle}
-                    onChange={(e) => setMetaphorStyle(e.target.value as any)}
-                    className="h-6 px-1.5 rounded bg-cinema-darker border border-cinema-border text-[10px] text-cinema-text focus:outline-none focus:border-amber-cta cursor-pointer"
-                    title="選擇將口白轉譯為畫面時的敘事視角"
-                  >
-                    <option value="fantasy">🌟 超現實主義 (Surrealism · 預設)</option>
-                    <option value="vintage_realistic">🏛️ 電影寫實 (Cinematic Realism)</option>
-                    <option value="symbolic">🎭 象徵概念 (Symbolic Concept)</option>
-                  </select>
-                  <button
-                    type="button"
-                    onClick={handleTranslatePrompt}
-                    disabled={isTranslatingPrompt || !narration.trim()}
-                    className="flex items-center h-6 px-2 rounded bg-amber-cta/15 hover:bg-amber-cta/25 text-amber-cta border border-amber-cta/30 text-[10px] font-medium transition-colors disabled:opacity-40 cursor-pointer"
-                    title="由 AI 依據上方口白與選定視角，重新轉譯生成最適合生圖的英文 Prompt"
-                  >
-                    {isTranslatingPrompt ? (
-                      <>
-                        <Loader2 className="w-3 h-3 mr-1 animate-spin" />
-                        <span>轉譯中...</span>
-                      </>
-                    ) : (
-                      <>
-                        <RefreshCw className="w-2.5 h-2.5 mr-1" />
-                        <span>重構 Prompt</span>
-                      </>
-                    )}
-                  </button>
-                </div>
+                <button
+                  type="button"
+                  onClick={handleTranslatePrompt}
+                  disabled={isTranslatingPrompt || !narration.trim()}
+                  className="flex items-center h-6 px-2.5 rounded bg-amber-cta/15 hover:bg-amber-cta/25 text-amber-cta border border-amber-cta/30 text-[10px] font-medium transition-colors disabled:opacity-40 cursor-pointer"
+                  title="由 AI 依據上方口白與專案全域視覺風格，重新轉譯生成最適出圖 Prompt"
+                >
+                  {isTranslatingPrompt ? (
+                    <>
+                      <Loader2 className="w-3 h-3 mr-1 animate-spin" />
+                      <span>轉譯中...</span>
+                    </>
+                  ) : (
+                    <>
+                      <RefreshCw className="w-2.5 h-2.5 mr-1" />
+                      <span>重構 Prompt</span>
+                    </>
+                  )}
+                </button>
               </div>
               <textarea
                 value={prompt}

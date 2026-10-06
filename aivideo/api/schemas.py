@@ -363,12 +363,10 @@ class ScenePatchRequest(BaseModel):
 
 class TranslatePromptRequest(BaseModel):
     narration: Optional[str] = None
-    metaphor_style: str = Field(default="fantasy", description="fantasy | vintage_realistic | symbolic")
 
 
 class TranslatePromptResponse(BaseModel):
     image_prompt: str
-    metaphor_style: str
 
 
 class FetchScenePipRequest(BaseModel):

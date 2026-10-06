@@ -1,20 +1,18 @@
 id: 005_scene_5
 index: 5
 title: 第 5 幕
-narration: 舊竟是誰擁有世界第六大的海軍艦隊呢，答案竟然是百事可樂，這家飲料巨頭，曾經一度坐擁蘇聯海軍的軍艦，包瓜一騷巡洋艦，一騷護衛艦，甚至還有潛水艇[surprise-wa]，
-image_prompt: 2D Chibi Cell style, 16:9 widescreen. A bright, evenly lit educational
-  storyboard world, with a muted gray Soviet naval dock in the background. A towering,
-  classic contour glass Pepsi-Cola Bottle stands prominently, almost like a commander.
-  Below it, a fleet of simplified Soviet naval vessels, including a Soviet Submarine,
-  a cruiser, and a frigate, are arranged in a powerful formation. Bold black contours,
-  flat color fills, simple highlight bands, creating a clear infographic atmosphere.
+narration: 究竟是誰擁有世界第六大的海軍艦隊呢，答案竟然是百事可樂，這家飲料巨頭，曾經一度坐擁蘇聯海軍的軍艦，包括一艘巡洋艦，一艘護衛艦，甚至還有潛水艇[surprise-wa]，
+image_prompt: Wide dockyard display of one large gray cruiser, one frigate, and one
+  dark submarine moored beside towering pallets of contour cola bottles, small red
+  star on the submarine sail, flat naval-gray cel shading, bright even chibi 2D cartoon
+  with hard mechanical outlines and no faces, 16:9 widescreen composition
 image_negative: ''
 locks:
   speech: false
   image: false
 current:
   speech_take: speech_20261005T051222
-  image_take: image_20261005T051143
+  image_take: image_20261006T042238
 pip:
   enabled: true
   image: pip.png
@@ -25,3 +23,4 @@ pip:
   query: Soviet Navy Project 68 Sverdlov-class cruiser
   source_title: Sverdlov-class cruiser
   source_url: https://upload.wikimedia.org/wikipedia/commons/7/79/AdmiralUshakov1981.jpg
+  fetch_error: null

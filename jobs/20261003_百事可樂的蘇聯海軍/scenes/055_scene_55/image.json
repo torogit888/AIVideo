@@ -1,13 +1,13 @@
 {
-  "take_id": "image_20261005T060152",
+  "take_id": "image_20261006T050628",
   "kind": "image",
   "backend": "gemini",
   "model": "gemini-3.1-flash-image",
-  "seed": 35121640,
-  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background, packed with objects and props, dynamic composition within a single panel, 16:9 widescreen, 2D Chibi Cell style, 16:9 widescreen. A bright, evenly lit educational storyboard world. A classic contour glass Pepsi-Cola Bottle stands prominently and centrally, with a subtle, powerful glow emanating from it. Above the bottle, a stylized, watchful 'eye' symbol is depicted, representing the eternal vigilance and omnipresence of capital. Bold black contours, flat color fills, simple highlight bands, conveying a profound final statement.",
+  "seed": 29588817,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background\nVibrant contrasting color palettes, crisp details throughout, expressive chibi faces, rich background props., Wide final shot of a bottling plant that never rests, endless conveyors of red, white, and blue contour cola bottles under bright even cel light, a round window showing gray warships and a far city, small thoughtful chibi Donald Kendall gazing outward, crisp black outlines, no text or logos, 16:9 widescreen composition",
   "aspect_ratio": "16:9",
   "resolution": "1K",
   "width": 1920,
   "height": 1080,
-  "created_at": "2026-10-05T06:01:52.950874+00:00"
+  "created_at": "2026-10-06T05:06:28.963511+00:00"
 }

@@ -1,25 +1,18 @@
 id: 002_scene_2
 index: 2
 title: 第 2 幕
-narration: 這聽起來簡直荒謬絕倫，一家靠賣糖水維生的氣業，怎麼會搖身一變，成了擁抱巡洋艦，護衛艦甚至潛水艇的軍事玩家[question-ei]，
-image_prompt: A dramatic low-angle, wide establishing shot reveals a colossal, classic
-  contour glass Pepsi-Cola Bottle, filled with dark cola and rising white bubbles,
-  silver crown cap, and a red-white-blue label bearing the circular Pepsi globe logo,
-  towering like a monolithic, non-living monument over a muted gray Soviet naval dock.
-  Miniature Soviet Submarines, depicted in clean side view with flat naval-gray cel
-  shading and hard mechanical outlines, are strategically positioned around the base
-  of the gigantic bottle, as if under its surreal command, dwarfed by its immense
-  scale. The scene is rendered in a bright, evenly lit 2D chibi-cell educational storyboard
-  style, with bold black contours, flat color fills in Pepsi red and blue, Soviet
-  crimson, and steel gray, against a backdrop of cold water and distant cranes, creating
-  a clear infographic atmosphere without realistic light or texture.
+narration: 這聽起來簡直荒謬絕倫，一家靠賣糖水維生的企業，怎麼會搖身一變，成了擁抱巡洋艦，護衛艦甚至潛水艇的軍事玩家[question-ei]，
+image_prompt: Dramatic low-angle shot of a bubbling glass of dark cola on a striped
+  counter while a cruiser, a frigate, and a long dark-gray submarine loom behind it
+  amid pastel bubbles and steel gray, bright evenly lit chibi 2D cel-shaded cartoon,
+  crisp outlines, flat fills, no faces on glass or ships, 16:9 widescreen composition
 image_negative: ''
 locks:
   speech: false
   image: false
 current:
   speech_take: speech_20261005T051009
-  image_take: image_20261005T124618
+  image_take: image_20261006T042019
 pip:
   enabled: false
   image: null

@@ -1,13 +1,13 @@
 {
-  "take_id": "image_20261005T055029",
+  "take_id": "image_20261006T045520",
   "kind": "image",
   "backend": "gemini",
   "model": "gemini-3.1-flash-image",
-  "seed": 53975036,
-  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background, packed with objects and props, dynamic composition within a single panel, 16:9 widescreen, 2D Chibi Cell style, 16:9 widescreen. A bright, evenly lit educational storyboard world. A stylized map of Russia and Ukraine is in the background, with abstract, non-graphic conflict symbols (e.g., jagged lines, muted red zones) indicating invasion. Numerous generic corporate logos are depicted as flying away from the Russian territory, symbolizing mass withdrawal and sanctions. Bold black contours, flat color fills, simple highlight bands, creating a clear infographic atmosphere.",
+  "seed": 44131407,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background\nVibrant contrasting color palettes, crisp details throughout, expressive chibi faces, rich background props., Distant wide shot of a tense border plain with a dark column of simplified military trucks opposite a city of shuttered storefronts and departing vans, far flat gray smoke, bright even chibi cel cartoon, no visible harm, no readable signs, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
   "aspect_ratio": "16:9",
   "resolution": "1K",
   "width": 1920,
   "height": 1080,
-  "created_at": "2026-10-05T05:50:29.135795+00:00"
+  "created_at": "2026-10-06T04:55:20.078837+00:00"
 }

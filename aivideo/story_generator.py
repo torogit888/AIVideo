@@ -737,55 +737,21 @@ Output JSON with exact keys:
     }
 
 
-METAPHOR_PERSPECTIVES = {
-    "fantasy": {
-        "name": "超現實主義風格 (Surrealism · 預設)",
-        "instruction": (
-            "STYLE 1: SURREALISM (Default) - For absurd, dreamlike, or exaggerated scale narration.\n"
-            "MANDATORY OUTPUT FORMAT TEMPLATE:\n"
-            "A surreal conceptual art piece, [subject and action description], impossible scale, dreamlike atmosphere, dramatic lighting, highly detailed, 8k resolution, masterpiece, trending on ArtStation\n"
-            "Directives: Replace [subject and action description] with evocative surreal visual imagery representing the scene (e.g. a colossal glowing bottle rising in an enchanted ocean surrounded by miniature warships). Keep inanimate objects strictly physical (no human limbs)."
-        ),
-    },
-    "vintage_realistic": {
-        "name": "電影寫實風格 (Cinematic Realism)",
-        "instruction": (
-            "STYLE 2: CINEMATIC REALISM - For historic, serious, or authentic atmospheric narration.\n"
-            "MANDATORY OUTPUT FORMAT TEMPLATE:\n"
-            "Cinematic wide shot, moody atmosphere, [subject and scene description], photorealistic, 35mm film photography, cinematic lighting, Unreal Engine 5 render, extremely detailed\n"
-            "Directives: Replace [subject and scene description] with authentic historical room, tension, archival props, table, or environment."
-        ),
-    },
-    "symbolic": {
-        "name": "象徵概念藝術 (Symbolic Concept Art)",
-        "instruction": (
-            "STYLE 3: SYMBOLIC CONCEPT ART - For abstract concepts, geopolitical metaphors, or ideological contrasts.\n"
-            "MANDATORY OUTPUT FORMAT TEMPLATE:\n"
-            "An epic symbolic digital illustration, [subject and symbolic elements description], dramatic chiaroscuro lighting, deep contrast, thought-provoking, award-winning concept art\n"
-            "Directives: Replace [subject and symbolic elements description] with powerful metaphorical symbols (e.g. scales of balance, clockwork mechanisms, divided chessboards)."
-        ),
-    },
-}
-
-
 def batch_generate_english_image_prompts(
     narrations: list[str],
     subject_anchor: str = "",
     environment_anchor: str = "",
     characters: list[dict[str, str]] | None = None,
     style_key: str = "",
-    metaphor_style: str = "fantasy",
 ) -> list[str]:
-    """呼叫 Gemini 依據選定的視覺轉譯視角（奇幻/寫實/象徵），將中文旁白轉換為專業英文畫面提示詞。"""
+    """呼叫 Gemini 依據專案全域視覺風格與視覺錨點，將中文旁白直接轉換為專業英文畫面出圖提示詞。"""
     if not narrations:
         return []
 
     from aivideo.visual_anchors import character_bible_for_prompts
 
     bible = character_bible_for_prompts(characters or [])
-    persp_cfg = METAPHOR_PERSPECTIVES.get(metaphor_style, METAPHOR_PERSPECTIVES["fantasy"])
 
-    # 嘗試呼叫 Gemini API 批次產生純英文分鏡畫面描述
     try:
         from google import genai
         from google.genai import types
@@ -793,19 +759,23 @@ def batch_generate_english_image_prompts(
         tag_pattern = re.compile(r"\[[a-zA-Z0-9_\-]+\]")
         items_text = "\n".join([f"[{i+1}] {tag_pattern.sub('', n).strip()}" for i, n in enumerate(narrations)])
         
+        clean_bible = bible.replace("educational storyboard", "2D animation").replace("educational panels", "clean 2D panels") if bible else ""
+        clean_sub_anchor = subject_anchor.replace("educational storyboard", "2D animation").replace("educational panels", "clean 2D panels")
+        clean_env_anchor = environment_anchor.replace("educational storyboard", "2D animation").replace("educational panels", "clean 2D panels")
+
         anchor_rules = ""
-        if bible or subject_anchor or environment_anchor:
-            if bible:
+        if clean_bible or clean_sub_anchor or clean_env_anchor:
+            if clean_bible:
                 subject_rule = (
                     "CHARACTER & ENTITY BIBLE (include visual details ONLY when that entity actually appears in the scene; never force unused entities into the frame):\n"
-                    f"{bible}\n"
+                    f"{clean_bible}\n"
                     "- STRICT NO-ANTHROPOMORPHISM: Never give inanimate objects/ships/bottles human eyes, faces, arms, or legs."
                 )
             else:
-                subject_rule = f'- MAIN SUBJECT ANCHOR: Whenever the main protagonist/object appears, incorporate these specific physical details: "{subject_anchor}"'
+                subject_rule = f'- MAIN SUBJECT ANCHOR: Whenever the main protagonist/object appears, incorporate these specific physical details: "{clean_sub_anchor}"'
             env_rule = ""
-            if environment_anchor:
-                env_rule = f'\n- ENVIRONMENT & LIGHTING ANCHOR: Maintain this consistent background atmosphere and cinematic lighting palette: "{environment_anchor}"'
+            if clean_env_anchor:
+                env_rule = f'\n- ENVIRONMENT & LIGHTING ANCHOR: Maintain this consistent background atmosphere and cinematic lighting palette: "{clean_env_anchor}"'
             anchor_rules = f"""
 STRICT VISUAL CONTINUITY RULES (Apply to all scenes to maintain consistency):
 {subject_rule}{env_rule}
@@ -815,21 +785,22 @@ STRICT VISUAL CONTINUITY RULES (Apply to all scenes to maintain consistency):
         style_lock = style_lock_instructions(style_key)
         prompt = f"""You are a master storyboard visual director and concept artist.
 Analyze the following scene narrations from a video documentary.
-Transform each narration into a compelling, evocative visual text-to-image prompt strictly in ENGLISH.
-
-VISUAL METAPHOR PERSPECTIVE:
-{persp_cfg["instruction"]}
+Transform each scene narration into a compelling, evocative visual text-to-image prompt strictly in ENGLISH.
 
 {style_lock}
 {anchor_rules}
 
 CRITICAL PROMPT CRAFTING REQUIREMENTS:
 1. Every prompt MUST be written completely in ENGLISH.
-2. Follow the MANDATORY OUTPUT FORMAT TEMPLATE specified in VISUAL METAPHOR PERSPECTIVE, filling in the subject/action/scene description accurately from the scene narration.
-3. Translate abstract voiceover concepts into CONCRETE, VISUALLY STRIKING PHYSICAL SCENES: subjects, dynamic character action or expressive posture, tangible props, lighting, atmosphere, and camera framing (wide establishing shot, medium close-up, dramatic low angle).
-4. Strictly adhere to "{persp_cfg["name"]}" while respecting the locked project art medium.
+2. Formulate the visual prompt strictly in the locked project art medium: {style["name"]}. Do NOT contradict it with unrelated art styles.
+3. Translate abstract voiceover concepts into CONCRETE, VISUALLY STRIKING PHYSICAL SCENES: subjects, dynamic character action or expressive posture, tangible props, lighting, atmosphere, and camera framing (wide establishing shot, medium close-up, dramatic low angle) in 16:9 widescreen composition.
+4. Keep inanimate objects strictly physical (never give objects cartoon human eyes, limbs, or faces).
 5. NEVER include any dialogue, speech bubbles, quotes, text, subtitles, words, letters, logos, or watermarks.
-6. Output EXACTLY a JSON array of strings containing exactly {len(narrations)} prompts in the same order as the input scenes.
+6. Output EXACTLY a JSON array of strings containing exactly {len(narrations)} prompts in the same order as the input scenes:
+[
+  "wide establishing shot of [subject and action description], [lighting], [environment], 16:9 widescreen composition",
+  "..."
+]
 
 Scenes:
 {items_text}
@@ -848,7 +819,12 @@ Scenes:
                 if resp.text:
                     parsed = json.loads(resp.text)
                     if isinstance(parsed, list) and len(parsed) == len(narrations):
-                        return [str(p).strip() for p in parsed]
+                        result = []
+                        for p in parsed:
+                            p_text = str(p.get("image_prompt") if isinstance(p, dict) else p).strip()
+                            p_text = re.sub(r"\b(?:educational storyboard|educational panels)\b", "2D cartoon illustration", p_text, flags=re.IGNORECASE)
+                            result.append(p_text)
+                        return result
             except Exception:
                 continue
     except Exception:
@@ -868,20 +844,18 @@ Scenes:
 
 def translate_single_scene_prompt(
     narration: str,
-    metaphor_style: str = "fantasy",
     style_key: str = "",
     subject_anchor: str = "",
     environment_anchor: str = "",
     characters: list[dict[str, str]] | None = None,
 ) -> str:
-    """為單一分鏡依據所選視角（奇幻/寫實/象徵）將旁白台詞重新轉譯為高品質英文出圖 Prompt。"""
+    """為單一分鏡依據專案全域視覺風格與錨點，將中文旁白直接重新轉譯為高品質純英文出圖 Prompt。"""
     res = batch_generate_english_image_prompts(
         [narration],
         subject_anchor=subject_anchor,
         environment_anchor=environment_anchor,
         characters=characters,
         style_key=style_key,
-        metaphor_style=metaphor_style,
     )
     return res[0] if res else ""
 
@@ -1161,7 +1135,6 @@ def parse_script_lines_to_scenes(
         environment_anchor=environment_anchor,
         characters=characters,
         style_key=style_key,
-        metaphor_style=metaphor_style,
     )
     pip_queries = batch_detect_pip_queries(
         narrations,
@@ -1481,9 +1454,8 @@ def regenerate_job_scene_prompts(
     subject_anchor: str,
     environment_anchor: str,
     characters: list[dict[str, str]] | None = None,
-    metaphor_style: str = "fantasy",
 ) -> int:
-    """依據最新主體與環境錨點及轉譯視角，重新為現有 Job 的所有場景批次產生並更新英文提示詞 (Image Prompts)。"""
+    """依據最新主體與環境錨點及專案全域風格，重新為現有 Job 的所有場景批次產生並更新英文提示詞 (Image Prompts)。"""
     scenes_dir = job_dir / "scenes"
     if not scenes_dir.is_dir():
         return 0
@@ -1525,13 +1497,13 @@ def regenerate_job_scene_prompts(
         environment_anchor=environment_anchor,
         characters=characters,
         style_key=style_key,
-        metaphor_style=metaphor_style,
     )
 
     updated_count = 0
     for idx, (s_yaml_p, scfg) in enumerate(scene_yamls):
         if idx < len(new_prompts):
-            scfg["image_prompt"] = new_prompts[idx]
+            scfg["image_prompt"] = str(new_prompts[idx])
+            scfg.pop("visual_concept", None)
             with open(s_yaml_p, "w", encoding="utf-8") as f:
                 yaml.safe_dump(scfg, f, allow_unicode=True, sort_keys=False)
             updated_count += 1

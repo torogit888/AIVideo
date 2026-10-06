@@ -82,7 +82,6 @@ export const ScriptEditor: React.FC = () => {
   const [characters, setCharacters] = useState<{ id: string; name: string; appearance: string }[]>([]);
   const [isAnalyzingAnchors, setIsAnalyzingAnchors] = useState(false);
   const [showAnchors, setShowAnchors] = useState(false);
-  const [metaphorStyle, setMetaphorStyle] = useState<"fantasy" | "vintage_realistic" | "symbolic">("fantasy");
 
   useEffect(() => {
     api
@@ -134,7 +133,6 @@ export const ScriptEditor: React.FC = () => {
         if (detail.config?.voice_id) setSelectedVoice(detail.config.voice_id);
         if (detail.config?.image?.style) setSelectedStyle(detail.config.image.style);
         if (detail.config?.tone_id) setSelectedTone(detail.config.tone_id);
-        if (detail.config?.metaphor_style) setMetaphorStyle(detail.config.metaphor_style as any);
 
         const savedPrompt = detail.custom_prompt || detail.config?.custom_prompt || "";
         setCustomPrompt(savedPrompt);
@@ -393,7 +391,6 @@ export const ScriptEditor: React.FC = () => {
         custom_prompt: customPrompt.trim() || undefined,
         outline: outlineNotes.trim() || undefined,
         use_pip: true,
-        metaphor_style: metaphorStyle,
       });
       // 成功建案後清理本機草稿快取
       localStorage.removeItem("aivideo_draft_custom_prompt");
@@ -428,7 +425,6 @@ export const ScriptEditor: React.FC = () => {
         subject_anchor: subjectAnchor.trim() || undefined,
         environment_anchor: environmentAnchor.trim() || undefined,
         characters: validChars.length ? validChars : undefined,
-        metaphor_style: metaphorStyle,
       });
       setSavedScript(scriptText);
       await loadJobs();
@@ -439,7 +435,7 @@ export const ScriptEditor: React.FC = () => {
         window.confirm("口白已寫回此專案。要依新口白重切分鏡嗎？既有 takes 會依同鏡頭 id 保留。");
       if (recut) {
         setIsRecutting(true);
-        await api.recutJob(selectedJobId, { script: scriptText, visual_pacing: visualPacing, metaphor_style: metaphorStyle });
+        await api.recutJob(selectedJobId, { script: scriptText, visual_pacing: visualPacing });
         await loadJobs();
         showToast("已儲存並重切分鏡", "success");
         setTab("storyboard");
@@ -1081,75 +1077,6 @@ export const ScriptEditor: React.FC = () => {
                   </span>
                 </div>
                 <div className="text-[11px] leading-relaxed opacity-80">{p.desc}</div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* 視覺轉譯風格視角 (二階視覺轉換：奇幻 / 寫實 / 象徵) */}
-      <div className="shrink-0 space-y-2 p-3.5 rounded-lg bg-cinema-card border border-cinema-border">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <Sparkles className="w-4 h-4 text-amber-cta" />
-            <label className="text-xs font-semibold text-cinema-text">視覺轉譯風格 (出圖 Prompt 轉譯視角)</label>
-          </div>
-          <span className="text-[11px] text-cinema-muted">
-            切鏡時自動依此視角將抽象口白「轉譯」為電影級英文出圖 Prompt
-          </span>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5">
-          {[
-            {
-              id: "fantasy" as const,
-              icon: "🌟",
-              title: "超現實主義 (Surrealism)",
-              badge: "預設推薦",
-              desc: "表現荒誕、夢境與誇張比例，A surreal conceptual art piece 模板構建",
-            },
-            {
-              id: "vintage_realistic" as const,
-              icon: "🏛️",
-              title: "電影寫實 (Cinematic)",
-              badge: "歷史現場",
-              desc: "具歷史感、真實環境氛圍，Cinematic wide shot, 35mm film 模板構建",
-            },
-            {
-              id: "symbolic" as const,
-              icon: "🎭",
-              title: "象徵概念 (Symbolic)",
-              badge: "哲思隱喻",
-              desc: "探討抽象概念、政治隱喻，An epic symbolic digital illustration 模板構建",
-            },
-          ].map((m) => {
-            const isSelected = metaphorStyle === m.id;
-            return (
-              <div
-                key={m.id}
-                onClick={() => setMetaphorStyle(m.id)}
-                className={`p-2.5 rounded-md border cursor-pointer transition-all duration-200 ${
-                  isSelected
-                    ? "bg-amber-cta/10 border-amber-cta text-cinema-text shadow-sm"
-                    : "bg-cinema-darker/60 border-cinema-border/70 text-cinema-muted hover:border-cinema-muted hover:text-cinema-text"
-                }`}
-              >
-                <div className="flex items-center justify-between mb-1">
-                  <div className="flex items-center space-x-1.5 font-medium text-xs">
-                    <span>{m.icon}</span>
-                    <span className={isSelected ? "text-amber-cta font-semibold" : ""}>{m.title}</span>
-                  </div>
-                  <span
-                    className={`text-[10px] px-1.5 py-0.5 rounded font-mono ${
-                      isSelected
-                        ? "bg-amber-cta text-cinema-bg font-bold"
-                        : "bg-cinema-card border border-cinema-border text-cinema-muted"
-                    }`}
-                  >
-                    {m.badge}
-                  </span>
-                </div>
-                <div className="text-[11px] leading-relaxed opacity-80">{m.desc}</div>
               </div>
             );
           })}

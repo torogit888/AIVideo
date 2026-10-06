@@ -35,6 +35,7 @@ def apply_scene_cut(job_dir: Path, scenes: list[dict[str, Any]]) -> dict[str, in
 
         narration = str(raw.get("narration") or existing.get("narration") or "")
         title = str(raw.get("title") or "").strip() or scene_title_from_narration(narration)
+        existing.pop("visual_concept", None)
         existing.update(
             {
                 "id": sid,

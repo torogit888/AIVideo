@@ -247,8 +247,8 @@ chibi_kawaii:
   negative: 文字浮水印、寫實陰暗、尖銳骨骼、血腥恐怖, text, words, Chinese characters, subtitles, watermark
   preview: assets/styles/previews/chibi_kawaii.jpg
 2d_chibi_cell:
-  name: 2D分鏡教育賽璐珞Q版風格 (2D Chibi Cell)
-  description: 清晰明快的分鏡教學風格，大頭Q版角色，科學儀器與日常對比，通俗易懂的圖解感。
+  name: ' Q版 2D 卡通插畫'
+  description: Q版比例，清晰的輪廓線，塞璐珞上色，豐富細節
   prefix: '(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style,
     chibi characters, clean line art, cell shading, flat colors, cute mobile game
     UI art, visual novel style, crisp details, vibrant and cheerful color palette,

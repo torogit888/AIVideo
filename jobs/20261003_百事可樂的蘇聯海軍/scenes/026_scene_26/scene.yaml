@@ -2,19 +2,17 @@ id: 026_scene_26
 index: 26
 title: 第 26 幕
 narration: 他們提出了一個讓全世界都為之震驚的替代品，那就是蘇聯海軍的艦隊[surprise-wa]，
-image_prompt: 2D Chibi Cell style, 16:9 widescreen. A bright, evenly lit educational
-  storyboard world. A dramatic reveal of a powerful Soviet naval fleet, including
-  multiple Soviet Submarines, cruisers, and frigates, emerging from behind a stylized,
-  parting curtain or mist. The vessels are depicted in clean side view against a muted
-  gray, cold water background. Bold black contours, flat color fills, simple highlight
-  bands, conveying a shocking revelation.
+image_prompt: Dramatic wide shot of enormous hangar doors opening onto a cold gray
+  naval dock, revealing a silent fleet of dark submarines and warships as substitute
+  payment, shocked chibi officials gesturing, cola bottles in front, flat naval-gray
+  shading, bold mechanical outlines, 16:9 widescreen composition
 image_negative: ''
 locks:
   speech: false
   image: false
 current:
   speech_take: speech_20261005T053318
-  image_take: image_20261005T053257
+  image_take: image_20261006T043829
 pip:
   enabled: true
   image: pip.png

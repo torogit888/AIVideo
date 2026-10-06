@@ -642,14 +642,12 @@ def sync_job_prompts(job_id: str):
     characters = ensure_characters(v_anchors)
     sub = v_anchors.get("subject", "") or compose_subject_anchor(characters)
     env = v_anchors.get("environment", "")
-    metaphor = str(cfg.get("metaphor_style") or "fantasy")
 
     updated_count = regenerate_job_scene_prompts(
         job_dir=job_dir,
         subject_anchor=sub,
         environment_anchor=env,
         characters=characters,
-        metaphor_style=metaphor,
     )
     return {
         "success": True,

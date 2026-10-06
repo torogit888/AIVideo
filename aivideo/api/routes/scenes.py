@@ -321,7 +321,7 @@ def patch_scene(job_id: str, scene_id: str, req: ScenePatchRequest) -> SceneDeta
 
 @router.post("/{scene_id}/translate-prompt", response_model=TranslatePromptResponse)
 def translate_scene_prompt_route(job_id: str, scene_id: str, req: TranslatePromptRequest) -> TranslatePromptResponse:
-    """依據指定視角（奇幻/寫實/象徵），將本幕口白轉譯為具備高度畫面感的英文出圖提示詞。"""
+    """依據專案全域視覺風格與視覺錨點，將本幕中文口白轉譯為具備高度畫面感的專業英文出圖提示詞。"""
     job_dir = JOBS_DIR / job_id
     scene_dir = job_dir / "scenes" / scene_id
     if not scene_dir.is_dir():
@@ -346,7 +346,6 @@ def translate_scene_prompt_route(job_id: str, scene_id: str, req: TranslatePromp
 
     new_prompt = translate_single_scene_prompt(
         narration=narr,
-        metaphor_style=req.metaphor_style,
         style_key=style_key,
         subject_anchor=sub,
         environment_anchor=env,
@@ -358,7 +357,6 @@ def translate_scene_prompt_route(job_id: str, scene_id: str, req: TranslatePromp
 
     return TranslatePromptResponse(
         image_prompt=new_prompt,
-        metaphor_style=req.metaphor_style,
     )
 
 

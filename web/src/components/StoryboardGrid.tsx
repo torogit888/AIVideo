@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Image as ImageIcon, Volume2, CheckCircle2, AlertCircle, Camera, Search, Play, Sparkles, Clock, Lock } from "lucide-react";
+import { Image as ImageIcon, Volume2, CheckCircle2, AlertCircle, Camera, Search, Play, Sparkles, Clock, Lock, Loader2 } from "lucide-react";
 import { useStudioStore } from "../store";
 import { SceneSummary } from "../types";
 import { api } from "../api";
@@ -120,12 +120,49 @@ export const StoryboardGrid: React.FC = () => {
 
   const handleCompose = async () => {
     if (!selectedJobId) return;
+
+    // 前置檢查：確保所有分鏡均具備畫面與配音
+    const missingImg = scenes.filter((s) => !s.status.has_image);
+    const missingAud = scenes.filter((s) => !s.status.has_audio);
+    if (missingImg.length > 0 || missingAud.length > 0) {
+      const parts: string[] = [];
+      if (missingImg.length > 0) {
+        parts.push(`第 ${missingImg.map((s) => s.index).slice(0, 5).join("、")}${missingImg.length > 5 ? " 等" : ""} 幕缺少畫面`);
+      }
+      if (missingAud.length > 0) {
+        parts.push(`第 ${missingAud.map((s) => s.index).slice(0, 5).join("、")}${missingAud.length > 5 ? " 等" : ""} 幕缺少配音`);
+      }
+      showToast(`成片合成受阻：${parts.join("，")}。請先補齊素材！`, "error");
+      return;
+    }
+
     setPipelineRunning(
       true,
       10,
       burnSubtitles ? "正在合成 1080p 影片 (燒錄 ASS 字幕)..." : "正在極速合成 1080p 影片 (純淨畫面直通合流)..."
     );
     await api.runPipeline(selectedJobId, "compose", false, burnSubtitles);
+  };
+
+  const [isSyncingPrompts, setIsSyncingPrompts] = useState(false);
+
+  const handleSyncAllPrompts = async () => {
+    if (!selectedJobId || totalScenes === 0) return;
+    const ok = window.confirm(
+      `確定要依最新專案視覺風格與定裝錨點，一鍵重構全片 ${totalScenes} 幕的英文出圖 Prompt 嗎？`
+    );
+    if (!ok) return;
+    setIsSyncingPrompts(true);
+    showToast(`正在重新構思全片 ${totalScenes} 幕的英文出圖 Prompt...`, "info");
+    try {
+      const res = await api.syncScenePrompts(selectedJobId);
+      await loadScenes(selectedJobId);
+      showToast(res.message || `已成功重構全片 ${res.updated_count} 幕出圖 Prompt！`, "success");
+    } catch (e: any) {
+      showToast("重構全片 Prompt 失敗: " + (e.message || "未知錯誤"), "error");
+    } finally {
+      setIsSyncingPrompts(false);
+    }
   };
 
   const handleTogglePip = async (on: boolean) => {
@@ -210,6 +247,25 @@ export const StoryboardGrid: React.FC = () => {
             >
               <Play className="w-3 h-3 mr-1 fill-current text-amber-cta" />
               <span>合成</span>
+            </button>
+            <div className="w-[1px] h-3.5 bg-cinema-border/70 my-auto mx-0.5" />
+            <button
+              onClick={handleSyncAllPrompts}
+              disabled={isSyncingPrompts || totalScenes === 0}
+              className="flex items-center h-6 px-2.5 rounded text-cinema-muted hover:text-amber-cta hover:bg-cinema-card transition-colors whitespace-nowrap text-[11px] font-medium disabled:opacity-40"
+              title="依最新專案全域視覺風格與定裝錨點，一鍵批次重寫全片所有分鏡的英文 Prompt"
+            >
+              {isSyncingPrompts ? (
+                <>
+                  <Loader2 className="w-3 h-3 mr-1 animate-spin text-amber-cta" />
+                  <span>重構 Prompt 中...</span>
+                </>
+              ) : (
+                <>
+                  <Sparkles className="w-3 h-3 mr-1 text-amber-cta" />
+                  <span>重構全片 Prompt</span>
+                </>
+              )}
             </button>
           </div>
 

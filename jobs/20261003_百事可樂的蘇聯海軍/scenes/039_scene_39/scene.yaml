@@ -1,17 +1,15 @@
 id: 039_scene_39
 index: 39
 title: 第 39 幕
-narration: 許多人開始直疑，一家美國公司是否應該從一個衰落大國的軍事資產中獲利，這筆交易是否加速了蘇聯的解體呢[question-ah]，
-image_prompt: 2D Chibi Cell style, 16:9 widescreen. A bright, evenly lit educational
-  storyboard world. A classic contour glass Pepsi-Cola Bottle is positioned above
-  a stylized, visibly collapsing Soviet hammer and sickle symbol. Numerous large question
-  marks float around the scene, emphasizing widespread doubt and ethical questioning
-  about the transaction's impact. Bold black contours, flat color fills, simple highlight
-  bands.
+narration: 許多人開始質疑，一家美國公司是否應該從一個衰落大國的軍事資產中獲利，這筆交易是否加速了蘇聯的解體呢[question-ah]，
+image_prompt: Medium-wide scene of frowning chibi journalists and citizens pointing
+  at a submarine model and contour cola bottles, cameras raised before a cracked monumental
+  arch, completely blank placards, bright even 2D chibi cel illustration, no writing,
+  16:9 widescreen composition
 image_negative: ''
 locks:
   speech: false
   image: false
 current:
   speech_take: speech_20261005T054618
-  image_take: image_20261005T054541
+  image_take: image_20261006T045031

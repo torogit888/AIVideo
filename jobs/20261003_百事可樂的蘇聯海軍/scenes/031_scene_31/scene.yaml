@@ -2,16 +2,14 @@ id: 031_scene_31
 index: 31
 title: 第 31 幕
 narration: 百事可樂當然不是真的想經營一支海軍，他們的目的，是將這些軍艦作為資產進行變現，這才是這筆交易的精明之處，
-image_prompt: 2D Chibi Cell style, 16:9 widescreen. A bright, evenly lit educational
-  storyboard world. A classic contour glass Pepsi-Cola Bottle is on one side. On the
-  other, a Soviet Submarine is depicted in a stylized transformation, breaking down
-  into a pile of shimmering gold coins or abstract money symbols, illustrating its
-  conversion into liquid assets. Bold black contours, flat color fills, simple highlight
-  bands, creating a clear infographic atmosphere.
+image_prompt: Medium office shot of shrewd smiling chibi Donald Kendall beside miniature
+  warships that correspond across a white table to neat stacks of plain gold bars,
+  simple blank arrows showing asset conversion, flat cel-shaded 2D chibi infographic,
+  no writing, 16:9 widescreen composition
 image_negative: ''
 locks:
   speech: false
   image: false
 current:
   speech_take: speech_20261005T053812
-  image_take: image_20261005T053735
+  image_take: image_20261006T044343

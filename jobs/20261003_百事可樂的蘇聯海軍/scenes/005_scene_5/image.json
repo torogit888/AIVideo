@@ -1,13 +1,13 @@
 {
-  "take_id": "image_20261005T051143",
+  "take_id": "image_20261006T042238",
   "kind": "image",
   "backend": "gemini",
   "model": "gemini-3.1-flash-image",
-  "seed": 26954160,
-  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background, packed with objects and props, dynamic composition within a single panel, 16:9 widescreen, 2D Chibi Cell style, 16:9 widescreen. A bright, evenly lit educational storyboard world, with a muted gray Soviet naval dock in the background. A towering, classic contour glass Pepsi-Cola Bottle stands prominently, almost like a commander. Below it, a fleet of simplified Soviet naval vessels, including a Soviet Submarine, a cruiser, and a frigate, are arranged in a powerful formation. Bold black contours, flat color fills, simple highlight bands, creating a clear infographic atmosphere.",
+  "seed": 44678888,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background\nVibrant contrasting color palettes, crisp details throughout, expressive chibi faces, rich background props., Wide dockyard display of one large gray cruiser, one frigate, and one dark submarine moored beside towering pallets of contour cola bottles, small red star on the submarine sail, flat naval-gray cel shading, bright even chibi 2D cartoon with hard mechanical outlines and no faces, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
   "aspect_ratio": "16:9",
   "resolution": "1K",
   "width": 1920,
   "height": 1080,
-  "created_at": "2026-10-05T05:11:43.895799+00:00"
+  "created_at": "2026-10-06T04:22:38.728054+00:00"
 }

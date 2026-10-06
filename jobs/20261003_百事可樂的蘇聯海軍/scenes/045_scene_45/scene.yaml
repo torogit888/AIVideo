@@ -1,20 +1,18 @@
 id: 045_scene_45
 index: 45
 title: 第 45 幕
-narration: 然而，百事可樂卻作為仍在俄羅斯運營的少數西方大型氣業之一，面臨著巨大的道德壓力與公眾審視，百事可樂聲稱，其在俄羅斯主要銷售的是必需品，
-image_prompt: 2D Chibi Cell style, 16:9 widescreen. A bright, evenly lit educational
-  storyboard world. A classic contour glass Pepsi-Cola Bottle stands prominently on
-  a stylized map of Russia, appearing isolated. Around it, numerous abstract, questioning
-  eyes or spotlights are directed at the bottle, symbolizing immense moral pressure
-  and public scrutiny. Other generic corporate logos are seen retreating in the background.
-  Bold black contours, flat color fills, simple highlight bands.
+narration: 然而，百事可樂卻作為仍在俄羅斯運營的少數西方大型企業之一，面臨著巨大的道德壓力與公眾審視，百事可樂聲稱，其在俄羅斯主要銷售的是必需品，
+image_prompt: Medium shot of a still-open corner shop in a muted gray city, shelves
+  mainly holding plain white milk bottles and simple baby-food jars, a pressured chibi
+  shopkeeper in red and blue facing concerned citizens, bright even 2D cartoon cel
+  shading, no brand marks, 16:9 widescreen composition
 image_negative: ''
 locks:
   speech: false
   image: false
 current:
   speech_take: speech_20261005T055214
-  image_take: image_20261005T055152
+  image_take: image_20261006T045621
 pip:
   enabled: false
   image: pip.png

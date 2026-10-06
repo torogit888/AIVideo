@@ -174,10 +174,10 @@ export const api = {
       method: "POST",
       body: JSON.stringify(query ? { query } : {}),
     }),
-  translateScenePrompt: (jobId: string, sceneId: string, metaphorStyle = "fantasy", narration?: string) =>
-    request<{ image_prompt: string; metaphor_style: string }>(`/jobs/${jobId}/scenes/${sceneId}/translate-prompt`, {
+  translateScenePrompt: (jobId: string, sceneId: string, narration?: string) =>
+    request<{ image_prompt: string }>(`/jobs/${jobId}/scenes/${sceneId}/translate-prompt`, {
       method: "POST",
-      body: JSON.stringify({ metaphor_style: metaphorStyle, narration }),
+      body: JSON.stringify({ narration }),
     }),
 
   // 腳本與大綱
