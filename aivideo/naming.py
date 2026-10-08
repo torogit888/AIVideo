@@ -66,7 +66,7 @@ def job_use_pip(cfg: dict | None) -> bool:
 
 
 def should_auto_pip(action: str, use_pip: bool = False) -> bool:
-    """明確跑 pip，或 job 已打開考據開關且動作是 all。"""
+    """若一鍵全流程開啟且 use_pip 為 True，或明確跑 pip 批次，則啟用自動考據。"""
     if action == "pip":
         return True
     if action == "all" and use_pip:

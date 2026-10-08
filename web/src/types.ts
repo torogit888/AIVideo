@@ -59,6 +59,8 @@ export interface ScenePipConfig {
   source_title?: string;
   source_url?: string;
   fetch_error?: string | null;
+  verified?: boolean;
+  review_reason?: string | null;
 }
 
 export interface SceneSummary {
@@ -208,6 +210,19 @@ export interface ModelsStatusResponse {
   checked_at?: string | null;
   timestamp?: number | null;
   models: Record<string, ModelStatusItem>;
+}
+
+export interface PipCandidateItem {
+  title: string;
+  url: string;
+  source: string;
+  width?: number;
+  height?: number;
+}
+
+export interface PipCandidatesResponse {
+  query: string;
+  candidates: PipCandidateItem[];
 }
 
 export interface JobVisualAnchors {

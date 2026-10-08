@@ -18,6 +18,7 @@ import {
   VertexAccount,
   CreateVertexAccountInput,
   ModelsStatusResponse,
+  PipCandidatesResponse,
 } from "./types";
 
 const BASE_URL = "/api/v1";
@@ -177,6 +178,28 @@ export const api = {
       method: "POST",
       body: JSON.stringify(query ? { query } : {}),
     }),
+  applyScenePipUrl: (jobId: string, sceneId: string, url: string, title?: string, query?: string) =>
+    request<SceneDetail>(`/jobs/${jobId}/scenes/${sceneId}/pip/url`, {
+      method: "POST",
+      body: JSON.stringify({ url, title, query }),
+    }),
+  uploadScenePipFile: async (jobId: string, sceneId: string, file: File) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    const res = await fetch(`${BASE_URL}/jobs/${jobId}/scenes/${sceneId}/pip/upload`, {
+      method: "POST",
+      body: formData,
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ detail: res.statusText }));
+      throw new Error(err.detail || "考據照片上傳失敗");
+    }
+    return res.json() as Promise<SceneDetail>;
+  },
+  getScenePipCandidates: (jobId: string, sceneId: string, query?: string) =>
+    request<PipCandidatesResponse>(
+      `/jobs/${jobId}/scenes/${sceneId}/pip/candidates${query ? `?query=${encodeURIComponent(query)}` : ""}`
+    ),
   translateScenePrompt: (jobId: string, sceneId: string, narration?: string) =>
     request<{ image_prompt: string }>(`/jobs/${jobId}/scenes/${sceneId}/translate-prompt`, {
       method: "POST",

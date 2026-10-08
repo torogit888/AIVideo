@@ -4,12 +4,15 @@ import os
 import shutil
 from pathlib import Path
 from typing import List, Optional
-from fastapi import APIRouter, HTTPException, BackgroundTasks
+from fastapi import APIRouter, HTTPException, BackgroundTasks, UploadFile, File
 import yaml
 
 from aivideo.api.schemas import (
+    ApplyPipUrlRequest,
     FetchScenePipRequest,
     GcTakesRequest,
+    PipCandidateItem,
+    PipCandidatesResponse,
     SceneDetail,
     ScenePatchRequest,
     ScenePipConfig,
@@ -231,6 +234,8 @@ def get_scene_detail(job_id: str, scene_id: str) -> SceneDetail:
         source_title=pip_data.get("source_title"),
         source_url=pip_data.get("source_url"),
         fetch_error=None if status.has_pip else (str(pip_data.get("fetch_error") or "").strip() or None),
+        verified=bool(pip_data.get("verified", False)),
+        review_reason=pip_data.get("review_reason"),
     )
 
     return SceneDetail(
@@ -408,6 +413,109 @@ def fetch_scene_pip(job_id: str, scene_id: str, req: Optional[FetchScenePipReque
     if not ok:
         raise HTTPException(status_code=400, detail="未檢索到合適考據照片或未指定檢索詞")
     return {"message": "考據照片已成功下載並套用", "job_id": job_id, "scene_id": scene_id}
+
+
+@router.post("/{scene_id}/pip/url", response_model=SceneDetail)
+def apply_scene_pip_url(job_id: str, scene_id: str, req: ApplyPipUrlRequest):
+    """直接依指定的圖片 URL 下載並套用為本幕真實考據照片 (pip.png)。"""
+    scene_dir = JOBS_DIR / job_id / "scenes" / scene_id
+    if not scene_dir.is_dir():
+        raise HTTPException(status_code=404, detail="分鏡不存在")
+
+    url = (req.url or "").strip()
+    if not url or not (url.startswith("http://") or url.startswith("https://")):
+        raise HTTPException(status_code=400, detail="請提供有效的 http(s) 圖片網址")
+
+    from aivideo.auto_pip import _download_image_bytes, _write_pip_yaml
+    from PIL import Image
+    import io
+
+    content = _download_image_bytes(url)
+    if not content:
+        raise HTTPException(status_code=400, detail="無法自該網址下載圖片，請檢查網址有效性或防盜鏈設定")
+
+    try:
+        img = Image.open(io.BytesIO(content)).convert("RGBA")
+        img.thumbnail((1600, 1600), Image.Resampling.LANCZOS)
+        img.save(scene_dir / "pip.png", "PNG")
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"圖片解析失敗: {str(e)}")
+
+    scfg = _load_scene_yaml(scene_dir)
+    q = req.query or scfg.get("pip", {}).get("query") or req.title or "自訂圖片網址"
+    result = {"title": req.title or "自訂圖片網址", "url": url}
+    _write_pip_yaml(scene_dir, scfg, q, result, enabled=True)
+    return get_scene_detail(job_id, scene_id)
+
+
+@router.post("/{scene_id}/pip/upload", response_model=SceneDetail)
+async def upload_scene_pip_file(job_id: str, scene_id: str, file: UploadFile = File(...)):
+    """支援本機直接上傳真實歷史考據照片檔案 (pip.png)。"""
+    scene_dir = JOBS_DIR / job_id / "scenes" / scene_id
+    if not scene_dir.is_dir():
+        raise HTTPException(status_code=404, detail="分鏡不存在")
+
+    content = await file.read()
+    if not content:
+        raise HTTPException(status_code=400, detail="上傳檔案為空")
+
+    from aivideo.auto_pip import _write_pip_yaml
+    from PIL import Image
+    import io
+
+    try:
+        img = Image.open(io.BytesIO(content)).convert("RGBA")
+        img.thumbnail((1600, 1600), Image.Resampling.LANCZOS)
+        img.save(scene_dir / "pip.png", "PNG")
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"圖片格式解析失敗: {str(e)}")
+
+    scfg = _load_scene_yaml(scene_dir)
+    filename = file.filename or "本地上傳照片"
+    q = scfg.get("pip", {}).get("query") or filename
+    result = {"title": filename, "url": f"/media/jobs/{job_id}/scenes/{scene_id}/pip.png"}
+    _write_pip_yaml(scene_dir, scfg, q, result, enabled=True)
+    return get_scene_detail(job_id, scene_id)
+
+
+@router.get("/{scene_id}/pip/candidates", response_model=PipCandidatesResponse)
+def get_scene_pip_candidates(job_id: str, scene_id: str, query: Optional[str] = None):
+    """
+    全網跨圖庫（不限版權與公有領域限制，廣泛搜尋新聞歷史照片）檢索真實候選圖片供創作者自由挑選。
+    """
+    scene_dir = JOBS_DIR / job_id / "scenes" / scene_id
+    if not scene_dir.is_dir():
+        raise HTTPException(status_code=404, detail="分鏡不存在")
+
+    scfg = _load_scene_yaml(scene_dir)
+    narr = str(scfg.get("narration") or "")
+    search_q = (query or "").strip() or scfg.get("pip", {}).get("query") or ""
+
+    if not search_q and narr:
+        from aivideo.story_generator import batch_detect_pip_queries
+        detected = batch_detect_pip_queries([narr])
+        if detected and detected[0]:
+            search_q = detected[0]
+
+    if not search_q:
+        raise HTTPException(status_code=400, detail="請輸入欲檢索的實體關鍵字")
+
+    from aivideo.auto_pip import search_all_source_candidates
+    candidates = search_all_source_candidates(search_q, limit=8)
+    items = []
+    for c in candidates:
+        raw_u = str(c.get("url") or "")
+        if raw_u:
+            items.append(
+                PipCandidateItem(
+                    title=str(c.get("title") or search_q),
+                    url=raw_u,
+                    source=str(c.get("source") or "全網歷史照片"),
+                    width=int(c.get("width") or 0),
+                    height=int(c.get("height") or 0),
+                )
+            )
+    return PipCandidatesResponse(query=search_q, candidates=items)
 
 
 @router.delete("/{scene_id}/image")

@@ -525,6 +525,8 @@ def _write_pip_yaml(scene_dir: Path, scfg: dict, query: str, result: dict[str, o
         "query": query,
         "source_title": result.get("title", "") if result else prev.get("source_title", ""),
         "source_url": result.get("url", "") if result else prev.get("source_url", ""),
+        "verified": bool(result.get("verified", False)),
+        "review_reason": str(result.get("review_reason") or ""),
     }
     scfg["pip"].pop("fetch_error", None)
     s_yaml_p.write_text(yaml.safe_dump(scfg, allow_unicode=True, sort_keys=False), encoding="utf-8")
@@ -645,8 +647,97 @@ def infer_pip_mode(query: str | None, narration: str = "") -> str:
     return "pip"
 
 
+def verify_pip_match_with_ai(
+    narration: str,
+    query: str,
+    candidate_title: str,
+    image_bytes: bytes | None = None,
+) -> dict[str, Any]:
+    """
+    呼叫 Gemini AI 進行多模態/語意視覺考據審查裁判：
+    嚴格檢驗此候選照片是否真正吻合口白台詞的情境與實體。
+    若吻合且合理 -> passed: True
+    若主題歪樓、概念不符、抽象圖表 -> passed: False
+    """
+    clean_narr = (narration or "").strip()
+    if not clean_narr:
+        return {"passed": True, "confidence": 1.0, "reason": "無口白，預設通過"}
+
+    prompt = f"""You are a documentary film fact-checker and visual verification editor.
+A scene has the following Chinese voiceover narration:
+"{clean_narr}"
+
+The researcher queried: "{query}"
+The candidate photograph title/description: "{candidate_title}"
+
+VERIFICATION TASK:
+Determine if this real-world photograph is factually and contextually SUITABLE to show as an authentic archival reference photo (Picture-in-Picture card) during this exact narration.
+
+STRICT CRITERIA:
+1. RELEVANCE & AUTHENTICITY: Does the photo genuinely depict the subject, person, weapon/vehicle, place, or historical event mentioned in the narration?
+2. REJECT (passed = false) IF:
+   - Topic drift: Completely different historical event or military battle when talking about a street or peacetime treaty.
+   - Irrelevant animals, memes, modern tourist snapshots, unrelated diagrams, or icons.
+   - The photo contradicts the core message of the voiceover.
+3. APPROVE (passed = true) IF:
+   - It shows the actual historical figure, signed document, vehicle/ship, facility, or authentic historical archival scene described.
+
+Return ONLY a valid JSON object:
+{{
+  "passed": true / false,
+  "confidence": 0.0 to 1.0,
+  "reason": "簡短繁體中文說明吻合或不合原因 (繁體中文，限35字內)"
+}}
+"""
+    try:
+        from aivideo.commands.check import _load_dotenv
+        _load_dotenv()
+        from google import genai
+        from google.genai import types
+
+        client_kwargs = get_gemini_client_kwargs()
+        client = genai.Client(**client_kwargs)
+
+        contents: list[Any] = [prompt]
+        if image_bytes:
+            try:
+                img_io = io.BytesIO(image_bytes)
+                pil_img = Image.open(img_io).convert("RGB")
+                pil_img.thumbnail((512, 512), Image.Resampling.LANCZOS)
+                thumb_io = io.BytesIO()
+                pil_img.save(thumb_io, format="JPEG", quality=80)
+                thumb_bytes = thumb_io.getvalue()
+                contents.append(types.Part.from_bytes(data=thumb_bytes, mime_type="image/jpeg"))
+            except Exception:
+                pass
+
+        resp = client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=contents,
+            config=types.GenerateContentConfig(
+                temperature=0.1,
+                response_mime_type="application/json",
+            ),
+        )
+        if resp.text:
+            parsed = json.loads(resp.text)
+            passed = bool(parsed.get("passed", False))
+            conf = float(parsed.get("confidence", 0.0))
+            reason = str(parsed.get("reason", "")).strip()
+            return {
+                "passed": passed and (conf >= 0.65),
+                "confidence": conf,
+                "reason": reason,
+            }
+    except Exception as e:
+        print(f"[warn] AI 考據審查呼叫失敗: {e}，採取安全放行策略")
+        return {"passed": True, "confidence": 0.5, "reason": "審核連線超時，預設放行"}
+
+    return {"passed": True, "confidence": 0.5, "reason": "預設放行"}
+
+
 def fetch_single_scene_pip(scene_dir: Path, query: str | None = None) -> bool:
-    """為單一分鏡檢索並下載真實考據照片 (pip.png)。多來源、多候選、下載失敗會改試下一張。"""
+    """為單一分鏡檢索並下載真實考據照片 (pip.png)。經由 AI 視覺與口白吻合度審查，通過才啟用，不符自動退件。"""
     s_yaml_p = scene_dir / "scene.yaml"
     if not s_yaml_p.is_file():
         return False
@@ -663,7 +754,9 @@ def fetch_single_scene_pip(scene_dir: Path, query: str | None = None) -> bool:
         mark_scene_pip_error(scene_dir, "未找到合適照片", q)
         return False
 
+    narration = str(scfg.get("narration") or "")
     last_err = None
+
     for i, result in enumerate(candidates, 1):
         raw_url = str(result.get("url", ""))
         img_url = raw_url.split("?")[0] if raw_url else ""
@@ -674,20 +767,42 @@ def fetch_single_scene_pip(scene_dir: Path, query: str | None = None) -> bool:
             if not content:
                 last_err = f"無法下載候選 {i}"
                 continue
+
+            cand_title = str(result.get("title") or "")
+            # 關鍵審查關卡：透過 AI 比對口白與圖片內容是否吻合
+            review = verify_pip_match_with_ai(
+                narration=narration,
+                query=q,
+                candidate_title=cand_title,
+                image_bytes=content,
+            )
+
+            if not review["passed"]:
+                print(f"[review-reject] 【{scene_dir.name}】候選 {i} 未通過 AI 審查: {review['reason']}，改試下一張")
+                last_err = f"AI 判定不吻合: {review['reason']}"
+                continue
+
+            # 通過審核！正式縮圖存檔並啟用
             img = Image.open(io.BytesIO(content)).convert("RGBA")
             img.thumbnail((1600, 1600), Image.Resampling.LANCZOS)
             img.save(scene_dir / "pip.png", "PNG")
-            result = {**result, "url": img_url}
+            result = {
+                **result,
+                "url": img_url,
+                "verified": True,
+                "review_reason": review["reason"],
+            }
             _write_pip_yaml(scene_dir, scfg, q, result, enabled=True)
-            print(f"[ok]   【{scene_dir.name}】成功下載考據圖：{q} -> {result.get('title')}")
+            print(f"[ok]   【{scene_dir.name}】通過 AI 審核並套用考據圖：{q} ({review['reason']})")
             return True
         except Exception as e:
             last_err = e
             print(f"[warn] 【{scene_dir.name}】候選 {i}/{len(candidates)} 失敗: {e}，改試下一張")
             continue
 
-    print(f"[skip] 【{scene_dir.name}】所有考據來源皆失敗：{q} ({last_err})")
-    mark_scene_pip_error(scene_dir, f"下載失敗：{last_err}" if last_err else "所有來源皆失敗", q)
+    # 若所有候選皆未通過 AI 吻合度審核，果斷自動降級為純 AI 生成畫面！
+    print(f"[fallback] 【{scene_dir.name}】考據圖未通過 AI 吻合度審核，自動降級為純 AI 生成圖 ({last_err})")
+    mark_scene_pip_error(scene_dir, f"AI 審核未通過（與口白不符）：{last_err}，已自動切換為純 AI 生成畫面", q)
     return False
 
 

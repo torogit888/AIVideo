@@ -1,0 +1,11 @@
+id: tw_female02
+display_name: 旁白(Y)
+gender: 女性
+engine: omnivoice
+model: OmniVoice-bf16
+mode: clone
+dtype: fp16
+attention: eager
+steps: 32
+speed: 1.0
+position_temperature: 0.1

@@ -1,5 +1,5 @@
 {
-  "take_id": "speech_20261007T064550",
+  "take_id": "speech_20261008T125543",
   "kind": "speech",
   "engine": "omnivoice",
   "model": "OmniVoice-bf16",
@@ -11,7 +11,7 @@
   "dtype": "fp16",
   "attention": "eager",
   "seed": 42,
-  "duration_sec": 12.5,
+  "duration_sec": 22.84,
   "sentences": [
     {
       "index": 1,
@@ -36,7 +36,23 @@
       "start_sec": 7.94,
       "end_sec": 12.5,
       "duration_sec": 4.56
+    },
+    {
+      "index": 4,
+      "text": "歡迎在評論區留下你的看法，如果你也喜歡這段荒謬又真實的歷史",
+      "text_cn": "欢迎在评论区留下你的看法，如果你也喜欢这段荒谬又真实的历史",
+      "start_sec": 12.75,
+      "end_sec": 18.55,
+      "duration_sec": 5.8
+    },
+    {
+      "index": 5,
+      "text": "別忘了點個喜歡，訂閱頻道，我們下一期故事見",
+      "text_cn": "别忘了点个喜欢，订阅频道，我们下一棋故事见",
+      "start_sec": 18.8,
+      "end_sec": 22.84,
+      "duration_sec": 4.04
     }
   ],
-  "created_at": "2026-10-07T06:45:50.212026+00:00"
+  "created_at": "2026-10-08T12:55:43.715248+00:00"
 }

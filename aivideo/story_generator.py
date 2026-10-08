@@ -858,7 +858,8 @@ CRITICAL PROMPT CRAFTING REQUIREMENTS:
 3. Translate abstract voiceover concepts into CONCRETE, VISUALLY STRIKING PHYSICAL SCENES: subjects, dynamic character action or expressive posture, tangible props, lighting, atmosphere, and camera framing (wide establishing shot, medium close-up, dramatic low angle) in 16:9 widescreen composition.
 4. Keep inanimate objects strictly physical (never give objects cartoon human eyes, limbs, or faces).
 5. NEVER include any dialogue, speech bubbles, quotes, text, subtitles, words, letters, logos, or watermarks.
-6. Output EXACTLY a JSON array of strings containing exactly {len(narrations)} prompts in the same order as the input scenes:
+6. If the final scene contains ending channel subscription or call-to-action lines (e.g. 'like and subscribe', 'see you next time', '點個喜歡', '訂閱頻道'), strictly IGNORE the subscription wording and focus the visual prompt completely on the grand narrative conclusion, final historical scene, or character climax.
+7. Output EXACTLY a JSON array of strings containing exactly {len(narrations)} prompts in the same order as the input scenes:
 [
   "wide establishing shot of [subject and action description], [lighting], [environment], 16:9 widescreen composition",
   "..."
@@ -1138,6 +1139,41 @@ Return ONLY a valid JSON 2D array of integers, like:
     return fallback_chunks
 
 
+_CTA_KEYWORDS = (
+    "訂閱", "订阅", "按讚", "按赞", "點個喜歡", "点个赞", "點讚", "点赞",
+    "小鈴鐺", "小铃铛", "開啟小鈴鐺", "開啟鈴鐺", "开启小铃铛",
+    "分享", "留言", "追蹤", "关注", "下期見", "下一期", "下期再見",
+    "下集", "下回", "敬請期待", "subscribe", "like and subscribe",
+)
+
+
+def is_cta_line(line: str) -> bool:
+    """判斷一行台詞是否為頻道訂閱、按讚等片尾收尾宣傳詞。"""
+    l = line.lower()
+    return any(k in l for k in _CTA_KEYWORDS)
+
+
+def merge_trailing_cta_chunks(chunks: list[list[str]]) -> list[list[str]]:
+    """
+    若腳本末尾最後一幕主要為頻道訂閱、按讚、開啟小鈴鐺等呼籲語 (CTA)，
+    自動將其合併吸收到故事最後一幕，避免為訂閱詞多生成一個孤立無意義的新分鏡。
+    """
+    if len(chunks) <= 1:
+        return chunks
+
+    while len(chunks) > 1:
+        last_chunk = chunks[-1]
+        cta_count = sum(1 for line in last_chunk if is_cta_line(line))
+        # 若最後一幕包含 CTA 詞彙且句數偏短 (<= 3 句)，直接合併吸收到前一幕
+        if cta_count > 0 and (cta_count == len(last_chunk) or len(last_chunk) <= 3):
+            chunks[-2].extend(last_chunk)
+            chunks.pop()
+        else:
+            break
+
+    return chunks
+
+
 def parse_script_lines_to_scenes(
     script_lines_text: str,
     visual_pacing: str = "balanced",
@@ -1177,6 +1213,9 @@ def parse_script_lines_to_scenes(
             visual_pacing=visual_pacing,
             topic=topic,
         )
+
+    # 自動吸收合併片尾訂閱呼籲語 (CTA)，確保訂閱口白留在故事最後一幕，不產生孤立新分鏡
+    chunks = merge_trailing_cta_chunks(chunks)
 
     def _join_scene_sentences(lines: list[str]) -> str:
         processed = []

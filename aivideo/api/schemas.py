@@ -360,6 +360,8 @@ class ScenePipConfig(BaseModel):
     source_title: Optional[str] = None
     source_url: Optional[str] = None
     fetch_error: Optional[str] = None
+    verified: Optional[bool] = False
+    review_reason: Optional[str] = None
 
 
 class SceneSummary(BaseModel):
@@ -413,6 +415,25 @@ class TranslatePromptResponse(BaseModel):
 
 class FetchScenePipRequest(BaseModel):
     query: Optional[str] = None
+
+
+class ApplyPipUrlRequest(BaseModel):
+    url: str
+    title: Optional[str] = "自訂圖片網址"
+    query: Optional[str] = None
+
+
+class PipCandidateItem(BaseModel):
+    title: str
+    url: str
+    source: str
+    width: Optional[int] = 0
+    height: Optional[int] = 0
+
+
+class PipCandidatesResponse(BaseModel):
+    query: str
+    candidates: List[PipCandidateItem] = Field(default_factory=list)
 
 
 # ==========================================

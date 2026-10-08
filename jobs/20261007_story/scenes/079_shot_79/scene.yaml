@@ -13,7 +13,7 @@ locks:
   speech: false
   image: false
 current:
-  speech_take: speech_20261007T064550
+  speech_take: speech_20261008T125543
   image_take: image_20261007T064513
 pip:
   enabled: false
@@ -26,3 +26,5 @@ pip:
   source_title: null
   source_url: null
   fetch_error: null
+  verified: false
+  review_reason: null
