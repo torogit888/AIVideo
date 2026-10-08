@@ -1,0 +1,25 @@
+id: 022_shot_22
+index: 22
+title: 另外兩隻分別叫阿爾比娜和穆什卡
+narration: 另外兩隻分別叫阿爾比娜和穆什卡，阿爾比娜之前已經坐過高空火箭，而且剛生了一窩毛茸茸的狗崽，
+image_prompt: tender medium shot of Albina the white chibi dog resting peacefully
+  in a padded basket, surrounded by tiny newborn sleeping puppies, soft warm ambient
+  lighting, gentle and heartwarming cel-shaded cartoon art, 16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T055851
+  image_take: image_20261007T055838
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Albina and Mushka space dogs historical photo
+  fetch_error: 未找到合適照片

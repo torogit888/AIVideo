@@ -1,0 +1,27 @@
+id: 063_shot_63
+index: 63
+title: 而官方報紙只能繼續自欺欺人
+narration: 而官方報紙只能繼續自欺欺人，把一具早已冰冷的屍體說成是正在太空巡航的衛士，
+image_prompt: medium shot of a giant Soviet newspaper front page showing a triumphant
+  drawing of Laika in an orbital suit, while in the deep shadow behind it floats the
+  silent, dark reality of Sputnik 2 in orbit, dramatic contrasting lighting, 16:9
+  widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T063251
+  image_take: image_20261007T063211
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Soviet newspaper Laika story 1957
+  source_title: Laika
+  source_url: https://upload.wikimedia.org/wikipedia/commons/e/ea/Laika_in_1957.jpg

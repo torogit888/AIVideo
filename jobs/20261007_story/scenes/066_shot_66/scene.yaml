@@ -1,0 +1,29 @@
+id: 066_shot_66
+index: 66
+title: 西方的動物保護協會雖然在倫敦大使
+narration: 西方的動物保護協會雖然在倫敦大使館外抗議，但冷戰的政治狂熱很快就把這些質疑淹沒，莫斯科甚至指責西方帝國主義是在惡意抹黑蘇聯成就，
+image_prompt: wide shot of British protesters holding placards depicting a dog in
+  front of the Soviet Embassy in London on a rainy 1957 afternoon, yellow taxi cabs
+  and umbrellas, cool British gray street palette, 2D cartoon illustration, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T063510
+  image_take: image_20261007T164208
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: 集會
+  source_title: File:Norway's WW2 Resistance Museum in Oslo (Hjemmefrontmuseet). NS-sanger
+    (Nasjonal Samling songbook), etc. Photo 2017-11-30.jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/e/ee/Norway%27s_WW2_Resistance_Museum_in_Oslo_%28Hjemmefrontmuseet%29._NS-sanger_%28Nasjonal_Samling_songbook%29%2C_etc._Photo_2017-11-30.jpg
+  fetch_error: null

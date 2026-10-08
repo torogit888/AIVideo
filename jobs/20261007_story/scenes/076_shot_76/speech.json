@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261007T064241",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 7.61,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "根本不足以用那隻狗的死亡來為自己辯護",
+      "text_cn": "根本不足以用那只狗的死亡来为自己辩护",
+      "start_sec": 0.0,
+      "end_sec": 3.76,
+      "duration_sec": 3.76
+    },
+    {
+      "index": 2,
+      "text": "這份沉甸甸的懺悔，整整遲到了四十一年",
+      "text_cn": "这份沉甸甸的忏悔，整整迟到了四十一年",
+      "start_sec": 4.01,
+      "end_sec": 7.61,
+      "duration_sec": 3.6
+    }
+  ],
+  "created_at": "2026-10-07T06:42:41.029549+00:00"
+}

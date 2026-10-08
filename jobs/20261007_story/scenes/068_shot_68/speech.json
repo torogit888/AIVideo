@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261007T063659",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 8.57,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "繞著我們美麗的地球整整旋轉了一百六十二天",
+      "text_cn": "绕着我们美丽的地球整整旋转了一百六十二天",
+      "start_sec": 0.0,
+      "end_sec": 4.16,
+      "duration_sec": 4.16
+    },
+    {
+      "index": 2,
+      "text": "她在無聲的太空中繞行了大約兩千五百七十圈",
+      "text_cn": "她在无声的太空中绕行了大约两千五百七十圈",
+      "start_sec": 4.41,
+      "end_sec": 8.57,
+      "duration_sec": 4.16
+    }
+  ],
+  "created_at": "2026-10-07T06:36:59.263755+00:00"
+}

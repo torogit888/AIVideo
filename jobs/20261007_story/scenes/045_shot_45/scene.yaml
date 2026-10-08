@@ -1,0 +1,17 @@
+id: 045_shot_45
+index: 45
+title: 11月3日黎明前夕
+narration: 11月3日黎明前夕，技術人員在鎖死艙門前彎下腰親吻了她的鼻子，隨後厚重的金屬艙蓋被扳手一圈一圈死死旋緊，
+image_prompt: moving close-up shot of a technician leaning in to gently kiss chibi
+  Laika's black button nose at the cabin opening, moments before a heavy metal circular
+  hatch with steel bolts is placed over the viewport, warm rim light against industrial
+  steel, 16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T061546
+  image_take: image_20261007T061507

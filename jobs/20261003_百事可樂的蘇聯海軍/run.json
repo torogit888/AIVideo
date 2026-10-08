@@ -2,17 +2,17 @@
   "job_id": "20261003_百事可樂的蘇聯海軍",
   "is_running": false,
   "is_paused": false,
-  "is_done": true,
+  "is_done": false,
   "is_stopped": false,
-  "mode": "compose",
+  "mode": "all",
   "phase": "",
-  "progress": 1.0,
-  "message": "🎉 任務大功告成！全片分鏡、語音與 1080p 成片已準備就緒。",
+  "progress": 0.0,
+  "message": "",
   "error": null,
   "scene_id": null,
   "has_image": false,
   "has_audio": false,
   "cooldown_remaining": 0,
   "cooldown_total": 0,
-  "updated_at": "2026-10-06T13:21:21.621471+00:00"
+  "updated_at": "2026-10-07T05:21:28.634926+00:00"
 }

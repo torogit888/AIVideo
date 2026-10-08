@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20261007T063541",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 8.16,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "在掌聲和歡呼聲的背後，萊卡的遺體靜靜躺在那個燒焦的密封艙裡，像一顆被人遺忘的太空垃圾",
+      "text_cn": "在掌声和欢呼声的背后，莱卡的遗体静静躺在那个烧焦的密封舱里，像一颗被人遗忘的太空勒色",
+      "start_sec": 0.0,
+      "end_sec": 8.16,
+      "duration_sec": 8.16
+    }
+  ],
+  "created_at": "2026-10-07T06:35:41.839980+00:00"
+}

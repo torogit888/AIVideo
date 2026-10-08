@@ -1,0 +1,17 @@
+id: 044_shot_44
+index: 44
+title: 因為發射前各項設備調試極其緩慢
+narration: 因為發射前各項設備調試極其緩慢，她在暗無天日的鐵棺材裡整整等待了三天三夜，
+image_prompt: inside shot of the cramped sealed cabin where chibi Laika lies patiently
+  in the dim glow of tiny instrument dials, her chin on her paws, dust motes floating
+  in a sliver of light, somber blue-gray tones, 2D cartoon illustration, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T061448
+  image_take: image_20261007T061410

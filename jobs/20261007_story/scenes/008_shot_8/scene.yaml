@@ -1,0 +1,17 @@
+id: 008_shot_8
+index: 8
+title: 再向全世界丟出一個更震撼的超級奇
+narration: 再向全世界丟出一個更震撼的超級奇觀，他把科學家叫到辦公室，下了一道沒有商量餘地的死命令，
+image_prompt: eye-level medium shot of Nikita Khrushchev pointing an authoritative
+  stubby finger across an ornate Kremlin desk at nervous Soviet officials, dressed
+  in his charcoal double-breasted suit, tense shadows, rich Soviet red and gold decor,
+  crisp ink outlines, flat cel-shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T054854
+  image_take: image_20261007T054816

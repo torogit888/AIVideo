@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261007T054308",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 71642814,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background\nVibrant contrasting color palettes, crisp details throughout, expressive chibi faces, rich background props., close-up shot of a stylized illustrated Soviet booklet lying open on a worn wooden desk, depicting a heroic chibi dog ascending into an illustrated orbit, contrasted with an ominous shadow falling across a stamped flight pass, graphic cel-shading, cold teal and muted red tones, crisp clean line art, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-07T05:43:08.527743+00:00"
+}

@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20261007T062944",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 6.4,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "他們已經成功搶在美國人前面，向全人類炫耀了社會主義陣營的太空奇蹟",
+      "text_cn": "他们已经成功抢在美国人前面，向全人类炫耀了社会主义阵营的太空奇迹",
+      "start_sec": 0.0,
+      "end_sec": 6.4,
+      "duration_sec": 6.4
+    }
+  ],
+  "created_at": "2026-10-07T06:29:44.742769+00:00"
+}

@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261007T061844",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 12.18,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "當火箭衝出大氣層進入失重狀態時",
+      "text_cn": "当火箭冲出大气层进入失重状态时",
+      "start_sec": 0.0,
+      "end_sec": 3.16,
+      "duration_sec": 3.16
+    },
+    {
+      "index": 2,
+      "text": "她狂跳的心臟花了整整比地面長三倍的時間才勉強回落",
+      "text_cn": "她狂跳的心脏花了整整比地面长三倍的时间才勉强回落",
+      "start_sec": 3.41,
+      "end_sec": 8.37,
+      "duration_sec": 4.96
+    },
+    {
+      "index": 3,
+      "text": "這說明那隻小狗正處於極致的恐懼當中",
+      "text_cn": "这说明那只小狗正处于极致的恐惧当中",
+      "start_sec": 8.62,
+      "end_sec": 12.18,
+      "duration_sec": 3.56
+    }
+  ],
+  "created_at": "2026-10-07T06:18:44.292801+00:00"
+}

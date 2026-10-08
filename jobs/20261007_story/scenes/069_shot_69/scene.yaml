@@ -1,0 +1,16 @@
+id: 069_shot_69
+index: 69
+title: 直到1958年4月14日
+narration: 直到1958年4月14日，史普尼克二號墜入大氣層，化作一道無人注意的流星徹底燒成灰燼，
+image_prompt: breathtaking atmospheric shot of a brilliant golden shooting star streaking
+  across a deep indigo night sky above quiet ocean clouds, burning down peacefully
+  into nothingness, sparkling cartoon dust trails, 16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T063739
+  image_take: image_20261007T063719

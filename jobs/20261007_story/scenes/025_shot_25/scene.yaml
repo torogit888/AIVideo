@@ -1,0 +1,28 @@
+id: 025_shot_25
+index: 25
+title: 為了讓她適應發射
+narration: 為了讓她適應發射，研究人員把她塞進離心機模擬幾倍重力過載，用巨大的噪音艙重現火箭發動機的轟鳴，
+image_prompt: dynamic shot of chibi Laika secured inside a spinning industrial centrifuge
+  machine in a vast Soviet testing facility, heavy steel arms rotating, bright clinical
+  lighting with motion blur lines in 2D cartoon style, clean vector aesthetic, 16:9
+  widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T060112
+  image_take: image_20261007T162921
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: 火箭發動機
+  source_title: File:F-22 Raptor edit1.jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/e/e2/F-22_Raptor_edit1.jpg
+  fetch_error: null

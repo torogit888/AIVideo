@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20261007T063947",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 6.4,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "安然無恙地活著返回了地球，斯特雷卡後來甚至生下了一窩健康的狗寶寶",
+      "text_cn": "安然无恙地活着返回了地球，斯特雷卡后来甚至生下了一窝健康的狗宝宝",
+      "start_sec": 0.0,
+      "end_sec": 6.4,
+      "duration_sec": 6.4
+    }
+  ],
+  "created_at": "2026-10-07T06:39:47.630059+00:00"
+}

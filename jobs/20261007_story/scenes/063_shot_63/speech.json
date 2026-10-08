@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20261007T063251",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 7.16,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "而官方報紙只能繼續自欺欺人，把一具早已冰冷的屍體說成是正在太空巡航的衛士",
+      "text_cn": "而官方报纸只能继续自欺欺人，把一具早已冰冷的尸体说成是正在太空巡航的卫士",
+      "start_sec": 0.0,
+      "end_sec": 7.16,
+      "duration_sec": 7.16
+    }
+  ],
+  "created_at": "2026-10-07T06:32:51.181031+00:00"
+}

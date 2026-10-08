@@ -1,0 +1,17 @@
+id: 034_shot_34
+index: 34
+title: 但這套看似周密的維持系統背後
+narration: '[dissatisfaction-hnn]但這套看似周密的維持系統背後，根本沒有隔熱防護罩，沒有降落傘包，更沒有任何可以彈射返回的逃生裝置，'
+image_prompt: exterior 3/4 view of the Sputnik 2 conical satellite payload floating
+  in conceptual void, showing plain riveted aluminum plates without thermal heat shielding
+  tiles or parachute hatches, stark geometric vector lines, industrial gray and steel
+  blue cel-shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T060559
+  image_take: image_20261007T060545

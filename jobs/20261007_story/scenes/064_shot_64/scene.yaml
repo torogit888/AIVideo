@@ -1,0 +1,17 @@
+id: 064_shot_64
+index: 64
+title: 承認她是消耗品
+narration: '[dissatisfaction-hnn]承認她是消耗品，就等於承認這場偉大的科學勝利，是用一條無辜的生命換來的政治獻禮，'
+image_prompt: conceptual shot of an imposing golden Soviet Kremlin tower casting a
+  long, dark spear-like shadow across an innocent little dog's paw print in the snow,
+  dramatic symbolic graphic design, bold red and cold gray contrast, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T063349
+  image_take: image_20261007T063311

@@ -1,0 +1,28 @@
+id: 073_shot_73
+index: 73
+title: 赫魯雪夫還把其中一隻送給了美國總
+narration: 赫魯雪夫還把其中一隻送給了美國總統甘迺迪的女兒，這證明安全回收生命在技術上根本不是無法逾越的神話，
+image_prompt: wide interior shot of the White House Oval Office in chibi cartoon style,
+  a young Caroline Kennedy joyfully holding a fluffy white puppy named Pushinka beside
+  a smiling President Kennedy, elegant mid-century American decor, soft morning light,
+  16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T064008
+  image_take: image_20261007T063953
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Nikita Khrushchev and Caroline Kennedy with Pushinka photo
+  source_title: Caroline Kennedy
+  source_url: https://upload.wikimedia.org/wikipedia/commons/7/7c/Caroline_Kennedy%2C_U.S._Ambassador_2.jpg
+  fetch_error: null

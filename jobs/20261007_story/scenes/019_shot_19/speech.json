@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20261007T055651",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 6.4,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "第二體重必須卡在六公斤左右，身材太胖就塞不進那顆倉促改裝的鐵罐頭",
+      "text_cn": "第二体重必须卡在六公斤左右，身材太胖就塞不进那颗仓促改装的铁罐头",
+      "start_sec": 0.0,
+      "end_sec": 6.4,
+      "duration_sec": 6.4
+    }
+  ],
+  "created_at": "2026-10-07T05:56:51.362197+00:00"
+}

@@ -1,0 +1,27 @@
+id: 033_shot_33
+index: 33
+title: 按照紙面上的工程計算
+narration: 按照紙面上的工程計算，艙內的食物和氧氣最多能維持七到十天，設計師甚至在第十天的凝膠食物裡混入了致命毒藥，美其名曰讓她在無痛中安樂死，
+image_prompt: close-up shot of a small metallic dispenser containing nutrient gel
+  packets, one marked with an ominous subtle chemical seal, sitting on a stainless
+  steel medical prep tray under stark lab light, clean cel-shaded graphic art, 16:9
+  widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T060533
+  image_take: null
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Sputnik 2 mission plan document
+  source_title: Vostok programme
+  source_url: https://upload.wikimedia.org/wikipedia/commons/d/df/Vostok_spacecraft.jpg

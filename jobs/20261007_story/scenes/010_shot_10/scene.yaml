@@ -1,0 +1,27 @@
+id: 010_shot_10
+index: 10
+title: 負責這項任務的總工程師科羅廖夫
+narration: 負責這項任務的總工程師科羅廖夫，當時在官方檔案裡連真實姓名都不配擁有，他在大清洗時期坐過牢，
+image_prompt: melancholic medium shot of Sergei Korolev in chibi form, broad forehead
+  with receding hair and tired under-eye bags, standing in a dim Soviet hallway holding
+  rolled blueprints, a long lonely shadow cast behind him, muted gray and brown cel-shaded
+  tones, crisp outlines, 16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T055050
+  image_take: image_20261007T055012
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Sergei Korolev portrait
+  source_title: Tretyakov Gallery
+  source_url: https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d8/Moscow_05-2012_TretyakovGallery.jpg/3840px-Moscow_05-2012_TretyakovGallery.jpg

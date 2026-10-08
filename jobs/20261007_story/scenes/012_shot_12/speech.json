@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261007T055211",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 12.28,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "甚至連發射地點丘拉坦荒原，對外都要借用三百公里外一個礦區的名字拜科努爾",
+      "text_cn": "甚至连发射地点丘拉坦荒原，对外都要借用三百公里外一个矿区的名字拜科努尔",
+      "start_sec": 0.0,
+      "end_sec": 7.0,
+      "duration_sec": 7.0
+    },
+    {
+      "index": 2,
+      "text": "[dissatisfaction-hnn]在一個連地名和科學家名字都要造假的帝國裡",
+      "text_cn": "[dissatisfaction-hnn]在一个连地名和科学家名字都要造假的帝国里",
+      "start_sec": 7.25,
+      "end_sec": 12.28,
+      "duration_sec": 5.03
+    }
+  ],
+  "created_at": "2026-10-07T05:52:11.009407+00:00"
+}

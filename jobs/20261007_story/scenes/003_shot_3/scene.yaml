@@ -1,0 +1,17 @@
+id: 003_shot_3
+index: 3
+title: 從一開始就被悄悄印上了單程死刑
+narration: 從一開始就被悄悄印上了單程死刑，[question-ei]你以為第一個繞地球一圈的心跳是榮耀的凱旋，還是早就被算計好的消耗品呢，
+image_prompt: conceptual medium shot of chibi dog Laika curled softly inside a floating
+  metallic chamber, an oversized glowing green oscilloscope line pulsing with a single
+  heartbeat across the dark frame, cold blue and industrial gray palette, cel-shaded
+  2D cartoon style with delicate vector outlines, 16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T054403
+  image_take: image_20261007T054349

@@ -1,0 +1,17 @@
+id: 028_shot_28
+index: 28
+title: 她的安靜和乖巧
+narration: 她的安靜和乖巧，最終變成了判處她死刑的唯一資格，
+image_prompt: melancholic close-up portrait of chibi Laika looking directly into the
+  camera with innocent, trusting dark eyes, a warm single spotlight illuminating her
+  face against a gradually darkening institutional background, delicate cel-shading,
+  16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T060243
+  image_take: image_20261007T060222

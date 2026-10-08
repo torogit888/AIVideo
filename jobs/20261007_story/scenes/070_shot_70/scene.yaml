@@ -1,0 +1,16 @@
+id: 070_shot_70
+index: 70
+title: 如果技術極限真的注定了回不來
+narration: '[question-ah]如果技術極限真的注定了回不來，這場悲劇或許還能被冠上探索代價的藉口，'
+image_prompt: conceptual medium shot of an antique brass compass and an open celestial
+  navigation star map resting beside a small bronze dog collar, soft wistful evening
+  light, warm nostalgic cel-shaded tones, 16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T063901
+  image_take: image_20261007T063759

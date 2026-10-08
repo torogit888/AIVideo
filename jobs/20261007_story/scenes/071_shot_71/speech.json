@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261007T063924",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.74,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "僅僅在萊卡犧牲兩年多後的1960年8月",
+      "text_cn": "仅仅在莱卡牺牲两年多后的1960年8月",
+      "start_sec": 0.0,
+      "end_sec": 4.12,
+      "duration_sec": 4.12
+    },
+    {
+      "index": 2,
+      "text": "蘇聯就發射了配備完整降落傘回收艙的五號衛星",
+      "text_cn": "苏联就发射了配备完整降落伞回收舱的五号卫星",
+      "start_sec": 4.37,
+      "end_sec": 8.73,
+      "duration_sec": 4.36
+    },
+    {
+      "index": 3,
+      "text": "兩隻名叫別爾卡和斯特雷卡的小狗在太空繞行一天後",
+      "text_cn": "两只名叫别尔卡和斯特雷卡的小狗在太空绕行一天后",
+      "start_sec": 8.98,
+      "end_sec": 13.74,
+      "duration_sec": 4.76
+    }
+  ],
+  "created_at": "2026-10-07T06:39:24.580397+00:00"
+}

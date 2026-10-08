@@ -1,0 +1,28 @@
+id: 078_shot_78
+index: 78
+title: 站在一隻由火箭線條托起的人類手掌
+narration: 站在一隻由火箭線條托起的人類手掌上，這座雕像看起來既像是凱旋的王座，卻又無比諷刺地像極了一座供奉祭品的祭壇，
+image_prompt: 'low-angle medium shot of the bronze monument: a stylized sculpted bronze
+  human hand blending into rocket exhaust lines, holding up a small proud chibi statue
+  of Laika looking toward the sky, warm bronze metallic sheen against pale blue clouds,
+  16:9 widescreen composition'
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T064448
+  image_take: image_20261007T064435
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: 萊卡紀念碑
+  source_title: File:Galeria Antica - Campanile della chiesa di S. Nicola.JPG
+  source_url: https://upload.wikimedia.org/wikipedia/commons/0/06/Galeria_Antica_-_Campanile_della_chiesa_di_S._Nicola.JPG
+  fetch_error: null

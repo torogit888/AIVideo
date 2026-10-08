@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261007T055500",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 11.94,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[surprise-oh]專家們的邏輯聽起來非常冷血又務實",
+      "text_cn": "[surprise-oh]专家们的逻辑听起来非常冷血又务实",
+      "start_sec": 0.0,
+      "end_sec": 4.12,
+      "duration_sec": 4.12
+    },
+    {
+      "index": 2,
+      "text": "因為只有在殘酷街頭摸爬滾打過的野狗",
+      "text_cn": "因为只有在残酷街头摸爬滚打过的野狗",
+      "start_sec": 4.37,
+      "end_sec": 7.93,
+      "duration_sec": 3.56
+    },
+    {
+      "index": 3,
+      "text": "才扛得住極致的飢餓和零下幾十度的嚴寒",
+      "text_cn": "才扛得住极致的饥饿和零下几十度的严寒",
+      "start_sec": 8.18,
+      "end_sec": 11.94,
+      "duration_sec": 3.76
+    }
+  ],
+  "created_at": "2026-10-07T05:55:00.319260+00:00"
+}

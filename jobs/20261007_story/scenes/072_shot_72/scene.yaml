@@ -1,0 +1,26 @@
+id: 072_shot_72
+index: 72
+title: 安然無恙地活著返回了地球
+narration: 安然無恙地活著返回了地球，斯特雷卡後來甚至生下了一窩健康的狗寶寶，
+image_prompt: delightful medium shot of chibi dog Strelka lying happily on a green
+  lawn surrounded by playful fluffy puppies tumbling over one another in the sunlight,
+  vibrant warm park setting, charming cel-shaded art, 16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T063947
+  image_take: null
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Strelka dog and puppies historical photo
+  source_title: List of individual dogs
+  source_url: https://upload.wikimedia.org/wikipedia/commons/4/47/Faithful_Dog_Hachiko_Photo.png

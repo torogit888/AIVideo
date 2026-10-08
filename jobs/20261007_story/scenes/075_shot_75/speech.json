@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261007T064139",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 11.33,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "1998年曾經主導這項任務的高級科學家加津科公開懺悔",
+      "text_cn": "1998年曾经主导这项任务的高级科学家加津科公开忏悔",
+      "start_sec": 0.0,
+      "end_sec": 5.48,
+      "duration_sec": 5.48
+    },
+    {
+      "index": 2,
+      "text": "他說隨著時間過去我內心越來越後悔，那次任務帶來的科學收獲",
+      "text_cn": "他说随着时间过去我内心越来越后悔，那次任务带来的科学收获",
+      "start_sec": 5.73,
+      "end_sec": 11.33,
+      "duration_sec": 5.6
+    }
+  ],
+  "created_at": "2026-10-07T06:41:39.470717+00:00"
+}

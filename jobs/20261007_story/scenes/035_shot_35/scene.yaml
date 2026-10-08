@@ -1,0 +1,17 @@
+id: 035_shot_35
+index: 35
+title: 因為冷戰的科學家們當時只想知道一
+narration: 因為冷戰的科學家們當時只想知道一個問題，哺乳動物在徹底失重的狀態下究竟能活多久，心臟會不會直接停止跳動，眼睛能不能對焦，
+image_prompt: graphic medium shot of Soviet scientists in silhouette standing behind
+  a wall of glowing oscilloscopes and paper strip chart recorders, watching green
+  cardiac waveforms, cold teal and phosphor green lighting, retro-futuristic cartoon
+  style, 16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T060640
+  image_take: image_20261007T060618

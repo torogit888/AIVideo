@@ -1,0 +1,17 @@
+id: 009_shot_9
+index: 9
+title: 四周之內必須再發射一顆更大的衛星
+narration: 四周之內必須再發射一顆更大的衛星，而且裡面必須塞進一個活生生的生命，
+image_prompt: close-up shot of a heavy vintage red telephone receiver on a desk next
+  to an open calendar with four weeks aggressively marked in red ink, an ominous silhouette
+  of a rocket looming in the background window, graphic mid-century Soviet cartoon
+  style, high contrast cel-shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T054953
+  image_take: image_20261007T054913

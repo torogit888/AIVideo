@@ -1,0 +1,17 @@
+id: 006_shot_6
+index: 6
+title: 但它發出的嗶嗶聲
+narration: 但它發出的嗶嗶聲，卻在西方世界引發了一場巨大的史普尼克休克，美國人一夜之間被洲際飛彈的陰影徹底嚇懵，
+image_prompt: wide shot of American citizens and military generals in a 1950s living
+  room in chibi cartoon style, looking up in shock at the window while newspaper silhouettes
+  flutter in anxiety, cast in deep moody blue shadows with pale television glow, clean
+  contour lines, cel-shaded style, 16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T054647
+  image_take: image_20261007T054610

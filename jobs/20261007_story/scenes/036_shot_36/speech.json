@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261007T060742",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 10.58,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "動物會不會在幽閉恐懼中當場發瘋",
+      "text_cn": "动物会不会在幽闭恐惧中当场发疯",
+      "start_sec": 0.0,
+      "end_sec": 3.16,
+      "duration_sec": 3.16
+    },
+    {
+      "index": 2,
+      "text": "為了向全世界證明蘇聯科技的絕對領先",
+      "text_cn": "为了向全世界证明苏联科技的绝对领先",
+      "start_sec": 3.41,
+      "end_sec": 6.97,
+      "duration_sec": 3.56
+    },
+    {
+      "index": 3,
+      "text": "他們需要的是一連串跳動的生理數字",
+      "text_cn": "他们需要的是一连串跳动的生理数字",
+      "start_sec": 7.22,
+      "end_sec": 10.58,
+      "duration_sec": 3.36
+    }
+  ],
+  "created_at": "2026-10-07T06:07:42.838044+00:00"
+}

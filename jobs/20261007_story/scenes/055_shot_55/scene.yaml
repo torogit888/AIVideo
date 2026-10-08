@@ -1,0 +1,29 @@
+id: 055_shot_55
+index: 55
+title: 這些互相打臉的謊言被寫進了蘇聯各
+narration: 這些互相打臉的謊言被寫進了蘇聯各地的教科書，直到冷戰結束後的2002年，在美國休士頓舉行的世界太空大會上，
+image_prompt: medium shot of an elderly Soviet scientist in a dark suit standing at
+  a modern international conference podium in Houston 2002, looking somberly at the
+  audience beneath stage spotlights, clean contemporary 2D cartoon style, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T062506
+  image_take: image_20261007T163417
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: 美國休士頓
+  source_title: File:Houston Rockets at Boston Celtics 1979-10-12 (Official Scorer's
+    Report).jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/5/51/Houston_Rockets_at_Boston_Celtics_1979-10-12_%28Official_Scorer%27s_Report%29.jpg
+  fetch_error: null

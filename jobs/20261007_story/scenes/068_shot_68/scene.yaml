@@ -1,0 +1,17 @@
+id: 068_shot_68
+index: 68
+title: 繞著我們美麗的地球整整旋轉了一百
+narration: 繞著我們美麗的地球整整旋轉了一百六十二天，她在無聲的太空中繞行了大約兩千五百七十圈，
+image_prompt: wide orbital shot showing the tiny silhouette of Sputnik 2 tracing a
+  glowing dotted circular path repeatedly around a peaceful, luminous blue and white
+  Earth, deep navy starfield background, crisp geometric vector styling, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T063659
+  image_take: image_20261007T063557

@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261007T055144",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 8.17,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "在嚴寒的科雷馬苦役營裡差點丟掉性命",
+      "text_cn": "在严寒的科雷马苦役营里差点丢掉性命",
+      "start_sec": 0.0,
+      "end_sec": 3.56,
+      "duration_sec": 3.56
+    },
+    {
+      "index": 2,
+      "text": "此時的他只能用總設計師這個空頭銜替國家賣命",
+      "text_cn": "此时的他只能用总设计师这个空头衔替国家卖命",
+      "start_sec": 3.81,
+      "end_sec": 8.17,
+      "duration_sec": 4.36
+    }
+  ],
+  "created_at": "2026-10-07T05:51:44.971802+00:00"
+}

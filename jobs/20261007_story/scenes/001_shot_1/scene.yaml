@@ -1,0 +1,28 @@
+id: 001_shot_1
+index: 1
+title: 大家好
+narration: 大家好，我是白兔，你小時候看過那張著名的蘇聯太空海報嗎，海報上有一隻毛色黑白相間的小狗，昂首挺胸地望著深邃的星空，
+image_prompt: medium shot of a vintage propaganda style cartoon poster featuring Chibi
+  Laika, the cream-and-black stray dog looking upward toward the starry cosmos with
+  wide innocent brown eyes, wearing her khaki harness, surrounded by graphic Soviet
+  red starburst rays, deep navy indigo space background with cartoon stars, bold black
+  ink outlines, flat cel-shaded coloring, 16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T054241
+  image_take: image_20261007T054226
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: 太空狗萊卡
+  source_title: File:Laika in 1957.jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/e/ea/Laika_in_1957.jpg

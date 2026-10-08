@@ -47,23 +47,17 @@ def get_candidate_locations_for_model(model_name: str, env_location: str = "") -
     if "grok" in m:
         return ["global"]
 
+    # 3 系列模型 (gemini-3.8-flash, gemini-3.5-flash, gemini-3.1-flash-image 等) 在 Vertex AI 必須使用 global 全域端點
+    if "gemini-3" in m:
+        return ["global", "us-central1", "us-east4", "us-west1"]
+
     # 使用者環境變數指定
     if env_location:
         locs.append(env_location)
 
-    # 3 系列模型在 Vertex AI 優先部署於 global 全域端點
-    if "gemini-3" in m:
-        for r in ("global", "us-central1", "us-east4", "us-west1"):
-            if r not in locs:
-                locs.append(r)
-    elif "imagen" in m:
-        for r in ("us-central1", "us-east4", "global"):
-            if r not in locs:
-                locs.append(r)
-    else:
-        for r in ("global", "us-central1", "us-east4"):
-            if r not in locs:
-                locs.append(r)
+    for r in ("global", "us-central1", "us-east4"):
+        if r not in locs:
+            locs.append(r)
 
     return locs
 

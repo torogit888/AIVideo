@@ -1,0 +1,17 @@
+id: 048_shot_48
+index: 48
+title: 當火箭衝出大氣層進入失重狀態時
+narration: 當火箭衝出大氣層進入失重狀態時，她狂跳的心臟花了整整比地面長三倍的時間才勉強回落，這說明那隻小狗正處於極致的恐懼當中，
+image_prompt: interior shot of chibi Laika floating slightly within her harness straps
+  in microgravity, her small paws hovering off the floor, panting with wide terrified
+  glassy eyes as tiny floating water droplets drift past, cool blue ambient light,
+  16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T061844
+  image_take: image_20261007T061805

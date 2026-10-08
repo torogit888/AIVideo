@@ -1,0 +1,17 @@
+id: 080_shot_80
+index: 80
+title: 歡迎在評論區留下你的看法
+narration: 歡迎在評論區留下你的看法，如果你也喜歡這段荒謬又真實的歷史，別忘了點個喜歡，訂閱頻道，
+image_prompt: creative closing composition featuring an illustrated vintage wooden
+  broadcast desk with an old microphone, a stack of open viewer comment letters, and
+  a framed cute portrait of chibi Laika, cozy warm studio lighting, clean 2D cartoon
+  lines, 16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T064652
+  image_take: image_20261007T064615

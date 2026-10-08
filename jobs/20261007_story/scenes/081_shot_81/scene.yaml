@@ -1,0 +1,17 @@
+id: 081_shot_81
+index: 81
+title: 我們下一期故事
+narration: 我們下一期故事，繼續拆解那些被官方敘事掩蓋的真實角落，
+image_prompt: mysterious and intriguing wide shot of a retro Soviet archive room with
+  rows of tall wooden filing cabinets, a single drawer pulled open revealing glowing
+  golden light from within, dramatic atmospheric shadows, crisp 2D cartoon style,
+  16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T064745
+  image_take: image_20261007T064707

@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261007T054324",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 12.25,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[confirmation-en]官方的宣傳冊把她描繪成全人類的英雄",
+      "text_cn": "[confirmation-en]官方的宣传册把她描绘成全人类的英雄",
+      "start_sec": 0.0,
+      "end_sec": 4.6,
+      "duration_sec": 4.6
+    },
+    {
+      "index": 2,
+      "text": "說她是第一個飛出地球軌道的生命，但你可能很難想像，這張被全世界傳頌的太空船票",
+      "text_cn": "说她是第一个飞出地球轨道的生命，但你可能很难想像，这张被全世界传颂的太空船票",
+      "start_sec": 4.85,
+      "end_sec": 12.25,
+      "duration_sec": 7.4
+    }
+  ],
+  "created_at": "2026-10-07T05:43:24.969076+00:00"
+}

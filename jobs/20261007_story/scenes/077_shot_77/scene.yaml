@@ -1,0 +1,28 @@
+id: 077_shot_77
+index: 77
+title: 2008年4月莫斯科那座軍事醫學
+narration: 2008年4月莫斯科那座軍事醫學研究所門口，終於立起了一座小小的青銅紀念碑，青銅雕塑裡那隻名叫萊卡的小狗，
+image_prompt: wide establishing shot of the Institute of Military Medicine in Moscow
+  in spring, with green trees framing a modest bronze monument in the courtyard under
+  soft golden afternoon sunlight, clean 2D cartoon architectural styling, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T064404
+  image_take: image_20261007T064300
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Laika monument Moscow photo
+  source_title: Yuri Gagarin
+  source_url: https://upload.wikimedia.org/wikipedia/commons/d/d8/Yuri_Gagarin_with_awards_%28cropped%29_2.jpg
+  fetch_error: null

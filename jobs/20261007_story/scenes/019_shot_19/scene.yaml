@@ -1,0 +1,17 @@
+id: 019_shot_19
+index: 19
+title: 第二體重必須卡在六公斤左右
+narration: 第二體重必須卡在六公斤左右，身材太胖就塞不進那顆倉促改裝的鐵罐頭，
+image_prompt: close-up shot of chibi dog Laika sitting calmly on a vintage mechanical
+  brass medical scale, the needle resting precisely near six kilograms, a scientist's
+  hand adjusting the weights, clean graphic outlines, warm vintage lab tones, 16:9
+  widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T055651
+  image_take: image_20261007T055612

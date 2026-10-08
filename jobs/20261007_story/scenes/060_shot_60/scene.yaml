@@ -1,0 +1,17 @@
+id: 060_shot_60
+index: 60
+title: 他們已經成功搶在美國人前面
+narration: 他們已經成功搶在美國人前面，向全人類炫耀了社會主義陣營的太空奇蹟，
+image_prompt: low-angle shot of Nikita Khrushchev and officials smiling triumphantly
+  on the Red Square viewing stand, surrounded by bouquets of red carnations and fluttering
+  flags under a crisp autumn sky, bold cel-shading, clean contour lines, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T062944
+  image_take: image_20261007T062907

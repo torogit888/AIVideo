@@ -1,0 +1,27 @@
+id: 051_shot_51
+index: 51
+title: 而在幾百公里外的地球表面
+narration: 而在幾百公里外的地球表面，莫斯科的廣播電台正在向全世界播放激昂的進行曲，蘇聯官方塔斯社得意洋洋地向全球發布通訊，
+image_prompt: wide street scene in 1950s Moscow, chibi citizens gathered beneath large
+  public loudspeakers mounted on street corners, listening with proud smiles beneath
+  fluttering red banners, vibrant Soviet mid-century graphic poster colors, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T062141
+  image_take: image_20261007T062119
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: TASS news agency Sputnik 2 communiqué
+  source_title: Russian intervention in the Syrian civil war
+  source_url: https://upload.wikimedia.org/wikipedia/commons/6/6a/%D0%9F%D0%B0%D1%82%D1%80%D1%83%D0%BB%D1%8C_%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D0%B8_%D0%B2_%D0%A1%D0%B8%D1%80%D0%B8%D0%B8.jpg

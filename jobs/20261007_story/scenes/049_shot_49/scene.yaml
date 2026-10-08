@@ -1,0 +1,27 @@
+id: 049_shot_49
+index: 49
+title: 緊接著致命的工程災難爆發了
+narration: '[surprise-wa]緊接著致命的工程災難爆發了，火箭的鼻錐整流罩在入軌時沒有按計畫乾淨分離，隔熱層在強烈的拉扯下嚴重受損，'
+image_prompt: exterior space shot of Sputnik 2 in low orbit, with a torn thermal shielding
+  layer flapping jaggedly near the rocket connector in the stark sunlight, harsh white
+  directional sun against deep navy space, crisp geometric mechanical lines, 16:9
+  widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T061947
+  image_take: image_20261007T061909
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Sputnik 2 nose cone fairing diagram
+  source_title: Inertial navigation system
+  source_url: https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Project_SPIRE_Inertial_Navigation_Control.jpg/3840px-Project_SPIRE_Inertial_Navigation_Control.jpg

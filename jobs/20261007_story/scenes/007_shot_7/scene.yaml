@@ -1,0 +1,28 @@
+id: 007_shot_7
+index: 7
+title: 眼看全球輿論都在驚呼蘇聯的勝利
+narration: '[surprise-wa]眼看全球輿論都在驚呼蘇聯的勝利，當時的蘇聯最高領導人赫魯雪夫坐不住了，他要在即將到來的11月7日十月革命四十週年閱兵前，'
+image_prompt: dramatic medium shot of Nikita Khrushchev in chibi form, stout and rotund
+  with a bald head and heavy jowls, standing imperiously beside a long polished conference
+  table, slamming a thick fist down beside Soviet anniversary calendars, warm dramatic
+  desk lamp lighting against deep crimson drapes, bold 2D cartoon cel-shading, 16:9
+  widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T054745
+  image_take: image_20261007T054708
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Nikita Khrushchev 1957 portrait
+  source_title: Nikita Khrushchev
+  source_url: https://upload.wikimedia.org/wikipedia/commons/4/4d/1956_Press_Photo_Communist_Party_Secretary_Nikita_S._Khrushchev_in_Moscow_%28cropped%29.jpg

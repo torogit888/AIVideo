@@ -1,0 +1,27 @@
+id: 037_shot_37
+index: 37
+title: 但因為紅場閱兵的死線一天天逼近
+narration: 但因為紅場閱兵的死線一天天逼近，整個衛星的溫度控制系統根本沒有做過聯合測試，這艘史普尼克二號本質上不是一艘探索飛船，而是一口會向地面自動發送心電圖的軌道棺材，
+image_prompt: dramatic side profile of Sputnik 2 in dark orbit, with a faint red ECG
+  waveform rhythmically pulsing across the outer metallic hull against the vast blackness
+  of space, chilling cold color palette, crisp 2D cartoon vector linework, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T060814
+  image_take: null
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Sputnik 2 satellite historical photo
+  source_title: Sputnik 1
+  source_url: https://upload.wikimedia.org/wikipedia/commons/b/b7/%D0%9F%D0%B5%D1%80%D0%B2%D1%8B%D0%B9_%D0%B2_%D0%BC%D0%B8%D1%80%D0%B5_%D0%B8%D1%81%D0%BA%D1%83%D1%81%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9_%D1%81%D0%BF%D1%83%D1%82%D0%BD%D0%B8%D0%BA_%D0%97%D0%B5%D0%BC%D0%BB%D0%B8.jpg

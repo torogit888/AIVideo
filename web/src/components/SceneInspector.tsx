@@ -177,7 +177,11 @@ export const SceneInspector: React.FC = () => {
     }
   };
 
-  const handleQuickUpdatePip = async (nextEnabled: boolean, nextMode: "pip" | "spotlight") => {
+  const handleQuickUpdatePip = async (
+    nextEnabled: boolean,
+    nextMode: "pip" | "spotlight",
+    customMsg?: string
+  ) => {
     setPipEnabled(nextEnabled);
     setPipMode(nextMode);
     if (!selectedJobId || !activeSceneId || !detail) return;
@@ -194,7 +198,9 @@ export const SceneInspector: React.FC = () => {
       });
       setDetail(updated);
       await loadScenes(selectedJobId);
-      showToast(nextEnabled ? "已啟用本幕考據" : "已取消本幕考據", "info");
+      if (customMsg !== "") {
+        showToast(customMsg || (nextEnabled ? "已啟用本幕考據" : "已取消本幕考據"), "info");
+      }
     } catch (e: any) {
       showToast("更新考據狀態失敗: " + (e.message || "未知錯誤"), "error");
     }
@@ -836,37 +842,70 @@ export const SceneInspector: React.FC = () => {
                   type="text"
                   value={pipQuery}
                   onChange={(e) => setPipQuery(e.target.value)}
+                  onBlur={async () => {
+                    const trimmed = pipQuery.trim();
+                    if (trimmed !== (detail?.pip?.query || "")) {
+                      await handleQuickUpdatePip(pipEnabled, pipMode, "已儲存考據檢索詞");
+                    }
+                  }}
                   placeholder="輸入具體型號、人物全名或條目名 (例如：Whiskey-class submarine)"
                   className="w-full h-7 px-2 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text font-mono focus:outline-none focus:border-amber-cta"
                 />
 
                 {detail?.status?.has_pip && detail?.status?.pip_url && (
-                  <div className="pt-1.5 border-t border-cinema-border/50 space-y-1">
+                  <div className="pt-1.5 border-t border-cinema-border/50 space-y-1.5">
                     <div className="text-[10px] text-emerald-400 flex items-center justify-between">
-                      <span className="flex items-center">
-                        <CheckCircle2 className="w-3 h-3 mr-1" /> 已下載真實考據照片
+                      <span className="flex items-center font-medium">
+                        <CheckCircle2 className="w-3 h-3 mr-1 shrink-0" /> 已就緒考據照片
                       </span>
-                      <div className="flex items-center space-x-1.5">
-                        {detail.pip?.source_title && (
-                          <span className="text-[9px] text-cinema-muted truncate max-w-[100px]" title={detail.pip.source_title}>
+                      <button
+                        onClick={handleClearPip}
+                        disabled={isClearingPip}
+                        className="flex items-center px-1.5 py-0.5 rounded bg-red-950/50 hover:bg-red-900/70 border border-red-800 text-[10px] text-red-300 transition-colors cursor-pointer disabled:opacity-40"
+                        title="徹底刪除此考據圖檔案，完全回歸 AI 純繪圖畫面"
+                      >
+                        {isClearingPip ? (
+                          <Loader2 className="w-2.5 h-2.5 animate-spin mr-0.5" />
+                        ) : (
+                          <Trash2 className="w-2.5 h-2.5 mr-0.5" />
+                        )}
+                        <span>清除圖檔</span>
+                      </button>
+                    </div>
+
+                    {/* 檢索詞 vs 來源檔案標題清楚對照 */}
+                    <div className="text-[10px] space-y-0.5 bg-cinema-darker/70 p-1.5 rounded border border-cinema-border/60 font-mono">
+                      <div className="flex items-center text-cinema-muted truncate">
+                        <span className="text-zinc-500 mr-1.5 shrink-0">命中實體:</span>
+                        <span className="text-amber-cta/90 truncate font-semibold" title={detail.pip?.query || pipQuery}>
+                          {detail.pip?.query || pipQuery || "未指定"}
+                        </span>
+                      </div>
+                      {detail.pip?.source_title && (
+                        <div className="flex items-center text-cinema-muted truncate">
+                          <span className="text-zinc-500 mr-1.5 shrink-0">圖檔出處:</span>
+                          <span className="text-zinc-300 truncate" title={detail.pip.source_title}>
                             {detail.pip.source_title}
                           </span>
-                        )}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* 若使用者修改了檢索詞但尚未重新抓圖，提示點擊更新 */}
+                    {pipQuery.trim() && detail.pip?.query && pipQuery.trim() !== detail.pip.query && (
+                      <div className="flex items-center justify-between p-1.5 rounded bg-amber-950/40 border border-amber-800/60 text-[10px] text-amber-300">
+                        <span>檢索詞已修改，照片尚未更新</span>
                         <button
-                          onClick={handleClearPip}
-                          disabled={isClearingPip}
-                          className="flex items-center px-1.5 py-0.5 rounded bg-red-950/50 hover:bg-red-900/70 border border-red-800 text-[10px] text-red-300 transition-colors cursor-pointer disabled:opacity-40"
-                          title="徹底刪除此考據圖檔案，完全回歸 AI 純繪圖畫面"
+                          type="button"
+                          onClick={handleFetchPip}
+                          disabled={isFetchingPip}
+                          className="px-1.5 py-0.5 rounded bg-amber-cta hover:bg-amber-ctaHover text-cinema-bg font-bold cursor-pointer"
                         >
-                          {isClearingPip ? (
-                            <Loader2 className="w-2.5 h-2.5 animate-spin mr-0.5" />
-                          ) : (
-                            <Trash2 className="w-2.5 h-2.5 mr-0.5" />
-                          )}
-                          <span>清除</span>
+                          立即重新抓圖
                         </button>
                       </div>
-                    </div>
+                    )}
+
                     <div className={`relative max-w-[170px] max-h-[120px] p-1 rounded overflow-hidden border ${
                       pipMode === "spotlight" ? "border-cinema-border bg-black" : "border-white/80 bg-white shadow-md"
                     } flex items-center justify-center`}>

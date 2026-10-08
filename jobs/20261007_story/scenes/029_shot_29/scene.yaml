@@ -1,0 +1,27 @@
+id: 029_shot_29
+index: 29
+title: 然而當時所有人都心知肚明
+narration: 然而當時所有人都心知肚明，這艘衛星的圖紙上根本就沒有返航這一章，
+image_prompt: dramatic top-down shot of a large technical blueprint of Sputnik 2 spread
+  on an engineer's desk, depicting the rocket ascent trajectory continuing infinitely
+  into dark space with no reentry parachute diagram, cold blue ink aesthetic, crisp
+  2D cartoon details, 16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T060400
+  image_take: image_20261007T060257
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Sputnik 2 satellite blueprint
+  source_title: ISRO
+  source_url: https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bd/Indian_Space_Research_Organisation_Logo.svg/330px-Indian_Space_Research_Organisation_Logo.svg.png

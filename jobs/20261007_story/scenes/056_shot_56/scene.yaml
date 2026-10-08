@@ -1,0 +1,26 @@
+id: 056_shot_56
+index: 56
+title: 當年親歷任務的科學家馬拉申科夫才
+narration: 當年親歷任務的科學家馬拉申科夫才終於公開了真相，萊卡根本沒有活過七天，她甚至連這顆衛星繞地球的第四圈都沒有熬過去，
+image_prompt: dramatic top-down view of the Earth with four glowing orbital elliptical
+  paths drawn around the globe, with the fourth ring fading abruptly into silence,
+  deep space navy background dotted with crisp stars, geometric visual storytelling,
+  16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T062541
+  image_take: image_20261007T062518
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Dmitry Malashenkov portrait
+  fetch_error: 未找到合適照片

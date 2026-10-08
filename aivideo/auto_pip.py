@@ -55,22 +55,124 @@ def search_nasa_image(query: str, limit: int = 4) -> list[dict[str, object]]:
         return []
 
 
+def is_wikipedia_title_relevant(query: str, title: str) -> bool:
+    """
+    核驗維基百科搜尋回傳的條目標題是否與使用者檢索詞具有實質語意相關性。
+    嚴格防範「莫斯科街頭」因模糊檢索被硬配成「莫斯科戰役」等主題嚴重偏移的問題。
+    """
+    q = query.strip().lower()
+    t = title.strip().lower()
+    if not q or not t:
+        return False
+
+    # 1. 衝突語意過濾：若搜尋詞不含軍事衝突/影視詞，但標題卻包含，直接判定為主題偏移
+    conflict_categories = [
+        (["battle", "war", "戰役", "战役", "戰爭", "战争", "作戰", "作战", "戰鬥", "战斗", "海戰", "空戰"], ["戰", "战", "war", "battle"]),
+        (["movie", "film", "電影", "电影", "電視劇", "电视剧"], ["影", "劇", "剧", "film", "movie"]),
+    ]
+    for trigger_terms, search_check in conflict_categories:
+        if not any(sc in q for sc in search_check):
+            if any(tt in t for tt in trigger_terms):
+                return False
+
+    # 2. 完全匹配
+    if q == t:
+        return True
+
+    # 3. 標題完全包含使用者查詢詞（例如 查詢「街頭藝術」，標題為「莫斯科街頭藝術」）
+    if q in t:
+        return True
+
+    # 4. 標題是查詢詞的子字串（例如 查詢「莫斯科街頭」，標題是「莫斯科」）
+    # 若查詢詞長度明顯大於標題（相差 >= 2 字），代表查詢詞具有核心限定語境（如「街頭」），不能隨便降級為大城市條目
+    if t in q:
+        if len(q) - len(t) <= 1:
+            return True
+        return False
+
+    # 5. 跨詞組字符覆蓋率檢查
+    q_chars = set(re.findall(r"[\u4e00-\u9fa5a-zA-Z0-9]", q))
+    t_chars = set(re.findall(r"[\u4e00-\u9fa5a-zA-Z0-9]", t))
+    if not q_chars:
+        return False
+    overlap = len(q_chars & t_chars) / len(q_chars)
+    return overlap >= 0.80
+
+
+def translate_entity_query_to_en(query: str) -> str | None:
+    """若檢索詞為中文，轉譯出最適歷史考據英文名（供維基共享資源/NASA/LOC英文庫檢索真實照片）。"""
+    clean_q = query.strip()
+    if not clean_q:
+        return None
+
+    # 如果本身主要由英文構成，直接使用
+    if not any('\u4e00' <= char <= '\u9fa5' for char in clean_q):
+        return clean_q
+
+    # 1. 常見歷史紀錄片實體快速對照表
+    common_terms = {
+        "莫斯科街頭": "Moscow street",
+        "莫斯科街道": "Moscow street",
+        "莫斯科街景": "Moscow street view",
+        "紅場": "Red Square Moscow",
+        "克里姆林宮": "Moscow Kremlin",
+        "冷戰": "Cold War",
+        "蘇聯潛艇": "Soviet submarine",
+        "蘇聯海軍": "Soviet Navy",
+        "蘇聯解體": "Dissolution of Soviet Union",
+        "百事可樂": "Pepsi",
+        "白宮": "White House",
+        "五角大廈": "Pentagon",
+        "阿波羅11號": "Apollo 11",
+        "哈伯望遠鏡": "Hubble Space Telescope",
+    }
+    if clean_q in common_terms:
+        return common_terms[clean_q]
+
+    # 2. 嘗試呼叫 Gemini 進行精準名詞翻譯
+    try:
+        client_kwargs = get_gemini_client_kwargs()
+        from google import genai
+        from google.genai import types
+
+        client = genai.Client(**client_kwargs)
+        resp = client.models.generate_content(
+            model="gemini-3.8-flash",
+            contents=f"Translate this documentary historical scene/entity into 1 precise English photo search query (nouns only, max 4 words, e.g. '莫斯科街頭' -> 'Moscow street'):\n{clean_q}",
+            config=types.GenerateContentConfig(temperature=0.1, max_output_tokens=25),
+        )
+        if resp.text:
+            en = re.sub(r'["\'\.\n]', '', resp.text).strip()
+            if en and not any('\u4e00' <= c <= '\u9fa5' for c in en):
+                return en
+    except Exception:
+        pass
+    return None
+
+
 def search_wikipedia_summary_image(query: str, lang: str = "en") -> dict[str, object] | None:
-    """呼叫維基百科 API 取得條目代表圖。先透過 search 模糊匹配最適條目名，再取原圖。"""
+    """呼叫維基百科 API 取得條目代表圖。先透過 search 模糊匹配最適條目名，再驗證相關度後取原圖。"""
     clean_q = re.sub(r'["\'\(\)\[\]]', '', query).strip()
     if not clean_q:
         return None
 
-    target_title = clean_q
-    search_url = f"https://{lang}.wikipedia.org/w/api.php?action=query&list=search&srsearch={urllib.parse.quote(clean_q)}&format=json&srlimit=1"
+    target_title = None
+    search_url = f"https://{lang}.wikipedia.org/w/api.php?action=query&list=search&srsearch={urllib.parse.quote(clean_q)}&format=json&srlimit=5"
     try:
         s_resp = requests.get(search_url, headers=WIKIMEDIA_HEADERS, timeout=6)
         if s_resp.status_code == 200:
             s_data = s_resp.json().get("query", {}).get("search", [])
-            if s_data and s_data[0].get("title"):
-                target_title = s_data[0]["title"]
+            for it in s_data:
+                cand_title = it.get("title", "")
+                if is_wikipedia_title_relevant(clean_q, cand_title):
+                    target_title = cand_title
+                    break
     except Exception:
         pass
+
+    # 若維基百科候選條目皆不相關（如「莫斯科街頭」回傳「莫斯科戰役」），果斷放棄避免歪樓
+    if not target_title:
+        return None
 
     url = f"https://{lang}.wikipedia.org/api/rest_v1/page/summary/{urllib.parse.quote(target_title)}"
     try:
@@ -223,6 +325,47 @@ def search_wikimedia_image(query: str) -> dict[str, object] | None:
     return None
 
 
+def score_candidate_image(cand: dict[str, object], query: str, en_query: str | None = None) -> float:
+    """評估候選圖片與使用者檢索詞的精準契合度評分，確保挑選最貼切真實歷史照片。"""
+    title = str(cand.get("title") or "").lower()
+    source = str(cand.get("source") or "")
+    q = query.lower()
+    en_q = (en_query or "").lower()
+
+    score = 50.0
+
+    # 1. 場景/街頭特徵詞比對
+    street_keywords = ("街頭", "街景", "街道", "street", "streets")
+    if any(k in q for k in street_keywords) or any(k in en_q for k in street_keywords):
+        if any(w in title for w in ("street", "streets", "avenue", "boulevard", "square", "road", "view", "city", "building", "街", "路", "廣場", "广场")):
+            score += 35.0
+        if any(w in title for w in ("dog", "dogs", "cat", "stray", "animal", "pet", "hound", "犬", "狗")):
+            score -= 60.0
+
+    # 2. 衝突詞嚴重扣分
+    war_terms = ("battle", "war", "戰役", "战役", "戰爭", "战争", "海戰", "作戰")
+    if not any(w in q for w in ("戰", "战", "war", "battle")):
+        if any(w in title for w in war_terms):
+            score -= 80.0
+
+    # 3. 來源加權：對於真實攝影圖庫 (Wikimedia Commons / NASA / LOC)，原版真實檔案照片優於純百科詞條
+    if "Wikimedia" in source or "維基共享" in source:
+        score += 20.0
+    elif "NASA" in source or "國會圖書館" in source:
+        score += 20.0
+    elif "維基百科條目" in source:
+        if q not in title and (not en_q or en_q not in title):
+            score -= 25.0
+
+    # 4. 解析度與尺寸加分
+    width = int(cand.get("width") or 0)
+    height = int(cand.get("height") or 0)
+    if width >= 1200 and height >= 700:
+        score += 10.0
+
+    return score
+
+
 def search_all_source_candidates(query: str, limit: int = 6) -> list[dict[str, object]]:
     """跨多個高可信來源（NASA 官方影像庫、全網新聞與歷史照片、中英文維基百科、美國國會圖書館、維基共享資源）聚合檢索真實照片。"""
     candidates: list[dict[str, object]] = []
@@ -232,44 +375,62 @@ def search_all_source_candidates(query: str, limit: int = 6) -> list[dict[str, o
     if not clean_q:
         return []
 
+    # 取得英文考據詞（若輸入為中文），大幅提升全球圖庫命中率
+    en_q = translate_entity_query_to_en(clean_q)
+
     # 1. 太空、天文、科技詞彙優先呼叫 NASA 官方圖庫
     space_keywords = {"space", "telescope", "nasa", "galaxy", "satellite", "star", "hubble", "roman", "webb", "planet", "orbit", "astronaut", "mars", "moon"}
     q_lower = clean_q.lower()
-    if any(k in q_lower for k in space_keywords):
-        for it in search_nasa_image(clean_q, limit=3):
+    if any(k in q_lower for k in space_keywords) or (en_q and any(k in en_q.lower() for k in space_keywords)):
+        search_term = en_q or clean_q
+        for it in search_nasa_image(search_term, limit=3):
             if it["url"] not in seen_urls:
                 seen_urls.add(it["url"])
                 candidates.append(it)
 
-    # 2. 檢索英文維基百科條目代表圖（智慧模糊搜尋匹配）
-    en_img = search_wikipedia_summary_image(clean_q, lang="en")
+    # 2. 檢索 Wikimedia Commons（以英文精準命中真實歷史照片與原版檔案）
+    if en_q:
+        w_img_en = search_wikimedia_image(en_q)
+        if w_img_en and w_img_en["url"] not in seen_urls:
+            seen_urls.add(w_img_en["url"])
+            candidates.append(w_img_en)
+
+    w_img = search_wikimedia_image(clean_q)
+    if w_img and w_img["url"] not in seen_urls:
+        seen_urls.add(w_img["url"])
+        candidates.append(w_img)
+
+    # 3. 檢索英文維基百科條目代表圖（若有英文詞或原為英文）
+    wiki_en_term = en_q if (en_q and en_q != clean_q) else clean_q
+    en_img = search_wikipedia_summary_image(wiki_en_term, lang="en")
     if en_img and en_img["url"] not in seen_urls:
         seen_urls.add(en_img["url"])
         candidates.append(en_img)
 
-    # 3. 檢索中文維基百科條目代表圖（支援中文人名、公司與事件）
+    # 4. 檢索中文維基百科條目代表圖（具備嚴格標題語意相關度核驗，不匹配者自動略過）
     zh_img = search_wikipedia_summary_image(clean_q, lang="zh")
     if zh_img and zh_img["url"] not in seen_urls:
         seen_urls.add(zh_img["url"])
         candidates.append(zh_img)
 
-    # 4. 檢索全網即時歷史與新聞真實照片 (Web Image Search)
+    # 5. 檢索全網即時歷史與新聞真實照片 (Web Image Search)
     for it in search_duckduckgo_image(clean_q, limit=3):
         if it["url"] not in seen_urls:
             seen_urls.add(it["url"])
             candidates.append(it)
 
-    # 5. 檢索美國國會圖書館歷史檔案 (Library of Congress)
-    loc_img = search_loc_image(clean_q)
+    if en_q and len(candidates) < limit:
+        for it in search_duckduckgo_image(en_q, limit=2):
+            if it["url"] not in seen_urls:
+                seen_urls.add(it["url"])
+                candidates.append(it)
+
+    # 6. 檢索美國國會圖書館歷史檔案 (Library of Congress)
+    loc_term = en_q or clean_q
+    loc_img = search_loc_image(loc_term)
     if loc_img and loc_img["url"] not in seen_urls:
         seen_urls.add(loc_img["url"])
         candidates.append(loc_img)
-
-    # 6. 檢索 Wikimedia Commons
-    w_img = search_wikimedia_image(clean_q)
-    if w_img and w_img["url"] not in seen_urls:
-        seen_urls.add(w_img["url"])
-        candidates.append(w_img)
 
     # 7. 若候選不足，嘗試簡化詞向全網與 Wikimedia 擴展
     if len(candidates) < limit:
@@ -284,6 +445,8 @@ def search_all_source_candidates(query: str, limit: int = 6) -> list[dict[str, o
                 seen_urls.add(sim_img["url"])
                 candidates.append(sim_img)
 
+    # 依契合度打分智能排序，挑選最貼近真實場景與實體的原版照片
+    candidates.sort(key=lambda c: score_candidate_image(c, clean_q, en_q), reverse=True)
     return candidates[:limit]
 
 

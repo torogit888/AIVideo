@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261007T055547",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 12.22,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "他們的篩選標準苛刻得像在挑選機器零件，第一必須是雌性",
+      "text_cn": "他们的筛选标准苛刻得像在挑选机器零件，第一必须是雌性",
+      "start_sec": 0.0,
+      "end_sec": 5.2,
+      "duration_sec": 5.2
+    },
+    {
+      "index": 2,
+      "text": "因為母犬在狹窄的艙體裡蹲著排尿",
+      "text_cn": "因为母犬在狭窄的舱体里蹲著排尿",
+      "start_sec": 5.45,
+      "end_sec": 8.61,
+      "duration_sec": 3.16
+    },
+    {
+      "index": 3,
+      "text": "比抬腿排尿的公犬更容易處理排泄物",
+      "text_cn": "比抬腿排尿的公犬更容易处理排泄物",
+      "start_sec": 8.86,
+      "end_sec": 12.22,
+      "duration_sec": 3.36
+    }
+  ],
+  "created_at": "2026-10-07T05:55:47.313801+00:00"
+}

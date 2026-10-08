@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20261007T060953",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 7.8,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "在發射前最後一個夜晚，悄悄把這隻安靜的小狗帶回了自己的家裡，他讓萊卡在地毯上奔跑",
+      "text_cn": "在发射前最后一个夜晚，悄悄把这只安静的小狗带回了自己的家里，他让莱卡在地毯上奔跑",
+      "start_sec": 0.0,
+      "end_sec": 7.8,
+      "duration_sec": 7.8
+    }
+  ],
+  "created_at": "2026-10-07T06:09:53.403601+00:00"
+}

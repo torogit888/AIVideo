@@ -1,0 +1,17 @@
+id: 042_shot_42
+index: 42
+title: 另一位負責訓練的女性科研人員科托
+narration: 另一位負責訓練的女性科研人員科托夫斯卡婭，在把萊卡送進發射場時忍不住哭出了聲，她抱著萊卡輕聲對她說著請原諒我們，
+image_prompt: emotional medium close-up of a female Soviet researcher in a heavy winter
+  coat and fur hat weeping softly while hugging chibi Laika tightly against her cheek
+  on the chilly launch tarmac, cold lavender dawn light, poignant 2D cartoon style,
+  16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T061244
+  image_take: image_20261007T061222

@@ -1,0 +1,17 @@
+id: 032_shot_32
+index: 32
+title: 艙內配備了化學製氧機和二氧化碳吸
+narration: 艙內配備了化學製氧機和二氧化碳吸收劑，特拉爾無線電系統負責把她的生理數據傳回地面，
+image_prompt: detailed cutaway shot of the compact mechanical life support system
+  inside Sputnik 2, showing cylindrical oxygen tanks, coiled copper pipes, and analog
+  telemetry transmitters with tiny glowing vacuum tubes, strict authentic non-anthropomorphic
+  chibi styling, 16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T060508
+  image_take: image_20261007T060456

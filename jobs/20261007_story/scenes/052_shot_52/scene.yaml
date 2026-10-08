@@ -1,0 +1,17 @@
+id: 052_shot_52
+index: 52
+title: 宣稱這隻名叫萊卡的太空狗狀態極佳
+narration: 宣稱這隻名叫萊卡的太空狗狀態極佳進食正常，在隨後的幾十年時間裡，蘇聯官方編造了一套又一套看似完美的謊言，
+image_prompt: medium shot of Soviet news editors in a vintage printing press room
+  stacking fresh newspapers featuring a cheerful illustrated cartoon dog in space,
+  surrounded by spinning ink rollers, warm sepia and industrial gray tones, crisp
+  outlines, 16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T062245
+  image_take: image_20261007T062207

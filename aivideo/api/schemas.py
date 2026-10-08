@@ -19,6 +19,48 @@ class SystemStatusResponse(BaseModel):
 
 
 # ==========================================
+# Vertex AI 帳戶與模型檢測
+# ==========================================
+class VertexAccountResponse(BaseModel):
+    id: str
+    name: str
+    auth_type: str = "service_account"
+    project_id: str = ""
+    location: str = "us-central1"
+    client_email: Optional[str] = ""
+    api_key_masked: Optional[str] = ""
+    is_active: bool = False
+    created_at: Optional[str] = None
+    updated_at: Optional[str] = None
+
+
+class CreateVertexAccountRequest(BaseModel):
+    name: str
+    auth_type: str = "service_account"  # "service_account" | "api_key" | "adc"
+    project_id: Optional[str] = ""
+    location: Optional[str] = "us-central1"
+    service_account_json: Optional[str] = None
+    api_key: Optional[str] = None
+
+
+class ModelStatusItem(BaseModel):
+    name: str
+    type: str = "text"  # "text" | "image"
+    status: str  # "available" | "disabled" | "quota_exceeded" | "permission_denied" | "unsupported" | "error"
+    message: str
+    latency_ms: Optional[int] = None
+    error_detail: Optional[str] = None
+
+
+class ModelsStatusResponse(BaseModel):
+    account_id: Optional[str] = None
+    account_name: Optional[str] = None
+    checked_at: Optional[str] = None
+    timestamp: Optional[float] = None
+    models: Dict[str, ModelStatusItem] = Field(default_factory=dict)
+
+
+# ==========================================
 # 專案 (Job)
 # ==========================================
 class JobProgress(BaseModel):

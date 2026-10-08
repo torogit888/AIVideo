@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261007T060144",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 7.37,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "還把她關進一天比一天更窄的小鐵盒裡",
+      "text_cn": "还把她关进一天比一天更窄的小铁盒里",
+      "start_sec": 0.0,
+      "end_sec": 3.56,
+      "duration_sec": 3.56
+    },
+    {
+      "index": 2,
+      "text": "逼她在連身都轉不了的空間裡排泄進食",
+      "text_cn": "逼她在连身都转不了的空间里排泄进食",
+      "start_sec": 3.81,
+      "end_sec": 7.37,
+      "duration_sec": 3.56
+    }
+  ],
+  "created_at": "2026-10-07T06:01:44.769045+00:00"
+}

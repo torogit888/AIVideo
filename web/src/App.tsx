@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Film, Trash2, ArrowRight, CheckCircle2, AlertCircle, Info, Copy, Check } from "lucide-react";
+import React, { useEffect, useState, useCallback } from "react";
+import { Film, Trash2, ArrowRight, CheckCircle2, AlertCircle, Info, Copy, Check, RefreshCw, Loader2 } from "lucide-react";
 import { SidebarRail } from "./components/SidebarRail";
 import { Topbar } from "./components/Topbar";
 import { StoryboardGrid } from "./components/StoryboardGrid";
@@ -7,9 +7,10 @@ import { SceneInspector } from "./components/SceneInspector";
 import { ScriptEditor } from "./components/ScriptEditor";
 import { FilmViewer } from "./components/FilmViewer";
 import { AssetsView } from "./components/AssetsView";
+import { VertexAccountsPanel } from "./components/VertexAccountsPanel";
 import { useStudioStore } from "./store";
 import { api } from "./api";
-import { AI_IMAGE_MODELS, AI_TEXT_MODELS } from "./types";
+import { AI_IMAGE_MODELS, AI_TEXT_MODELS, ModelsStatusResponse } from "./types";
 import { ConnectionLights } from "./components/ConnectionLights";
 
 const SettingsHealthPanel: React.FC = () => {
@@ -140,6 +141,101 @@ export const App: React.FC = () => {
   } = useStudioStore();
 
   const [copiedToastId, setCopiedToastId] = useState<string | null>(null);
+  const [modelsReport, setModelsReport] = useState<ModelsStatusResponse | null>(null);
+  const [isCheckingModels, setIsCheckingModels] = useState(false);
+
+  const fetchModelsStatus = useCallback(
+    async (force = false) => {
+      setIsCheckingModels(true);
+      try {
+        const res = force ? await api.checkModelsAvailability() : await api.getModelsStatus();
+        setModelsReport(res);
+        if (force) {
+          showToast("已完成所有模型可用性與權限檢測！", "success");
+        }
+      } catch (e: any) {
+        if (force) {
+          showToast("模型可用性檢測失敗: " + (e.message || "未知錯誤"), "error");
+        }
+      } finally {
+        setIsCheckingModels(false);
+      }
+    },
+    [showToast]
+  );
+
+  // 當進入設定頁時，自動讀取現有模型可用性快取
+  useEffect(() => {
+    if (currentTab === "settings" && !modelsReport) {
+      fetchModelsStatus(false);
+    }
+  }, [currentTab, modelsReport, fetchModelsStatus]);
+
+  const renderModelStatusBadge = (modelId: string) => {
+    if (isCheckingModels) {
+      return (
+        <span className="flex items-center text-[10px] text-amber-cta font-mono">
+          <Loader2 className="w-2.5 h-2.5 animate-spin mr-1" />
+          <span>檢測中</span>
+        </span>
+      );
+    }
+    const item = modelsReport?.models?.[modelId];
+    if (!item) return null;
+
+    if (item.status === "available") {
+      return (
+        <span
+          className="flex items-center px-1.5 py-0.5 rounded bg-emerald-950/80 border border-emerald-800 text-[10px] text-emerald-400 font-mono"
+          title={`狀態: ${item.message} ${item.latency_ms ? `(延遲 ${item.latency_ms}ms)` : ""}`}
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1 animate-pulse" />
+          <span>可用 {item.latency_ms ? `${item.latency_ms}ms` : ""}</span>
+        </span>
+      );
+    }
+    if (item.status === "disabled") {
+      return (
+        <span
+          className="flex items-center px-1.5 py-0.5 rounded bg-amber-950/80 border border-amber-800 text-[10px] text-amber-300 font-mono"
+          title={item.message}
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mr-1" />
+          <span>需啟用 API</span>
+        </span>
+      );
+    }
+    if (item.status === "quota_exceeded") {
+      return (
+        <span
+          className="flex items-center px-1.5 py-0.5 rounded bg-red-950/80 border border-red-800 text-[10px] text-red-300 font-mono"
+          title={item.message}
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-red-400 mr-1" />
+          <span>額度耗盡</span>
+        </span>
+      );
+    }
+    if (item.status === "permission_denied") {
+      return (
+        <span
+          className="flex items-center px-1.5 py-0.5 rounded bg-red-950/80 border border-red-800 text-[10px] text-red-300 font-mono"
+          title={item.message}
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-red-400 mr-1" />
+          <span>權限不足</span>
+        </span>
+      );
+    }
+    return (
+      <span
+        className="flex items-center px-1.5 py-0.5 rounded bg-zinc-800 border border-zinc-700 text-[10px] text-zinc-400 font-mono"
+        title={item.message}
+      >
+        <span>未開放</span>
+      </span>
+    );
+  };
 
   const handleDeleteJobFromList = async (jobId: string, jobTitle: string, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -392,10 +488,17 @@ export const App: React.FC = () => {
             <div className="flex-1 p-8 space-y-6 max-w-3xl mx-auto overflow-y-auto">
               <div>
                 <h2 className="text-xl font-bold text-cinema-text">Studio 設定</h2>
-                <p className="text-xs text-cinema-muted mt-1">管理全域 AI 文本生成核心、環境端點與渲染管線配置。</p>
+                <p className="text-xs text-cinema-muted mt-1">管理 Vertex AI 憑證帳戶、模型可用性授權、環境端點與渲染管線配置。</p>
               </div>
 
-              {/* AI 模型設定卡片 */}
+              {/* 1. Vertex AI 憑證與多帳號管理 */}
+              <VertexAccountsPanel
+                onAccountChanged={() => {
+                  fetchModelsStatus(true);
+                }}
+              />
+
+              {/* 2. AI 文本大模型設定卡片 */}
               <div className="p-5 rounded-lg bg-cinema-card border border-cinema-border space-y-4">
                 <div className="flex items-center justify-between border-b border-cinema-border/60 pb-3">
                   <div>
@@ -407,6 +510,16 @@ export const App: React.FC = () => {
                       驅動故事發想長篇寫作、說書人口吻特徵萃取、AI 分鏡切鏡與英文電影提示詞生成。
                     </p>
                   </div>
+                  <button
+                    type="button"
+                    onClick={() => fetchModelsStatus(true)}
+                    disabled={isCheckingModels}
+                    className="flex items-center h-7 px-2.5 rounded-lg border border-amber-cta/40 bg-amber-cta/10 hover:bg-amber-cta/20 text-amber-cta text-[11px] font-medium transition-colors disabled:opacity-50 shrink-0"
+                    title="立即探測當前帳戶所有模型的可用性與配額狀態"
+                  >
+                    <RefreshCw className={`w-3 h-3 mr-1.5 ${isCheckingModels ? "animate-spin" : ""}`} />
+                    <span>{isCheckingModels ? "正在檢測中..." : "⚡ 檢測模型可用性"}</span>
+                  </button>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
@@ -425,7 +538,7 @@ export const App: React.FC = () => {
                             : "border-cinema-border bg-cinema-darker/60 hover:border-cinema-muted"
                         }`}
                       >
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-center justify-between mb-1">
                           <span className={`text-xs font-semibold ${isSelected ? "text-amber-cta" : "text-cinema-text"}`}>
                             {m.name}
                           </span>
@@ -435,17 +548,28 @@ export const App: React.FC = () => {
                             {m.badge}
                           </span>
                         </div>
-                        <div className="text-[11px] text-cinema-muted mt-1">{m.tag}</div>
+                        <div className="flex items-center justify-between mt-2 pt-1.5 border-t border-cinema-border/50">
+                          <span className="text-[11px] text-cinema-muted truncate mr-1">{m.tag}</span>
+                          <div className="shrink-0">{renderModelStatusBadge(m.id)}</div>
+                        </div>
                       </div>
                     );
                   })}
                 </div>
               </div>
 
+              {/* 3. 生圖模型設定卡片 */}
               <div className="p-5 rounded-lg bg-cinema-card border border-cinema-border space-y-4">
-                <div className="border-b border-cinema-border/60 pb-3">
-                  <h3 className="text-sm font-semibold text-cinema-text">生圖模型</h3>
-                  <p className="text-xs text-cinema-muted mt-0.5">分鏡出圖使用的 Gemini／Imagen 模型。</p>
+                <div className="flex items-center justify-between border-b border-cinema-border/60 pb-3">
+                  <div>
+                    <h3 className="text-sm font-semibold text-cinema-text">生圖模型</h3>
+                    <p className="text-xs text-cinema-muted mt-0.5">分鏡出圖使用的 Gemini／Imagen 影像模型。</p>
+                  </div>
+                  {modelsReport?.checked_at && (
+                    <span className="text-[10px] text-cinema-muted font-mono">
+                      最近檢測: {modelsReport.checked_at}
+                    </span>
+                  )}
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {AI_IMAGE_MODELS.map((m) => {
@@ -471,7 +595,7 @@ export const App: React.FC = () => {
                             : "border-cinema-border bg-cinema-darker/60 hover:border-cinema-muted"
                         }`}
                       >
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-center justify-between mb-1">
                           <span className={`text-xs font-semibold ${isSelected ? "text-amber-cta" : "text-cinema-text"}`}>
                             {m.name}
                           </span>
@@ -481,13 +605,17 @@ export const App: React.FC = () => {
                             {m.badge}
                           </span>
                         </div>
-                        <div className="text-[11px] text-cinema-muted mt-1">{m.tag}</div>
+                        <div className="flex items-center justify-between mt-2 pt-1.5 border-t border-cinema-border/50">
+                          <span className="text-[11px] text-cinema-muted truncate mr-1">{m.tag}</span>
+                          <div className="shrink-0">{renderModelStatusBadge(m.id)}</div>
+                        </div>
                       </div>
                     );
                   })}
                 </div>
               </div>
 
+              {/* 4. 連線檢測與預設配置 */}
               <SettingsHealthPanel />
             </div>
           )}

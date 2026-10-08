@@ -1,0 +1,27 @@
+id: 016_shot_16
+index: 16
+title: 當時莫斯科航空醫學研究所的專家們
+narration: 當時莫斯科航空醫學研究所的專家們，並沒有去名貴的犬舍挑選純種名犬，他們反而開著麵包車，在莫斯科冰冷刺骨的街頭到處抓流浪狗，
+image_prompt: wide exterior shot of a dark Soviet medical van parked on a snowy Moscow
+  cobblestone street at dusk, warm lamppost light cutting through falling snowflakes,
+  researchers in heavy coats gently approaching a stray dog in an alleyway, 2D chibi
+  cartoon style, muted winter palette, 16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T055429
+  image_take: null
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: 莫斯科街頭
+  source_title: File:KosyginaStreet Moscow view to Khamovniki 06-2015 img1.jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/0/0e/KosyginaStreet_Moscow_view_to_Khamovniki_06-2015_img1.jpg

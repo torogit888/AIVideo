@@ -1,0 +1,17 @@
+id: 017_shot_17
+index: 17
+title: 專家們的邏輯聽起來非常冷血又務實
+narration: '[surprise-oh]專家們的邏輯聽起來非常冷血又務實，因為只有在殘酷街頭摸爬滾打過的野狗，才扛得住極致的飢餓和零下幾十度的嚴寒，'
+image_prompt: medium shot of chibi stray dog Laika curled up against a snowy brick
+  wall in a cold winter wind, her fur ruffled by the breeze but her posture resilient
+  and calm, soft moonlight reflecting on the icy ground, atmospheric cel-shaded 2D
+  illustration, 16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T055500
+  image_take: image_20261007T055447

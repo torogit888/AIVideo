@@ -1,0 +1,27 @@
+id: 015_shot_15
+index: 15
+title: 這隻狗就是後來被全世界熟知的萊卡
+narration: '[sigh]這隻狗就是後來被全世界熟知的萊卡，但莫斯科的研究所究竟是怎麼挑出這隻狗的呢，'
+image_prompt: close-up portrait shot of chibi stray dog Laika with her cream and charcoal
+  black patches, large glassy innocent brown eyes, and slightly floppy ears, looking
+  curiously forward under soft warm studio light, clean vector line art, gentle cel-shading,
+  16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T055412
+  image_take: null
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: 蘇聯太空狗萊卡
+  source_title: 萊卡 (蘇聯太空犬)
+  source_url: https://upload.wikimedia.org/wikipedia/commons/a/a2/Posta_Romana_-_1959_-_Laika_120_B.jpg

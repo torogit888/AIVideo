@@ -1,0 +1,36 @@
+id: 20261007_story
+title: 太空狗萊卡
+language: zh-Hant
+voice_id: tw_female01
+use_pip: true
+tone_id: warm_narrative
+frame:
+  aspect: '16:9'
+  gen_width: 1920
+  gen_height: 1080
+  deliver_width: 1920
+  deliver_height: 1080
+  fps: 30
+image:
+  backend: gemini
+  model: gemini-3.1-flash-image
+  model_final: gemini-3.1-flash-image
+  resolution: 1K
+  aspect_ratio: '16:9'
+  style: 2d_chibi_cell
+style_prefix: '(masterpiece, best quality:1.2), 2D cartoon illustration, anime art
+  style, chibi characters, clean line art, cell shading, flat colors, cute mobile
+  game UI art, visual novel style, crisp details, vibrant and cheerful color palette,
+  single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent
+  view, one main environment, highly detailed and intricate background
+
+  Vibrant contrasting color palettes, crisp details throughout, expressive chibi faces,
+  rich background props. '
+style_negative: (worst quality, low quality:1.4), rough lines, messy sketch, blur,
+  deformed, bad anatomy, bad proportions, missing fingers, extra digits, signature,
+  watermark, text, words, Chinese characters, subtitles, logos
+subtitle:
+  mode: none
+  font: /usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc
+  font_size: 48
+kenburns: slow_zoom_in

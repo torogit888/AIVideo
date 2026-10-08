@@ -7,12 +7,15 @@ from fastapi import APIRouter, HTTPException
 import requests
 
 from aivideo.api.schemas import (
+    CreateVertexAccountRequest,
     ExpandScriptRequest,
     GenerateOutlineRequest,
     GenerateOutlineResponse,
     GenerateScriptRequest,
     GenerateScriptResponse,
+    ModelsStatusResponse,
     SystemStatusResponse,
+    VertexAccountResponse,
 )
 from aivideo.commands.check import has_gemini_credentials
 from aivideo.fonts import resolve_subtitle_font
@@ -55,6 +58,87 @@ def get_system_status() -> SystemStatusResponse:
         font_path=font.get("font_path"),
         font_ok=bool(font.get("ok")),
     )
+
+
+# ----------------------------------------------------
+# Vertex AI 多帳戶/憑證管理
+# ----------------------------------------------------
+@router.get("/system/accounts", response_model=list[VertexAccountResponse])
+def get_vertex_accounts():
+    """取得所有已儲存的 Vertex AI / Google 帳戶憑證列表。"""
+    from aivideo.credentials_manager import list_accounts
+    return list_accounts()
+
+
+@router.post("/system/accounts", response_model=VertexAccountResponse)
+def add_vertex_account(req: CreateVertexAccountRequest):
+    """新增 Vertex AI 帳戶憑證（支援 Service Account JSON 檔案內容、或 API Key）。"""
+    from aivideo.credentials_manager import create_account
+    try:
+        acc = create_account(
+            name=req.name,
+            auth_type=req.auth_type,
+            project_id=req.project_id or "",
+            location=req.location or "us-central1",
+            service_account_json=req.service_account_json,
+            api_key=req.api_key,
+        )
+        return acc
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
+@router.post("/system/accounts/{account_id}/activate", response_model=VertexAccountResponse)
+def switch_vertex_account(account_id: str):
+    """切換並即時啟用指定的 Vertex AI 帳戶憑證。"""
+    from aivideo.credentials_manager import activate_account
+    try:
+        acc = activate_account(account_id)
+        return acc
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
+@router.delete("/system/accounts/{account_id}")
+def remove_vertex_account(account_id: str):
+    """刪除指定的帳戶憑證。"""
+    from aivideo.credentials_manager import delete_account
+    try:
+        ok = delete_account(account_id)
+        if not ok:
+            raise HTTPException(status_code=404, detail="找不到該帳戶")
+        return {"success": True, "message": "帳戶已刪除"}
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
+@router.post("/system/accounts/{account_id}/test")
+def test_vertex_account(account_id: str):
+    """測試該帳戶的 Vertex AI / Gemini 連線與可用性。"""
+    from aivideo.credentials_manager import activate_account, probe_single_model
+    try:
+        activate_account(account_id)
+        res = probe_single_model("gemini-2.5-flash", model_type="text")
+        return res
+    except Exception as e:
+        return {"status": "error", "message": f"測試失敗: {str(e)}"}
+
+
+# ----------------------------------------------------
+# 各模型可用性與啟用狀態檢測
+# ----------------------------------------------------
+@router.get("/system/models/status", response_model=ModelsStatusResponse)
+def get_models_status():
+    """取得當前帳戶下常用文本與生圖模型的可用性與啟用狀態快取。"""
+    from aivideo.credentials_manager import check_all_models_status
+    return check_all_models_status(force_refresh=False)
+
+
+@router.post("/system/models/check", response_model=ModelsStatusResponse)
+def check_models_availability():
+    """立即重新探測當前帳戶下所有文本與生圖模型的可用性與啟用狀態。"""
+    from aivideo.credentials_manager import check_all_models_status
+    return check_all_models_status(force_refresh=True)
 
 
 @router.post("/system/check")

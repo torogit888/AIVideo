@@ -1,0 +1,17 @@
+id: 023_shot_23
+index: 23
+title: 研究人員私下捨不得讓一位母親去送
+narration: 研究人員私下捨不得讓一位母親去送死，穆什卡則被安排去測試地面生命維持設備，
+image_prompt: medium shot of Mushka the chibi dog wearing small monitoring sensors,
+  standing beside an open benchtop oxygen testing apparatus in a teal laboratory,
+  researchers taking notes, clean linework, cool industrial laboratory colors, 16:9
+  widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T055949
+  image_take: image_20261007T055910

@@ -1,0 +1,17 @@
+id: 026_shot_26
+index: 26
+title: 還把她關進一天比一天更窄的小鐵盒
+narration: 還把她關進一天比一天更窄的小鐵盒裡，逼她在連身都轉不了的空間裡排泄進食，
+image_prompt: cross-section view of chibi Laika lying quietly inside a snug, narrow
+  metallic container with padded walls, her head resting on her paws unable to turn
+  around, sterile cool lighting, precise geometric mechanical outlines, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T060144
+  image_take: image_20261007T060123

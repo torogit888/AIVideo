@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261007T061244",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 11.58,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "另一位負責訓練的女性科研人員科托夫斯卡婭",
+      "text_cn": "另一位负责训练的女性科研人员科托夫斯卡娅",
+      "start_sec": 0.0,
+      "end_sec": 4.16,
+      "duration_sec": 4.16
+    },
+    {
+      "index": 2,
+      "text": "在把萊卡送進發射場時忍不住哭出了聲",
+      "text_cn": "在把莱卡送进发射场时忍不住哭出了声",
+      "start_sec": 4.41,
+      "end_sec": 7.97,
+      "duration_sec": 3.56
+    },
+    {
+      "index": 3,
+      "text": "她抱著萊卡輕聲對她說著請原諒我們",
+      "text_cn": "她抱着莱卡轻声对她说着请原谅我们",
+      "start_sec": 8.22,
+      "end_sec": 11.58,
+      "duration_sec": 3.36
+    }
+  ],
+  "created_at": "2026-10-07T06:12:44.403547+00:00"
+}

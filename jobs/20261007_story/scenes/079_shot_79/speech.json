@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261007T064550",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 12.5,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[question-ei]如果你生活在那個狂熱的1957年",
+      "text_cn": "[question-ei]如果你生活在那个狂热的1957年",
+      "start_sec": 0.0,
+      "end_sec": 4.28,
+      "duration_sec": 4.28
+    },
+    {
+      "index": 2,
+      "text": "你會願意為了一場國家的面子慶典",
+      "text_cn": "你会愿意为了一场国家的面子庆典",
+      "start_sec": 4.53,
+      "end_sec": 7.69,
+      "duration_sec": 3.16
+    },
+    {
+      "index": 3,
+      "text": "把一隻信任人類的流浪狗送上回不來的單程火箭嗎",
+      "text_cn": "把一只信任人类的流浪狗送上回不来的单程火箭吗",
+      "start_sec": 7.94,
+      "end_sec": 12.5,
+      "duration_sec": 4.56
+    }
+  ],
+  "created_at": "2026-10-07T06:45:50.212026+00:00"
+}

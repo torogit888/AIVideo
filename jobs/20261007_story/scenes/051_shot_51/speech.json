@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261007T062141",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 11.21,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "而在幾百公里外的地球表面，莫斯科的廣播電台正在向全世界播放激昂的進行曲",
+      "text_cn": "而在几百公里外的地球表面，莫斯科的广播电台正在向全世界播放激昂的进行曲",
+      "start_sec": 0.0,
+      "end_sec": 7.0,
+      "duration_sec": 7.0
+    },
+    {
+      "index": 2,
+      "text": "蘇聯官方塔斯社得意洋洋地向全球發布通訊",
+      "text_cn": "苏联官方塔斯社得意洋洋地向全球发布通讯",
+      "start_sec": 7.25,
+      "end_sec": 11.21,
+      "duration_sec": 3.96
+    }
+  ],
+  "created_at": "2026-10-07T06:21:41.726258+00:00"
+}

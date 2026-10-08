@@ -1,0 +1,27 @@
+id: 038_shot_38
+index: 38
+title: 在正式發射前的那段日子
+narration: 在正式發射前的那段日子，研究所裡的氣氛變得極其壓抑，負責這項實驗的生理學家亞茲多夫斯基博士，
+image_prompt: medium shot of Dr. Vladimir Yazdovsky in his white lab coat and round
+  wire-rimmed spectacles, standing alone by a window in the dim teal laboratory, looking
+  down at chibi Laika with a heavy expression of silent remorse, soft evening twilight
+  filtering in, 16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T060850
+  image_take: image_20261007T060837
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Dr. Vladimir Yazdovsky portrait
+  source_title: Laika (comics)
+  source_url: https://upload.wikimedia.org/wikipedia/en/7/7d/Laika_bookcover1.jpg

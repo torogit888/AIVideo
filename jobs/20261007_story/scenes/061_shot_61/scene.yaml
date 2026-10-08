@@ -1,0 +1,27 @@
+id: 061_shot_61
+index: 61
+title: 在那個沒有互聯網的封閉年代
+narration: 在那個沒有互聯網的封閉年代，萊卡的死訊被嚴密包裹在英雄主義的糖衣裡，蘇聯郵政發行了印有她頭像的彩色郵票，
+image_prompt: close-up shot of a pristine vintage Soviet postage stamp featuring a
+  colorful chibi illustration of Laika gazing toward a red star, resting on a collector's
+  album page, rich graphic print colors, clean perforation edges, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T063100
+  image_take: image_20261007T062958
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Laika Soviet postage stamp
+  source_title: Sputnik 2
+  source_url: https://upload.wikimedia.org/wikipedia/commons/3/33/Laika_ac_Sputnik_2_Replica_%286995685051%29.jpg

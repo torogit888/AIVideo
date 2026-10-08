@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261007T055429",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 12.42,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "當時莫斯科航空醫學研究所的專家們",
+      "text_cn": "当时莫斯科航空医学研旧所的专家们",
+      "start_sec": 0.0,
+      "end_sec": 3.36,
+      "duration_sec": 3.36
+    },
+    {
+      "index": 2,
+      "text": "並沒有去名貴的犬舍挑選純種名犬，他們反而開著麵包車",
+      "text_cn": "并没有去名贵的犬舍挑选纯种名犬，他们反而开着面包车",
+      "start_sec": 3.61,
+      "end_sec": 8.61,
+      "duration_sec": 5.0
+    },
+    {
+      "index": 3,
+      "text": "在莫斯科冰冷刺骨的街頭到處抓流浪狗",
+      "text_cn": "在莫斯科冰冷刺骨的街头到处抓流浪狗",
+      "start_sec": 8.86,
+      "end_sec": 12.42,
+      "duration_sec": 3.56
+    }
+  ],
+  "created_at": "2026-10-07T05:54:29.935565+00:00"
+}

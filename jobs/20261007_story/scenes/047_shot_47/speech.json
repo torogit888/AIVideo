@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261007T061745",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 8.32,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "從平時每分鐘一百零三次瘋狂飆升到二百四十次",
+      "text_cn": "从平时每分钟一百零三次疯狂飙升到二百四十次",
+      "start_sec": 0.0,
+      "end_sec": 4.36,
+      "duration_sec": 4.36
+    },
+    {
+      "index": 2,
+      "text": "她的呼吸頻率急劇上升到平時的三到四倍",
+      "text_cn": "她的呼吸频率急剧上升到平时的三到四倍",
+      "start_sec": 4.61,
+      "end_sec": 8.32,
+      "duration_sec": 3.71
+    }
+  ],
+  "created_at": "2026-10-07T06:17:45.755024+00:00"
+}

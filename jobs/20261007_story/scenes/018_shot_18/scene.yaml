@@ -1,0 +1,17 @@
+id: 018_shot_18
+index: 18
+title: 他們的篩選標準苛刻得像在挑選機器
+narration: 他們的篩選標準苛刻得像在挑選機器零件，第一必須是雌性，因為母犬在狹窄的艙體裡蹲著排尿，比抬腿排尿的公犬更容易處理排泄物，
+image_prompt: interior shot of a sterile Moscow aerospace lab with teal-tiled walls,
+  where veterinary researchers in white coats examine a small dog harness with diagrammatic
+  anatomical charts on the wall, sterile fluorescent lighting, clean cartoon linework,
+  cel-shaded, 16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T055547
+  image_take: image_20261007T055525

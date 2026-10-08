@@ -1,0 +1,16 @@
+id: 076_shot_76
+index: 76
+title: 根本不足以用那隻狗的死亡來為自己
+narration: 根本不足以用那隻狗的死亡來為自己辯護，這份沉甸甸的懺悔，整整遲到了四十一年，
+image_prompt: over-the-shoulder shot looking at a desk where an old handwritten Russian
+  letter of confession lies beside a small framed picture of chibi Laika wearing her
+  harness, bathed in soft melancholic afternoon window light, 16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T064241
+  image_take: image_20261007T064203

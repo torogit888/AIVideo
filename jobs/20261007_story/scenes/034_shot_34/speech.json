@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261007T060559",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 10.93,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[dissatisfaction-hnn]但這套看似周密的維持系統背後，根本沒有隔熱防護罩",
+      "text_cn": "[dissatisfaction-hnn]但这套看似周密的维持系统背后，根本没有隔热防护罩",
+      "start_sec": 0.0,
+      "end_sec": 6.08,
+      "duration_sec": 6.08
+    },
+    {
+      "index": 2,
+      "text": "沒有降落傘包，更沒有任何可以彈射返回的逃生裝置",
+      "text_cn": "没有降落伞包，更没有任何可以弹射返回的逃生装置",
+      "start_sec": 6.33,
+      "end_sec": 10.93,
+      "duration_sec": 4.6
+    }
+  ],
+  "created_at": "2026-10-07T06:05:59.312459+00:00"
+}

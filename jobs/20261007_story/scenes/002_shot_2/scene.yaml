@@ -1,0 +1,27 @@
+id: 002_shot_2
+index: 2
+title: 官方的宣傳冊把她描繪成全人類的英
+narration: '[confirmation-en]官方的宣傳冊把她描繪成全人類的英雄，說她是第一個飛出地球軌道的生命，但你可能很難想像，這張被全世界傳頌的太空船票，'
+image_prompt: close-up shot of a stylized illustrated Soviet booklet lying open on
+  a worn wooden desk, depicting a heroic chibi dog ascending into an illustrated orbit,
+  contrasted with an ominous shadow falling across a stamped flight pass, graphic
+  cel-shading, cold teal and muted red tones, crisp clean line art, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T054324
+  image_take: image_20261007T054308
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Laika Soviet propaganda booklet
+  fetch_error: 未找到合適照片

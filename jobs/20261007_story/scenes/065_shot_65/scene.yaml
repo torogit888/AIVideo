@@ -1,0 +1,16 @@
+id: 065_shot_65
+index: 65
+title: 於是整個宣傳機器只能合謀
+narration: 於是整個宣傳機器只能合謀，把一場單程處決包裝成一隻狗的主動犧牲，
+image_prompt: dramatic composition of giant mechanical printing press rollers stamping
+  out endless colorful hero posters of chibi Laika with a halo of orbital stars, glowing
+  red socialist aesthetic, sharp graphic outlines, 16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T063449
+  image_take: image_20261007T063408

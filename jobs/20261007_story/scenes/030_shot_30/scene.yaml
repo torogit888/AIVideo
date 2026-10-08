@@ -1,0 +1,27 @@
+id: 030_shot_30
+index: 30
+title: 運載火箭是龐大的阿爾七型洲際飛彈
+narration: 運載火箭是龐大的阿爾七型洲際飛彈，衛星本體連同設備重達五百多公斤，在那個圓筒狀的密封加壓艙裡，
+image_prompt: wide low-angle shot of the colossal R-7 rocket standing on the launch
+  pad at Baikonur, steam venting from its boosters under a pale twilight sky, with
+  Sputnik 2 perched at the tip, imposing Soviet constructivist scale in 2D cartoon
+  style, 16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T060428
+  image_take: null
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: R-7 ICBM historical photo
+  source_title: LGM-30 Minuteman
+  source_url: https://upload.wikimedia.org/wikipedia/commons/f/fe/LGM-30-Minuteman-II.jpg

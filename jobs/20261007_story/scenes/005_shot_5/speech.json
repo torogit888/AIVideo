@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261007T054543",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 10.69,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "就在那一年的10月4日，蘇聯成功發射了人類第一顆人造衛星史普尼克一號",
+      "text_cn": "就在那一年的10月4日，苏联成功发射了人类第一颗人造卫星史普尼克一号",
+      "start_sec": 0.0,
+      "end_sec": 6.88,
+      "duration_sec": 6.88
+    },
+    {
+      "index": 2,
+      "text": "史普尼克在俄語裡的意思本來只是旅伴",
+      "text_cn": "史普尼克在俄语里的意思本来只是旅伴",
+      "start_sec": 7.13,
+      "end_sec": 10.69,
+      "duration_sec": 3.56
+    }
+  ],
+  "created_at": "2026-10-07T05:45:43.787930+00:00"
+}

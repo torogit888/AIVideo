@@ -15,6 +15,9 @@ import {
   YouTubeGenerateThumbnailResponse,
   YouTubeUploadPayload,
   YouTubeUploadStatus,
+  VertexAccount,
+  CreateVertexAccountInput,
+  ModelsStatusResponse,
 } from "./types";
 
 const BASE_URL = "/api/v1";
@@ -271,6 +274,28 @@ export const api = {
       `/system/check?target=${encodeURIComponent(target)}`,
       { method: "POST" }
     ),
+
+  // Vertex AI 多帳戶/憑證管理與模型狀態
+  getVertexAccounts: () => request<VertexAccount[]>("/system/accounts"),
+  createVertexAccount: (data: CreateVertexAccountInput) =>
+    request<VertexAccount>("/system/accounts", {
+      method: "POST",
+      body: JSON.stringify(data),
+    }),
+  activateVertexAccount: (accountId: string) =>
+    request<VertexAccount>(`/system/accounts/${accountId}/activate`, {
+      method: "POST",
+    }),
+  deleteVertexAccount: (accountId: string) =>
+    request<{ success: boolean; message: string }>(`/system/accounts/${accountId}`, {
+      method: "DELETE",
+    }),
+  testVertexAccount: (accountId: string) =>
+    request<{ status: string; message: string; latency_ms?: number }>(`/system/accounts/${accountId}/test`, {
+      method: "POST",
+    }),
+  getModelsStatus: () => request<ModelsStatusResponse>("/system/models/status"),
+  checkModelsAvailability: () => request<ModelsStatusResponse>("/system/models/check", { method: "POST" }),
   gcSceneTakes: (jobId: string, sceneId: string, keep = 3) =>
     request<{ removed: number; keep: number }>(`/jobs/${jobId}/scenes/${sceneId}/takes/gc`, {
       method: "POST",

@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261007T064448",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 11.18,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "站在一隻由火箭線條托起的人類手掌上",
+      "text_cn": "站在一只由火箭线条托起的人类手掌上",
+      "start_sec": 0.0,
+      "end_sec": 3.56,
+      "duration_sec": 3.56
+    },
+    {
+      "index": 2,
+      "text": "這座雕像看起來既像是凱旋的王座",
+      "text_cn": "这座雕像看起来既像是凯旋的王座",
+      "start_sec": 3.81,
+      "end_sec": 6.97,
+      "duration_sec": 3.16
+    },
+    {
+      "index": 3,
+      "text": "卻又無比諷刺地像極了一座供奉祭品的祭壇",
+      "text_cn": "却又无比讽刺地像极了一座供奉祭品的祭坛",
+      "start_sec": 7.22,
+      "end_sec": 11.18,
+      "duration_sec": 3.96
+    }
+  ],
+  "created_at": "2026-10-07T06:44:48.355436+00:00"
+}

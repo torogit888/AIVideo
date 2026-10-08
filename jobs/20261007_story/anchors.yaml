@@ -1,0 +1,99 @@
+subject: 'Laika (Kudryavka): Chibi 2D cartoon illustration style. A small, adorable
+  female mixed-breed stray dog with a chubby, rounded chibi body and oversized head.
+  Smooth short fur in patches of cream white and dark charcoal black, especially around
+  one eye and across her back. Large, glassy dark brown puppy eyes with gentle, innocent
+  highlights, slightly floppy pointed ears, and a cute black button nose. Around her
+  torso is a tailored vintage khaki fabric harness fitted with miniature metallic
+  clips and thin, colorful physiological sensor wires taped gently to her fur. Crisp,
+  clean black ink outlines, cel-shaded coloring with soft dual-tone shadows, radiating
+  a tender, docile, and slightly melancholic personality. | Nikita Khrushchev: Chibi
+  2D cartoon illustration style. A stout, rotund Soviet leader with a distinct pear-shaped
+  chibi silhouette. Completely bald head, rounded cheeks, heavy jowls, and thick,
+  expressive furrowed eyebrows over determined, squinted eyes. Dressed in a boxy 1950s
+  dark charcoal double-breasted wool suit, crisp white collared shirt, and a wide
+  dark tie. His hands are stubby and gestural, often clutching a desk or waving decisively.
+  Thick, clean cartoon contour lines, solid cel-shading with bold graphic highlights,
+  conveying a stubborn, imperious political authority. | Sergei Korolev (Chief Designer):
+  Chibi 2D cartoon illustration style. A middle-aged Soviet chief engineer with a
+  slightly weary yet brilliant expression. Chibi proportions with a broad forehead,
+  receding dark brown hair combed back, tired under-eye bags, and sharp, thoughtful
+  eyes. Wears a utilitarian 1950s dark gray wool trench coat over a rumpled brown
+  suit and loose necktie, with rolled engineering blueprints and slide rules tucked
+  under his arm. Defined, crisp line art, muted cel-shaded palette, embodying an overworked,
+  anonymous scientific genius under extreme political pressure. | Dr. Vladimir Yazdovsky:
+  Chibi 2D cartoon illustration style. A compassionate middle-aged Soviet aerospace
+  physiologist. Slightly slender chibi build, gentle facial features, neat graying
+  side-parted hair, and round wire-rimmed spectacles magnifying sympathetic, remorseful
+  eyes. Wears an immaculate long white laboratory coat over a knitted beige sweater
+  and dark slacks, carrying a vintage clipboard with hand-drawn cardiac rhythm graphs.
+  Clean graphic linework, warm cel-shaded tones, capturing his paternal affection
+  and quiet guilt toward the experimental animal. | Sputnik 2 (Orbital Capsule): Inanimate
+  mechanical object in chibi 2D cartoon illustration style. Strict authentic mechanical
+  structure without any anthropomorphic or facial features. A four-meter-tall conical
+  satellite payload assembled from riveted sheet aluminum and dull industrial alloy
+  plates, simplified into clean graphic geometry. The central section houses a cylindrical
+  hermetic dog cabin with a small thick circular glass viewport, external oxygen regenerating
+  tanks, coiled metallic telemetry antennas, and copper sensor tubing. Cel-shaded
+  metallic gray, cold steel blue, and industrial beige finishes with sharp, bold vector
+  outlines.'
+environment: 'Q-version 2D cartoon illustration world set between the icy Soviet autumn
+  of 1957 and cold low-Earth orbit. Environments feature sterile Moscow medical research
+  labs with teal-tiled walls, vintage analog oscilloscope dials, vacuum tubes, and
+  steel centrifuge cages; contrasting with the barren, wind-swept launch steppes of
+  Baikonur under a pale lavender dawn. Orbital scenes showcase deep navy-indigo space
+  dotted with clean, flat cartoon starbursts and a curved pastel-blue Earth horizon
+  below. Graphic mid-century Soviet propaganda aesthetics: bold ink outlines, flat
+  cel-shaded fills, geometric architecture, and a restrained color palette dominated
+  by cold industrial grays, hospital teals, faded parchment, and stark Soviet red
+  accents.'
+use_image_reference: true
+characters:
+- id: laika_the_dog
+  name: Laika (Kudryavka)
+  appearance: Chibi 2D cartoon illustration style. A small, adorable female mixed-breed
+    stray dog with a chubby, rounded chibi body and oversized head. Smooth short fur
+    in patches of cream white and dark charcoal black, especially around one eye and
+    across her back. Large, glassy dark brown puppy eyes with gentle, innocent highlights,
+    slightly floppy pointed ears, and a cute black button nose. Around her torso is
+    a tailored vintage khaki fabric harness fitted with miniature metallic clips and
+    thin, colorful physiological sensor wires taped gently to her fur. Crisp, clean
+    black ink outlines, cel-shaded coloring with soft dual-tone shadows, radiating
+    a tender, docile, and slightly melancholic personality.
+- id: nikita_khrushchev
+  name: Nikita Khrushchev
+  appearance: Chibi 2D cartoon illustration style. A stout, rotund Soviet leader with
+    a distinct pear-shaped chibi silhouette. Completely bald head, rounded cheeks,
+    heavy jowls, and thick, expressive furrowed eyebrows over determined, squinted
+    eyes. Dressed in a boxy 1950s dark charcoal double-breasted wool suit, crisp white
+    collared shirt, and a wide dark tie. His hands are stubby and gestural, often
+    clutching a desk or waving decisively. Thick, clean cartoon contour lines, solid
+    cel-shading with bold graphic highlights, conveying a stubborn, imperious political
+    authority.
+- id: sergei_korolev
+  name: Sergei Korolev (Chief Designer)
+  appearance: Chibi 2D cartoon illustration style. A middle-aged Soviet chief engineer
+    with a slightly weary yet brilliant expression. Chibi proportions with a broad
+    forehead, receding dark brown hair combed back, tired under-eye bags, and sharp,
+    thoughtful eyes. Wears a utilitarian 1950s dark gray wool trench coat over a rumpled
+    brown suit and loose necktie, with rolled engineering blueprints and slide rules
+    tucked under his arm. Defined, crisp line art, muted cel-shaded palette, embodying
+    an overworked, anonymous scientific genius under extreme political pressure.
+- id: dr_vladimir_yazdovsky
+  name: Dr. Vladimir Yazdovsky
+  appearance: Chibi 2D cartoon illustration style. A compassionate middle-aged Soviet
+    aerospace physiologist. Slightly slender chibi build, gentle facial features,
+    neat graying side-parted hair, and round wire-rimmed spectacles magnifying sympathetic,
+    remorseful eyes. Wears an immaculate long white laboratory coat over a knitted
+    beige sweater and dark slacks, carrying a vintage clipboard with hand-drawn cardiac
+    rhythm graphs. Clean graphic linework, warm cel-shaded tones, capturing his paternal
+    affection and quiet guilt toward the experimental animal.
+- id: sputnik_2_capsule
+  name: Sputnik 2 (Orbital Capsule)
+  appearance: Inanimate mechanical object in chibi 2D cartoon illustration style.
+    Strict authentic mechanical structure without any anthropomorphic or facial features.
+    A four-meter-tall conical satellite payload assembled from riveted sheet aluminum
+    and dull industrial alloy plates, simplified into clean graphic geometry. The
+    central section houses a cylindrical hermetic dog cabin with a small thick circular
+    glass viewport, external oxygen regenerating tanks, coiled metallic telemetry
+    antennas, and copper sensor tubing. Cel-shaded metallic gray, cold steel blue,
+    and industrial beige finishes with sharp, bold vector outlines.

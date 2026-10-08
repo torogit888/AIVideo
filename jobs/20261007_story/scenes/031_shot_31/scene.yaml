@@ -1,0 +1,27 @@
+id: 031_shot_31
+index: 31
+title: 萊卡身上套著金屬鎖鏈和挽具
+narration: 萊卡身上套著金屬鎖鏈和挽具，她只能勉強趴下或者站立，連回頭舔舔自己的爪子都做不到，
+image_prompt: interior cutaway shot of the cylindrical hermetic dog cabin, showing
+  chibi Laika secured in her harness by tiny metal chains to the padded floor, able
+  only to stand or lie down, illuminated by a faint cabin indicator lamp, cel-shaded
+  mechanical details, 16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T060444
+  image_take: null
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Sputnik 2 dog cabin historical photo
+  source_title: List of individual dogs
+  source_url: https://upload.wikimedia.org/wikipedia/commons/4/47/Faithful_Dog_Hachiko_Photo.png

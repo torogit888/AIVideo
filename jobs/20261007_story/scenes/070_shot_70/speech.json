@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20261007T063901",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 6.79,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[question-ah]如果技術極限真的注定了回不來，這場悲劇或許還能被冠上探索代價的藉口",
+      "text_cn": "[question-ah]如果技术极限真的注定了回不来，这场悲剧或许还能被冠上探索代价的借口",
+      "start_sec": 0.0,
+      "end_sec": 6.79,
+      "duration_sec": 6.79
+    }
+  ],
+  "created_at": "2026-10-07T06:39:01.977036+00:00"
+}

@@ -1,0 +1,17 @@
+id: 047_shot_47
+index: 47
+title: 從平時每分鐘一百零三次瘋狂飆升到
+narration: 從平時每分鐘一百零三次瘋狂飆升到二百四十次，她的呼吸頻率急劇上升到平時的三到四倍，
+image_prompt: 'split-screen composition: on the left, an analog paper chart violently
+  scribbling a spiked heartbeat rhythm in red ink; on the right, chibi Laika inside
+  the vibrating cabin, wide-eyed with rapid breath vapor in the cold air, crisp cel-shading,
+  16:9 widescreen composition'
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T061745
+  image_take: image_20261007T061707

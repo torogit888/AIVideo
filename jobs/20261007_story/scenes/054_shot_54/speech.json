@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261007T062440",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 7.57,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "有的版本甚至說她在第七天吃下了那份特製毒藥",
+      "text_cn": "有的版本甚至说她在第七天吃下了那份特制毒药",
+      "start_sec": 0.0,
+      "end_sec": 4.36,
+      "duration_sec": 4.36
+    },
+    {
+      "index": 2,
+      "text": "在沒有痛苦的沉睡中告別了人間",
+      "text_cn": "在没有痛苦的沉睡中告别了人间",
+      "start_sec": 4.61,
+      "end_sec": 7.57,
+      "duration_sec": 2.96
+    }
+  ],
+  "created_at": "2026-10-07T06:24:40.874971+00:00"
+}

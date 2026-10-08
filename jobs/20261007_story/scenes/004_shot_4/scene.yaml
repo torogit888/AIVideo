@@ -1,0 +1,17 @@
+id: 004_shot_4
+index: 4
+title: 時間倒回到1957年的深秋
+narration: 時間倒回到1957年的深秋，二戰結束才短短十二年，美蘇冷戰的鐵幕正壓得全世界喘不過氣，
+image_prompt: wide establishing shot of a divided cartoon world globe under heavy
+  dark iron clouds, a massive stylized iron curtain dividing silhouettes of city skylines,
+  cold desaturated gray and slate-blue palette with stark red military flags, bold
+  graphic 2D cartoon illustration, clean contour lines, 16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T054446
+  image_take: image_20261007T054424

@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261007T061546",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 10.49,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "11月3日黎明前夕，技術人員在鎖死艙門前彎下腰親吻了她的鼻子",
+      "text_cn": "11月3日黎明前夕，技术人员在锁死舱门前弯下腰亲吻了她的鼻子",
+      "start_sec": 0.0,
+      "end_sec": 6.08,
+      "duration_sec": 6.08
+    },
+    {
+      "index": 2,
+      "text": "隨後厚重的金屬艙蓋被扳手一圈一圈死死旋緊",
+      "text_cn": "随后厚重的金属舱盖被扳手一圈一圈死死旋紧",
+      "start_sec": 6.33,
+      "end_sec": 10.49,
+      "duration_sec": 4.16
+    }
+  ],
+  "created_at": "2026-10-07T06:15:46.753681+00:00"
+}

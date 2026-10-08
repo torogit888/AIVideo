@@ -1,0 +1,17 @@
+id: 054_shot_54
+index: 54
+title: 有的版本甚至說她在第七天吃下了那
+narration: 有的版本甚至說她在第七天吃下了那份特製毒藥，在沒有痛苦的沉睡中告別了人間，
+image_prompt: 'artistic split visual: on one side a pristine sterile feeding tray
+  under glowing celestial light; on the other, the stark mechanical reality of the
+  dark orbiting metal capsule, contrasting propaganda myth and reality, cel-shaded
+  2D art, 16:9 widescreen composition'
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T062440
+  image_take: image_20261007T062402

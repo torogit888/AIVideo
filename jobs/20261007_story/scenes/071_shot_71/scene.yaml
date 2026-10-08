@@ -1,0 +1,27 @@
+id: 071_shot_71
+index: 71
+title: 僅僅在萊卡犧牲兩年多後的1960
+narration: 僅僅在萊卡犧牲兩年多後的1960年8月，蘇聯就發射了配備完整降落傘回收艙的五號衛星，兩隻名叫別爾卡和斯特雷卡的小狗在太空繞行一天後，
+image_prompt: cheerful shot of two cute chibi dogs, Belka and Strelka, one white and
+  one spotted, peeking happily out of an orange padded space capsule equipped with
+  striped parachute lines, bright optimistic colors, clean cartoon outlines, 16:9
+  widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T063924
+  image_take: null
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Sputnik 5 satellite historical photo
+  source_title: Sputnik 1
+  source_url: https://upload.wikimedia.org/wikipedia/commons/b/b7/%D0%9F%D0%B5%D1%80%D0%B2%D1%8B%D0%B9_%D0%B2_%D0%BC%D0%B8%D1%80%D0%B5_%D0%B8%D1%81%D0%BA%D1%83%D1%81%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9_%D1%81%D0%BF%D1%83%D1%82%D0%BD%D0%B8%D0%BA_%D0%97%D0%B5%D0%BC%D0%BB%D0%B8.jpg

@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20261007T064047",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 7.12,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[sigh]萊卡之所以必須死，僅僅是因為她倒楣地碰上了一場誰都不敢違背的政治檔期",
+      "text_cn": "[sigh]莱卡之所以必须死，仅仅是因为她倒楣地碰上了一场谁都不敢违背的政治档棋",
+      "start_sec": 0.0,
+      "end_sec": 7.12,
+      "duration_sec": 7.12
+    }
+  ],
+  "created_at": "2026-10-07T06:40:47.586540+00:00"
+}

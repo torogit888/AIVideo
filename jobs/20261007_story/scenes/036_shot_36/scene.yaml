@@ -1,0 +1,17 @@
+id: 036_shot_36
+index: 36
+title: 動物會不會在幽閉恐懼中當場發瘋
+narration: 動物會不會在幽閉恐懼中當場發瘋，為了向全世界證明蘇聯科技的絕對領先，他們需要的是一連串跳動的生理數字，
+image_prompt: conceptual shot of chibi Laika floating slightly within her snug harness
+  inside the dark capsule, wide glossy eyes reflecting tiny stars through the circular
+  glass viewport, mysterious indigo ambient light, poignant cel-shaded 2D illustration,
+  16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T060742
+  image_take: image_20261007T060705

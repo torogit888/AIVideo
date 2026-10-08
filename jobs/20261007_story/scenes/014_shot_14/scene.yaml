@@ -1,0 +1,17 @@
+id: 014_shot_14
+index: 14
+title: 在短短二十多天裡拼湊出一顆帶著活
+narration: 在短短二十多天裡拼湊出一顆帶著活犬的即興衛星，而一隻流浪狗的命運，就這樣被死死綁在了一場國家級的面子工程上，
+image_prompt: dramatic wide shot of Soviet engineers working on the metallic shell
+  of Sputnik 2 in an industrial hangar, while in the foreground a small silhouette
+  of a stray dog watches, dramatic amber hangar lights contrasting with industrial
+  cold steel, bold 2D cartoon illustration, 16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T055344
+  image_take: image_20261007T055306

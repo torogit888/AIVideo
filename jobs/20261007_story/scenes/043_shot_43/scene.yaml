@@ -1,0 +1,17 @@
+id: 043_shot_43
+index: 43
+title: 但溫柔的眼淚並沒有改變冰冷的現實
+narration: '[sigh]但溫柔的眼淚並沒有改變冰冷的現實，早在1957年10月31日，萊卡就已經被提前塞進了那個冰冷的加壓艙裡，'
+image_prompt: high-angle shot of chibi Laika being gently lowered into the cylindrical
+  metal capsule of Sputnik 2 by gloved technicians in a chilly hangar, metallic surfaces
+  reflecting cold blue work lights, clean contour lines, cel-shaded, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T061350
+  image_take: image_20261007T061309

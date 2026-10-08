@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261007T062343",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 7.97,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "有的官方發言人說萊卡在太空裡優雅地活了七天",
+      "text_cn": "有的官方发言人说莱卡在太空里优雅地活了七天",
+      "start_sec": 0.0,
+      "end_sec": 4.36,
+      "duration_sec": 4.36
+    },
+    {
+      "index": 2,
+      "text": "最後在氧氣耗盡時安詳地閉上了眼睛",
+      "text_cn": "最后在氧气耗尽时安详地闭上了眼睛",
+      "start_sec": 4.61,
+      "end_sec": 7.97,
+      "duration_sec": 3.36
+    }
+  ],
+  "created_at": "2026-10-07T06:23:43.257405+00:00"
+}

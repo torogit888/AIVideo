@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261007T055246",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 8.81,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "更精密的原定科學衛星根本趕不及完工",
+      "text_cn": "更精密的原定科学卫星根本赶不及完工",
+      "start_sec": 0.0,
+      "end_sec": 3.56,
+      "duration_sec": 3.56
+    },
+    {
+      "index": 2,
+      "text": "為了趕上最高領袖的週年慶檔期，科學家們只能硬著頭皮",
+      "text_cn": "为了赶上最高领袖的周年庆档棋，科学家们只能硬著头皮",
+      "start_sec": 3.81,
+      "end_sec": 8.81,
+      "duration_sec": 5.0
+    }
+  ],
+  "created_at": "2026-10-07T05:52:46.609888+00:00"
+}

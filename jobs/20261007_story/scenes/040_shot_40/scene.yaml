@@ -1,0 +1,17 @@
+id: 040_shot_40
+index: 40
+title: 讓自己的孩子撫摸她柔軟的毛皮
+narration: 讓自己的孩子撫摸她柔軟的毛皮，陪她玩了一整晚的皮球，
+image_prompt: heartwarming medium shot of two chibi Russian children laughing and
+  gently petting chibi Laika as she wags her tail beside a bright red rubber ball,
+  warm golden lamplight, charming vintage domestic interior, clean expressive line
+  art, 16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T061047
+  image_take: image_20261007T061008

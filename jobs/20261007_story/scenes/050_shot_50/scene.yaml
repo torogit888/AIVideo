@@ -1,0 +1,17 @@
+id: 050_shot_50
+index: 50
+title: 原本脆弱的溫控散熱系統徹底癱瘓
+narration: 原本脆弱的溫控散熱系統徹底癱瘓，艙內的溫度計開始不受控制地往上狂飆，狹小悶熱的鐵罐頭溫度迅速突破了四十攝氏度，
+image_prompt: close-up inside the cabin showing an analog round thermometer needle
+  swinging rapidly into a dangerous bright red 40-degree zone, with chibi Laika panting
+  heavily in sweltering heat, sweat droplets stylized on her fur, high-contrast warm
+  warning glow, 16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T062054
+  image_take: image_20261007T062016

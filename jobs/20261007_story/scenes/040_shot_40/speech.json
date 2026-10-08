@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20261007T061047",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 5.0,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "讓自己的孩子撫摸她柔軟的毛皮，陪她玩了一整晚的皮球",
+      "text_cn": "让自己的孩子抚摸她柔软的毛皮，陪她玩了一整晚的皮球",
+      "start_sec": 0.0,
+      "end_sec": 5.0,
+      "duration_sec": 5.0
+    }
+  ],
+  "created_at": "2026-10-07T06:10:47.234731+00:00"
+}

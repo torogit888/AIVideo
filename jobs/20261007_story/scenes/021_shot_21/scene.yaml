@@ -1,0 +1,17 @@
+id: 021_shot_21
+index: 21
+title: 候選名單最後留下了三隻狗
+narration: 候選名單最後留下了三隻狗，萊卡當時的名字叫庫德里亞夫卡，俄語意思是小捲毛，
+image_prompt: 'cute medium shot of three chibi dogs sitting side by side on a clinical
+  platform: Kudryavka (Laika) with her soft curly patches in the center, flanked by
+  two other small stray dogs, bright clean veterinary lab lighting, charming 2D cartoon
+  illustration, 16:9 widescreen composition'
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T055818
+  image_take: image_20261007T055757

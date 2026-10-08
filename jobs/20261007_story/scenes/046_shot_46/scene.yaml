@@ -1,0 +1,27 @@
+id: 046_shot_46
+index: 46
+title: 清晨升空那一刻
+narration: 清晨升空那一刻，巨大的震動和刺耳的咆哮撕裂了荒原，遙測數據顯示萊卡的心跳瞬間暴增，
+image_prompt: wide dramatic low-angle shot of the R-7 rocket igniting with massive
+  stylized orange and yellow cartoon flame plumes, blasting off from the launch pad
+  into the pale dawn sky, smoke billowing across the Baikonur steppe, bold 2D cartoon
+  composition, 16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T061642
+  image_take: image_20261007T061606
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Laika telemetry data graph
+  source_title: Mir
+  source_url: https://upload.wikimedia.org/wikipedia/commons/0/09/Mir_Space_Station_viewed_from_Endeavour_during_STS-89.jpg

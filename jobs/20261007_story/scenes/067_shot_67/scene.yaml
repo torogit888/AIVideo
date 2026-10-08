@@ -1,0 +1,17 @@
+id: 067_shot_67
+index: 67
+title: 在掌聲和歡呼聲的背後
+narration: 在掌聲和歡呼聲的背後，萊卡的遺體靜靜躺在那個燒焦的密封艙裡，像一顆被人遺忘的太空垃圾，
+image_prompt: hauntingly beautiful wide shot of Sputnik 2, its exterior scorched and
+  silent, drifting slowly through deep indigo space above the vast glowing curve of
+  planet Earth, solitary and quiet, cold cel-shaded sci-fi tones, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T063541
+  image_take: image_20261007T063529

@@ -1,0 +1,27 @@
+id: 005_shot_5
+index: 5
+title: 就在那一年的10月4日
+narration: 就在那一年的10月4日，蘇聯成功發射了人類第一顆人造衛星史普尼克一號，史普尼克在俄語裡的意思本來只是旅伴，
+image_prompt: low-angle shot of the shiny spherical Sputnik 1 satellite with four
+  long trailing radio antennas soaring gracefully into a twilight purple upper atmosphere,
+  emitting stylized visual radio ripple rings, crisp cel-shaded metallic finish, clean
+  2D cartoon aesthetics, 16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T054543
+  image_take: image_20261007T054506
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: 史普尼克一號
+  source_title: File:Sputnik.jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/c/c5/Sputnik.jpg

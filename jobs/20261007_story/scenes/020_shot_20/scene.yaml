@@ -1,0 +1,17 @@
+id: 020_shot_20
+index: 20
+title: 第三毛色必須偏淺
+narration: 第三毛色必須偏淺，因為黑白相間的毛色在地面黑白相機裡拍起來最上鏡，
+image_prompt: over-the-shoulder shot looking through a vintage 1950s monochrome monitor
+  viewfinder, framing chibi Laika's distinct cream and black facial patches clearly
+  under bright studio lamps, crisp graphic lines, cel-shaded dual tones, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T055743
+  image_take: image_20261007T055705

@@ -1,19 +1,39 @@
-import React, { useEffect, useMemo, useRef } from "react";
-import { PlaySquare, Download, FileText, Youtube } from "lucide-react";
+import React, { useEffect, useMemo, useRef, useState, useCallback } from "react";
+import { PlaySquare, Download, FileText, Youtube, RefreshCw, AlertCircle } from "lucide-react";
 import { useStudioStore } from "../store";
 import { YouTubeUploadModal } from "./YouTubeUploadModal";
 
 export const FilmViewer: React.FC = () => {
-  const { selectedJobId, scenes, loadScenes, setTab, openInspector } = useStudioStore();
-  const [showYouTubeModal, setShowYouTubeModal] = React.useState(false);
+  const { currentTab, jobs, selectedJobId, scenes, loadScenes, loadJobs, setTab, openInspector } =
+    useStudioStore();
+  const [showYouTubeModal, setShowYouTubeModal] = useState(false);
+  const [filmVersion, setFilmVersion] = useState<number>(Date.now());
+  const [videoError, setVideoError] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  const currentJob = jobs.find((j) => j.id === selectedJobId);
+  const hasFilm = currentJob?.progress.film_ready ?? false;
+
+  const refreshFilm = useCallback(() => {
+    setFilmVersion(Date.now());
+    setVideoError(false);
+    if (selectedJobId) {
+      loadScenes(selectedJobId);
+      loadJobs();
+    }
+  }, [selectedJobId, loadScenes, loadJobs]);
+
+  // 當使用者切換到成片分頁（或切換專案）時，自動同步最新專案資料並重新載入影片
   useEffect(() => {
-    if (selectedJobId) loadScenes(selectedJobId);
-  }, [selectedJobId, loadScenes]);
+    if (currentTab === "film" && selectedJobId) {
+      refreshFilm();
+    }
+  }, [currentTab, selectedJobId, refreshFilm]);
 
   const encodedJobId = selectedJobId ? encodeURIComponent(selectedJobId) : "";
-  const filmUrl = encodedJobId ? `/media/jobs/${encodedJobId}/compose/film.mp4` : null;
+  const rawFilmUrl = encodedJobId && hasFilm ? `/media/jobs/${encodedJobId}/compose/film.mp4` : null;
+  // 加上時間戳防止瀏覽器快取舊成片或快取先前的 404 狀態
+  const filmPlayUrl = rawFilmUrl ? `${rawFilmUrl}?t=${filmVersion}` : null;
   const srtUrl = encodedJobId ? `/media/jobs/${encodedJobId}/compose/timeline.srt` : null;
   const assUrl = encodedJobId ? `/media/jobs/${encodedJobId}/compose/timeline.ass` : null;
 
@@ -46,7 +66,17 @@ export const FilmViewer: React.FC = () => {
           </p>
         </div>
         <div className="flex items-center space-x-2">
-          {filmUrl && (
+          {rawFilmUrl && (
+            <button
+              onClick={refreshFilm}
+              className="flex items-center h-8 px-2.5 rounded bg-cinema-card hover:bg-cinema-cardHover border border-cinema-border text-xs text-cinema-muted hover:text-amber-cta transition-colors"
+              title="重新載入最新成片"
+            >
+              <RefreshCw className="w-3.5 h-3.5 mr-1" />
+              <span>重新載入</span>
+            </button>
+          )}
+          {rawFilmUrl && (
             <button
               onClick={() => setShowYouTubeModal(true)}
               className="flex items-center h-8 px-3 rounded bg-cinema-card hover:bg-cinema-cardHover border border-cinema-border text-white text-xs font-medium transition-colors"
@@ -56,9 +86,9 @@ export const FilmViewer: React.FC = () => {
               <span>YouTube</span>
             </button>
           )}
-          {filmUrl && (
+          {rawFilmUrl && (
             <a
-              href={filmUrl}
+              href={rawFilmUrl}
               download
               className="flex items-center h-8 px-2.5 rounded bg-cinema-card hover:bg-cinema-cardHover border border-cinema-border text-xs text-cinema-muted hover:text-cinema-text transition-colors"
             >
@@ -92,14 +122,31 @@ export const FilmViewer: React.FC = () => {
       </div>
 
       <div className="shrink-0 relative aspect-video w-full rounded-xl bg-black overflow-hidden border border-cinema-border shadow-2xl">
-        {filmUrl ? (
+        {filmPlayUrl && !videoError ? (
           <video
+            key={filmPlayUrl}
             ref={videoRef}
-            src={filmUrl}
+            src={filmPlayUrl}
             controls
             className="w-full h-full object-contain"
             autoPlay={false}
+            onError={() => setVideoError(true)}
           />
+        ) : videoError ? (
+          <div className="flex flex-col items-center justify-center w-full h-full text-cinema-muted space-y-3 p-6 text-center">
+            <AlertCircle className="w-12 h-12 text-amber-cta/80" />
+            <div>
+              <p className="text-sm font-medium text-cinema-text">成片檔案載入中或尚未完全寫入</p>
+              <p className="text-xs text-cinema-muted mt-1">若剛剛才合成完成，請點擊下方按鈕重試</p>
+            </div>
+            <button
+              onClick={refreshFilm}
+              className="flex items-center h-8 px-4 rounded-lg bg-amber-cta hover:bg-amber-ctaHover text-cinema-bg font-semibold text-xs transition-colors"
+            >
+              <RefreshCw className="w-3.5 h-3.5 mr-1.5" />
+              <span>重新載入影片</span>
+            </button>
+          </div>
         ) : (
           <div className="flex flex-col items-center justify-center w-full h-full text-cinema-muted">
             <PlaySquare className="w-16 h-16 stroke-1 mb-3 text-cinema-muted/40" />

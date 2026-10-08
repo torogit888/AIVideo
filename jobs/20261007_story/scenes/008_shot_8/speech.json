@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261007T054854",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 8.81,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "再向全世界丟出一個更震撼的超級奇觀",
+      "text_cn": "再向全世界丢出一个更震撼的超级奇观",
+      "start_sec": 0.0,
+      "end_sec": 3.56,
+      "duration_sec": 3.56
+    },
+    {
+      "index": 2,
+      "text": "他把科學家叫到辦公室，下了一道沒有商量餘地的死命令",
+      "text_cn": "他把科学家叫到办公室，下了一道没有商量余地的死命令",
+      "start_sec": 3.81,
+      "end_sec": 8.81,
+      "duration_sec": 5.0
+    }
+  ],
+  "created_at": "2026-10-07T05:48:54.245970+00:00"
+}

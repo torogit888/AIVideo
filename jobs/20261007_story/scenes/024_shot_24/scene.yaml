@@ -1,0 +1,17 @@
+id: 024_shot_24
+index: 24
+title: 萊卡最終被選中不是因為她最幸運
+narration: 萊卡最終被選中不是因為她最幸運，[sigh]恰恰是因為她性格最溫順，哪怕被關進黑暗的鐵籠子裡也從不反抗，
+image_prompt: intimate eye-level shot of chibi Laika sitting docilely inside an open
+  steel training compartment, looking up with trusting, gentle puppy eyes at a technician,
+  soft rim lighting accentuating her gentle expression, crisp black contour lines,
+  cel-shaded, 16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T060045
+  image_take: image_20261007T060008

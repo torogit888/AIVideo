@@ -1,0 +1,17 @@
+id: 041_shot_41
+index: 41
+title: 多年之後這位老科學家在回憶錄裡寫
+narration: 多年之後這位老科學家在回憶錄裡寫道，我想為她做點美好的事情，因為她能活在這個世界上的時間已經不多了，
+image_prompt: tender close-up shot of Dr. Yazdovsky kneeling down to gently cradle
+  chibi Laika's chin with his hand, their eyes meeting with warmth and deep unspoken
+  sorrow, glowing warm indoor lighting, delicate cel-shaded character art, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T061203
+  image_take: image_20261007T061101

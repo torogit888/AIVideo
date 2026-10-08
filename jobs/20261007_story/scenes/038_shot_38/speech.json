@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261007T060850",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 9.21,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "在正式發射前的那段日子，研究所裡的氣氛變得極其壓抑",
+      "text_cn": "在正式发射前的那段日子，研旧所里的气氛变得极其压抑",
+      "start_sec": 0.0,
+      "end_sec": 5.0,
+      "duration_sec": 5.0
+    },
+    {
+      "index": 2,
+      "text": "負責這項實驗的生理學家亞茲多夫斯基博士",
+      "text_cn": "负责这项实验的生理学家雅兹多夫斯基博士",
+      "start_sec": 5.25,
+      "end_sec": 9.21,
+      "duration_sec": 3.96
+    }
+  ],
+  "created_at": "2026-10-07T06:08:50.421868+00:00"
+}

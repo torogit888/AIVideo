@@ -1,0 +1,26 @@
+id: 075_shot_75
+index: 75
+title: 1998年曾經主導這項任務的高級
+narration: 1998年曾經主導這項任務的高級科學家加津科公開懺悔，他說隨著時間過去我內心越來越後悔，那次任務帶來的科學收獲，
+image_prompt: melancholic close-up of an elderly Soviet scientist in chibi style with
+  white hair and sad, reflective eyes, holding a vintage monochrome photograph of
+  Laika in his wrinkled hands, soft muted office lighting, 16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T064139
+  image_take: image_20261007T064101
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Oleg Gazenko portrait
+  source_title: Laika (comics)
+  source_url: https://upload.wikimedia.org/wikipedia/en/7/7d/Laika_bookcover1.jpg

@@ -149,10 +149,10 @@ export interface AiModelOption {
 }
 
 export const AI_TEXT_MODELS: AiModelOption[] = [
-  { id: "gemini-3.8-flash", name: "Gemini 3.8 Flash", badge: "3.8 Flash", tag: "極速高擬真・首選" },
-  { id: "gemini-3.5-flash", name: "Gemini 3.5 Flash", badge: "3.5 Flash", tag: "經典平衡・推薦" },
-  { id: "gemini-2.5-flash", name: "Gemini 2.5 Flash", badge: "2.5 Flash", tag: "主流穩定" },
-  { id: "gemini-2.0-flash", name: "Gemini 2.0 Flash", badge: "2.0 Flash", tag: "備用核心" },
+  { id: "gemini-3.8-flash", name: "Gemini 3.8 Flash", badge: "3.8 Flash", tag: "極速高擬真・首選推薦" },
+  { id: "gemini-3.5-flash", name: "Gemini 3.5 Flash", badge: "3.5 Flash", tag: "經典平衡" },
+  { id: "gemini-2.5-flash", name: "Gemini 2.5 Flash", badge: "2.5 Flash", tag: "官方旗艦" },
+  { id: "grok-4.7", name: "xAI Grok 4.7", badge: "Grok 4.7", tag: "獨立風格" },
 ];
 
 export const AI_IMAGE_MODELS: AiModelOption[] = [
@@ -169,6 +169,45 @@ export interface CharacterAnchor {
   appearance: string;
   has_image?: boolean;
   image_url?: string | null;
+}
+
+export interface VertexAccount {
+  id: string;
+  name: string;
+  auth_type: "service_account" | "api_key" | "adc";
+  project_id: string;
+  location: string;
+  client_email?: string;
+  api_key_masked?: string;
+  is_active: boolean;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface CreateVertexAccountInput {
+  name: string;
+  auth_type: "service_account" | "api_key" | "adc";
+  project_id?: string;
+  location?: string;
+  service_account_json?: string;
+  api_key?: string;
+}
+
+export interface ModelStatusItem {
+  name: string;
+  type: "text" | "image";
+  status: "available" | "disabled" | "quota_exceeded" | "permission_denied" | "unsupported" | "error";
+  message: string;
+  latency_ms?: number | null;
+  error_detail?: string | null;
+}
+
+export interface ModelsStatusResponse {
+  account_id?: string | null;
+  account_name?: string | null;
+  checked_at?: string | null;
+  timestamp?: number | null;
+  models: Record<string, ModelStatusItem>;
 }
 
 export interface JobVisualAnchors {

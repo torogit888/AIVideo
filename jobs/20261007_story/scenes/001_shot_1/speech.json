@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261007T054241",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 11.09,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "大家好，我是白兔，你小時候看過那張著名的蘇聯太空海報嗎",
+      "text_cn": "大家好，我是白兔，你小时候看过那张著名的苏联太空海报吗",
+      "start_sec": 0.0,
+      "end_sec": 5.24,
+      "duration_sec": 5.24
+    },
+    {
+      "index": 2,
+      "text": "海報上有一隻毛色黑白相間的小狗，昂首挺胸地望著深邃的星空",
+      "text_cn": "海报上有一只毛色黑白相间的小狗，昂首挺胸地望着深邃的星空",
+      "start_sec": 5.49,
+      "end_sec": 11.09,
+      "duration_sec": 5.6
+    }
+  ],
+  "created_at": "2026-10-07T05:42:41.699934+00:00"
+}

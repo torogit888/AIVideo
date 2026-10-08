@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261007T062842",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 9.69,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "但對於紅場看台上的政客來說，萊卡活了五小時還是七天根本無所謂",
+      "text_cn": "但对于红场看台上的政客来说，莱卡活了五小时还是七天根本无所谓",
+      "start_sec": 0.0,
+      "end_sec": 5.76,
+      "duration_sec": 5.76
+    },
+    {
+      "index": 2,
+      "text": "因為11月7日的閱兵式已經如期舉行",
+      "text_cn": "因为11月7日的阅兵式已经如棋举行",
+      "start_sec": 6.01,
+      "end_sec": 9.69,
+      "duration_sec": 3.68
+    }
+  ],
+  "created_at": "2026-10-07T06:28:42.201341+00:00"
+}

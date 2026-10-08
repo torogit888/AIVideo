@@ -1,0 +1,27 @@
+id: 012_shot_12
+index: 12
+title: 甚至連發射地點丘拉坦荒原
+narration: 甚至連發射地點丘拉坦荒原，對外都要借用三百公里外一個礦區的名字拜科努爾，[dissatisfaction-hnn]在一個連地名和科學家名字都要造假的帝國裡，
+image_prompt: wide establishing shot of the desolate, wind-swept Baikonur steppe under
+  a bleak lavender dawn, an isolated railway track leading toward a distant secret
+  rocket gantry, geometric mid-century cartoon aesthetic, flat cel-shaded dusty plains
+  and cold sky, 16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T055211
+  image_take: null
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Baikonur Cosmodrome historical photo
+  source_title: File:Baikonur Cosmodrome IMG 3148 Baikonur (37429525236).jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/f/fe/Baikonur_Cosmodrome_IMG_3148_Baikonur_%2837429525236%29.jpg

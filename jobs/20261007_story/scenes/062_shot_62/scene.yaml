@@ -1,0 +1,26 @@
+id: 062_shot_62
+index: 62
+title: 國營工廠生產了印著太空狗的香菸和
+narration: 國營工廠生產了印著太空狗的香菸和巧克力，課堂上的小學生在老師帶領下給太空狗寫信，天真地詢問萊卡在天上吃得飽不飽冷不冷，
+image_prompt: 'still life shot of vintage Soviet merchandise: a tin box of chocolates
+  and a pack of cigarettes with chibi space dog illustrations, alongside a child''s
+  hand-written letter decorated with crayon stars, warm nostalgic tabletop lighting,
+  16:9 widescreen composition'
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T063146
+  image_take: image_20261007T063132
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Laika branded cigarettes and chocolates historical photo
+  fetch_error: 未找到合適照片

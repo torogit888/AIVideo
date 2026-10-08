@@ -1,0 +1,17 @@
+id: 053_shot_53
+index: 53
+title: 有的官方發言人說萊卡在太空裡優雅
+narration: 有的官方發言人說萊卡在太空裡優雅地活了七天，最後在氧氣耗盡時安詳地閉上了眼睛，
+image_prompt: conceptual propaganda-style illustration showing chibi Laika peacefully
+  sleeping like an angel among the cartoon stars, surrounded by stylized laurel wreaths
+  and golden orbital rings, soft pastel cel-shading, ironic peaceful aesthetic, 16:9
+  widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T062343
+  image_take: image_20261007T062304

@@ -1,0 +1,17 @@
+id: 074_shot_74
+index: 74
+title: 萊卡之所以必須死
+narration: '[sigh]萊卡之所以必須死，僅僅是因為她倒楣地碰上了一場誰都不敢違背的政治檔期，'
+image_prompt: 'poignant split-contrast shot: on the left, an imposing Kremlin clock
+  tower with hands pointing urgently toward Nov 7; on the right, chibi Laika sitting
+  alone in the cold shadows of the rocket staging bay, dramatic red and steel-blue
+  lighting, 16:9 widescreen composition'
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T064047
+  image_take: image_20261007T064034

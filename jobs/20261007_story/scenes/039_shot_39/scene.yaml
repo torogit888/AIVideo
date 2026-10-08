@@ -1,0 +1,17 @@
+id: 039_shot_39
+index: 39
+title: 在發射前最後一個夜晚
+narration: 在發射前最後一個夜晚，悄悄把這隻安靜的小狗帶回了自己的家裡，他讓萊卡在地毯上奔跑，
+image_prompt: warm establishing interior shot of a cozy 1950s Soviet apartment living
+  room, warm floor lamp illuminating a patterned wool rug where chibi Laika happily
+  sniffs a woven carpet, soft amber lighting, heartwarming cel-shaded cartoon style,
+  16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T060953
+  image_take: image_20261007T060914

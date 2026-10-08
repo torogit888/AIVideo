@@ -1,0 +1,17 @@
+id: 057_shot_57
+index: 57
+title: 在發射升空僅僅五到七個小時之後
+narration: 在發射升空僅僅五到七個小時之後，伴隨著艙內不斷上升的窒息高溫和劇烈驚嚇，那顆微弱的心臟就永遠停止了跳動，
+image_prompt: melancholic and peaceful medium shot of chibi Laika curled gently in
+  eternal sleep inside the dim, quiet cabin, a faint green flatline displayed on a
+  distant tiny monitor, soft blue starlight drifting through the circular glass viewport,
+  tender cel-shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 0
+act_title: 鏡頭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261007T062643
+  image_take: image_20261007T062606

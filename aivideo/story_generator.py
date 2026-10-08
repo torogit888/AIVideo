@@ -16,9 +16,9 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 
 TEXT_MODELS = (
     "gemini-3.8-flash",
+    "gemini-2.5-flash",
     "grok-4.7",
     "gemini-3.5-flash",
-    "gemini-2.5-flash",
     "gemini-2.0-flash",
     "gemini-1.5-flash",
     "gemini-flash-latest",
@@ -26,7 +26,7 @@ TEXT_MODELS = (
 
 
 def resolve_text_model_name(model_name: str | None) -> str:
-    """將使用者或前端傳入的模型名稱映射為 Vertex AI 支援的真實名稱（如 xai/grok-4.7）。"""
+    """將使用者或前端傳入的模型名稱映射為 Vertex AI 支援的真實名稱。"""
     m = (model_name or "").strip()
     if not m:
         return "gemini-3.8-flash"
@@ -186,6 +186,41 @@ def load_tone_sample(tone_id: str) -> str:
         else:
             return ""
     return tone_file.read_text(encoding="utf-8")
+
+
+def load_tone_info(tone_id: str) -> dict[str, Any]:
+    """完整解析口吻範本檔案，提取人設名稱、特質描述、發音引導與核心口白示範。"""
+    raw = load_tone_sample(tone_id)
+    if not raw:
+        return {
+            "id": tone_id,
+            "name": tone_id,
+            "description": "極具感染力、短句頓挫、反詰質疑後驚喜反轉的敘事風格",
+            "recommended_voice_instruct": "沉穩、老練、娓娓道來",
+            "spoken_sample": "",
+            "full_text": "",
+        }
+
+    meta: dict[str, Any] = {}
+    if raw.startswith("---"):
+        parts = raw.split("---", 2)
+        if len(parts) >= 3:
+            try:
+                meta = yaml.safe_load(parts[1]) or {}
+            except Exception:
+                pass
+
+    spoken_sample = extract_tone_spoken_sample(raw)
+
+    return {
+        "id": str(meta.get("id") or tone_id),
+        "name": str(meta.get("name") or meta.get("title") or tone_id),
+        "description": str(meta.get("description") or "極具感染力、短句頓挫、反詰質疑後驚喜反轉的敘事風格"),
+        "recommended_voice_instruct": str(meta.get("recommended_voice_instruct") or "沉穩、老練、娓娓道來"),
+        "tags": meta.get("tags") or [],
+        "spoken_sample": spoken_sample,
+        "full_text": raw,
+    }
 
 
 _SCENE_HEADER_RE = re.compile(
@@ -402,14 +437,18 @@ def generate_story_outline(
 請嚴格依據上述風格範本中的「核心敘事結構與節奏公式」（如反差鉤子 Hook、困境鋪陳、核心機制拆解、矛盾交鋒、反噬或警示、昇華反思等）來構建各幕次的情節走向！
 【人設禁令】：嚴禁自稱「說書人」、「小編」等任何預設稱謂，開場與視角必須 100% 依循上方風格範本的人設與口吻。
 
-【大綱規劃原則】
+【大綱規劃原則（核心黃金架構）】
 1. 請條列 6～8 個獨立幕次，每幕包含：
    - 幕次標題與核心矛盾衝突
    - 關鍵真實歷史/技術細節、數據對抗或人物名場面
    - 此幕要帶給觀眾的懸念或情緒高潮
-2. 避免空泛概述，請給出具體人物姓名、時間點、關鍵事件與技術關鍵詞
-3. 排版請簡潔有力，條列式輸出（例如「第一幕：...」、「第二幕：...」）
-4. 「幕次標題」與「此幕要帶給觀眾的懸念或情緒高潮」是給下一階段編劇看的場記，不是口白。請用內部筆記語氣書寫，後續腳本必須改寫成聽眾聽得懂的台詞，不得把這些欄位原句唸出來。
+2. 【第一幕強制要求·時代坐標與歷史舞台鋪陳】：
+   第一幕在拋出認知反差 Hook 之後，必須清楚交代故事發生的「時空背景與歷史舞台」（包括具體年代年份、當時的世界地緣格局、社會大環境與時代封閉性），為全篇故事打下紮實的沉浸式世界觀，切忌毫無前情背景直接跳入細節。
+3. 【最後一幕強制要求·歷史餘韻與訂閱謝幕】：
+   最後一幕交代事件的長遠歷史沉澱與深刻哲思，並在結尾為說書人留出自然、真誠的頻道互動與訂閱引導。
+4. 避免空泛概述，請給出具體人物姓名、時間點、關鍵事件與技術關鍵詞。
+5. 排版請簡潔有力，條列式輸出（例如「第一幕：...」、「第二幕：...」）。
+6. 「幕次標題」與「此幕要帶給觀眾的懸念或情緒高潮」是給下一階段編劇看的場記，不是口白。請用內部筆記語氣書寫，後續腳本必須改寫成聽眾聽得懂的台詞，不得把這些欄位原句唸出來。
 
 請直接輸出繁體中文的大綱內容："""
 
@@ -458,7 +497,11 @@ def generate_story_script(
     from google import genai
     from google.genai import types
 
-    tone_sample = extract_tone_spoken_sample(load_tone_sample(tone_id))
+    tone_info = load_tone_info(tone_id)
+    tone_name = tone_info["name"]
+    tone_desc = tone_info["description"]
+    tone_voice = tone_info["recommended_voice_instruct"]
+    tone_sample = tone_info["spoken_sample"]
 
     user_prompt_section = ""
     if user_prompt and user_prompt.strip():
@@ -485,19 +528,33 @@ def generate_story_script(
     # 預期 6~8 幕，以 6 幕估算每幕平均句數
     target_lines_per_scene = max(5, round(target_total_lines / 6))
 
-    prompt = f"""你是一位頂級深度故事與影片腳本創作者。
-請完全依照指定的主題、使用者要求與口吻風格範本，為我撰寫一篇深度故事腳本：
+    prompt = f"""你是一位頂級專題紀錄片與故事腳本總編劇，你現在必須全面化身為【{tone_name}】的靈魂創作者。
+【核心風格與人設特質（最高指導原則）】：
+- 風格名稱：{tone_name}
+- 風格定位與語氣靈魂：{tone_desc}
+- 解說姿態與情感基調：{tone_voice}
+請完全沉浸並化身為該風格的說話姿態，以該風格標誌性的敘事腔調、語言頓挫節奏、看待歷史矛盾的獨特視角，為我撰寫全篇腳本：
 
 【主題】
 介紹：{topic}
 {user_prompt_section}
 {notes_section}
+【{tone_name} · 口吻風格示範文本（請深度吸收其句型、破題姿態與頓挫節奏）】
+{tone_sample if tone_sample else "請使用極具感染力、短句頓挫、反詰質疑後驚喜反轉的敘事風格。"}
+
 【基本需求與字數規模配額（極重要）】
 - 字數規模：目標嚴格控制在約 {word_count} 字左右（容許區間：{min_words} ～ {max_words} 字，絕不可草率縮水亦不可無節制灌水）
 - 總口白行數要求：全文必須輸出約 {target_total_lines} 行獨立口白（一句一行）
 - 篇幅與幕次分配（關鍵）：
   * 故事請涵蓋 6～8 個完整轉折幕次（起承轉合、危機爆發、生死對決、技術/商業本質拆解、高潮反轉與歷史昇華）。
   * 每一幕必須包含充足飽滿的口白量（平均每幕請分配約 {target_lines_per_scene} 行台詞），情節層層推進，嚴格禁止浮光掠影般草草收尾。
+- 前情鋪陳與時空背景引導（極重要，告別突兀）：
+  * 第一幕在以認知反差提問或懸念破題之後，必須緊接著用 3～5 句交代故事的「時空座標與歷史舞台」（交代具體年代年份、當時的世界地緣大格局、時代背景與面臨的巨大死局），帶領聽眾身臨其境進入那個時代，切忌在沒有任何前情背景交代下直接跳入事件細節！
+- 說書人口語自然與通順度（極重要）：
+  * 語言必須極度自然、通俗口語、生動流暢，有如一位老練的說書人在聽眾耳邊娓娓道來。
+  * 句子之間聲氣貫通、語氣自然銜接（善用「但問題是，」、「更不可思議的是，」、「回到當時的大環境來看，」、「你可能很難想像，」等自然口語過渡詞），避免生硬乾癟的公文報告腔或零碎條列感。
+- 片尾自然收尾與頻道訂閱引導（必須包含）：
+  * 在全篇故事歷史昇華與哲思總結後，全篇最後 1～2 句必須以沉穩、真誠、自然的說書人口吻加上點讚與訂閱引導（例如：「如果你也喜歡這段荒謬又真實的歷史，別忘了點個喜歡，訂閱頻道，我們下一期故事，繼續見證歷史的魔幻與真實」）。
 - 人設與禁令（極為關鍵）：
   * 【絕對嚴格禁止自稱「說書人」、「小編」或出現任何「我是說書人」的語句】！
   * 開場與全篇人設視角必須 100% 嚴格依照下方【口吻風格參照】的範本與語調發聲（例如若風格範本是以提問或直接點題開場，請直接切入，切勿加入多餘自稱）。
@@ -526,10 +583,7 @@ def generate_story_script(
   * [confirmation-en]：肯定共識、篤定結論
   * [dissatisfaction-hnn]：質疑抗衡、不滿冷笑
 
-【口吻風格參照（只模仿語氣與句式，禁止輸出結構標題或節奏公式名稱）】
-{tone_sample if tone_sample else "請使用極具感染力、短句頓挫、反詰質疑後驚喜反轉的敘事風格。"}
-
-請直接輸出逐行口白內容，不要輸出開頭客套話，切勿自稱說書人："""
+請直接以【{tone_name}】的口氣輸出逐行口白內容，不要輸出開頭客套話，切勿自稱小編，嚴禁輸出幕次或結構標題："""
 
     config_kwargs: dict[str, object] = {
         "temperature": 0.75,
@@ -572,20 +626,31 @@ def expand_story_script(
     from google import genai
     from google.genai import types
 
-    tone_sample = extract_tone_spoken_sample(load_tone_sample(tone_id))
+    tone_info = load_tone_info(tone_id)
+    tone_name = tone_info["name"]
+    tone_desc = tone_info["description"]
+    tone_voice = tone_info["recommended_voice_instruct"]
+    tone_sample = tone_info["spoken_sample"]
 
     target_lines = max(20, round(target_word_count / 20))
     min_expand_words = int(target_word_count * 0.9)
     max_expand_words = int(target_word_count * 1.1)
 
-    prompt = f"""你是一位頂級專題故事與紀錄片資深編劇。
-下方是目前已經初步撰寫的一篇口白腳本。請你進行「深度情節擴寫與細節補強」，將其精準擴寫為目標約 {target_word_count} 字的深度故事：
+    prompt = f"""你是一位頂級專題故事與紀錄片資深編劇，你現在必須全面化身為【{tone_name}】的靈魂創作者。
+【核心風格與人設特質（最高指導原則）】：
+- 風格名稱：{tone_name}
+- 風格定位與語氣靈魂：{tone_desc}
+- 解說姿態與情感基調：{tone_voice}
+請完全沉浸並化身為該風格的說話姿態，以該風格標誌性的敘事腔調，進行「深度情節擴寫與細節補強」，將現有口白精準擴寫為目標約 {target_word_count} 字的深度故事：
 
 【主題】
 {topic if topic else "原腳本核心主題"}
 
 【原始腳本口白】
 {current_script.strip()}
+
+【{tone_name} · 口吻風格示範文本】
+{tone_sample if tone_sample else "請使用極具感染力、短句頓挫、反詰質疑後驚喜反轉的敘事風格。"}
 
 【擴寫字數與篇幅嚴格限制（極重要）】
 - 目標總字數：擴寫後全文必須嚴格控制在約 {target_word_count} 字左右（容許區間：{min_expand_words} ～ {max_expand_words} 字，嚴禁超出上限過度膨脹，亦不可擴寫不足）
@@ -607,10 +672,7 @@ def expand_story_script(
    - 外國人名、機構名一律中文通譯，避免英文。
    - 自然嵌入 OmniVoice 情緒標籤（如 [surprise-wa]、[sigh]、[question-ei] 等，每 4~6 句至多 1 個）。
 
-【口吻風格參照（只模仿語氣與句式，禁止輸出結構標題或節奏公式名稱）】
-{tone_sample if tone_sample else "請使用極具感染力、短句頓挫、反詰質疑後驚喜反轉的敘事風格。"}
-
-請直接輸出擴寫後的完整逐行口白腳本，不要輸出任何前言或客套話，切勿自稱說書人："""
+請直接以【{tone_name}】的口氣輸出擴寫後的完整逐行口白腳本，不要輸出任何前言或客套話，切勿自稱小編，嚴禁輸出結構標籤："""
 
     config = types.GenerateContentConfig(
         temperature=0.75,

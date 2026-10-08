@@ -1,0 +1,2353 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>太空狗萊卡 · AIVideo 故事板預覽</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #0f172a;
+      color: #f1f5f9;
+      margin: 0;
+      padding: 24px;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 28px;
+      margin-bottom: 8px;
+      color: #38bdf8;
+    }
+    .subtitle {
+      color: #94a3b8;
+      margin-bottom: 24px;
+    }
+    .film-container {
+      background: #1e293b;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 32px;
+      border: 1px solid #334155;
+    }
+    .film-player {
+      width: 100%;
+      max-height: 540px;
+      background: #000;
+      border-radius: 8px;
+    }
+    .film-actions {
+      margin-top: 16px;
+      display: flex;
+      gap: 12px;
+    }
+    .btn {
+      display: inline-block;
+      background: #38bdf8;
+      color: #0f172a;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+    .btn-secondary {
+      background: #475569;
+      color: #fff;
+    }
+    .scene-card {
+      background: #1e293b;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      overflow: hidden;
+      border: 1px solid #334155;
+    }
+    .scene-header {
+      background: #334155;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .scene-header h3 {
+      margin: 0;
+      font-size: 18px;
+      color: #f8fafc;
+    }
+    .badge {
+      background: #0284c7;
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 13px;
+    }
+    .scene-body {
+      display: flex;
+      padding: 20px;
+      gap: 24px;
+    }
+    .scene-media {
+      flex: 0 0 380px;
+    }
+    .scene-thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      border-radius: 8px;
+      background: #000;
+    }
+    .scene-audio {
+      width: 100%;
+      margin-top: 12px;
+    }
+    .scene-meta {
+      flex: 1;
+    }
+    .scene-meta p {
+      margin-top: 0;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+    .scene-meta code {
+      display: block;
+      background: #0f172a;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      color: #cbd5e1;
+      word-break: break-all;
+    }
+    .meta-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+      font-size: 12px;
+      color: #94a3b8;
+    }
+    .meta-tags span {
+      background: #0f172a;
+      padding: 4px 8px;
+      border-radius: 4px;
+      border: 1px solid #334155;
+    }
+    @media (max-width: 768px) {
+      .scene-body {
+        flex-direction: column;
+      }
+      .scene-media {
+        flex: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>太空狗萊卡</h1>
+    <p class="subtitle">共 81 幕分鏡 · 預估成片總長度：12分48秒 (768.1s) · 自動生成於 20261007_story</p>
+    
+    
+        <div class="film-container">
+          <h2>🎬 最終合成成片（1080p 寬螢幕）</h2>
+          <video controls class="film-player" src="compose/film.mp4"></video>
+          <div class="film-actions">
+            <a href="compose/film.mp4" download class="btn">下載 MP4 成片</a>
+            <a href="compose/timeline.srt" download class="btn btn-secondary">下載 SRT 字幕</a>
+            <a href="compose/timeline.ass" download class="btn btn-secondary">下載 ASS 字幕</a>
+          </div>
+        </div>
+        
+
+    <h2>🎞️ 各場景分鏡與語音審查</h2>
+    
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>001_shot_1 · 大家好</h3>
+            <div>
+              <span class="badge" style="background:#7c3aed;margin-left:6px;">🖼️ 畫中畫 PiP</span>
+              <span class="badge">時長: 11.09s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/001_shot_1/image.png" alt="大家好" class="scene-thumb" />
+              <div style="margin-top:6px;"><small style="color:#7c3aed;font-weight:bold;">疊加參考圖 (PiP)：</small><br><img src="scenes/001_shot_1/pip.png" alt="PiP" style="max-width:140px;border-radius:4px;border:1px solid #ccc;" /></div>
+              <audio controls src="scenes/001_shot_1/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>大家好，我是白兔，你小時候看過那張著名的蘇聯太空海報嗎，海報上有一隻毛色黑白相間的小狗，昂首挺胸地望著深邃的星空，</p>
+              <p><strong>畫面提示詞：</strong><br><code>medium shot of a vintage propaganda style cartoon poster featuring Chibi Laika, the cream-and-black stray dog looking upward toward the starry cosmos with wide innocent brown eyes, wearing her khaki harness, surrounded by graphic Soviet red starburst rays, deep navy indigo space background with cartoon stars, bold black ink outlines, flat cel-shaded coloring, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T054226</span>
+                <span>Seed: 54654707</span>
+                <span>音 Take: speech_20261007T054241</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>002_shot_2 · 官方的宣傳冊把她描繪成全人類的英</h3>
+            <div>
+              
+              <span class="badge">時長: 12.25s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/002_shot_2/image.png" alt="官方的宣傳冊把她描繪成全人類的英" class="scene-thumb" />
+              
+              <audio controls src="scenes/002_shot_2/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>[confirmation-en]官方的宣傳冊把她描繪成全人類的英雄，說她是第一個飛出地球軌道的生命，但你可能很難想像，這張被全世界傳頌的太空船票，</p>
+              <p><strong>畫面提示詞：</strong><br><code>close-up shot of a stylized illustrated Soviet booklet lying open on a worn wooden desk, depicting a heroic chibi dog ascending into an illustrated orbit, contrasted with an ominous shadow falling across a stamped flight pass, graphic cel-shading, cold teal and muted red tones, crisp clean line art, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T054308</span>
+                <span>Seed: 71642814</span>
+                <span>音 Take: speech_20261007T054324</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>003_shot_3 · 從一開始就被悄悄印上了單程死刑</h3>
+            <div>
+              
+              <span class="badge">時長: 10.97s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/003_shot_3/image.png" alt="從一開始就被悄悄印上了單程死刑" class="scene-thumb" />
+              
+              <audio controls src="scenes/003_shot_3/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>從一開始就被悄悄印上了單程死刑，[question-ei]你以為第一個繞地球一圈的心跳是榮耀的凱旋，還是早就被算計好的消耗品呢，</p>
+              <p><strong>畫面提示詞：</strong><br><code>conceptual medium shot of chibi dog Laika curled softly inside a floating metallic chamber, an oversized glowing green oscilloscope line pulsing with a single heartbeat across the dark frame, cold blue and industrial gray palette, cel-shaded 2D cartoon style with delicate vector outlines, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T054349</span>
+                <span>Seed: 13547380</span>
+                <span>音 Take: speech_20261007T054403</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>004_shot_4 · 時間倒回到1957年的深秋</h3>
+            <div>
+              
+              <span class="badge">時長: 8.73s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/004_shot_4/image.png" alt="時間倒回到1957年的深秋" class="scene-thumb" />
+              
+              <audio controls src="scenes/004_shot_4/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>時間倒回到1957年的深秋，二戰結束才短短十二年，美蘇冷戰的鐵幕正壓得全世界喘不過氣，</p>
+              <p><strong>畫面提示詞：</strong><br><code>wide establishing shot of a divided cartoon world globe under heavy dark iron clouds, a massive stylized iron curtain dividing silhouettes of city skylines, cold desaturated gray and slate-blue palette with stark red military flags, bold graphic 2D cartoon illustration, clean contour lines, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T054424</span>
+                <span>Seed: 46890181</span>
+                <span>音 Take: speech_20261007T054446</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>005_shot_5 · 就在那一年的10月4日</h3>
+            <div>
+              <span class="badge" style="background:#7c3aed;margin-left:6px;">🖼️ 畫中畫 PiP</span>
+              <span class="badge">時長: 10.69s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/005_shot_5/image.png" alt="就在那一年的10月4日" class="scene-thumb" />
+              <div style="margin-top:6px;"><small style="color:#7c3aed;font-weight:bold;">疊加參考圖 (PiP)：</small><br><img src="scenes/005_shot_5/pip.png" alt="PiP" style="max-width:140px;border-radius:4px;border:1px solid #ccc;" /></div>
+              <audio controls src="scenes/005_shot_5/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>就在那一年的10月4日，蘇聯成功發射了人類第一顆人造衛星史普尼克一號，史普尼克在俄語裡的意思本來只是旅伴，</p>
+              <p><strong>畫面提示詞：</strong><br><code>low-angle shot of the shiny spherical Sputnik 1 satellite with four long trailing radio antennas soaring gracefully into a twilight purple upper atmosphere, emitting stylized visual radio ripple rings, crisp cel-shaded metallic finish, clean 2D cartoon aesthetics, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T054506</span>
+                <span>Seed: 45506616</span>
+                <span>音 Take: speech_20261007T054543</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>006_shot_6 · 但它發出的嗶嗶聲</h3>
+            <div>
+              
+              <span class="badge">時長: 9.64s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/006_shot_6/image.png" alt="但它發出的嗶嗶聲" class="scene-thumb" />
+              
+              <audio controls src="scenes/006_shot_6/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>但它發出的嗶嗶聲，卻在西方世界引發了一場巨大的史普尼克休克，美國人一夜之間被洲際飛彈的陰影徹底嚇懵，</p>
+              <p><strong>畫面提示詞：</strong><br><code>wide shot of American citizens and military generals in a 1950s living room in chibi cartoon style, looking up in shock at the window while newspaper silhouettes flutter in anxiety, cast in deep moody blue shadows with pale television glow, clean contour lines, cel-shaded style, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T054610</span>
+                <span>Seed: 77261767</span>
+                <span>音 Take: speech_20261007T054647</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>007_shot_7 · 眼看全球輿論都在驚呼蘇聯的勝利</h3>
+            <div>
+              <span class="badge" style="background:#7c3aed;margin-left:6px;">🖼️ 畫中畫 PiP</span>
+              <span class="badge">時長: 13.22s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/007_shot_7/image.png" alt="眼看全球輿論都在驚呼蘇聯的勝利" class="scene-thumb" />
+              <div style="margin-top:6px;"><small style="color:#7c3aed;font-weight:bold;">疊加參考圖 (PiP)：</small><br><img src="scenes/007_shot_7/pip.png" alt="PiP" style="max-width:140px;border-radius:4px;border:1px solid #ccc;" /></div>
+              <audio controls src="scenes/007_shot_7/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>[surprise-wa]眼看全球輿論都在驚呼蘇聯的勝利，當時的蘇聯最高領導人赫魯雪夫坐不住了，他要在即將到來的11月7日十月革命四十週年閱兵前，</p>
+              <p><strong>畫面提示詞：</strong><br><code>dramatic medium shot of Nikita Khrushchev in chibi form, stout and rotund with a bald head and heavy jowls, standing imperiously beside a long polished conference table, slamming a thick fist down beside Soviet anniversary calendars, warm dramatic desk lamp lighting against deep crimson drapes, bold 2D cartoon cel-shading, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T054708</span>
+                <span>Seed: 87961059</span>
+                <span>音 Take: speech_20261007T054745</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>008_shot_8 · 再向全世界丟出一個更震撼的超級奇</h3>
+            <div>
+              
+              <span class="badge">時長: 8.81s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/008_shot_8/image.png" alt="再向全世界丟出一個更震撼的超級奇" class="scene-thumb" />
+              
+              <audio controls src="scenes/008_shot_8/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>再向全世界丟出一個更震撼的超級奇觀，他把科學家叫到辦公室，下了一道沒有商量餘地的死命令，</p>
+              <p><strong>畫面提示詞：</strong><br><code>eye-level medium shot of Nikita Khrushchev pointing an authoritative stubby finger across an ornate Kremlin desk at nervous Soviet officials, dressed in his charcoal double-breasted suit, tense shadows, rich Soviet red and gold decor, crisp ink outlines, flat cel-shading, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T054816</span>
+                <span>Seed: 49543741</span>
+                <span>音 Take: speech_20261007T054854</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>009_shot_9 · 四周之內必須再發射一顆更大的衛星</h3>
+            <div>
+              
+              <span class="badge">時長: 6.97s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/009_shot_9/image.png" alt="四周之內必須再發射一顆更大的衛星" class="scene-thumb" />
+              
+              <audio controls src="scenes/009_shot_9/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>四周之內必須再發射一顆更大的衛星，而且裡面必須塞進一個活生生的生命，</p>
+              <p><strong>畫面提示詞：</strong><br><code>close-up shot of a heavy vintage red telephone receiver on a desk next to an open calendar with four weeks aggressively marked in red ink, an ominous silhouette of a rocket looming in the background window, graphic mid-century Soviet cartoon style, high contrast cel-shading, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T054913</span>
+                <span>Seed: 97048168</span>
+                <span>音 Take: speech_20261007T054953</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>010_shot_10 · 負責這項任務的總工程師科羅廖夫</h3>
+            <div>
+              <span class="badge" style="background:#7c3aed;margin-left:6px;">🖼️ 畫中畫 PiP</span>
+              <span class="badge">時長: 9.21s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/010_shot_10/image.png" alt="負責這項任務的總工程師科羅廖夫" class="scene-thumb" />
+              <div style="margin-top:6px;"><small style="color:#7c3aed;font-weight:bold;">疊加參考圖 (PiP)：</small><br><img src="scenes/010_shot_10/pip.png" alt="PiP" style="max-width:140px;border-radius:4px;border:1px solid #ccc;" /></div>
+              <audio controls src="scenes/010_shot_10/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>負責這項任務的總工程師科羅廖夫，當時在官方檔案裡連真實姓名都不配擁有，他在大清洗時期坐過牢，</p>
+              <p><strong>畫面提示詞：</strong><br><code>melancholic medium shot of Sergei Korolev in chibi form, broad forehead with receding hair and tired under-eye bags, standing in a dim Soviet hallway holding rolled blueprints, a long lonely shadow cast behind him, muted gray and brown cel-shaded tones, crisp outlines, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T055012</span>
+                <span>Seed: 92814583</span>
+                <span>音 Take: speech_20261007T055050</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>011_shot_11 · 在嚴寒的科雷馬苦役營裡差點丟掉性</h3>
+            <div>
+              
+              <span class="badge">時長: 8.17s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/011_shot_11/image.png" alt="在嚴寒的科雷馬苦役營裡差點丟掉性" class="scene-thumb" />
+              
+              <audio controls src="scenes/011_shot_11/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>在嚴寒的科雷馬苦役營裡差點丟掉性命，此時的他只能用總設計師這個空頭銜替國家賣命，</p>
+              <p><strong>畫面提示詞：</strong><br><code>atmospheric wide shot split between a faint memory of a frozen snow-covered Siberian gulag watchtower and Sergei Korolev standing weary in his dark gray trench coat, clutching a slide rule under harsh industrial fluorescent lighting, cold teal and snowy white tones, 2D cartoon style, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T055122</span>
+                <span>Seed: 91000421</span>
+                <span>音 Take: speech_20261007T055144</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>012_shot_12 · 甚至連發射地點丘拉坦荒原</h3>
+            <div>
+              <span class="badge" style="background:#7c3aed;margin-left:6px;">🖼️ 畫中畫 PiP</span>
+              <span class="badge">時長: 12.28s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <div class="no-media">無畫面</div>
+              <div style="margin-top:6px;"><small style="color:#7c3aed;font-weight:bold;">疊加參考圖 (PiP)：</small><br><img src="scenes/012_shot_12/pip.png" alt="PiP" style="max-width:140px;border-radius:4px;border:1px solid #ccc;" /></div>
+              <audio controls src="scenes/012_shot_12/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>甚至連發射地點丘拉坦荒原，對外都要借用三百公里外一個礦區的名字拜科努爾，[dissatisfaction-hnn]在一個連地名和科學家名字都要造假的帝國裡，</p>
+              <p><strong>畫面提示詞：</strong><br><code>wide establishing shot of the desolate, wind-swept Baikonur steppe under a bleak lavender dawn, an isolated railway track leading toward a distant secret rocket gantry, geometric mid-century cartoon aesthetic, flat cel-shaded dusty plains and cold sky, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: —</span>
+                <span>Seed: —</span>
+                <span>音 Take: speech_20261007T055211</span>
+                <span>歷史 Takes 數: 0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>013_shot_13 · 更精密的原定科學衛星根本趕不及完</h3>
+            <div>
+              
+              <span class="badge">時長: 8.81s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/013_shot_13/image.png" alt="更精密的原定科學衛星根本趕不及完" class="scene-thumb" />
+              
+              <audio controls src="scenes/013_shot_13/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>更精密的原定科學衛星根本趕不及完工，為了趕上最高領袖的週年慶檔期，科學家們只能硬著頭皮，</p>
+              <p><strong>畫面提示詞：</strong><br><code>medium shot of Soviet engineers in chibi proportions frantically redrawing schematics at wooden drafting tables, discarded rolled blueprints piling on the floor beneath swinging hanging light bulbs, sterile teal laboratory background, crisp black outlines, cel-shaded, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T055222</span>
+                <span>Seed: 52812108</span>
+                <span>音 Take: speech_20261007T055246</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>014_shot_14 · 在短短二十多天裡拼湊出一顆帶著活</h3>
+            <div>
+              
+              <span class="badge">時長: 10.81s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/014_shot_14/image.png" alt="在短短二十多天裡拼湊出一顆帶著活" class="scene-thumb" />
+              
+              <audio controls src="scenes/014_shot_14/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>在短短二十多天裡拼湊出一顆帶著活犬的即興衛星，而一隻流浪狗的命運，就這樣被死死綁在了一場國家級的面子工程上，</p>
+              <p><strong>畫面提示詞：</strong><br><code>dramatic wide shot of Soviet engineers working on the metallic shell of Sputnik 2 in an industrial hangar, while in the foreground a small silhouette of a stray dog watches, dramatic amber hangar lights contrasting with industrial cold steel, bold 2D cartoon illustration, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T055306</span>
+                <span>Seed: 89261103</span>
+                <span>音 Take: speech_20261007T055344</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>015_shot_15 · 這隻狗就是後來被全世界熟知的萊卡</h3>
+            <div>
+              <span class="badge" style="background:#7c3aed;margin-left:6px;">🖼️ 畫中畫 PiP</span>
+              <span class="badge">時長: 8.09s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <div class="no-media">無畫面</div>
+              <div style="margin-top:6px;"><small style="color:#7c3aed;font-weight:bold;">疊加參考圖 (PiP)：</small><br><img src="scenes/015_shot_15/pip.png" alt="PiP" style="max-width:140px;border-radius:4px;border:1px solid #ccc;" /></div>
+              <audio controls src="scenes/015_shot_15/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>[sigh]這隻狗就是後來被全世界熟知的萊卡，但莫斯科的研究所究竟是怎麼挑出這隻狗的呢，</p>
+              <p><strong>畫面提示詞：</strong><br><code>close-up portrait shot of chibi stray dog Laika with her cream and charcoal black patches, large glassy innocent brown eyes, and slightly floppy ears, looking curiously forward under soft warm studio light, clean vector line art, gentle cel-shading, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: —</span>
+                <span>Seed: —</span>
+                <span>音 Take: speech_20261007T055412</span>
+                <span>歷史 Takes 數: 0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>016_shot_16 · 當時莫斯科航空醫學研究所的專家們</h3>
+            <div>
+              <span class="badge" style="background:#7c3aed;margin-left:6px;">🖼️ 畫中畫 PiP</span>
+              <span class="badge">時長: 12.42s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <div class="no-media">無畫面</div>
+              <div style="margin-top:6px;"><small style="color:#7c3aed;font-weight:bold;">疊加參考圖 (PiP)：</small><br><img src="scenes/016_shot_16/pip.png" alt="PiP" style="max-width:140px;border-radius:4px;border:1px solid #ccc;" /></div>
+              <audio controls src="scenes/016_shot_16/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>當時莫斯科航空醫學研究所的專家們，並沒有去名貴的犬舍挑選純種名犬，他們反而開著麵包車，在莫斯科冰冷刺骨的街頭到處抓流浪狗，</p>
+              <p><strong>畫面提示詞：</strong><br><code>wide exterior shot of a dark Soviet medical van parked on a snowy Moscow cobblestone street at dusk, warm lamppost light cutting through falling snowflakes, researchers in heavy coats gently approaching a stray dog in an alleyway, 2D chibi cartoon style, muted winter palette, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: —</span>
+                <span>Seed: —</span>
+                <span>音 Take: speech_20261007T055429</span>
+                <span>歷史 Takes 數: 0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>017_shot_17 · 專家們的邏輯聽起來非常冷血又務實</h3>
+            <div>
+              
+              <span class="badge">時長: 11.94s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/017_shot_17/image.png" alt="專家們的邏輯聽起來非常冷血又務實" class="scene-thumb" />
+              
+              <audio controls src="scenes/017_shot_17/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>[surprise-oh]專家們的邏輯聽起來非常冷血又務實，因為只有在殘酷街頭摸爬滾打過的野狗，才扛得住極致的飢餓和零下幾十度的嚴寒，</p>
+              <p><strong>畫面提示詞：</strong><br><code>medium shot of chibi stray dog Laika curled up against a snowy brick wall in a cold winter wind, her fur ruffled by the breeze but her posture resilient and calm, soft moonlight reflecting on the icy ground, atmospheric cel-shaded 2D illustration, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T055447</span>
+                <span>Seed: 66302170</span>
+                <span>音 Take: speech_20261007T055500</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>018_shot_18 · 他們的篩選標準苛刻得像在挑選機器</h3>
+            <div>
+              
+              <span class="badge">時長: 12.22s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/018_shot_18/image.png" alt="他們的篩選標準苛刻得像在挑選機器" class="scene-thumb" />
+              
+              <audio controls src="scenes/018_shot_18/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>他們的篩選標準苛刻得像在挑選機器零件，第一必須是雌性，因為母犬在狹窄的艙體裡蹲著排尿，比抬腿排尿的公犬更容易處理排泄物，</p>
+              <p><strong>畫面提示詞：</strong><br><code>interior shot of a sterile Moscow aerospace lab with teal-tiled walls, where veterinary researchers in white coats examine a small dog harness with diagrammatic anatomical charts on the wall, sterile fluorescent lighting, clean cartoon linework, cel-shaded, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T055525</span>
+                <span>Seed: 81003505</span>
+                <span>音 Take: speech_20261007T055547</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>019_shot_19 · 第二體重必須卡在六公斤左右</h3>
+            <div>
+              
+              <span class="badge">時長: 6.4s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/019_shot_19/image.png" alt="第二體重必須卡在六公斤左右" class="scene-thumb" />
+              
+              <audio controls src="scenes/019_shot_19/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>第二體重必須卡在六公斤左右，身材太胖就塞不進那顆倉促改裝的鐵罐頭，</p>
+              <p><strong>畫面提示詞：</strong><br><code>close-up shot of chibi dog Laika sitting calmly on a vintage mechanical brass medical scale, the needle resting precisely near six kilograms, a scientist&#x27;s hand adjusting the weights, clean graphic outlines, warm vintage lab tones, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T055612</span>
+                <span>Seed: 31768489</span>
+                <span>音 Take: speech_20261007T055651</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>020_shot_20 · 第三毛色必須偏淺</h3>
+            <div>
+              
+              <span class="badge">時長: 6.4s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/020_shot_20/image.png" alt="第三毛色必須偏淺" class="scene-thumb" />
+              
+              <audio controls src="scenes/020_shot_20/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>第三毛色必須偏淺，因為黑白相間的毛色在地面黑白相機裡拍起來最上鏡，</p>
+              <p><strong>畫面提示詞：</strong><br><code>over-the-shoulder shot looking through a vintage 1950s monochrome monitor viewfinder, framing chibi Laika&#x27;s distinct cream and black facial patches clearly under bright studio lamps, crisp graphic lines, cel-shaded dual tones, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T055705</span>
+                <span>Seed: 15788830</span>
+                <span>音 Take: speech_20261007T055743</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>021_shot_21 · 候選名單最後留下了三隻狗</h3>
+            <div>
+              
+              <span class="badge">時長: 7.0s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/021_shot_21/image.png" alt="候選名單最後留下了三隻狗" class="scene-thumb" />
+              
+              <audio controls src="scenes/021_shot_21/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>候選名單最後留下了三隻狗，萊卡當時的名字叫庫德里亞夫卡，俄語意思是小捲毛，</p>
+              <p><strong>畫面提示詞：</strong><br><code>cute medium shot of three chibi dogs sitting side by side on a clinical platform: Kudryavka (Laika) with her soft curly patches in the center, flanked by two other small stray dogs, bright clean veterinary lab lighting, charming 2D cartoon illustration, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T055757</span>
+                <span>Seed: 58926202</span>
+                <span>音 Take: speech_20261007T055818</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>022_shot_22 · 另外兩隻分別叫阿爾比娜和穆什卡</h3>
+            <div>
+              
+              <span class="badge">時長: 9.01s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/022_shot_22/image.png" alt="另外兩隻分別叫阿爾比娜和穆什卡" class="scene-thumb" />
+              
+              <audio controls src="scenes/022_shot_22/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>另外兩隻分別叫阿爾比娜和穆什卡，阿爾比娜之前已經坐過高空火箭，而且剛生了一窩毛茸茸的狗崽，</p>
+              <p><strong>畫面提示詞：</strong><br><code>tender medium shot of Albina the white chibi dog resting peacefully in a padded basket, surrounded by tiny newborn sleeping puppies, soft warm ambient lighting, gentle and heartwarming cel-shaded cartoon art, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T055838</span>
+                <span>Seed: 46256690</span>
+                <span>音 Take: speech_20261007T055851</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>023_shot_23 · 研究人員私下捨不得讓一位母親去送</h3>
+            <div>
+              
+              <span class="badge">時長: 7.57s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/023_shot_23/image.png" alt="研究人員私下捨不得讓一位母親去送" class="scene-thumb" />
+              
+              <audio controls src="scenes/023_shot_23/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>研究人員私下捨不得讓一位母親去送死，穆什卡則被安排去測試地面生命維持設備，</p>
+              <p><strong>畫面提示詞：</strong><br><code>medium shot of Mushka the chibi dog wearing small monitoring sensors, standing beside an open benchtop oxygen testing apparatus in a teal laboratory, researchers taking notes, clean linework, cool industrial laboratory colors, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T055910</span>
+                <span>Seed: 72989135</span>
+                <span>音 Take: speech_20261007T055949</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>024_shot_24 · 萊卡最終被選中不是因為她最幸運</h3>
+            <div>
+              
+              <span class="badge">時長: 9.53s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/024_shot_24/image.png" alt="萊卡最終被選中不是因為她最幸運" class="scene-thumb" />
+              
+              <audio controls src="scenes/024_shot_24/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>萊卡最終被選中不是因為她最幸運，[sigh]恰恰是因為她性格最溫順，哪怕被關進黑暗的鐵籠子裡也從不反抗，</p>
+              <p><strong>畫面提示詞：</strong><br><code>intimate eye-level shot of chibi Laika sitting docilely inside an open steel training compartment, looking up with trusting, gentle puppy eyes at a technician, soft rim lighting accentuating her gentle expression, crisp black contour lines, cel-shaded, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T060008</span>
+                <span>Seed: 77470362</span>
+                <span>音 Take: speech_20261007T060045</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>025_shot_25 · 為了讓她適應發射</h3>
+            <div>
+              <span class="badge" style="background:#7c3aed;margin-left:6px;">🖼️ 畫中畫 PiP</span>
+              <span class="badge">時長: 9.41s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <div class="no-media">無畫面</div>
+              <div style="margin-top:6px;"><small style="color:#7c3aed;font-weight:bold;">疊加參考圖 (PiP)：</small><br><img src="scenes/025_shot_25/pip.png" alt="PiP" style="max-width:140px;border-radius:4px;border:1px solid #ccc;" /></div>
+              <audio controls src="scenes/025_shot_25/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>為了讓她適應發射，研究人員把她塞進離心機模擬幾倍重力過載，用巨大的噪音艙重現火箭發動機的轟鳴，</p>
+              <p><strong>畫面提示詞：</strong><br><code>dynamic shot of chibi Laika secured inside a spinning industrial centrifuge machine in a vast Soviet testing facility, heavy steel arms rotating, bright clinical lighting with motion blur lines in 2D cartoon style, clean vector aesthetic, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: —</span>
+                <span>Seed: —</span>
+                <span>音 Take: speech_20261007T060112</span>
+                <span>歷史 Takes 數: 0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>026_shot_26 · 還把她關進一天比一天更窄的小鐵盒</h3>
+            <div>
+              
+              <span class="badge">時長: 7.37s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/026_shot_26/image.png" alt="還把她關進一天比一天更窄的小鐵盒" class="scene-thumb" />
+              
+              <audio controls src="scenes/026_shot_26/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>還把她關進一天比一天更窄的小鐵盒裡，逼她在連身都轉不了的空間裡排泄進食，</p>
+              <p><strong>畫面提示詞：</strong><br><code>cross-section view of chibi Laika lying quietly inside a snug, narrow metallic container with padded walls, her head resting on her paws unable to turn around, sterile cool lighting, precise geometric mechanical outlines, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T060123</span>
+                <span>Seed: 41264833</span>
+                <span>音 Take: speech_20261007T060144</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>027_shot_27 · 她身上被切開皮膚埋入監測呼吸和血</h3>
+            <div>
+              <span class="badge" style="background:#7c3aed;margin-left:6px;">🖼️ 畫中畫 PiP</span>
+              <span class="badge">時長: 8.77s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <div class="no-media">無畫面</div>
+              <div style="margin-top:6px;"><small style="color:#7c3aed;font-weight:bold;">疊加參考圖 (PiP)：</small><br><img src="scenes/027_shot_27/pip.png" alt="PiP" style="max-width:140px;border-radius:4px;border:1px solid #ccc;" /></div>
+              <audio controls src="scenes/027_shot_27/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>她身上被切開皮膚埋入監測呼吸和血壓的傳感器，每天只能吃從軟管裡自動擠出來的高熱量凝膠，</p>
+              <p><strong>畫面提示詞：</strong><br><code>close-up shot of chibi Laika wearing her tailored khaki harness fitted with thin colorful wires taped to her fur, gently licking nutrient gel dispensed from a polished metal tube, soft compassionate lighting, clean cel-shaded 2D style, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: —</span>
+                <span>Seed: —</span>
+                <span>音 Take: speech_20261007T060210</span>
+                <span>歷史 Takes 數: 0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>028_shot_28 · 她的安靜和乖巧</h3>
+            <div>
+              
+              <span class="badge">時長: 4.6s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/028_shot_28/image.png" alt="她的安靜和乖巧" class="scene-thumb" />
+              
+              <audio controls src="scenes/028_shot_28/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>她的安靜和乖巧，最終變成了判處她死刑的唯一資格，</p>
+              <p><strong>畫面提示詞：</strong><br><code>melancholic close-up portrait of chibi Laika looking directly into the camera with innocent, trusting dark eyes, a warm single spotlight illuminating her face against a gradually darkening institutional background, delicate cel-shading, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T060222</span>
+                <span>Seed: 19187138</span>
+                <span>音 Take: speech_20261007T060243</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>029_shot_29 · 然而當時所有人都心知肚明</h3>
+            <div>
+              <span class="badge" style="background:#7c3aed;margin-left:6px;">🖼️ 畫中畫 PiP</span>
+              <span class="badge">時長: 6.2s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/029_shot_29/image.png" alt="然而當時所有人都心知肚明" class="scene-thumb" />
+              <div style="margin-top:6px;"><small style="color:#7c3aed;font-weight:bold;">疊加參考圖 (PiP)：</small><br><img src="scenes/029_shot_29/pip.png" alt="PiP" style="max-width:140px;border-radius:4px;border:1px solid #ccc;" /></div>
+              <audio controls src="scenes/029_shot_29/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>然而當時所有人都心知肚明，這艘衛星的圖紙上根本就沒有返航這一章，</p>
+              <p><strong>畫面提示詞：</strong><br><code>dramatic top-down shot of a large technical blueprint of Sputnik 2 spread on an engineer&#x27;s desk, depicting the rocket ascent trajectory continuing infinitely into dark space with no reentry parachute diagram, cold blue ink aesthetic, crisp 2D cartoon details, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T060257</span>
+                <span>Seed: 69289988</span>
+                <span>音 Take: speech_20261007T060400</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>030_shot_30 · 運載火箭是龐大的阿爾七型洲際飛彈</h3>
+            <div>
+              <span class="badge" style="background:#7c3aed;margin-left:6px;">🖼️ 畫中畫 PiP</span>
+              <span class="badge">時長: 9.41s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <div class="no-media">無畫面</div>
+              <div style="margin-top:6px;"><small style="color:#7c3aed;font-weight:bold;">疊加參考圖 (PiP)：</small><br><img src="scenes/030_shot_30/pip.png" alt="PiP" style="max-width:140px;border-radius:4px;border:1px solid #ccc;" /></div>
+              <audio controls src="scenes/030_shot_30/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>運載火箭是龐大的阿爾七型洲際飛彈，衛星本體連同設備重達五百多公斤，在那個圓筒狀的密封加壓艙裡，</p>
+              <p><strong>畫面提示詞：</strong><br><code>wide low-angle shot of the colossal R-7 rocket standing on the launch pad at Baikonur, steam venting from its boosters under a pale twilight sky, with Sputnik 2 perched at the tip, imposing Soviet constructivist scale in 2D cartoon style, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: —</span>
+                <span>Seed: —</span>
+                <span>音 Take: speech_20261007T060428</span>
+                <span>歷史 Takes 數: 0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>031_shot_31 · 萊卡身上套著金屬鎖鏈和挽具</h3>
+            <div>
+              <span class="badge" style="background:#7c3aed;margin-left:6px;">🖼️ 畫中畫 PiP</span>
+              <span class="badge">時長: 8.21s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <div class="no-media">無畫面</div>
+              <div style="margin-top:6px;"><small style="color:#7c3aed;font-weight:bold;">疊加參考圖 (PiP)：</small><br><img src="scenes/031_shot_31/pip.png" alt="PiP" style="max-width:140px;border-radius:4px;border:1px solid #ccc;" /></div>
+              <audio controls src="scenes/031_shot_31/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>萊卡身上套著金屬鎖鏈和挽具，她只能勉強趴下或者站立，連回頭舔舔自己的爪子都做不到，</p>
+              <p><strong>畫面提示詞：</strong><br><code>interior cutaway shot of the cylindrical hermetic dog cabin, showing chibi Laika secured in her harness by tiny metal chains to the padded floor, able only to stand or lie down, illuminated by a faint cabin indicator lamp, cel-shaded mechanical details, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: —</span>
+                <span>Seed: —</span>
+                <span>音 Take: speech_20261007T060444</span>
+                <span>歷史 Takes 數: 0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>032_shot_32 · 艙內配備了化學製氧機和二氧化碳吸</h3>
+            <div>
+              
+              <span class="badge">時長: 8.37s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/032_shot_32/image.png" alt="艙內配備了化學製氧機和二氧化碳吸" class="scene-thumb" />
+              
+              <audio controls src="scenes/032_shot_32/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>艙內配備了化學製氧機和二氧化碳吸收劑，特拉爾無線電系統負責把她的生理數據傳回地面，</p>
+              <p><strong>畫面提示詞：</strong><br><code>detailed cutaway shot of the compact mechanical life support system inside Sputnik 2, showing cylindrical oxygen tanks, coiled copper pipes, and analog telemetry transmitters with tiny glowing vacuum tubes, strict authentic non-anthropomorphic chibi styling, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T060456</span>
+                <span>Seed: 99531048</span>
+                <span>音 Take: speech_20261007T060508</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>033_shot_33 · 按照紙面上的工程計算</h3>
+            <div>
+              <span class="badge" style="background:#7c3aed;margin-left:6px;">🖼️ 畫中畫 PiP</span>
+              <span class="badge">時長: 13.01s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <div class="no-media">無畫面</div>
+              <div style="margin-top:6px;"><small style="color:#7c3aed;font-weight:bold;">疊加參考圖 (PiP)：</small><br><img src="scenes/033_shot_33/pip.png" alt="PiP" style="max-width:140px;border-radius:4px;border:1px solid #ccc;" /></div>
+              <audio controls src="scenes/033_shot_33/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>按照紙面上的工程計算，艙內的食物和氧氣最多能維持七到十天，設計師甚至在第十天的凝膠食物裡混入了致命毒藥，美其名曰讓她在無痛中安樂死，</p>
+              <p><strong>畫面提示詞：</strong><br><code>close-up shot of a small metallic dispenser containing nutrient gel packets, one marked with an ominous subtle chemical seal, sitting on a stainless steel medical prep tray under stark lab light, clean cel-shaded graphic art, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: —</span>
+                <span>Seed: —</span>
+                <span>音 Take: speech_20261007T060533</span>
+                <span>歷史 Takes 數: 0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>034_shot_34 · 但這套看似周密的維持系統背後</h3>
+            <div>
+              
+              <span class="badge">時長: 10.93s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/034_shot_34/image.png" alt="但這套看似周密的維持系統背後" class="scene-thumb" />
+              
+              <audio controls src="scenes/034_shot_34/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>[dissatisfaction-hnn]但這套看似周密的維持系統背後，根本沒有隔熱防護罩，沒有降落傘包，更沒有任何可以彈射返回的逃生裝置，</p>
+              <p><strong>畫面提示詞：</strong><br><code>exterior 3/4 view of the Sputnik 2 conical satellite payload floating in conceptual void, showing plain riveted aluminum plates without thermal heat shielding tiles or parachute hatches, stark geometric vector lines, industrial gray and steel blue cel-shading, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T060545</span>
+                <span>Seed: 78025962</span>
+                <span>音 Take: speech_20261007T060559</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>035_shot_35 · 因為冷戰的科學家們當時只想知道一</h3>
+            <div>
+              
+              <span class="badge">時長: 12.22s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/035_shot_35/image.png" alt="因為冷戰的科學家們當時只想知道一" class="scene-thumb" />
+              
+              <audio controls src="scenes/035_shot_35/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>因為冷戰的科學家們當時只想知道一個問題，哺乳動物在徹底失重的狀態下究竟能活多久，心臟會不會直接停止跳動，眼睛能不能對焦，</p>
+              <p><strong>畫面提示詞：</strong><br><code>graphic medium shot of Soviet scientists in silhouette standing behind a wall of glowing oscilloscopes and paper strip chart recorders, watching green cardiac waveforms, cold teal and phosphor green lighting, retro-futuristic cartoon style, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T060618</span>
+                <span>Seed: 60791036</span>
+                <span>音 Take: speech_20261007T060640</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>036_shot_36 · 動物會不會在幽閉恐懼中當場發瘋</h3>
+            <div>
+              
+              <span class="badge">時長: 10.58s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/036_shot_36/image.png" alt="動物會不會在幽閉恐懼中當場發瘋" class="scene-thumb" />
+              
+              <audio controls src="scenes/036_shot_36/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>動物會不會在幽閉恐懼中當場發瘋，為了向全世界證明蘇聯科技的絕對領先，他們需要的是一連串跳動的生理數字，</p>
+              <p><strong>畫面提示詞：</strong><br><code>conceptual shot of chibi Laika floating slightly within her snug harness inside the dark capsule, wide glossy eyes reflecting tiny stars through the circular glass viewport, mysterious indigo ambient light, poignant cel-shaded 2D illustration, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T060705</span>
+                <span>Seed: 76215412</span>
+                <span>音 Take: speech_20261007T060742</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>037_shot_37 · 但因為紅場閱兵的死線一天天逼近</h3>
+            <div>
+              <span class="badge" style="background:#7c3aed;margin-left:6px;">🖼️ 畫中畫 PiP</span>
+              <span class="badge">時長: 16.39s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <div class="no-media">無畫面</div>
+              <div style="margin-top:6px;"><small style="color:#7c3aed;font-weight:bold;">疊加參考圖 (PiP)：</small><br><img src="scenes/037_shot_37/pip.png" alt="PiP" style="max-width:140px;border-radius:4px;border:1px solid #ccc;" /></div>
+              <audio controls src="scenes/037_shot_37/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>但因為紅場閱兵的死線一天天逼近，整個衛星的溫度控制系統根本沒有做過聯合測試，這艘史普尼克二號本質上不是一艘探索飛船，而是一口會向地面自動發送心電圖的軌道棺材，</p>
+              <p><strong>畫面提示詞：</strong><br><code>dramatic side profile of Sputnik 2 in dark orbit, with a faint red ECG waveform rhythmically pulsing across the outer metallic hull against the vast blackness of space, chilling cold color palette, crisp 2D cartoon vector linework, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: —</span>
+                <span>Seed: —</span>
+                <span>音 Take: speech_20261007T060814</span>
+                <span>歷史 Takes 數: 0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>038_shot_38 · 在正式發射前的那段日子</h3>
+            <div>
+              <span class="badge" style="background:#7c3aed;margin-left:6px;">🖼️ 畫中畫 PiP</span>
+              <span class="badge">時長: 9.21s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/038_shot_38/image.png" alt="在正式發射前的那段日子" class="scene-thumb" />
+              <div style="margin-top:6px;"><small style="color:#7c3aed;font-weight:bold;">疊加參考圖 (PiP)：</small><br><img src="scenes/038_shot_38/pip.png" alt="PiP" style="max-width:140px;border-radius:4px;border:1px solid #ccc;" /></div>
+              <audio controls src="scenes/038_shot_38/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>在正式發射前的那段日子，研究所裡的氣氛變得極其壓抑，負責這項實驗的生理學家亞茲多夫斯基博士，</p>
+              <p><strong>畫面提示詞：</strong><br><code>medium shot of Dr. Vladimir Yazdovsky in his white lab coat and round wire-rimmed spectacles, standing alone by a window in the dim teal laboratory, looking down at chibi Laika with a heavy expression of silent remorse, soft evening twilight filtering in, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T060837</span>
+                <span>Seed: 53341310</span>
+                <span>音 Take: speech_20261007T060850</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>039_shot_39 · 在發射前最後一個夜晚</h3>
+            <div>
+              
+              <span class="badge">時長: 7.8s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/039_shot_39/image.png" alt="在發射前最後一個夜晚" class="scene-thumb" />
+              
+              <audio controls src="scenes/039_shot_39/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>在發射前最後一個夜晚，悄悄把這隻安靜的小狗帶回了自己的家裡，他讓萊卡在地毯上奔跑，</p>
+              <p><strong>畫面提示詞：</strong><br><code>warm establishing interior shot of a cozy 1950s Soviet apartment living room, warm floor lamp illuminating a patterned wool rug where chibi Laika happily sniffs a woven carpet, soft amber lighting, heartwarming cel-shaded cartoon style, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T060914</span>
+                <span>Seed: 75161938</span>
+                <span>音 Take: speech_20261007T060953</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>040_shot_40 · 讓自己的孩子撫摸她柔軟的毛皮</h3>
+            <div>
+              
+              <span class="badge">時長: 5.0s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/040_shot_40/image.png" alt="讓自己的孩子撫摸她柔軟的毛皮" class="scene-thumb" />
+              
+              <audio controls src="scenes/040_shot_40/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>讓自己的孩子撫摸她柔軟的毛皮，陪她玩了一整晚的皮球，</p>
+              <p><strong>畫面提示詞：</strong><br><code>heartwarming medium shot of two chibi Russian children laughing and gently petting chibi Laika as she wags her tail beside a bright red rubber ball, warm golden lamplight, charming vintage domestic interior, clean expressive line art, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T061008</span>
+                <span>Seed: 14795141</span>
+                <span>音 Take: speech_20261007T061047</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>041_shot_41 · 多年之後這位老科學家在回憶錄裡寫</h3>
+            <div>
+              
+              <span class="badge">時長: 9.35s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/041_shot_41/image.png" alt="多年之後這位老科學家在回憶錄裡寫" class="scene-thumb" />
+              
+              <audio controls src="scenes/041_shot_41/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>多年之後這位老科學家在回憶錄裡寫道，我想為她做點美好的事情，因為她能活在這個世界上的時間已經不多了，</p>
+              <p><strong>畫面提示詞：</strong><br><code>tender close-up shot of Dr. Yazdovsky kneeling down to gently cradle chibi Laika&#x27;s chin with his hand, their eyes meeting with warmth and deep unspoken sorrow, glowing warm indoor lighting, delicate cel-shaded character art, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T061101</span>
+                <span>Seed: 30432223</span>
+                <span>音 Take: speech_20261007T061203</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>042_shot_42 · 另一位負責訓練的女性科研人員科托</h3>
+            <div>
+              
+              <span class="badge">時長: 11.58s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/042_shot_42/image.png" alt="另一位負責訓練的女性科研人員科托" class="scene-thumb" />
+              
+              <audio controls src="scenes/042_shot_42/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>另一位負責訓練的女性科研人員科托夫斯卡婭，在把萊卡送進發射場時忍不住哭出了聲，她抱著萊卡輕聲對她說著請原諒我們，</p>
+              <p><strong>畫面提示詞：</strong><br><code>emotional medium close-up of a female Soviet researcher in a heavy winter coat and fur hat weeping softly while hugging chibi Laika tightly against her cheek on the chilly launch tarmac, cold lavender dawn light, poignant 2D cartoon style, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T061222</span>
+                <span>Seed: 51038663</span>
+                <span>音 Take: speech_20261007T061244</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>043_shot_43 · 但溫柔的眼淚並沒有改變冰冷的現實</h3>
+            <div>
+              
+              <span class="badge">時長: 10.97s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/043_shot_43/image.png" alt="但溫柔的眼淚並沒有改變冰冷的現實" class="scene-thumb" />
+              
+              <audio controls src="scenes/043_shot_43/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>[sigh]但溫柔的眼淚並沒有改變冰冷的現實，早在1957年10月31日，萊卡就已經被提前塞進了那個冰冷的加壓艙裡，</p>
+              <p><strong>畫面提示詞：</strong><br><code>high-angle shot of chibi Laika being gently lowered into the cylindrical metal capsule of Sputnik 2 by gloved technicians in a chilly hangar, metallic surfaces reflecting cold blue work lights, clean contour lines, cel-shaded, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T061309</span>
+                <span>Seed: 58326519</span>
+                <span>音 Take: speech_20261007T061350</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>044_shot_44 · 因為發射前各項設備調試極其緩慢</h3>
+            <div>
+              
+              <span class="badge">時長: 7.57s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/044_shot_44/image.png" alt="因為發射前各項設備調試極其緩慢" class="scene-thumb" />
+              
+              <audio controls src="scenes/044_shot_44/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>因為發射前各項設備調試極其緩慢，她在暗無天日的鐵棺材裡整整等待了三天三夜，</p>
+              <p><strong>畫面提示詞：</strong><br><code>inside shot of the cramped sealed cabin where chibi Laika lies patiently in the dim glow of tiny instrument dials, her chin on her paws, dust motes floating in a sliver of light, somber blue-gray tones, 2D cartoon illustration, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T061410</span>
+                <span>Seed: 76981676</span>
+                <span>音 Take: speech_20261007T061448</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>045_shot_45 · 11月3日黎明前夕</h3>
+            <div>
+              
+              <span class="badge">時長: 10.49s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/045_shot_45/image.png" alt="11月3日黎明前夕" class="scene-thumb" />
+              
+              <audio controls src="scenes/045_shot_45/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>11月3日黎明前夕，技術人員在鎖死艙門前彎下腰親吻了她的鼻子，隨後厚重的金屬艙蓋被扳手一圈一圈死死旋緊，</p>
+              <p><strong>畫面提示詞：</strong><br><code>moving close-up shot of a technician leaning in to gently kiss chibi Laika&#x27;s black button nose at the cabin opening, moments before a heavy metal circular hatch with steel bolts is placed over the viewport, warm rim light against industrial steel, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T061507</span>
+                <span>Seed: 76889800</span>
+                <span>音 Take: speech_20261007T061546</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>046_shot_46 · 清晨升空那一刻</h3>
+            <div>
+              <span class="badge" style="background:#7c3aed;margin-left:6px;">🖼️ 畫中畫 PiP</span>
+              <span class="badge">時長: 8.21s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/046_shot_46/image.png" alt="清晨升空那一刻" class="scene-thumb" />
+              <div style="margin-top:6px;"><small style="color:#7c3aed;font-weight:bold;">疊加參考圖 (PiP)：</small><br><img src="scenes/046_shot_46/pip.png" alt="PiP" style="max-width:140px;border-radius:4px;border:1px solid #ccc;" /></div>
+              <audio controls src="scenes/046_shot_46/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>清晨升空那一刻，巨大的震動和刺耳的咆哮撕裂了荒原，遙測數據顯示萊卡的心跳瞬間暴增，</p>
+              <p><strong>畫面提示詞：</strong><br><code>wide dramatic low-angle shot of the R-7 rocket igniting with massive stylized orange and yellow cartoon flame plumes, blasting off from the launch pad into the pale dawn sky, smoke billowing across the Baikonur steppe, bold 2D cartoon composition, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T061606</span>
+                <span>Seed: 29665924</span>
+                <span>音 Take: speech_20261007T061642</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>047_shot_47 · 從平時每分鐘一百零三次瘋狂飆升到</h3>
+            <div>
+              
+              <span class="badge">時長: 8.32s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/047_shot_47/image.png" alt="從平時每分鐘一百零三次瘋狂飆升到" class="scene-thumb" />
+              
+              <audio controls src="scenes/047_shot_47/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>從平時每分鐘一百零三次瘋狂飆升到二百四十次，她的呼吸頻率急劇上升到平時的三到四倍，</p>
+              <p><strong>畫面提示詞：</strong><br><code>split-screen composition: on the left, an analog paper chart violently scribbling a spiked heartbeat rhythm in red ink; on the right, chibi Laika inside the vibrating cabin, wide-eyed with rapid breath vapor in the cold air, crisp cel-shading, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T061707</span>
+                <span>Seed: 18376146</span>
+                <span>音 Take: speech_20261007T061745</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>048_shot_48 · 當火箭衝出大氣層進入失重狀態時</h3>
+            <div>
+              
+              <span class="badge">時長: 12.18s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/048_shot_48/image.png" alt="當火箭衝出大氣層進入失重狀態時" class="scene-thumb" />
+              
+              <audio controls src="scenes/048_shot_48/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>當火箭衝出大氣層進入失重狀態時，她狂跳的心臟花了整整比地面長三倍的時間才勉強回落，這說明那隻小狗正處於極致的恐懼當中，</p>
+              <p><strong>畫面提示詞：</strong><br><code>interior shot of chibi Laika floating slightly within her harness straps in microgravity, her small paws hovering off the floor, panting with wide terrified glassy eyes as tiny floating water droplets drift past, cool blue ambient light, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T061805</span>
+                <span>Seed: 72820104</span>
+                <span>音 Take: speech_20261007T061844</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>049_shot_49 · 緊接著致命的工程災難爆發了</h3>
+            <div>
+              <span class="badge" style="background:#7c3aed;margin-left:6px;">🖼️ 畫中畫 PiP</span>
+              <span class="badge">時長: 10.97s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/049_shot_49/image.png" alt="緊接著致命的工程災難爆發了" class="scene-thumb" />
+              <div style="margin-top:6px;"><small style="color:#7c3aed;font-weight:bold;">疊加參考圖 (PiP)：</small><br><img src="scenes/049_shot_49/pip.png" alt="PiP" style="max-width:140px;border-radius:4px;border:1px solid #ccc;" /></div>
+              <audio controls src="scenes/049_shot_49/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>[surprise-wa]緊接著致命的工程災難爆發了，火箭的鼻錐整流罩在入軌時沒有按計畫乾淨分離，隔熱層在強烈的拉扯下嚴重受損，</p>
+              <p><strong>畫面提示詞：</strong><br><code>exterior space shot of Sputnik 2 in low orbit, with a torn thermal shielding layer flapping jaggedly near the rocket connector in the stark sunlight, harsh white directional sun against deep navy space, crisp geometric mechanical lines, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T061909</span>
+                <span>Seed: 11796441</span>
+                <span>音 Take: speech_20261007T061947</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>050_shot_50 · 原本脆弱的溫控散熱系統徹底癱瘓</h3>
+            <div>
+              
+              <span class="badge">時長: 11.38s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/050_shot_50/image.png" alt="原本脆弱的溫控散熱系統徹底癱瘓" class="scene-thumb" />
+              
+              <audio controls src="scenes/050_shot_50/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>原本脆弱的溫控散熱系統徹底癱瘓，艙內的溫度計開始不受控制地往上狂飆，狹小悶熱的鐵罐頭溫度迅速突破了四十攝氏度，</p>
+              <p><strong>畫面提示詞：</strong><br><code>close-up inside the cabin showing an analog round thermometer needle swinging rapidly into a dangerous bright red 40-degree zone, with chibi Laika panting heavily in sweltering heat, sweat droplets stylized on her fur, high-contrast warm warning glow, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T062016</span>
+                <span>Seed: 90612480</span>
+                <span>音 Take: speech_20261007T062054</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>051_shot_51 · 而在幾百公里外的地球表面</h3>
+            <div>
+              <span class="badge" style="background:#7c3aed;margin-left:6px;">🖼️ 畫中畫 PiP</span>
+              <span class="badge">時長: 11.21s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/051_shot_51/image.png" alt="而在幾百公里外的地球表面" class="scene-thumb" />
+              <div style="margin-top:6px;"><small style="color:#7c3aed;font-weight:bold;">疊加參考圖 (PiP)：</small><br><img src="scenes/051_shot_51/pip.png" alt="PiP" style="max-width:140px;border-radius:4px;border:1px solid #ccc;" /></div>
+              <audio controls src="scenes/051_shot_51/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>而在幾百公里外的地球表面，莫斯科的廣播電台正在向全世界播放激昂的進行曲，蘇聯官方塔斯社得意洋洋地向全球發布通訊，</p>
+              <p><strong>畫面提示詞：</strong><br><code>wide street scene in 1950s Moscow, chibi citizens gathered beneath large public loudspeakers mounted on street corners, listening with proud smiles beneath fluttering red banners, vibrant Soviet mid-century graphic poster colors, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T062119</span>
+                <span>Seed: 80342226</span>
+                <span>音 Take: speech_20261007T062141</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>052_shot_52 · 宣稱這隻名叫萊卡的太空狗狀態極佳</h3>
+            <div>
+              
+              <span class="badge">時長: 10.41s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/052_shot_52/image.png" alt="宣稱這隻名叫萊卡的太空狗狀態極佳" class="scene-thumb" />
+              
+              <audio controls src="scenes/052_shot_52/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>宣稱這隻名叫萊卡的太空狗狀態極佳進食正常，在隨後的幾十年時間裡，蘇聯官方編造了一套又一套看似完美的謊言，</p>
+              <p><strong>畫面提示詞：</strong><br><code>medium shot of Soviet news editors in a vintage printing press room stacking fresh newspapers featuring a cheerful illustrated cartoon dog in space, surrounded by spinning ink rollers, warm sepia and industrial gray tones, crisp outlines, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T062207</span>
+                <span>Seed: 55333254</span>
+                <span>音 Take: speech_20261007T062245</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>053_shot_53 · 有的官方發言人說萊卡在太空裡優雅</h3>
+            <div>
+              
+              <span class="badge">時長: 7.97s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/053_shot_53/image.png" alt="有的官方發言人說萊卡在太空裡優雅" class="scene-thumb" />
+              
+              <audio controls src="scenes/053_shot_53/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>有的官方發言人說萊卡在太空裡優雅地活了七天，最後在氧氣耗盡時安詳地閉上了眼睛，</p>
+              <p><strong>畫面提示詞：</strong><br><code>conceptual propaganda-style illustration showing chibi Laika peacefully sleeping like an angel among the cartoon stars, surrounded by stylized laurel wreaths and golden orbital rings, soft pastel cel-shading, ironic peaceful aesthetic, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T062304</span>
+                <span>Seed: 62848422</span>
+                <span>音 Take: speech_20261007T062343</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>054_shot_54 · 有的版本甚至說她在第七天吃下了那</h3>
+            <div>
+              
+              <span class="badge">時長: 7.57s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/054_shot_54/image.png" alt="有的版本甚至說她在第七天吃下了那" class="scene-thumb" />
+              
+              <audio controls src="scenes/054_shot_54/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>有的版本甚至說她在第七天吃下了那份特製毒藥，在沒有痛苦的沉睡中告別了人間，</p>
+              <p><strong>畫面提示詞：</strong><br><code>artistic split visual: on one side a pristine sterile feeding tray under glowing celestial light; on the other, the stark mechanical reality of the dark orbiting metal capsule, contrasting propaganda myth and reality, cel-shaded 2D art, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T062402</span>
+                <span>Seed: 24047919</span>
+                <span>音 Take: speech_20261007T062440</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>055_shot_55 · 這些互相打臉的謊言被寫進了蘇聯各</h3>
+            <div>
+              <span class="badge" style="background:#7c3aed;margin-left:6px;">🖼️ 畫中畫 PiP</span>
+              <span class="badge">時長: 10.73s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <div class="no-media">無畫面</div>
+              <div style="margin-top:6px;"><small style="color:#7c3aed;font-weight:bold;">疊加參考圖 (PiP)：</small><br><img src="scenes/055_shot_55/pip.png" alt="PiP" style="max-width:140px;border-radius:4px;border:1px solid #ccc;" /></div>
+              <audio controls src="scenes/055_shot_55/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>這些互相打臉的謊言被寫進了蘇聯各地的教科書，直到冷戰結束後的2002年，在美國休士頓舉行的世界太空大會上，</p>
+              <p><strong>畫面提示詞：</strong><br><code>medium shot of an elderly Soviet scientist in a dark suit standing at a modern international conference podium in Houston 2002, looking somberly at the audience beneath stage spotlights, clean contemporary 2D cartoon style, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: —</span>
+                <span>Seed: —</span>
+                <span>音 Take: speech_20261007T062506</span>
+                <span>歷史 Takes 數: 0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>056_shot_56 · 當年親歷任務的科學家馬拉申科夫才</h3>
+            <div>
+              
+              <span class="badge">時長: 11.41s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/056_shot_56/image.png" alt="當年親歷任務的科學家馬拉申科夫才" class="scene-thumb" />
+              
+              <audio controls src="scenes/056_shot_56/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>當年親歷任務的科學家馬拉申科夫才終於公開了真相，萊卡根本沒有活過七天，她甚至連這顆衛星繞地球的第四圈都沒有熬過去，</p>
+              <p><strong>畫面提示詞：</strong><br><code>dramatic top-down view of the Earth with four glowing orbital elliptical paths drawn around the globe, with the fourth ring fading abruptly into silence, deep space navy background dotted with crisp stars, geometric visual storytelling, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T062518</span>
+                <span>Seed: 77184922</span>
+                <span>音 Take: speech_20261007T062541</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>057_shot_57 · 在發射升空僅僅五到七個小時之後</h3>
+            <div>
+              
+              <span class="badge">時長: 10.78s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/057_shot_57/image.png" alt="在發射升空僅僅五到七個小時之後" class="scene-thumb" />
+              
+              <audio controls src="scenes/057_shot_57/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>在發射升空僅僅五到七個小時之後，伴隨著艙內不斷上升的窒息高溫和劇烈驚嚇，那顆微弱的心臟就永遠停止了跳動，</p>
+              <p><strong>畫面提示詞：</strong><br><code>melancholic and peaceful medium shot of chibi Laika curled gently in eternal sleep inside the dim, quiet cabin, a faint green flatline displayed on a distant tiny monitor, soft blue starlight drifting through the circular glass viewport, tender cel-shading, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T062606</span>
+                <span>Seed: 67091734</span>
+                <span>音 Take: speech_20261007T062643</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>058_shot_58 · 原本計畫獲取長期失重生化數據的科</h3>
+            <div>
+              
+              <span class="badge">時長: 6.72s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/058_shot_58/image.png" alt="原本計畫獲取長期失重生化數據的科" class="scene-thumb" />
+              
+              <audio controls src="scenes/058_shot_58/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>[sigh]原本計畫獲取長期失重生化數據的科學目標，在四圈飛行後徹底化為烏有，</p>
+              <p><strong>畫面提示詞：</strong><br><code>close-up shot of an analog telemetry receiver on Earth printing out empty, flat paper tapes that spill onto a cold linoleum floor beside unmanned equipment consoles, cool sterile teal shadows, clean contour lines, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T062708</span>
+                <span>Seed: 84412354</span>
+                <span>音 Take: speech_20261007T062747</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>059_shot_59 · 但對於紅場看台上的政客來說</h3>
+            <div>
+              <span class="badge" style="background:#7c3aed;margin-left:6px;">🖼️ 畫中畫 PiP</span>
+              <span class="badge">時長: 9.69s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/059_shot_59/image.png" alt="但對於紅場看台上的政客來說" class="scene-thumb" />
+              <div style="margin-top:6px;"><small style="color:#7c3aed;font-weight:bold;">疊加參考圖 (PiP)：</small><br><img src="scenes/059_shot_59/pip.png" alt="PiP" style="max-width:140px;border-radius:4px;border:1px solid #ccc;" /></div>
+              <audio controls src="scenes/059_shot_59/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>但對於紅場看台上的政客來說，萊卡活了五小時還是七天根本無所謂，因為11月7日的閱兵式已經如期舉行，</p>
+              <p><strong>畫面提示詞：</strong><br><code>wide shot of the grand military parade in Red Square on November 7, 1957, giant banners of Lenin, tanks rumbling across cobblestones, Soviet leaders standing atop Lenin&#x27;s Mausoleum waving, bold mid-century propaganda cartoon palette, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T062802</span>
+                <span>Seed: 60871338</span>
+                <span>音 Take: speech_20261007T062842</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>060_shot_60 · 他們已經成功搶在美國人前面</h3>
+            <div>
+              
+              <span class="badge">時長: 6.4s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/060_shot_60/image.png" alt="他們已經成功搶在美國人前面" class="scene-thumb" />
+              
+              <audio controls src="scenes/060_shot_60/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>他們已經成功搶在美國人前面，向全人類炫耀了社會主義陣營的太空奇蹟，</p>
+              <p><strong>畫面提示詞：</strong><br><code>low-angle shot of Nikita Khrushchev and officials smiling triumphantly on the Red Square viewing stand, surrounded by bouquets of red carnations and fluttering flags under a crisp autumn sky, bold cel-shading, clean contour lines, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T062907</span>
+                <span>Seed: 47397134</span>
+                <span>音 Take: speech_20261007T062944</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>061_shot_61 · 在那個沒有互聯網的封閉年代</h3>
+            <div>
+              <span class="badge" style="background:#7c3aed;margin-left:6px;">🖼️ 畫中畫 PiP</span>
+              <span class="badge">時長: 10.41s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/061_shot_61/image.png" alt="在那個沒有互聯網的封閉年代" class="scene-thumb" />
+              <div style="margin-top:6px;"><small style="color:#7c3aed;font-weight:bold;">疊加參考圖 (PiP)：</small><br><img src="scenes/061_shot_61/pip.png" alt="PiP" style="max-width:140px;border-radius:4px;border:1px solid #ccc;" /></div>
+              <audio controls src="scenes/061_shot_61/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>在那個沒有互聯網的封閉年代，萊卡的死訊被嚴密包裹在英雄主義的糖衣裡，蘇聯郵政發行了印有她頭像的彩色郵票，</p>
+              <p><strong>畫面提示詞：</strong><br><code>close-up shot of a pristine vintage Soviet postage stamp featuring a colorful chibi illustration of Laika gazing toward a red star, resting on a collector&#x27;s album page, rich graphic print colors, clean perforation edges, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T062958</span>
+                <span>Seed: 20300607</span>
+                <span>音 Take: speech_20261007T063100</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>062_shot_62 · 國營工廠生產了印著太空狗的香菸和</h3>
+            <div>
+              
+              <span class="badge">時長: 12.18s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/062_shot_62/image.png" alt="國營工廠生產了印著太空狗的香菸和" class="scene-thumb" />
+              
+              <audio controls src="scenes/062_shot_62/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>國營工廠生產了印著太空狗的香菸和巧克力，課堂上的小學生在老師帶領下給太空狗寫信，天真地詢問萊卡在天上吃得飽不飽冷不冷，</p>
+              <p><strong>畫面提示詞：</strong><br><code>still life shot of vintage Soviet merchandise: a tin box of chocolates and a pack of cigarettes with chibi space dog illustrations, alongside a child&#x27;s hand-written letter decorated with crayon stars, warm nostalgic tabletop lighting, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T063132</span>
+                <span>Seed: 20038183</span>
+                <span>音 Take: speech_20261007T063146</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>063_shot_63 · 而官方報紙只能繼續自欺欺人</h3>
+            <div>
+              <span class="badge" style="background:#7c3aed;margin-left:6px;">🖼️ 畫中畫 PiP</span>
+              <span class="badge">時長: 7.16s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/063_shot_63/image.png" alt="而官方報紙只能繼續自欺欺人" class="scene-thumb" />
+              <div style="margin-top:6px;"><small style="color:#7c3aed;font-weight:bold;">疊加參考圖 (PiP)：</small><br><img src="scenes/063_shot_63/pip.png" alt="PiP" style="max-width:140px;border-radius:4px;border:1px solid #ccc;" /></div>
+              <audio controls src="scenes/063_shot_63/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>而官方報紙只能繼續自欺欺人，把一具早已冰冷的屍體說成是正在太空巡航的衛士，</p>
+              <p><strong>畫面提示詞：</strong><br><code>medium shot of a giant Soviet newspaper front page showing a triumphant drawing of Laika in an orbital suit, while in the deep shadow behind it floats the silent, dark reality of Sputnik 2 in orbit, dramatic contrasting lighting, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T063211</span>
+                <span>Seed: 48822450</span>
+                <span>音 Take: speech_20261007T063251</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>064_shot_64 · 承認她是消耗品</h3>
+            <div>
+              
+              <span class="badge">時長: 9.29s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/064_shot_64/image.png" alt="承認她是消耗品" class="scene-thumb" />
+              
+              <audio controls src="scenes/064_shot_64/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>[dissatisfaction-hnn]承認她是消耗品，就等於承認這場偉大的科學勝利，是用一條無辜的生命換來的政治獻禮，</p>
+              <p><strong>畫面提示詞：</strong><br><code>conceptual shot of an imposing golden Soviet Kremlin tower casting a long, dark spear-like shadow across an innocent little dog&#x27;s paw print in the snow, dramatic symbolic graphic design, bold red and cold gray contrast, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T063311</span>
+                <span>Seed: 24036892</span>
+                <span>音 Take: speech_20261007T063349</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>065_shot_65 · 於是整個宣傳機器只能合謀</h3>
+            <div>
+              
+              <span class="badge">時長: 5.68s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/065_shot_65/image.png" alt="於是整個宣傳機器只能合謀" class="scene-thumb" />
+              
+              <audio controls src="scenes/065_shot_65/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>於是整個宣傳機器只能合謀，把一場單程處決包裝成一隻狗的主動犧牲，</p>
+              <p><strong>畫面提示詞：</strong><br><code>dramatic composition of giant mechanical printing press rollers stamping out endless colorful hero posters of chibi Laika with a halo of orbital stars, glowing red socialist aesthetic, sharp graphic outlines, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T063408</span>
+                <span>Seed: 91278065</span>
+                <span>音 Take: speech_20261007T063449</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>066_shot_66 · 西方的動物保護協會雖然在倫敦大使</h3>
+            <div>
+              <span class="badge" style="background:#7c3aed;margin-left:6px;">🖼️ 畫中畫 PiP</span>
+              <span class="badge">時長: 13.18s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <div class="no-media">無畫面</div>
+              <div style="margin-top:6px;"><small style="color:#7c3aed;font-weight:bold;">疊加參考圖 (PiP)：</small><br><img src="scenes/066_shot_66/pip.png" alt="PiP" style="max-width:140px;border-radius:4px;border:1px solid #ccc;" /></div>
+              <audio controls src="scenes/066_shot_66/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>西方的動物保護協會雖然在倫敦大使館外抗議，但冷戰的政治狂熱很快就把這些質疑淹沒，莫斯科甚至指責西方帝國主義是在惡意抹黑蘇聯成就，</p>
+              <p><strong>畫面提示詞：</strong><br><code>wide shot of British protesters holding placards depicting a dog in front of the Soviet Embassy in London on a rainy 1957 afternoon, yellow taxi cabs and umbrellas, cool British gray street palette, 2D cartoon illustration, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: —</span>
+                <span>Seed: —</span>
+                <span>音 Take: speech_20261007T063510</span>
+                <span>歷史 Takes 數: 0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>067_shot_67 · 在掌聲和歡呼聲的背後</h3>
+            <div>
+              
+              <span class="badge">時長: 8.16s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/067_shot_67/image.png" alt="在掌聲和歡呼聲的背後" class="scene-thumb" />
+              
+              <audio controls src="scenes/067_shot_67/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>在掌聲和歡呼聲的背後，萊卡的遺體靜靜躺在那個燒焦的密封艙裡，像一顆被人遺忘的太空垃圾，</p>
+              <p><strong>畫面提示詞：</strong><br><code>hauntingly beautiful wide shot of Sputnik 2, its exterior scorched and silent, drifting slowly through deep indigo space above the vast glowing curve of planet Earth, solitary and quiet, cold cel-shaded sci-fi tones, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T063529</span>
+                <span>Seed: 16409323</span>
+                <span>音 Take: speech_20261007T063541</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>068_shot_68 · 繞著我們美麗的地球整整旋轉了一百</h3>
+            <div>
+              
+              <span class="badge">時長: 8.57s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/068_shot_68/image.png" alt="繞著我們美麗的地球整整旋轉了一百" class="scene-thumb" />
+              
+              <audio controls src="scenes/068_shot_68/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>繞著我們美麗的地球整整旋轉了一百六十二天，她在無聲的太空中繞行了大約兩千五百七十圈，</p>
+              <p><strong>畫面提示詞：</strong><br><code>wide orbital shot showing the tiny silhouette of Sputnik 2 tracing a glowing dotted circular path repeatedly around a peaceful, luminous blue and white Earth, deep navy starfield background, crisp geometric vector styling, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T063557</span>
+                <span>Seed: 48547004</span>
+                <span>音 Take: speech_20261007T063659</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>069_shot_69 · 直到1958年4月14日</h3>
+            <div>
+              
+              <span class="badge">時長: 8.85s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/069_shot_69/image.png" alt="直到1958年4月14日" class="scene-thumb" />
+              
+              <audio controls src="scenes/069_shot_69/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>直到1958年4月14日，史普尼克二號墜入大氣層，化作一道無人注意的流星徹底燒成灰燼，</p>
+              <p><strong>畫面提示詞：</strong><br><code>breathtaking atmospheric shot of a brilliant golden shooting star streaking across a deep indigo night sky above quiet ocean clouds, burning down peacefully into nothingness, sparkling cartoon dust trails, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T063719</span>
+                <span>Seed: 27380556</span>
+                <span>音 Take: speech_20261007T063739</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>070_shot_70 · 如果技術極限真的注定了回不來</h3>
+            <div>
+              
+              <span class="badge">時長: 6.79s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/070_shot_70/image.png" alt="如果技術極限真的注定了回不來" class="scene-thumb" />
+              
+              <audio controls src="scenes/070_shot_70/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>[question-ah]如果技術極限真的注定了回不來，這場悲劇或許還能被冠上探索代價的藉口，</p>
+              <p><strong>畫面提示詞：</strong><br><code>conceptual medium shot of an antique brass compass and an open celestial navigation star map resting beside a small bronze dog collar, soft wistful evening light, warm nostalgic cel-shaded tones, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T063759</span>
+                <span>Seed: 65794846</span>
+                <span>音 Take: speech_20261007T063901</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>071_shot_71 · 僅僅在萊卡犧牲兩年多後的1960</h3>
+            <div>
+              <span class="badge" style="background:#7c3aed;margin-left:6px;">🖼️ 畫中畫 PiP</span>
+              <span class="badge">時長: 13.74s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <div class="no-media">無畫面</div>
+              <div style="margin-top:6px;"><small style="color:#7c3aed;font-weight:bold;">疊加參考圖 (PiP)：</small><br><img src="scenes/071_shot_71/pip.png" alt="PiP" style="max-width:140px;border-radius:4px;border:1px solid #ccc;" /></div>
+              <audio controls src="scenes/071_shot_71/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>僅僅在萊卡犧牲兩年多後的1960年8月，蘇聯就發射了配備完整降落傘回收艙的五號衛星，兩隻名叫別爾卡和斯特雷卡的小狗在太空繞行一天後，</p>
+              <p><strong>畫面提示詞：</strong><br><code>cheerful shot of two cute chibi dogs, Belka and Strelka, one white and one spotted, peeking happily out of an orange padded space capsule equipped with striped parachute lines, bright optimistic colors, clean cartoon outlines, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: —</span>
+                <span>Seed: —</span>
+                <span>音 Take: speech_20261007T063924</span>
+                <span>歷史 Takes 數: 0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>072_shot_72 · 安然無恙地活著返回了地球</h3>
+            <div>
+              <span class="badge" style="background:#7c3aed;margin-left:6px;">🖼️ 畫中畫 PiP</span>
+              <span class="badge">時長: 6.4s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <div class="no-media">無畫面</div>
+              <div style="margin-top:6px;"><small style="color:#7c3aed;font-weight:bold;">疊加參考圖 (PiP)：</small><br><img src="scenes/072_shot_72/pip.png" alt="PiP" style="max-width:140px;border-radius:4px;border:1px solid #ccc;" /></div>
+              <audio controls src="scenes/072_shot_72/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>安然無恙地活著返回了地球，斯特雷卡後來甚至生下了一窩健康的狗寶寶，</p>
+              <p><strong>畫面提示詞：</strong><br><code>delightful medium shot of chibi dog Strelka lying happily on a green lawn surrounded by playful fluffy puppies tumbling over one another in the sunlight, vibrant warm park setting, charming cel-shaded art, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: —</span>
+                <span>Seed: —</span>
+                <span>音 Take: speech_20261007T063947</span>
+                <span>歷史 Takes 數: 0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>073_shot_73 · 赫魯雪夫還把其中一隻送給了美國總</h3>
+            <div>
+              <span class="badge" style="background:#7c3aed;margin-left:6px;">🖼️ 畫中畫 PiP</span>
+              <span class="badge">時長: 9.97s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/073_shot_73/image.png" alt="赫魯雪夫還把其中一隻送給了美國總" class="scene-thumb" />
+              <div style="margin-top:6px;"><small style="color:#7c3aed;font-weight:bold;">疊加參考圖 (PiP)：</small><br><img src="scenes/073_shot_73/pip.png" alt="PiP" style="max-width:140px;border-radius:4px;border:1px solid #ccc;" /></div>
+              <audio controls src="scenes/073_shot_73/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>赫魯雪夫還把其中一隻送給了美國總統甘迺迪的女兒，這證明安全回收生命在技術上根本不是無法逾越的神話，</p>
+              <p><strong>畫面提示詞：</strong><br><code>wide interior shot of the White House Oval Office in chibi cartoon style, a young Caroline Kennedy joyfully holding a fluffy white puppy named Pushinka beside a smiling President Kennedy, elegant mid-century American decor, soft morning light, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T063953</span>
+                <span>Seed: 78630913</span>
+                <span>音 Take: speech_20261007T064008</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>074_shot_74 · 萊卡之所以必須死</h3>
+            <div>
+              
+              <span class="badge">時長: 7.12s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/074_shot_74/image.png" alt="萊卡之所以必須死" class="scene-thumb" />
+              
+              <audio controls src="scenes/074_shot_74/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>[sigh]萊卡之所以必須死，僅僅是因為她倒楣地碰上了一場誰都不敢違背的政治檔期，</p>
+              <p><strong>畫面提示詞：</strong><br><code>poignant split-contrast shot: on the left, an imposing Kremlin clock tower with hands pointing urgently toward Nov 7; on the right, chibi Laika sitting alone in the cold shadows of the rocket staging bay, dramatic red and steel-blue lighting, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T064034</span>
+                <span>Seed: 17518292</span>
+                <span>音 Take: speech_20261007T064047</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>075_shot_75 · 1998年曾經主導這項任務的高級</h3>
+            <div>
+              <span class="badge" style="background:#7c3aed;margin-left:6px;">🖼️ 畫中畫 PiP</span>
+              <span class="badge">時長: 11.33s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/075_shot_75/image.png" alt="1998年曾經主導這項任務的高級" class="scene-thumb" />
+              <div style="margin-top:6px;"><small style="color:#7c3aed;font-weight:bold;">疊加參考圖 (PiP)：</small><br><img src="scenes/075_shot_75/pip.png" alt="PiP" style="max-width:140px;border-radius:4px;border:1px solid #ccc;" /></div>
+              <audio controls src="scenes/075_shot_75/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>1998年曾經主導這項任務的高級科學家加津科公開懺悔，他說隨著時間過去我內心越來越後悔，那次任務帶來的科學收獲，</p>
+              <p><strong>畫面提示詞：</strong><br><code>melancholic close-up of an elderly Soviet scientist in chibi style with white hair and sad, reflective eyes, holding a vintage monochrome photograph of Laika in his wrinkled hands, soft muted office lighting, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T064101</span>
+                <span>Seed: 41927731</span>
+                <span>音 Take: speech_20261007T064139</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>076_shot_76 · 根本不足以用那隻狗的死亡來為自己</h3>
+            <div>
+              
+              <span class="badge">時長: 7.61s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/076_shot_76/image.png" alt="根本不足以用那隻狗的死亡來為自己" class="scene-thumb" />
+              
+              <audio controls src="scenes/076_shot_76/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>根本不足以用那隻狗的死亡來為自己辯護，這份沉甸甸的懺悔，整整遲到了四十一年，</p>
+              <p><strong>畫面提示詞：</strong><br><code>over-the-shoulder shot looking at a desk where an old handwritten Russian letter of confession lies beside a small framed picture of chibi Laika wearing her harness, bathed in soft melancholic afternoon window light, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T064203</span>
+                <span>Seed: 37768920</span>
+                <span>音 Take: speech_20261007T064241</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>077_shot_77 · 2008年4月莫斯科那座軍事醫學</h3>
+            <div>
+              <span class="badge" style="background:#7c3aed;margin-left:6px;">🖼️ 畫中畫 PiP</span>
+              <span class="badge">時長: 11.14s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/077_shot_77/image.png" alt="2008年4月莫斯科那座軍事醫學" class="scene-thumb" />
+              <div style="margin-top:6px;"><small style="color:#7c3aed;font-weight:bold;">疊加參考圖 (PiP)：</small><br><img src="scenes/077_shot_77/pip.png" alt="PiP" style="max-width:140px;border-radius:4px;border:1px solid #ccc;" /></div>
+              <audio controls src="scenes/077_shot_77/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>2008年4月莫斯科那座軍事醫學研究所門口，終於立起了一座小小的青銅紀念碑，青銅雕塑裡那隻名叫萊卡的小狗，</p>
+              <p><strong>畫面提示詞：</strong><br><code>wide establishing shot of the Institute of Military Medicine in Moscow in spring, with green trees framing a modest bronze monument in the courtyard under soft golden afternoon sunlight, clean 2D cartoon architectural styling, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T064300</span>
+                <span>Seed: 37878448</span>
+                <span>音 Take: speech_20261007T064404</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>078_shot_78 · 站在一隻由火箭線條托起的人類手掌</h3>
+            <div>
+              
+              <span class="badge">時長: 11.18s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/078_shot_78/image.png" alt="站在一隻由火箭線條托起的人類手掌" class="scene-thumb" />
+              
+              <audio controls src="scenes/078_shot_78/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>站在一隻由火箭線條托起的人類手掌上，這座雕像看起來既像是凱旋的王座，卻又無比諷刺地像極了一座供奉祭品的祭壇，</p>
+              <p><strong>畫面提示詞：</strong><br><code>low-angle medium shot of the bronze monument: a stylized sculpted bronze human hand blending into rocket exhaust lines, holding up a small proud chibi statue of Laika looking toward the sky, warm bronze metallic sheen against pale blue clouds, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T064435</span>
+                <span>Seed: 92124059</span>
+                <span>音 Take: speech_20261007T064448</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>079_shot_79 · 如果你生活在那個狂熱的1957年</h3>
+            <div>
+              
+              <span class="badge">時長: 12.5s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/079_shot_79/image.png" alt="如果你生活在那個狂熱的1957年" class="scene-thumb" />
+              
+              <audio controls src="scenes/079_shot_79/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>[question-ei]如果你生活在那個狂熱的1957年，你會願意為了一場國家的面子慶典，把一隻信任人類的流浪狗送上回不來的單程火箭嗎，</p>
+              <p><strong>畫面提示詞：</strong><br><code>heart-tugging close-up of chibi Laika looking directly up at the viewer with warm, unconditional trust in her shiny puppy eyes, offering her small paw forward, soft warm glowing background, deeply emotive cel-shaded cartoon art, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T064513</span>
+                <span>Seed: 65245520</span>
+                <span>音 Take: speech_20261007T064550</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>080_shot_80 · 歡迎在評論區留下你的看法</h3>
+            <div>
+              
+              <span class="badge">時長: 8.04s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/080_shot_80/image.png" alt="歡迎在評論區留下你的看法" class="scene-thumb" />
+              
+              <audio controls src="scenes/080_shot_80/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>歡迎在評論區留下你的看法，如果你也喜歡這段荒謬又真實的歷史，別忘了點個喜歡，訂閱頻道，</p>
+              <p><strong>畫面提示詞：</strong><br><code>creative closing composition featuring an illustrated vintage wooden broadcast desk with an old microphone, a stack of open viewer comment letters, and a framed cute portrait of chibi Laika, cozy warm studio lighting, clean 2D cartoon lines, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T064615</span>
+                <span>Seed: 61779792</span>
+                <span>音 Take: speech_20261007T064652</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scene-card">
+          <div class="scene-header">
+            <h3>081_shot_81 · 我們下一期故事</h3>
+            <div>
+              
+              <span class="badge">時長: 5.2s</span>
+            </div>
+          </div>
+          <div class="scene-body">
+            <div class="scene-media">
+              <img src="scenes/081_shot_81/image.png" alt="我們下一期故事" class="scene-thumb" />
+              
+              <audio controls src="scenes/081_shot_81/speech.wav" class="scene-audio"></audio>
+            </div>
+            <div class="scene-meta">
+              <p><strong>旁白台詞：</strong><br>我們下一期故事，繼續拆解那些被官方敘事掩蓋的真實角落，</p>
+              <p><strong>畫面提示詞：</strong><br><code>mysterious and intriguing wide shot of a retro Soviet archive room with rows of tall wooden filing cabinets, a single drawer pulled open revealing glowing golden light from within, dramatic atmospheric shadows, crisp 2D cartoon style, 16:9 widescreen composition</code></p>
+              <div class="meta-tags">
+                <span>圖 Take: image_20261007T064707</span>
+                <span>Seed: 97427042</span>
+                <span>音 Take: speech_20261007T064745</span>
+                <span>歷史 Takes 數: 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+  </div>
+</body>
+</html>

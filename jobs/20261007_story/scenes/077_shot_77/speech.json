@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261007T064404",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 11.14,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "2008年4月莫斯科那座軍事醫學研究所門口",
+      "text_cn": "2008年4月莫斯科那座军事医学研旧所门口",
+      "start_sec": 0.0,
+      "end_sec": 4.52,
+      "duration_sec": 4.52
+    },
+    {
+      "index": 2,
+      "text": "終於立起了一座小小的青銅紀念碑",
+      "text_cn": "终于立起了一座小小的青铜纪念碑",
+      "start_sec": 4.77,
+      "end_sec": 7.93,
+      "duration_sec": 3.16
+    },
+    {
+      "index": 3,
+      "text": "青銅雕塑裡那隻名叫萊卡的小狗",
+      "text_cn": "青铜雕塑里那只名叫莱卡的小狗",
+      "start_sec": 8.18,
+      "end_sec": 11.14,
+      "duration_sec": 2.96
+    }
+  ],
+  "created_at": "2026-10-07T06:44:04.214687+00:00"
+}
