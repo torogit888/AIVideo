@@ -15,6 +15,7 @@ jobs/**/compose/film.mp4
 jobs/**/compose/narration.wav
 jobs/**/scenes/**/speech.wav
 jobs/**/scenes/**/image.png
+jobs/**/run.json
 
 # 金鑰與 OAuth 憑證
 assets/credentials/*.json

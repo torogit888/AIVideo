@@ -48,12 +48,26 @@ def write_run_json(job_dir: Path, data: dict[str, Any]) -> None:
     path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
+# 模組級快取：記錄各 job 上次實際寫入磁碟的實質內容，避免內容未變時重複寫盤
+_LAST_SAVED_STATE: dict[str, dict[str, Any]] = {}
+
+
 def persist_runner(runner: Any) -> dict[str, Any]:
     data = snapshot_runner(runner)
     job_path = getattr(runner, "job_path", None)
     if job_path is not None:
         try:
+            job_key = str(job_path)
+            # 提取排除 updated_at 之後的純實質內容
+            essential_fields = {k: v for k, v in data.items() if k != "updated_at"}
+            last_saved = _LAST_SAVED_STATE.get(job_key)
+
+            # 實質內容完全無變更時直接跳過，絕不無謂刷寫磁碟
+            if last_saved == essential_fields:
+                return data
+
             write_run_json(Path(job_path), data)
+            _LAST_SAVED_STATE[job_key] = essential_fields
         except OSError:
             pass
     return data

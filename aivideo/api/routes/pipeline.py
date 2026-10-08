@@ -154,7 +154,8 @@ async def stream_pipeline_events(request: Request, job_id: str):
                 is_done = runner.is_done
                 error = runner.error_msg
 
-                snap = persist_runner(runner)
+                # 僅讀取記憶體即時快照推播至前端，不於每 0.5 秒的輪詢中頻繁刷寫硬碟
+                snap = snapshot_runner(runner)
                 data = {
                     "job_id": job_id,
                     "is_running": is_running,
