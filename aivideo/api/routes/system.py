@@ -4,6 +4,7 @@ import os
 import shutil
 from pathlib import Path
 from fastapi import APIRouter, HTTPException
+from fastapi.responses import HTMLResponse
 import requests
 
 from aivideo.api.schemas import (
@@ -122,6 +123,20 @@ def test_vertex_account(account_id: str):
         return res
     except Exception as e:
         return {"status": "error", "message": f"測試失敗: {str(e)}"}
+
+
+    return cancel_google_login()
+
+
+@router.post("/system/accounts/sync-gcloud", response_model=VertexAccountResponse)
+def sync_local_gcloud_account():
+    """一鍵同步並載入本機終端機 gcloud 登入產生的 ADC 憑證檔案。"""
+    from aivideo.credentials_manager import sync_system_gcloud_adc
+    try:
+        acc = sync_system_gcloud_adc()
+        return acc
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
 
 
 # ----------------------------------------------------

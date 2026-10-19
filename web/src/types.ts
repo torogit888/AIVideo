@@ -138,6 +138,8 @@ export interface AssetVoice {
   speed?: number;
   position_temperature?: number;
   steps?: number;
+  voice_instruct?: string;
+  instruct?: string;
   reference_text?: string;
   audio_sample_url?: string;
   test_audio_url?: string;

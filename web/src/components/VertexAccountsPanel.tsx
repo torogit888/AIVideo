@@ -11,6 +11,7 @@ import {
   Globe,
   Radio,
   FileCode,
+  Terminal,
 } from "lucide-react";
 import { api } from "../api";
 import { VertexAccount, CreateVertexAccountInput } from "../types";
@@ -28,11 +29,12 @@ export const VertexAccountsPanel: React.FC<VertexAccountsPanelProps> = ({ onAcco
   const [testingId, setTestingId] = useState<string | null>(null);
   const [switchingId, setSwitchingId] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [syncingGcloud, setSyncingGcloud] = useState(false);
 
   // 新增表單狀態
   const [formData, setFormData] = useState<CreateVertexAccountInput>({
     name: "",
-    auth_type: "service_account",
+    auth_type: "adc",
     project_id: "",
     location: "us-central1",
     service_account_json: "",
@@ -57,6 +59,20 @@ export const VertexAccountsPanel: React.FC<VertexAccountsPanelProps> = ({ onAcco
   useEffect(() => {
     loadAccounts();
   }, []);
+
+  const handleSyncGcloud = async () => {
+    setSyncingGcloud(true);
+    try {
+      const acc = await api.syncGcloudAccount();
+      await loadAccounts();
+      showToast(`已成功載入並切換至本機 gcloud 帳戶【${acc.name}】！`, "success");
+      onAccountChanged?.();
+    } catch (e: any) {
+      showToast("載入本機 gcloud 憑證失敗: " + (e.message || "未知錯誤"), "error");
+    } finally {
+      setSyncingGcloud(false);
+    }
+  };
 
   const handleSwitchAccount = async (account: VertexAccount) => {
     if (account.is_active) return;
@@ -146,6 +162,10 @@ export const VertexAccountsPanel: React.FC<VertexAccountsPanelProps> = ({ onAcco
       showToast("請上傳或貼上 Service Account JSON 金鑰內容，或指定專案 ID！", "error");
       return;
     }
+    if (formData.auth_type === "adc" && !formData.project_id?.trim()) {
+      showToast("請輸入 Google Cloud Project ID！", "error");
+      return;
+    }
     if (formData.auth_type === "api_key" && !formData.api_key?.trim()) {
       showToast("請輸入 Google AI Studio API Key！", "error");
       return;
@@ -162,7 +182,7 @@ export const VertexAccountsPanel: React.FC<VertexAccountsPanelProps> = ({ onAcco
       // 重置表單
       setFormData({
         name: "",
-        auth_type: "service_account",
+        auth_type: "adc",
         project_id: "",
         location: "us-central1",
         service_account_json: "",
@@ -200,6 +220,16 @@ export const VertexAccountsPanel: React.FC<VertexAccountsPanelProps> = ({ onAcco
             title="重新整理帳戶列表"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin text-amber-cta" : ""}`} />
+          </button>
+          <button
+            type="button"
+            onClick={handleSyncGcloud}
+            disabled={syncingGcloud || loading}
+            className="flex items-center h-8 px-2.5 rounded-lg border border-cinema-border bg-cinema-darker hover:bg-cinema-cardHover text-cinema-text text-xs transition-colors"
+            title="直接從本機 gcloud auth application-default login 自動載入全域憑證"
+          >
+            <Terminal className={`w-3.5 h-3.5 mr-1.5 text-amber-cta ${syncingGcloud ? "animate-spin" : ""}`} />
+            <span>{syncingGcloud ? "載入中..." : "載入本機 gcloud 憑證"}</span>
           </button>
           <button
             type="button"
@@ -378,7 +408,19 @@ export const VertexAccountsPanel: React.FC<VertexAccountsPanelProps> = ({ onAcco
 
               <div>
                 <label className="block text-xs font-medium text-cinema-text mb-1">認證類型</label>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-3 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setFormData({ ...formData, auth_type: "adc" })}
+                    className={`flex items-center justify-center p-2 rounded-lg border text-xs font-medium transition-colors ${
+                      formData.auth_type === "adc"
+                        ? "bg-amber-cta/15 border-amber-cta text-amber-cta"
+                        : "bg-cinema-darker border-cinema-border text-cinema-muted hover:text-cinema-text"
+                    }`}
+                  >
+                    <Terminal className="w-3.5 h-3.5 mr-1.5" />
+                    <span>gcloud ADC (推薦)</span>
+                  </button>
                   <button
                     type="button"
                     onClick={() => setFormData({ ...formData, auth_type: "service_account" })}
@@ -389,7 +431,7 @@ export const VertexAccountsPanel: React.FC<VertexAccountsPanelProps> = ({ onAcco
                     }`}
                   >
                     <FileCode className="w-3.5 h-3.5 mr-1.5" />
-                    <span>Service Account JSON</span>
+                    <span>Service Account</span>
                   </button>
                   <button
                     type="button"
@@ -401,12 +443,54 @@ export const VertexAccountsPanel: React.FC<VertexAccountsPanelProps> = ({ onAcco
                     }`}
                   >
                     <KeyRound className="w-3.5 h-3.5 mr-1.5" />
-                    <span>AI Studio API Key</span>
+                    <span>API Key</span>
                   </button>
                 </div>
               </div>
 
-              {formData.auth_type === "service_account" ? (
+              {formData.auth_type === "adc" ? (
+                <div className="space-y-3">
+                  <div className="p-3 rounded-lg bg-cinema-darker border border-cinema-border/80 text-[11px] text-cinema-muted leading-relaxed space-y-1">
+                    <p className="text-cinema-text font-medium flex items-center">
+                      <Terminal className="w-3.5 h-3.5 mr-1 text-amber-cta" />
+                      使用本機 gcloud 登入憑證 (ADC)
+                    </p>
+                    <p>
+                      需已在本機終端機執行過 <code className="px-1 py-0.5 rounded bg-black/40 text-amber-cta font-mono">gcloud auth application-default login</code>，系統將自動調用本機授權，無需上傳任何 JSON 私鑰檔案。
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-xs font-medium text-cinema-text mb-1">
+                        Google Cloud Project ID <span className="text-red-400">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="例如：my-vertex-project-123"
+                        value={formData.project_id || ""}
+                        onChange={(e) => setFormData({ ...formData, project_id: e.target.value })}
+                        className="w-full h-8 px-2.5 rounded-lg bg-cinema-darker border border-cinema-border text-xs text-cinema-text font-mono focus:outline-none focus:border-amber-cta"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-medium text-cinema-text mb-1">預設地區 (Location)</label>
+                      <select
+                        value={formData.location || "us-central1"}
+                        onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                        className="w-full h-8 px-2.5 rounded-lg bg-cinema-darker border border-cinema-border text-xs text-cinema-text font-mono focus:outline-none focus:border-amber-cta cursor-pointer"
+                      >
+                        <option value="us-central1">us-central1 (愛荷華・推薦)</option>
+                        <option value="global">global (全球全域・3系列首選)</option>
+                        <option value="us-east4">us-east4 (北維吉尼亞)</option>
+                        <option value="us-west1">us-west1 (奧勒岡)</option>
+                        <option value="asia-east1">asia-east1 (台灣彰化)</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              ) : formData.auth_type === "service_account" ? (
                 <div className="space-y-3">
                   <div>
                     <label className="block text-xs font-medium text-cinema-text mb-1">

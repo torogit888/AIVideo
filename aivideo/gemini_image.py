@@ -79,6 +79,11 @@ def get_gemini_client_kwargs(timeout_ms: int = 300000, model: str | None = None,
         "on",
     }
 
+    # 若 GOOGLE_APPLICATION_CREDENTIALS 指向無效或不存在的路徑（例如容器殘留路徑），自動予以清理避免干擾 ADC
+    cred_env = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS", "").strip()
+    if cred_env and not Path(cred_env).is_file():
+        os.environ.pop("GOOGLE_APPLICATION_CREDENTIALS", None)
+
     # 若專案目錄下有 .gcloud/application_default_credentials.json，自動設置環境變數供 Google SDK 讀取
     default_adc_path = REPO_ROOT / ".gcloud" / "application_default_credentials.json"
     if default_adc_path.is_file() and not os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"):

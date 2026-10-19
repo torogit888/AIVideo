@@ -43,6 +43,8 @@ class CreateVertexAccountRequest(BaseModel):
     api_key: Optional[str] = None
 
 
+
+
 class ModelStatusItem(BaseModel):
     name: str
     type: str = "text"  # "text" | "image"
@@ -525,6 +527,8 @@ class AssetVoice(BaseModel):
     speed: Optional[float] = 1.0
     position_temperature: Optional[float] = 0.1
     steps: Optional[int] = 32
+    voice_instruct: Optional[str] = None
+    instruct: Optional[str] = None
     reference_text: Optional[str] = None
     audio_sample_url: Optional[str] = None
     test_audio_url: Optional[str] = None
@@ -536,6 +540,7 @@ class TestVoiceRequest(BaseModel):
     position_temperature: Optional[float] = None
     steps: Optional[int] = None
     mode: Optional[str] = None
+    voice_instruct: Optional[str] = None
     instruct: Optional[str] = None
 
 
@@ -601,6 +606,8 @@ class CreateVoiceRequest(BaseModel):
     speed: float = 1.0
     position_temperature: float = 0.1
     steps: int = 32
+    voice_instruct: Optional[str] = "女，青年，中音调"
+    instruct: Optional[str] = ""
     reference_text: str = ""
     audio_base64: Optional[str] = None
 
@@ -612,5 +619,7 @@ class UpdateVoiceRequest(BaseModel):
     speed: float = 1.0
     position_temperature: float = 0.1
     steps: int = 32
+    voice_instruct: Optional[str] = "女，青年，中音调"
+    instruct: Optional[str] = ""
     reference_text: str = ""
     audio_base64: Optional[str] = None

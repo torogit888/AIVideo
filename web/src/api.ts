@@ -267,7 +267,7 @@ export const api = {
   createVoice: (data: any) => request<AssetVoice>("/assets/voices", { method: "POST", body: JSON.stringify(data) }),
   updateVoice: (id: string, data: any) =>
     request<AssetVoice>(`/assets/voices/${id}`, { method: "PUT", body: JSON.stringify(data) }),
-  testVoice: (id: string, data?: { text?: string; speed?: number; position_temperature?: number; steps?: number; mode?: string }) =>
+  testVoice: (id: string, data?: { text?: string; speed?: number; position_temperature?: number; steps?: number; mode?: string; voice_instruct?: string; instruct?: string }) =>
     request<{ success: boolean; test_audio_url: string; message: string }>(`/assets/voices/${id}/test`, {
       method: "POST",
       body: JSON.stringify(data || {}),
@@ -317,6 +317,7 @@ export const api = {
     request<{ status: string; message: string; latency_ms?: number }>(`/system/accounts/${accountId}/test`, {
       method: "POST",
     }),
+  syncGcloudAccount: () => request<VertexAccount>("/system/accounts/sync-gcloud", { method: "POST" }),
   getModelsStatus: () => request<ModelsStatusResponse>("/system/models/status"),
   checkModelsAvailability: () => request<ModelsStatusResponse>("/system/models/check", { method: "POST" }),
   gcSceneTakes: (jobId: string, sceneId: string, keep = 3) =>

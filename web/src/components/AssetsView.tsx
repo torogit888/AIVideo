@@ -26,6 +26,105 @@ const fileToBase64 = (file: File): Promise<string> => {
   });
 };
 
+const OMNIVOICE_CATEGORIES = [
+  {
+    category: "gender",
+    label: "性別 (Gender)",
+    options: [
+      { label: "女 (女性)", value: "女" },
+      { label: "男 (男性)", value: "男" },
+    ],
+  },
+  {
+    category: "age",
+    label: "年齡層 (Age)",
+    options: [
+      { label: "兒童", value: "儿童" },
+      { label: "少年", value: "少年" },
+      { label: "青年", value: "青年" },
+      { label: "中年", value: "中年" },
+      { label: "老年", value: "老年" },
+    ],
+  },
+  {
+    category: "pitch",
+    label: "音高 (Pitch)",
+    options: [
+      { label: "極低音", value: "极低音调" },
+      { label: "低音", value: "低音调" },
+      { label: "中音", value: "中音调" },
+      { label: "高音", value: "高音调" },
+      { label: "極高音", value: "极高音调" },
+    ],
+  },
+  {
+    category: "dialect",
+    label: "中文方言 / 口音 (Chinese Dialect)",
+    options: [
+      { label: "標準普通話", value: "" },
+      { label: "東北話", value: "东北话" },
+      { label: "四川話", value: "四川话" },
+      { label: "陝西話", value: "陕西话" },
+      { label: "河南話", value: "河南话" },
+      { label: "貴州話", value: "贵州话" },
+      { label: "雲南話", value: "云南话" },
+      { label: "桂林話", value: "桂林话" },
+      { label: "青島話", value: "青岛话" },
+      { label: "濟南話", value: "济南话" },
+      { label: "甘肅話", value: "甘肃话" },
+      { label: "寧夏話", value: "宁夏话" },
+      { label: "石家莊話", value: "石家庄话" },
+    ],
+  },
+  {
+    category: "style",
+    label: "風格 / 氣音 (Style)",
+    options: [
+      { label: "一般講述", value: "" },
+      { label: "耳語 / 氣音 (whisper)", value: "耳语" },
+    ],
+  },
+];
+
+const OMNIVOICE_PRESETS = [
+  { label: "沉穩說書男聲", instruct: "男，中年，低音调" },
+  { label: "專業知性女聲", instruct: "女，青年，中音调" },
+  { label: "懸疑氣音旁白", instruct: "男，青年，低音调，耳语" },
+  { label: "慈祥長者說書", instruct: "男，老年，低音调" },
+  { label: "活潑少女講述", instruct: "女，少年，高音调" },
+  { label: "四川風情口吻", instruct: "男，中年，中音调，四川话" },
+  { label: "東北喜劇評書", instruct: "男，中年，高音调，东北话" },
+];
+
+const ORDER_MAP: Record<string, number> = {
+  女: 1, 男: 1, female: 1, male: 1,
+  儿童: 2, 少年: 2, 青年: 2, 中年: 2, 老年: 2, child: 2, teenager: 2, "young adult": 2, "middle-aged": 2, elderly: 2,
+  极低音调: 3, 低音调: 3, 中音调: 3, 高音调: 3, 极高音调: 3, "very low pitch": 3, "low pitch": 3, "moderate pitch": 3, "high pitch": 3, "very high pitch": 3,
+  河南话: 4, 陕西话: 4, 四川话: 4, 贵州话: 4, 云南话: 4, 桂林话: 4, 济南话: 4, 石家庄话: 4, 甘肃话: 4, 宁夏话: 4, 青岛话: 4, 东北话: 4,
+  耳语: 5, whisper: 5,
+};
+
+const updateVoiceInstructTag = (
+  current: string,
+  categoryOptions: { label: string; value: string }[],
+  selectedValue: string
+): string => {
+  let parts = current
+    .split(/[,，]/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+
+  const allCategoryVals = new Set(categoryOptions.map((o) => o.value).filter(Boolean));
+  parts = parts.filter((p) => !allCategoryVals.has(p));
+
+  if (selectedValue) {
+    parts.push(selectedValue);
+  }
+
+  parts.sort((a, b) => (ORDER_MAP[a] || 99) - (ORDER_MAP[b] || 99));
+  return parts.join("，");
+};
+
 export const AssetsView: React.FC = () => {
   const { showToast, selectedAiModel, setSelectedAiModel } = useStudioStore();
   const [tab, setTab] = useState<"tones" | "voices" | "styles">("styles");
@@ -66,6 +165,8 @@ export const AssetsView: React.FC = () => {
   const [editVoiceSpeed, setEditVoiceSpeed] = useState(1.0);
   const [editVoiceTemp, setEditVoiceTemp] = useState(0.1);
   const [editVoiceSteps, setEditVoiceSteps] = useState(32);
+  const [editVoiceInstruct, setEditVoiceInstruct] = useState("女，青年，中音调");
+  const [editVoiceSubInstruct, setEditVoiceSubInstruct] = useState("");
   const [editVoiceRefText, setEditVoiceRefText] = useState("");
   const [editVoiceAudioBase64, setEditVoiceAudioBase64] = useState<string | null>(null);
   const [localAudioPreviewUrl, setLocalAudioPreviewUrl] = useState<string | null>(null);
@@ -117,6 +218,7 @@ export const AssetsView: React.FC = () => {
   const [newVoiceSpeed, setNewVoiceSpeed] = useState(1.0);
   const [newVoiceTemp, setNewVoiceTemp] = useState(0.1);
   const newVoiceSteps = 32;
+  const [newVoiceInstruct, setNewVoiceInstruct] = useState("女，青年，中音调");
   const [newVoiceRefText, setNewVoiceRefText] = useState("");
   const [newVoiceAudioBase64, setNewVoiceAudioBase64] = useState<string | null>(null);
 
@@ -388,6 +490,8 @@ export const AssetsView: React.FC = () => {
     setEditVoiceSpeed(v.speed ?? 1.0);
     setEditVoiceTemp(v.position_temperature ?? 0.1);
     setEditVoiceSteps(v.steps ?? 32);
+    setEditVoiceInstruct(v.voice_instruct || "女，青年，中音调");
+    setEditVoiceSubInstruct(v.instruct || "");
     setEditVoiceRefText(v.reference_text || "");
     setEditVoiceAudioBase64(null);
     setLocalAudioPreviewUrl(null);
@@ -398,18 +502,20 @@ export const AssetsView: React.FC = () => {
     if (!selectedVoice) return;
     setTestingVoice(true);
     try {
-      // 1. 自動先儲存當前修改之設定（包含新上傳音訊）
+      // 1. 自動先儲存當前修改之設定（包含新上傳音訊與自訂提示詞）
+      await api.updateVoice(selectedVoice.id, {
+        name: editVoiceName,
+        gender: editVoiceGender,
+        mode: editVoiceMode,
+        speed: editVoiceSpeed,
+        position_temperature: editVoiceTemp,
+        steps: editVoiceSteps,
+        voice_instruct: editVoiceInstruct.trim(),
+        instruct: editVoiceSubInstruct.trim(),
+        reference_text: editVoiceRefText,
+        audio_base64: editVoiceAudioBase64 || undefined,
+      });
       if (editVoiceAudioBase64) {
-        await api.updateVoice(selectedVoice.id, {
-          name: editVoiceName,
-          gender: editVoiceGender,
-          mode: editVoiceMode,
-          speed: editVoiceSpeed,
-          position_temperature: editVoiceTemp,
-          steps: editVoiceSteps,
-          reference_text: editVoiceRefText,
-          audio_base64: editVoiceAudioBase64,
-        });
         setEditVoiceAudioBase64(null);
         setLocalAudioPreviewUrl(null);
       }
@@ -421,6 +527,8 @@ export const AssetsView: React.FC = () => {
         position_temperature: editVoiceTemp,
         steps: editVoiceSteps,
         mode: editVoiceMode,
+        voice_instruct: editVoiceInstruct.trim(),
+        instruct: editVoiceSubInstruct.trim(),
       });
       setTestAudioUrl(res.test_audio_url);
       const updated = await api.getVoices();
@@ -446,6 +554,8 @@ export const AssetsView: React.FC = () => {
         speed: editVoiceSpeed,
         position_temperature: editVoiceTemp,
         steps: editVoiceSteps,
+        voice_instruct: editVoiceInstruct.trim(),
+        instruct: editVoiceSubInstruct.trim(),
         reference_text: editVoiceRefText,
         audio_base64: editVoiceAudioBase64,
       });
@@ -497,6 +607,7 @@ export const AssetsView: React.FC = () => {
         speed: newVoiceSpeed,
         position_temperature: newVoiceTemp,
         steps: newVoiceSteps,
+        voice_instruct: newVoiceMode === "design" ? newVoiceInstruct.trim() : undefined,
         reference_text: newVoiceRefText.trim(),
         audio_base64: newVoiceAudioBase64,
       });
@@ -504,6 +615,7 @@ export const AssetsView: React.FC = () => {
       setIsCreateVoiceOpen(false);
       setNewVoiceId("");
       setNewVoiceName("");
+      setNewVoiceInstruct("女，青年，中音调");
       setNewVoiceRefText("");
       setNewVoiceAudioBase64(null);
       loadData();
@@ -693,12 +805,25 @@ export const AssetsView: React.FC = () => {
                     <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-cinema-darker text-cinema-muted border border-cinema-border">
                       {v.id}
                     </span>
+                    <span className={`text-[10px] px-2 py-0.5 rounded border ${
+                      v.mode === "design"
+                        ? "bg-purple-950/60 text-purple-300 border-purple-800"
+                        : "bg-cinema-darker text-amber-cta border-cinema-border"
+                    }`}>
+                      {v.mode === "design" ? "語氣設計 (Design)" : "克隆 (Clone)"}
+                    </span>
                     <span className="text-[10px] px-2 py-0.5 rounded bg-cinema-darker text-amber-cta border border-cinema-border">
                       {v.gender}
                     </span>
                   </div>
                 </div>
-                {v.reference_text && (
+                {v.mode === "design" && v.voice_instruct && (
+                  <div className="text-[11px] text-purple-300 font-mono bg-purple-950/30 px-2 py-1 rounded border border-purple-900/40 flex items-center space-x-1.5">
+                    <span className="text-purple-400 font-medium shrink-0">特徵：</span>
+                    <span className="truncate">{v.voice_instruct}</span>
+                  </div>
+                )}
+                {v.reference_text && v.mode !== "design" && (
                   <p className="text-[11px] text-cinema-muted italic line-clamp-2">「{v.reference_text}」</p>
                 )}
                 {v.audio_sample_url && (
@@ -1124,53 +1249,150 @@ export const AssetsView: React.FC = () => {
             </div>
           </div>
 
-          <div>
-            <label className="block text-[11px] text-cinema-muted mb-1">
-              參考音逐字稿 (reference.txt - 克隆模式必備)
-            </label>
-            <textarea
-              value={editVoiceRefText}
-              onChange={(e) => setEditVoiceRefText(e.target.value)}
-              rows={3}
-              placeholder="輸入與參考音訊 100% 吻合的中文文字..."
-              className="w-full p-2 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text resize-none focus:outline-none focus:border-amber-cta"
-            />
-          </div>
+          {editVoiceMode === "design" ? (
+            <div className="p-3 rounded-lg bg-cinema-darker border border-cinema-border space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-semibold text-cinema-text flex items-center">
+                  <Sparkles className="w-3.5 h-3.5 mr-1 text-amber-cta" />
+                  <span>語氣設計工坊 (Voice Design)</span>
+                </span>
+                <span className="text-[10px] text-emerald-400 font-medium">免參考音・零樣本生成</span>
+              </div>
 
-          <div className="space-y-1.5">
-            <div className="flex justify-between items-center text-[11px] text-cinema-muted">
-              <span>參考音訊試聽與替換</span>
-              {localAudioPreviewUrl && (
-                <span className="text-amber-cta font-mono text-[10px]">● 已載入本機新音訊</span>
-              )}
+              {/* 快速推薦預設 */}
+              <div>
+                <label className="block text-[11px] text-cinema-muted mb-1.5">推薦音色範本</label>
+                <div className="flex flex-wrap gap-1">
+                  {OMNIVOICE_PRESETS.map((p) => (
+                    <button
+                      key={p.label}
+                      type="button"
+                      onClick={() => {
+                        setEditVoiceInstruct(p.instruct);
+                        if (p.instruct.includes("男")) setEditVoiceGender("男性");
+                        if (p.instruct.includes("女")) setEditVoiceGender("女性");
+                      }}
+                      className={`px-2 py-0.5 rounded text-[10px] transition-colors border ${
+                        editVoiceInstruct === p.instruct
+                          ? "bg-amber-cta text-cinema-bg font-semibold border-amber-cta"
+                          : "bg-cinema-card hover:bg-cinema-cardHover text-cinema-text border-cinema-border"
+                      }`}
+                    >
+                      {p.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* 維度特徵選取器 */}
+              {OMNIVOICE_CATEGORIES.map((cat) => (
+                <div key={cat.category} className="space-y-1">
+                  <label className="block text-[10px] text-cinema-muted">{cat.label}</label>
+                  <div className="flex flex-wrap gap-1">
+                    {cat.options.map((opt) => {
+                      const currentTags = editVoiceInstruct.split(/[,，]/).map((s) => s.trim());
+                      const isSelected = opt.value === ""
+                        ? !cat.options.some((o) => o.value && currentTags.includes(o.value))
+                        : currentTags.includes(opt.value);
+                      return (
+                        <button
+                          key={opt.label}
+                          type="button"
+                          onClick={() => {
+                            const updated = updateVoiceInstructTag(editVoiceInstruct, cat.options, opt.value);
+                            setEditVoiceInstruct(updated);
+                            if (opt.value === "男") setEditVoiceGender("男性");
+                            if (opt.value === "女") setEditVoiceGender("女性");
+                          }}
+                          className={`px-2 py-1 rounded text-[11px] transition-all border ${
+                            isSelected
+                              ? "bg-amber-cta/20 text-amber-cta font-medium border-amber-cta/60"
+                              : "bg-cinema-card hover:bg-cinema-cardHover text-cinema-muted hover:text-cinema-text border-cinema-border"
+                          }`}
+                        >
+                          {opt.label}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+
+              {/* 提示詞輸入框 */}
+              <div>
+                <div className="flex justify-between items-center text-[11px] text-cinema-muted mb-1">
+                  <span>組合提示詞 (voice_instruct)</span>
+                  <button
+                    type="button"
+                    onClick={() => setEditVoiceInstruct("女，青年，中音调")}
+                    className="text-[10px] text-amber-cta hover:underline"
+                  >
+                    重設預設
+                  </button>
+                </div>
+                <textarea
+                  value={editVoiceInstruct}
+                  onChange={(e) => setEditVoiceInstruct(e.target.value)}
+                  rows={2}
+                  placeholder="例如：女，青年，中音调 或 male, young adult, low pitch..."
+                  className="w-full p-2 rounded bg-cinema-card border border-cinema-border text-xs text-cinema-text font-mono resize-none focus:outline-none focus:border-amber-cta"
+                />
+                <div className="text-[10px] text-cinema-muted mt-0.5">
+                  * 屬性間以「，」隔開，同維度只選一項，跨維度任意組合。
+                </div>
+              </div>
             </div>
-            {(localAudioPreviewUrl || selectedVoice.audio_sample_url) && (
-              <audio
-                controls
-                src={localAudioPreviewUrl || selectedVoice.audio_sample_url}
-                key={localAudioPreviewUrl || selectedVoice.audio_sample_url}
-                className="w-full h-8"
-              />
-            )}
-            <label className="flex items-center justify-center h-8 rounded border border-cinema-border bg-cinema-darker hover:bg-cinema-cardHover text-xs text-cinema-text cursor-pointer transition-colors">
-              <Upload className="w-3.5 h-3.5 mr-1.5 text-amber-cta" />
-              <span>{localAudioPreviewUrl ? "已載入新音訊（可立即在上方試聽）" : "上傳替換參考音訊 (WAV/MP3)"}</span>
-              <input
-                type="file"
-                accept="audio/*"
-                className="hidden"
-                onChange={async (e) => {
-                  const file = e.target.files?.[0];
-                  if (file) {
-                    const objectUrl = URL.createObjectURL(file);
-                    setLocalAudioPreviewUrl(objectUrl);
-                    const b64 = await fileToBase64(file);
-                    setEditVoiceAudioBase64(b64);
-                  }
-                }}
-              />
-            </label>
-          </div>
+          ) : (
+            <>
+              <div>
+                <label className="block text-[11px] text-cinema-muted mb-1">
+                  參考音逐字稿 (reference.txt - 克隆模式必備)
+                </label>
+                <textarea
+                  value={editVoiceRefText}
+                  onChange={(e) => setEditVoiceRefText(e.target.value)}
+                  rows={3}
+                  placeholder="輸入與參考音訊 100% 吻合的中文文字..."
+                  className="w-full p-2 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text resize-none focus:outline-none focus:border-amber-cta"
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <div className="flex justify-between items-center text-[11px] text-cinema-muted">
+                  <span>參考音訊試聽與替換</span>
+                  {localAudioPreviewUrl && (
+                    <span className="text-amber-cta font-mono text-[10px]">● 已載入本機新音訊</span>
+                  )}
+                </div>
+                {(localAudioPreviewUrl || selectedVoice.audio_sample_url) && (
+                  <audio
+                    controls
+                    src={localAudioPreviewUrl || selectedVoice.audio_sample_url}
+                    key={localAudioPreviewUrl || selectedVoice.audio_sample_url}
+                    className="w-full h-8"
+                  />
+                )}
+                <label className="flex items-center justify-center h-8 rounded border border-cinema-border bg-cinema-darker hover:bg-cinema-cardHover text-xs text-cinema-text cursor-pointer transition-colors">
+                  <Upload className="w-3.5 h-3.5 mr-1.5 text-amber-cta" />
+                  <span>{localAudioPreviewUrl ? "已載入新音訊（可立即在上方試聽）" : "上傳替換參考音訊 (WAV/MP3)"}</span>
+                  <input
+                    type="file"
+                    accept="audio/*"
+                    className="hidden"
+                    onChange={async (e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        const objectUrl = URL.createObjectURL(file);
+                        setLocalAudioPreviewUrl(objectUrl);
+                        const b64 = await fileToBase64(file);
+                        setEditVoiceAudioBase64(b64);
+                      }
+                    }}
+                  />
+                </label>
+              </div>
+            </>
+          )}
 
           {/* 即時合成試聽區塊 */}
           <div className="p-3 rounded-lg bg-cinema-darker border border-cinema-border space-y-2">
@@ -1690,40 +1912,137 @@ export const AssetsView: React.FC = () => {
               </div>
             </div>
 
-            <div>
-              <label className="block text-[11px] text-cinema-muted mb-1">
-                上傳 5~15 秒乾淨參考音訊 (WAV/MP3，無背景音樂)
-              </label>
-              <label className="flex items-center justify-center h-9 rounded border border-cinema-border bg-cinema-darker hover:bg-cinema-cardHover text-xs text-cinema-text cursor-pointer transition-colors">
-                <Upload className="w-3.5 h-3.5 mr-1.5 text-amber-cta" />
-                <span>{newVoiceAudioBase64 ? "已選取參考音訊檔" : "選取音訊檔案 (WAV/MP3)"}</span>
-                <input
-                  type="file"
-                  accept="audio/*"
-                  className="hidden"
-                  onChange={async (e) => {
-                    const file = e.target.files?.[0];
-                    if (file) {
-                      const b64 = await fileToBase64(file);
-                      setNewVoiceAudioBase64(b64);
-                    }
-                  }}
-                />
-              </label>
-            </div>
+            {newVoiceMode === "design" ? (
+              <div className="p-3.5 rounded-lg bg-cinema-darker border border-cinema-border space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-semibold text-cinema-text flex items-center">
+                    <Sparkles className="w-3.5 h-3.5 mr-1 text-amber-cta" />
+                    <span>語氣設計工坊 (Voice Design)</span>
+                  </span>
+                  <span className="text-[10px] text-emerald-400 font-medium">免參考音・零樣本生成</span>
+                </div>
 
-            <div>
-              <label className="block text-[11px] text-cinema-muted mb-1">
-                參考音逐字稿 (字詞需與上傳音訊完全吻合)
-              </label>
-              <textarea
-                value={newVoiceRefText}
-                onChange={(e) => setNewVoiceRefText(e.target.value)}
-                rows={2}
-                placeholder="例如：2012 年，美國國家偵察局突然打電話給 NASA..."
-                className="w-full p-2 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text resize-none focus:outline-none focus:border-amber-cta"
-              />
-            </div>
+                {/* 快速推薦預設 */}
+                <div>
+                  <label className="block text-[11px] text-cinema-muted mb-1.5">推薦音色範本</label>
+                  <div className="flex flex-wrap gap-1">
+                    {OMNIVOICE_PRESETS.map((p) => (
+                      <button
+                        key={p.label}
+                        type="button"
+                        onClick={() => {
+                          setNewVoiceInstruct(p.instruct);
+                          if (p.instruct.includes("男")) setNewVoiceGender("男性");
+                          if (p.instruct.includes("女")) setNewVoiceGender("女性");
+                        }}
+                        className={`px-2 py-0.5 rounded text-[10px] transition-colors border ${
+                          newVoiceInstruct === p.instruct
+                            ? "bg-amber-cta text-cinema-bg font-semibold border-amber-cta"
+                            : "bg-cinema-card hover:bg-cinema-cardHover text-cinema-text border-cinema-border"
+                        }`}
+                      >
+                        {p.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* 維度特徵選取器 */}
+                {OMNIVOICE_CATEGORIES.map((cat) => (
+                  <div key={cat.category} className="space-y-1">
+                    <label className="block text-[10px] text-cinema-muted">{cat.label}</label>
+                    <div className="flex flex-wrap gap-1">
+                      {cat.options.map((opt) => {
+                        const currentTags = newVoiceInstruct.split(/[,，]/).map((s) => s.trim());
+                        const isSelected = opt.value === ""
+                          ? !cat.options.some((o) => o.value && currentTags.includes(o.value))
+                          : currentTags.includes(opt.value);
+                        return (
+                          <button
+                            key={opt.label}
+                            type="button"
+                            onClick={() => {
+                              const updated = updateVoiceInstructTag(newVoiceInstruct, cat.options, opt.value);
+                              setNewVoiceInstruct(updated);
+                              if (opt.value === "男") setNewVoiceGender("男性");
+                              if (opt.value === "女") setNewVoiceGender("女性");
+                            }}
+                            className={`px-2 py-1 rounded text-[11px] transition-all border ${
+                              isSelected
+                                ? "bg-amber-cta/20 text-amber-cta font-medium border-amber-cta/60"
+                                : "bg-cinema-card hover:bg-cinema-cardHover text-cinema-muted hover:text-cinema-text border-cinema-border"
+                            }`}
+                          >
+                            {opt.label}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+
+                {/* 提示詞輸入框 */}
+                <div>
+                  <div className="flex justify-between items-center text-[11px] text-cinema-muted mb-1">
+                    <span>組合提示詞 (voice_instruct)</span>
+                    <button
+                      type="button"
+                      onClick={() => setNewVoiceInstruct("女，青年，中音调")}
+                      className="text-[10px] text-amber-cta hover:underline"
+                    >
+                      重設預設
+                    </button>
+                  </div>
+                  <textarea
+                    value={newVoiceInstruct}
+                    onChange={(e) => setNewVoiceInstruct(e.target.value)}
+                    rows={2}
+                    placeholder="例如：女，青年，中音调 或 male, young adult, low pitch..."
+                    className="w-full p-2 rounded bg-cinema-card border border-cinema-border text-xs text-cinema-text font-mono resize-none focus:outline-none focus:border-amber-cta"
+                  />
+                  <div className="text-[10px] text-cinema-muted mt-0.5">
+                    * 屬性間以逗號「，」隔開，同維度只選一項，跨維度任意組合。
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <>
+                <div>
+                  <label className="block text-[11px] text-cinema-muted mb-1">
+                    上傳 5~15 秒乾淨參考音訊 (WAV/MP3，無背景音樂)
+                  </label>
+                  <label className="flex items-center justify-center h-9 rounded border border-cinema-border bg-cinema-darker hover:bg-cinema-cardHover text-xs text-cinema-text cursor-pointer transition-colors">
+                    <Upload className="w-3.5 h-3.5 mr-1.5 text-amber-cta" />
+                    <span>{newVoiceAudioBase64 ? "已選取參考音訊檔" : "選取音訊檔案 (WAV/MP3)"}</span>
+                    <input
+                      type="file"
+                      accept="audio/*"
+                      className="hidden"
+                      onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          const b64 = await fileToBase64(file);
+                          setNewVoiceAudioBase64(b64);
+                        }
+                      }}
+                    />
+                  </label>
+                </div>
+
+                <div>
+                  <label className="block text-[11px] text-cinema-muted mb-1">
+                    參考音逐字稿 (字詞需與上傳音訊完全吻合)
+                  </label>
+                  <textarea
+                    value={newVoiceRefText}
+                    onChange={(e) => setNewVoiceRefText(e.target.value)}
+                    rows={2}
+                    placeholder="例如：2012 年，美國國家偵察局突然打電話給 NASA..."
+                    className="w-full p-2 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text resize-none focus:outline-none focus:border-amber-cta"
+                  />
+                </div>
+              </>
+            )}
 
             <div className="flex justify-end space-x-2 pt-2 border-t border-cinema-border">
               <button

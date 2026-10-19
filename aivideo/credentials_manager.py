@@ -3,6 +3,9 @@ from __future__ import annotations
 import json
 import os
 import re
+import shutil
+import subprocess
+import threading
 import time
 from datetime import datetime
 from pathlib import Path
@@ -12,6 +15,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 CREDENTIALS_DIR = REPO_ROOT / "assets" / "credentials"
 ACCOUNTS_FILE = CREDENTIALS_DIR / "vertex_accounts.json"
 CACHE_FILE = CREDENTIALS_DIR / "models_cache.json"
+
 
 # 常見需要檢查狀態的文本與生圖模型
 KNOWN_TEXT_MODELS = [
@@ -62,7 +66,7 @@ def _init_default_account_from_env() -> Dict[str, Any]:
     api_key = os.environ.get("GEMINI_API_KEY", "").strip()
 
     client_email = ""
-    auth_type = "service_account" if use_vertex else ("api_key" if api_key else "adc")
+    auth_type = "service_account" if (use_vertex and cred_path and Path(cred_path).is_file()) else ("adc" if use_vertex else ("api_key" if api_key else "adc"))
 
     if cred_path:
         # 嘗試讀取 service account 的 email
@@ -156,6 +160,8 @@ def create_account(
             cred_file_path = f"assets/credentials/{file_name}"
         except Exception as e:
             raise ValueError(f"Service Account JSON 格式錯誤: {str(e)}")
+    elif auth_type == "adc":
+        client_email = "gcloud ADC"
 
     api_key_val = (api_key or "").strip()
     api_key_masked = ""
@@ -270,6 +276,12 @@ def _apply_account_to_environment(account: Dict[str, Any]):
         updates["GOOGLE_CLOUD_PROJECT"] = project_id or ""
         updates["GOOGLE_CLOUD_LOCATION"] = location or "us-central1"
         updates["GOOGLE_APPLICATION_CREDENTIALS"] = ""
+    elif auth_type == "adc":
+        updates["GOOGLE_GENAI_USE_VERTEXAI"] = "true"
+        updates["GOOGLE_CLOUD_PROJECT"] = project_id
+        updates["GOOGLE_CLOUD_LOCATION"] = location or "us-central1"
+        updates["GOOGLE_APPLICATION_CREDENTIALS"] = abs_cred_path
+        updates["GEMINI_API_KEY"] = ""
     else:
         updates["GOOGLE_GENAI_USE_VERTEXAI"] = "true"
         updates["GOOGLE_CLOUD_PROJECT"] = project_id
@@ -303,6 +315,115 @@ def _apply_account_to_environment(account: Dict[str, Any]):
             os.environ[k] = v
         elif k in os.environ:
             del os.environ[k]
+
+
+def _get_system_adc_path() -> Optional[Path]:
+    """取得作業系統預設存放 gcloud ADC 憑證的路徑。"""
+    if os.name == "nt":
+        appdata = os.environ.get("APPDATA")
+        if appdata:
+            return Path(appdata) / "gcloud" / "application_default_credentials.json"
+    return Path.home() / ".config" / "gcloud" / "application_default_credentials.json"
+
+
+def _fetch_email_from_adc_json(adc_data: Dict[str, Any]) -> str:
+    """嘗試從 ADC JSON 中的 refresh_token 解析登入者的 Google 帳號 Email。"""
+    client_id = adc_data.get("client_id", "")
+    client_secret = adc_data.get("client_secret", "")
+    refresh_token = adc_data.get("refresh_token", "")
+    if not refresh_token:
+        return ""
+    try:
+        import base64
+        import requests
+
+        token_resp = requests.post(
+            "https://oauth2.googleapis.com/token",
+            data={
+                "client_id": client_id,
+                "client_secret": client_secret,
+                "refresh_token": refresh_token,
+                "grant_type": "refresh_token",
+            },
+            timeout=10,
+        )
+        if token_resp.status_code == 200:
+            token_data = token_resp.json()
+            id_token = token_data.get("id_token", "")
+            if id_token:
+                parts = id_token.split(".")
+                if len(parts) >= 2:
+                    padding = 4 - len(parts[1]) % 4
+                    payload_b64 = parts[1] + ("=" * padding)
+                    payload_json = json.loads(base64.urlsafe_b64decode(payload_b64).decode("utf-8"))
+                    if "email" in payload_json:
+                        return payload_json["email"]
+            access_token = token_data.get("access_token", "")
+            if access_token:
+                info_resp = requests.get(
+                    f"https://oauth2.googleapis.com/tokeninfo?access_token={access_token}",
+                    timeout=5,
+                )
+                if info_resp.status_code == 200:
+                    return info_resp.json().get("email", "")
+    except Exception:
+        pass
+    return ""
+
+
+
+
+def sync_system_gcloud_adc(account_name: str = "", project_id: str = "") -> Dict[str, Any]:
+    """從作業系統本機 gcloud 憑證檔案 (ADC) 自動同步並建立/更新帳戶。"""
+    _ensure_dir()
+    adc_path = _get_system_adc_path()
+    if not adc_path or not adc_path.is_file():
+        raise ValueError("找不到本機 gcloud 憑證檔案，請先在終端機執行 gcloud auth application-default login。")
+
+    adc_content = adc_path.read_text(encoding="utf-8")
+    adc_data = json.loads(adc_content)
+    user_email = _fetch_email_from_adc_json(adc_data)
+
+    acc_id = f"acc_{int(time.time())}"
+    file_name = f"{acc_id}_credentials.json"
+    save_path = CREDENTIALS_DIR / file_name
+    save_path.write_text(adc_content, encoding="utf-8")
+    cred_file_path = f"assets/credentials/{file_name}"
+
+    resolved_project = project_id.strip() or adc_data.get("quota_project_id", "") or os.getenv("GOOGLE_CLOUD_PROJECT", "")
+    resolved_name = account_name.strip() or (f"gcloud ({user_email})" if user_email else f"gcloud 本機帳戶 ({acc_id[-4:]})")
+
+    now_iso = datetime.now().isoformat()
+    new_account = {
+        "id": acc_id,
+        "name": resolved_name,
+        "auth_type": "adc",
+        "project_id": resolved_project,
+        "location": "global",
+        "credentials_file": cred_file_path,
+        "client_email": user_email or "gcloud ADC (本機登入)",
+        "api_key_masked": "",
+        "api_key_raw": "",
+        "is_active": True,
+        "created_at": now_iso,
+        "updated_at": now_iso,
+    }
+
+    data = _load_accounts_data()
+    data.setdefault("accounts", []).append(new_account)
+    data["active_account_id"] = acc_id
+    _save_accounts_data(data)
+    _apply_account_to_environment(new_account)
+
+    if CACHE_FILE.is_file():
+        try:
+            CACHE_FILE.unlink()
+        except Exception:
+            pass
+
+    return new_account
+
+
 
 
 def probe_single_model(model_id: str, model_type: str = "text") -> Dict[str, Any]:

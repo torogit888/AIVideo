@@ -273,6 +273,8 @@ def list_voices() -> List[AssetVoice]:
                     speed=float(cfg.get("speed", 1.0)),
                     position_temperature=float(cfg.get("position_temperature", 0.1)),
                     steps=int(cfg.get("steps", 32)),
+                    voice_instruct=cfg.get("voice_instruct") or ("女，青年，中音调" if cfg.get("mode") == "design" else None),
+                    instruct=cfg.get("instruct"),
                     reference_text=ref_txt,
                     audio_sample_url=sample_url,
                     test_audio_url=preview_url,
@@ -307,6 +309,8 @@ def create_voice(req: CreateVoiceRequest) -> AssetVoice:
         "steps": req.steps,
         "speed": req.speed,
         "position_temperature": req.position_temperature,
+        "voice_instruct": req.voice_instruct or "女，青年，中音调",
+        "instruct": req.instruct or "",
     }
     (voice_dir / "voice.yaml").write_text(yaml.safe_dump(cfg, allow_unicode=True, sort_keys=False), encoding="utf-8")
 
@@ -334,6 +338,8 @@ def create_voice(req: CreateVoiceRequest) -> AssetVoice:
         speed=req.speed,
         position_temperature=req.position_temperature,
         steps=req.steps,
+        voice_instruct=req.voice_instruct or "女，青年，中音调",
+        instruct=req.instruct or "",
         reference_text=req.reference_text.strip() or None,
         audio_sample_url=sample_url,
         test_audio_url=None,
@@ -362,6 +368,8 @@ def update_voice(voice_id: str, req: UpdateVoiceRequest) -> AssetVoice:
         "speed": req.speed,
         "position_temperature": req.position_temperature,
         "steps": req.steps,
+        "voice_instruct": req.voice_instruct if req.voice_instruct is not None else cfg.get("voice_instruct", "女，青年，中音调"),
+        "instruct": req.instruct if req.instruct is not None else cfg.get("instruct", ""),
     })
     yaml_file.write_text(yaml.safe_dump(cfg, allow_unicode=True, sort_keys=False), encoding="utf-8")
 
@@ -408,6 +416,8 @@ def update_voice(voice_id: str, req: UpdateVoiceRequest) -> AssetVoice:
         speed=req.speed,
         position_temperature=req.position_temperature,
         steps=req.steps,
+        voice_instruct=cfg.get("voice_instruct"),
+        instruct=cfg.get("instruct"),
         reference_text=req.reference_text.strip() or None,
         audio_sample_url=sample_url,
         test_audio_url=preview_url,
@@ -440,8 +450,8 @@ def test_voice(voice_id: str, req: Optional[TestVoiceRequest] = None) -> dict:
     attention = str(cfg.get("attention", "eager")).strip()
     seed = int(cfg.get("seed", 42))
     class_temp = float(cfg.get("class_temperature", 0.0))
-    voice_instruct = str(cfg.get("voice_instruct", "女，青年，中音调")).strip()
-    instruct = str(req_obj.instruct or cfg.get("instruct", "")).strip()
+    voice_instruct = str(req_obj.voice_instruct if req_obj.voice_instruct is not None else cfg.get("voice_instruct", "女，青年，中音调")).strip()
+    instruct = str(req_obj.instruct if req_obj.instruct is not None else cfg.get("instruct", "")).strip()
 
     comfy_url = os.environ.get("COMFY_URL", "http://comfyui:8188").rstrip("/")
 
