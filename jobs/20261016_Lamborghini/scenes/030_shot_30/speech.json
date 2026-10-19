@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261016T145757",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.43,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "當時恩佐法拉利曾公開嘲諷，說牛是拉車的而不是推車的",
+      "text_cn": "当时恩佐法拉利曾公开嘲讽，说牛是拉车的而不是推车的",
+      "start_sec": 0.0,
+      "end_sec": 5.0,
+      "duration_sec": 5.0
+    },
+    {
+      "index": 2,
+      "text": "恩佐頑固地堅信，前置引擎才是公路跑車不可動搖的唯一真理",
+      "text_cn": "恩佐顽固地坚信，前置引擎才是公路跑车不可动摇的唯一真理",
+      "start_sec": 5.25,
+      "end_sec": 10.65,
+      "duration_sec": 5.4
+    },
+    {
+      "index": 3,
+      "text": "[dissatisfaction-hnn]這幫年輕人偏要打碎這種老舊的權威教條",
+      "text_cn": "[dissatisfaction-hnn]这帮年轻人偏要打碎这种老旧的权威教条",
+      "start_sec": 10.9,
+      "end_sec": 15.43,
+      "duration_sec": 4.53
+    }
+  ],
+  "created_at": "2026-10-16T14:57:57.632583+00:00"
+}

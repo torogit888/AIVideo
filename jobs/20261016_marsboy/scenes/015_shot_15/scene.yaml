@@ -1,0 +1,16 @@
+id: 015_shot_15
+index: 15
+title: 西方各大主流通訊社爭相轉載
+narration: '[confirmation-en]西方各大主流通訊社爭相轉載，神童之名在一夜之間傳遍了五大洲，'
+image_prompt: stylized global montage in 2D cartoon cel-shading, featuring retro broadcast
+  antennas sending pulsating signal rings across continents, surrounded by chibi journalists
+  with vintage flash cameras snapping photos, bold flat colors, 16:9 widescreen composition
+image_negative: ''
+act_index: 2
+act_title: 【《真理報》的造神流水線：醫學天才還是精心設計的劇本？】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T035534
+  image_take: image_20261016T035457

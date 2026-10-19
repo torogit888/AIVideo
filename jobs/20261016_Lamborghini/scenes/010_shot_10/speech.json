@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261016T143958",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.02,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "他在辦公室裡對法拉利創始人恩佐法拉利說",
+      "text_cn": "他在办公室里对法拉利创始人恩佐法拉利说",
+      "start_sec": 0.0,
+      "end_sec": 3.96,
+      "duration_sec": 3.96
+    },
+    {
+      "index": 2,
+      "text": "您的車確實很快很偉大，但離合器簡直就是垃圾",
+      "text_cn": "您的车确实很快很伟大，但离合器简直就是勒色",
+      "start_sec": 4.21,
+      "end_sec": 8.41,
+      "duration_sec": 4.2
+    },
+    {
+      "index": 3,
+      "text": "換成更強韌的規格才能成為真正完美的街道跑車",
+      "text_cn": "换成更强韧的规格才能成为真正完美的街道跑车",
+      "start_sec": 8.66,
+      "end_sec": 13.02,
+      "duration_sec": 4.36
+    }
+  ],
+  "created_at": "2026-10-16T14:39:58.197295+00:00"
+}

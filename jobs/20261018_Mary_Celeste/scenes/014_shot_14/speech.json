@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261019T072331",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 23.58,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "依照當時的國際海事法規女皇號本應獲得一筆豐厚的海難救助金",
+      "text_cn": "依照当时的国际海事法规女皇号本应获得一笔丰厚的海难救助金",
+      "start_sec": 0.0,
+      "end_sec": 5.76,
+      "duration_sec": 5.76
+    },
+    {
+      "index": 2,
+      "text": "但等待這群疲憊不堪的水手的卻不是掌聲而是冰冷的法庭審判",
+      "text_cn": "但等待这群疲惫不堪的水手的却不是掌声而是冰冷的法庭审判",
+      "start_sec": 6.01,
+      "end_sec": 11.57,
+      "duration_sec": 5.56
+    },
+    {
+      "index": 3,
+      "text": "直布羅陀海事法庭的檢察總長索利弗拉德性格極度傲慢而且自負",
+      "text_cn": "直布罗陀海事法庭的检察总长索利弗拉德性格极度傲慢而且自负",
+      "start_sec": 11.82,
+      "end_sec": 17.58,
+      "duration_sec": 5.76
+    },
+    {
+      "index": 4,
+      "text": "他對美國商船抱有強烈的偏見認定世界上絕無純粹的幽靈船事件",
+      "text_cn": "他对美国商船抱有强烈的偏见认定世界上绝无纯粹的幽灵船事件",
+      "start_sec": 17.83,
+      "end_sec": 23.58,
+      "duration_sec": 5.75
+    }
+  ],
+  "created_at": "2026-10-19T07:23:31.939702+00:00"
+}

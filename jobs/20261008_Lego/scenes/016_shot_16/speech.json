@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261009T015457",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.67,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "二戰結束前後，長大成人的二兒子戈德弗雷德想替父親省錢",
+      "text_cn": "二战结束前后，长大成人的二儿子戈德弗雷德想替父亲省钱",
+      "start_sec": 0.0,
+      "end_sec": 5.17,
+      "duration_sec": 5.17
+    },
+    {
+      "index": 2,
+      "text": "他偷偷把木頭鴨子原本的三道亮漆，自作主張減成了兩道",
+      "text_cn": "他偷偷把木头鸭子原本的三道亮漆，自作主张减成了两道",
+      "start_sec": 5.42,
+      "end_sec": 10.42,
+      "duration_sec": 5.0
+    },
+    {
+      "index": 3,
+      "text": "兒子興高采烈地跑去邀功，說自己替工廠省下了大筆成本",
+      "text_cn": "儿子兴高采烈地跑去邀功，说自己替工厂省下了大笔成本",
+      "start_sec": 10.67,
+      "end_sec": 15.67,
+      "duration_sec": 5.0
+    }
+  ],
+  "created_at": "2026-10-09T01:54:57.106296+00:00"
+}

@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261016T043856",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.41,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "大人們寧願將希望寄託在一個孩子荒誕的胡言亂語中",
+      "text_cn": "大人们宁愿将希望寄托在一个孩子荒诞的胡言乱语中",
+      "start_sec": 0.0,
+      "end_sec": 4.76,
+      "duration_sec": 4.76
+    },
+    {
+      "index": 2,
+      "text": "大家藉由這場看似浪漫的星際神話",
+      "text_cn": "大家借由这场看似浪漫的星际神话",
+      "start_sec": 5.01,
+      "end_sec": 8.17,
+      "duration_sec": 3.16
+    },
+    {
+      "index": 3,
+      "text": "集體逃避著滿目瘡痍的真實生活，也聯手消費了一個孩童的純真童年",
+      "text_cn": "集体逃避著满目疮痍的真实生活，也联手消费了一个孩童的纯真童年",
+      "start_sec": 8.42,
+      "end_sec": 14.41,
+      "duration_sec": 5.99
+    }
+  ],
+  "created_at": "2026-10-16T04:38:56.283401+00:00"
+}

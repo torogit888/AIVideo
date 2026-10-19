@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261016T042113",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.75,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[surprise-wa]他指著埃及吉薩金字塔的照片聲稱",
+      "text_cn": "[surprise-wa]他指著埃及吉萨金字塔的照片声称",
+      "start_sec": 0.0,
+      "end_sec": 3.92,
+      "duration_sec": 3.92
+    },
+    {
+      "index": 2,
+      "text": "獅身人面像的耳朵後方隱藏著一個精密的機械機關",
+      "text_cn": "狮身人面像的耳朵后方隐藏着一个精密的机械机关",
+      "start_sec": 4.17,
+      "end_sec": 8.73,
+      "duration_sec": 4.56
+    },
+    {
+      "index": 3,
+      "text": "人類一旦解開這個隱秘的開關，整個人類文明乃至宇宙起源的終極秘密將會全面大白於天下",
+      "text_cn": "人类一旦解开这个隐秘的开关，整个人类文明乃至宇宙起源的终极秘密将会全面大白于天下",
+      "start_sec": 8.98,
+      "end_sec": 16.75,
+      "duration_sec": 7.77
+    }
+  ],
+  "created_at": "2026-10-16T04:21:13.816689+00:00"
+}

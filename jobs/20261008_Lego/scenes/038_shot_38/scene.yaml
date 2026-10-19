@@ -1,0 +1,17 @@
+id: 038_shot_38
+index: 38
+title: 倉庫裡堆滿了無人問津的古怪塑料肢
+narration: 倉庫裡堆滿了無人問津的古怪塑料肢體，庫存成本徹底爆表，甚至連財務部門都完全算不清楚，哪一盒玩具到底在賺錢還是賠錢，
+image_prompt: medium shot in Q-version 2D cartoon illustration style, overflowing
+  industrial plastic bins in a dim warehouse filled with bizarre, discarded molded
+  plastic character limbs and wings, thick financial ledger books marked in red sitting
+  on a nearby desk, crisp line art, somber tones, 16:9 widescreen composition
+image_negative: ''
+act_index: 5
+act_title: 【神壇跌落與盲目擴張】2003年：每日虧損百萬美元的巨獸窒息危機
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T021550
+  image_take: image_20261009T021526

@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261009T023050",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 10.97,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[sigh]那些真正殺不死你的苦難，往往會在把你逼到懸崖邊的時候",
+      "text_cn": "[sigh]那些真正杀不死你的苦难，往往会在把你逼到悬崖边的时候",
+      "start_sec": 0.0,
+      "end_sec": 5.52,
+      "duration_sec": 5.52
+    },
+    {
+      "index": 2,
+      "text": "逼你親手砍掉所有虛幻的多餘枝節，找回最核心的生存力量",
+      "text_cn": "逼你亲手砍掉所有虚幻的多余枝节，找回最核心的生存力量",
+      "start_sec": 5.77,
+      "end_sec": 10.97,
+      "duration_sec": 5.2
+    }
+  ],
+  "created_at": "2026-10-09T02:30:50.872882+00:00"
+}

@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261009T014133",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 17974088,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background\nVibrant contrasting color palettes, crisp details throughout, expressive chibi faces, rich background props., close-up low-angle shot in Q-version 2D cartoon illustration style, a chibi bare foot recoiling dramatically mid-air after stepping onto an oversized bright red plastic studded toy brick on a polished wooden floor, cartoon shockwave lines, crisp ink outlines, vibrant cel-shaded color palette, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-09T01:41:33.850461+00:00"
+}

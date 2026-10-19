@@ -1,0 +1,19 @@
+id: 055_shot_55
+index: 55
+title: 那麼
+narration: '[question-yi]那麼，你家裡是否也有一盒放了很多年，卻依然能拼在一起的積木呢，如果你也喜歡這段荒謬又真實的歷史，別忘了點個喜歡，訂閱頻道，我們下一期故事，繼續見證歷史的魔幻與真實，'
+image_prompt: wide narrative conclusion shot in Q-version 2D cartoon illustration
+  style, a cozy sunlit family living room table where multiple generations of colorful
+  studded plastic bricks—both vintage and modern—are interconnected into an imaginative,
+  sprawling storybook castle, warm afternoon sunbeams streaming through the window,
+  celebratory and timeless atmosphere, crisp black outlines, rich cel-shaded colors,
+  16:9 widescreen composition
+image_negative: ''
+act_index: 7
+act_title: 【歷史餘韻與訂閱謝幕】穿越火劫的塑料塊，以及那隻永遠的木頭鴨子
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T023300
+  image_take: image_20261009T023220

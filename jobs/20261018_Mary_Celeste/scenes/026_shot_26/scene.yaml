@@ -1,0 +1,20 @@
+id: 026_shot_26
+index: 26
+title: 伴隨著底艙突然傳來的恐怖爆炸聲刺
+narration: 伴隨著底艙突然傳來的恐怖爆炸聲刺鼻的酒精毒氣瞬間籠罩了全船，一輩子嚴格禁酒的布里格斯船長看著懷裡年幼的女兒和驚慌失措的妻子，他本能地判定整艘船隨時會引發毀滅性的大爆炸徹底粉身碎骨，
+image_prompt: medium close-up of Captain Benjamin Briggs on the damp teak deck of
+  the Mary Celeste, his sharp, weathered face a mask of terror and grim determination,
+  holding his young daughter protectively, his wife (generic) beside him, face wide
+  with panic, a visible, acrid cloud of translucent vapor billowing from the open
+  cargo hatch, diffused, cold daylight, 35mm cinematic lens aesthetics, subtle film
+  grain, high dynamic range, 16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo
+  Style)
+image_negative: ''
+act_index: 6
+act_title: 1701桶毒藥與看不見的火，牛津實驗室裡的終極解密
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T073226
+  image_take: image_20261019T073203

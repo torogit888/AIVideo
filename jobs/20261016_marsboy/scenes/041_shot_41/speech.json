@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261016T042038",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 9.17,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "在聚光燈與西方調查員誘導性的提問之下",
+      "text_cn": "在聚光灯与西方调查员诱导性的提问之下",
+      "start_sec": 0.0,
+      "end_sec": 3.76,
+      "duration_sec": 3.76
+    },
+    {
+      "index": 2,
+      "text": "男孩拋出了一個轟動整個考古界與陰謀論圈子的重磅預言",
+      "text_cn": "男孩抛出了一个轰动整个考古界与阴谋论圈子的重磅预言",
+      "start_sec": 4.01,
+      "end_sec": 9.17,
+      "duration_sec": 5.16
+    }
+  ],
+  "created_at": "2026-10-16T04:20:38.349141+00:00"
+}

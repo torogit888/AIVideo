@@ -1,0 +1,33 @@
+id: 029_shot_29
+index: 29
+title: 它既能保證積木緊密咬合哪怕懸空也
+narration: 它既能保證積木緊密咬合哪怕懸空也不散，又能讓五歲小孩輕鬆拔開，一九五八年一月二十八日下午一點五十八分，專利正式遞交，這項把模具誤差死死卡在兩微米以內的技術，築起了幾十年的護城河，
+image_prompt: low-angle heroic medium shot in Q-version 2D cartoon illustration style,
+  Godtfred Kirk Christiansen proudly holding up an official 1958 patent certificate
+  with detailed technical cross-section drawings, standing beside high-precision steel
+  injection molds in the workshop, resolute and proud, bright cel shading, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 4
+act_title: 【絕處逢生的專利與第三場火】1958年的內部管道，與木製時代的徹底陪葬
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T020741
+  image_take: null
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: LEGO brick patent document 1958
+  source_title: File:US Patent Drawings - unknown, Fender Broadcaster (1951), Tupperware
+    (1954), Yo-yo (1866), Lego brick (1961), Edison light bulb (1880), Eli Whitney's
+    cotton gin (1794), iPod (2008) - National Museum of American History (2015-10-13
+    by Kazuhisa OTSUBO).jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/1/1f/US_Patent_Drawings_-_unknown%2C_Fender_Broadcaster_%281951%29%2C_Tupperware_%281954%29%2C_Yo-yo_%281866%29%2C_Lego_brick_%281961%29%2C_Edison_light_bulb_%281880%29%2C_Eli_Whitney%27s_cotton_gin_%281794%29%2C_iPod_%282008%29_-_National_Museum_of_American_History_%282015-10-13_by_Kazuhisa_OTSUBO%29.jpg
+  verified: true
+  review_reason: 圖片顯示1958年提交的樂高積木專利圖，與旁白內容高度吻合。

@@ -1,0 +1,19 @@
+id: 023_shot_23
+index: 23
+title: 當這批貨物運抵港口時工作人員發現
+narration: 當這批貨物運抵港口時工作人員發現這九個紅橡木桶竟然完全空了，近千加侖的純酒精在航行途中悄悄滲漏化為高濃度的無色致命蒸氣，十一月下旬瑪麗賽勒斯特號正好駛入氣溫回升且波濤洶湧的亞速海域，劇烈的海浪顛簸讓貨艙裡的木桶不斷相互撞擊擠壓封閉艙室變成了壓力鍋，
+image_prompt: dynamic, cutaway view of the Mary Celeste's cargo hold, the nine red
+  oak barrels depicted as empty, with subtle wisps of translucent vapor rising from
+  their bungs, the ship pitching violently in turbulent Azores waters, causing the
+  stacked barrels to visibly shift and collide, emphasizing a 'pressure cooker' effect,
+  cold, hazy alcoholic fumes, 35mm cinematic lens aesthetics, subtle film grain, high
+  dynamic range, 16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo Style)
+image_negative: ''
+act_index: 6
+act_title: 1701桶毒藥與看不見的火，牛津實驗室裡的終極解密
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T073015
+  image_take: image_20261019T073003

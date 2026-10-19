@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261009T022348",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 23790376,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background\nVibrant contrasting color palettes, crisp details throughout, expressive chibi faces, rich background props., wide collaborative shot in Q-version 2D cartoon illustration style, a bright, modern design studio where diverse adult fans and toy designers sit together around worktables filled with sorted bins of standard colorful plastic bricks, happily building intricate modular models, warm sunlit atmosphere, crisp outlines, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-09T02:23:48.119846+00:00"
+}

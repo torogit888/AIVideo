@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261009T022558",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 12.06,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "短短五年時間，樂高不僅還清了所有債務",
+      "text_cn": "短短五年时间，乐高不仅还清了所有债务",
+      "start_sec": 0.0,
+      "end_sec": 3.6,
+      "duration_sec": 3.6
+    },
+    {
+      "index": 2,
+      "text": "利潤更是翻了幾倍，這個差點死在病床上的老牌帝國",
+      "text_cn": "利润更是翻了几倍，这个差点死在病床上的老牌帝国",
+      "start_sec": 3.85,
+      "end_sec": 8.45,
+      "duration_sec": 4.6
+    },
+    {
+      "index": 3,
+      "text": "奇蹟般地奪回了全球玩具霸主的寶座",
+      "text_cn": "奇迹般地夺回了全球玩具霸主的宝座",
+      "start_sec": 8.7,
+      "end_sec": 12.06,
+      "duration_sec": 3.36
+    }
+  ],
+  "created_at": "2026-10-09T02:25:58.778252+00:00"
+}

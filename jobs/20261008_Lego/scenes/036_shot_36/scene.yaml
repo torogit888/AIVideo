@@ -1,0 +1,30 @@
+id: 036_shot_36
+index: 36
+title: 樂高開始瘋狂砸錢去蓋大型主題樂園
+narration: '[dissatisfaction-hnn]樂高開始瘋狂砸錢去蓋大型主題樂園，甚至跨足童裝，手錶，電視動畫和根本無法拆卸的奇葩動作人偶，最恐怖的是內部管理的徹底失控與設計師的無限放權，'
+image_prompt: wide montage shot in Q-version 2D cartoon illustration style, an overwhelming
+  showcase of disparate merchandise featuring miniature roller coaster tracks, branded
+  children's apparel, colorful novelty watches, and non-modular single-piece action
+  figures, bright saturated cartoon colors, crisp black ink outlines, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 5
+act_title: 【神壇跌落與盲目擴張】2003年：每日虧損百萬美元的巨獸窒息危機
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T021353
+  image_take: image_20261009T021314
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Early Legoland Park photo
+  source_title: File:Legoland California (8849878615).jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/f/f9/Legoland_California_%288849878615%29.jpg
+  verified: true
+  review_reason: 照片顯示樂高樂園的場景，與旁白中提及樂高建造大型主題樂園的內容吻合。

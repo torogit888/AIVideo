@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261009T020946",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.42,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "看著滿地的灰燼，接掌大權的戈德弗雷德在董事會上無比冷靜",
+      "text_cn": "看着满地的灰烬，接掌大权的戈德弗雷德在董事会上无比冷静",
+      "start_sec": 0.0,
+      "end_sec": 5.4,
+      "duration_sec": 5.4
+    },
+    {
+      "index": 2,
+      "text": "他說這場大火是上帝替我們做出了最正確的抉擇",
+      "text_cn": "他说这场大火是上帝替我们做出了最正确的抉择",
+      "start_sec": 5.65,
+      "end_sec": 9.97,
+      "duration_sec": 4.32
+    },
+    {
+      "index": 3,
+      "text": "樂高當場宣布永久放棄所有木製品，全面轉向塑料積木系統",
+      "text_cn": "乐高当场宣布永久放弃所有木制品，全面转向塑料积木系统",
+      "start_sec": 10.22,
+      "end_sec": 15.42,
+      "duration_sec": 5.2
+    }
+  ],
+  "created_at": "2026-10-09T02:09:46.844376+00:00"
+}

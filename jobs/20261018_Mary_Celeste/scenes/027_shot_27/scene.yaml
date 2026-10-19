@@ -1,0 +1,20 @@
+id: 027_shot_27
+index: 27
+title: 船長立刻下達了全員撤入小艇的命令
+narration: 船長立刻下達了全員撤入小艇的命令並用一條長繩將小艇拴在船尾隨行，他打算在安全距離等待刺鼻毒氣散盡之後再重新返回大船，[sigh]然而大西洋突如其來的狂風猛烈灌滿了主帆推動巨艦全速衝刺，
+image_prompt: wide shot of the Mary Celeste (Brigantine Vessel), its main sails suddenly
+  billowing full with a powerful, unseen gust of wind, propelling the brigantine rapidly
+  forward, trailing behind the stern, a small lifeboat visible, tethered by a thick
+  rope, struggling to keep pace in the churning wake, 1872 North Atlantic Ocean, churning,
+  slate-gray swells, heavy overcast clouds, diffused, cold daylight, 35mm cinematic
+  lens aesthetics, subtle film grain, high dynamic range, 16:9 widescreen composition,
+  大友克洋風格 (Katsuhiro Otomo Style)
+image_negative: ''
+act_index: 6
+act_title: 1701桶毒藥與看不見的火，牛津實驗室裡的終極解密
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T073329
+  image_take: image_20261019T073250

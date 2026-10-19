@@ -1,0 +1,18 @@
+id: 046_shot_46
+index: 46
+title: 他帶領團隊全面回歸最經典的四乘二
+narration: 他帶領團隊全面回歸最經典的四乘二基礎長方體顆粒，同時樂高放下了過去那種高高在上的傲慢，開始擁抱成年人，他們破天荒地邀請全世界的成人積木愛好者參與產品設計，
+image_prompt: wide collaborative shot in Q-version 2D cartoon illustration style,
+  a bright, modern design studio where diverse adult fans and toy designers sit together
+  around worktables filled with sorted bins of standard colorful plastic bricks, happily
+  building intricate modular models, warm sunlit atmosphere, crisp outlines, 16:9
+  widescreen composition
+image_negative: ''
+act_index: 6
+act_title: 【外科手術式逆轉】白面書生的屠刀：重返 4×2 顆粒的復興奇蹟
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T022426
+  image_take: image_20261009T022348

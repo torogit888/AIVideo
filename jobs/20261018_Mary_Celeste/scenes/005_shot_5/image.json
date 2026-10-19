@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261019T071526",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 77449916,
+  "prompt": "Katsuhiro Otomo Style，wide establishing shot of a Canadian merchant ship (Queen, not Mary Celeste) battling fierce, churning, slate-gray swells capped with white seafoam under a heavy, low-hanging overcast sky, Captain David Morehouse, with a wind-burnt, leathery complexion, standing firmly on the bridge, grimly focused on the horizon, diffused, cold daylight, 35mm cinematic lens aesthetics, subtle film grain, high dynamic range, 16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo Style), 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-19T07:15:26.380816+00:00"
+}

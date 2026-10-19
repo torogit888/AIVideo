@@ -1,0 +1,27 @@
+id: 004_shot_4
+index: 4
+title: 在丹麥日德蘭半島中部
+narration: 在丹麥日德蘭半島中部，有一個極度貧困的小村莊比隆，全村基本上靠養乳牛過日子，對外交通可以說完全閉塞，三十九歲的木匠奧勒，就在這裡經營著一家破舊的木工坊，
+image_prompt: wide establishing shot in Q-version 2D cartoon illustration style, Ole
+  Kirk Christiansen standing outside his humble rustic wooden carpentry workshop in
+  the rural village of Billund, surrounded by snowy fields and grazing dairy cows,
+  storybook Danish architecture, crisp black outlines, warm cel shading, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 1
+act_title: 【時代坐標與認知反差】比隆的寒冬：大蕭條中被逼入絕境的鰥夫木匠
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T014353
+  image_take: image_20261009T014331
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Billund, Denmark 1930s archival photo
+  fetch_error: 未找到合適照片

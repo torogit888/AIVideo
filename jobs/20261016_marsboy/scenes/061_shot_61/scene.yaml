@@ -1,0 +1,17 @@
+id: 061_shot_61
+index: 61
+title: 宇宙的深處或許真的存在著我們尚未
+narration: 宇宙的深處或許真的存在著我們尚未探明的未知文明，[confirmation-en]但這個世界上最深不可測也最荒謬的，永遠是人類那顆渴望奇蹟卻又無比寂寞的人心，好了，大概是這樣，火星男孩的故事今天就聊到這裡，如果你也喜歡這種拆解都市傳說背後人性與社會真相的故事，別忘了長按點贊，訂閱白兔的頻道並開啟小鈴鐺，我們下次見，
+image_prompt: 'grand cinematic wide finale: a lone chibi figure in winter clothes
+  standing on a quiet snowy hill outside the city, gazing up at a vast midnight-blue
+  sky filled with brilliant twinkling stars and a distant glowing red dot of Mars,
+  serene and poignant 2D cel-shaded cartoon art, 16:9 widescreen composition'
+image_negative: ''
+act_index: 7
+act_title: 【神話落幕與歷史餘韻：仰望星空背後的人性悲喜劇】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T043935
+  image_take: image_20261016T043923

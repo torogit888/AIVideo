@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261016T144200",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.82,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "你也許懂得在泥地裡刨土，但你這輩子都不會懂法拉利",
+      "text_cn": "你也许懂得在泥地里刨土，但你这辈子都不会懂法拉利",
+      "start_sec": 0.0,
+      "end_sec": 4.8,
+      "duration_sec": 4.8
+    },
+    {
+      "index": 2,
+      "text": "說完之後，恩佐便揮揮手讓人把他直接轟出了辦公室",
+      "text_cn": "说完之后，恩佐便挥挥手让人把他直接轰出了办公室",
+      "start_sec": 5.05,
+      "end_sec": 9.65,
+      "duration_sec": 4.6
+    },
+    {
+      "index": 3,
+      "text": "[sigh]站在馬拉內羅街頭的費魯齊歐，尊嚴被徹底踩在腳底",
+      "text_cn": "[sigh]站在马拉内罗街头的费鲁齐欧，尊严被彻底踩在脚底",
+      "start_sec": 9.9,
+      "end_sec": 14.82,
+      "duration_sec": 4.92
+    }
+  ],
+  "created_at": "2026-10-16T14:42:00.780325+00:00"
+}

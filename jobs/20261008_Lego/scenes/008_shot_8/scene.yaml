@@ -1,0 +1,27 @@
+id: 008_shot_8
+index: 8
+title: 還做了一隻可以用繩子拖著走
+narration: 還做了一隻可以用繩子拖著走，嘴巴會開合的木頭鴨子，[surprise-oh]一九三四年，他將丹麥語的好好玩縮寫成樂高，
+image_prompt: eye-level close-up shot in Q-version 2D cartoon illustration style,
+  Ole Kirk Christiansen smiling gently as he places down the freshly assembled Classic
+  Wooden Pull Duck Toy on his workbench, showcasing its glossy pine body painted in
+  forest green, canary yellow, and bright red with painted red wooden disk wheels,
+  warm workshop setting, crisp vector outlines, 16:9 widescreen composition
+image_negative: ''
+act_index: 1
+act_title: 【時代坐標與認知反差】比隆的寒冬：大蕭條中被逼入絕境的鰥夫木匠
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T014754
+  image_take: image_20261009T014731
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Original LEGO wooden pull duck toy photo
+  fetch_error: 未找到合適照片

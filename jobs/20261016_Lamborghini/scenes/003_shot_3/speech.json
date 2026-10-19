@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261016T143356",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 17.83,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "但在繁榮背後，當地的階級鄙視鏈其實根深蒂固",
+      "text_cn": "但在繁荣背后，当地的阶级鄙视链其实根深蒂固",
+      "start_sec": 0.0,
+      "end_sec": 4.2,
+      "duration_sec": 4.2
+    },
+    {
+      "index": 2,
+      "text": "傳統的賽車工匠自詡為文藝復興以來的貴族精英",
+      "text_cn": "传统的赛车工匠自诩为文艺复兴以来的贵族精英",
+      "start_sec": 4.45,
+      "end_sec": 8.81,
+      "duration_sec": 4.36
+    },
+    {
+      "index": 3,
+      "text": "根本瞧不起那些渾身機油味的鄉下暴發戶",
+      "text_cn": "根本瞧不起那些浑身机油味的乡下暴发户",
+      "start_sec": 9.06,
+      "end_sec": 12.82,
+      "duration_sec": 3.76
+    },
+    {
+      "index": 4,
+      "text": "費魯齊歐藍寶堅尼就是當時波河平原最有錢的泥腿子",
+      "text_cn": "费鲁齐欧蓝宝坚尼就是当时波河平原最有钱的泥腿子",
+      "start_sec": 13.07,
+      "end_sec": 17.83,
+      "duration_sec": 4.76
+    }
+  ],
+  "created_at": "2026-10-16T14:33:56.192701+00:00"
+}

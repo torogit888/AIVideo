@@ -1,0 +1,17 @@
+id: 033_shot_33
+index: 33
+title: 最高時速高達二百八十公里
+narration: 最高時速高達二百八十公里，直接拿下全球量產車速度第一的寶座，[surprise-wa]全世界的汽車媒體因為這台車的誕生，創造了一個全新名詞，那就是如今大家耳熟能詳的超級跑車，
+image_prompt: wide dynamic tracking shot, Q-version 2D cartoon illustration, the iconic
+  lime-green Lamborghini Miura blasting down an open Italian highway at 280 km/h,
+  dust swirling, sharp wedge aerodynamics, sun reflecting off the sleek hood, comic
+  motion lines, 16:9 widescreen composition
+image_negative: ''
+act_index: 5
+act_title: 顛覆超跑定義的核彈：Miura 橫空出世
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T150122
+  image_take: image_20261016T150107

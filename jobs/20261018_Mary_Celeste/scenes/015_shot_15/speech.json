@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261019T072416",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.65,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[dissatisfaction-hnn]這位檢察總長堅信這是一起謀財害命的屠殺",
+      "text_cn": "[dissatisfaction-hnn]这位检察总长坚信这是一起谋财害命的屠杀",
+      "start_sec": 0.0,
+      "end_sec": 4.63,
+      "duration_sec": 4.63
+    },
+    {
+      "index": 2,
+      "text": "他僱用化學家搜查船艙宣稱在船長的一把舊軍刀上檢驗出了血跡",
+      "text_cn": "他雇用化学家搜查船舱宣称在船长的一把旧军刀上检验出了血迹",
+      "start_sec": 4.88,
+      "end_sec": 10.64,
+      "duration_sec": 5.76
+    },
+    {
+      "index": 3,
+      "text": "法庭隨即指控莫爾豪斯船長在海上殘忍屠殺了老友全家偽造海難",
+      "text_cn": "法庭随即指控莫尔豪斯船长在海上残忍屠杀了老友全家伪造海难",
+      "start_sec": 10.89,
+      "end_sec": 16.65,
+      "duration_sec": 5.76
+    }
+  ],
+  "created_at": "2026-10-19T07:24:16.557479+00:00"
+}

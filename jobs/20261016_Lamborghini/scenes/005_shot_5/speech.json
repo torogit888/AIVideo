@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261016T143556",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.54,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "但他最常開的那輛法拉利二五零，毛病卻多得令人崩潰",
+      "text_cn": "但他最常开的那辆法拉利二五零，毛病却多得令人崩溃",
+      "start_sec": 0.0,
+      "end_sec": 4.8,
+      "duration_sec": 4.8
+    },
+    {
+      "index": 2,
+      "text": "車頭極重，散熱糟糕，而且離合器每開幾百公里就燒毀",
+      "text_cn": "车头极重，散热糟糕，而且离合器每开几百公里就烧毁",
+      "start_sec": 5.05,
+      "end_sec": 9.69,
+      "duration_sec": 4.64
+    },
+    {
+      "index": 3,
+      "text": "每次送回原廠維修都要等上幾個星期，花費幾萬里拉",
+      "text_cn": "每次送回原厂维修都要等上几个星棋，花费几万里拉",
+      "start_sec": 9.94,
+      "end_sec": 14.54,
+      "duration_sec": 4.6
+    }
+  ],
+  "created_at": "2026-10-16T14:35:56.008006+00:00"
+}

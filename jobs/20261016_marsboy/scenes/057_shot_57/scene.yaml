@@ -1,0 +1,17 @@
+id: 057_shot_57
+index: 57
+title: 時至今日
+narration: 時至今日，那個曾經攪動全球二十年風雲的火星男孩已經步入而立之年，他徹底抹去了自己在互聯網上的所有足跡，改名換姓隱沒在俄羅斯龐大而平凡的工人階層之中，
+image_prompt: medium shot of thirty-year-old chibi Boriska in his navy knit beanie
+  and weathered industrial jacket with faded reflective stripes, standing silently
+  among ordinary workers at a frosty morning tram stop, blending into the crowd, clean
+  2D cartoon linework, 16:9 widescreen composition
+image_negative: ''
+act_index: 7
+act_title: 【神話落幕與歷史餘韻：仰望星空背後的人性悲喜劇】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T043530
+  image_take: image_20261016T043451

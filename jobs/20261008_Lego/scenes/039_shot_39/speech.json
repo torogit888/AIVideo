@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261009T021654",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 10.59,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[surprise-wa]到了二零零三年，這頭龐然大物終於迎來了窒息時刻",
+      "text_cn": "[surprise-wa]到了二零零三年，这头庞然大物终于迎来了窒息时刻",
+      "start_sec": 0.0,
+      "end_sec": 5.34,
+      "duration_sec": 5.34
+    },
+    {
+      "index": 2,
+      "text": "樂高的銷售額斷崖式暴跌三成，全年巨額虧損近三億美元",
+      "text_cn": "乐高的销售额断崖式暴跌三成，全年巨额亏损近三亿美元",
+      "start_sec": 5.59,
+      "end_sec": 10.59,
+      "duration_sec": 5.0
+    }
+  ],
+  "created_at": "2026-10-09T02:16:54.881568+00:00"
+}

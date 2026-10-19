@@ -1,0 +1,29 @@
+id: 016_shot_16
+index: 16
+title: 他的合約條件非常簡單粗暴
+narration: 他的合約條件非常簡單粗暴，甚至可以說是瘋狂，給我打造一具三點五升十二缸引擎，排量和法拉利完全相同，但是馬力輸出必須徹底碾壓法拉利，每多壓榨出一匹馬力，我就當場額外發你一筆巨額獎金，
+image_prompt: medium shot, Q-version 2D cartoon illustration, chibi Ferruccio and
+  Bizzarrini leaning over an expansive drafting table covered in detailed engine blueprints,
+  Ferruccio enthusiastically gesturing to a 3.5-liter V12 schematic, energetic cartoon
+  expressions, vibrant cel-shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 2
+act_title: 那一天的羞辱：恩佐的閉門羹與「開你的拖拉機去吧」
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T144558
+  image_take: null
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Giotto Bizzarrini Lamborghini V12 engine blueprint
+  source_title: File:Bizzarrini Lamborghini Dallara.jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/4/40/Bizzarrini_Lamborghini_Dallara.jpg
+  verified: true
+  review_reason: 照片顯示Bizzarrini設計的Lamborghini V12引擎，與旁白中描述的引擎和情境完全吻合。

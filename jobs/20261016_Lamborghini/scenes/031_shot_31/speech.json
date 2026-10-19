@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261016T145909",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.82,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "達拉拉天才般地把龐大的十二缸引擎橫著塞進了駕駛艙後方",
+      "text_cn": "达拉拉天才般地把庞大的十二缸引擎横著塞进了驾驶舱后方",
+      "start_sec": 0.0,
+      "end_sec": 5.36,
+      "duration_sec": 5.36
+    },
+    {
+      "index": 2,
+      "text": "開創了民用公路車橫向中置引擎的物理奇蹟",
+      "text_cn": "开创了民用公路车横向中置引擎的物理奇迹",
+      "start_sec": 5.61,
+      "end_sec": 9.57,
+      "duration_sec": 3.96
+    },
+    {
+      "index": 3,
+      "text": "當這具光禿禿的底盤亮相車展時，全世界的富豪已經開始搶著簽支票",
+      "text_cn": "当这具光秃秃的底盘亮相车展时，全世界的富豪已经开始抢着签支票",
+      "start_sec": 9.82,
+      "end_sec": 15.82,
+      "duration_sec": 6.0
+    }
+  ],
+  "created_at": "2026-10-16T14:59:09.242339+00:00"
+}

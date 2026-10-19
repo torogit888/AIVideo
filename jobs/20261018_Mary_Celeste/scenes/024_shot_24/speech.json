@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261019T073101",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 18.14,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "二零零六年牛津大學燃燒力學專家安德烈塞拉博士做出了一項震撼實驗",
+      "text_cn": "二零零六年牛津大学燃烧力学专家安德烈塞拉博士做出了一项震撼实验",
+      "start_sec": 0.0,
+      "end_sec": 6.36,
+      "duration_sec": 6.36
+    },
+    {
+      "index": 2,
+      "text": "[surprise-wa]塞拉教授按照比例重建了密封貨艙並製造微弱火花",
+      "text_cn": "[surprise-wa]塞拉教授按照比例重建了密封货舱并制造围弱火花",
+      "start_sec": 6.61,
+      "end_sec": 11.93,
+      "duration_sec": 5.32
+    },
+    {
+      "index": 3,
+      "text": "剎那間高濃度的酒精蒸氣引發了一場聲勢極其狂暴的無痕氣體爆燃",
+      "text_cn": "刹那间高浓度的酒精蒸气引发了一场声势极其狂暴的无痕气体爆燃",
+      "start_sec": 12.18,
+      "end_sec": 18.14,
+      "duration_sec": 5.96
+    }
+  ],
+  "created_at": "2026-10-19T07:31:01.495084+00:00"
+}

@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261009T014353",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.06,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "在丹麥日德蘭半島中部，有一個極度貧困的小村莊比隆",
+      "text_cn": "在丹麦日德兰半岛中部，有一个极度贫困的小村庄比隆",
+      "start_sec": 0.0,
+      "end_sec": 4.8,
+      "duration_sec": 4.8
+    },
+    {
+      "index": 2,
+      "text": "全村基本上靠養乳牛過日子，對外交通可以說完全閉塞",
+      "text_cn": "全村基本上靠养乳牛过日子，对外交通可以说完全闭塞",
+      "start_sec": 5.05,
+      "end_sec": 9.85,
+      "duration_sec": 4.8
+    },
+    {
+      "index": 3,
+      "text": "三十九歲的木匠奧勒，就在這裡經營著一家破舊的木工坊",
+      "text_cn": "三十九岁的木匠奥勒，就在这里经营著一家破旧的木工坊",
+      "start_sec": 10.1,
+      "end_sec": 15.06,
+      "duration_sec": 4.96
+    }
+  ],
+  "created_at": "2026-10-09T01:43:53.810737+00:00"
+}

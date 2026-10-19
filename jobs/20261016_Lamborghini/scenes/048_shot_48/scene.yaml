@@ -1,0 +1,17 @@
+id: 048_shot_48
+index: 48
+title: 但這場復仇記留給後人最深刻的啟示
+narration: 但這場復仇記留給後人最深刻的啟示，其實非常清醒，[confirmation-en]永遠不要迷信權威的專制與傲慢，因為真正打破行業壟斷的致命刺客，往往就來自於被你瞧不起的泥地裡，
+image_prompt: dramatic conceptual shot, Q-version 2D cartoon illustration, a humble
+  vintage orange farm tractor standing in a muddy field, with its shadow cast upon
+  the ground forming a majestic, charging golden bull with gleaming horns, bold symbolic
+  lines, warm sunset glow, 16:9 widescreen composition
+image_negative: ''
+act_index: 7
+act_title: 歷史餘韻與公牛之魂：偏執如何成就偉大？
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T151557
+  image_take: image_20261016T151535

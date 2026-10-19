@@ -1,0 +1,17 @@
+id: 013_shot_13
+index: 13
+title: 到了兩歲這孩子甚至無師自通地拿著
+narration: 到了兩歲這孩子甚至無師自通地拿著粉筆在牆上畫出八大行星的運轉軌道，作為一名兒科醫生，她非但沒有將這種超常表現視為病理現象，反而開始帶著年幼的兒子積極接觸各路幽浮愛好者與新聞媒體，
+image_prompt: medium shot of two-year-old chibi Boriska sitting on the floor drawing
+  eight circular planetary orbits on the wallpaper with white chalk, while his mother
+  Nadezhda watches intently behind him jotting notes in a thick spiral notebook, colorful
+  2D cartoon illustration, 16:9 widescreen composition
+image_negative: ''
+act_index: 2
+act_title: 【《真理報》的造神流水線：醫學天才還是精心設計的劇本？】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T035331
+  image_take: image_20261016T035253

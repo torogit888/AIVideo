@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261019T072100",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 51738512,
+  "prompt": "Katsuhiro Otomo Style，triptych shot: a broken compass with shattered glass and an askew needle; the unlatched, open cargo hatchway of the Mary Celeste (Brigantine Vessel) with a visible, faint, volatile translucent shimmer of evaporating chemical vapor rising from the dark depths; and a thick severed hemp towline trailing off the stern into the dark, churning ocean swells, its end frayed and violently torn, diffused, cold daylight, 35mm cinematic lens aesthetics, subtle film grain, high dynamic range, 16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo Style), 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-19T07:21:00.616412+00:00"
+}

@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261019T071719",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 22.15,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "女皇號大副德沃立刻帶著兩名水手划著小艇冒險強行登船搜查",
+      "text_cn": "女皇号大副德沃立刻带着两名水手划著小艇冒险强行登船搜查",
+      "start_sec": 0.0,
+      "end_sec": 5.56,
+      "duration_sec": 5.56
+    },
+    {
+      "index": 2,
+      "text": "[surprise-wa]然而當他們踩上甲板時迎面而來的卻是一片死寂",
+      "text_cn": "[surprise-wa]然而当他们踩上甲板时迎面而来的却是一片死寂",
+      "start_sec": 5.81,
+      "end_sec": 10.93,
+      "duration_sec": 5.12
+    },
+    {
+      "index": 3,
+      "text": "船上沒有遭遇風暴撕裂的痕跡也沒有任何搏鬥打鬥的破損",
+      "text_cn": "船上没有遭遇风暴撕裂的痕迹也没有任何搏斗打斗的破损",
+      "start_sec": 11.18,
+      "end_sec": 16.34,
+      "duration_sec": 5.16
+    },
+    {
+      "index": 4,
+      "text": "底艙積水只有三點五英尺完全在木船排水泵的安全控制範圍內",
+      "text_cn": "底舱积水只有三点五英尺完全在木船排水泵的安全控制范围内",
+      "start_sec": 16.59,
+      "end_sec": 22.15,
+      "duration_sec": 5.56
+    }
+  ],
+  "created_at": "2026-10-19T07:17:19.113493+00:00"
+}

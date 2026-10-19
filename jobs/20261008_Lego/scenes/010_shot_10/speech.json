@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261009T014944",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 9.01,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "然而命運對這個窮木匠的折磨，才剛剛拉開序幕",
+      "text_cn": "然而命运对这个穷木匠的折磨，才刚刚拉开序幕",
+      "start_sec": 0.0,
+      "end_sec": 4.2,
+      "duration_sec": 4.2
+    },
+    {
+      "index": 2,
+      "text": "[surprise-wa]如果說這家公司有什麼詛咒，那絕對是火災",
+      "text_cn": "[surprise-wa]如果说这家公司有什么诅咒，那绝对是火灾",
+      "start_sec": 4.45,
+      "end_sec": 9.01,
+      "duration_sec": 4.56
+    }
+  ],
+  "created_at": "2026-10-09T01:49:44.370830+00:00"
+}

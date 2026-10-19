@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261016T145520",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.22,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "歐洲主流汽車雜誌試駕後給出了近乎瘋狂的極高讚譽",
+      "text_cn": "欧洲主流汽车杂志试驾后给出了近乎疯狂的极高赞誉",
+      "start_sec": 0.0,
+      "end_sec": 4.76,
+      "duration_sec": 4.76
+    },
+    {
+      "index": 2,
+      "text": "他們評價這根本不是鄉下農機廠的玩具",
+      "text_cn": "他们评价这根本不是乡下农机厂的玩具",
+      "start_sec": 5.01,
+      "end_sec": 8.57,
+      "duration_sec": 3.56
+    },
+    {
+      "index": 3,
+      "text": "這是一台法拉利根本造不出來的安靜，狂暴且舒適的完美跑車",
+      "text_cn": "这是一台法拉利根本造不出来的安静，狂暴且舒适的完美跑车",
+      "start_sec": 8.82,
+      "end_sec": 14.22,
+      "duration_sec": 5.4
+    }
+  ],
+  "created_at": "2026-10-16T14:55:20.169817+00:00"
+}

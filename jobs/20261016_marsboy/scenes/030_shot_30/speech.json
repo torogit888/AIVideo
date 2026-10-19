@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261016T040929",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.18,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "波力斯卡宣稱自己當年曾作為火星的貿易特使",
+      "text_cn": "波力斯卡宣称自己当年曾作为火星的贸易特使",
+      "start_sec": 0.0,
+      "end_sec": 4.16,
+      "duration_sec": 4.16
+    },
+    {
+      "index": 2,
+      "text": "親自駕駛穿梭機頻繁往返於兩顆星球之間",
+      "text_cn": "亲自驾驶航天飞机频繁往返于两颗星球之间",
+      "start_sec": 4.41,
+      "end_sec": 8.37,
+      "duration_sec": 3.96
+    },
+    {
+      "index": 3,
+      "text": "他甚至清楚記得利莫里亞人的平均身高有數公尺之巨",
+      "text_cn": "他甚至清楚记得利莫里雅人的平均身高有数米之巨",
+      "start_sec": 8.62,
+      "end_sec": 13.18,
+      "duration_sec": 4.56
+    }
+  ],
+  "created_at": "2026-10-16T04:09:29.970460+00:00"
+}

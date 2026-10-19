@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261016T151807",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.58,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "在評論區留下你的看法吧，如果喜歡這期深挖汽車歷史內幕的內容",
+      "text_cn": "在评论区留下你的看法吧，如果喜欢这棋深挖汽车历史内幕的内容",
+      "start_sec": 0.0,
+      "end_sec": 5.8,
+      "duration_sec": 5.8
+    },
+    {
+      "index": 2,
+      "text": "別忘了順手點個訂閱，點個讚，你的每一次互動",
+      "text_cn": "别忘了顺手点个订阅，点个赞，你的每一次互动",
+      "start_sec": 6.05,
+      "end_sec": 10.09,
+      "duration_sec": 4.04
+    },
+    {
+      "index": 3,
+      "text": "都是白兔繼續做下去的最大動力，我們下次再見！",
+      "text_cn": "都是白兔继续做下去的最大动力，我们下次再见！",
+      "start_sec": 10.34,
+      "end_sec": 14.58,
+      "duration_sec": 4.24
+    }
+  ],
+  "created_at": "2026-10-16T15:18:07.376532+00:00"
+}

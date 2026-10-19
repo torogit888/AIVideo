@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261019T072743",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 18.18,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[laughter]故事最後甚至杜撰了一名前黑奴船員屠殺全船的復仇戲碼",
+      "text_cn": "[laughter]故事最后甚至杜撰了一名前黑奴船员屠杀全船的复仇戏码",
+      "start_sec": 0.0,
+      "end_sec": 5.76,
+      "duration_sec": 5.76
+    },
+    {
+      "index": 2,
+      "text": "誰也沒想到這篇純粹為了賺取稿費的虛構小說竟然被權威媒體當真",
+      "text_cn": "谁也没想到这篇纯粹为了赚取稿费的虚构小说竟然被权威媒体当真",
+      "start_sec": 6.01,
+      "end_sec": 11.97,
+      "duration_sec": 5.96
+    },
+    {
+      "index": 3,
+      "text": "報紙雜誌競相轉載直接將柯南道爾的幻想加工成了鐵證如山的歷史",
+      "text_cn": "报纸杂志竞相转载直接将柯南道尔的幻想加工成了铁证如山的历史",
+      "start_sec": 12.22,
+      "end_sec": 18.18,
+      "duration_sec": 5.96
+    }
+  ],
+  "created_at": "2026-10-19T07:27:43.321026+00:00"
+}

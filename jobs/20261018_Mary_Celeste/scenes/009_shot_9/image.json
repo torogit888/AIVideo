@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261019T071831",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 25771090,
+  "prompt": "Katsuhiro Otomo Style，close-up on First Mate Oliver Deveau's hand, gloved and weathered, as he carefully picks up a brass-framed maritime pocket slate from a table in the Mary Celeste's claustrophobic wooden cabin, the slate showing chalk markings, the unsettlingly tidy cabin in the background, illuminated by a swinging brass oil lamp, 35mm cinematic lens aesthetics, subtle film grain, high dynamic range, 16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo Style), 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-19T07:18:31.084548+00:00"
+}

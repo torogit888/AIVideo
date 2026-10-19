@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261016T144904",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.1,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "他們接下來要面對的，是全歐洲汽車巨頭的冷嘲熱諷",
+      "text_cn": "他们接下来要面对的，是全欧洲汽车巨头的冷嘲热讽",
+      "start_sec": 0.0,
+      "end_sec": 4.6,
+      "duration_sec": 4.6
+    },
+    {
+      "index": 2,
+      "text": "一九六三年十月的都靈車展，是蠻牛向世界亮劍的第一戰",
+      "text_cn": "一九六三年十月的都灵车展，是蛮牛向世界亮剑的第一战",
+      "start_sec": 4.85,
+      "end_sec": 9.85,
+      "duration_sec": 5.0
+    },
+    {
+      "index": 3,
+      "text": "費魯齊歐向媒體承諾，將會展出首款原型車三五零吉提維",
+      "text_cn": "费鲁齐欧向媒体承诺，将会展出首款原型车三五零吉提维",
+      "start_sec": 10.1,
+      "end_sec": 15.1,
+      "duration_sec": 5.0
+    }
+  ],
+  "created_at": "2026-10-16T14:49:04.107722+00:00"
+}

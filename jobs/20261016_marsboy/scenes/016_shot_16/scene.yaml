@@ -1,0 +1,27 @@
+id: 016_shot_16
+index: 16
+title: 為了坐實這個奇蹟
+narration: 為了坐實這個奇蹟，莫斯科地磁與無線電波研究所甚至專門對他進行了所謂生物場檢測，專家們在儀器閃爍的數據面前煞有介事地背書，認定他擁有常人難以企及的超常記憶力，
+image_prompt: interior shot of a Moscow scientific institute, chibi researchers in
+  white coats monitoring retro oscilloscope monitors with flashing green waves, attaching
+  harmless cartoon sensor pads to chibi Boriska's head as he sits serenely in a swivel
+  chair, clean 2D cel-shaded lines, 16:9 widescreen composition
+image_negative: ''
+act_index: 2
+act_title: 【《真理報》的造神流水線：醫學天才還是精心設計的劇本？】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T035625
+  image_take: image_20261016T035548
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: IZMIRAN Moscow Institute of Earth Magnetism, Ionosphere and Radio Wave Propagation
+    building
+  fetch_error: 未找到合適照片

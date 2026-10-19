@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261016T043030",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.69,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "失去了頭條新聞的熱度之後，母親開始嘗試將日漸長大的波力斯卡包裝成收費的特異功能靈修大師",
+      "text_cn": "失去了头条新闻的热度之后，母亲开始尝试将日渐长大的波力斯卡包装成收费的特异功能灵修大师",
+      "start_sec": 0.0,
+      "end_sec": 8.48,
+      "duration_sec": 8.48
+    },
+    {
+      "index": 2,
+      "text": "甚至一度與俄羅斯境內某些聲名狼藉的神秘學斂財組織產生了千絲萬縷的牽連",
+      "text_cn": "甚至一度与俄罗斯境内某些声名狼藉的神秘学敛财组织产生了千丝万缕的牵连",
+      "start_sec": 8.73,
+      "end_sec": 15.69,
+      "duration_sec": 6.96
+    }
+  ],
+  "created_at": "2026-10-16T04:30:30.853813+00:00"
+}

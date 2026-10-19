@@ -1,0 +1,17 @@
+id: 058_shot_58
+index: 58
+title: 每天清晨他需要像千千萬萬個普通俄
+narration: 每天清晨他需要像千千萬萬個普通俄羅斯大叔一樣，頂著刺骨的寒風為最基本的生計奔波發愁，
+image_prompt: wide shot of chibi adult Boriska trudging through swirling snow in a
+  biting morning wind, steam puffing from his mouth as industrial factory chimneys
+  release plumes of smoke under a pale wintry dawn, crisp 2D cel-shaded illustration,
+  16:9 widescreen composition
+image_negative: ''
+act_index: 7
+act_title: 【神話落幕與歷史餘韻：仰望星空背後的人性悲喜劇】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T043635
+  image_take: image_20261016T043557

@@ -1,0 +1,16 @@
+id: 033_shot_33
+index: 33
+title: 在場的大多數記者與超自然研究者都
+narration: 在場的大多數記者與超自然研究者都被這場極其逼真的情感爆發給深深震懾住了，[dissatisfaction-hnn]但如果我們放下盲目的感性崇拜，用嚴謹的地球科學來審視這一切呢？
+image_prompt: medium shot of stunned journalists and researchers lowering their recording
+  equipment in emotional awe, while in the corner a stylized scientific book on geology
+  lies open under crisp lighting, 2D cel-shaded cartoon style, 16:9 widescreen composition
+image_negative: ''
+act_index: 4
+act_title: 【利莫里亞巨浪：被抹去的史前地球與朋友之死】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T041226
+  image_take: image_20261016T041204

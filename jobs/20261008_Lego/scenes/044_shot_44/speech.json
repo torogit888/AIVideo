@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261009T022214",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.87,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "接著他將屠刀揮向了那堆失控的積木零件",
+      "text_cn": "接着他将屠刀挥向了那堆失控的积木零件",
+      "start_sec": 0.0,
+      "end_sec": 3.76,
+      "duration_sec": 3.76
+    },
+    {
+      "index": 2,
+      "text": "他強制下令把一萬三千種零件腰斬一半",
+      "text_cn": "他强制下令把一万三千种零件腰斩一半",
+      "start_sec": 4.01,
+      "end_sec": 7.57,
+      "duration_sec": 3.56
+    },
+    {
+      "index": 3,
+      "text": "強行壓縮到七千種以下，並立下鐵律",
+      "text_cn": "强行压缩到七千种以下，并立下铁律",
+      "start_sec": 7.82,
+      "end_sec": 11.02,
+      "duration_sec": 3.2
+    },
+    {
+      "index": 4,
+      "text": "設計師每想新增一個新零件，就必須先淘汰兩個舊的",
+      "text_cn": "设计师每想新增一个新零件，就必须先淘汰两个旧的",
+      "start_sec": 11.27,
+      "end_sec": 15.87,
+      "duration_sec": 4.6
+    }
+  ],
+  "created_at": "2026-10-09T02:22:14.046806+00:00"
+}

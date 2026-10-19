@@ -1,0 +1,17 @@
+id: 037_shot_37
+index: 37
+title: 藍寶堅尼帝國賴以生存的造血動脈
+narration: 藍寶堅尼帝國賴以生存的造血動脈，在一夜之間徹底枯竭，與此同時義大利陷入了動盪不安的鉛色年代，工會大規模罷工癱瘓了工廠，極端思潮甚至將超跑視為資產階級罪惡，
+image_prompt: wide shot, Q-version 2D cartoon illustration, the turbulent 1970s Years
+  of Lead in Italy, picket lines of striking factory workers waving banners outside
+  the quiet Sant'Agata Bolognese gates, silent factory chimneys, dramatic moody overcast
+  lighting, 16:9 widescreen composition
+image_negative: ''
+act_index: 5
+act_title: 顛覆超跑定義的核彈：Miura 橫空出世
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T150502
+  image_take: image_20261016T150440

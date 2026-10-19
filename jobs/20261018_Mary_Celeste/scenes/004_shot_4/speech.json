@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261019T071456",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 21.98,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "這次他破例帶上了三十歲的妻子和年僅兩歲的女兒一同出海",
+      "text_cn": "这次他破例带上了三十岁的妻子和年仅两岁的女儿一同出海",
+      "start_sec": 0.0,
+      "end_sec": 5.36,
+      "duration_sec": 5.36
+    },
+    {
+      "index": 2,
+      "text": "隨行的還有大副理查森以及七名經驗極其老道的水手精銳",
+      "text_cn": "随行的还有大副理查森以及七名经验极其老道的水手精锐",
+      "start_sec": 5.61,
+      "end_sec": 10.77,
+      "duration_sec": 5.16
+    },
+    {
+      "index": 3,
+      "text": "底艙滿載著一千七百零一桶工業變性酒精準備運往義大利",
+      "text_cn": "底舱满载着一千七百零一桶工业变性酒精准备运往意大利",
+      "start_sec": 11.02,
+      "end_sec": 16.18,
+      "duration_sec": 5.16
+    },
+    {
+      "index": 4,
+      "text": "[question-ei]然而一個月後這艘船被發現時十個人竟然徹底蒸發了？",
+      "text_cn": "[question-ei]然而一个月后这骚船被发现时十个人竟然彻底蒸发了？",
+      "start_sec": 16.43,
+      "end_sec": 21.98,
+      "duration_sec": 5.55
+    }
+  ],
+  "created_at": "2026-10-19T07:14:56.627014+00:00"
+}

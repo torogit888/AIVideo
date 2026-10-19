@@ -1,0 +1,17 @@
+id: 035_shot_35
+index: 35
+title: 被侮辱的拖拉機商人
+narration: 被侮辱的拖拉機商人，只用了三年就把賽車皇帝逼入了絕境，[sigh]然而命運的劇本，從來不會讓復仇的狂歡一直持續下去，
+image_prompt: dramatic low-angle shot, Q-version 2D cartoon illustration, chibi Ferruccio
+  Lamborghini standing victoriously atop a golden plinth with a mechanical wrench
+  in hand, while across a checkerboard floor chibi Enzo Ferrari gazes on in stunned
+  disbelief, bold graphic cel-shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 5
+act_title: 顛覆超跑定義的核彈：Miura 橫空出世
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T150304
+  image_take: image_20261016T150237

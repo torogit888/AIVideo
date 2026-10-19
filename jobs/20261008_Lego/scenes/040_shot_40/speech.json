@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261009T021757",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.9,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "背負著八億美元的巨額債務，每天一睜眼就要蒸發上百萬美元",
+      "text_cn": "背负着八亿美元的巨额债务，每天一睁眼就要蒸发上百万美元",
+      "start_sec": 0.0,
+      "end_sec": 5.4,
+      "duration_sec": 5.4
+    },
+    {
+      "index": 2,
+      "text": "銀行團已經準備隨時清算，宿敵美泰兒正虎視眈眈準備低價收購",
+      "text_cn": "银行团已经准备随时清算，宿敌美泰儿正虎视眈眈准备低价收购",
+      "start_sec": 5.65,
+      "end_sec": 11.25,
+      "duration_sec": 5.6
+    },
+    {
+      "index": 3,
+      "text": "三場大火都沒能燒死的玩具帝國，差點被自己的愚蠢徹底玩死",
+      "text_cn": "三场大火都没能烧死的玩具帝国，差点被自己的愚蠢彻底玩死",
+      "start_sec": 11.5,
+      "end_sec": 16.9,
+      "duration_sec": 5.4
+    }
+  ],
+  "created_at": "2026-10-09T02:17:57.179295+00:00"
+}

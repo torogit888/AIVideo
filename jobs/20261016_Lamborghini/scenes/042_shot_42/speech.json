@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261016T151001",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 12.62,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "賽車皇帝失去了對民用車工廠的絕對掌控",
+      "text_cn": "赛车皇帝失去了对民用车工厂的绝对掌控",
+      "start_sec": 0.0,
+      "end_sec": 3.76,
+      "duration_sec": 3.76
+    },
+    {
+      "index": 2,
+      "text": "在孤獨與內耗中慢慢老去，兩個性格剛烈的義大利男人",
+      "text_cn": "在孤独与内耗中慢慢老去，两个性格刚烈的意大利男人",
+      "start_sec": 4.01,
+      "end_sec": 8.81,
+      "duration_sec": 4.8
+    },
+    {
+      "index": 3,
+      "text": "最終都被冰冷的時代洪流拍倒在沙灘上",
+      "text_cn": "最终都被冰冷的时代洪流拍倒在沙滩上",
+      "start_sec": 9.06,
+      "end_sec": 12.62,
+      "duration_sec": 3.56
+    }
+  ],
+  "created_at": "2026-10-16T15:10:01.255606+00:00"
+}

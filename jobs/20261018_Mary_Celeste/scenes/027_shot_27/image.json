@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261019T073250",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 79876621,
+  "prompt": "Katsuhiro Otomo Style，wide shot of the Mary Celeste (Brigantine Vessel), its main sails suddenly billowing full with a powerful, unseen gust of wind, propelling the brigantine rapidly forward, trailing behind the stern, a small lifeboat visible, tethered by a thick rope, struggling to keep pace in the churning wake, 1872 North Atlantic Ocean, churning, slate-gray swells, heavy overcast clouds, diffused, cold daylight, 35mm cinematic lens aesthetics, subtle film grain, high dynamic range, 16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo Style), 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-19T07:32:50.649119+00:00"
+}

@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261016T143308",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.06,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "回到上世紀五十年代末的義大利北部波河平原",
+      "text_cn": "回到上世纪五十年代末的意大利北部波河平原",
+      "start_sec": 0.0,
+      "end_sec": 4.16,
+      "duration_sec": 4.16
+    },
+    {
+      "index": 2,
+      "text": "二戰結束剛剛滿十五年，義大利正迎來經濟奇蹟",
+      "text_cn": "二战结束刚刚满十五年，意大利正迎来经济奇迹",
+      "start_sec": 4.41,
+      "end_sec": 8.61,
+      "duration_sec": 4.2
+    },
+    {
+      "index": 3,
+      "text": "鄉村農田急需現代化農機，工業化浪潮席捲全國",
+      "text_cn": "乡村农田急需现代化农机，工业化浪潮席卷全国",
+      "start_sec": 8.86,
+      "end_sec": 13.06,
+      "duration_sec": 4.2
+    }
+  ],
+  "created_at": "2026-10-16T14:33:08.290791+00:00"
+}

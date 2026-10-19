@@ -1,0 +1,26 @@
+id: 034_shot_34
+index: 34
+title: 利莫里亞假說最早不過是十九世紀英
+narration: 利莫里亞假說最早不過是十九世紀英國動物學家斯克萊特為了合理解釋狐猴化石分佈而提出的猜想，後來現代地質學的板塊構造學說與深海鑽探技術早已證實，印度洋與太平洋底部根本不存在沉沒的大陸，
+image_prompt: 'educational 2D cartoon comparison: on the left, a 19th-century naturalist
+  with a magnifying glass examining lemur fossils; on the right, a clear geological
+  cross-section of Earth''s ocean floor with shifting tectonic plates, crisp vector
+  lines, 16:9 widescreen composition'
+image_negative: ''
+act_index: 4
+act_title: 【利莫里亞巨浪：被抹去的史前地球與朋友之死】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T041326
+  image_take: image_20261016T041247
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Philip Sclater zoologist portrait
+  fetch_error: 未找到合適照片

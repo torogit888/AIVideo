@@ -1,0 +1,18 @@
+id: 045_shot_45
+index: 45
+title: 那些大而無當
+narration: 那些大而無當，一體成型的怪異塑膠人偶全被他扔進了垃圾桶，[confirmation-en]他告訴所有人，樂高的靈魂是拼砌，而不是做手辦，
+image_prompt: eye-level medium shot in Q-version 2D cartoon illustration style, a
+  metal waste container filled with strange one-piece molded plastic figurines, while
+  on the clean wooden conference table beside it, Jørgen Vig Knudstorp proudly sets
+  down a single Classic 2x4 Plastic Studded Brick, crisp lines, rich cel shading,
+  16:9 widescreen composition
+image_negative: ''
+act_index: 6
+act_title: 【外科手術式逆轉】白面書生的屠刀：重返 4×2 顆粒的復興奇蹟
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T022325
+  image_take: image_20261009T022249

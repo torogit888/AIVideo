@@ -1,0 +1,26 @@
+id: 036_shot_36
+index: 36
+title: 邁入二十世紀七十年代
+narration: 邁入二十世紀七十年代，宏觀歷史的暴風雨毫無徵兆地砸了下來，一九七二年玻利維亞爆發軍事政變，取消了藍寶堅尼近千台農機訂單，緊接著南非的大額拖拉機採購合同也意外告吹，
+image_prompt: wide shot, Q-version 2D cartoon illustration, dramatic dark storm clouds
+  rolling over a shipping dock in 1972, rows of orange Lamborghini tractors sitting
+  motionless with canceled shipping tags fluttering in the wind, cool desaturated
+  cel-shaded palette, 16:9 widescreen composition
+image_negative: ''
+act_index: 5
+act_title: 顛覆超跑定義的核彈：Miura 橫空出世
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T150405
+  image_take: image_20261016T150328
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: 1972 Bolivian military coup news clipping
+  fetch_error: 未找到合適照片

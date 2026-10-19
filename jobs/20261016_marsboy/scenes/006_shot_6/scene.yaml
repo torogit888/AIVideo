@@ -1,0 +1,18 @@
+id: 006_shot_6
+index: 6
+title: 那天晚上幾位研究神秘學的學者與露
+narration: 那天晚上幾位研究神秘學的學者與露營愛好者正圍坐在篝火旁邊閒聊，突然一個年僅七歲的小男孩面色冷峻地站到了人群正中央，
+image_prompt: medium wide shot around a crackling campfire, chibi researchers in heavy
+  coats sitting on wooden logs, as seven-year-old chibi Boriska Kipriyanovich steps
+  solemnly into the center of the clearing with an intensely serious expression, glowing
+  orange embers casting warm highlights against deep indigo pine woods, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 1
+act_title: 【篝火前的異星呢喃：後蘇聯廢墟上的神秘降臨】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T034647
+  image_take: image_20261016T034632

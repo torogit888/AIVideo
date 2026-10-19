@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261019T072610",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 86516205,
+  "prompt": "Katsuhiro Otomo Style，medium shot of a young Arthur Conan Doyle in a dimly lit, cluttered Victorian study, quill in hand, intensely focused on writing by the warm light of a gas lamp, a stack of magazines or papers nearby, atmosphere of creative storytelling, 35mm cinematic lens aesthetics, subtle film grain, high dynamic range, 16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo Style), 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-19T07:26:10.399646+00:00"
+}

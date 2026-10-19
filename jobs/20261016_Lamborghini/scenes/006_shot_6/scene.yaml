@@ -1,0 +1,17 @@
+id: 006_shot_6
+index: 6
+title: 這讓身為機械專家的費魯齊歐
+narration: 這讓身為機械專家的費魯齊歐，心裡憋了一肚子火氣，[surprise-oh]終於有一天他再也忍不住了，他讓自家的總技師把這輛天價法拉利給當場大卸八塊，
+image_prompt: wide shot, Q-version 2D cartoon illustration, inside Ferruccio's bustling
+  tractor workshop, chibi Ferruccio gesturing energetically as his head mechanic uses
+  wrenches to dismantle the red Ferrari 250 GT, mechanical car parts neatly arranged
+  on the floor, clean bold contour lines, warm ambient lighting, 16:9 widescreen composition
+image_negative: ''
+act_index: 1
+act_title: 天價玩具與泥腿子富豪的階級裂痕
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T143656
+  image_take: image_20261016T143643

@@ -1,0 +1,18 @@
+id: 006_shot_6
+index: 6
+title: 他的妻子因病撒手人寰
+narration: 他的妻子因病撒手人寰，留下四個嗷嗷待哺的年幼兒子，最小的那個甚至還不到六歲，每天都在餓著肚子哭泣，
+image_prompt: interior medium shot in Q-version 2D cartoon illustration style, inside
+  the cozy Billund workshop living quarters, Ole Kirk Christiansen in his worn brown
+  leather apron sitting at a rustic dining table, gently comforting his four young
+  tearful chibi sons, somber yet tender family atmosphere, warm soft lighting, crisp
+  clean outlines, 16:9 widescreen composition
+image_negative: ''
+act_index: 1
+act_title: 【時代坐標與認知反差】比隆的寒冬：大蕭條中被逼入絕境的鰥夫木匠
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T014558
+  image_take: image_20261009T014516

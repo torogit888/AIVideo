@@ -1,0 +1,17 @@
+id: 049_shot_49
+index: 49
+title: 好了
+narration: 好了，這大概就是一塊破離合器片引發的世紀血案，不知道你聽完這個故事，會站在恩佐的極致孤傲這邊，還是更佩服費魯齊歐這頭不服輸的狂暴蠻牛呢？
+image_prompt: wide dynamic composition, Q-version 2D cartoon illustration, chibi Ferruccio
+  Lamborghini holding a wrench and chibi Enzo Ferrari in his tailored suit standing
+  back-to-back under a split sunlit Italian sky, flanked by a vintage tractor, a red
+  250 GT, and a lime-green Miura, bold outlines, 16:9 widescreen composition
+image_negative: ''
+act_index: 7
+act_title: 歷史餘韻與公牛之魂：偏執如何成就偉大？
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T151703
+  image_take: image_20261016T151623

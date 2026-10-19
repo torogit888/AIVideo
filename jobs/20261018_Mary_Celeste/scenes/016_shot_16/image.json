@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261019T072441",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 37317265,
+  "prompt": "Katsuhiro Otomo Style，split scene: a close-up of a tarnished knife blade under a microscope, revealing rust and grease; and a section of the Mary Celeste's damp teak deck, where a dark, reddish-brown stain is clearly visible as paint mixed with grime and seawater, clinical and revealing lighting, 35mm cinematic lens aesthetics, subtle film grain, high dynamic range, 16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo Style), 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-19T07:24:41.086582+00:00"
+}

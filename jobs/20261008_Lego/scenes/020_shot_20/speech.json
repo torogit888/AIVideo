@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261009T015901",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.82,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "他一眼就看中了一台英國製造的手動塑料射出成型機",
+      "text_cn": "他一眼就看中了一台英国制造的手动塑料射出成型机",
+      "start_sec": 0.0,
+      "end_sec": 4.76,
+      "duration_sec": 4.76
+    },
+    {
+      "index": 2,
+      "text": "這台在當時看來極度科幻的鐵疙瘩，要價高達三萬丹麥克朗",
+      "text_cn": "这台在当时看来极度科幻的铁疙瘩，要价高达三万丹麦克朗",
+      "start_sec": 5.01,
+      "end_sec": 10.21,
+      "duration_sec": 5.2
+    },
+    {
+      "index": 3,
+      "text": "這筆巨款相當於樂高工廠整整兩年的全部淨利潤",
+      "text_cn": "这笔巨款相当于乐高工厂整整两年的全部净利润",
+      "start_sec": 10.46,
+      "end_sec": 14.82,
+      "duration_sec": 4.36
+    }
+  ],
+  "created_at": "2026-10-09T01:59:01.987814+00:00"
+}

@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20261016T040736",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 6.2,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "整套說辭邏輯嚴密自洽，聽起來竟然比很多三流科幻小說還要硬核得多",
+      "text_cn": "整套说辞逻辑严密自洽，听起来竟然比很多三流科幻小说还要硬核得多",
+      "start_sec": 0.0,
+      "end_sec": 6.2,
+      "duration_sec": 6.2
+    }
+  ],
+  "created_at": "2026-10-16T04:07:36.268604+00:00"
+}

@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261016T150405",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.26,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "邁入二十世紀七十年代，宏觀歷史的暴風雨毫無徵兆地砸了下來",
+      "text_cn": "迈入二十世纪七十年代，宏观历史的暴风雨毫无征兆地砸了下来",
+      "start_sec": 0.0,
+      "end_sec": 5.6,
+      "duration_sec": 5.6
+    },
+    {
+      "index": 2,
+      "text": "一九七二年玻利維亞爆發軍事政變",
+      "text_cn": "一九七二年玻利维雅爆发军事政变",
+      "start_sec": 5.85,
+      "end_sec": 9.01,
+      "duration_sec": 3.16
+    },
+    {
+      "index": 3,
+      "text": "取消了藍寶堅尼近千台農機訂單，緊接著南非的大額拖拉機採購合同也意外告吹",
+      "text_cn": "取消了蓝宝坚尼近千台农机订单，紧接着南非的大额拖拉机采购合同也意外告吹",
+      "start_sec": 9.26,
+      "end_sec": 16.26,
+      "duration_sec": 7.0
+    }
+  ],
+  "created_at": "2026-10-16T15:04:05.916718+00:00"
+}

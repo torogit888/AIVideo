@@ -1,0 +1,18 @@
+id: 016_shot_16
+index: 16
+title: 二戰結束前後
+narration: 二戰結束前後，長大成人的二兒子戈德弗雷德想替父親省錢，他偷偷把木頭鴨子原本的三道亮漆，自作主張減成了兩道，兒子興高采烈地跑去邀功，說自己替工廠省下了大筆成本，
+image_prompt: interior medium shot in Q-version 2D cartoon illustration style, young
+  Godtfred Kirk Christiansen in his beige shirt and navy vest standing proudly beside
+  stacked wooden crates of Classic Wooden Pull Duck Toys in the workshop, holding
+  up a lacquer brush with an eager smile, clean cel shading, crisp outlines, 16:9
+  widescreen composition
+image_negative: ''
+act_index: 2
+act_title: 【初劫與工匠心魔】灰燼中的三道漆：大戰砲火下的第一、二場毀滅大火
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T015457
+  image_take: image_20261009T015433

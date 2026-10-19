@@ -1,0 +1,17 @@
+id: 029_shot_29
+index: 29
+title: 但工廠裡那幫平均年齡不到三十歲的
+narration: '[confirmation-en]但工廠裡那幫平均年齡不到三十歲的年輕天才卻不這麼想，年輕的達拉拉和斯坦扎尼瞞著大老闆，在下班後偷偷搞地下研發，'
+image_prompt: medium shot, Q-version 2D cartoon illustration, late-night underground
+  innovation, young engineers Dallara and Stanzani secretly huddled under a desk lamp
+  after hours in the Sant'Agata garage, sketching radical mid-engine chassis designs
+  on trace paper, moody atmospheric shadows, 16:9 widescreen composition
+image_negative: ''
+act_index: 4
+act_title: 都靈車展的木屑奇蹟：第一記狠狠的耳光
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T145713
+  image_take: image_20261016T145635

@@ -1,0 +1,97 @@
+subject: 'Captain Benjamin Briggs: A 37-year-old American merchant captain with an
+  austere, deeply disciplined demeanor. He has a sharp, weathered face, serious sunken
+  hazel eyes, and a neatly trimmed dark brown chin-curtain beard without a mustache
+  in the Puritan style. Tall and broad-shouldered, he wears an 1870s double-breasted
+  navy blue wool naval frock coat with tarnished brass buttons, a stiff white linen
+  standing collar, a black silk neckerchief, and sturdy salt-stained leather sea boots.
+  | The Mary Celeste (Brigantine Vessel): An authentic 19th-century two-masted wooden
+  merchant brigantine, approximately 100 feet long with a 282-ton displacement. The
+  hull is constructed of thick, dark weathered oak planks with oxidized copper sheathing
+  along the waterline, battered by Atlantic salt spray. It features two towering pine
+  masts with intricate rigging, several jib and square sails loose and fluttering
+  raggedly in the wind, a deserted wooden ship''s wheel standing solitary on the quarterdeck,
+  an unlatched open cargo hatchway, and a thick severed hemp towline trailing off
+  the stern into the dark ocean swells. Strictly an authentic historic vessel with
+  no human or living attributes. | Captain David Morehouse: A rugged Canadian merchant
+  captain in his early 40s with a wind-burnt, leathery complexion and crow''s feet
+  around observant gray eyes. He has thick, salt-and-pepper hair tucked beneath a
+  dark mariner''s cap and a full, untamed sailor''s beard. He is dressed in a heavy
+  dark charcoal wool pea coat with large horn buttons, a coarse cable-knit turtleneck
+  sweater underneath, durable work trousers, and heavy water-resistant leather deck
+  boots. | First Mate Oliver Deveau: A hardened, athletic maritime first mate in his
+  late 30s. He has a lean, angular face with visible sea-spray stubble, intense focused
+  eyes, and wind-blown dark hair. He wears a yellowed oilskin waterproof foul-weather
+  coat tied at the waist, damp wool trousers tucked into heavy knee-high sea boots,
+  fingerless woolen gloves, and carries a brass-framed maritime pocket slate and chalk.
+  | Solly Flood (Queen''s Proctor): A pompous, aristocratic British colonial legal
+  official in his mid-50s with a pale, sharp-featured countenance, arched arrogant
+  eyebrows, and prominent gray mutton-chop sideburns. He wears a formal Victorian
+  black wool three-piece frock suit, a stiff starched wing collar, a patterned dark
+  silk ascot tied with a gold pin, and a heavy gold pocket watch chain draped across
+  his tailored waistcoat. | Industrial Denatured Alcohol Casks: Inanimate heavy commercial
+  shipping barrels stacked in tight geometric tiers inside a dark cargo hold. Made
+  of banded wooden staves—predominantly dense pale white oak alongside nine porous,
+  drying red oak barrels—reinforced with rusted iron hoops and blackened barrel bungs.
+  Stenciled maritime shipping marks and destination stamps in faded black ink mark
+  the barrel heads, surrounded by a faint, volatile translucent shimmer of evaporating
+  chemical vapor. Completely inanimate industrial containers.'
+environment: 1872 North Atlantic Ocean near the Azores and the Gibraltar Maritime
+  Court. The oceanic setting features churning, slate-gray swells capped with white
+  seafoam under heavy, low-hanging overcast clouds, framed with 35mm cinematic lens
+  aesthetics, subtle film grain, and high dynamic range. Onboard the Mary Celeste,
+  damp teak and oak decks gleam with ocean spray under diffused, cold daylight, leading
+  down into claustrophobic wooden cabin interiors illuminated by swinging brass oil
+  lamps, cluttered with untouched period artifacts—an open melodeon organ, a small
+  cast-iron sewing machine with unfinished infant clothing, neatly folded sailor woolens,
+  and an open, cavernous cargo hold filled with cold, hazy alcoholic fumes.
+use_image_reference: true
+characters:
+- id: captain_benjamin_briggs
+  name: Captain Benjamin Briggs
+  appearance: A 37-year-old American merchant captain with an austere, deeply disciplined
+    demeanor. He has a sharp, weathered face, serious sunken hazel eyes, and a neatly
+    trimmed dark brown chin-curtain beard without a mustache in the Puritan style.
+    Tall and broad-shouldered, he wears an 1870s double-breasted navy blue wool naval
+    frock coat with tarnished brass buttons, a stiff white linen standing collar,
+    a black silk neckerchief, and sturdy salt-stained leather sea boots.
+- id: the_mary_celeste
+  name: The Mary Celeste (Brigantine Vessel)
+  appearance: An authentic 19th-century two-masted wooden merchant brigantine, approximately
+    100 feet long with a 282-ton displacement. The hull is constructed of thick, dark
+    weathered oak planks with oxidized copper sheathing along the waterline, battered
+    by Atlantic salt spray. It features two towering pine masts with intricate rigging,
+    several jib and square sails loose and fluttering raggedly in the wind, a deserted
+    wooden ship's wheel standing solitary on the quarterdeck, an unlatched open cargo
+    hatchway, and a thick severed hemp towline trailing off the stern into the dark
+    ocean swells. Strictly an authentic historic vessel with no human or living attributes.
+- id: captain_david_morehouse
+  name: Captain David Morehouse
+  appearance: A rugged Canadian merchant captain in his early 40s with a wind-burnt,
+    leathery complexion and crow's feet around observant gray eyes. He has thick,
+    salt-and-pepper hair tucked beneath a dark mariner's cap and a full, untamed sailor's
+    beard. He is dressed in a heavy dark charcoal wool pea coat with large horn buttons,
+    a coarse cable-knit turtleneck sweater underneath, durable work trousers, and
+    heavy water-resistant leather deck boots.
+- id: first_mate_oliver_deveau
+  name: First Mate Oliver Deveau
+  appearance: A hardened, athletic maritime first mate in his late 30s. He has a lean,
+    angular face with visible sea-spray stubble, intense focused eyes, and wind-blown
+    dark hair. He wears a yellowed oilskin waterproof foul-weather coat tied at the
+    waist, damp wool trousers tucked into heavy knee-high sea boots, fingerless woolen
+    gloves, and carries a brass-framed maritime pocket slate and chalk.
+- id: solly_flood
+  name: Solly Flood (Queen's Proctor)
+  appearance: A pompous, aristocratic British colonial legal official in his mid-50s
+    with a pale, sharp-featured countenance, arched arrogant eyebrows, and prominent
+    gray mutton-chop sideburns. He wears a formal Victorian black wool three-piece
+    frock suit, a stiff starched wing collar, a patterned dark silk ascot tied with
+    a gold pin, and a heavy gold pocket watch chain draped across his tailored waistcoat.
+- id: industrial_alcohol_cargo_casks
+  name: Industrial Denatured Alcohol Casks
+  appearance: Inanimate heavy commercial shipping barrels stacked in tight geometric
+    tiers inside a dark cargo hold. Made of banded wooden staves—predominantly dense
+    pale white oak alongside nine porous, drying red oak barrels—reinforced with rusted
+    iron hoops and blackened barrel bungs. Stenciled maritime shipping marks and destination
+    stamps in faded black ink mark the barrel heads, surrounded by a faint, volatile
+    translucent shimmer of evaporating chemical vapor. Completely inanimate industrial
+    containers.

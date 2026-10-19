@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261016T034832",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 11.0,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "從火星遠古時代的大氣成分，講到極其複雜的行星軌道力學",
+      "text_cn": "从火星远古时代的大气成分，讲到极其复杂的行星轨道力学",
+      "start_sec": 0.0,
+      "end_sec": 4.79,
+      "duration_sec": 4.79
+    },
+    {
+      "index": 2,
+      "text": "最後甚至繪聲繪色地描述了毀滅那顆紅色星球的全球性核聚變浩劫",
+      "text_cn": "最后甚至绘声绘色地描述了毁灭那颗红色星球的全球性核聚变浩劫",
+      "start_sec": 5.04,
+      "end_sec": 11.0,
+      "duration_sec": 5.96
+    }
+  ],
+  "created_at": "2026-10-16T03:48:32.375902+00:00"
+}

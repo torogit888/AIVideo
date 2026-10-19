@@ -1,0 +1,17 @@
+id: 027_shot_27
+index: 27
+title: 面對這座巨大的塑料垃圾山
+narration: 面對這座巨大的塑料垃圾山，接班人戈德弗雷德沒有放棄，他整天把自己關在辦公室裡，在草稿紙上畫了無數種力學圖形，直到一九五八年初，他終於找到了那個足以改變歷史的解法，
+image_prompt: medium shot in Q-version 2D cartoon illustration style, Godtfred Kirk
+  Christiansen sitting late at night at a cluttered drafting desk, surrounded by crumpled
+  sketch papers covered in geometric tube diagrams, holding a pencil thoughtfully
+  to his chin, warm desk lamp illumination, crisp linework, 16:9 widescreen composition
+image_negative: ''
+act_index: 4
+act_title: 【絕處逢生的專利與第三場火】1958年的內部管道，與木製時代的徹底陪葬
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T020600
+  image_take: image_20261009T020520

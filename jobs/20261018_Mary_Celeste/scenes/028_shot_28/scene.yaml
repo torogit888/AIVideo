@@ -1,0 +1,19 @@
+id: 028_shot_28
+index: 28
+title: 長繩在極限拉扯下瞬間崩斷脆弱的小
+narration: 長繩在極限拉扯下瞬間崩斷脆弱的小艇在狂暴的深海黑浪中徹底覆滅，這就是歷史最殘酷但也最合乎邏輯的真相它不需要任何靈異海怪，奪走十條生命的只是一場短暫的化學爆燃與一次看似合理的恐慌誤判，
+image_prompt: dramatic close-up on a thick hemp towline, stretched taut to its breaking
+  point, snapping violently with frayed ends, immediately followed by a low-angle
+  shot looking down into the dark, raging North Atlantic swells, where the small,
+  fragile lifeboat is overwhelmed and swallowed by monstrous waves, disappearing completely,
+  35mm cinematic lens aesthetics, subtle film grain, high dynamic range, 16:9 widescreen
+  composition, 大友克洋風格 (Katsuhiro Otomo Style)
+image_negative: ''
+act_index: 7
+act_title: 歷史餘韻與訂閱謝幕，敬畏深海的無情與人類的脆弱
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T073429
+  image_take: image_20261019T073353

@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261019T072253",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3-pro-image",
+  "seed": 94061540,
+  "prompt": "Katsuhiro Otomo Style，medium shot of Solly Flood, the Queen's Proctor, standing in a formal, dimly lit Gibraltar Maritime Courtroom, his pale, sharp-featured countenance contorted with an arrogant, dismissive expression, arched eyebrows raised, impeccably dressed in his Victorian black wool three-piece frock suit, heavy gold pocket watch chain visible, solemn lighting, 35mm cinematic lens aesthetics, subtle film grain, high dynamic range, 16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo Style), 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-19T07:22:53.137693+00:00"
+}

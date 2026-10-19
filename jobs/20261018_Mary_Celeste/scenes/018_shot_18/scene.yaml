@@ -1,0 +1,27 @@
+id: 018_shot_18
+index: 18
+title: 很多人寧願相信神秘莫測的怪力亂神
+narration: 很多人寧願相信神秘莫測的怪力亂神也不願意接受枯燥的客觀事實，真正把這場悲劇推向全球玄學狂歡的竟是一位鼎鼎大名的文學巨匠，一八八四年年僅二十五歲的阿瑟柯南道爾在雜誌上匿名發表了小說，當時還沒寫出福爾摩斯的柯南道爾故意將船名改成了法式的瑪麗，
+image_prompt: medium shot of a young Arthur Conan Doyle in a dimly lit, cluttered
+  Victorian study, quill in hand, intensely focused on writing by the warm light of
+  a gas lamp, a stack of magazines or papers nearby, atmosphere of creative storytelling,
+  35mm cinematic lens aesthetics, subtle film grain, high dynamic range, 16:9 widescreen
+  composition, 大友克洋風格 (Katsuhiro Otomo Style)
+image_negative: ''
+act_index: 5
+act_title: 流行文化的百年污染，被文豪篡改的都市傳說
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T072622
+  image_take: image_20261019T072610
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Arthur Conan Doyle portrait 1880s
+  fetch_error: 未找到合適照片

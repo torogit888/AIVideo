@@ -1,0 +1,18 @@
+id: 050_shot_50
+index: 50
+title: 在評論區留下你的看法吧
+narration: 在評論區留下你的看法吧，如果喜歡這期深挖汽車歷史內幕的內容，別忘了順手點個訂閱，點個讚，你的每一次互動，都是白兔繼續做下去的最大動力，我們下次再見！
+image_prompt: grand narrative climax wide shot, Q-version 2D cartoon illustration,
+  a breathtaking panoramic view of the Emilia-Romagna motor valley at dusk, a vintage
+  tractor and legendary sports cars parked proudly on a hilltop overlooking glowing
+  terracotta villages and vineyards, warm celebratory golden hour light, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 7
+act_title: 歷史餘韻與公牛之魂：偏執如何成就偉大？
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T151807
+  image_take: image_20261016T151730

@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261016T041646",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.66,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "一個記憶力超群的兒童，在家庭環境耳濡目染之下將書本裡的奇幻故事重構成自己的記憶",
+      "text_cn": "一个记忆力超群的儿童，在家庭环境耳濡目染之下将书本里的奇幻故事重构成自己的记忆",
+      "start_sec": 0.0,
+      "end_sec": 7.76,
+      "duration_sec": 7.76
+    },
+    {
+      "index": 2,
+      "text": "這種現象在兒童心理學中被稱為虛假記憶構建，只不過大人們選擇了相信神蹟",
+      "text_cn": "这种现象在儿童心理学中被称为虚假记忆构建，只不过大人们选择了相信神迹",
+      "start_sec": 8.01,
+      "end_sec": 14.66,
+      "duration_sec": 6.65
+    }
+  ],
+  "created_at": "2026-10-16T04:16:46.288715+00:00"
+}

@@ -1,0 +1,29 @@
+id: 024_shot_24
+index: 24
+title: 但這其實是英國發明家希拉蕊佩奇所
+narration: 但這其實是英國發明家希拉蕊佩奇所創立的自鎖積木專利，因為當時英國專利法管不到丹麥，奧勒透過供應商拿到了樣品，他們直接對這個英國玩具進行了近乎一比一的逆向工程，
+image_prompt: close-up shot in Q-version 2D cartoon illustration style, Ole Kirk Christiansen
+  and Godtfred Kirk Christiansen leaning over technical drafting blueprints, carefully
+  measuring an imported British plastic toy brick with metal calipers on a well-lit
+  drafting desk, crisp lines, rich cel shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 4
+act_title: 【絕處逢生的專利與第三場火】1958年的內部管道，與木製時代的徹底陪葬
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T020257
+  image_take: image_20261009T020218
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Hilary Fisher Page Kiddicraft Self-Locking Building Bricks patent
+  source_title: File:Bri-Plax Interlocking Building Cubes - Hilary Fisher Page 1939.jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/0/09/Bri-Plax_Interlocking_Building_Cubes_-_Hilary_Fisher_Page_1939.jpg
+  verified: true
+  review_reason: 圖片顯示希拉蕊佩奇發明的自鎖積木，與旁白內容完全吻合。

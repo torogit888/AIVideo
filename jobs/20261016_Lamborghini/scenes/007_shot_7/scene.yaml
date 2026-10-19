@@ -1,0 +1,17 @@
+id: 007_shot_7
+index: 7
+title: 結果拆開離合器總成的那一刻
+narration: '[surprise-wa]結果拆開離合器總成的那一刻，現場所有人都愣住了，法拉利收費天價的所謂賽車專用離合器，原來只是博格貝克工廠生產的普通商業通用零件，'
+image_prompt: close-up shot, Q-version 2D cartoon illustration, chibi mechanics with
+  comically wide surprised eyes holding up an opened mechanical clutch assembly under
+  a hanging shop lamp, revealing ordinary industrial clutch components, crisp line
+  art, rich cel-shaded metal textures, 16:9 widescreen composition
+image_negative: ''
+act_index: 1
+act_title: 天價玩具與泥腿子富豪的階級裂痕
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T143736
+  image_take: image_20261016T143723

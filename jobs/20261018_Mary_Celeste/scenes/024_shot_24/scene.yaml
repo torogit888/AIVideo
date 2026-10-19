@@ -1,0 +1,28 @@
+id: 024_shot_24
+index: 24
+title: 二零零六年牛津大學燃燒力學專家安
+narration: 二零零六年牛津大學燃燒力學專家安德烈塞拉博士做出了一項震撼實驗，[surprise-wa]塞拉教授按照比例重建了密封貨艙並製造微弱火花，剎那間高濃度的酒精蒸氣引發了一場聲勢極其狂暴的無痕氣體爆燃，
+image_prompt: 'dramatic, stylized representation of a scientific experiment: inside
+  a meticulously recreated, sealed cargo hold (cross-section view), a tiny, almost
+  imperceptible spark ignites, followed by an instantaneous, powerful, silent flash
+  of intense light and energy, expanding rapidly but leaving no visible scorch marks,
+  dramatic, contained light, 35mm cinematic lens aesthetics, subtle film grain, high
+  dynamic range, 16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo Style)'
+image_negative: ''
+act_index: 6
+act_title: 1701桶毒藥與看不見的火，牛津實驗室裡的終極解密
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T073101
+  image_take: image_20261019T073049
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Dr. Andrea Sella Oxford University combustion experiment Mary Celeste
+  fetch_error: 未找到合適照片

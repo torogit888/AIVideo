@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261019T071241",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.63,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "大家好!我是白兔!",
+      "text_cn": "大家好!我是白兔!",
+      "start_sec": 0.0,
+      "end_sec": 2.0,
+      "duration_sec": 2.0
+    },
+    {
+      "index": 2,
+      "text": "如果你平時喜歡看懸疑故事或者對未解之謎感興趣",
+      "text_cn": "如果你平时喜欢看悬疑故事或者对未解之谜感兴趣",
+      "start_sec": 2.25,
+      "end_sec": 6.81,
+      "duration_sec": 4.56
+    },
+    {
+      "index": 3,
+      "text": "那你一定聽過大航海時代流傳下來的幽靈船傳說",
+      "text_cn": "那你一定听过大航海时代流传下来的幽灵船传说",
+      "start_sec": 7.06,
+      "end_sec": 11.42,
+      "duration_sec": 4.36
+    },
+    {
+      "index": 4,
+      "text": "很多人以為這只是水手們在酒吧喝醉後編造出來的怪談",
+      "text_cn": "很多人以为这只是水手们在酒吧喝醉后编造出来的怪谈",
+      "start_sec": 11.67,
+      "end_sec": 16.63,
+      "duration_sec": 4.96
+    }
+  ],
+  "created_at": "2026-10-19T07:12:41.531212+00:00"
+}

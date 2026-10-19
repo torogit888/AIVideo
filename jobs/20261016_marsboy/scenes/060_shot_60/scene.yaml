@@ -1,0 +1,17 @@
+id: 060_shot_60
+index: 60
+title: 大人們寧願將希望寄託在一個孩子荒
+narration: 大人們寧願將希望寄託在一個孩子荒誕的胡言亂語中，大家藉由這場看似浪漫的星際神話，集體逃避著滿目瘡痍的真實生活，也聯手消費了一個孩童的純真童年，
+image_prompt: 'emotional conceptual shot: seven-year-old chibi Boriska in his teal
+  sweater sitting isolated under a harsh spotlight, surrounded by giant looming shadowy
+  adult hands holding cameras, microphones, and banknotes, rich 2D cel-shaded art,
+  16:9 widescreen composition'
+image_negative: ''
+act_index: 7
+act_title: 【神話落幕與歷史餘韻：仰望星空背後的人性悲喜劇】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T043856
+  image_take: image_20261016T043801

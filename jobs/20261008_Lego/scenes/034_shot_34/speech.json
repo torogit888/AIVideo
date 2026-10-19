@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261009T021149",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.9,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "但正如所有站在神壇上的巨頭一樣，自大與貪婪悄然滋生",
+      "text_cn": "但正如所有站在神坛上的巨头一样，自大与贪婪悄然滋生",
+      "start_sec": 0.0,
+      "end_sec": 5.0,
+      "duration_sec": 5.0
+    },
+    {
+      "index": 2,
+      "text": "到了二十世紀九十年代末，世界發生了翻天覆地的變化",
+      "text_cn": "到了二十世纪九十年代末，世界发生了翻天覆地的变化",
+      "start_sec": 5.25,
+      "end_sec": 10.05,
+      "duration_sec": 4.8
+    },
+    {
+      "index": 3,
+      "text": "任天堂和索尼的家用遊戲機橫空出世，徹底搶走了孩子們的時間",
+      "text_cn": "任天堂和索尼的家用游戏机横空出世，彻底抢走了孩子们的时间",
+      "start_sec": 10.3,
+      "end_sec": 15.9,
+      "duration_sec": 5.6
+    }
+  ],
+  "created_at": "2026-10-09T02:11:49.230789+00:00"
+}

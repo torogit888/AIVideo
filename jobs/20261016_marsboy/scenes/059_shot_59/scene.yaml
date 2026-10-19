@@ -1,0 +1,17 @@
+id: 059_shot_59
+index: 59
+title: 回過頭來看這場持續了二十年的異星
+narration: 回過頭來看這場持續了二十年的異星傳奇，本質上根本不是什麼外星人造訪地球的科幻故事，它是一面無比清晰的鏡子，照出了後蘇聯時代地緣劇變下整個社會的焦慮，迷茫與精神空虛，
+image_prompt: 'symbolic conceptual wide shot: a colossal cracked mirror standing amid
+  post-Soviet ruins, its shards reflecting glowing celestial spaceships while its
+  base rests in muddy cold snow, poetic 2D cartoon cel-shaded composition, 16:9 widescreen
+  composition'
+image_negative: ''
+act_index: 7
+act_title: 【神話落幕與歷史餘韻：仰望星空背後的人性悲喜劇】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T043734
+  image_take: image_20261016T043655

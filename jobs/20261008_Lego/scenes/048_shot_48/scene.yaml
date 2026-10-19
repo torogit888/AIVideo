@@ -1,0 +1,17 @@
+id: 048_shot_48
+index: 48
+title: 短短五年時間
+narration: 短短五年時間，樂高不僅還清了所有債務，利潤更是翻了幾倍，這個差點死在病床上的老牌帝國，奇蹟般地奪回了全球玩具霸主的寶座，
+image_prompt: heroic low-angle wide shot in Q-version 2D cartoon illustration style,
+  Jørgen Vig Knudstorp standing proudly in front of a gleaming modern toy headquarters,
+  surrounded by monumental brick sculptures in vibrant primary colors, celebratory
+  golden sunlight, clean graphic outlines, 16:9 widescreen composition
+image_negative: ''
+act_index: 6
+act_title: 【外科手術式逆轉】白面書生的屠刀：重返 4×2 顆粒的復興奇蹟
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T022558
+  image_take: image_20261009T022539

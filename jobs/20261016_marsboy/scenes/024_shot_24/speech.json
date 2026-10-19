@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20261016T040430",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 6.6,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "他宣稱自己轉世降生到地球之後，呼吸這裡的空氣讓他感到極度痛苦與噁心",
+      "text_cn": "他宣称自己转世降生到地球之后，呼吸这里的空气让他感到极度痛苦与恶心",
+      "start_sec": 0.0,
+      "end_sec": 6.6,
+      "duration_sec": 6.6
+    }
+  ],
+  "created_at": "2026-10-16T04:04:30.537010+00:00"
+}

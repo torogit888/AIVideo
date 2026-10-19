@@ -1,0 +1,27 @@
+id: 007_shot_7
+index: 7
+title: 看著倉庫裡堆積如山的邊角料
+narration: 看著倉庫裡堆積如山的邊角料，奧勒被逼上了絕路，他做了一個在當時鄰居看來非常荒謬且不務正業的決定，他把那些賣不出去的木頭，鋸成了小卡車和小豬存錢筒，
+image_prompt: medium shot in Q-version 2D cartoon illustration style, Ole Kirk Christiansen
+  at his carpenter workbench carefully sawing and carving small wooden toy trucks
+  and piggy banks from stacks of scrap pine offcuts, wood shavings curling around
+  stylized hand chisels, warm glowing hanging lamp, crisp linework, vibrant cel-shaded
+  colors, 16:9 widescreen composition
+image_negative: ''
+act_index: 1
+act_title: 【時代坐標與認知反差】比隆的寒冬：大蕭條中被逼入絕境的鰥夫木匠
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T014658
+  image_take: image_20261009T014620
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Early LEGO wooden toys 1930s photo
+  fetch_error: 未找到合適照片

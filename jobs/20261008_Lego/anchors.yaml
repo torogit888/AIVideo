@@ -1,0 +1,110 @@
+subject: 'Ole Kirk Christiansen: Chibi 2D cartoon illustration style. A determined,
+  warm-hearted Danish master carpenter with a 2.5-head-high chibi proportion, prominent
+  expressive arched eyebrows, a neat vintage brown mustache, and tidy graying comb-over
+  hair. He wears a muted teal collared shirt with rolled-up sleeves, a worn brown
+  leather work apron with small chisel pockets, rolled-up dark gray wool trousers,
+  and sturdy brown leather work boots. Rendered with clean, crisp black ink outlines,
+  bold cel-shaded lighting, and subtle wood-dust smudges on his rosy cheeks. | Godtfred
+  Kirk Christiansen: Chibi 2D cartoon illustration style. Ole''s intelligent and resolute
+  second son and successor, designed with a compact 2.5-head-high chibi silhouette.
+  He has neatly parted dark brown slicked hair, sharp determined eyes, and an earnest,
+  focused expression. Dressed in 1950s Scandinavian workshop attire consisting of
+  a crisp beige button-up shirt, navy blue knitted vest, rolled-up work slacks, and
+  dark suspenders, often holding a pencil behind his ear or carrying draft sketches.
+  Crisp outlines and smooth 2-tone cel shading. | Jørgen Vig Knudstorp: Chibi 2D cartoon
+  illustration style. The youthful, decisive turn-of-the-millennium CEO with a 2.5-head-high
+  chibi figure, smooth fair skin, tidy short sandy-blond hair, and thin gold-rimmed
+  circular spectacles over sharp, analytical eyes. He wears a sharp modern slim-cut
+  navy blue two-piece business suit over a crisp white dress shirt and a solid burgundy
+  tie, paired with polished black dress shoes. Clean graphic line art, minimal sharp
+  shadows, and an authoritative yet approachable executive demeanor. | Classic Wooden
+  Pull Duck Toy: Inanimate physical toy prop in 2D chibi cartoon illustration style.
+  A stylized vintage Danish wheeled pull toy crafted from segmented solid pine wood.
+  Features a glossy multi-coat painted surface in rich forest green, canary yellow,
+  and bright vermilion red, with a mechanically hinged wooden beak connected to a
+  wheel cam mechanism. Rests on four thick painted red wooden disk wheels with a white
+  pull cord attached to the front chest. Crisp contour lines, glossy cel-shaded reflective
+  highlights on the smooth lacquer, absolutely non-anthropomorphic and strictly a
+  mechanical wooden craft piece. | 1946 Manual Plastic Injection Molding Machine:
+  Inanimate industrial machine in 2D chibi cartoon illustration style. A simplified,
+  heavy mid-century hand-operated molding machine built from cast iron and painted
+  industrial olive-drab green. Features a tall vertical hopper funnel for raw plastic
+  pellets, a long mechanical steel hand-press lever arm with a red ball grip, exposed
+  brass heating bands, and a mechanical pressure gauge with a clear glass face. Defined
+  by bold clean vector outlines, industrial bolts, metallic cel-shaded highlights,
+  and no anthropomorphic traits. | Classic 2x4 Plastic Studded Brick: Inanimate product
+  prop in 2D chibi cartoon illustration style. An oversized iconic rectangular building
+  block rendered in high-gloss primary red ABS plastic. Features eight perfectly cylindrical
+  coupling studs on top with crisp embossed circular rims, and a visible hollow bottom
+  reveal displaying the revolutionary three-tube clutch-power locking mechanism. Characterized
+  by razor-sharp geometric outlines, glossy white cartoon specular shine stripes across
+  the plastic facets, vibrant saturated color fills, and strict mechanical accuracy
+  without humanized traits.'
+environment: Billund Workshop and Toy Atelier in 2D Chibi Cartoon Illustration Style.
+  A cozy, storybook-like Danish workshop interior featuring warm exposed timber roof
+  beams, rustic red-brick walls, and wide wooden floorboards dusted with soft yellow
+  sawdust. Long carpenter workbenches are neatly organized with stylized hand planes,
+  chisels, colorful paint tins, and stacks of wooden cutoffs on one side, transitioning
+  into drafting desks with mechanical blueprints and transparent plastic storage containers
+  on the other. Lighting consists of warm, golden incandescent hanging lamps casting
+  soft cel-shaded shadows, balanced by cool daylight streaming through multi-paned
+  grid windows, rendered with crisp ink outlines, rich saturated flat-color fills,
+  and a vibrant animated storybook atmosphere.
+use_image_reference: true
+characters:
+- id: ole_kirk_christiansen
+  name: Ole Kirk Christiansen
+  appearance: Chibi 2D cartoon illustration style. A determined, warm-hearted Danish
+    master carpenter with a 2.5-head-high chibi proportion, prominent expressive arched
+    eyebrows, a neat vintage brown mustache, and tidy graying comb-over hair. He wears
+    a muted teal collared shirt with rolled-up sleeves, a worn brown leather work
+    apron with small chisel pockets, rolled-up dark gray wool trousers, and sturdy
+    brown leather work boots. Rendered with clean, crisp black ink outlines, bold
+    cel-shaded lighting, and subtle wood-dust smudges on his rosy cheeks.
+- id: godtfred_kirk_christiansen
+  name: Godtfred Kirk Christiansen
+  appearance: Chibi 2D cartoon illustration style. Ole's intelligent and resolute
+    second son and successor, designed with a compact 2.5-head-high chibi silhouette.
+    He has neatly parted dark brown slicked hair, sharp determined eyes, and an earnest,
+    focused expression. Dressed in 1950s Scandinavian workshop attire consisting of
+    a crisp beige button-up shirt, navy blue knitted vest, rolled-up work slacks,
+    and dark suspenders, often holding a pencil behind his ear or carrying draft sketches.
+    Crisp outlines and smooth 2-tone cel shading.
+- id: jorgen_vig_knudstorp
+  name: Jørgen Vig Knudstorp
+  appearance: Chibi 2D cartoon illustration style. The youthful, decisive turn-of-the-millennium
+    CEO with a 2.5-head-high chibi figure, smooth fair skin, tidy short sandy-blond
+    hair, and thin gold-rimmed circular spectacles over sharp, analytical eyes. He
+    wears a sharp modern slim-cut navy blue two-piece business suit over a crisp white
+    dress shirt and a solid burgundy tie, paired with polished black dress shoes.
+    Clean graphic line art, minimal sharp shadows, and an authoritative yet approachable
+    executive demeanor.
+- id: wooden_pull_duck
+  name: Classic Wooden Pull Duck Toy
+  appearance: Inanimate physical toy prop in 2D chibi cartoon illustration style.
+    A stylized vintage Danish wheeled pull toy crafted from segmented solid pine wood.
+    Features a glossy multi-coat painted surface in rich forest green, canary yellow,
+    and bright vermilion red, with a mechanically hinged wooden beak connected to
+    a wheel cam mechanism. Rests on four thick painted red wooden disk wheels with
+    a white pull cord attached to the front chest. Crisp contour lines, glossy cel-shaded
+    reflective highlights on the smooth lacquer, absolutely non-anthropomorphic and
+    strictly a mechanical wooden craft piece.
+- id: vintage_injection_molding_machine
+  name: 1946 Manual Plastic Injection Molding Machine
+  appearance: Inanimate industrial machine in 2D chibi cartoon illustration style.
+    A simplified, heavy mid-century hand-operated molding machine built from cast
+    iron and painted industrial olive-drab green. Features a tall vertical hopper
+    funnel for raw plastic pellets, a long mechanical steel hand-press lever arm with
+    a red ball grip, exposed brass heating bands, and a mechanical pressure gauge
+    with a clear glass face. Defined by bold clean vector outlines, industrial bolts,
+    metallic cel-shaded highlights, and no anthropomorphic traits.
+- id: classic_lego_brick
+  name: Classic 2x4 Plastic Studded Brick
+  appearance: Inanimate product prop in 2D chibi cartoon illustration style. An oversized
+    iconic rectangular building block rendered in high-gloss primary red ABS plastic.
+    Features eight perfectly cylindrical coupling studs on top with crisp embossed
+    circular rims, and a visible hollow bottom reveal displaying the revolutionary
+    three-tube clutch-power locking mechanism. Characterized by razor-sharp geometric
+    outlines, glossy white cartoon specular shine stripes across the plastic facets,
+    vibrant saturated color fills, and strict mechanical accuracy without humanized
+    traits.

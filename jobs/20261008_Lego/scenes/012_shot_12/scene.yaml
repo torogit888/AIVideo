@@ -1,0 +1,26 @@
+id: 012_shot_12
+index: 12
+title: 好不容易熬過了重建
+narration: 好不容易熬過了重建，二戰的戰火又迅速席捲了整個歐洲，納粹德國佔領了丹麥，原料被瘋狂掠奪，電力實行嚴格配給，在一九四二年一個狂風暴雨的冬夜裡，電線短路引發了爆炸，
+image_prompt: dramatic medium shot in Q-version 2D cartoon illustration style, the
+  exterior of the Billund workshop during a fierce 1942 stormy winter night, violent
+  electrical sparks and a burst of flame erupting from snapped power cables on the
+  roof, rain pouring in sharp graphic streaks, bold cel shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 2
+act_title: 【初劫與工匠心魔】灰燼中的三道漆：大戰砲火下的第一、二場毀滅大火
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T015117
+  image_take: image_20261009T015103
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: LEGO factory fire 1942 news clipping
+  fetch_error: 未找到合適照片

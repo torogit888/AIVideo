@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261016T144558",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 18.11,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "他的合約條件非常簡單粗暴，甚至可以說是瘋狂",
+      "text_cn": "他的合约条件非常简单粗暴，甚至可以说是疯狂",
+      "start_sec": 0.0,
+      "end_sec": 4.2,
+      "duration_sec": 4.2
+    },
+    {
+      "index": 2,
+      "text": "給我打造一具三點五升十二缸引擎，排量和法拉利完全相同",
+      "text_cn": "给我打造一具三点五升十二缸引擎，排量和法拉利完全相同",
+      "start_sec": 4.45,
+      "end_sec": 9.65,
+      "duration_sec": 5.2
+    },
+    {
+      "index": 3,
+      "text": "但是馬力輸出必須徹底碾壓法拉利，每多壓榨出一匹馬力",
+      "text_cn": "但是马力输出必须彻底碾压法拉利，每多压榨出一匹马力",
+      "start_sec": 9.9,
+      "end_sec": 14.9,
+      "duration_sec": 5.0
+    },
+    {
+      "index": 4,
+      "text": "我就當場額外發你一筆巨額獎金",
+      "text_cn": "我就当场额外发你一笔巨额奖金",
+      "start_sec": 15.15,
+      "end_sec": 18.11,
+      "duration_sec": 2.96
+    }
+  ],
+  "created_at": "2026-10-16T14:45:58.908597+00:00"
+}

@@ -1,0 +1,17 @@
+id: 020_shot_20
+index: 20
+title: 最終火星各個派系爆發了席捲全球的
+narration: 最終火星各個派系爆發了席捲全球的滅絕性核戰爭，核武器撕裂了火星的大氣層，破壞了原本維持生機的地磁保護傘，
+image_prompt: 'dramatic wide shot depicting a Martian planetary cataclysm: stylized
+  geometric nuclear explosions ripping across the crimson planet''s surface, purple
+  and orange plasma shockwaves tearing the upper atmosphere, 2D cartoon cel-shaded
+  illustration, 16:9 widescreen composition'
+image_negative: ''
+act_index: 2
+act_title: 【《真理報》的造神流水線：醫學天才還是精心設計的劇本？】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T040026
+  image_take: image_20261016T040004

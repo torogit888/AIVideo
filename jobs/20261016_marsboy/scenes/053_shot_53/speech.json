@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261016T043132",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 9.17,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "然而進入青春期的波力斯卡開始出現強烈的逆反心理",
+      "text_cn": "然而进入青春棋的波力斯卡开始出现强烈的逆反心理",
+      "start_sec": 0.0,
+      "end_sec": 4.76,
+      "duration_sec": 4.76
+    },
+    {
+      "index": 2,
+      "text": "他拒絕再像木偶一樣背誦那些編造的火星台詞",
+      "text_cn": "他拒绝再像木偶一样背诵那些编造的火星台词",
+      "start_sec": 5.01,
+      "end_sec": 9.17,
+      "duration_sec": 4.16
+    }
+  ],
+  "created_at": "2026-10-16T04:31:32.507838+00:00"
+}

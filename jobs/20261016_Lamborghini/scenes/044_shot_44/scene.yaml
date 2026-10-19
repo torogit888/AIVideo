@@ -1,0 +1,17 @@
+id: 044_shot_44
+index: 44
+title: 這場看似荒唐的私人報復
+narration: 這場看似荒唐的私人報復，其實是工業史上最美麗的意外，晚年的費魯齊歐在葡萄園接受採訪時，記者問他是否還痛恨恩佐法拉利，
+image_prompt: medium shot, Q-version 2D cartoon illustration, elderly Ferruccio Lamborghini
+  in casual linen clothes seated on a wooden bench outside his rustic stone winery,
+  smiling warmly as he is interviewed by a friendly reporter holding a tape recorder,
+  lush vineyards around, 16:9 widescreen composition
+image_negative: ''
+act_index: 6
+act_title: 宿命的反噬：石油危機、鉛色年代與巨頭的黃昏
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T151202
+  image_take: image_20261016T151125

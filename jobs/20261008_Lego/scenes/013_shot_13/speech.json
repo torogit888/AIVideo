@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261009T015204",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 10.33,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "比隆唯一的樂高工廠，短短幾小時內再次化為焦黑的廢墟",
+      "text_cn": "比隆唯一的乐高工厂，短短几小时内再次化为焦黑的废墟",
+      "start_sec": 0.0,
+      "end_sec": 5.0,
+      "duration_sec": 5.0
+    },
+    {
+      "index": 2,
+      "text": "[sigh]這一次奧勒畢生的設計圖紙和樣品庫存全被燒個精光",
+      "text_cn": "[sigh]这一次奥勒毕生的设计图纸和样品库存全被烧个精光",
+      "start_sec": 5.25,
+      "end_sec": 10.33,
+      "duration_sec": 5.08
+    }
+  ],
+  "created_at": "2026-10-09T01:52:04.355407+00:00"
+}

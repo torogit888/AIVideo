@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261016T035138",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.66,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "波力斯卡的母親娜傑日達是一名公立醫院的兒科醫生",
+      "text_cn": "波力斯卡的母亲娜杰日达是一名公立医院的儿科医生",
+      "start_sec": 0.0,
+      "end_sec": 4.76,
+      "duration_sec": 4.76
+    },
+    {
+      "index": 2,
+      "text": "父親則是一位退役軍官，家庭環境看似十分嚴謹端莊",
+      "text_cn": "父亲则是一位退役军官，家庭环境看似十分严谨端庄",
+      "start_sec": 5.01,
+      "end_sec": 9.61,
+      "duration_sec": 4.6
+    },
+    {
+      "index": 3,
+      "text": "然而在母親口中，波力斯卡的人生打從出生那一天起就充斥著神蹟",
+      "text_cn": "然而在母亲口中，波力斯卡的人生打从出生那一天起就充斥着神迹",
+      "start_sec": 9.86,
+      "end_sec": 15.66,
+      "duration_sec": 5.8
+    }
+  ],
+  "created_at": "2026-10-16T03:51:38.254426+00:00"
+}

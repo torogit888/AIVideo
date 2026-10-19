@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261019T073003",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 68771551,
+  "prompt": "Katsuhiro Otomo Style，dynamic, cutaway view of the Mary Celeste's cargo hold, the nine red oak barrels depicted as empty, with subtle wisps of translucent vapor rising from their bungs, the ship pitching violently in turbulent Azores waters, causing the stacked barrels to visibly shift and collide, emphasizing a 'pressure cooker' effect, cold, hazy alcoholic fumes, 35mm cinematic lens aesthetics, subtle film grain, high dynamic range, 16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo Style), 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-19T07:30:03.384323+00:00"
+}

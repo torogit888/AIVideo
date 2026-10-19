@@ -1,0 +1,30 @@
+id: 022_shot_22
+index: 22
+title: 真正解開這起世紀謎團的鑰匙其實早
+narration: 真正解開這起世紀謎團的鑰匙其實早就白紙黑字寫在貨物清單上了，讓我們把視線重新放回那底艙滿載的一千七百零一桶工業變性酒精，根據直布羅陀海事法庭當年的卸貨清單大部分木桶都是白橡木製成，但其中唯獨有九個木桶採用了質地更疏鬆透氣的劣質紅橡木桶，
+image_prompt: close-up on a section of an aged, official-looking cargo manifest, highlighting
+  an entry for 'Industrial Denatured Alcohol Casks', transitioning to a medium shot
+  inside the Mary Celeste's cavernous cargo hold, focusing on a stack of Industrial
+  Denatured Alcohol Casks, nine distinct, slightly darker red oak barrels prominently
+  visible among paler white oak ones, a faint, volatile translucent shimmer of evaporating
+  chemical vapor, cold, hazy alcoholic fumes, 35mm cinematic lens aesthetics, subtle
+  film grain, high dynamic range, 16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo
+  Style)
+image_negative: ''
+act_index: 6
+act_title: 1701桶毒藥與看不見的火，牛津實驗室裡的終極解密
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T072929
+  image_take: image_20261019T072911
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Mary Celeste cargo manifest 1872
+  fetch_error: 未找到合適照片

@@ -1,0 +1,17 @@
+id: 014_shot_14
+index: 14
+title: 看著漫天飛舞的黑灰
+narration: 看著漫天飛舞的黑灰，這個堅強的男人當場跪倒在廢墟前，他甚至一度絕望到想要直接結束自己的生命，
+image_prompt: medium low-angle shot in Q-version 2D cartoon illustration style, Ole
+  Kirk Christiansen kneeling in the soot-covered ruins of his workshop, head bowed
+  into his dusty hands in grief, surrounded by charred timber remnants and drifting
+  smoke, stark dramatic shadows, crisp contour lines, 16:9 widescreen composition
+image_negative: ''
+act_index: 2
+act_title: 【初劫與工匠心魔】灰燼中的三道漆：大戰砲火下的第一、二場毀滅大火
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T015247
+  image_take: image_20261009T015225

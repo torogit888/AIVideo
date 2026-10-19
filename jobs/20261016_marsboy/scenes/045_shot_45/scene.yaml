@@ -1,0 +1,25 @@
+id: 045_shot_45
+index: 45
+title: 而2012年更是整個人類文明走向
+narration: 而2012年更是整個人類文明走向分水嶺，爆發清洗式大浩劫的關鍵時刻，
+image_prompt: dramatic conceptual shot of a stylized Mayan calendar disc glowing next
+  to a bold '2012' emblem, surrounded by cartoon apocalyptic thunderclouds and flashing
+  lightning, saturated 2D cel-shaded art, 16:9 widescreen composition
+image_negative: ''
+act_index: 6
+act_title: 【預言破產與造神反噬：當外星先知淪為時代殘渣】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T042335
+  image_take: image_20261016T042256
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: 2012 Mayan apocalypse theory illustration
+  fetch_error: 未找到合適照片

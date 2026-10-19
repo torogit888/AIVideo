@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261016T151409",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 10.88,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "而傲慢了一輩子的恩佐，雖然到死都沒有公開誇獎過對手一句",
+      "text_cn": "而傲慢了一辈子的恩佐，虽然到死都没有公开夸奖过对手一句",
+      "start_sec": 0.0,
+      "end_sec": 5.4,
+      "duration_sec": 5.4
+    },
+    {
+      "index": 2,
+      "text": "但在他離世之前，法拉利生產線上跑著的全都是中置引擎跑車",
+      "text_cn": "但在他离世之前，法拉利生产线上跑着的全都是中置引擎跑车",
+      "start_sec": 5.65,
+      "end_sec": 10.88,
+      "duration_sec": 5.23
+    }
+  ],
+  "created_at": "2026-10-16T15:14:09.425789+00:00"
+}

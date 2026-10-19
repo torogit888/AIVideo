@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261019T073353",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 36658441,
+  "prompt": "Katsuhiro Otomo Style，dramatic close-up on a thick hemp towline, stretched taut to its breaking point, snapping violently with frayed ends, immediately followed by a low-angle shot looking down into the dark, raging North Atlantic swells, where the small, fragile lifeboat is overwhelmed and swallowed by monstrous waves, disappearing completely, 35mm cinematic lens aesthetics, subtle film grain, high dynamic range, 16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo Style), 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-19T07:33:53.894666+00:00"
+}

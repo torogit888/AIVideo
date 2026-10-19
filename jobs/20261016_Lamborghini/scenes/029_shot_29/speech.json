@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261016T145713",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 11.51,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[confirmation-en]但工廠裡那幫平均年齡不到三十歲的年輕天才卻不這麼想",
+      "text_cn": "[confirmation-en]但工厂里那帮平均年龄不到三十岁的年轻天才却不这么想",
+      "start_sec": 0.0,
+      "end_sec": 5.66,
+      "duration_sec": 5.66
+    },
+    {
+      "index": 2,
+      "text": "年輕的達拉拉和斯坦扎尼瞞著大老闆，在下班後偷偷搞地下研發",
+      "text_cn": "年轻的达拉拉和斯坦扎尼瞒着大老板，在下班后偷偷搞地下研发",
+      "start_sec": 5.91,
+      "end_sec": 11.51,
+      "duration_sec": 5.6
+    }
+  ],
+  "created_at": "2026-10-16T14:57:13.675068+00:00"
+}

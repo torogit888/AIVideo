@@ -1,0 +1,26 @@
+id: 041_shot_41
+index: 41
+title: 而另一邊不可一世的恩佐法拉利
+narration: 而另一邊不可一世的恩佐法拉利，日子也同樣無比淒涼，早在幾年前法拉利就因資金枯竭，不得不向飛雅特財團低頭出賣半數股權，
+image_prompt: medium shot, Q-version 2D cartoon illustration, chibi Enzo Ferrari sitting
+  alone in his shadowy Maranello office, signing an equity transfer agreement with
+  the Fiat conglomerate, looking aged and reflective behind his sunglasses, cool cel-shaded
+  tones, 16:9 widescreen composition
+image_negative: ''
+act_index: 6
+act_title: 宿命的反噬：石油危機、鉛色年代與巨頭的黃昏
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T150903
+  image_take: image_20261016T150826
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Ferrari Fiat acquisition document 1969
+  fetch_error: 未找到合適照片

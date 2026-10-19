@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261016T043234",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 12.78,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "神童濾鏡徹底破碎之後的代價是極度殘酷的",
+      "text_cn": "神童滤镜彻底破碎之后的代价是极度残酷的",
+      "start_sec": 0.0,
+      "end_sec": 3.96,
+      "duration_sec": 3.96
+    },
+    {
+      "index": 2,
+      "text": "波力斯卡在現實學校裡遭受了同儕無休止的霸凌與孤立",
+      "text_cn": "波力斯卡在现实学校里遭受了同侪无休止的霸凌与孤立",
+      "start_sec": 4.21,
+      "end_sec": 9.17,
+      "duration_sec": 4.96
+    },
+    {
+      "index": 3,
+      "text": "同學們將他視為滿嘴謊言的精神病患",
+      "text_cn": "同学们将他视为满嘴谎言的精神病患",
+      "start_sec": 9.42,
+      "end_sec": 12.78,
+      "duration_sec": 3.36
+    }
+  ],
+  "created_at": "2026-10-16T04:32:34.166358+00:00"
+}

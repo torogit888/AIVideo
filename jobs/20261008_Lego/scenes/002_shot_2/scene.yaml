@@ -1,0 +1,17 @@
+id: 002_shot_2
+index: 2
+title: 但就是這個不起眼的小塑膠塊
+narration: 但就是這個不起眼的小塑膠塊，每年要生產好幾百億顆，它的賺錢速度甚至把很多老牌跨國玩具巨頭遠遠甩在後頭，[question-ei]可如果我們把時間撥回一百年前，
+image_prompt: high-angle wide shot in Q-version 2D cartoon illustration style, a colossal
+  cascading mountain of colorful 2x4 plastic studded bricks in bright primary red,
+  blue, and yellow flowing outwards across an expansive minimalist showroom, clean
+  flat lighting, crisp contour lines, rich cel shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 1
+act_title: 【時代坐標與認知反差】比隆的寒冬：大蕭條中被逼入絕境的鰥夫木匠
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T014224
+  image_take: image_20261009T014211

@@ -1,0 +1,19 @@
+id: 025_shot_25
+index: 25
+title: 巨大的衝擊波猛烈掀飛了頂部艙蓋伴
+narration: 巨大的衝擊波猛烈掀飛了頂部艙蓋伴隨著震耳欲聾的轟鳴與巨大火球，但由於酒精燃燒極快火焰在千分之一秒內瞬間熄滅沒有留下任何焦痕，我們現在可以完全還原出十一月二十五日早晨那個令人絕望的瞬間了，
+image_prompt: 'dramatic, dynamic shot from inside the Mary Celeste''s cargo hold,
+  looking up: a massive, invisible shockwave violently rips the heavy wooden cargo
+  hatch cover upwards and outwards, a brief, brilliant, silent fireball erupts and
+  then instantly vanishes, leaving no trace of charring on the surrounding wooden
+  structure, 35mm cinematic lens aesthetics, subtle film grain, high dynamic range,
+  16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo Style)'
+image_negative: ''
+act_index: 6
+act_title: 1701桶毒藥與看不見的火，牛津實驗室裡的終極解密
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T073139
+  image_take: image_20261019T073126

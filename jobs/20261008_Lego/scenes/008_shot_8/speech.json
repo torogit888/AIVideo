@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261009T014754",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 9.81,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "還做了一隻可以用繩子拖著走，嘴巴會開合的木頭鴨子",
+      "text_cn": "还做了一只可以用绳子拖着走，嘴巴会开合的木头鸭子",
+      "start_sec": 0.0,
+      "end_sec": 4.8,
+      "duration_sec": 4.8
+    },
+    {
+      "index": 2,
+      "text": "[surprise-oh]一九三四年，他將丹麥語的好好玩縮寫成樂高",
+      "text_cn": "[surprise-oh]一九三四年，他将丹麦语的好好玩缩写成乐高",
+      "start_sec": 5.05,
+      "end_sec": 9.81,
+      "duration_sec": 4.76
+    }
+  ],
+  "created_at": "2026-10-09T01:47:54.683823+00:00"
+}

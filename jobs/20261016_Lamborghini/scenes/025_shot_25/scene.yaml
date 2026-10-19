@@ -1,0 +1,26 @@
+id: 025_shot_25
+index: 25
+title: 車展結束後
+narration: 車展結束後，前瑪莎拉蒂工程師鮑羅斯坦扎尼火線接盤，他將這台神經質的賽車引擎重新調校，提升了低扭與平順性，
+image_prompt: medium shot, Q-version 2D cartoon illustration, talented young engineer
+  Paolo Stanzani diligently adjusting mechanical carburetors with specialized wrenches
+  on the V12 engine mounted in the workshop, clean outlines, warm workshop atmosphere,
+  rich cel-shaded colors, 16:9 widescreen composition
+image_negative: ''
+act_index: 4
+act_title: 都靈車展的木屑奇蹟：第一記狠狠的耳光
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T145403
+  image_take: image_20261016T145325
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Paolo Stanzani portrait 1960s
+  fetch_error: 未找到合適照片

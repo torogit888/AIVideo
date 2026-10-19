@@ -1,0 +1,28 @@
+id: 003_shot_3
+index: 3
+title: 在那個既沒有無線電報也沒有衛星定
+narration: 在那個既沒有無線電報也沒有衛星定位系統的交替年代，商船一旦離開了海岸線就等於進入了與世隔絕的孤立狀態，就在這一年十一月三十七歲的美國船長本傑明布里格斯啟航了，他出生於航海世家性格嚴肅沉穩且終生嚴格恪守清教徒禁酒令，
+image_prompt: medium close-up of Captain Benjamin Briggs on the damp teak deck of
+  the Mary Celeste, his sharp, weathered face set in an austere, disciplined expression,
+  serious sunken hazel eyes scanning the empty horizon, wind whipping his double-breasted
+  navy blue wool naval frock coat, gleam of ocean spray, diffused, cold daylight,
+  35mm cinematic lens aesthetics, subtle film grain, high dynamic range, 16:9 widescreen
+  composition, 大友克洋風格 (Katsuhiro Otomo Style)
+image_negative: ''
+act_index: 1
+act_title: 時空座標與幽靈啟航，消失在黃金航線上的十個人
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T071410
+  image_take: image_20261019T071357
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Captain Benjamin Briggs portrait 1870s
+  fetch_error: 未找到合適照片

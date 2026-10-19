@@ -1,0 +1,28 @@
+id: 021_shot_21
+index: 21
+title: 隨後一個世紀裡百慕達三角外星人綁
+narration: 隨後一個世紀裡百慕達三角外星人綁架以及深海巨妖的謠言滿天飛，甚至還有人煞有介事地聲稱水手吃了受麥角菌污染的麵粉集體發瘋跳海，[confirmation-en]但如果你翻開當年的法庭原始檔案就會發現全是謊言，
+image_prompt: 'chaotic, swirling visual representation of various conspiracy theories:
+  subtle hints of a Bermuda Triangle vortex, abstract alien abduction imagery, a shadowy,
+  monstrous tentacle rising from the deep, then dissolving into a stark, clinical
+  shot of an open, aged court document under a harsh, revealing light, 35mm cinematic
+  lens aesthetics, subtle film grain, high dynamic range, 16:9 widescreen composition,
+  大友克洋風格 (Katsuhiro Otomo Style)'
+image_negative: ''
+act_index: 5
+act_title: 流行文化的百年污染，被文豪篡改的都市傳說
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T072846
+  image_take: image_20261019T072811
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Mary Celeste Gibraltar Vice Admiralty Court original documents
+  fetch_error: 未找到合適照片

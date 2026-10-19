@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261016T143500",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 18.27,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "他靠改裝廢棄軍車起家，建立了龐大的拖拉機帝國",
+      "text_cn": "他靠改装废弃军车起家，建立了庞大的拖拉机帝国",
+      "start_sec": 0.0,
+      "end_sec": 4.32,
+      "duration_sec": 4.32
+    },
+    {
+      "index": 2,
+      "text": "每天能賣出幾十台農機，成了實打實的百萬富翁，有錢之後",
+      "text_cn": "每天能卖出几十台农机，成了实打实的百万富翁，有钱之后",
+      "start_sec": 4.57,
+      "end_sec": 9.61,
+      "duration_sec": 5.04
+    },
+    {
+      "index": 3,
+      "text": "他唯一的嗜好就是瘋狂收藏頂級跑車，他車庫裡有瑪莎拉蒂",
+      "text_cn": "他唯一的嗜好就是疯狂收藏顶级跑车，他车库里有玛莎拉蒂",
+      "start_sec": 9.86,
+      "end_sec": 15.06,
+      "duration_sec": 5.2
+    },
+    {
+      "index": 4,
+      "text": "愛快羅密歐和四輛昂貴的法拉利",
+      "text_cn": "爱快罗密欧和四辆昂贵的法拉利",
+      "start_sec": 15.31,
+      "end_sec": 18.27,
+      "duration_sec": 2.96
+    }
+  ],
+  "created_at": "2026-10-16T14:35:00.511110+00:00"
+}

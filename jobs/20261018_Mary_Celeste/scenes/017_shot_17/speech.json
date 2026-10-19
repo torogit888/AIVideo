@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261019T072545",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 17.7,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[sigh]最終法庭在毫無真憑實據的情況下只能極其尷尬地結案",
+      "text_cn": "[sigh]最终法庭在毫无真凭实据的情况下只能极其尴尬地结案",
+      "start_sec": 0.0,
+      "end_sec": 5.28,
+      "duration_sec": 5.28
+    },
+    {
+      "index": 2,
+      "text": "扣除了大部分救助金後這起審判卻給後世留下了巨大的陰謀論土壤",
+      "text_cn": "扣除了大部分救助金后这起审判却给后世留下了巨大的阴谋论土壤",
+      "start_sec": 5.53,
+      "end_sec": 11.49,
+      "duration_sec": 5.96
+    },
+    {
+      "index": 3,
+      "text": "在隨後的幾十年裡各種離奇古怪的坊間傳聞開始在大西洋兩岸瘋傳",
+      "text_cn": "在随后的几十年里各种离奇古怪的坊间传闻开始在大西洋两岸疯传",
+      "start_sec": 11.74,
+      "end_sec": 17.7,
+      "duration_sec": 5.96
+    }
+  ],
+  "created_at": "2026-10-19T07:25:45.772173+00:00"
+}

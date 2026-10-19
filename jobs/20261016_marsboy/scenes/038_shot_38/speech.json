@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20261016T041730",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 7.12,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "到了2007年，火星男孩的神話被西方神秘主義商業資本推上了最癲狂的頂峰",
+      "text_cn": "到了2007年，火星男孩的神话被西方神秘主义商业资本推上了最癫狂的顶峰",
+      "start_sec": 0.0,
+      "end_sec": 7.12,
+      "duration_sec": 7.12
+    }
+  ],
+  "created_at": "2026-10-16T04:17:30.238020+00:00"
+}

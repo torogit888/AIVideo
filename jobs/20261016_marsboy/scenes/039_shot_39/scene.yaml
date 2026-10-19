@@ -1,0 +1,27 @@
+id: 039_shot_39
+index: 39
+title: 著名的獨立調查機構卡米洛特工程派
+narration: 著名的獨立調查機構卡米洛特工程派出專業攝製組，專程遠赴莫斯科對波力斯卡進行馬拉松式訪談，
+image_prompt: 'interior shot of a Moscow apartment converted into an interview studio:
+  the Western Esoteric Investigator in his multi-pocketed safari vest aiming a chunky
+  2D camcorder with a fuzzy cartoon boom microphone at Boriska, rich cel-shaded studio
+  lighting, 16:9 widescreen composition'
+image_negative: ''
+act_index: 5
+act_title: 【西方鏡頭下的末日審判：卡米洛特訪談與獅身人面像機關】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T041848
+  image_take: image_20261016T041745
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Project Camelot logo
+  fetch_error: 'AI 審核未通過（與口白不符）：AI 判定不吻合: 圖片為月球表面，與旁白提及的「卡米洛特工程」及莫斯科訪談內容完全不符。，已自動切換為純
+    AI 生成畫面'

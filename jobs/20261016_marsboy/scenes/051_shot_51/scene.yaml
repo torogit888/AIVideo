@@ -1,0 +1,17 @@
+id: 051_shot_51
+index: 51
+title: 但造神運動所帶來的虛妄虛榮與經濟
+narration: 但造神運動所帶來的虛妄虛榮與經濟利益，卻早已讓這個普通家庭無法自拔，
+image_prompt: 'interior shot of a modest Russian flat: chibi mother Nadezhda Kipriyanovich
+  sitting at a kitchen table under a dim swinging bulb, staring anxiously at overdue
+  utility bills and blank scheduling pads, soft desaturated 2D cartoon cel-shading,
+  16:9 widescreen composition'
+image_negative: ''
+act_index: 6
+act_title: 【預言破產與造神反噬：當外星先知淪為時代殘渣】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T042947
+  image_take: image_20261016T042843

@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261016T043557",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 81455362,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background\nVibrant contrasting color palettes, crisp details throughout, expressive chibi faces, rich background props., wide shot of chibi adult Boriska trudging through swirling snow in a biting morning wind, steam puffing from his mouth as industrial factory chimneys release plumes of smoke under a pale wintry dawn, crisp 2D cel-shaded illustration, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-16T04:35:57.139389+00:00"
+}

@@ -1,0 +1,66 @@
+{
+  "take_id": "speech_20261016T043935",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 29.48,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "宇宙的深處或許真的存在著我們尚未探明的未知文明",
+      "text_cn": "宇宙的深处或许真的存在着我们尚未探明的未知文明",
+      "start_sec": 0.0,
+      "end_sec": 4.63,
+      "duration_sec": 4.63
+    },
+    {
+      "index": 2,
+      "text": "[confirmation-en]但這個世界上最深不可測也最荒謬的",
+      "text_cn": "[confirmation-en]但这个世界上最深不可测也最荒谬的",
+      "start_sec": 4.88,
+      "end_sec": 9.28,
+      "duration_sec": 4.4
+    },
+    {
+      "index": 3,
+      "text": "永遠是人類那顆渴望奇蹟卻又無比寂寞的人心，好了",
+      "text_cn": "永远是人类那颗渴望奇迹却又无比寂寞的人心，好了",
+      "start_sec": 9.53,
+      "end_sec": 14.13,
+      "duration_sec": 4.6
+    },
+    {
+      "index": 4,
+      "text": "大概是這樣，火星男孩的故事今天就聊到這裡",
+      "text_cn": "大概是这样，火星男孩的故事今天就聊到这里",
+      "start_sec": 14.38,
+      "end_sec": 18.38,
+      "duration_sec": 4.0
+    },
+    {
+      "index": 5,
+      "text": "如果你也喜歡這種拆解都市傳說背後人性與社會真相的故事",
+      "text_cn": "如果你也喜欢这种拆解都市传说背后人性与社会真相的故事",
+      "start_sec": 18.63,
+      "end_sec": 23.99,
+      "duration_sec": 5.36
+    },
+    {
+      "index": 6,
+      "text": "別忘了長按點贊，訂閱白兔的頻道並開啟小鈴鐺，我們下次見",
+      "text_cn": "别忘了长按点赞，订阅白兔的频道并开启小铃铛，我们下次见",
+      "start_sec": 24.24,
+      "end_sec": 29.48,
+      "duration_sec": 5.24
+    }
+  ],
+  "created_at": "2026-10-16T04:39:35.237334+00:00"
+}

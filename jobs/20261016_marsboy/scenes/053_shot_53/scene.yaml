@@ -1,0 +1,17 @@
+id: 053_shot_53
+index: 53
+title: 然而進入青春期的波力斯卡開始出現
+narration: 然而進入青春期的波力斯卡開始出現強烈的逆反心理，他拒絕再像木偶一樣背誦那些編造的火星台詞，
+image_prompt: dramatic medium shot of teenage chibi Boriska storming away with clenched
+  fists, turning his back on his mother who desperately holds out a scripted binder
+  of Martian stories, moody indoor shadows, expressive 2D cartoon line art, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 7
+act_title: 【神話落幕與歷史餘韻：仰望星空背後的人性悲喜劇】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T043132
+  image_take: image_20261016T043053

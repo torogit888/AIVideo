@@ -1,0 +1,17 @@
+id: 045_shot_45
+index: 45
+title: 老人笑著搖了搖頭說
+narration: 老人笑著搖了搖頭說，恩佐其實給了我人生中最珍貴的禮物，如果那天他真誠地幫我修好了離合器，世上就永遠不會有藍寶堅尼了，
+image_prompt: close-up shot, Q-version 2D cartoon illustration, elderly Ferruccio
+  smiling gently and raising a glass of ruby-red wine beneath a leafy grapevine pergola,
+  eyes crinkled with peaceful wisdom, warm golden hour sunbeams, rich cel-shaded details,
+  16:9 widescreen composition
+image_negative: ''
+act_index: 7
+act_title: 歷史餘韻與公牛之魂：偏執如何成就偉大？
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T151305
+  image_take: image_20261016T151227

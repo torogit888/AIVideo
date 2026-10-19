@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261019T071608",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3-pro-image",
+  "seed": 49199953,
+  "prompt": "Katsuhiro Otomo Style，medium shot from Captain David Morehouse's perspective, looking out from his ship, the Mary Celeste (Brigantine Vessel) visible in the distance, sails loose and fluttering raggedly, hull pitching erratically, its deserted wooden ship's wheel eerily solitary on the quarterdeck, churning swells, heavy overcast clouds, diffused, cold daylight, 35mm cinematic lens aesthetics, subtle film grain, high dynamic range, 16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo Style), 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-19T07:16:08.810559+00:00"
+}

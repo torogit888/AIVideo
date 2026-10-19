@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261016T042229",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.73,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "男孩也犯下了所有預言家最致命的錯誤",
+      "text_cn": "男孩也犯下了所有预言家最致命的错误",
+      "start_sec": 0.0,
+      "end_sec": 3.56,
+      "duration_sec": 3.56
+    },
+    {
+      "index": 2,
+      "text": "他在鏡頭面前給出了極其具體的時間錨點",
+      "text_cn": "他在镜头面前给出了极其具体的时间锚点",
+      "start_sec": 3.81,
+      "end_sec": 7.57,
+      "duration_sec": 3.76
+    },
+    {
+      "index": 3,
+      "text": "宣稱地球將在2008年與2009年迎來毀滅性的全球大水災",
+      "text_cn": "宣称地球将在2008年与2009年迎来毁灭性的全球大水灾",
+      "start_sec": 7.82,
+      "end_sec": 13.73,
+      "duration_sec": 5.91
+    }
+  ],
+  "created_at": "2026-10-16T04:22:29.460699+00:00"
+}

@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261009T014900",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.86,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "在拉丁文裡這個詞碰巧是我拼在一起的意思",
+      "text_cn": "在拉丁文里这个词碰巧是我拼在一起的意思",
+      "start_sec": 0.0,
+      "end_sec": 3.96,
+      "duration_sec": 3.96
+    },
+    {
+      "index": 2,
+      "text": "但他連一句拉丁文都不懂，只是想靠爛木頭換幾片麵包",
+      "text_cn": "但他连一句拉丁文都不懂，只是想靠烂木头换几片面包",
+      "start_sec": 4.21,
+      "end_sec": 8.81,
+      "duration_sec": 4.6
+    },
+    {
+      "index": 3,
+      "text": "誰能想到，一場近百年的商業傳奇就這樣狼狽地開場了",
+      "text_cn": "谁能想到，一场近百年的商业传奇就这样狼狈地开场了",
+      "start_sec": 9.06,
+      "end_sec": 13.86,
+      "duration_sec": 4.8
+    }
+  ],
+  "created_at": "2026-10-09T01:49:00.750290+00:00"
+}

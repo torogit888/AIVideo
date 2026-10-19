@@ -1,0 +1,19 @@
+id: 016_shot_16
+index: 16
+title: 這場荒唐的指控在英美航海界引發了
+narration: 這場荒唐的指控在英美航海界引發了難以想像的軒然大波，但很快來自倫敦的頂尖化學權威就狠狠給了檢察官一記響亮耳光，經過精密化驗刀上的深色痕跡根本不是人血而是擦拭鐵鏽的油脂，甲板上所謂的噴濺血痕也不過是溢出的普通油漆混雜著海水污垢，
+image_prompt: 'split scene: a close-up of a tarnished knife blade under a microscope,
+  revealing rust and grease; and a section of the Mary Celeste''s damp teak deck,
+  where a dark, reddish-brown stain is clearly visible as paint mixed with grime and
+  seawater, clinical and revealing lighting, 35mm cinematic lens aesthetics, subtle
+  film grain, high dynamic range, 16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo
+  Style)'
+image_negative: ''
+act_index: 4
+act_title: 直布羅陀的獵巫法庭，救人英雄淪為殺人嫌疑犯
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T072453
+  image_take: image_20261019T072441

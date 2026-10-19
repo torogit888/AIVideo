@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20261016T041438",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 8.16,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "這個神話之所以在世紀之交盛行，純粹是因為被神智學會等西方神秘學團體包裝成了心靈讀物",
+      "text_cn": "这个神话之所以在世纪之交盛行，纯粹是因为被神智学会等西方神秘学团体包装成了心灵读物",
+      "start_sec": 0.0,
+      "end_sec": 8.16,
+      "duration_sec": 8.16
+    }
+  ],
+  "created_at": "2026-10-16T04:14:38.395414+00:00"
+}

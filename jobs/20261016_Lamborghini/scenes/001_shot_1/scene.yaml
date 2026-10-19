@@ -1,0 +1,17 @@
+id: 001_shot_1
+index: 1
+title: 大家好！我是白兔！你有沒有想過街
+narration: 大家好！我是白兔！你有沒有想過街頭那些動輒上千萬的頂級超跑，最初其實起源於兩個義大利暴脾氣老頭的私人罵戰，[question-ei]這究竟是怎麼回事呢，
+image_prompt: wide establishing shot, Q-version 2D cartoon illustration, a split-screen
+  face-off between chibi Ferruccio Lamborghini in a beige shop coat holding a wrench
+  and chibi Enzo Ferrari in a charcoal suit and dark sunglasses, flanked by stylized
+  sports cars, vibrant cel-shaded colors, bold clean outlines, 16:9 widescreen composition
+image_negative: ''
+act_index: 1
+act_title: 天價玩具與泥腿子富豪的階級裂痕
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T143228
+  image_take: image_20261016T143215

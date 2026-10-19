@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261009T014558",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 9.65,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "他的妻子因病撒手人寰，留下四個嗷嗷待哺的年幼兒子",
+      "text_cn": "他的妻子因病撒手人寰，留下四个嗷嗷待哺的年幼儿子",
+      "start_sec": 0.0,
+      "end_sec": 4.8,
+      "duration_sec": 4.8
+    },
+    {
+      "index": 2,
+      "text": "最小的那個甚至還不到六歲，每天都在餓著肚子哭泣",
+      "text_cn": "最小的那个甚至还不到六岁，每天都在饿著肚子哭泣",
+      "start_sec": 5.05,
+      "end_sec": 9.65,
+      "duration_sec": 4.6
+    }
+  ],
+  "created_at": "2026-10-09T01:45:58.135959+00:00"
+}

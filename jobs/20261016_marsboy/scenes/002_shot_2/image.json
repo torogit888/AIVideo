@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261016T034410",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 99397836,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background\nVibrant contrasting color palettes, crisp details throughout, expressive chibi faces, rich background props., wide split-screen composition in 2D cel-shaded cartoon style, on the left showing a modern smartphone recording a scripted short video, and on the right showing early-2000s satellite dishes and broadcast towers sending sensational news waves into the night sky over Russia, crisp black outlines, vibrant palette, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-16T03:44:10.565971+00:00"
+}

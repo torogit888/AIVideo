@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261009T020353",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.74,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "但隨之而來的，不是財源滾滾，而是一場巨大的災難",
+      "text_cn": "但随之而来的，不是财源滚滚，而是一场巨大的灾难",
+      "start_sec": 0.0,
+      "end_sec": 4.44,
+      "duration_sec": 4.44
+    },
+    {
+      "index": 2,
+      "text": "早期的塑料積木底部完全是空的，根本沒有任何抓地力",
+      "text_cn": "早棋的塑料积木底部完全是空的，根本没有任何抓地力",
+      "start_sec": 4.69,
+      "end_sec": 9.49,
+      "duration_sec": 4.8
+    },
+    {
+      "index": 3,
+      "text": "孩子們只要拼到第三層，積木就會因為輕微震動整座崩塌",
+      "text_cn": "孩子们只要拼到第三层，积木就会因为轻围震动整座崩塌",
+      "start_sec": 9.74,
+      "end_sec": 14.74,
+      "duration_sec": 5.0
+    }
+  ],
+  "created_at": "2026-10-09T02:03:53.800769+00:00"
+}

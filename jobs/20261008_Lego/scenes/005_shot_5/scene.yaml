@@ -1,0 +1,18 @@
+id: 005_shot_5
+index: 5
+title: 一九三二年
+narration: '[sigh]一九三二年，當地的農民連一塊麵包都買不起了，根本沒有人會找他蓋房子，更沒有人買得起新家具，奧勒的小木工坊徹底斷糧破產，更殘酷的打擊接踵而至，'
+image_prompt: interior medium shot in Q-version 2D cartoon illustration style, inside
+  the Billund workshop, Ole Kirk Christiansen looking sorrowfully at empty wooden
+  display shelves and unpaid paper ledgers, his hands resting on a sturdy carpenter
+  workbench, dim warm lantern light casting soft cel-shaded shadows, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 1
+act_title: 【時代坐標與認知反差】比隆的寒冬：大蕭條中被逼入絕境的鰥夫木匠
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T014447
+  image_take: image_20261009T014427

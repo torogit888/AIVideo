@@ -1,0 +1,17 @@
+id: 001_shot_1
+index: 1
+title: 大家好我是白兔
+narration: 大家好我是白兔，你有沒有想過踩到什麼東西最痛呢，很多人可能會投給樂高積木，那種痛簡直深入骨髓，
+image_prompt: close-up low-angle shot in Q-version 2D cartoon illustration style,
+  a chibi bare foot recoiling dramatically mid-air after stepping onto an oversized
+  bright red plastic studded toy brick on a polished wooden floor, cartoon shockwave
+  lines, crisp ink outlines, vibrant cel-shaded color palette, 16:9 widescreen composition
+image_negative: ''
+act_index: 1
+act_title: 【時代坐標與認知反差】比隆的寒冬：大蕭條中被逼入絕境的鰥夫木匠
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T014149
+  image_take: image_20261009T014133

@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261009T021853",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.78,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "就在這座玩具王國即將土崩瓦解的最後關頭",
+      "text_cn": "就在这座玩具王国即将土崩瓦解的最后关头",
+      "start_sec": 0.0,
+      "end_sec": 3.96,
+      "duration_sec": 3.96
+    },
+    {
+      "index": 2,
+      "text": "家族掌門人引咎辭職，迎來了公司歷史上最關鍵的救世主",
+      "text_cn": "家族掌门人引咎辞职，迎来了公司历史上最关键的救世主",
+      "start_sec": 4.21,
+      "end_sec": 9.21,
+      "duration_sec": 5.0
+    },
+    {
+      "index": 3,
+      "text": "[surprise-oh]年僅三十五歲的麥肯錫顧問約爾根接任最高負責人",
+      "text_cn": "[surprise-oh]年仅三十五岁的麦肯锡顾问约尔根接任最高负责人",
+      "start_sec": 9.46,
+      "end_sec": 14.78,
+      "duration_sec": 5.32
+    }
+  ],
+  "created_at": "2026-10-09T02:18:53.327696+00:00"
+}

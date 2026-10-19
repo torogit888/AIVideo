@@ -1,0 +1,17 @@
+id: 026_shot_26
+index: 26
+title: 市場上罵聲一片
+narration: 市場上罵聲一片，憤怒的經銷商把一箱箱積木退回了比隆，十幾萬盒賣不出去的塑料廢品堆滿了整個倉庫，資金再次見底，
+image_prompt: wide shot in Q-version 2D cartoon illustration style, the Billund workshop
+  storage room overwhelmed by towering stacks of returned cardboard boxes overflowing
+  with unsellable hollow plastic bricks, dim moody interior lighting, crisp outlines,
+  muted cel-shaded colors, 16:9 widescreen composition
+image_negative: ''
+act_index: 4
+act_title: 【絕處逢生的專利與第三場火】1958年的內部管道，與木製時代的徹底陪葬
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T020459
+  image_take: image_20261009T020421

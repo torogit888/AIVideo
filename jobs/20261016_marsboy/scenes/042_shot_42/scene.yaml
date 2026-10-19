@@ -1,0 +1,29 @@
+id: 042_shot_42
+index: 42
+title: 他指著埃及吉薩金字塔的照片聲稱
+narration: '[surprise-wa]他指著埃及吉薩金字塔的照片聲稱，獅身人面像的耳朵後方隱藏著一個精密的機械機關，人類一旦解開這個隱秘的開關，整個人類文明乃至宇宙起源的終極秘密將會全面大白於天下，'
+image_prompt: medium shot of chibi Boriska holding up a printed photo of the Great
+  Sphinx of Giza, pointing directly at a stylized cartoon keyhole mechanism behind
+  the Sphinx's stone ear, glowing ancient glyphs floating in the air, 2D cel-shading,
+  16:9 widescreen composition
+image_negative: ''
+act_index: 5
+act_title: 【西方鏡頭下的末日審判：卡米洛特訪談與獅身人面像機關】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T042113
+  image_take: null
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Giza Sphinx photo
+  source_title: File:Great Sphinx (أبو الهول).jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/c/ce/Great_Sphinx_%28%D8%A3%D8%A8%D9%88_%D8%A7%D9%84%D9%87%D9%88%D9%84%29.jpg
+  verified: true
+  review_reason: 照片真實呈現了旁白中提及的吉薩獅身人面像，與內容高度相關。

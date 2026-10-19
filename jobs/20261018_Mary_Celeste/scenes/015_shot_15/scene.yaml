@@ -1,0 +1,18 @@
+id: 015_shot_15
+index: 15
+title: 這位檢察總長堅信這是一起謀財害命
+narration: '[dissatisfaction-hnn]這位檢察總長堅信這是一起謀財害命的屠殺，他僱用化學家搜查船艙宣稱在船長的一把舊軍刀上檢驗出了血跡，法庭隨即指控莫爾豪斯船長在海上殘忍屠殺了老友全家偽造海難，'
+image_prompt: close-up on Solly Flood's hand, gloved and pointing, gesturing towards
+  a table in the Gibraltar Maritime Courtroom where a tarnished, old military-style
+  knife (Captain Briggs's) lies next to a magnifying glass and chemical apparatus,
+  dramatic lighting casting shadows, 35mm cinematic lens aesthetics, subtle film grain,
+  high dynamic range, 16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo Style)
+image_negative: ''
+act_index: 4
+act_title: 直布羅陀的獵巫法庭，救人英雄淪為殺人嫌疑犯
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T072416
+  image_take: image_20261019T072404

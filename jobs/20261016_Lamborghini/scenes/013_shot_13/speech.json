@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261016T144305",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.3,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "他在回程的公路上暗自發誓，既然你造不出耐用的街道跑車",
+      "text_cn": "他在回程的公路上暗自发誓，既然你造不出耐用的街道跑车",
+      "start_sec": 0.0,
+      "end_sec": 5.2,
+      "duration_sec": 5.2
+    },
+    {
+      "index": 2,
+      "text": "那我就親自造一輛，而且要在各方面都把你踩在腳下",
+      "text_cn": "那我就亲自造一辆，而且要在各方面都把你踩在脚下",
+      "start_sec": 5.45,
+      "end_sec": 10.05,
+      "duration_sec": 4.6
+    },
+    {
+      "index": 3,
+      "text": "[confirmation-en]換作普通人可能罵幾句就算了，但金牛座的執念極其可怕",
+      "text_cn": "[confirmation-en]换作普通人可能骂几句就算了，但金牛座的执念极其可怕",
+      "start_sec": 10.3,
+      "end_sec": 16.3,
+      "duration_sec": 6.0
+    }
+  ],
+  "created_at": "2026-10-16T14:43:05.456845+00:00"
+}

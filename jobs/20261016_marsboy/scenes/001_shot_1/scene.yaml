@@ -1,0 +1,18 @@
+id: 001_shot_1
+index: 1
+title: 大家好我是白兔
+narration: 大家好我是白兔，你相不相信一個連小學都還沒念明白的鄉下小孩，能隨口講出火星核戰甚至把一群大學教授唬得一愣一愣的？
+image_prompt: wide establishing shot of seven-year-old chibi Boriska Kipriyanovich
+  in his oversized teal geometric sweater holding a piece of white chalk, standing
+  confidently before a group of comically baffled chibi Russian university professors
+  with askew spectacles in front of a chalk-dusted blackboard, clean vector line art,
+  cel-shaded 2D cartoon illustration, 16:9 widescreen composition
+image_negative: ''
+act_index: 1
+act_title: 【篝火前的異星呢喃：後蘇聯廢墟上的神秘降臨】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T034333
+  image_take: image_20261016T034316

@@ -1,0 +1,18 @@
+id: 054_shot_54
+index: 54
+title: 大火燒掉的是廉價的木頭
+narration: 大火燒掉的是廉價的木頭，但最終留下來的，才是這個品牌的靈魂，好了，大概是這樣，這就是那個差點被燒光，又差點被自己玩死的木匠傳奇，
+image_prompt: medium shot in Q-version 2D cartoon illustration style, a symbolic split-screen
+  composition featuring a handcrafted Classic Wooden Pull Duck Toy on the warm wooden
+  left side and a gleaming Classic 2x4 Plastic Studded Brick on the modern primary-colored
+  right side, separated by a crisp golden contour line, crisp vector linework, rich
+  cel shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 7
+act_title: 【歷史餘韻與訂閱謝幕】穿越火劫的塑料塊，以及那隻永遠的木頭鴨子
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T023151
+  image_take: image_20261009T023113

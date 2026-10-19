@@ -1,0 +1,26 @@
+id: 050_shot_50
+index: 50
+title: 只要你拿出來
+narration: 只要你拿出來，依然能嚴絲合縫地插進二零二六年最新產的積木上，這種跨越了將近七十年光陰，數千億顆塑料的絕對相容性，在整個現代工業製造歷史上，幾乎可以說是一個不可思議的奇蹟，
+image_prompt: extreme macro close-up shot in Q-version 2D cartoon illustration style,
+  a vintage 1958 red plastic studded brick locking perfectly and seamlessly onto a
+  brand-new 2026 bright yellow plastic brick, subtle cartoon snap-flash sparkle effects,
+  razor-sharp geometric contours, glossy specular shine stripes, 16:9 widescreen composition
+image_negative: ''
+act_index: 7
+act_title: 【歷史餘韻與訂閱謝幕】穿越火劫的塑料塊，以及那隻永遠的木頭鴨子
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T022751
+  image_take: image_20261009T022712
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: LEGO brick precision manufacturing technical diagram
+  fetch_error: 未找到合適照片

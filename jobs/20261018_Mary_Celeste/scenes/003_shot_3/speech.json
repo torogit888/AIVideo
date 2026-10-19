@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261019T071410",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 21.99,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "在那個既沒有無線電報也沒有衛星定位系統的交替年代",
+      "text_cn": "在那个既没有无线电报也没有卫星定位系统的交替年代",
+      "start_sec": 0.0,
+      "end_sec": 4.96,
+      "duration_sec": 4.96
+    },
+    {
+      "index": 2,
+      "text": "商船一旦離開了海岸線就等於進入了與世隔絕的孤立狀態",
+      "text_cn": "商船一旦离开了海岸线就等于进入了与世隔绝的孤立状态",
+      "start_sec": 5.21,
+      "end_sec": 10.37,
+      "duration_sec": 5.16
+    },
+    {
+      "index": 3,
+      "text": "就在這一年十一月三十七歲的美國船長本傑明布里格斯啟航了",
+      "text_cn": "就在这一年十一月三十七岁的美国船长本杰明布里格斯启航了",
+      "start_sec": 10.62,
+      "end_sec": 16.18,
+      "duration_sec": 5.56
+    },
+    {
+      "index": 4,
+      "text": "他出生於航海世家性格嚴肅沉穩且終生嚴格恪守清教徒禁酒令",
+      "text_cn": "他出生于航海世家性格严肃沉稳且终生严格恪守清教徒禁酒令",
+      "start_sec": 16.43,
+      "end_sec": 21.99,
+      "duration_sec": 5.56
+    }
+  ],
+  "created_at": "2026-10-19T07:14:10.334051+00:00"
+}

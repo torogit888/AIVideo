@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20261016T034459",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 7.12,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "時間回到2003年的秋天，地點在俄羅斯伏爾加格勒北部的麥德韋季茨卡亞嶺",
+      "text_cn": "时间回到2003年的秋天，地点在俄罗斯伏尔加格勒北部的麦德韦季茨卡雅岭",
+      "start_sec": 0.0,
+      "end_sec": 7.12,
+      "duration_sec": 7.12
+    }
+  ],
+  "created_at": "2026-10-16T03:44:59.623645+00:00"
+}

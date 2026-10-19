@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261016T041034",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.13,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[sigh]在一次講述過程中，這個幾歲的小男孩突然在鏡頭前掩面痛哭流涕",
+      "text_cn": "[sigh]在一次讲述过程中，这个几岁的小男孩图然在镜头前掩面痛哭流涕",
+      "start_sec": 0.0,
+      "end_sec": 6.12,
+      "duration_sec": 6.12
+    },
+    {
+      "index": 2,
+      "text": "他神情哀傷地回憶起自己親眼目睹利莫里亞大陸被地殼撕裂引發的滔天海嘯所徹底吞沒",
+      "text_cn": "他神情哀伤地回忆起自己亲眼目睹利莫里雅大陆被地壳撕裂引发的滔天海啸所彻底吞没",
+      "start_sec": 6.37,
+      "end_sec": 14.13,
+      "duration_sec": 7.76
+    }
+  ],
+  "created_at": "2026-10-16T04:10:34.882272+00:00"
+}

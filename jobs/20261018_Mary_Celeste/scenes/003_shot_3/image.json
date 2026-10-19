@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261019T071357",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 90342126,
+  "prompt": "Katsuhiro Otomo Style，medium close-up of Captain Benjamin Briggs on the damp teak deck of the Mary Celeste, his sharp, weathered face set in an austere, disciplined expression, serious sunken hazel eyes scanning the empty horizon, wind whipping his double-breasted navy blue wool naval frock coat, gleam of ocean spray, diffused, cold daylight, 35mm cinematic lens aesthetics, subtle film grain, high dynamic range, 16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo Style), 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-19T07:13:57.881685+00:00"
+}

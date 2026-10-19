@@ -1,0 +1,17 @@
+id: 052_shot_52
+index: 52
+title: 並不是什麼天馬行空的浪漫童話
+narration: 並不是什麼天馬行空的浪漫童話，而是飢餓，絕望與漫天的灰燼，奧勒在絕境中悟出的真理，用三場毀滅性的大火證明了一件事，
+image_prompt: wide atmospheric shot in Q-version 2D cartoon illustration style, a
+  reflective historical visual showing Ole Kirk Christiansen standing amidst the glowing
+  embers of the rebuilt Billund workshop, his silhouette framed against a golden dawn
+  sky, crisp black ink outlines, warm and cool color harmony, 16:9 widescreen composition
+image_negative: ''
+act_index: 7
+act_title: 【歷史餘韻與訂閱謝幕】穿越火劫的塑料塊，以及那隻永遠的木頭鴨子
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T022959
+  image_take: image_20261009T022919

@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261019T073226",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 18.38,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "伴隨著底艙突然傳來的恐怖爆炸聲刺鼻的酒精毒氣瞬間籠罩了全船",
+      "text_cn": "伴随着底舱图然传来的恐怖爆炸声刺鼻的酒精毒气瞬间笼罩了全船",
+      "start_sec": 0.0,
+      "end_sec": 5.96,
+      "duration_sec": 5.96
+    },
+    {
+      "index": 2,
+      "text": "一輩子嚴格禁酒的布里格斯船長看著懷裡年幼的女兒和驚慌失措的妻子",
+      "text_cn": "一辈子严格禁酒的布里格斯船长看着怀里年幼的女儿和惊慌失措的妻子",
+      "start_sec": 6.21,
+      "end_sec": 12.57,
+      "duration_sec": 6.36
+    },
+    {
+      "index": 3,
+      "text": "他本能地判定整艘船隨時會引發毀滅性的大爆炸徹底粉身碎骨",
+      "text_cn": "他本能地判定整骚船随时会引发毁灭性的大爆炸彻底粉身碎骨",
+      "start_sec": 12.82,
+      "end_sec": 18.38,
+      "duration_sec": 5.56
+    }
+  ],
+  "created_at": "2026-10-19T07:32:26.125013+00:00"
+}

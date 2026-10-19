@@ -1,0 +1,17 @@
+id: 012_shot_12
+index: 12
+title: 你也許懂得在泥地裡刨土
+narration: 你也許懂得在泥地裡刨土，但你這輩子都不會懂法拉利，說完之後，恩佐便揮揮手讓人把他直接轟出了辦公室，[sigh]站在馬拉內羅街頭的費魯齊歐，尊嚴被徹底踩在腳底，
+image_prompt: wide dramatic low-angle shot, Q-version 2D cartoon illustration, chibi
+  Ferruccio Lamborghini standing outside the imposing gates of Maranello after being
+  kicked out, clenching his fists in defiance with fiery Taurus determination in his
+  eyes, bold graphic shadows, bright Italian daylight, 16:9 widescreen composition
+image_negative: ''
+act_index: 2
+act_title: 那一天的羞辱：恩佐的閉門羹與「開你的拖拉機去吧」
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T144200
+  image_take: image_20261016T144139

@@ -1,0 +1,17 @@
+id: 011_shot_11
+index: 11
+title: 然而賽車教父恩佐甚至連頭都沒有抬
+narration: '[dissatisfaction-hnn]然而賽車教父恩佐甚至連頭都沒有抬一下，恩佐冷冷地甩出一句載入世界汽車史冊的傳世羞辱，他說費魯齊歐你只不過是個造拖拉機的鄉巴佬，'
+image_prompt: close-up shot, Q-version 2D cartoon illustration, chibi Enzo Ferrari
+  tilting his head down behind his dark sunglasses, sleek silver hair gleaming, scowling
+  with cold disdain while ignoring blueprints, sharp crisp outlines, cool aristocratic
+  color tones, 16:9 widescreen composition
+image_negative: ''
+act_index: 2
+act_title: 那一天的羞辱：恩佐的閉門羹與「開你的拖拉機去吧」
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T144103
+  image_take: image_20261016T144049

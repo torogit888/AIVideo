@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261016T043339",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 12.78,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "俄羅斯獨立媒體後續的追蹤報導更揭開了令人唏噓的一幕",
+      "text_cn": "俄罗斯独立媒体后续的追踪报导更揭开了令人唏嘘的一幕",
+      "start_sec": 0.0,
+      "end_sec": 5.16,
+      "duration_sec": 5.16
+    },
+    {
+      "index": 2,
+      "text": "他根本沒有進入任何知名高等學府深造",
+      "text_cn": "他根本没有进入任何知名高等学府深造",
+      "start_sec": 5.41,
+      "end_sec": 8.97,
+      "duration_sec": 3.56
+    },
+    {
+      "index": 3,
+      "text": "也沒有展現出任何超越常人的科學天賦",
+      "text_cn": "也没有展现出任何超越常人的科学天赋",
+      "start_sec": 9.22,
+      "end_sec": 12.78,
+      "duration_sec": 3.56
+    }
+  ],
+  "created_at": "2026-10-16T04:33:39.797496+00:00"
+}

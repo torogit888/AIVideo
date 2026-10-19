@@ -1,0 +1,26 @@
+id: 023_shot_23
+index: 23
+title: 在生死關頭
+narration: 在生死關頭，費魯齊歐展現出了驚人的市井狠勁，他下令把十二缸引擎拆下來，堂而皇之地擺在展台旁邊展示，然後在空空如也的引擎艙裡塞滿了磚頭和壓艙重物，
+image_prompt: wide shot, Q-version 2D cartoon illustration, comical midnight workshop
+  hustle, chibi mechanics carefully placing the standalone V12 engine onto a velvet
+  display plinth while Ferruccio oversees loading heavy red bricks into the car's
+  empty engine bay, playful cartoon lighting, 16:9 widescreen composition
+image_negative: ''
+act_index: 3
+act_title: 復仇者聯盟集結：法拉利大出走的歷史紅利
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T145207
+  image_take: image_20261016T145130
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Bizzarrini V12 engine display 1963 Turin Motor Show
+  fetch_error: 未找到合適照片

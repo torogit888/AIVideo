@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261019T073533",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 18.96,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "布里格斯船長在生死關頭做出了任何負責任的父親都會做出的理智決定",
+      "text_cn": "布里格斯船长在生死关头做出了任何负责任的父亲都会做出的理智决定",
+      "start_sec": 0.0,
+      "end_sec": 6.15,
+      "duration_sec": 6.15
+    },
+    {
+      "index": 2,
+      "text": "可命運卻殘忍地把空船留在了平靜海面而將滿載希望的小艇推進了深淵",
+      "text_cn": "可命运却残忍地把空船留在了平静海面而将满载希望的小艇推进了深渊",
+      "start_sec": 6.4,
+      "end_sec": 12.76,
+      "duration_sec": 6.36
+    },
+    {
+      "index": 3,
+      "text": "瑪麗賽勒斯特號在隨後的歲月裡被冠上詛咒之名歷任船東無不淒涼破產",
+      "text_cn": "玛丽赛勒斯特号在随后的岁月里被冠上诅咒之名历任船东无不凄凉破产",
+      "start_sec": 13.01,
+      "end_sec": 18.96,
+      "duration_sec": 5.95
+    }
+  ],
+  "created_at": "2026-10-19T07:35:33.106441+00:00"
+}

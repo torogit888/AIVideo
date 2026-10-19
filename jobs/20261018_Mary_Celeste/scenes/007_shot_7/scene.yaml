@@ -1,0 +1,19 @@
+id: 007_shot_7
+index: 7
+title: 女皇號大副德沃立刻帶著兩名水手划
+narration: 女皇號大副德沃立刻帶著兩名水手划著小艇冒險強行登船搜查，[surprise-wa]然而當他們踩上甲板時迎面而來的卻是一片死寂，船上沒有遭遇風暴撕裂的痕跡也沒有任何搏鬥打鬥的破損，底艙積水只有三點五英尺完全在木船排水泵的安全控制範圍內，
+image_prompt: low angle shot looking up at First Mate Oliver Deveau, lean and athletic,
+  and two other sailors clambering onto the damp, spray-slicked teak deck of the Mary
+  Celeste (Brigantine Vessel), their faces tense with apprehension, the ship eerily
+  silent, sails flapping gently, no visible signs of struggle, diffused, cold daylight,
+  35mm cinematic lens aesthetics, subtle film grain, high dynamic range, 16:9 widescreen
+  composition, 大友克洋風格 (Katsuhiro Otomo Style)
+image_negative: ''
+act_index: 2
+act_title: 海平線上的失魂傀儡，女皇號的致命相遇
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T071719
+  image_take: image_20261019T071706

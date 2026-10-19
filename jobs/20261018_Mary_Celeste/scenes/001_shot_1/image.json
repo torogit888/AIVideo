@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261019T071203",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3-pro-image",
+  "seed": 19390605,
+  "prompt": "Katsuhiro Otomo Style，wide shot of a dimly lit, smoky 19th-century maritime tavern, rough sailors with tankards gesturing wildly as if telling a tall tale, warm, low light from oil lamps, 35mm cinematic lens aesthetics, subtle film grain, high dynamic range, 16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo Style), 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-19T07:12:03.056827+00:00"
+}

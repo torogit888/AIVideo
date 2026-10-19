@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261019T071539",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.38,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "一八七二年十二月四日下午的大西洋海面上風浪相當險惡",
+      "text_cn": "一八七二年十二月四日下午的大西洋海面上风浪相当险恶",
+      "start_sec": 0.0,
+      "end_sec": 5.16,
+      "duration_sec": 5.16
+    },
+    {
+      "index": 2,
+      "text": "加拿大籍商船女皇號正朝著歐洲大陸的方向奮力破浪前行",
+      "text_cn": "加拿大籍商船女皇号正朝着欧洲大陆的方向奋力破浪前行",
+      "start_sec": 5.41,
+      "end_sec": 10.57,
+      "duration_sec": 5.16
+    },
+    {
+      "index": 3,
+      "text": "巧合的是女皇號的莫爾豪斯船長與布里格斯船長私交非常深厚",
+      "text_cn": "巧合的是女皇号的莫尔豪斯船长与布里格斯船长私交非常深厚",
+      "start_sec": 10.82,
+      "end_sec": 16.38,
+      "duration_sec": 5.56
+    }
+  ],
+  "created_at": "2026-10-19T07:15:39.791216+00:00"
+}

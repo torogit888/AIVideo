@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261016T150705",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.42,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "面對每天堆積如山的債務，費魯齊歐展現出了最後的男兒骨氣",
+      "text_cn": "面对每天堆积如山的债务，费鲁齐欧展现出了最后的男儿骨气",
+      "start_sec": 0.0,
+      "end_sec": 5.4,
+      "duration_sec": 5.4
+    },
+    {
+      "index": 2,
+      "text": "為了不讓這家傾注心血的工廠破產清算",
+      "text_cn": "为了不让这家倾注心血的工厂破产清算",
+      "start_sec": 5.65,
+      "end_sec": 9.21,
+      "duration_sec": 3.56
+    },
+    {
+      "index": 3,
+      "text": "他陸續賣掉了拖拉機廠和跑車廠的全部股權",
+      "text_cn": "他陆续卖掉了拖拉机厂和跑车厂的全部股权",
+      "start_sec": 9.46,
+      "end_sec": 13.42,
+      "duration_sec": 3.96
+    }
+  ],
+  "created_at": "2026-10-16T15:07:05.671653+00:00"
+}

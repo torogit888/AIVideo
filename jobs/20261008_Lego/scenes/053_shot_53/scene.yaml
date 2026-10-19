@@ -1,0 +1,17 @@
+id: 053_shot_53
+index: 53
+title: 那些真正殺不死你的苦難
+narration: '[sigh]那些真正殺不死你的苦難，往往會在把你逼到懸崖邊的時候，逼你親手砍掉所有虛幻的多餘枝節，找回最核心的生存力量，'
+image_prompt: low-angle dramatic shot in Q-version 2D cartoon illustration style,
+  Ole Kirk Christiansen skillfully shaving away excess timber from a pine block using
+  a sharp carpenter's hand plane until a pure geometric form emerges, fine yellow
+  wood shavings drifting in sunbeams, rich cel shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 7
+act_title: 【歷史餘韻與訂閱謝幕】穿越火劫的塑料塊，以及那隻永遠的木頭鴨子
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T023050
+  image_take: image_20261009T023027

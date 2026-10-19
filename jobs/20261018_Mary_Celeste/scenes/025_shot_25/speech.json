@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261019T073139",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 18.98,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "巨大的衝擊波猛烈掀飛了頂部艙蓋伴隨著震耳欲聾的轟鳴與巨大火球",
+      "text_cn": "巨大的冲集波猛烈掀飞了顶部舱盖伴随着震耳欲聋的轰鸣与巨大火球",
+      "start_sec": 0.0,
+      "end_sec": 6.16,
+      "duration_sec": 6.16
+    },
+    {
+      "index": 2,
+      "text": "但由於酒精燃燒極快火焰在千分之一秒內瞬間熄滅沒有留下任何焦痕",
+      "text_cn": "但由于酒精燃烧极快火焰在千分之一秒内瞬间熄灭没有留下任何焦痕",
+      "start_sec": 6.41,
+      "end_sec": 12.57,
+      "duration_sec": 6.16
+    },
+    {
+      "index": 3,
+      "text": "我們現在可以完全還原出十一月二十五日早晨那個令人絕望的瞬間了",
+      "text_cn": "我们现在可以完全还原出十一月二十五日早晨那个令人绝望的瞬间了",
+      "start_sec": 12.82,
+      "end_sec": 18.98,
+      "duration_sec": 6.16
+    }
+  ],
+  "created_at": "2026-10-19T07:31:39.146709+00:00"
+}

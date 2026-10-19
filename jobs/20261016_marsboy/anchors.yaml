@@ -1,0 +1,80 @@
+subject: 'Boriska Kipriyanovich (Child / ''Mars Boy''): Chibi 2.5-head-tall proportion,
+  crisp black vector-like outlines, and clean cel-shaded coloring. A seven-to-eleven-year-old
+  Russian boy with huge, intensely serious dark hazel eyes, unruly mop of sandy-blonde
+  hair, and a determined, precocious expression. Wears a slightly oversized early-2000s
+  post-Soviet teal knit sweater with geometric retro patterns, rolled-up denim jeans,
+  and chunky red-and-white cartoon sneakers. Frequently holds a piece of white chalk
+  with tiny expressive hands. | Nadezhda Kipriyanovich (Mother): Chibi 3-head-tall
+  proportion with clean contours and saturated cel-shading. A middle-aged Russian
+  pediatrician with an earnest, protective expression, warm round face, and neat auburn
+  hair pulled back into a compact bun. Wears thin gold-rimmed round spectacles, a
+  pale mint-green pediatric doctor''s coat layered over a modest plum turtleneck sweater,
+  dark midi skirt, and sensible brown loafers. Carries a thick spiral notebook and
+  glossy occult magazines. | Boriska (Adult): Chibi 3-head-tall adult male proportion
+  with thick line art and desaturated cel-shaded tones. A quiet, world-weary thirty-year-old
+  with heavy-lidded tired eyes, faint scruff on his jaw, and messy dark-blonde bangs
+  peeking out from beneath a dark navy knit beanie. Dressed in a weathered, puffy
+  post-Soviet industrial winter jacket with faded reflective safety stripes, dark
+  gray work trousers, and heavy snow-dusted work boots, slumping his shoulders in
+  modest anonymity. | Western Esoteric Investigator: Chibi 3-head-tall proportion
+  with bold comic outlines and vivid cel-shading. A credulous, energetic middle-aged
+  documentary maker with wide starry eyes behind chunky horn-rimmed glasses and styled
+  grey-streaked brown hair. Wears a multi-pocketed safari-style khaki field vest over
+  a faded graphic T-shirt, cargo pants, and holds an exaggeratedly chunky 2D camcorder
+  with a fuzzy cartoon boom microphone attached. | Martian Plasma Shuttle (Inanimate
+  Vehicle): Strictly non-anthropomorphic mechanical spacecraft depicted in clean 2D
+  cartoon cel-shading with precise geometric silhouettes and no living features, eyes,
+  or limbs. Sleek angular teardrop hull with visible cross-sectional armor plating:
+  an outer 25% heat-resistant gunmetal alloy plating, a 30% ribbed charcoal-matte
+  shock-absorbing rubber layer, and a glowing cyan-blue magnetic plasma engine core
+  at the stern. Matte metallic and vibrant energy hues with crisp panel line detailing.'
+environment: Q-version 2D cartoon illustrated world set across post-Soviet Russian
+  landscapes and cozy esoteric campfire gatherings. Clean ink linework, multi-layered
+  2D flat depth, and rich cel-shaded color blocks. Deep indigo and midnight-blue star-filled
+  night skies framed by stylized jagged pine tree silhouettes and a vibrant glowing
+  red Mars dot in the cosmos. In the foreground, glowing orange campfire embers cast
+  warm, saturated light onto wooden logs and stylized folding camp chairs; in suburban
+  scenes, stylized pastel-concrete block apartments (Khrushchevka) and brick chimney
+  silhouettes feature soft yellow-lit windows against pale wintry skies.
+use_image_reference: true
+characters:
+- id: boriska_child
+  name: Boriska Kipriyanovich (Child / 'Mars Boy')
+  appearance: Chibi 2.5-head-tall proportion, crisp black vector-like outlines, and
+    clean cel-shaded coloring. A seven-to-eleven-year-old Russian boy with huge, intensely
+    serious dark hazel eyes, unruly mop of sandy-blonde hair, and a determined, precocious
+    expression. Wears a slightly oversized early-2000s post-Soviet teal knit sweater
+    with geometric retro patterns, rolled-up denim jeans, and chunky red-and-white
+    cartoon sneakers. Frequently holds a piece of white chalk with tiny expressive
+    hands.
+- id: nadezhda_mother
+  name: Nadezhda Kipriyanovich (Mother)
+  appearance: Chibi 3-head-tall proportion with clean contours and saturated cel-shading.
+    A middle-aged Russian pediatrician with an earnest, protective expression, warm
+    round face, and neat auburn hair pulled back into a compact bun. Wears thin gold-rimmed
+    round spectacles, a pale mint-green pediatric doctor's coat layered over a modest
+    plum turtleneck sweater, dark midi skirt, and sensible brown loafers. Carries
+    a thick spiral notebook and glossy occult magazines.
+- id: boriska_adult
+  name: Boriska (Adult)
+  appearance: Chibi 3-head-tall adult male proportion with thick line art and desaturated
+    cel-shaded tones. A quiet, world-weary thirty-year-old with heavy-lidded tired
+    eyes, faint scruff on his jaw, and messy dark-blonde bangs peeking out from beneath
+    a dark navy knit beanie. Dressed in a weathered, puffy post-Soviet industrial
+    winter jacket with faded reflective safety stripes, dark gray work trousers, and
+    heavy snow-dusted work boots, slumping his shoulders in modest anonymity.
+- id: western_interviewer
+  name: Western Esoteric Investigator
+  appearance: Chibi 3-head-tall proportion with bold comic outlines and vivid cel-shading.
+    A credulous, energetic middle-aged documentary maker with wide starry eyes behind
+    chunky horn-rimmed glasses and styled grey-streaked brown hair. Wears a multi-pocketed
+    safari-style khaki field vest over a faded graphic T-shirt, cargo pants, and holds
+    an exaggeratedly chunky 2D camcorder with a fuzzy cartoon boom microphone attached.
+- id: martian_shuttle_craft
+  name: Martian Plasma Shuttle (Inanimate Vehicle)
+  appearance: 'Strictly non-anthropomorphic mechanical spacecraft depicted in clean
+    2D cartoon cel-shading with precise geometric silhouettes and no living features,
+    eyes, or limbs. Sleek angular teardrop hull with visible cross-sectional armor
+    plating: an outer 25% heat-resistant gunmetal alloy plating, a 30% ribbed charcoal-matte
+    shock-absorbing rubber layer, and a glowing cyan-blue magnetic plasma engine core
+    at the stern. Matte metallic and vibrant energy hues with crisp panel line detailing.'

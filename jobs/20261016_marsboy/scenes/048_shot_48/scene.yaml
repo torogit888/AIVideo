@@ -1,0 +1,27 @@
+id: 048_shot_48
+index: 48
+title: 2008年平靜地過去了
+narration: 2008年平靜地過去了，2009年世界依然照常運轉，甚至連被好萊塢炒上天的2012年馬雅末日也淪為笑談，
+image_prompt: 'whimsical 2D cartoon montage: people calmly walking their dogs on a
+  sunny day in 2008, a peaceful park stroll in 2009, and cheerful moviegoers eating
+  popcorn inside a cinema showing a doomsday film in 2012, bright cel-shaded colors,
+  16:9 widescreen composition'
+image_negative: ''
+act_index: 6
+act_title: 【預言破產與造神反噬：當外星先知淪為時代殘渣】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T042645
+  image_take: image_20261016T042544
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: 2012 movie poster
+  fetch_error: 'AI 審核未通過（與口白不符）：AI 判定不吻合: 此為印度電影海報，與旁白提及的好萊塢電影《2012》不符。，已自動切換為純 AI
+    生成畫面'

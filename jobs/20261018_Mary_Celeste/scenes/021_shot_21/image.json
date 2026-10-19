@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261019T072811",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3-pro-image",
+  "seed": 25615486,
+  "prompt": "Katsuhiro Otomo Style，chaotic, swirling visual representation of various conspiracy theories: subtle hints of a Bermuda Triangle vortex, abstract alien abduction imagery, a shadowy, monstrous tentacle rising from the deep, then dissolving into a stark, clinical shot of an open, aged court document under a harsh, revealing light, 35mm cinematic lens aesthetics, subtle film grain, high dynamic range, 16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo Style), 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-19T07:28:11.982452+00:00"
+}

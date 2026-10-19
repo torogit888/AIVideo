@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261019T071636",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 22.96,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "兩人在紐約出海前甚至還在曼哈頓的餐館裡開心地共進晚餐",
+      "text_cn": "两人在纽约出海前甚至还在曼哈顿的餐馆里开心地共进晚餐",
+      "start_sec": 0.0,
+      "end_sec": 5.36,
+      "duration_sec": 5.36
+    },
+    {
+      "index": 2,
+      "text": "當莫爾豪斯船長在海平線上看見老朋友的船隻時卻感到極度反常",
+      "text_cn": "当莫尔豪斯船长在海平线上看见老朋友的船只时却感到极度反常",
+      "start_sec": 5.61,
+      "end_sec": 11.34,
+      "duration_sec": 5.73
+    },
+    {
+      "index": 3,
+      "text": "瑪麗賽勒斯特號的風帆受損而且像喝醉酒一樣在海面蛇行飄蕩",
+      "text_cn": "玛丽赛勒斯特号的风帆受损而且像喝醉酒一样在海面蛇行飘荡",
+      "start_sec": 11.59,
+      "end_sec": 17.15,
+      "duration_sec": 5.56
+    },
+    {
+      "index": 4,
+      "text": "更詭異的是整艘船的掌舵位置上竟然連一個水手的人影都沒有",
+      "text_cn": "更诡异的是整骚船的掌舵位置上竟然连一个水手的人影都没有",
+      "start_sec": 17.4,
+      "end_sec": 22.96,
+      "duration_sec": 5.56
+    }
+  ],
+  "created_at": "2026-10-19T07:16:36.438437+00:00"
+}

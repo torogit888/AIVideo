@@ -1,0 +1,17 @@
+id: 009_shot_9
+index: 9
+title: 在場那些受過高等教育的知識分子聽
+narration: 在場那些受過高等教育的知識分子聽完全部目瞪口呆，[question-ei]一個生活在資訊閉塞邊陲小城的七歲兒童到底是如何懂得這些名詞的？
+image_prompt: close-up group reaction shot of stylized chibi intellectuals and campers,
+  eyes wide with astonishment and mouths agape as they listen in stunned silence,
+  campfire glow reflecting on their faces against the dark Russian pine forest, crisp
+  vector-like 2D cartoon outlines, 16:9 widescreen composition
+image_negative: ''
+act_index: 1
+act_title: 【篝火前的異星呢喃：後蘇聯廢墟上的神秘降臨】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T034928
+  image_take: image_20261016T034851

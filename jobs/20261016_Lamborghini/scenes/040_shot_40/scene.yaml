@@ -1,0 +1,26 @@
+id: 040_shot_40
+index: 40
+title: 他沒有在媒體面前哭訴
+narration: 他沒有在媒體面前哭訴，甚至連一輛親手造的跑車都沒有帶走，費魯齊歐悄然隱居到鄉間，買下一片葡萄園回歸農夫身份安靜釀酒，
+image_prompt: wide shot, Q-version 2D cartoon illustration, chibi Ferruccio Lamborghini
+  walking calmly away toward a sunlit Umbrian vineyard carrying only a simple leather
+  bag, leaving the factory behind, lush green rolling hills, peaceful golden Mediterranean
+  daylight, 16:9 widescreen composition
+image_negative: ''
+act_index: 6
+act_title: 宿命的反噬：石油危機、鉛色年代與巨頭的黃昏
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T150757
+  image_take: image_20261016T150735
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Ferruccio Lamborghini vineyard 1970s
+  fetch_error: 未找到合適照片

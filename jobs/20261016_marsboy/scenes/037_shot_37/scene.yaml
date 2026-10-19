@@ -1,0 +1,17 @@
+id: 037_shot_37
+index: 37
+title: 一個記憶力超群的兒童
+narration: 一個記憶力超群的兒童，在家庭環境耳濡目染之下將書本裡的奇幻故事重構成自己的記憶，這種現象在兒童心理學中被稱為虛假記憶構建，只不過大人們選擇了相信神蹟，
+image_prompt: 'conceptual 2D cartoon illustration: young chibi Boriska lying on a
+  rug absorbed in an open occult book, with whimsical stylized thought bubbles transforming
+  text into grand memories of space battles, while adult silhouettes watch approvingly,
+  cel-shaded art, 16:9 widescreen composition'
+image_negative: ''
+act_index: 5
+act_title: 【西方鏡頭下的末日審判：卡米洛特訪談與獅身人面像機關】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T041646
+  image_take: image_20261016T041542

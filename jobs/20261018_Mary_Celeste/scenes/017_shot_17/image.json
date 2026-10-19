@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261019T072523",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3-pro-image",
+  "seed": 32121709,
+  "prompt": "Katsuhiro Otomo Style，wide shot of the Gibraltar Maritime Courtroom, now empty and austere, the judge's bench imposing but vacant, bathed in a cold, diffused light, stylized maps with dotted lines subtly suggesting whispers and rumors spreading across the Atlantic, 35mm cinematic lens aesthetics, subtle film grain, high dynamic range, 16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo Style), 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-19T07:25:23.315118+00:00"
+}

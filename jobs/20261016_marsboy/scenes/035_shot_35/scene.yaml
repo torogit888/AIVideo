@@ -1,0 +1,29 @@
+id: 035_shot_35
+index: 35
+title: 這個神話之所以在世紀之交盛行
+narration: 這個神話之所以在世紀之交盛行，純粹是因為被神智學會等西方神秘學團體包裝成了心靈讀物，
+image_prompt: interior shot of an ornate late-19th-century mystical parlor, decorated
+  with velvet draperies, occult astrological charts, and leather-bound Theosophical
+  texts featuring maps of mythical continents, rich 2D cartoon cel-shading, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 4
+act_title: 【利莫里亞巨浪：被抹去的史前地球與朋友之死】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T041438
+  image_take: image_20261016T041359
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Theosophical Society logo
+  source_title: File:Emb logo.png
+  source_url: https://upload.wikimedia.org/wikipedia/commons/b/ba/Emb_logo.png
+  verified: true
+  review_reason: 圖片為神智學會的官方標誌，與旁白提及的團體完全吻合。

@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261019T073557",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 45658805,
+  "prompt": "Katsuhiro Otomo Style，deep-sea shot of the Mary Celeste's skeletal remains, half-buried in the dark, sandy seabed, covered in barnacles and marine growth, desolate and silent, illuminated by a faint, ethereal light filtering down from the surface, 35mm cinematic lens aesthetics, subtle film grain, high dynamic range, 16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo Style), 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-19T07:35:57.631714+00:00"
+}

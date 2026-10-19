@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20261016T040901",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 7.36,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "他面對採訪鏡頭時經常深情款款地提起一塊早已沉入大洋深處的神話大陸，利莫里亞",
+      "text_cn": "他面对采访镜头时经常深情款款地提起一块早已沉入大洋深处的神话大陆，利莫里雅",
+      "start_sec": 0.0,
+      "end_sec": 7.36,
+      "duration_sec": 7.36
+    }
+  ],
+  "created_at": "2026-10-16T04:09:01.042893+00:00"
+}

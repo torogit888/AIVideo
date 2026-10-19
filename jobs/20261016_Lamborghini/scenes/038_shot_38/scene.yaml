@@ -1,0 +1,26 @@
+id: 038_shot_38
+index: 38
+title: 壓垮駱駝的最後一根稻草
+narration: 壓垮駱駝的最後一根稻草，是一九七三年爆發的全球石油危機，國際油價瘋狂飆漲四倍，大排量十二缸跑車瞬間淪為無人問津的廢鐵，
+image_prompt: medium shot, Q-version 2D cartoon illustration, the 1973 Oil Crisis,
+  a deserted gas station with closed signs and empty pumps, a dormant supercar parked
+  quietly beside a lone fallen autumn leaf, cool somber cel-shaded tones, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 5
+act_title: 顛覆超跑定義的核彈：Miura 橫空出世
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T150559
+  image_take: image_20261016T150536
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: 1973 oil crisis news clipping
+  fetch_error: 未找到合適照片

@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261009T021252",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 10.45,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "面對屏幕時代的降臨，第三代掌門人陷入了空前的焦慮",
+      "text_cn": "面对屏幕时代的降临，第三代掌门人陷入了空前的焦虑",
+      "start_sec": 0.0,
+      "end_sec": 4.8,
+      "duration_sec": 4.8
+    },
+    {
+      "index": 2,
+      "text": "他生怕單純的塑膠積木會被時代無情淘汰，於是開始盲目跨界",
+      "text_cn": "他生怕单纯的塑胶积木会被时代无情淘汰，于是开始盲目跨界",
+      "start_sec": 5.05,
+      "end_sec": 10.45,
+      "duration_sec": 5.4
+    }
+  ],
+  "created_at": "2026-10-09T02:12:52.741055+00:00"
+}

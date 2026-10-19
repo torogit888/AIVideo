@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261009T020815",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.82,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "但命運總是充滿了殘酷的黑色幽默",
+      "text_cn": "但命运总是充满了残酷的黑色幽默",
+      "start_sec": 0.0,
+      "end_sec": 3.16,
+      "duration_sec": 3.16
+    },
+    {
+      "index": 2,
+      "text": "就在專利通過後短短幾個月，創始人奧勒就因為心臟病突發猝死",
+      "text_cn": "就在专利通过后短短几个月，创始人奥勒就因为心脏病图发猝死",
+      "start_sec": 3.41,
+      "end_sec": 9.01,
+      "duration_sec": 5.6
+    },
+    {
+      "index": 3,
+      "text": "他至死都沒能親眼看見這個塑料小方塊統治全世界",
+      "text_cn": "他至死都没能亲眼看见这个塑料小方块统治全世界",
+      "start_sec": 9.26,
+      "end_sec": 13.82,
+      "duration_sec": 4.56
+    }
+  ],
+  "created_at": "2026-10-09T02:08:15.744179+00:00"
+}

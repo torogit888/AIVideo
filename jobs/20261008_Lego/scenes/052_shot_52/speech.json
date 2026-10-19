@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261009T022959",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 11.46,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "並不是什麼天馬行空的浪漫童話，而是飢餓",
+      "text_cn": "并不是什么天马行空的浪漫童话，而是饥饿",
+      "start_sec": 0.0,
+      "end_sec": 3.8,
+      "duration_sec": 3.8
+    },
+    {
+      "index": 2,
+      "text": "絕望與漫天的灰燼，奧勒在絕境中悟出的真理",
+      "text_cn": "绝望与漫天的灰烬，奥勒在绝境中悟出的真理",
+      "start_sec": 4.05,
+      "end_sec": 8.05,
+      "duration_sec": 4.0
+    },
+    {
+      "index": 3,
+      "text": "用三場毀滅性的大火證明了一件事",
+      "text_cn": "用三场毁灭性的大火证明了一件事",
+      "start_sec": 8.3,
+      "end_sec": 11.46,
+      "duration_sec": 3.16
+    }
+  ],
+  "created_at": "2026-10-09T02:29:59.705374+00:00"
+}

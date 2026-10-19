@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261019T072929",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 24.08,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "真正解開這起世紀謎團的鑰匙其實早就白紙黑字寫在貨物清單上了",
+      "text_cn": "真正解开这起世纪谜团的钥匙其实早就白纸黑字写在货物清单上了",
+      "start_sec": 0.0,
+      "end_sec": 5.96,
+      "duration_sec": 5.96
+    },
+    {
+      "index": 2,
+      "text": "讓我們把視線重新放回那底艙滿載的一千七百零一桶工業變性酒精",
+      "text_cn": "让我们把视线重新放回那底舱满载的一千七百零一桶工业变性酒精",
+      "start_sec": 6.21,
+      "end_sec": 12.17,
+      "duration_sec": 5.96
+    },
+    {
+      "index": 3,
+      "text": "根據直布羅陀海事法庭當年的卸貨清單大部分木桶都是白橡木製成",
+      "text_cn": "根据直布罗陀海事法庭当年的卸货清单大部分木桶都是白橡木制成",
+      "start_sec": 12.42,
+      "end_sec": 18.38,
+      "duration_sec": 5.96
+    },
+    {
+      "index": 4,
+      "text": "但其中唯獨有九個木桶採用了質地更疏鬆透氣的劣質紅橡木桶",
+      "text_cn": "但其中唯独有九个木桶采用了直地更疏松透气的劣直红橡木桶",
+      "start_sec": 18.63,
+      "end_sec": 24.08,
+      "duration_sec": 5.45
+    }
+  ],
+  "created_at": "2026-10-19T07:29:29.967252+00:00"
+}

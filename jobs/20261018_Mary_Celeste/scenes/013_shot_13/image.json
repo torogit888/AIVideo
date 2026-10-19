@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261019T072207",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 35019012,
+  "prompt": "Katsuhiro Otomo Style，wide shot of the Mary Celeste (Brigantine Vessel), now with a small crew of Captain David Morehouse's sailors on its deck, sails partially re-rigged, being escorted by the 'Queen' (Morehouse's ship, implied off-frame) across the vast 1872 North Atlantic Ocean towards a distant, hazy horizon, churning, slate-gray swells, heavy overcast clouds, diffused, cold daylight, 35mm cinematic lens aesthetics, subtle film grain, high dynamic range, 16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo Style), 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-19T07:22:07.067867+00:00"
+}

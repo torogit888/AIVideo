@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261016T143828",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 10.61,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "其核心規格跟他自家便宜的拖拉機離合器片完全一樣",
+      "text_cn": "其核心规格跟他自家便宜的拖拉机离合器片完全一样",
+      "start_sec": 0.0,
+      "end_sec": 4.76,
+      "duration_sec": 4.76
+    },
+    {
+      "index": 2,
+      "text": "[laughter]一個造賽車的皇帝，竟然拿拖拉機同款零件收天價維修費",
+      "text_cn": "[laughter]一个造赛车的皇帝，竟然拿拖拉机同款零件收天价维修费",
+      "start_sec": 5.01,
+      "end_sec": 10.61,
+      "duration_sec": 5.6
+    }
+  ],
+  "created_at": "2026-10-16T14:38:28.887019+00:00"
+}

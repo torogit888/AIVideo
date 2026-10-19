@@ -1,0 +1,17 @@
+id: 046_shot_46
+index: 46
+title: 在場的西方信徒們聽得如痴如醉
+narration: 在場的西方信徒們聽得如痴如醉，卻沒有人意識到，這些具體的年份將會成為粉碎神壇的定時炸彈，
+image_prompt: medium wide shot of Western esoteric believers sitting in the studio
+  listening with starry-eyed rapture, while an exaggerated cartoon mechanical alarm
+  clock ticks quietly in the foreground, clean 2D vector outlines, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 6
+act_title: 【預言破產與造神反噬：當外星先知淪為時代殘渣】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T042431
+  image_take: image_20261016T042353

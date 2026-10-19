@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261009T020600",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.1,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "面對這座巨大的塑料垃圾山，接班人戈德弗雷德沒有放棄",
+      "text_cn": "面对这座巨大的塑料勒色山，接班人戈德弗雷德没有放弃",
+      "start_sec": 0.0,
+      "end_sec": 5.0,
+      "duration_sec": 5.0
+    },
+    {
+      "index": 2,
+      "text": "他整天把自己關在辦公室裡，在草稿紙上畫了無數種力學圖形",
+      "text_cn": "他整天把自己关在办公室里，在草稿纸上画了无数种力学图形",
+      "start_sec": 5.25,
+      "end_sec": 10.65,
+      "duration_sec": 5.4
+    },
+    {
+      "index": 3,
+      "text": "直到一九五八年初，他終於找到了那個足以改變歷史的解法",
+      "text_cn": "直到一九五八年初，他终于找到了那个足以改变历史的解法",
+      "start_sec": 10.9,
+      "end_sec": 16.1,
+      "duration_sec": 5.2
+    }
+  ],
+  "created_at": "2026-10-09T02:06:00.347085+00:00"
+}

@@ -1,0 +1,29 @@
+id: 034_shot_34
+index: 34
+title: 但正如所有站在神壇上的巨頭一樣
+narration: 但正如所有站在神壇上的巨頭一樣，自大與貪婪悄然滋生，到了二十世紀九十年代末，世界發生了翻天覆地的變化，任天堂和索尼的家用遊戲機橫空出世，徹底搶走了孩子們的時間，
+image_prompt: medium shot in Q-version 2D cartoon illustration style, a modern chibi
+  child sitting on a living room rug, completely absorbed in playing a video game
+  console, bathed in the cool blue glow of the television screen, while an unopened
+  toy brick set sits forgotten in the corner, crisp cel shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 5
+act_title: 【神壇跌落與盲目擴張】2003年：每日虧損百萬美元的巨獸窒息危機
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T021149
+  image_take: image_20261009T021126
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Nintendo 64 console photo
+  source_title: File:N64-Console-Set.png
+  source_url: https://upload.wikimedia.org/wikipedia/commons/0/02/N64-Console-Set.png
+  verified: true
+  review_reason: 照片顯示任天堂N64主機，符合旁白中提及的「任天堂家用遊戲機」及「九十年代末」的時間點。

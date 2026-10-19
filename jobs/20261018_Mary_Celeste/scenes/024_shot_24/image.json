@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261019T073049",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 65962494,
+  "prompt": "Katsuhiro Otomo Style，dramatic, stylized representation of a scientific experiment: inside a meticulously recreated, sealed cargo hold (cross-section view), a tiny, almost imperceptible spark ignites, followed by an instantaneous, powerful, silent flash of intense light and energy, expanding rapidly but leaving no visible scorch marks, dramatic, contained light, 35mm cinematic lens aesthetics, subtle film grain, high dynamic range, 16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo Style), 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-19T07:30:49.218652+00:00"
+}

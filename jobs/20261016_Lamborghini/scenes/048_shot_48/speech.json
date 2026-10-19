@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261016T151557",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.26,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "但這場復仇記留給後人最深刻的啟示，其實非常清醒",
+      "text_cn": "但这场复仇记留给后人最深刻的启示，其实非常清醒",
+      "start_sec": 0.0,
+      "end_sec": 4.6,
+      "duration_sec": 4.6
+    },
+    {
+      "index": 2,
+      "text": "[confirmation-en]永遠不要迷信權威的專制與傲慢，因為真正打破行業壟斷的致命刺客",
+      "text_cn": "[confirmation-en]永远不要迷信权威的专制与傲慢，因为真正打破行业垄断的致命刺客",
+      "start_sec": 4.85,
+      "end_sec": 11.85,
+      "duration_sec": 7.0
+    },
+    {
+      "index": 3,
+      "text": "往往就來自於被你瞧不起的泥地裡",
+      "text_cn": "往往就来自于被你瞧不起的泥地里",
+      "start_sec": 12.1,
+      "end_sec": 15.26,
+      "duration_sec": 3.16
+    }
+  ],
+  "created_at": "2026-10-16T15:15:57.048172+00:00"
+}

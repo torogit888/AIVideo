@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261016T041138",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.57,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "他眼睜睜看著自己最親密的地球摯友被轟然倒塌的巨大石柱當場砸死",
+      "text_cn": "他眼睁睁看着自己最亲密的地球挚友被轰然倒塌的巨大石柱当场砸死",
+      "start_sec": 0.0,
+      "end_sec": 6.16,
+      "duration_sec": 6.16
+    },
+    {
+      "index": 2,
+      "text": "自己卻只能坐在懸浮的飛船駕駛艙裡無能為力",
+      "text_cn": "自己却只能坐在悬浮的飞船驾驶舱里无能为力",
+      "start_sec": 6.41,
+      "end_sec": 10.57,
+      "duration_sec": 4.16
+    },
+    {
+      "index": 3,
+      "text": "那種滄桑與痛苦完全超脫了他的生理年齡",
+      "text_cn": "那种沧桑与痛苦完全超脱了他的生理年龄",
+      "start_sec": 10.82,
+      "end_sec": 14.57,
+      "duration_sec": 3.75
+    }
+  ],
+  "created_at": "2026-10-16T04:11:38.197911+00:00"
+}

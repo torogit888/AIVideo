@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261016T035030",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 11.62,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "如果這只是一場荒野裡的童言無忌",
+      "text_cn": "如果这只是一场荒野里的童言无忌",
+      "start_sec": 0.0,
+      "end_sec": 3.16,
+      "duration_sec": 3.16
+    },
+    {
+      "index": 2,
+      "text": "事情本該隨著篝火熄滅而畫上句號，但問題在於",
+      "text_cn": "事情本该随着篝火熄灭而画上句号，但问题在于",
+      "start_sec": 3.41,
+      "end_sec": 7.61,
+      "duration_sec": 4.2
+    },
+    {
+      "index": 3,
+      "text": "這個孩子的背後站著一位極不尋常的母親",
+      "text_cn": "这个孩子的背后站着一位极不寻常的母亲",
+      "start_sec": 7.86,
+      "end_sec": 11.62,
+      "duration_sec": 3.76
+    }
+  ],
+  "created_at": "2026-10-16T03:50:30.172061+00:00"
+}

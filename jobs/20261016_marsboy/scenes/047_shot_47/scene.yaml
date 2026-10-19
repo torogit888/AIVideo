@@ -1,0 +1,16 @@
+id: 047_shot_47
+index: 47
+title: 歷史的指針從來不會因為一個少年的
+narration: 歷史的指針從來不會因為一個少年的妄言而停下腳步，殘酷的現實很快便如期而至，
+image_prompt: wide shot of a stylized giant antique clock face with golden hands moving
+  steadily forward, set against a quiet Russian city skyline where dawn light gently
+  breaks over snow-dusted roofs, rich 2D cel-shaded art, 16:9 widescreen composition
+image_negative: ''
+act_index: 6
+act_title: 【預言破產與造神反噬：當外星先知淪為時代殘渣】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T042529
+  image_take: image_20261016T042452

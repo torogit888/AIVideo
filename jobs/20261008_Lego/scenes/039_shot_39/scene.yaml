@@ -1,0 +1,26 @@
+id: 039_shot_39
+index: 39
+title: 到了二零零三年
+narration: '[surprise-wa]到了二零零三年，這頭龐然大物終於迎來了窒息時刻，樂高的銷售額斷崖式暴跌三成，全年巨額虧損近三億美元，'
+image_prompt: dramatic low-angle shot in Q-version 2D cartoon illustration style,
+  a stylized corporate boardroom wall featuring a giant red line graph plunging steeply
+  downward, casting long ominous shadows across an empty mahogany conference table,
+  bold graphic linework, rich cel shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 5
+act_title: 【神壇跌落與盲目擴張】2003年：每日虧損百萬美元的巨獸窒息危機
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T021654
+  image_take: image_20261009T021616
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: LEGO financial crisis 2003 news clipping
+  fetch_error: 未找到合適照片

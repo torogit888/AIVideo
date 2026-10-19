@@ -1,0 +1,17 @@
+id: 049_shot_49
+index: 49
+title: 你可能很難想像
+narration: '[surprise-wa]你可能很難想像，今天的人類工業到底能精確到什麼程度，任何一顆在一九五八年製造出廠的樂高塑料積木，'
+image_prompt: macro close-up shot in Q-version 2D cartoon illustration style, a single
+  vintage 1958 red plastic studded brick resting on a jeweler's black velvet display
+  pad under focused studio rim lighting, highlighting its crisp cylindrical studs
+  and micro-precise edges, crisp outlines, vibrant cel shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 7
+act_title: 【歷史餘韻與訂閱謝幕】穿越火劫的塑料塊，以及那隻永遠的木頭鴨子
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T022651
+  image_take: image_20261009T022626

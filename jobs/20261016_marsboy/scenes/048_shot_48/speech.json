@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261016T042645",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 10.77,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "2008年平靜地過去了，2009年世界依然照常運轉",
+      "text_cn": "2008年平静地过去了，2009年世界依然照常运转",
+      "start_sec": 0.0,
+      "end_sec": 5.24,
+      "duration_sec": 5.24
+    },
+    {
+      "index": 2,
+      "text": "甚至連被好萊塢炒上天的2012年馬雅末日也淪為笑談",
+      "text_cn": "甚至连被好莱坞炒上天的2012年马雅末日也沦为笑谈",
+      "start_sec": 5.49,
+      "end_sec": 10.77,
+      "duration_sec": 5.28
+    }
+  ],
+  "created_at": "2026-10-16T04:26:45.883966+00:00"
+}

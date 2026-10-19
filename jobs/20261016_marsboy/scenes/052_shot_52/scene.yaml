@@ -1,0 +1,17 @@
+id: 052_shot_52
+index: 52
+title: 失去了頭條新聞的熱度之後
+narration: 失去了頭條新聞的熱度之後，母親開始嘗試將日漸長大的波力斯卡包裝成收費的特異功能靈修大師，甚至一度與俄羅斯境內某些聲名狼藉的神秘學斂財組織產生了千絲萬縷的牽連，
+image_prompt: medium shot of teenage chibi Boriska uncomfortably seated in an esoteric
+  consultation parlor with smoking incense, while his mother accepts banknotes from
+  wealthy gullible clients in the background, sharp 2D cartoon cel-shading, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 6
+act_title: 【預言破產與造神反噬：當外星先知淪為時代殘渣】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T043030
+  image_take: image_20261016T043007

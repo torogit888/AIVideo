@@ -1,0 +1,17 @@
+id: 056_shot_56
+index: 56
+title: 昔日那個在篝火前指點宇宙軌道的星
+narration: '[sigh]昔日那個在篝火前指點宇宙軌道的星際使者，最終淪為了伏爾加格勒破敗邊緣街區裡沉默寡言的失業青年，'
+image_prompt: 'melancholic wide establishing shot of the crumbling outskirts of Volgograd:
+  a quiet young adult standing on cracked pavement with hands tucked into his jacket
+  pockets, surrounded by weathered concrete Khrushchevka blocks under a pale sky,
+  2D cel-shaded art, 16:9 widescreen composition'
+image_negative: ''
+act_index: 7
+act_title: 【神話落幕與歷史餘韻：仰望星空背後的人性悲喜劇】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T043430
+  image_take: image_20261016T043416

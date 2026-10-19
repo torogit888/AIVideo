@@ -1,0 +1,26 @@
+id: 011_shot_11
+index: 11
+title: 早在樂高還沒正式成立的一九二四年
+narration: 早在樂高還沒正式成立的一九二四年，悲劇就發生過一次，奧勒的兩個幼子在木屑堆裡玩火柴，直接點燃了整棟房子，一把大火將奧勒全部的心血與家當燒成了光禿禿的平地，
+image_prompt: dramatic wide shot in Q-version 2D cartoon illustration style, roaring
+  yellow and orange stylized flames rapidly engulfing Ole's wooden house and workshop
+  in 1924, black smoke billowing as small chibi bystander silhouettes watch helplessly
+  from the snow, crisp outlines, dynamic cel shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 2
+act_title: 【初劫與工匠心魔】灰燼中的三道漆：大戰砲火下的第一、二場毀滅大火
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T015021
+  image_take: image_20261009T015006
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Ole Kirk Christiansen workshop fire 1924 news clipping
+  fetch_error: 未找到合適照片

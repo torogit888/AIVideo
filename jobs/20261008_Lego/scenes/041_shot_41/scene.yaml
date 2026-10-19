@@ -1,0 +1,26 @@
+id: 041_shot_41
+index: 41
+title: 就在這座玩具王國即將土崩瓦解的最
+narration: 就在這座玩具王國即將土崩瓦解的最後關頭，家族掌門人引咎辭職，迎來了公司歷史上最關鍵的救世主，[surprise-oh]年僅三十五歲的麥肯錫顧問約爾根接任最高負責人，
+image_prompt: low-angle medium shot in Q-version 2D cartoon illustration style, Jørgen
+  Vig Knudstorp standing tall and poised in his sharp navy blue suit and gold-rimmed
+  circular spectacles, holding a leather business folio as he enters the headquarters
+  lobby, optimistic morning sunlight, clean lines, 16:9 widescreen composition
+image_negative: ''
+act_index: 6
+act_title: 【外科手術式逆轉】白面書生的屠刀：重返 4×2 顆粒的復興奇蹟
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T021853
+  image_take: image_20261009T021830
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Jørgen Vig Knudstorp LEGO CEO 2004 photo
+  fetch_error: 未找到合適照片

@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261009T023300",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.7,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[question-yi]那麼，你家裡是否也有一盒放了很多年",
+      "text_cn": "[question-yi]那么，你家里是否也有一盒放了很多年",
+      "start_sec": 0.0,
+      "end_sec": 4.16,
+      "duration_sec": 4.16
+    },
+    {
+      "index": 2,
+      "text": "卻依然能拼在一起的積木呢，如果你也喜歡這段荒謬又真實的歷史",
+      "text_cn": "却依然能拼在一起的积木呢，如果你也喜欢这段荒谬又真实的历史",
+      "start_sec": 4.41,
+      "end_sec": 10.21,
+      "duration_sec": 5.8
+    },
+    {
+      "index": 3,
+      "text": "別忘了點個喜歡，訂閱頻道，我們下一期故事，繼續見證歷史的魔幻與真實",
+      "text_cn": "别忘了点个喜欢，订阅频道，我们下一棋故事，继续见证历史的魔幻与真实",
+      "start_sec": 10.46,
+      "end_sec": 16.7,
+      "duration_sec": 6.24
+    }
+  ],
+  "created_at": "2026-10-09T02:33:00.380569+00:00"
+}

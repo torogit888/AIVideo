@@ -1,0 +1,17 @@
+id: 012_shot_12
+index: 12
+title: 她對外界宣稱兒子出生僅僅十五天就
+narration: '[surprise-wa]她對外界宣稱兒子出生僅僅十五天就能完全自主抬頭，四個月大就學會喊出清晰的單詞，一歲半居然能自主閱讀報紙上的大標題，'
+image_prompt: 'whimsical 2D cartoon triptych sequence: baby Boriska lifting his head
+  upright at two weeks old, four-month-old toddler Boriska articulating clear words
+  on a play rug, and tiny Boriska turning pages of a full-sized broadsheet newspaper,
+  vibrant cel-shaded colors and clean outlines, 16:9 widescreen composition'
+image_negative: ''
+act_index: 2
+act_title: 【《真理報》的造神流水線：醫學天才還是精心設計的劇本？】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T035233
+  image_take: image_20261016T035210

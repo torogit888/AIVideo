@@ -1,0 +1,17 @@
+id: 013_shot_13
+index: 13
+title: 他在回程的公路上暗自發誓
+narration: 他在回程的公路上暗自發誓，既然你造不出耐用的街道跑車，那我就親自造一輛，而且要在各方面都把你踩在腳下，[confirmation-en]換作普通人可能罵幾句就算了，但金牛座的執念極其可怕，
+image_prompt: medium close-up, Q-version 2D cartoon illustration, chibi Ferruccio
+  driving back along the winding Po Valley highway, gripping the steering wheel with
+  intense stubborn resolve, eyes blazing with ambition beneath thick eyebrows, glowing
+  sunset sky, crisp cel-shaded details, 16:9 widescreen composition
+image_negative: ''
+act_index: 2
+act_title: 那一天的羞辱：恩佐的閉門羹與「開你的拖拉機去吧」
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T144305
+  image_take: image_20261016T144229

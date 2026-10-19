@@ -1,0 +1,26 @@
+id: 039_shot_39
+index: 39
+title: 面對每天堆積如山的債務
+narration: 面對每天堆積如山的債務，費魯齊歐展現出了最後的男兒骨氣，為了不讓這家傾注心血的工廠破產清算，他陸續賣掉了拖拉機廠和跑車廠的全部股權，
+image_prompt: medium shot, Q-version 2D cartoon illustration, chibi Ferruccio Lamborghini
+  sitting stoically at his Sant'Agata desk, signing over factory ownership documents
+  with solemn dignity to protect his workers and legacy, warm soft lamplight, clean
+  outlines, 16:9 widescreen composition
+image_negative: ''
+act_index: 6
+act_title: 宿命的反噬：石油危機、鉛色年代與巨頭的黃昏
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T150705
+  image_take: image_20261016T150627
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Lamborghini Trattori sale document 1972
+  fetch_error: 未找到合適照片

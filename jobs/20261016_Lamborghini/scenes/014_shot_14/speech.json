@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261016T144357",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.33,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "剛好在這個節骨眼上，天賜良機落到了費魯齊歐手裡",
+      "text_cn": "刚好在这个节骨眼上，天赐良机落到了费鲁齐欧手里",
+      "start_sec": 0.0,
+      "end_sec": 4.47,
+      "duration_sec": 4.47
+    },
+    {
+      "index": 2,
+      "text": "一九六一年底法拉利內部爆發了著名的宮廷政變",
+      "text_cn": "一九六一年底法拉利内部爆发了著名的宫廷政变",
+      "start_sec": 4.72,
+      "end_sec": 9.08,
+      "duration_sec": 4.36
+    },
+    {
+      "index": 3,
+      "text": "恩佐專橫的脾氣和妻子的干政，逼走了大批頂尖技術骨幹",
+      "text_cn": "恩佐专横的脾气和妻子的干政，逼走了大批顶尖技术骨干",
+      "start_sec": 9.33,
+      "end_sec": 14.33,
+      "duration_sec": 5.0
+    }
+  ],
+  "created_at": "2026-10-16T14:43:57.288639+00:00"
+}

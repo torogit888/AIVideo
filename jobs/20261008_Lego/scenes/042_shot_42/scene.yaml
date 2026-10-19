@@ -1,0 +1,17 @@
+id: 042_shot_42
+index: 42
+title: 他是樂高七十多年歷史上
+narration: 他是樂高七十多年歷史上，第一位沒有家族血統的外人，這位戴著金絲眼鏡的白面書生，一上任就展現了外科手術般的鐵血，
+image_prompt: close-up portrait shot in Q-version 2D cartoon illustration style, Jørgen
+  Vig Knudstorp with a calm, analytical gaze behind his gold-rimmed circular spectacles,
+  neat sandy-blond comb-over hair, solid burgundy necktie, crisp graphic ink outlines,
+  sharp two-tone cel shading, minimalist corporate background, 16:9 widescreen composition
+image_negative: ''
+act_index: 6
+act_title: 【外科手術式逆轉】白面書生的屠刀：重返 4×2 顆粒的復興奇蹟
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T021947
+  image_take: image_20261009T021926

@@ -1,0 +1,19 @@
+id: 009_shot_9
+index: 9
+title: 按照常理來說水手遇到危險棄船逃生
+narration: 按照常理來說水手遇到危險棄船逃生現場一定會極度凌亂，但眼前的景象卻像是全體人員在某個瞬間突然被抽乾了靈魂，女皇號大副在桌上找到了一塊水手日常記錄航海數據的石板，
+image_prompt: close-up on First Mate Oliver Deveau's hand, gloved and weathered, as
+  he carefully picks up a brass-framed maritime pocket slate from a table in the Mary
+  Celeste's claustrophobic wooden cabin, the slate showing chalk markings, the unsettlingly
+  tidy cabin in the background, illuminated by a swinging brass oil lamp, 35mm cinematic
+  lens aesthetics, subtle film grain, high dynamic range, 16:9 widescreen composition,
+  大友克洋風格 (Katsuhiro Otomo Style)
+image_negative: ''
+act_index: 2
+act_title: 海平線上的失魂傀儡，女皇號的致命相遇
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T071843
+  image_take: image_20261019T071831

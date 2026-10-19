@@ -1,0 +1,17 @@
+id: 027_shot_27
+index: 27
+title: 歐洲主流汽車雜誌試駕後給出了近乎
+narration: 歐洲主流汽車雜誌試駕後給出了近乎瘋狂的極高讚譽，他們評價這根本不是鄉下農機廠的玩具，這是一台法拉利根本造不出來的安靜，狂暴且舒適的完美跑車，
+image_prompt: medium tracking shot, Q-version 2D cartoon illustration, European car
+  journalists smiling ecstatically behind the wheel of the 350 GT cruising effortlessly
+  along winding scenic Apennine mountain curves, graphic speed puffs around tailpipes,
+  bright Mediterranean daytime, 16:9 widescreen composition
+image_negative: ''
+act_index: 4
+act_title: 都靈車展的木屑奇蹟：第一記狠狠的耳光
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T145520
+  image_take: image_20261016T145507

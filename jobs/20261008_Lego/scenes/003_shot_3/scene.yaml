@@ -1,0 +1,18 @@
+id: 003_shot_3
+index: 3
+title: 你敢相信嗎
+narration: 你敢相信嗎，回到二十世紀三十年代初，那正是西方大蕭條的寒冬，當時整個歐洲經濟崩潰，底層民眾連黑麵包都吃不飽，
+image_prompt: wide establishing shot in Q-version 2D cartoon illustration style, a
+  somber snow-dusted Danish rural street during the 1930s Great Depression, bundled
+  chibi villagers in patched wool coats walking past weathered timber buildings under
+  a pale wintry sky, crisp clean outlines, muted cel-shaded tones, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 1
+act_title: 【時代坐標與認知反差】比隆的寒冬：大蕭條中被逼入絕境的鰥夫木匠
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T014307
+  image_take: image_20261009T014253

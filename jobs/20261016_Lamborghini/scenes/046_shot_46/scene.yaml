@@ -1,0 +1,26 @@
+id: 046_shot_46
+index: 46
+title: 而傲慢了一輩子的恩佐
+narration: 而傲慢了一輩子的恩佐，雖然到死都沒有公開誇獎過對手一句，但在他離世之前，法拉利生產線上跑著的全都是中置引擎跑車，
+image_prompt: wide shot, Q-version 2D cartoon illustration, the late 1980s Ferrari
+  factory assembly line filled with sleek mid-engine sports cars, elderly chibi Enzo
+  standing in his signature dark glasses, quietly watching his assembly line conform
+  to the mid-engine revolution, 16:9 widescreen composition
+image_negative: ''
+act_index: 7
+act_title: 歷史餘韻與公牛之魂：偏執如何成就偉大？
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T151409
+  image_take: image_20261016T151327
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Ferrari F40 production line 1980s
+  fetch_error: 未找到合適照片

@@ -1,0 +1,28 @@
+id: 005_shot_5
+index: 5
+title: 一八七二年十二月四日下午的大西洋
+narration: 一八七二年十二月四日下午的大西洋海面上風浪相當險惡，加拿大籍商船女皇號正朝著歐洲大陸的方向奮力破浪前行，巧合的是女皇號的莫爾豪斯船長與布里格斯船長私交非常深厚，
+image_prompt: wide establishing shot of a Canadian merchant ship (Queen, not Mary
+  Celeste) battling fierce, churning, slate-gray swells capped with white seafoam
+  under a heavy, low-hanging overcast sky, Captain David Morehouse, with a wind-burnt,
+  leathery complexion, standing firmly on the bridge, grimly focused on the horizon,
+  diffused, cold daylight, 35mm cinematic lens aesthetics, subtle film grain, high
+  dynamic range, 16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo Style)
+image_negative: ''
+act_index: 1
+act_title: 時空座標與幽靈啟航，消失在黃金航線上的十個人
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T071539
+  image_take: image_20261019T071526
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Dei Gratia brigantine vessel 1872 photograph
+  fetch_error: 未找到合適照片

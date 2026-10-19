@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261019T071843",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.38,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "按照常理來說水手遇到危險棄船逃生現場一定會極度凌亂",
+      "text_cn": "按照常理来说水手遇到危险弃船逃生现场一定会极度凌乱",
+      "start_sec": 0.0,
+      "end_sec": 5.16,
+      "duration_sec": 5.16
+    },
+    {
+      "index": 2,
+      "text": "但眼前的景象卻像是全體人員在某個瞬間突然被抽乾了靈魂",
+      "text_cn": "但眼前的景象却像是全体人员在某个瞬间图然被抽干了灵魂",
+      "start_sec": 5.41,
+      "end_sec": 10.77,
+      "duration_sec": 5.36
+    },
+    {
+      "index": 3,
+      "text": "女皇號大副在桌上找到了一塊水手日常記錄航海數據的石板",
+      "text_cn": "女皇号大副在桌上找到了一块水手日常记录航海数据的石板",
+      "start_sec": 11.02,
+      "end_sec": 16.38,
+      "duration_sec": 5.36
+    }
+  ],
+  "created_at": "2026-10-19T07:18:43.193796+00:00"
+}

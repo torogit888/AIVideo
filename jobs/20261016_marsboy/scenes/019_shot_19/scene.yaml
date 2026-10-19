@@ -1,0 +1,17 @@
+id: 019_shot_19
+index: 19
+title: 按照波力斯卡的說法
+narration: '[dissatisfaction-hnn]按照波力斯卡的說法，遠古的火星文明絕對不是什麼溫情脈脈的世外桃源，那是一個科技高度過載，軍國主義盛行且極其殘酷的星際帝國，'
+image_prompt: 'epic wide vista of ancient Mars in 2D cel-shaded style: colossal angular
+  gunmetal fortresses, sharp militaristic spires, and strictly mechanical non-anthropomorphic
+  plasma warships patrolling a deep crimson and copper sky, sharp geometric silhouettes,
+  16:9 widescreen composition'
+image_negative: ''
+act_index: 2
+act_title: 【《真理報》的造神流水線：醫學天才還是精心設計的劇本？】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T035944
+  image_take: image_20261016T035842

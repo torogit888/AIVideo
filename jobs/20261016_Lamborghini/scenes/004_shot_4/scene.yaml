@@ -1,0 +1,17 @@
+id: 004_shot_4
+index: 4
+title: 他靠改裝廢棄軍車起家
+narration: 他靠改裝廢棄軍車起家，建立了龐大的拖拉機帝國，每天能賣出幾十台農機，成了實打實的百萬富翁，有錢之後，他唯一的嗜好就是瘋狂收藏頂級跑車，他車庫裡有瑪莎拉蒂，愛快羅密歐和四輛昂貴的法拉利，
+image_prompt: wide shot, Q-version 2D cartoon illustration, chibi Ferruccio Lamborghini
+  in a tailored shop coat standing proudly inside his spacious garage filled with
+  an Alfa Romeo, a Maserati, and four glossy sports cars, holding mechanical blueprints,
+  clean vector lines, polished checkerboard floor, 16:9 widescreen composition
+image_negative: ''
+act_index: 1
+act_title: 天價玩具與泥腿子富豪的階級裂痕
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T143500
+  image_take: image_20261016T143443

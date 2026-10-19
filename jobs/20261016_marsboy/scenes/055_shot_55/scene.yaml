@@ -1,0 +1,27 @@
+id: 055_shot_55
+index: 55
+title: 俄羅斯獨立媒體後續的追蹤報導更揭
+narration: 俄羅斯獨立媒體後續的追蹤報導更揭開了令人唏噓的一幕，他根本沒有進入任何知名高等學府深造，也沒有展現出任何超越常人的科學天賦，
+image_prompt: 'still-life composition of an investigative desk in 2D cartoon style:
+  an open independent newspaper featuring an ordinary vocational school report card
+  next to a faded childhood newspaper clipping of Mars Boy, crisp vector lines, 16:9
+  widescreen composition'
+image_negative: ''
+act_index: 7
+act_title: 【神話落幕與歷史餘韻：仰望星空背後的人性悲喜劇】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T043339
+  image_take: image_20261016T043300
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Russian independent media logo
+  fetch_error: 'AI 審核未通過（與口白不符）：AI 判定不吻合: 圖片顯示的是捷克政黨標誌，與旁白提及的「俄羅斯獨立媒體」完全不符。，已自動切換為純
+    AI 生成畫面'

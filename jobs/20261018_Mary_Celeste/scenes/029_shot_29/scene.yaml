@@ -1,0 +1,19 @@
+id: 029_shot_29
+index: 29
+title: 布里格斯船長在生死關頭做出了任何
+narration: 布里格斯船長在生死關頭做出了任何負責任的父親都會做出的理智決定，可命運卻殘忍地把空船留在了平靜海面而將滿載希望的小艇推進了深淵，瑪麗賽勒斯特號在隨後的歲月裡被冠上詛咒之名歷任船東無不淒涼破產，
+image_prompt: 'poignant, split scene: one side shows the Mary Celeste (Brigantine
+  Vessel), eerily calm and deserted, drifting peacefully on relatively placid waters
+  under a diffused sky; the other side shows the dark, turbulent depths of the North
+  Atlantic Ocean, where faint, fragmented remains of the lifeboat are sinking into
+  the abyss, 35mm cinematic lens aesthetics, subtle film grain, high dynamic range,
+  16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo Style)'
+image_negative: ''
+act_index: 7
+act_title: 歷史餘韻與訂閱謝幕，敬畏深海的無情與人類的脆弱
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T073533
+  image_take: image_20261019T073454

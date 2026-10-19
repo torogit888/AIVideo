@@ -1,0 +1,29 @@
+id: 005_shot_5
+index: 5
+title: 但他最常開的那輛法拉利二五零
+narration: 但他最常開的那輛法拉利二五零，毛病卻多得令人崩潰，車頭極重，散熱糟糕，而且離合器每開幾百公里就燒毀，每次送回原廠維修都要等上幾個星期，花費幾萬里拉，
+image_prompt: medium shot, Q-version 2D cartoon illustration, a chibi Ferrari 250
+  GT stalled on a dusty Mediterranean country roadside with cartoon smoke puffing
+  from the hood, chibi Ferruccio Lamborghini kicking a tire in comic frustration,
+  vibrant cel-shading, warm cypress tree background, 16:9 widescreen composition
+image_negative: ''
+act_index: 1
+act_title: 天價玩具與泥腿子富豪的階級裂痕
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T143556
+  image_take: image_20261016T143543
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Ferrari 250 GT 1960s
+  source_title: File:1961 Autodromo Modena Ferrari 250 GT 2003GT.jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/7/75/1961_Autodromo_Modena_Ferrari_250_GT_2003GT.jpg
+  verified: true
+  review_reason: 照片顯示1961年法拉利250 GT，與旁白提及的車型完全吻合，作為視覺參考非常適合。

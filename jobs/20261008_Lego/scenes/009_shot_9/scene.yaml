@@ -1,0 +1,18 @@
+id: 009_shot_9
+index: 9
+title: 在拉丁文裡這個詞碰巧是我拼在一起
+narration: 在拉丁文裡這個詞碰巧是我拼在一起的意思，但他連一句拉丁文都不懂，只是想靠爛木頭換幾片麵包，誰能想到，一場近百年的商業傳奇就這樣狼狽地開場了，
+image_prompt: low-angle medium shot in Q-version 2D cartoon illustration style, Ole
+  Kirk Christiansen standing proudly in his Billund workshop holding a freshly painted
+  wooden toy truck, with freshly crafted pull toys and a loaf of dark bread resting
+  on the workbench, optimistic morning light streaming through multi-paned grid windows,
+  rich cel shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 2
+act_title: 【初劫與工匠心魔】灰燼中的三道漆：大戰砲火下的第一、二場毀滅大火
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T014900
+  image_take: image_20261009T014821

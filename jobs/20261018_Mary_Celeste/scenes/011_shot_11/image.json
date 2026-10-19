@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261019T071957",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 18928144,
+  "prompt": "Katsuhiro Otomo Style，wide shot of the Mary Celeste (Brigantine Vessel), sails loose and ragged, drifting alone on the vast, turbulent 1872 North Atlantic Ocean, then a medium shot of First Mate Oliver Deveau, his lean, angular face etched with growing unease, examining a broken compass on the damp teak deck, gleam of ocean spray, diffused, cold daylight, 35mm cinematic lens aesthetics, subtle film grain, high dynamic range, 16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo Style), 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-19T07:19:57.922477+00:00"
+}

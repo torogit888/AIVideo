@@ -1,0 +1,28 @@
+id: 029_shot_29
+index: 29
+title: 他面對採訪鏡頭時經常深情款款地提
+narration: 他面對採訪鏡頭時經常深情款款地提起一塊早已沉入大洋深處的神話大陸，利莫里亞，
+image_prompt: medium shot of chibi Boriska speaking earnestly before a vintage video
+  camera lens on a tripod, gesturing grandly toward an imaginary distant ocean, soft
+  indoor studio lighting, clean 2D cartoon outlines, 16:9 widescreen composition
+image_negative: ''
+act_index: 4
+act_title: 【利莫里亞巨浪：被抹去的史前地球與朋友之死】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T040901
+  image_take: null
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Lemuria continent hypothetical map
+  source_title: File:Kumarikkandam vs. bathymetric map of Indian Ocean.jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/1/1b/Kumarikkandam_vs._bathymetric_map_of_Indian_Ocean.jpg
+  verified: true
+  review_reason: 圖片顯示印度洋中假設的沉沒大陸地圖，與旁白提及的「利莫里亞」神話大陸概念吻合。

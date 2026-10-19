@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261019T072654",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 83724774,
+  "prompt": "Katsuhiro Otomo Style，surreal, dreamlike medium shot inside the Mary Celeste's claustrophobic wooden cabin interior: a teacup on a table emitting a plume of white steam, a plate of fried eggs appearing warm and untouched, and a cat curled up, subtly purring, soft but eerie lighting, 35mm cinematic lens aesthetics, subtle film grain, high dynamic range, 16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo Style), 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-19T07:26:54.805233+00:00"
+}

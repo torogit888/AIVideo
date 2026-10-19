@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261009T020741",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 17.66,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "它既能保證積木緊密咬合哪怕懸空也不散",
+      "text_cn": "它既能保证积木紧密咬合哪怕悬空也不散",
+      "start_sec": 0.0,
+      "end_sec": 3.76,
+      "duration_sec": 3.76
+    },
+    {
+      "index": 2,
+      "text": "又能讓五歲小孩輕鬆拔開，一九五八年一月二十八日下午一點五十八分",
+      "text_cn": "又能让五岁小孩轻松拔开，一九五八年一月二十八日下午一点五十八分",
+      "start_sec": 4.01,
+      "end_sec": 10.21,
+      "duration_sec": 6.2
+    },
+    {
+      "index": 3,
+      "text": "專利正式遞交，這項把模具誤差死死卡在兩微米以內的技術，築起了幾十年的護城河",
+      "text_cn": "专利正式递交，这项把模具误差死死卡在两围米以内的技术，筑起了几十年的护城河",
+      "start_sec": 10.46,
+      "end_sec": 17.66,
+      "duration_sec": 7.2
+    }
+  ],
+  "created_at": "2026-10-09T02:07:41.955897+00:00"
+}

@@ -1,0 +1,75 @@
+subject: 'Ferruccio Lamborghini: Chibi 2D cartoon illustration of an Italian industrialist,
+  2.5 to 3 heads tall proportion. Sturdy square jaw, expressive dark eyes beneath
+  thick determined eyebrows, neatly combed wavy dark-brown hair. He wears a tailored
+  1960s beige shop coat over a crisp collared shirt with rolled-up sleeves and trousers,
+  frequently holding a mechanical wrench or a clutch plate. Clean black outlines,
+  vibrant cel-shaded coloring, spirited and stubborn expressions matching his Taurus
+  zodiac theme. | Enzo Ferrari: Chibi 2D cartoon illustration of the haughty racing
+  patriarch, 3 heads tall proportion. Sleek slicked-back silver hair, prominent aristocratic
+  nose, and trademark dark-tinted sunglasses concealing his eyes. He is dressed in
+  an immaculate charcoal-grey 1960s Italian three-piece suit with a neat necktie and
+  polished black shoes. Clean crisp line art, cool cel-shaded tones, aloof posture
+  with arms folded or hand dismissively waving. | Lamborghini Carioca / Vintage Tractor:
+  Chibi-stylized authentic vintage 1950s farm tractor. Features a compact, sturdy
+  mechanical body in bold industrial orange and powder-blue enameled paint, oversized
+  treaded rear rubber tires, exposed engine block, steering column, and a vertical
+  chrome exhaust pipe. Rendered in clean 2D cartoon cel-shading with crisp outlines;
+  strictly an inanimate, physical agricultural machine with no eyes, face, or limbs.
+  | Ferrari 250 GT: Chibi-stylized authentic 1960 Italian luxury sports coupe. Finished
+  in glossy Rosso Corsa racing red with a long front hood, classic egg-crate chrome
+  oval front grille, circular glass headlights, and silver spoked wire wheels. Rendered
+  in clean 2D cartoon line art with glossy cel-shaded reflections; strictly an inanimate,
+  mechanical vehicle with no human face, eyes, or limbs. | Lamborghini Miura: Chibi-stylized
+  authentic 1966 mid-engine supercar. Low-slung, aerodynamic wedge silhouette finished
+  in iconic vibrant lime-green paint, featuring signature black ''eyelash'' trims
+  around circular pop-up headlights, horizontal black rear window louvers, and silver
+  sport rims. Rendered in crisp 2D cartoon cel-shaded vector lines; strictly an authentic
+  physical performance car with no humanized eyes, mouth, or limbs.'
+environment: 1960s Italian Motor Valley cartoon setting spanning the fertile Po River
+  Plain and Sant'Agata Bolognese workshop. Stylized Q-version 2D cartoon aesthetic
+  featuring warm Mediterranean terracotta rooflines, sun-drenched green vineyards,
+  rustic brick agricultural sheds, and gleaming mid-century automotive garages with
+  checkerboard-tiled floors. Rendered with bold clean outlines, vibrant saturated
+  flat colors, crisp cel-shaded lighting, warm golden-hour Italian sunlight, and playful
+  graphic dust puffs around roaring tailpipes.
+use_image_reference: true
+characters:
+- id: ferruccio_lamborghini
+  name: Ferruccio Lamborghini
+  appearance: Chibi 2D cartoon illustration of an Italian industrialist, 2.5 to 3
+    heads tall proportion. Sturdy square jaw, expressive dark eyes beneath thick determined
+    eyebrows, neatly combed wavy dark-brown hair. He wears a tailored 1960s beige
+    shop coat over a crisp collared shirt with rolled-up sleeves and trousers, frequently
+    holding a mechanical wrench or a clutch plate. Clean black outlines, vibrant cel-shaded
+    coloring, spirited and stubborn expressions matching his Taurus zodiac theme.
+- id: enzo_ferrari
+  name: Enzo Ferrari
+  appearance: Chibi 2D cartoon illustration of the haughty racing patriarch, 3 heads
+    tall proportion. Sleek slicked-back silver hair, prominent aristocratic nose,
+    and trademark dark-tinted sunglasses concealing his eyes. He is dressed in an
+    immaculate charcoal-grey 1960s Italian three-piece suit with a neat necktie and
+    polished black shoes. Clean crisp line art, cool cel-shaded tones, aloof posture
+    with arms folded or hand dismissively waving.
+- id: lamborghini_tractor_vintage
+  name: Lamborghini Carioca / Vintage Tractor
+  appearance: Chibi-stylized authentic vintage 1950s farm tractor. Features a compact,
+    sturdy mechanical body in bold industrial orange and powder-blue enameled paint,
+    oversized treaded rear rubber tires, exposed engine block, steering column, and
+    a vertical chrome exhaust pipe. Rendered in clean 2D cartoon cel-shading with
+    crisp outlines; strictly an inanimate, physical agricultural machine with no eyes,
+    face, or limbs.
+- id: ferrari_250_gt
+  name: Ferrari 250 GT
+  appearance: Chibi-stylized authentic 1960 Italian luxury sports coupe. Finished
+    in glossy Rosso Corsa racing red with a long front hood, classic egg-crate chrome
+    oval front grille, circular glass headlights, and silver spoked wire wheels. Rendered
+    in clean 2D cartoon line art with glossy cel-shaded reflections; strictly an inanimate,
+    mechanical vehicle with no human face, eyes, or limbs.
+- id: lamborghini_miura
+  name: Lamborghini Miura
+  appearance: Chibi-stylized authentic 1966 mid-engine supercar. Low-slung, aerodynamic
+    wedge silhouette finished in iconic vibrant lime-green paint, featuring signature
+    black 'eyelash' trims around circular pop-up headlights, horizontal black rear
+    window louvers, and silver sport rims. Rendered in crisp 2D cartoon cel-shaded
+    vector lines; strictly an authentic physical performance car with no humanized
+    eyes, mouth, or limbs.

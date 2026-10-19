@@ -1,0 +1,26 @@
+id: 008_shot_8
+index: 8
+title: 其核心規格跟他自家便宜的拖拉機離
+narration: 其核心規格跟他自家便宜的拖拉機離合器片完全一樣，[laughter]一個造賽車的皇帝，竟然拿拖拉機同款零件收天價維修費，
+image_prompt: medium shot, Q-version 2D cartoon illustration, two identical clutch
+  friction discs resting side by side on a wooden workbench, one labeled from a tractor
+  and one from the sports car, chibi Ferruccio staring with intense realization and
+  comic steam puffing from his ears, bold outlines, 16:9 widescreen composition
+image_negative: ''
+act_index: 1
+act_title: 天價玩具與泥腿子富豪的階級裂痕
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T143828
+  image_take: image_20261016T143812
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: vintage tractor clutch plate
+  fetch_error: 未找到合適照片

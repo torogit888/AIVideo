@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261019T071443",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 51229386,
+  "prompt": "Katsuhiro Otomo Style，split scene showing a glimpse of a wooden cabin interior with an open melodeon organ and a small cast-iron sewing machine with unfinished infant clothing, contrasting with an open, cavernous cargo hold filled with stacked Industrial Denatured Alcohol Casks, a faint, volatile translucent shimmer of evaporating chemical vapor, illuminated by swinging brass oil lamps in the cabin, cold hazy fumes in the hold, 35mm cinematic lens aesthetics, subtle film grain, high dynamic range, 16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo Style), 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-19T07:14:43.983457+00:00"
+}

@@ -1,0 +1,26 @@
+id: 047_shot_47
+index: 47
+title: 資本市場從來都是極其殘酷的
+narration: 資本市場從來都是極其殘酷的，藍寶堅尼在隨後幾十年歷經五次易手，甚至多次瀕臨破產，直到後來被奧迪接手才算真正安穩下來，
+image_prompt: wide shot, Q-version 2D cartoon illustration, a bright, modern high-tech
+  automotive assembly hall in Sant'Agata Bolognese, robotic arms and skilled technicians
+  assembling sharp, geometric modern supercars beneath a gleaming bull emblem, immaculate
+  lighting, 16:9 widescreen composition
+image_negative: ''
+act_index: 7
+act_title: 歷史餘韻與公牛之魂：偏執如何成就偉大？
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T151510
+  image_take: image_20261016T151434
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Lamborghini Audi acquisition news 1998
+  fetch_error: 未找到合適照片

@@ -1,0 +1,17 @@
+id: 028_shot_28
+index: 28
+title: 費魯齊歐狠狠甩了恩佐一記響亮的耳
+narration: 費魯齊歐狠狠甩了恩佐一記響亮的耳光，但這僅僅只是個開端，雖然三五零吉提大獲成功，但費魯齊歐本人其實相對保守，他只想要一台舒適可靠的豪華轎跑，並不想惹惱賽車教父，
+image_prompt: medium shot, Q-version 2D cartoon illustration, chibi Ferruccio Lamborghini
+  standing outside his modern factory reading glowing car reviews with a triumphant
+  smirk, while in the far background a tiny chibi Enzo Ferrari scowls beside his red
+  car, crisp cel-shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 4
+act_title: 都靈車展的木屑奇蹟：第一記狠狠的耳光
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T145605
+  image_take: image_20261016T145550

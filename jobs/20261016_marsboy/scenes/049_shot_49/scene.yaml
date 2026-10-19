@@ -1,0 +1,27 @@
+id: 049_shot_49
+index: 49
+title: 沒有全球性的大水災
+narration: 沒有全球性的大水災，更沒有所謂的星際文明降臨拯救人類，埃及最高文物委員會更是無情地發表公開聲明，證實獅身人面像耳朵後面除了風化的砂岩什麼都沒有，
+image_prompt: close-up shot of an Egyptian archaeologist in a khaki hat examining
+  the smooth natural sandstone behind the Sphinx's ear with a small brush, revealing
+  only weathered yellow rock under the blazing sun, crisp 2D cartoon style, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 6
+act_title: 【預言破產與造神反噬：當外星先知淪為時代殘渣】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T042732
+  image_take: image_20261016T042719
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Egypt Supreme Council of Antiquities official statement
+  fetch_error: 'AI 審核未通過（與口白不符）：AI 判定不吻合: 旁白提及「埃及最高文物委員會」與「獅身人面像」，圖片則為埃及政治危機下的塗鴉，主題完全不符。，已自動切換為純
+    AI 生成畫面'

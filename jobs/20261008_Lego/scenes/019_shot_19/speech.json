@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261009T015752",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.18,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "到了二十世紀四十年代末，這家木器廠迎來了最大的轉折",
+      "text_cn": "到了二十世纪四十年代末，这家木器厂迎来了最大的转折",
+      "start_sec": 0.0,
+      "end_sec": 5.0,
+      "duration_sec": 5.0
+    },
+    {
+      "index": 2,
+      "text": "當時全世界的玩具都是木頭或鐵皮做的，塑料還是個稀罕物",
+      "text_cn": "当时全世界的玩具都是木头或铁皮做的，塑料还是个稀罕物",
+      "start_sec": 5.25,
+      "end_sec": 10.45,
+      "duration_sec": 5.2
+    },
+    {
+      "index": 3,
+      "text": "[surprise-wa]一九四六年奧勒在哥本哈根參加一場工業展覽會",
+      "text_cn": "[surprise-wa]一九四六年奥勒在哥本哈根参加一场工业展览会",
+      "start_sec": 10.7,
+      "end_sec": 15.18,
+      "duration_sec": 4.48
+    }
+  ],
+  "created_at": "2026-10-09T01:57:52.699831+00:00"
+}

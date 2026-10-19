@@ -1,0 +1,17 @@
+id: 050_shot_50
+index: 50
+title: 隨著預言的一個個徹底破產
+narration: '[dissatisfaction-hnn]隨著預言的一個個徹底破產，當初圍繞在男孩身邊的狂熱信徒與媒體記者在一夜之間作鳥獸散，'
+image_prompt: 'wide melancholic shot of an empty interview hall after the frenzy:
+  overturned folding chairs, tangled microphone cables, and discarded newspapers scattered
+  across the floor in chilly morning light, clean 2D cel-shaded outlines, 16:9 widescreen
+  composition'
+image_negative: ''
+act_index: 6
+act_title: 【預言破產與造神反噬：當外星先知淪為時代殘渣】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T042827
+  image_take: image_20261016T042815

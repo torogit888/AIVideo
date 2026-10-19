@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261009T014447",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.22,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[sigh]一九三二年，當地的農民連一塊麵包都買不起了",
+      "text_cn": "[sigh]一九三二年，当地的农民连一块面包都买不起了",
+      "start_sec": 0.0,
+      "end_sec": 4.52,
+      "duration_sec": 4.52
+    },
+    {
+      "index": 2,
+      "text": "根本沒有人會找他蓋房子，更沒有人買得起新家具",
+      "text_cn": "根本没有人会找他盖房子，更没有人买得起新家具",
+      "start_sec": 4.77,
+      "end_sec": 9.17,
+      "duration_sec": 4.4
+    },
+    {
+      "index": 3,
+      "text": "奧勒的小木工坊徹底斷糧破產，更殘酷的打擊接踵而至",
+      "text_cn": "奥勒的小木工坊彻底断粮破产，更残酷的打集接踵而至",
+      "start_sec": 9.42,
+      "end_sec": 14.22,
+      "duration_sec": 4.8
+    }
+  ],
+  "created_at": "2026-10-09T01:44:47.935131+00:00"
+}

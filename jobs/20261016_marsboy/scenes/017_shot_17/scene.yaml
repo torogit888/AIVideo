@@ -1,0 +1,17 @@
+id: 017_shot_17
+index: 17
+title: 這條由望子成龍的家庭
+narration: 這條由望子成龍的家庭，追逐流量的媒體與偽科學機構共同拼湊的造神流水線就此成型，
+image_prompt: 'symbolic wide conceptual illustration of a stylized media assembly
+  line: chibi Boriska seated on a raised podium while flashing camera lenses, stacked
+  occult journals, and clinking coins swirl around him in an exaggerated loop, vivid
+  2D cartoon cel-shading, 16:9 widescreen composition'
+image_negative: ''
+act_index: 2
+act_title: 【《真理報》的造神流水線：醫學天才還是精心設計的劇本？】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T035733
+  image_take: image_20261016T035654

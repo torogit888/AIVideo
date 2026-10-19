@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261016T144812",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.62,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "一九六三年五月，他在距離法拉利只有幾十公里的聖亞加塔建廠",
+      "text_cn": "一九六三年五月，他在距离法拉利只有几十公里的圣雅加塔建厂",
+      "start_sec": 0.0,
+      "end_sec": 5.6,
+      "duration_sec": 5.6
+    },
+    {
+      "index": 2,
+      "text": "他把自己金牛座的狂暴蠻牛印成廠徽",
+      "text_cn": "他把自己金牛座的狂暴蛮牛印成厂徽",
+      "start_sec": 5.85,
+      "end_sec": 9.21,
+      "duration_sec": 3.36
+    },
+    {
+      "index": 3,
+      "text": "矛頭直指那匹奔馳的躍馬，[question-ei]但這台匆忙組裝的復仇怪獸，真的能順利上路嗎",
+      "text_cn": "矛头直指那匹奔驰的跃马，[question-ei]但这台匆忙组装的复仇怪兽，真的能顺利上路吗",
+      "start_sec": 9.46,
+      "end_sec": 16.62,
+      "duration_sec": 7.16
+    }
+  ],
+  "created_at": "2026-10-16T14:48:12.288554+00:00"
+}

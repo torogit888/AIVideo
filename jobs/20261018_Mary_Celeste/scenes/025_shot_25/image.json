@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261019T073126",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 43079586,
+  "prompt": "Katsuhiro Otomo Style，dramatic, dynamic shot from inside the Mary Celeste's cargo hold, looking up: a massive, invisible shockwave violently rips the heavy wooden cargo hatch cover upwards and outwards, a brief, brilliant, silent fireball erupts and then instantly vanishes, leaving no trace of charring on the surrounding wooden structure, 35mm cinematic lens aesthetics, subtle film grain, high dynamic range, 16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo Style), 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-19T07:31:26.830756+00:00"
+}

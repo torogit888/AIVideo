@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261016T034928",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 11.97,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "在場那些受過高等教育的知識分子聽完全部目瞪口呆",
+      "text_cn": "在场那些受过高等教育的知识分子听完全部目瞪口呆",
+      "start_sec": 0.0,
+      "end_sec": 4.76,
+      "duration_sec": 4.76
+    },
+    {
+      "index": 2,
+      "text": "[question-ei]一個生活在資訊閉塞邊陲小城的七歲兒童到底是如何懂得這些名詞的？",
+      "text_cn": "[question-ei]一个生活在资讯闭塞边陲小城的七岁儿童到底是如何懂得这些名词的？",
+      "start_sec": 5.01,
+      "end_sec": 11.97,
+      "duration_sec": 6.96
+    }
+  ],
+  "created_at": "2026-10-16T03:49:28.656324+00:00"
+}

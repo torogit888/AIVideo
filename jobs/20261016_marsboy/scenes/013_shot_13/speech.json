@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261016T035331",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 18.02,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "到了兩歲這孩子甚至無師自通地拿著粉筆在牆上畫出八大行星的運轉軌道",
+      "text_cn": "到了两岁这孩子甚至无师自通地拿着粉笔在墙上画出八大行星的运转轨道",
+      "start_sec": 0.0,
+      "end_sec": 6.56,
+      "duration_sec": 6.56
+    },
+    {
+      "index": 2,
+      "text": "作為一名兒科醫生，她非但沒有將這種超常表現視為病理現象",
+      "text_cn": "作为一名儿科医生，她非但没有将这种超常表现视为病理现象",
+      "start_sec": 6.81,
+      "end_sec": 12.21,
+      "duration_sec": 5.4
+    },
+    {
+      "index": 3,
+      "text": "反而開始帶著年幼的兒子積極接觸各路幽浮愛好者與新聞媒體",
+      "text_cn": "反而开始带着年幼的儿子积极接触各路幽浮爱好者与新闻媒体",
+      "start_sec": 12.46,
+      "end_sec": 18.02,
+      "duration_sec": 5.56
+    }
+  ],
+  "created_at": "2026-10-16T03:53:31.276140+00:00"
+}

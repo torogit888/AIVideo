@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261016T040227",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.02,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "講到這裡，波力斯卡甚至傲慢地當眾嘲諷起地球人類生理構造的脆弱",
+      "text_cn": "讲到这里，波力斯卡甚至傲慢地当众嘲讽起地球人类生理构造的脆弱",
+      "start_sec": 0.0,
+      "end_sec": 6.0,
+      "duration_sec": 6.0
+    },
+    {
+      "index": 2,
+      "text": "他說火星人體內適應的是高濃度二氧化碳",
+      "text_cn": "他说火星人体内适应的是高浓度二氧化碳",
+      "start_sec": 6.25,
+      "end_sec": 10.01,
+      "duration_sec": 3.76
+    },
+    {
+      "index": 3,
+      "text": "身體結構也早已習慣了地底的高溫與高壓",
+      "text_cn": "身体结构也早已习惯了地底的高温与高压",
+      "start_sec": 10.26,
+      "end_sec": 14.02,
+      "duration_sec": 3.76
+    }
+  ],
+  "created_at": "2026-10-16T04:02:27.587641+00:00"
+}

@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261019T073015",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 25.39,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "當這批貨物運抵港口時工作人員發現這九個紅橡木桶竟然完全空了",
+      "text_cn": "当这批货物运抵港口时工作人员发现这九个红橡木桶竟然完全空了",
+      "start_sec": 0.0,
+      "end_sec": 5.96,
+      "duration_sec": 5.96
+    },
+    {
+      "index": 2,
+      "text": "近千加侖的純酒精在航行途中悄悄滲漏化為高濃度的無色致命蒸氣",
+      "text_cn": "近千加仑的纯酒精在航行途中悄悄渗漏化为高浓度的无色致命蒸气",
+      "start_sec": 6.21,
+      "end_sec": 12.17,
+      "duration_sec": 5.96
+    },
+    {
+      "index": 3,
+      "text": "十一月下旬瑪麗賽勒斯特號正好駛入氣溫回升且波濤洶湧的亞速海域",
+      "text_cn": "十一月下旬玛丽赛勒斯特号正好驶入气温回升且波涛汹涌的雅速海域",
+      "start_sec": 12.42,
+      "end_sec": 18.58,
+      "duration_sec": 6.16
+    },
+    {
+      "index": 4,
+      "text": "劇烈的海浪顛簸讓貨艙裡的木桶不斷相互撞擊擠壓封閉艙室變成了壓力鍋",
+      "text_cn": "剧烈的海浪颠簸让货舱里的木桶不断相互撞集挤压封闭舱室变成了压力锅",
+      "start_sec": 18.83,
+      "end_sec": 25.39,
+      "duration_sec": 6.56
+    }
+  ],
+  "created_at": "2026-10-19T07:30:15.663295+00:00"
+}

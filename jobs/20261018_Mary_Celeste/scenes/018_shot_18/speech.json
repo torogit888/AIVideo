@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261019T072622",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 24.39,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "很多人寧願相信神秘莫測的怪力亂神也不願意接受枯燥的客觀事實",
+      "text_cn": "很多人宁愿相信神秘莫测的怪力乱神也不愿意接受枯燥的客观事实",
+      "start_sec": 0.0,
+      "end_sec": 5.96,
+      "duration_sec": 5.96
+    },
+    {
+      "index": 2,
+      "text": "真正把這場悲劇推向全球玄學狂歡的竟是一位鼎鼎大名的文學巨匠",
+      "text_cn": "真正把这场悲剧推向全球玄学狂欢的竟是一位鼎鼎大名的文学巨匠",
+      "start_sec": 6.21,
+      "end_sec": 12.17,
+      "duration_sec": 5.96
+    },
+    {
+      "index": 3,
+      "text": "一八八四年年僅二十五歲的阿瑟柯南道爾在雜誌上匿名發表了小說",
+      "text_cn": "一八八四年年仅二十五岁的阿瑟柯南道尔在杂志上匿名发表了小说",
+      "start_sec": 12.42,
+      "end_sec": 18.38,
+      "duration_sec": 5.96
+    },
+    {
+      "index": 4,
+      "text": "當時還沒寫出福爾摩斯的柯南道爾故意將船名改成了法式的瑪麗",
+      "text_cn": "当时还没写出福尔摩斯的柯南道尔故意将船名改成了法式的玛丽",
+      "start_sec": 18.63,
+      "end_sec": 24.39,
+      "duration_sec": 5.76
+    }
+  ],
+  "created_at": "2026-10-19T07:26:22.070869+00:00"
+}

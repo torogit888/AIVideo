@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261019T071801",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 23.39,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "廚房和生活區裡存放著足夠所有人支撐六個月以上的淡水與口糧",
+      "text_cn": "厨房和生活区里存放着足够所有人支撑六个月以上的淡水与口粮",
+      "start_sec": 0.0,
+      "end_sec": 5.76,
+      "duration_sec": 5.76
+    },
+    {
+      "index": 2,
+      "text": "船長臥室裡放著一台沒合上的風琴和掛著未織完嬰兒服的縫紉機",
+      "text_cn": "船长卧室里放着一台没合上的风琴和挂着未织完婴儿服的缝纫机",
+      "start_sec": 6.01,
+      "end_sec": 11.77,
+      "duration_sec": 5.76
+    },
+    {
+      "index": 3,
+      "text": "水手們換洗的衣物整齊疊放連隨身的菸斗都完好地留在桌上",
+      "text_cn": "水手们换洗的衣物整齐叠放连随身的烟斗都完好地留在桌上",
+      "start_sec": 12.02,
+      "end_sec": 17.38,
+      "duration_sec": 5.36
+    },
+    {
+      "index": 4,
+      "text": "[question-ei]整艘船唯一消失的居然只有一艘用來逃命的小型救生艇？",
+      "text_cn": "[question-ei]整骚船唯一消失的居然只有一骚用来逃命的小型救生艇？",
+      "start_sec": 17.63,
+      "end_sec": 23.39,
+      "duration_sec": 5.76
+    }
+  ],
+  "created_at": "2026-10-19T07:18:01.250782+00:00"
+}

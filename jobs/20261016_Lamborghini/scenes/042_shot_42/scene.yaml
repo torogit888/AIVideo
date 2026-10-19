@@ -1,0 +1,17 @@
+id: 042_shot_42
+index: 42
+title: 賽車皇帝失去了對民用車工廠的絕對
+narration: 賽車皇帝失去了對民用車工廠的絕對掌控，在孤獨與內耗中慢慢老去，兩個性格剛烈的義大利男人，最終都被冰冷的時代洪流拍倒在沙灘上，
+image_prompt: wide split-screen shot, Q-version 2D cartoon illustration, elderly chibi
+  Enzo standing solitary in his industrial racing courtyard while elderly chibi Ferruccio
+  peacefully inspects purple grapevines in the sunny countryside, historical contrast,
+  warm and cool lighting, 16:9 widescreen composition
+image_negative: ''
+act_index: 6
+act_title: 宿命的反噬：石油危機、鉛色年代與巨頭的黃昏
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T151001
+  image_take: image_20261016T150924

@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261016T150122",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.62,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "最高時速高達二百八十公里，直接拿下全球量產車速度第一的寶座",
+      "text_cn": "最高时速高达二百八十公里，直接拿下全球量产车速度第一的宝座",
+      "start_sec": 0.0,
+      "end_sec": 5.8,
+      "duration_sec": 5.8
+    },
+    {
+      "index": 2,
+      "text": "[surprise-wa]全世界的汽車媒體因為這台車的誕生，創造了一個全新名詞",
+      "text_cn": "[surprise-wa]全世界的汽车媒体因为这台车的诞生，创造了一个全新名词",
+      "start_sec": 6.05,
+      "end_sec": 12.01,
+      "duration_sec": 5.96
+    },
+    {
+      "index": 3,
+      "text": "那就是如今大家耳熟能詳的超級跑車",
+      "text_cn": "那就是如今大家耳熟能详的超级跑车",
+      "start_sec": 12.26,
+      "end_sec": 15.62,
+      "duration_sec": 3.36
+    }
+  ],
+  "created_at": "2026-10-16T15:01:22.967889+00:00"
+}

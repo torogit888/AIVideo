@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261016T145207",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.46,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "在生死關頭，費魯齊歐展現出了驚人的市井狠勁",
+      "text_cn": "在生死关头，费鲁齐欧展现出了惊人的市井狠劲",
+      "start_sec": 0.0,
+      "end_sec": 4.2,
+      "duration_sec": 4.2
+    },
+    {
+      "index": 2,
+      "text": "他下令把十二缸引擎拆下來，堂而皇之地擺在展台旁邊展示",
+      "text_cn": "他下令把十二缸引擎拆下来，堂而皇之地摆在展台旁边展示",
+      "start_sec": 4.45,
+      "end_sec": 9.65,
+      "duration_sec": 5.2
+    },
+    {
+      "index": 3,
+      "text": "然後在空空如也的引擎艙裡塞滿了磚頭和壓艙重物",
+      "text_cn": "然后在空空如也的引擎舱里塞满了砖头和压舱重物",
+      "start_sec": 9.9,
+      "end_sec": 14.46,
+      "duration_sec": 4.56
+    }
+  ],
+  "created_at": "2026-10-16T14:52:07.067311+00:00"
+}

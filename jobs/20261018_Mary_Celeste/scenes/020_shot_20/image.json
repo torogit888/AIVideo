@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261019T072730",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 50472049,
+  "prompt": "Katsuhiro Otomo Style，dynamic, stylized montage depicting the rapid spread of misinformation: newspaper headlines and magazine covers rapidly multiplying and overlapping, showing a distorted, sensationalized image of the Mary Celeste incident with exaggerated violence, graphic and dynamic composition, 35mm cinematic lens aesthetics, subtle film grain, high dynamic range, 16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo Style), 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-19T07:27:30.970813+00:00"
+}

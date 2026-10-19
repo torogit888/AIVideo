@@ -1,0 +1,26 @@
+id: 014_shot_14
+index: 14
+title: 剛好在這個節骨眼上
+narration: 剛好在這個節骨眼上，天賜良機落到了費魯齊歐手裡，一九六一年底法拉利內部爆發了著名的宮廷政變，恩佐專橫的脾氣和妻子的干政，逼走了大批頂尖技術骨幹，
+image_prompt: wide shot, Q-version 2D cartoon illustration, the dramatic 1961 palace
+  walkout at Ferrari, a group of chibi technical engineers carrying drafting rolls
+  leaving the factory gates while chibi Enzo watches rigidly from a high arched window,
+  moody cel-shaded lighting, 16:9 widescreen composition
+image_negative: ''
+act_index: 2
+act_title: 那一天的羞辱：恩佐的閉門羹與「開你的拖拉機去吧」
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T144357
+  image_take: image_20261016T144335
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Ferrari 'Palace Coup' 1961 news clipping
+  fetch_error: 未找到合適照片

@@ -1,0 +1,18 @@
+id: 035_shot_35
+index: 35
+title: 面對屏幕時代的降臨
+narration: 面對屏幕時代的降臨，第三代掌門人陷入了空前的焦慮，他生怕單純的塑膠積木會被時代無情淘汰，於是開始盲目跨界，
+image_prompt: high-angle medium shot in Q-version 2D cartoon illustration style, a
+  corporate executive office cluttered with disorganized product mockups, including
+  odd plastic action figures, branded wristwatches, and theme park layout blueprints
+  under harsh fluorescent lighting, crisp 2D linework, cel shading, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 5
+act_title: 【神壇跌落與盲目擴張】2003年：每日虧損百萬美元的巨獸窒息危機
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T021252
+  image_take: image_20261009T021230

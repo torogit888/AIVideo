@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261019T072911",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 10022572,
+  "prompt": "Katsuhiro Otomo Style，close-up on a section of an aged, official-looking cargo manifest, highlighting an entry for 'Industrial Denatured Alcohol Casks', transitioning to a medium shot inside the Mary Celeste's cavernous cargo hold, focusing on a stack of Industrial Denatured Alcohol Casks, nine distinct, slightly darker red oak barrels prominently visible among paler white oak ones, a faint, volatile translucent shimmer of evaporating chemical vapor, cold, hazy alcoholic fumes, 35mm cinematic lens aesthetics, subtle film grain, high dynamic range, 16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo Style), 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-19T07:29:11.014536+00:00"
+}

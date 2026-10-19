@@ -1,0 +1,19 @@
+id: 006_shot_6
+index: 6
+title: 兩人在紐約出海前甚至還在曼哈頓的
+narration: 兩人在紐約出海前甚至還在曼哈頓的餐館裡開心地共進晚餐，當莫爾豪斯船長在海平線上看見老朋友的船隻時卻感到極度反常，瑪麗賽勒斯特號的風帆受損而且像喝醉酒一樣在海面蛇行飄蕩，更詭異的是整艘船的掌舵位置上竟然連一個水手的人影都沒有，
+image_prompt: medium shot from Captain David Morehouse's perspective, looking out
+  from his ship, the Mary Celeste (Brigantine Vessel) visible in the distance, sails
+  loose and fluttering raggedly, hull pitching erratically, its deserted wooden ship's
+  wheel eerily solitary on the quarterdeck, churning swells, heavy overcast clouds,
+  diffused, cold daylight, 35mm cinematic lens aesthetics, subtle film grain, high
+  dynamic range, 16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo Style)
+image_negative: ''
+act_index: 2
+act_title: 海平線上的失魂傀儡，女皇號的致命相遇
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T071636
+  image_take: image_20261019T071608

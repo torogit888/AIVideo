@@ -1,0 +1,28 @@
+id: 033_shot_33
+index: 33
+title: 靠著三場大火的洗禮
+narration: 靠著三場大火的洗禮，這個木匠家族徹底完成了脫胎換骨的蛻變，在接下來的三十年裡，樂高積木席捲了整個西方世界，它甚至被英國玩具零售商協會評為二十世紀最偉大的玩具，
+image_prompt: wide energetic shot in Q-version 2D cartoon illustration style, a bustling
+  1970s toy store aisle packed with vibrant yellow shelves filled with boxed plastic
+  construction sets, happy chibi children and parents admiring an elaborate plastic
+  brick model castle, bright festive lighting, crisp vector outlines, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 5
+act_title: 【神壇跌落與盲目擴張】2003年：每日虧損百萬美元的巨獸窒息危機
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T021053
+  image_take: image_20261009T021015
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: British Toy Retailers Association 'Greatest Toy of the 20th Century' award
+    certificate
+  fetch_error: 未找到合適照片

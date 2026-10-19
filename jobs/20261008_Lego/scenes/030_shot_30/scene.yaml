@@ -1,0 +1,18 @@
+id: 030_shot_30
+index: 30
+title: 但命運總是充滿了殘酷的黑色幽默
+narration: 但命運總是充滿了殘酷的黑色幽默，就在專利通過後短短幾個月，創始人奧勒就因為心臟病突發猝死，他至死都沒能親眼看見這個塑料小方塊統治全世界，
+image_prompt: melancholy interior wide shot in Q-version 2D cartoon illustration style,
+  Ole's empty carpenter workbench in the Billund workshop, bathed in quiet cool morning
+  sunlight streaming through the window, an unfinished wooden toy resting beside a
+  single bright red plastic brick, serene and poignant, crisp outlines, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 4
+act_title: 【絕處逢生的專利與第三場火】1958年的內部管道，與木製時代的徹底陪葬
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T020815
+  image_take: image_20261009T020802

@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261019T071748",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 93734143,
+  "prompt": "Katsuhiro Otomo Style，medium shot inside the Mary Celeste's claustrophobic wooden cabin interior, showing an open melodeon organ, a small cast-iron sewing machine with unfinished infant clothing, neatly folded sailor woolens, and a pipe resting on a table, illuminated by the warm, flickering light of a swinging brass oil lamp, 35mm cinematic lens aesthetics, subtle film grain, high dynamic range, 16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo Style), 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-19T07:17:48.604717+00:00"
+}

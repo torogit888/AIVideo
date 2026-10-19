@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20261016T041523",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 7.56,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "只要稍微翻查一下就會發現，波力斯卡母親的書架上恰好擺滿了這類暢銷的通神論雜誌",
+      "text_cn": "只要稍围翻查一下就会发现，波力斯卡母亲的书架上恰好摆满了这类畅销的通神论杂志",
+      "start_sec": 0.0,
+      "end_sec": 7.56,
+      "duration_sec": 7.56
+    }
+  ],
+  "created_at": "2026-10-16T04:15:23.827184+00:00"
+}

@@ -1,0 +1,17 @@
+id: 001_shot_1
+index: 1
+title: 大家好!我是白兔!如果你平時喜歡
+narration: 大家好!我是白兔!如果你平時喜歡看懸疑故事或者對未解之謎感興趣，那你一定聽過大航海時代流傳下來的幽靈船傳說，很多人以為這只是水手們在酒吧喝醉後編造出來的怪談，
+image_prompt: wide shot of a dimly lit, smoky 19th-century maritime tavern, rough
+  sailors with tankards gesturing wildly as if telling a tall tale, warm, low light
+  from oil lamps, 35mm cinematic lens aesthetics, subtle film grain, high dynamic
+  range, 16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo Style)
+image_negative: ''
+act_index: 1
+act_title: 時空座標與幽靈啟航，消失在黃金航線上的十個人
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T071241
+  image_take: image_20261019T071203

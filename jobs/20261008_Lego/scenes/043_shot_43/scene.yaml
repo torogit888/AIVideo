@@ -1,0 +1,26 @@
+id: 043_shot_43
+index: 43
+title: 他做的第一件事
+narration: 他做的第一件事，就是斷臂止血賣掉資產，他以四億六千萬美元的價格，果斷賣掉了四座虧損嚴重的樂高樂園，
+image_prompt: wide shot in Q-version 2D cartoon illustration style, Jørgen Vig Knudstorp
+  signing a major corporate divestiture contract at a sleek executive desk, with colorful
+  miniature models of theme park rides symbolically set aside in the background, clean
+  cel shading, crisp outlines, 16:9 widescreen composition
+image_negative: ''
+act_index: 6
+act_title: 【外科手術式逆轉】白面書生的屠刀：重返 4×2 顆粒的復興奇蹟
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T022112
+  image_take: image_20261009T022009
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: LEGO sells Legoland parks 2005 news clipping
+  fetch_error: 未找到合適照片

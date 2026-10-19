@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261016T143228",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.05,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "大家好！我是白兔！你有沒有想過街頭那些動輒上千萬的頂級超跑",
+      "text_cn": "大家好！我是白兔！你有没有想过街头那些动辄上千万的顶级超跑",
+      "start_sec": 0.0,
+      "end_sec": 5.64,
+      "duration_sec": 5.64
+    },
+    {
+      "index": 2,
+      "text": "最初其實起源於兩個義大利暴脾氣老頭的私人罵戰，[question-ei]這究竟是怎麼回事呢",
+      "text_cn": "最初其实起源于两个意大利暴脾气老头的私人骂战，[question-ei]这旧竟是怎么回事呢",
+      "start_sec": 5.89,
+      "end_sec": 13.05,
+      "duration_sec": 7.16
+    }
+  ],
+  "created_at": "2026-10-16T14:32:28.513095+00:00"
+}

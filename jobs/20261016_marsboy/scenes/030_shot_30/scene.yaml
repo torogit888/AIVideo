@@ -1,0 +1,17 @@
+id: 030_shot_30
+index: 30
+title: 波力斯卡宣稱自己當年曾作為火星的
+narration: 波力斯卡宣稱自己當年曾作為火星的貿易特使，親自駕駛穿梭機頻繁往返於兩顆星球之間，他甚至清楚記得利莫里亞人的平均身高有數公尺之巨，
+image_prompt: 'imaginative wide scene: the Martian Plasma Shuttle hovering gently
+  over a mythical prehistoric coastal city, trading with stylized benevolent giant
+  Lemurian figures standing several meters tall beside crystalline towers, clean 2D
+  cel-shaded cartoon art, 16:9 widescreen composition'
+image_negative: ''
+act_index: 4
+act_title: 【利莫里亞巨浪：被抹去的史前地球與朋友之死】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T040929
+  image_take: image_20261016T040908

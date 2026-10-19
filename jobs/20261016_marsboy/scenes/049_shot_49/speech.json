@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261016T042732",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.62,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "沒有全球性的大水災，更沒有所謂的星際文明降臨拯救人類",
+      "text_cn": "没有全球性的大水灾，更没有所谓的星际文明降临拯救人类",
+      "start_sec": 0.0,
+      "end_sec": 5.2,
+      "duration_sec": 5.2
+    },
+    {
+      "index": 2,
+      "text": "埃及最高文物委員會更是無情地發表公開聲明",
+      "text_cn": "埃及最高文物委员会更是无情地发表公开声明",
+      "start_sec": 5.45,
+      "end_sec": 9.61,
+      "duration_sec": 4.16
+    },
+    {
+      "index": 3,
+      "text": "證實獅身人面像耳朵後面除了風化的砂岩什麼都沒有",
+      "text_cn": "证实狮身人面像耳朵后面除了风化的砂岩什么都没有",
+      "start_sec": 9.86,
+      "end_sec": 14.62,
+      "duration_sec": 4.76
+    }
+  ],
+  "created_at": "2026-10-16T04:27:32.398884+00:00"
+}

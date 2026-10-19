@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261009T022426",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.62,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "他帶領團隊全面回歸最經典的四乘二基礎長方體顆粒",
+      "text_cn": "他带领团队全面回归最经典的四乘二基础长方体颗粒",
+      "start_sec": 0.0,
+      "end_sec": 4.76,
+      "duration_sec": 4.76
+    },
+    {
+      "index": 2,
+      "text": "同時樂高放下了過去那種高高在上的傲慢，開始擁抱成年人",
+      "text_cn": "同时乐高放下了过去那种高高在上的傲慢，开始拥抱成年人",
+      "start_sec": 5.01,
+      "end_sec": 10.21,
+      "duration_sec": 5.2
+    },
+    {
+      "index": 3,
+      "text": "他們破天荒地邀請全世界的成人積木愛好者參與產品設計",
+      "text_cn": "他们破天荒地邀请全世界的成人积木爱好者参与产品设计",
+      "start_sec": 10.46,
+      "end_sec": 15.62,
+      "duration_sec": 5.16
+    }
+  ],
+  "created_at": "2026-10-09T02:24:26.874949+00:00"
+}

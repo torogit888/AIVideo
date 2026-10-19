@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261016T043530",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.02,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "時至今日，那個曾經攪動全球二十年風雲的火星男孩已經步入而立之年",
+      "text_cn": "时至今日，那个曾经搅动全球二十年风云的火星男孩已经步入而立之年",
+      "start_sec": 0.0,
+      "end_sec": 6.2,
+      "duration_sec": 6.2
+    },
+    {
+      "index": 2,
+      "text": "他徹底抹去了自己在互聯網上的所有足跡",
+      "text_cn": "他彻底抹去了自己在互联网上的所有足迹",
+      "start_sec": 6.45,
+      "end_sec": 10.21,
+      "duration_sec": 3.76
+    },
+    {
+      "index": 3,
+      "text": "改名換姓隱沒在俄羅斯龐大而平凡的工人階層之中",
+      "text_cn": "改名换姓隐没在俄罗斯庞大而平凡的工人阶层之中",
+      "start_sec": 10.46,
+      "end_sec": 15.02,
+      "duration_sec": 4.56
+    }
+  ],
+  "created_at": "2026-10-16T04:35:30.997995+00:00"
+}

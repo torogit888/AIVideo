@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261019T072036",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 17.18,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "這意味著這艘無人掌舵的巨艦在風浪裡獨自漂行了將近四百英里",
+      "text_cn": "这意味着这骚无人掌舵的巨舰在风浪里独自漂行了将近四百英里",
+      "start_sec": 0.0,
+      "end_sec": 5.76,
+      "duration_sec": 5.76
+    },
+    {
+      "index": 2,
+      "text": "它在沒有任何人調整風帆的情況下竟然奇蹟般避開了所有暗礁",
+      "text_cn": "它在没有任何人调整风帆的情况下竟然奇迹般避开了所有暗礁",
+      "start_sec": 6.01,
+      "end_sec": 11.57,
+      "duration_sec": 5.56
+    },
+    {
+      "index": 3,
+      "text": "但大副德沃很快在甲板深處發現了幾個更加讓人發毛的細節",
+      "text_cn": "但大副德沃很快在甲板深处发现了几个更加让人发毛的细节",
+      "start_sec": 11.82,
+      "end_sec": 17.18,
+      "duration_sec": 5.36
+    }
+  ],
+  "created_at": "2026-10-19T07:20:36.021984+00:00"
+}

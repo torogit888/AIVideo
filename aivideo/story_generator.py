@@ -51,29 +51,29 @@ STYLES_FILE = REPO_ROOT / "assets" / "styles.yaml"
 
 DEFAULT_STYLE_PRESETS = {
     "otomo_katsuhiro": {
-        "name": "大友克洋漫畫與動畫電影風格 (Katsuhiro Otomo)",
-        "prefix": "大友克洋漫畫與動畫電影風格，80年代經典賽璐珞手繪質感，寫實精準的人物與硬科幻機械結構，極高密度的管線與金屬細節，電影感寬銀幕分鏡，自然手繪光影與陰影線條，16:9 橫式構圖",
-        "negative": "文字浮水印、現代3D塑料感、低細節模糊、走形手部",
+        "name": "大友克洋風格 (Katsuhiro Otomo Style)",
+        "prefix": "Katsuhiro Otomo Style",
+        "negative": "文字浮水印、現代3D塑料感、低細節模糊、走形手部, text, words, Chinese characters, subtitles, watermark",
     },
     "cinematic_realistic": {
         "name": "電影寫實風格 (Cinematic Realistic)",
-        "prefix": "電影感靜幀，35mm鏡頭，膠片顆粒，自然電影光影，高動態範圍，精細細節，16:9 橫式構圖",
-        "negative": "文字浮水印、過曝、變形、塑料感",
+        "prefix": "Cinematic Realistic Style",
+        "negative": "文字浮水印、過曝、變形、塑料感, text, words, Chinese characters, subtitles, watermark",
     },
     "japanese_anime": {
-        "name": "新海誠日系動漫風格 (Japanese Anime)",
-        "prefix": "新海誠日系動漫風格，精緻線條，通透唯美光影，色彩飽和，二次元手繪質感，16:9 橫式構圖",
-        "negative": "文字浮水印、寫實暗沉、粗糙雜訊",
+        "name": "新海誠日系動漫風格 (Makoto Shinkai Style)",
+        "prefix": "Makoto Shinkai Style",
+        "negative": "文字浮水印、寫實暗沉、粗糙雜訊, text, words, Chinese characters, subtitles, watermark",
     },
     "european_fairytale": {
-        "name": "歐式古典童話繪本風格 (European Fairytale)",
-        "prefix": "歐式古典童話繪本插畫，溫暖水彩厚塗，柔和邊緣，奇幻童趣，精緻筆觸，16:9 橫式構圖",
-        "negative": "文字浮水印、照片寫實、現代冰冷科技感",
+        "name": "歐式古典童話繪本風格 (European Fairytale Style)",
+        "prefix": "European Fairytale Style",
+        "negative": "文字浮水印、照片寫實、現代冰冷科技感, text, words, Chinese characters, subtitles, watermark",
     },
     "retro_scifi": {
-        "name": "70年代復古科幻太空風格 (Retro Sci-Fi)",
-        "prefix": "70年代復古科幻太空插畫，NASA復古海報風格，顆粒質質感，深邃星空，機械構造，16:9 橫式構圖",
-        "negative": "文字浮水印、數碼平滑、雜亂畸形",
+        "name": "70年代復古科幻太空風格 (Retro Sci-Fi Style)",
+        "prefix": "1970s Retro Sci-Fi Style",
+        "negative": "文字浮水印、數碼平滑、雜亂畸形, text, words, Chinese characters, subtitles, watermark",
     },
 }
 

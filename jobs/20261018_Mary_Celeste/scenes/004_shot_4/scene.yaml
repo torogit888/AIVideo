@@ -1,0 +1,20 @@
+id: 004_shot_4
+index: 4
+title: 這次他破例帶上了三十歲的妻子和年
+narration: 這次他破例帶上了三十歲的妻子和年僅兩歲的女兒一同出海，隨行的還有大副理查森以及七名經驗極其老道的水手精銳，底艙滿載著一千七百零一桶工業變性酒精準備運往義大利，[question-ei]然而一個月後這艘船被發現時十個人竟然徹底蒸發了？
+image_prompt: split scene showing a glimpse of a wooden cabin interior with an open
+  melodeon organ and a small cast-iron sewing machine with unfinished infant clothing,
+  contrasting with an open, cavernous cargo hold filled with stacked Industrial Denatured
+  Alcohol Casks, a faint, volatile translucent shimmer of evaporating chemical vapor,
+  illuminated by swinging brass oil lamps in the cabin, cold hazy fumes in the hold,
+  35mm cinematic lens aesthetics, subtle film grain, high dynamic range, 16:9 widescreen
+  composition, 大友克洋風格 (Katsuhiro Otomo Style)
+image_negative: ''
+act_index: 1
+act_title: 時空座標與幽靈啟航，消失在黃金航線上的十個人
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T071456
+  image_take: image_20261019T071443

@@ -1,0 +1,18 @@
+id: 017_shot_17
+index: 17
+title: 最終法庭在毫無真憑實據的情況下只
+narration: '[sigh]最終法庭在毫無真憑實據的情況下只能極其尷尬地結案，扣除了大部分救助金後這起審判卻給後世留下了巨大的陰謀論土壤，在隨後的幾十年裡各種離奇古怪的坊間傳聞開始在大西洋兩岸瘋傳，'
+image_prompt: wide shot of the Gibraltar Maritime Courtroom, now empty and austere,
+  the judge's bench imposing but vacant, bathed in a cold, diffused light, stylized
+  maps with dotted lines subtly suggesting whispers and rumors spreading across the
+  Atlantic, 35mm cinematic lens aesthetics, subtle film grain, high dynamic range,
+  16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo Style)
+image_negative: ''
+act_index: 4
+act_title: 直布羅陀的獵巫法庭，救人英雄淪為殺人嫌疑犯
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T072545
+  image_take: image_20261019T072523

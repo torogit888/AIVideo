@@ -1,0 +1,27 @@
+id: 030_shot_30
+index: 30
+title: 直到一八八五年最後一任船長企圖騙
+narration: 直到一八八五年最後一任船長企圖騙保故意撞礁它的殘骸至今沉睡在海地，在浩瀚無情的自然面前奪走我們性命的往往是極端恐慌下自以為的安全選擇，如果你也喜歡這段荒謬又真實的歷史別忘了幫我點個喜歡訂閱頻道，開啟小鈴鐺我們下一期故事繼續見證歷史的魔幻與真實！
+image_prompt: deep-sea shot of the Mary Celeste's skeletal remains, half-buried in
+  the dark, sandy seabed, covered in barnacles and marine growth, desolate and silent,
+  illuminated by a faint, ethereal light filtering down from the surface, 35mm cinematic
+  lens aesthetics, subtle film grain, high dynamic range, 16:9 widescreen composition,
+  大友克洋風格 (Katsuhiro Otomo Style)
+image_negative: ''
+act_index: 7
+act_title: 歷史餘韻與訂閱謝幕，敬畏深海的無情與人類的脆弱
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T073634
+  image_take: image_20261019T073557
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Mary Celeste insurance fraud news clipping 1885
+  fetch_error: 未找到合適照片

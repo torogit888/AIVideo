@@ -1,0 +1,17 @@
+id: 037_shot_37
+index: 37
+title: 設計師為了追求新潮
+narration: 設計師為了追求新潮，動不動就為了單一玩具開闢專屬模具，零件種類在短短幾年內，從六千種瘋狂暴增到一萬三千種以上，一個金屬模具的成本就高達數十萬歐元，很多只生產過一次就廢棄，
+image_prompt: eye-level wide shot in Q-version 2D cartoon illustration style, a massive
+  industrial storage hall lined with endless steel racks holding thousands of specialized
+  metal injection molds of irregular, complex shapes, cool industrial overhead lamps,
+  crisp outlines, rich cel shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 5
+act_title: 【神壇跌落與盲目擴張】2003年：每日虧損百萬美元的巨獸窒息危機
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T021457
+  image_take: image_20261009T021444

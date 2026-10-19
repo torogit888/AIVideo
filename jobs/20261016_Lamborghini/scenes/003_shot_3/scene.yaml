@@ -1,0 +1,26 @@
+id: 003_shot_3
+index: 3
+title: 但在繁榮背後
+narration: 但在繁榮背後，當地的階級鄙視鏈其實根深蒂固，傳統的賽車工匠自詡為文藝復興以來的貴族精英，根本瞧不起那些渾身機油味的鄉下暴發戶，費魯齊歐藍寶堅尼就是當時波河平原最有錢的泥腿子，
+image_prompt: medium shot, Q-version 2D cartoon illustration, snooty aristocratic
+  racing mechanics turning their noses up at a cheerful mud-splattered chibi Ferruccio
+  Lamborghini standing proudly beside his industrial tractor, bold outlines, warm
+  terracotta courtyard background, cel-shaded coloring, 16:9 widescreen composition
+image_negative: ''
+act_index: 1
+act_title: 天價玩具與泥腿子富豪的階級裂痕
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T143356
+  image_take: image_20261016T143343
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Ferruccio Lamborghini portrait 1950s
+  fetch_error: 未找到合適照片

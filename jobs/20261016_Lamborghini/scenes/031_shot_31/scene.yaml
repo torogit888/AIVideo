@@ -1,0 +1,26 @@
+id: 031_shot_31
+index: 31
+title: 達拉拉天才般地把龐大的十二缸引擎
+narration: 達拉拉天才般地把龐大的十二缸引擎橫著塞進了駕駛艙後方，開創了民用公路車橫向中置引擎的物理奇蹟，當這具光禿禿的底盤亮相車展時，全世界的富豪已經開始搶著簽支票，
+image_prompt: wide shot, Q-version 2D cartoon illustration, the unveiling of the bare
+  rolling P400 chassis with its transverse mid-mounted V12 engine at the auto salon,
+  wealthy chibi connoisseurs waving blank checkbooks in astonishment around the innovative
+  mechanical frame, bright exhibition lighting, 16:9 widescreen composition
+image_negative: ''
+act_index: 5
+act_title: 顛覆超跑定義的核彈：Miura 橫空出世
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T145909
+  image_take: image_20261016T145829
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Lamborghini Miura bare chassis transverse V12 engine
+  fetch_error: 未找到合適照片

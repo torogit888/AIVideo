@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261009T015117",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.74,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "好不容易熬過了重建，二戰的戰火又迅速席捲了整個歐洲",
+      "text_cn": "好不容易熬过了重建，二战的战火又迅速席卷了整个欧洲",
+      "start_sec": 0.0,
+      "end_sec": 5.0,
+      "duration_sec": 5.0
+    },
+    {
+      "index": 2,
+      "text": "納粹德國佔領了丹麥，原料被瘋狂掠奪，電力實行嚴格配給",
+      "text_cn": "纳粹德国占领了丹麦，原料被疯狂掠夺，电力实行严格配给",
+      "start_sec": 5.25,
+      "end_sec": 10.29,
+      "duration_sec": 5.04
+    },
+    {
+      "index": 3,
+      "text": "在一九四二年一個狂風暴雨的冬夜裡，電線短路引發了爆炸",
+      "text_cn": "在一九四二年一个狂风暴雨的冬夜里，电线短路引发了爆炸",
+      "start_sec": 10.54,
+      "end_sec": 15.74,
+      "duration_sec": 5.2
+    }
+  ],
+  "created_at": "2026-10-09T01:51:17.832051+00:00"
+}

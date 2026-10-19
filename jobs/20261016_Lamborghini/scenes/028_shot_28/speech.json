@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261016T145605",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.7,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "費魯齊歐狠狠甩了恩佐一記響亮的耳光",
+      "text_cn": "费鲁齐欧狠狠甩了恩佐一记响亮的耳光",
+      "start_sec": 0.0,
+      "end_sec": 3.56,
+      "duration_sec": 3.56
+    },
+    {
+      "index": 2,
+      "text": "但這僅僅只是個開端，雖然三五零吉提大獲成功",
+      "text_cn": "但这仅仅只是个开端，虽然三五零吉提大获成功",
+      "start_sec": 3.81,
+      "end_sec": 8.01,
+      "duration_sec": 4.2
+    },
+    {
+      "index": 3,
+      "text": "但費魯齊歐本人其實相對保守，他只想要一台舒適可靠的豪華轎跑，並不想惹惱賽車教父",
+      "text_cn": "但费鲁齐欧本人其实相对保守，他只想要一台舒适可靠的豪华轿跑，并不想惹恼赛车教父",
+      "start_sec": 8.26,
+      "end_sec": 15.7,
+      "duration_sec": 7.44
+    }
+  ],
+  "created_at": "2026-10-16T14:56:05.702333+00:00"
+}

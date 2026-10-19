@@ -1,0 +1,17 @@
+id: 030_shot_30
+index: 30
+title: 當時恩佐法拉利曾公開嘲諷
+narration: 當時恩佐法拉利曾公開嘲諷，說牛是拉車的而不是推車的，恩佐頑固地堅信，前置引擎才是公路跑車不可動搖的唯一真理，[dissatisfaction-hnn]這幫年輕人偏要打碎這種老舊的權威教條，
+image_prompt: split-screen concept shot, Q-version 2D cartoon illustration, on the
+  left chibi Enzo Ferrari dogmatically holding up an old horse-drawn cart diagram,
+  on the right the young Lamborghini engineers boldly pushing a futuristic rear-engine
+  chassis blueprint, bold cartoon contrast, 16:9 widescreen composition
+image_negative: ''
+act_index: 4
+act_title: 都靈車展的木屑奇蹟：第一記狠狠的耳光
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T145757
+  image_take: image_20261016T145736

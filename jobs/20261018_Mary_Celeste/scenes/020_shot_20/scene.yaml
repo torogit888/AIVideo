@@ -1,0 +1,19 @@
+id: 020_shot_20
+index: 20
+title: 故事最後甚至杜撰了一名前黑奴船員
+narration: '[laughter]故事最後甚至杜撰了一名前黑奴船員屠殺全船的復仇戲碼，誰也沒想到這篇純粹為了賺取稿費的虛構小說竟然被權威媒體當真，報紙雜誌競相轉載直接將柯南道爾的幻想加工成了鐵證如山的歷史，'
+image_prompt: 'dynamic, stylized montage depicting the rapid spread of misinformation:
+  newspaper headlines and magazine covers rapidly multiplying and overlapping, showing
+  a distorted, sensationalized image of the Mary Celeste incident with exaggerated
+  violence, graphic and dynamic composition, 35mm cinematic lens aesthetics, subtle
+  film grain, high dynamic range, 16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo
+  Style)'
+image_negative: ''
+act_index: 5
+act_title: 流行文化的百年污染，被文豪篡改的都市傳說
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T072743
+  image_take: image_20261019T072730

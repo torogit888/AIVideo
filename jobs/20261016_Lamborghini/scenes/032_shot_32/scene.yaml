@@ -1,0 +1,27 @@
+id: 032_shot_32
+index: 32
+title: 緊接著年僅二十七歲的設計奇才甘迪
+narration: 緊接著年僅二十七歲的設計奇才甘迪尼，替它披上了外衣，如同獵豹伏地般流線的外型，搭配性感張揚的睫毛大燈，一九六六年日內瓦車展，傳奇超跑米烏拉正式向世界引爆，
+image_prompt: medium shot, Q-version 2D cartoon illustration, young visionary designer
+  Marcello Gandini sweeping colored markers across drafting paper, conjuring the low-slung
+  aerodynamic silhouette and signature eyelash pop-up headlights of the Lamborghini
+  Miura, bright creative studio, 16:9 widescreen composition
+image_negative: ''
+act_index: 5
+act_title: 顛覆超跑定義的核彈：Miura 橫空出世
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T150005
+  image_take: image_20261016T145943
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Lamborghini Miura 1966 Geneva Motor Show
+  fetch_error: 'AI 審核未通過（與口白不符）：AI 判定不吻合: 照片是現代拍攝的1969年Miura S型號，並非1966年日內瓦車展的原始發表車款或當時的檔案照片。，已自動切換為純
+    AI 生成畫面'

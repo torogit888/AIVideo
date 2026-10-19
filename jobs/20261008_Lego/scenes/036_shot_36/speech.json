@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261009T021353",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.78,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[dissatisfaction-hnn]樂高開始瘋狂砸錢去蓋大型主題樂園，甚至跨足童裝，手錶",
+      "text_cn": "[dissatisfaction-hnn]乐高开始疯狂砸钱去盖大型主题乐园，甚至跨足童装，手表",
+      "start_sec": 0.0,
+      "end_sec": 5.76,
+      "duration_sec": 5.76
+    },
+    {
+      "index": 2,
+      "text": "電視動畫和根本無法拆卸的奇葩動作人偶",
+      "text_cn": "电视动画和根本无法拆卸的奇葩动作人偶",
+      "start_sec": 6.01,
+      "end_sec": 9.77,
+      "duration_sec": 3.76
+    },
+    {
+      "index": 3,
+      "text": "最恐怖的是內部管理的徹底失控與設計師的無限放權",
+      "text_cn": "最恐怖的是内部管理的彻底失控与设计师的无限放权",
+      "start_sec": 10.02,
+      "end_sec": 14.78,
+      "duration_sec": 4.76
+    }
+  ],
+  "created_at": "2026-10-09T02:13:53.883561+00:00"
+}

@@ -1,0 +1,29 @@
+id: 026_shot_26
+index: 26
+title: 一九六四年正式量產的藍寶堅尼三五
+narration: 一九六四年正式量產的藍寶堅尼三五零吉提震撼登場，它配備了四輪雙叉臂獨立懸吊，四輪碟煞以及極度奢華的皮椅，最打臉的是，它的離合器輕盈平順，無論怎麼踩都絕不打滑，
+image_prompt: wide low-angle shot, Q-version 2D cartoon illustration, the gleaming
+  1964 production Lamborghini 350 GT revealed on a rotating stage, polished metallic
+  paint, wire-spoke wheels, luxurious leather interior visible, immaculate clean line
+  art, proud studio lighting, 16:9 widescreen composition
+image_negative: ''
+act_index: 4
+act_title: 都靈車展的木屑奇蹟：第一記狠狠的耳光
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T145443
+  image_take: null
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Lamborghini 350 GT 1964
+  source_title: File:Lamborghini 350 GT 1964.jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/6/6b/Lamborghini_350_GT_1964.jpg
+  verified: true
+  review_reason: 照片清晰呈現旁白中提及的藍寶堅尼三五零吉提，與內容完全吻合。

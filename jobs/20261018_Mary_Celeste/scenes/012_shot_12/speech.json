@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261019T072137",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 22.99,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "船上的航海鐘早已停止轉動而用來辨認方向的羅盤指南針被打碎",
+      "text_cn": "船上的航海钟早已停止转动而用来辨认方向的罗盘指南针被打碎",
+      "start_sec": 0.0,
+      "end_sec": 5.76,
+      "duration_sec": 5.76
+    },
+    {
+      "index": 2,
+      "text": "主貨艙的厚重木質艙蓋被徹底打開底艙飄出濃烈的酒精氣味",
+      "text_cn": "主货舱的厚重木直舱盖被彻底打开底舱飘出浓烈的酒精气味",
+      "start_sec": 6.01,
+      "end_sec": 11.37,
+      "duration_sec": 5.36
+    },
+    {
+      "index": 3,
+      "text": "更讓人百思不得其解的是船尾拖著一條垂入冰冷深海的長繩索",
+      "text_cn": "更让人百思不得其解的是船尾拖着一条垂入冰冷深海的长绳索",
+      "start_sec": 11.62,
+      "end_sec": 17.18,
+      "duration_sec": 5.56
+    },
+    {
+      "index": 4,
+      "text": "繩索的末端斷裂處呈現出被極其狂暴的外力硬生生扯斷的毛邊",
+      "text_cn": "绳索的末端断裂处呈现出被极其狂暴的外力硬生生扯断的毛边",
+      "start_sec": 17.43,
+      "end_sec": 22.99,
+      "duration_sec": 5.56
+    }
+  ],
+  "created_at": "2026-10-19T07:21:37.516934+00:00"
+}

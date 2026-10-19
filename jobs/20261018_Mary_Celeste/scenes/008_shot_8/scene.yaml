@@ -1,0 +1,19 @@
+id: 008_shot_8
+index: 8
+title: 廚房和生活區裡存放著足夠所有人支
+narration: 廚房和生活區裡存放著足夠所有人支撐六個月以上的淡水與口糧，船長臥室裡放著一台沒合上的風琴和掛著未織完嬰兒服的縫紉機，水手們換洗的衣物整齊疊放連隨身的菸斗都完好地留在桌上，[question-ei]整艘船唯一消失的居然只有一艘用來逃命的小型救生艇？
+image_prompt: medium shot inside the Mary Celeste's claustrophobic wooden cabin interior,
+  showing an open melodeon organ, a small cast-iron sewing machine with unfinished
+  infant clothing, neatly folded sailor woolens, and a pipe resting on a table, illuminated
+  by the warm, flickering light of a swinging brass oil lamp, 35mm cinematic lens
+  aesthetics, subtle film grain, high dynamic range, 16:9 widescreen composition,
+  大友克洋風格 (Katsuhiro Otomo Style)
+image_negative: ''
+act_index: 2
+act_title: 海平線上的失魂傀儡，女皇號的致命相遇
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T071801
+  image_take: image_20261019T071748

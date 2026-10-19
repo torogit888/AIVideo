@@ -1,0 +1,26 @@
+id: 040_shot_40
+index: 40
+title: 背負著八億美元的巨額債務
+narration: 背負著八億美元的巨額債務，每天一睜眼就要蒸發上百萬美元，銀行團已經準備隨時清算，宿敵美泰兒正虎視眈眈準備低價收購，三場大火都沒能燒死的玩具帝國，差點被自己的愚蠢徹底玩死，
+image_prompt: tense medium shot in Q-version 2D cartoon illustration style, a dark
+  conference table covered in formal bank notices, unpaid debt ledgers, and legal
+  foreclosure folders under stark cool ceiling spotlights, crisp 2D outlines, intense
+  dramatic cel shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 6
+act_title: 【外科手術式逆轉】白面書生的屠刀：重返 4×2 顆粒的復興奇蹟
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T021757
+  image_take: image_20261009T021716
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Mattel LEGO takeover rumors 2003 news clipping
+  fetch_error: 未找到合適照片

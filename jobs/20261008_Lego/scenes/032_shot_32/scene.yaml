@@ -1,0 +1,18 @@
+id: 032_shot_32
+index: 32
+title: 看著滿地的灰燼
+narration: 看著滿地的灰燼，接掌大權的戈德弗雷德在董事會上無比冷靜，他說這場大火是上帝替我們做出了最正確的抉擇，樂高當場宣布永久放棄所有木製品，全面轉向塑料積木系統，
+image_prompt: low-angle medium shot in Q-version 2D cartoon illustration style, Godtfred
+  Kirk Christiansen standing calmly at the head of a wooden boardroom table, pointing
+  decisively to a bright red Classic 2x4 Plastic Studded Brick while pushing aside
+  a charred wooden block, confident and authoritative, sharp cel shading, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 5
+act_title: 【神壇跌落與盲目擴張】2003年：每日虧損百萬美元的巨獸窒息危機
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T020946
+  image_take: image_20261009T020925

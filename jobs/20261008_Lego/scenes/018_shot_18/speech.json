@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261009T015651",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 17.46,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "戈德弗雷德只能一個人在冰冷的廠房裡",
+      "text_cn": "戈德弗雷德只能一个人在冰冷的厂房里",
+      "start_sec": 0.0,
+      "end_sec": 3.56,
+      "duration_sec": 3.56
+    },
+    {
+      "index": 2,
+      "text": "給每隻鴨子補上最後一道漆，奧勒甚至親手刻了一塊木牌掛在牆上",
+      "text_cn": "给每只鸭子补上最后一道漆，奥勒甚至亲手刻了一块木牌挂在墙上",
+      "start_sec": 3.81,
+      "end_sec": 9.61,
+      "duration_sec": 5.8
+    },
+    {
+      "index": 3,
+      "text": "寫著唯有最好才算及格，這種在生存邊緣依然不肯妥協的瘋狂偏執，成了這家公司的靈魂",
+      "text_cn": "写着唯有最好才算及格，这种在生存边缘依然不肯妥协的疯狂偏执，成了这家公司的灵魂",
+      "start_sec": 9.86,
+      "end_sec": 17.46,
+      "duration_sec": 7.6
+    }
+  ],
+  "created_at": "2026-10-09T01:56:51.350629+00:00"
+}

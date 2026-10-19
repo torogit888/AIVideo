@@ -1,0 +1,18 @@
+id: 019_shot_19
+index: 19
+title: 為了追求驚悚的文學效果他憑空編造
+narration: 為了追求驚悚的文學效果他憑空編造了一系列駭人聽聞的虛假細節，小說聲稱救援人員登船時餐桌上的茶杯還在熱氣騰騰地冒著白煙，盤子裡的煎蛋還是溫熱的水手甚至聽見廚房裡的貓咪在發出呼嚕聲，
+image_prompt: 'surreal, dreamlike medium shot inside the Mary Celeste''s claustrophobic
+  wooden cabin interior: a teacup on a table emitting a plume of white steam, a plate
+  of fried eggs appearing warm and untouched, and a cat curled up, subtly purring,
+  soft but eerie lighting, 35mm cinematic lens aesthetics, subtle film grain, high
+  dynamic range, 16:9 widescreen composition, 大友克洋風格 (Katsuhiro Otomo Style)'
+image_negative: ''
+act_index: 5
+act_title: 流行文化的百年污染，被文豪篡改的都市傳說
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T072706
+  image_take: image_20261019T072654

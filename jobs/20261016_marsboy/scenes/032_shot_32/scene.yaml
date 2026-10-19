@@ -1,0 +1,17 @@
+id: 032_shot_32
+index: 32
+title: 他眼睜睜看著自己最親密的地球摯友
+narration: 他眼睜睜看著自己最親密的地球摯友被轟然倒塌的巨大石柱當場砸死，自己卻只能坐在懸浮的飛船駕駛艙裡無能為力，那種滄桑與痛苦完全超脫了他的生理年齡，
+image_prompt: 'dramatic shot viewed through the cockpit glass of the hovering Martian
+  Plasma Shuttle: a giant stone pillar crashing down into floodwaters, as chibi Boriska
+  presses his small hands helplessly against the glass in deep sorrow, clean 2D cel-shading,
+  16:9 widescreen composition'
+image_negative: ''
+act_index: 4
+act_title: 【利莫里亞巨浪：被抹去的史前地球與朋友之死】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T041138
+  image_take: image_20261016T041056

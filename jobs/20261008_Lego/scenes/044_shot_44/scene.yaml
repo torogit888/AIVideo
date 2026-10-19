@@ -1,0 +1,17 @@
+id: 044_shot_44
+index: 44
+title: 接著他將屠刀揮向了那堆失控的積木
+narration: 接著他將屠刀揮向了那堆失控的積木零件，他強制下令把一萬三千種零件腰斬一半，強行壓縮到七千種以下，並立下鐵律，設計師每想新增一個新零件，就必須先淘汰兩個舊的，
+image_prompt: medium shot in Q-version 2D cartoon illustration style, Jørgen Vig Knudstorp
+  standing before a massive wall display of plastic brick components, decisively crossing
+  out thousands of overly complex parts with a bold red marker, surrounded by attentive
+  designers, bright studio lighting, crisp linework, 16:9 widescreen composition
+image_negative: ''
+act_index: 6
+act_title: 【外科手術式逆轉】白面書生的屠刀：重返 4×2 顆粒的復興奇蹟
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T022214
+  image_take: image_20261009T022139

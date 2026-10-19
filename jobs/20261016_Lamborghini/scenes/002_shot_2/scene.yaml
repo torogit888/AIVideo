@@ -1,0 +1,18 @@
+id: 002_shot_2
+index: 2
+title: 回到上世紀五十年代末的義大利北部
+narration: 回到上世紀五十年代末的義大利北部波河平原，二戰結束剛剛滿十五年，義大利正迎來經濟奇蹟，鄉村農田急需現代化農機，工業化浪潮席捲全國，
+image_prompt: wide panoramic establishing shot, Q-version 2D cartoon illustration,
+  the fertile Northern Italian Po River Plain in the late 1950s, sun-drenched green
+  vineyards and brick farmhouses, busy vintage agricultural tractors plowing rich
+  soil, warm golden-hour Italian sunlight, crisp cel-shaded art style, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 1
+act_title: 天價玩具與泥腿子富豪的階級裂痕
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T143308
+  image_take: image_20261016T143255

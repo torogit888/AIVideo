@@ -1,0 +1,17 @@
+id: 025_shot_25
+index: 25
+title: 但隨之而來的
+narration: 但隨之而來的，不是財源滾滾，而是一場巨大的災難，早期的塑料積木底部完全是空的，根本沒有任何抓地力，孩子們只要拼到第三層，積木就會因為輕微震動整座崩塌，
+image_prompt: medium shot in Q-version 2D cartoon illustration style, a tall tower
+  of early hollow plastic bricks wobbling and tumbling apart onto a wooden table,
+  brightly colored loose blocks scattering through the air with dynamic motion lines,
+  crisp ink contours, vibrant cel-shaded palette, 16:9 widescreen composition
+image_negative: ''
+act_index: 4
+act_title: 【絕處逢生的專利與第三場火】1958年的內部管道，與木製時代的徹底陪葬
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T020353
+  image_take: image_20261009T020339

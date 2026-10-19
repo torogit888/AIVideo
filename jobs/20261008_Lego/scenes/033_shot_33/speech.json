@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261009T021053",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.84,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "靠著三場大火的洗禮，這個木匠家族徹底完成了脫胎換骨的蛻變",
+      "text_cn": "靠着三场大火的洗礼，这个木匠家族彻底完成了脱胎换骨的蜕变",
+      "start_sec": 0.0,
+      "end_sec": 5.58,
+      "duration_sec": 5.58
+    },
+    {
+      "index": 2,
+      "text": "在接下來的三十年裡，樂高積木席捲了整個西方世界",
+      "text_cn": "在接下来的三十年里，乐高积木席卷了整个西方世界",
+      "start_sec": 5.83,
+      "end_sec": 10.43,
+      "duration_sec": 4.6
+    },
+    {
+      "index": 3,
+      "text": "它甚至被英國玩具零售商協會評為二十世紀最偉大的玩具",
+      "text_cn": "它甚至被英国玩具零售商协会评为二十世纪最伟大的玩具",
+      "start_sec": 10.68,
+      "end_sec": 15.84,
+      "duration_sec": 5.16
+    }
+  ],
+  "created_at": "2026-10-09T02:10:53.756945+00:00"
+}

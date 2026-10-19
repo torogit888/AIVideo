@@ -1,0 +1,17 @@
+id: 054_shot_54
+index: 54
+title: 神童濾鏡徹底破碎之後的代價是極度
+narration: 神童濾鏡徹底破碎之後的代價是極度殘酷的，波力斯卡在現實學校裡遭受了同儕無休止的霸凌與孤立，同學們將他視為滿嘴謊言的精神病患，
+image_prompt: 'wide shot of a drab Russian high school corridor: teenage chibi Boriska
+  in a plain hoodie clutching his backpack against metal lockers, while groups of
+  gossiping classmates point and giggle at him from a distance, desaturated 2D cel-shading,
+  16:9 widescreen composition'
+image_negative: ''
+act_index: 7
+act_title: 【神話落幕與歷史餘韻：仰望星空背後的人性悲喜劇】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261016T043234
+  image_take: image_20261016T043155

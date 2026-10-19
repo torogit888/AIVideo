@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261019T072706",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 18.18,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "為了追求驚悚的文學效果他憑空編造了一系列駭人聽聞的虛假細節",
+      "text_cn": "为了追求惊悚的文学效果他凭空编造了一系列骇人听闻的虚假细节",
+      "start_sec": 0.0,
+      "end_sec": 5.96,
+      "duration_sec": 5.96
+    },
+    {
+      "index": 2,
+      "text": "小說聲稱救援人員登船時餐桌上的茶杯還在熱氣騰騰地冒著白煙",
+      "text_cn": "小说声称救援人员登船时餐桌上的茶杯还在热气腾腾地冒着白烟",
+      "start_sec": 6.21,
+      "end_sec": 11.97,
+      "duration_sec": 5.76
+    },
+    {
+      "index": 3,
+      "text": "盤子裡的煎蛋還是溫熱的水手甚至聽見廚房裡的貓咪在發出呼嚕聲",
+      "text_cn": "盘子里的煎蛋还是温热的水手甚至听见厨房里的猫咪在发出呼噜声",
+      "start_sec": 12.22,
+      "end_sec": 18.18,
+      "duration_sec": 5.96
+    }
+  ],
+  "created_at": "2026-10-19T07:27:06.470947+00:00"
+}

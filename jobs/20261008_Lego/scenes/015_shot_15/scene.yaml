@@ -1,0 +1,17 @@
+id: 015_shot_15
+index: 15
+title: 但在親戚的白眼和債權人的逼迫下
+narration: 但在親戚的白眼和債權人的逼迫下，他咬著牙借錢重建，因為他骨子裡有一種近乎病態的工匠偏執，
+image_prompt: medium shot in Q-version 2D cartoon illustration style, Ole Kirk Christiansen
+  determinedly hammering a new timber beam into place amidst the scaffolding of a
+  rebuilt workshop, his jaw set firm, wood dust on his rosy cheeks, warm golden sunlight
+  breaking through clouds, rich cel shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 2
+act_title: 【初劫與工匠心魔】灰燼中的三道漆：大戰砲火下的第一、二場毀滅大火
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261009T015411
+  image_take: image_20261009T015307
