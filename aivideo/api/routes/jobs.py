@@ -41,9 +41,12 @@ from aivideo.visual_anchors import (
     character_has_image,
     character_image_path,
     character_image_url,
+    clear_all_character_images,
     compose_subject_anchor,
     ensure_characters,
     first_hero_url,
+    invalidate_changed_character_images,
+    legacy_hero_path,
     normalize_characters,
     persist_characters_on_anchors,
     prune_character_images,
@@ -97,6 +100,7 @@ def _serialize_characters(job_id: str, job_dir: Path, characters: list[dict[str,
                 id=cid,
                 name=ch.get("name") or cid,
                 appearance=ch.get("appearance") or "",
+                entity_type=ch.get("entity_type", "character"),
                 has_image=character_has_image(job_dir, cid),
                 image_url=character_image_url(job_id, cid, job_dir),
             )
@@ -131,6 +135,7 @@ def _generate_one_character_sheet(job_dir: Path, cfg: dict, character: dict[str,
         name=character.get("name") or character["id"],
         appearance=character.get("appearance") or character.get("name") or "distinct character",
         environment=str(environment),
+        entity_type=character.get("entity_type", "character"),
     )
     img_model = cfg.get("image", {}).get("model", "gemini-3-pro-image")
     generate_image(
@@ -382,7 +387,12 @@ def analyze_script_anchors(req: AnalyzeAnchorsRequest) -> AnalyzeAnchorsResponse
         subject_anchor=str(data.get("subject_anchor", "") or compose_subject_anchor(characters)),
         environment_anchor=str(data.get("environment_anchor", "")),
         characters=[
-            CharacterAnchorDraft(id=ch["id"], name=ch["name"], appearance=ch.get("appearance", ""))
+            CharacterAnchorDraft(
+                id=ch["id"],
+                name=ch["name"],
+                appearance=ch.get("appearance", ""),
+                entity_type=ch.get("entity_type", "character"),
+            )
             for ch in characters
         ],
     )
@@ -412,22 +422,29 @@ def update_job_anchors(job_id: str, req: UpdateVisualAnchorsRequest) -> JobVisua
     if req.use_image_reference is not None:
         v_anchors["use_image_reference"] = req.use_image_reference
     if req.characters is not None:
-        old_ids = {ch["id"] for ch in ensure_characters(v_anchors)}
+        old_chars = ensure_characters(v_anchors)
         characters = normalize_characters(
             [c.model_dump() if hasattr(c, "model_dump") else c.dict() for c in req.characters]
         )
         persist_characters_on_anchors(v_anchors, characters)
-        prune_character_images(job_dir, [ch["id"] for ch in characters])
-        # 舊專案單張 hero 若角色列表已換成多人，不再共用
-        if old_ids and {ch["id"] for ch in characters} != old_ids:
-            pass
+        if req.clear_hero_images:
+            clear_all_character_images(job_dir)
+        else:
+            invalidate_changed_character_images(job_dir, old_chars, characters)
     elif req.subject is not None:
+        old_chars = ensure_characters(v_anchors)
         v_anchors["subject"] = req.subject.strip()
         if not v_anchors.get("characters"):
-            persist_characters_on_anchors(
-                v_anchors,
-                normalize_characters([{"id": "main", "name": "Main Subject", "appearance": req.subject.strip()}]),
+            new_chars = normalize_characters(
+                [{"id": "main", "name": "Main Subject", "appearance": req.subject.strip()}]
             )
+            persist_characters_on_anchors(v_anchors, new_chars)
+            if req.clear_hero_images:
+                clear_all_character_images(job_dir)
+            else:
+                invalidate_changed_character_images(job_dir, old_chars, new_chars)
+    elif req.clear_hero_images:
+        clear_all_character_images(job_dir)
 
     _save_job_cfg(job_dir, cfg)
     return _anchors_response(job_id, job_dir, cfg)
@@ -452,6 +469,11 @@ def generate_hero_anchor(job_id: str) -> GenerateHeroAnchorResponse:
     characters = ensure_characters(v_anchors)
     if not characters:
         raise HTTPException(status_code=400, detail="尚未設定任何角色外觀錨點，請先分析腳本或手動新增角色")
+
+    # 清除舊版單張 hero_anchor.png，避免舊圖干擾新角色定裝
+    legacy_hero = legacy_hero_path(job_dir)
+    if legacy_hero.is_file():
+        legacy_hero.unlink(missing_ok=True)
 
     persist_characters_on_anchors(v_anchors, characters)
     v_anchors["use_image_reference"] = True
@@ -557,10 +579,22 @@ def patch_character_anchor(job_id: str, char_id: str, req: PatchCharacterRequest
     v_anchors = _ensure_visual_anchors(cfg)
     characters = ensure_characters(v_anchors)
     ch = _find_character(characters, char_id)
+    old_name = ch.get("name", "")
+    old_app = ch.get("appearance", "")
+    old_type = ch.get("entity_type", "character")
     if req.name is not None:
         ch["name"] = req.name.strip() or ch["name"]
     if req.appearance is not None:
         ch["appearance"] = req.appearance.strip()
+    if req.entity_type is not None:
+        ch["entity_type"] = req.entity_type.strip().lower()
+    if ch.get("name", "") != old_name or ch.get("appearance", "") != old_app or ch.get("entity_type", "character") != old_type:
+        img = character_image_path(job_dir, char_id)
+        if img.is_file():
+            img.unlink(missing_ok=True)
+        legacy_hero = legacy_hero_path(job_dir)
+        if legacy_hero.is_file():
+            legacy_hero.unlink(missing_ok=True)
     persist_characters_on_anchors(v_anchors, characters)
     _save_job_cfg(job_dir, cfg)
     return _anchors_response(job_id, job_dir, cfg)
@@ -704,8 +738,14 @@ def update_job(job_id: str, req: UpdateJobRequest) -> JobSummary:
         data["use_pip"] = bool(req.use_pip)
 
     # 視覺錨點與角色定裝更新
-    if req.characters is not None or req.subject_anchor is not None or req.environment_anchor is not None:
+    if (
+        req.characters is not None
+        or req.subject_anchor is not None
+        or req.environment_anchor is not None
+        or req.clear_hero_images
+    ):
         v_anchors = _ensure_visual_anchors(data)
+        old_chars = ensure_characters(v_anchors)
         if req.environment_anchor is not None:
             v_anchors["environment"] = req.environment_anchor.strip()
         if req.characters is not None:
@@ -713,17 +753,31 @@ def update_job(job_id: str, req: UpdateJobRequest) -> JobSummary:
                 [c.model_dump() if hasattr(c, "model_dump") else c.dict() for c in req.characters]
             )
             persist_characters_on_anchors(v_anchors, norm_chars)
+            if req.clear_hero_images:
+                clear_all_character_images(job_dir)
+            else:
+                invalidate_changed_character_images(job_dir, old_chars, norm_chars)
         elif req.subject_anchor is not None:
             v_anchors["subject"] = req.subject_anchor.strip()
             if not v_anchors.get("characters"):
-                persist_characters_on_anchors(
-                    v_anchors,
-                    normalize_characters([{"id": "main", "name": "Main Subject", "appearance": req.subject_anchor.strip()}]),
+                norm_chars = normalize_characters(
+                    [{"id": "main", "name": "Main Subject", "appearance": req.subject_anchor.strip()}]
                 )
+                persist_characters_on_anchors(v_anchors, norm_chars)
+                if req.clear_hero_images:
+                    clear_all_character_images(job_dir)
+                else:
+                    invalidate_changed_character_images(job_dir, old_chars, norm_chars)
+        elif req.clear_hero_images:
+            clear_all_character_images(job_dir)
         data["visual_anchors"] = v_anchors
 
     try:
         _save_job_cfg(job_dir, data)
+        if req.outline is not None:
+            from aivideo.acts import sync_job_scene_acts
+
+            sync_job_scene_acts(job_dir, data.get("outline"))
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"更新專案失敗: {str(e)}")
 

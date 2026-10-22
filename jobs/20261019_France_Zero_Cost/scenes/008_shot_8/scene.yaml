@@ -1,0 +1,17 @@
+id: 008_shot_8
+index: 8
+title: 到了一七八九年春夏之交巴黎平民面
+narration: 到了一七八九年春夏之交巴黎平民面臨著滅頂之災，底層工薪族為了買一塊最粗劣的黑麥麵包，居然要花掉自己每天整整百分之八十甚至九十的薪水，
+image_prompt: medium shot of chibi Parisian townspeople in 1789 wearing historical
+  peasant garb, staring despondently at an empty wooden bakery counter with only tiny
+  crumbs of dark rye bread, holding empty cloth coin purses, dim interior lighting,
+  in Q版 2D cartoon illustration style, cel-shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 2
+act_title: 【兩百多年前的一塊黑麥麵包——法國大革命的暴食與飢餓密碼】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T144349
+  image_take: image_20261019T144311

@@ -1,0 +1,17 @@
+id: 035_shot_35
+index: 35
+title: 無數網民紛紛湧入社交平台痛批這是
+narration: 無數網民紛紛湧入社交平台痛批這是現代版的何不食肉糜，底層青年在街頭砸玻璃特警在第一線吸瓦斯總統卻在高堂看秀，
+image_prompt: 'dramatic composite shot highlighting social division: an upper tier
+  showing the sparkling, glamorous concert hall with pastel light beams, and a lower
+  tier showing sooty Parisian street clashes with tear gas and flashbangs, in Q版 2D
+  cartoon illustration style, cel-shading, 16:9 widescreen composition'
+image_negative: ''
+act_index: 6
+act_title: 【黑夜裡的RAID裝甲車 vs 天后演唱會上的國家元首】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T150941
+  image_take: image_20261019T150919

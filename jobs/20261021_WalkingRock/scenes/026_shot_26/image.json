@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261021T085945",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 30847637,
+  "prompt": "Katsuhiro Otomo Style, medium close-up, detailed cutaway view of the GPS-Embedded Spy Stone. The rough exterior of the dolomite rock is visible, but the interior is precisely hollowed out to reveal a compact, rugged green circuit board, miniature low-power GPS sensor, antenna, and lithium battery pack, rendered with clean, hard-sci-fi industrial precision, on the hexagonal cracked mud of Racetrack Playa, rendered in Katsuhiro Otomo style, with high-contrast, sharp shadows, muted ochres, dusty beiges, pale greys, and a stark, desaturated blue sky, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-21T08:59:45.882177+00:00"
+}

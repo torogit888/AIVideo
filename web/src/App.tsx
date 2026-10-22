@@ -123,6 +123,7 @@ export const App: React.FC = () => {
   const {
     currentTab,
     selectedJobId,
+    draftResetKey,
     setPipelineRunning,
     loadScenes,
     loadJobs,
@@ -339,7 +340,7 @@ export const App: React.FC = () => {
             <StoryboardGrid />
           </div>
           <div className={currentTab === "script" ? "flex-1 flex h-full overflow-hidden" : "hidden"}>
-            <ScriptEditor />
+            <ScriptEditor key={selectedJobId || `draft-${draftResetKey}`} />
           </div>
           <div className={currentTab === "film" ? "flex-1 flex h-full overflow-hidden" : "hidden"}>
             <FilmViewer />

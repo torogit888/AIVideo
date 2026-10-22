@@ -1,0 +1,28 @@
+id: 022_shot_22
+index: 22
+title: 整整七年的心血
+narration: '[dissatisfaction-hnn]整整七年的心血，最後除了一堆寫滿位移數據的筆記本，科學界依然對背後的真相一無所知，'
+image_prompt: medium close-up of Professor Robert Sharp, his deeply lined face etched
+  with exhaustion and frustration, surrounded by several open, data-filled notebooks
+  scattered on the hexagonal cracked mud of Racetrack Playa, his thin-framed wire
+  glasses pushed up his forehead, under the harsh desert sun, rendered in Katsuhiro
+  Otomo style, with high-contrast, sharp shadows, muted ochres, dusty beiges, pale
+  greys, and a stark, desaturated blue sky, 16:9 widescreen composition
+image_negative: ''
+act_index: 4
+act_title: 狂客集結，給死谷巨石裝上GPS心臟的「懶人俱樂部」
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261021T085621
+  image_take: image_20261021T085609
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Robert Sharp Death Valley displacement field notes 1970s
+  fetch_error: 未找到合適照片

@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261021T085920",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 17.9,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "但這件事辦起來有多困難呢，你必須理解國家公園那套極其嚴格的環保法規",
+      "text_cn": "但这件事办起来有多困难呢，你必须理解国家公园那套极其严格的环保法规",
+      "start_sec": 0.0,
+      "end_sec": 6.6,
+      "duration_sec": 6.6
+    },
+    {
+      "index": 2,
+      "text": "跑道盆地屬於聯邦荒野保護區，法律明文禁止破壞天然岩石",
+      "text_cn": "跑道盆地属于联邦荒野保护区，法律明文禁止破坏天然岩石",
+      "start_sec": 6.85,
+      "end_sec": 12.05,
+      "duration_sec": 5.2
+    },
+    {
+      "index": 3,
+      "text": "你敢在原有的古老石頭上鑽一個孔，聯邦調查局就能請你去喝茶",
+      "text_cn": "你敢在原有的古老石头上钻一个孔，联邦调查局就能请你去喝茶",
+      "start_sec": 12.3,
+      "end_sec": 17.9,
+      "duration_sec": 5.6
+    }
+  ],
+  "created_at": "2026-10-21T08:59:20.478204+00:00"
+}

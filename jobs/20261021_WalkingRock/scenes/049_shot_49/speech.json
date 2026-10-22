@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261021T092110",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 11.21,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "它們不需要觀眾，也不在乎人類是否理解",
+      "text_cn": "它们不需要观众，也不在乎人类是否理解",
+      "start_sec": 0.0,
+      "end_sec": 3.59,
+      "duration_sec": 3.59
+    },
+    {
+      "index": 2,
+      "text": "只是靜靜地遵循著最基礎的物理規律",
+      "text_cn": "只是静静地遵循着最基础的物理规律",
+      "start_sec": 3.84,
+      "end_sec": 7.2,
+      "duration_sec": 3.36
+    },
+    {
+      "index": 3,
+      "text": "日復一日地在荒野上刻下屬於自己的痕跡",
+      "text_cn": "日复一日地在荒野上刻下属于自己的痕迹",
+      "start_sec": 7.45,
+      "end_sec": 11.21,
+      "duration_sec": 3.76
+    }
+  ],
+  "created_at": "2026-10-21T09:21:10.293706+00:00"
+}

@@ -1,0 +1,27 @@
+id: 022_shot_22
+index: 22
+title: 這種極度魔幻的打砸搶很快蔓延到了
+narration: 這種極度魔幻的打砸搶很快蔓延到了外省的大城市，里爾和波爾多的蘋果直營店同樣被黑衣人野蠻破門，整面昂貴的落地玻璃碎落一地展示桌上的手機被整台連根拔起，
+image_prompt: wide shot of a modern glass-fronted Apple Store in Lille with its entire
+  front window panel shattered into crystalline cubes, chibi figures dressed in black
+  hastily pulling display smartphones off sleek wooden tables, bright interior LED
+  light spilling onto the dark street, in Q版 2D cartoon illustration style, cel-shading,
+  16:9 widescreen composition
+image_negative: ''
+act_index: 4
+act_title: 【黑塊戰術衝垮老佛爺——精品帝國淪為零元購打卡點】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T145652
+  image_take: image_20261019T145639
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Apple Store Sainte-Catherine Bordeaux looted
+  fetch_error: 未找到合適照片

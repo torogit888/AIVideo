@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261021T084925",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 85994118,
+  "prompt": "Katsuhiro Otomo Style, dramatic close-up of a massive, rough-textured, angular grey-white dolomite boulder on the Racetrack Playa. Exaggerated, powerful wind effects swirl dust and small debris violently around its base, yet the stone itself appears stubbornly immovable, highlighting the immense, almost impossible wind force required to shift it, under the harsh desert sun, rendered in Katsuhiro Otomo style, with high-contrast, sharp shadows, muted ochres, dusty beiges, pale greys, and a stark, desaturated blue sky, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-21T08:49:25.448420+00:00"
+}

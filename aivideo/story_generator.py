@@ -233,6 +233,7 @@ _OUTLINE_LABEL_RE = re.compile(
 _META_DIRECTION_RE = re.compile(
     r"(讓觀眾(思考|理解|迫切|知道)|帶給觀眾|要帶給觀眾|"
     r"我們深入探討了|這也讓我們探討|讓我們探討|"
+    r"根據您的(核心)?指示|我將根據您的|以下為您(規劃|生成)|"
     r"鋪陳出.{0,24}(潛力|艱難|背景)|"
     r"展現了.{0,24}(遠見|手腕|能力))"
 )
@@ -405,6 +406,56 @@ def sanitize_script_punctuation(text: str, outline_notes: str | None = None) -> 
     return "\n".join(cleaned_lines)
 
 
+def resolve_host_persona_name(user_prompt: str | None, default_name: str = "白兔") -> str:
+    """從『故事要求 (user_prompt)』中解析頻道主自稱（例如從『開頭: 大家好~我是白兔!』提取『白兔』）。
+    若明確寫『無自稱／不自稱』則回傳空字串；若未特別指定則預設回傳 default_name。
+    """
+    if not user_prompt or not user_prompt.strip():
+        return default_name
+    text = user_prompt.strip()
+    if re.search(r"(無自稱|不自稱|免自稱|直接破題)", text):
+        return ""
+    m = re.search(r"我是\s*([^\s，,。！!？?~～\n「」『』\"'（）()]{1,15})", text)
+    if m:
+        return m.group(1).strip()
+    m2 = re.search(r"(?:自稱|頻道(?:主|名|名稱)?)\s*[：:]\s*([^\s，,。！!？?~～\n]{1,15})", text)
+    if m2:
+        return m2.group(1).strip()
+    return default_name
+
+
+def deidentify_and_bind_tone(tone_text: str, host_name: str = "白兔") -> str:
+    """將口吻範本中的特定 YouTuber 名字去識別化，並動態套入當前頻道主自稱（如『白兔』），
+    同時 100% 保留該口吻原有的開場節奏、句型頓挫、吐槽口頭禪與敘事公式。
+    """
+    if not tone_text:
+        return ""
+    out = tone_text
+    # 移除 YAML frontmatter 中的特定 YTR 標籤名（避免 AI 看到 name: 叉雞風 就忽略使用者設定）
+    out = re.sub(r"(?m)^name:\s*.*$", "name: 專屬深度說書口吻", out)
+    if host_name:
+        out = re.sub(r"\{\s*(?:頻道主|說書人|主持人|YTR)\s*\}", host_name, out)
+        out = re.sub(r"我是叉雞", f"我是{host_name}", out)
+    else:
+        out = re.sub(r"大家好[，,~\s]*我是\s*(?:\{\s*(?:頻道主|說書人|主持人|YTR)\s*\}|叉雞)[，,！!\s]*", "", out)
+        out = re.sub(r"\{\s*(?:頻道主|說書人|主持人|YTR)\s*\}", "", out)
+    return out
+
+
+def _strip_outline_preamble(text: str) -> str:
+    """移除 AI 在大綱『第一幕』之前多輸出的寒暄前言（例如『好的，我將根據您的核心指示規劃一份大綱...』）。"""
+    raw = (text or "").strip()
+    if not raw:
+        return ""
+    match = re.search(
+        r"(?m)^[\s#*>-]*(?:【?\s*第一幕|Act\s*1\b|1[\.\、\s]*第一幕)",
+        raw,
+    )
+    if match and match.start() > 0:
+        return raw[match.start() :].strip()
+    return raw
+
+
 def generate_story_outline(
     topic: str,
     tone_id: str = "michelin_curious",
@@ -416,15 +467,24 @@ def generate_story_outline(
     from google import genai
     from google.genai import types
 
-    tone_sample = load_tone_sample(tone_id)
+    host_name = resolve_host_persona_name(user_prompt)
+    raw_tone_sample = load_tone_sample(tone_id)
+    tone_sample = deidentify_and_bind_tone(raw_tone_sample, host_name)
 
     user_prompt_section = ""
     if user_prompt and user_prompt.strip():
         user_prompt_section = f"""
-【使用者核心指示與自訂 Prompt 要求（重要基石）】
+【使用者核心指示與自訂 Prompt 要求（最高優先級，必須融入各幕規劃）】
 {user_prompt.strip()}
-請務必緊扣並融入使用者上述指定的靈感看點、情節要求或人物視角，以此為基石規劃展開！
+請務必緊扣並融入使用者上述指定的開頭台詞、自稱人設（如「大家好，我是{host_name or '頻道主'}！」）、靈感看點或情節要求！
+注意：若使用者指定了「開頭: 大家好~我是{host_name or '白兔'}!」，代表這是【第一幕故事口白的開場台詞】，請將其規劃進「第一幕」的開場設計內，切勿將它當作你回覆使用者的 AI 前言寒暄！
 """
+
+    persona_rule = (
+        f"- 第一幕開場自稱固定為「{host_name}」（例如以「大家好，我是{host_name}！」開場後直接切入風格範本的破題提問或反差 Hook）。"
+        if host_name
+        else "- 本篇不加固定頻道主自稱，第一幕請直接以風格範本的反差提問或懸念 Hook 破題。"
+    )
 
     prompt = f"""你是一位頂級專題紀錄片與故事腳本總策劃。
 請針對以下主題進行深度資料檢索，規劃一套結構嚴密、高潮迭起、長達 12~15 分鐘（目標約 4000 字）的「6～8 幕核心情節大綱與關鍵看點」：
@@ -432,10 +492,12 @@ def generate_story_outline(
 【主題】
 {topic}
 {user_prompt_section}
-【口吻風格與敘事公式參照（關鍵）】
+【指定口吻風格與敘事公式參照（必須 100% 深度模仿其敘事結構、語氣態度與節奏公式）】
 {tone_sample if tone_sample else "請使用極具感染力、短句頓挫、反詰質疑後驚喜反轉的敘事風格。"}
-請嚴格依據上述風格範本中的「核心敘事結構與節奏公式」（如反差鉤子 Hook、困境鋪陳、核心機制拆解、矛盾交鋒、反噬或警示、昇華反思等）來構建各幕次的情節走向！
-【人設禁令】：嚴禁自稱「說書人」、「小編」等任何預設稱謂，開場與視角必須 100% 依循上方風格範本的人設與口吻。
+請 100% 深度模仿上述口吻範本中的「核心敘事結構與節奏公式」與獨特說話腔調（如破題反詰、犀利吐槽、通俗比喻、核心機制拆解、反噬警示與收尾方式，絕不可寫成平淡通用的罐頭大綱）！
+【人設去識別化與開場規範】：
+{persona_rule}
+- 嚴禁自稱「說書人」、「小編」，亦【絕對禁止】出現任何其他真實 YouTuber 名稱（如「叉雞」等）！只模仿其口吻靈魂，自稱一律使用上方指定設定。
 
 【大綱規劃原則（核心黃金架構）】
 1. 請條列 6～8 個獨立幕次，每幕包含：
@@ -447,10 +509,14 @@ def generate_story_outline(
 3. 【最後一幕強制要求·歷史餘韻與訂閱謝幕】：
    最後一幕交代事件的長遠歷史沉澱與深刻哲思，並在結尾為說書人留出自然、真誠的頻道互動與訂閱引導。
 4. 避免空泛概述，請給出具體人物姓名、時間點、關鍵事件與技術關鍵詞。
-5. 排版請簡潔有力，條列式輸出（例如「第一幕：...」、「第二幕：...」）。
+5. 排版請簡潔有力，條列式輸出（例如「### 第一幕：...」、「### 第二幕：...」）。
 6. 「幕次標題」與「此幕要帶給觀眾的懸念或情緒高潮」是給下一階段編劇看的場記，不是口白。請用內部筆記語氣書寫，後續腳本必須改寫成聽眾聽得懂的台詞，不得把這些欄位原句唸出來。
 
-請直接輸出繁體中文的大綱內容："""
+【輸出格式死命令（嚴禁 AI 客套話前言）】：
+- 第一行必須直接從「### 第一幕：...」開始輸出！
+- 絕對禁止在第一幕之前輸出任何寒暄、引言、自我介紹或 AI 助理回覆（例如嚴禁出現「好的，...」、「這個主題充滿了...」、「我將根據您的核心指示規劃一份大綱...」等廢話）！
+
+請直接從「### 第一幕」開始輸出繁體中文大綱內容："""
 
     config = types.GenerateContentConfig(
         temperature=0.7,
@@ -468,7 +534,7 @@ def generate_story_outline(
                 config=config,
             )
             if resp.text:
-                return resp.text.strip()
+                return _strip_outline_preamble(resp.text.strip())
         except Exception as exc:
             errors.append(f"{model_name}: {exc}")
             continue
@@ -497,18 +563,19 @@ def generate_story_script(
     from google import genai
     from google.genai import types
 
+    host_name = resolve_host_persona_name(user_prompt)
     tone_info = load_tone_info(tone_id)
-    tone_name = tone_info["name"]
     tone_desc = tone_info["description"]
     tone_voice = tone_info["recommended_voice_instruct"]
-    tone_sample = tone_info["spoken_sample"]
+    tone_sample = deidentify_and_bind_tone(tone_info["spoken_sample"], host_name)
+    tone_full_formula = deidentify_and_bind_tone(tone_info["full_text"], host_name)
 
     user_prompt_section = ""
     if user_prompt and user_prompt.strip():
         user_prompt_section = f"""
-【使用者核心指示與指定 Prompt（重要客製化要求）】
+【使用者核心指示與指定 Prompt（最高優先級客製化要求，必須 100% 執行）】
 {user_prompt.strip()}
-請務必將使用者上述指定的劇情看點、人物關係或視角要求深度融入故事各幕中！
+請務必將使用者上述指定的開頭台詞、自稱人設（如「大家好，我是{host_name or '白兔'}！」）、劇情看點或視角要求深度落實於腳本中！若使用者有指定開頭，全文第一句必須優先採用使用者指定的開頭！
 """
 
     notes_section = ""
@@ -528,19 +595,19 @@ def generate_story_script(
     # 預期 6~8 幕，以 6 幕估算每幕平均句數
     target_lines_per_scene = max(5, round(target_total_lines / 6))
 
-    prompt = f"""你是一位頂級專題紀錄片與故事腳本總編劇，你現在必須全面化身為【{tone_name}】的靈魂創作者。
-【核心風格與人設特質（最高指導原則）】：
-- 風格名稱：{tone_name}
+    prompt = f"""你是一位頂級專題紀錄片與故事腳本總編劇。
+【核心口吻風格與說話靈魂（最高指導原則：必須 100% 深度模仿此口吻，絕不可寫成平淡通用旁白）】：
+- 頻道主身份自稱：{host_name if host_name else "無自稱（直接切入故事）"}
 - 風格定位與語氣靈魂：{tone_desc}
 - 解說姿態與情感基調：{tone_voice}
-請完全沉浸並化身為該風格的說話姿態，以該風格標誌性的敘事腔調、語言頓挫節奏、看待歷史矛盾的獨特視角，為我撰寫全篇腳本：
+請完全沉浸並 100% 模仿下方【指定口吻風格示範文本】的說話姿態、招牌句型、語氣轉折、反詰吐槽與收尾節奏，為我撰寫全篇腳本：
 
 【主題】
 介紹：{topic}
 {user_prompt_section}
 {notes_section}
-【{tone_name} · 口吻風格示範文本（請深度吸收其句型、破題姿態與頓挫節奏）】
-{tone_sample if tone_sample else "請使用極具感染力、短句頓挫、反詰質疑後驚喜反轉的敘事風格。"}
+【指定口吻風格示範文本與敘事公式（請 100% 深度模仿其句型、破題姿態、口頭禪與頓挫節奏）】
+{tone_full_formula if tone_full_formula else tone_sample or "請使用極具感染力、短句頓挫、反詰質疑後驚喜反轉的敘事風格。"}
 
 【基本需求與字數規模配額（極重要）】
 - 字數規模：目標嚴格控制在約 {word_count} 字左右（容許區間：{min_words} ～ {max_words} 字，絕不可草率縮水亦不可無節制灌水）
@@ -555,9 +622,9 @@ def generate_story_script(
   * 句子之間聲氣貫通、語氣自然銜接（善用「但問題是，」、「更不可思議的是，」、「回到當時的大環境來看，」、「你可能很難想像，」等自然口語過渡詞），避免生硬乾癟的公文報告腔或零碎條列感。
 - 片尾自然收尾與頻道訂閱引導（必須包含）：
   * 在全篇故事歷史昇華與哲思總結後，全篇最後 1～2 句必須以沉穩、真誠、自然的說書人口吻加上點讚與訂閱引導（例如：「如果你也喜歡這段荒謬又真實的歷史，別忘了點個喜歡，訂閱頻道，我們下一期故事，繼續見證歷史的魔幻與真實」）。
-- 人設與禁令（極為關鍵）：
-  * 【絕對嚴格禁止自稱「說書人」、「小編」或出現任何「我是說書人」的語句】！
-  * 開場與全篇人設視角必須 100% 嚴格依照下方【口吻風格參照】的範本與語調發聲（例如若風格範本是以提問或直接點題開場，請直接切入，切勿加入多餘自稱）。
+- 人設與開場規範（極為關鍵）：
+  * 若上方【使用者核心指示與指定 Prompt】中有指定開頭台詞或自稱（例如「開頭: 大家好~我是白兔!」），全篇第一句口白必須 100% 嚴格採用該指定開頭（並符合標點規範，如「大家好，我是白兔！」）！
+  * 【絕對嚴格禁止】自稱「說書人」、「小編」，亦【絕對嚴格禁止】照抄口吻風格範本中的原作者名或特定稱謂（如「叉雞」等）！口吻範本僅供學習句型節奏與敘事結構。
 - 絕對最高禁令（純口白保證）：
   * 全文 100% 必須為直接說出的純台詞口白！每一行都必須是說書人會對聽眾親口講出的句子。
   * 【絕對嚴格禁止】輸出任何章節標題、幕次名稱、場景標號或過渡前綴（嚴格禁止出現「第一幕：...」、「第二幕」、「第1幕」、「【第一幕】」、「幕次一」、「引言」、「結語」等任何結構標記）。
@@ -583,7 +650,7 @@ def generate_story_script(
   * [confirmation-en]：肯定共識、篤定結論
   * [dissatisfaction-hnn]：質疑抗衡、不滿冷笑
 
-請直接以【{tone_name}】的口氣輸出逐行口白內容，不要輸出開頭客套話，切勿自稱小編，嚴禁輸出幕次或結構標題："""
+請直接以指定口吻的強烈個人敘事節奏輸出逐行口白內容（若有指定開頭自稱請於第一句輸出，不要輸出與腳本無關的 AI 前言，切勿自稱小編或照抄其他真實 YTR 名稱如叉雞，嚴禁輸出幕次或結構標題）："""
 
     config_kwargs: dict[str, object] = {
         "temperature": 0.75,
@@ -626,22 +693,21 @@ def expand_story_script(
     from google import genai
     from google.genai import types
 
+    host_name = resolve_host_persona_name(current_script[:200])
     tone_info = load_tone_info(tone_id)
-    tone_name = tone_info["name"]
     tone_desc = tone_info["description"]
     tone_voice = tone_info["recommended_voice_instruct"]
-    tone_sample = tone_info["spoken_sample"]
+    tone_sample = deidentify_and_bind_tone(tone_info["spoken_sample"], host_name)
 
     target_lines = max(20, round(target_word_count / 20))
     min_expand_words = int(target_word_count * 0.9)
     max_expand_words = int(target_word_count * 1.1)
 
-    prompt = f"""你是一位頂級專題故事與紀錄片資深編劇，你現在必須全面化身為【{tone_name}】的靈魂創作者。
-【核心風格與人設特質（最高指導原則）】：
-- 風格名稱：{tone_name}
+    prompt = f"""你是一位頂級專題故事與紀錄片資深編劇。
+【核心口吻風格與人設特質（最高指導原則：必須 100% 深度模仿此口吻）】：
 - 風格定位與語氣靈魂：{tone_desc}
 - 解說姿態與情感基調：{tone_voice}
-請完全沉浸並化身為該風格的說話姿態，以該風格標誌性的敘事腔調，進行「深度情節擴寫與細節補強」，將現有口白精準擴寫為目標約 {target_word_count} 字的深度故事：
+請完全沉浸並 100% 模仿下方口吻示範文本的說話姿態與標誌性敘事腔調，進行「深度情節擴寫與細節補強」，將現有口白精準擴寫為目標約 {target_word_count} 字的深度故事：
 
 【主題】
 {topic if topic else "原腳本核心主題"}
@@ -649,7 +715,7 @@ def expand_story_script(
 【原始腳本口白】
 {current_script.strip()}
 
-【{tone_name} · 口吻風格示範文本】
+【指定口吻風格示範文本（100% 模仿其句型、轉折與語氣）】
 {tone_sample if tone_sample else "請使用極具感染力、短句頓挫、反詰質疑後驚喜反轉的敘事風格。"}
 
 【擴寫字數與篇幅嚴格限制（極重要）】
@@ -668,11 +734,11 @@ def expand_story_script(
    - 必須維持「一行一句獨立口白」（每行約 15~25 字，說完一句必須立即按下 Enter 換行，絕對嚴禁多句連成大長行）。
    - 【絕對嚴格禁止】輸出任何章節標題、幕次名稱或提示前綴（嚴禁出現「第一幕」、「第X幕」等結構標籤），每一行都必須是純口白！
    - 嚴禁把大綱場記唸出來：幕次標題、情緒標註（例如「強烈的荒謬感與好奇心」）、以及「讓觀眾思考／帶給觀眾／鋪陳出」等後設說明。
-   - 【絕對嚴禁自稱「說書人」或「小編」】！全篇語氣人設嚴格遵照下方風格範本。
+   - 【絕對嚴禁自稱「說書人」、「小編」或照抄風格範本中的「叉雞」等名稱】！若原始腳本開頭已有自稱（如「大家好，我是白兔！」），請完整保留該開頭自稱。
    - 外國人名、機構名一律中文通譯，避免英文。
    - 自然嵌入 OmniVoice 情緒標籤（如 [surprise-wa]、[sigh]、[question-ei] 等，每 4~6 句至多 1 個）。
 
-請直接以【{tone_name}】的口氣輸出擴寫後的完整逐行口白腳本，不要輸出任何前言或客套話，切勿自稱小編，嚴禁輸出結構標籤："""
+請直接以指定口吻的強烈個人敘事節奏輸出擴寫後的完整逐行口白腳本（保留原腳本開頭自稱，不要輸出與腳本無關的 AI 前言，切勿自稱小編或叉雞，嚴禁輸出結構標籤）："""
 
     config = types.GenerateContentConfig(
         temperature=0.75,
@@ -752,6 +818,7 @@ Output JSON with exact keys:
     {{
       "id": "ascii_slug",
       "name": "Character or entity name",
+      "entity_type": "character" or "object" (strictly "character" for human persons/miners/leaders/figures, "object" for inanimate items/ships/vehicles/props),
       "appearance": "English visual description. For humans: face, hair, clothing. For objects/vehicles: authentic physical model, materials, colors (NO face/limbs)."
     }}
   ],
@@ -1268,6 +1335,20 @@ def parse_script_lines_to_scenes(
     return scenes
 
 
+def _deidentify_extracted_narrator_name(text: str) -> str:
+    """在萃取逐字稿口吻範本時，將開頭自稱（如『大家好，我是叉雞，』）自動正規化為『大家好，我是{頻道主}，』，
+    同時 100% 保留後續所有口頭禪、吐槽句型與敘事內容。
+    """
+    if not text:
+        return ""
+    out = re.sub(
+        r"(大家好[，,~\s]*我是)\s*(?!\{\s*頻道主\s*\})([^\s，,。！!？?~～\n「」『』\"'（）()]{1,12})(?=[，,！!\s]|$)",
+        r"\1{頻道主}",
+        text,
+    )
+    return out
+
+
 def extract_and_create_tone_preset(
     text: str,
     custom_tone_id: str | None = None,
@@ -1287,24 +1368,25 @@ def extract_and_create_tone_preset(
     client = genai.Client(**client_kwargs)
 
     prompt = f"""你是一位資深的影視導演、說書人節目編劇與台詞專家。
-請深度分析以下提供的參考口白文本或逐字稿，提煉出專屬的「說書人口吻風格規範與範本」：
+請深度分析以下提供的參考口白文本或 YouTube 逐字稿，100% 原汁原味提煉出該講者的「說書人口吻風格規範與範本」，同時將講者真實姓名／頻道名去識別化：
 
 【參考文本】
 {text[:5000]}
 
-【任務與輸出規範】
-請分析該文本的破題節奏、邏輯鋪陳、語言頓挫、情緒起伏與敘事特徵，並以 JSON 格式輸出以下欄位：
-1. "id": 英文唯一識別碼（小寫英數字與底線，長度約 8~25 字元，例如 "tech_business_deepdive", "suspense_noir", "investigative_storyteller"）。
-2. "title": 具備高度辨識度的說書風格中文名稱（例如："硬核科技商業傳奇風 (杜比模式)", "都市懸疑探案風"）。
-3. "tags": 3~6 個精確標籤陣列（例如：["商業", "傳奇", "深度解構", "通俗比喻", "說書"]）。
-4. "recommended_voice_instruct": 適合 OmniVoice 語音模型的發音人語氣引導詞（格式範例："女，青年，中音调"、"男，青年，沉穩低音"、"男，中年，渾厚故事感"）。
-5. "description": 一句話簡要描述與特徵（約 40~80 字，說明適用題材、片長區間、開場鉤子 Hook、語言比喻與節奏特色）。
+【任務與輸出規範（極重要：口吻 100% 深度模仿，僅將名字去識別化）】
+請深度剖析該文本最具辨識度的破題節奏、說話腔調、吐槽反詰、轉折口頭禪、邏輯鋪陳與收尾習慣（絕不可改寫成平淡無奇的通用旁白），並以 JSON 格式輸出以下欄位：
+1. "id": 英文唯一識別碼（小寫英數字與底線，長度約 8~25 字元，請以風格特徵命名，勿包含特定 YouTuber 真名，例如 "urban_dark_expose", "tech_business_deepdive", "suspense_noir"）。
+2. "title": 具備高度辨識度的通用說書風格中文名稱（請以風格特色命名，勿直接填入原 YouTuber 真名，例如："社會暗面犀利揭秘風", "硬核商業反差解構風", "懸疑奇案冷冽剖析風"）。
+3. "tags": 3~6 個精確標籤陣列（例如：["社會觀察", "深度揭秘", "犀利吐槽", "通俗比喻", "故事性"]）。
+4. "recommended_voice_instruct": 適合 OmniVoice 語音模型的發音人語氣引導詞（格式範例："女，青年，中音调"、"男，青年，沉穩低音"、"男，中年，沉穩且富有洞察力"）。
+5. "description": 一句話簡要描述與特徵（約 40~80 字，說明適用題材、開場鉤子 Hook、標誌性語氣、比喻與節奏特色，勿出現原 YouTuber 真名）。
 6. "sample_narration": 從參考文本中精選或重構出一段約 250~450 字的「精華示範口白」，並嚴格符合專案規範：
+   * 【口吻 100% 原汁原味保留、僅將人名/頻道名去識別化】：必須 100% 保留該講者最具辨識度的說話腔調、破題節奏、吐槽句式（如「我只能說...」、「信不信由你，確實有」）、轉折口頭禪與收尾習慣，絕不可改成平淡的通用旁白；但若參考文本中出現原講者或原頻道的真實名稱（例如「大家好，我是叉雞」、「我是老高」等），請一律將該名字替換為通用佔位符「{{頻道主}}」（例如：「大家好，我是{{頻道主}}，」），切勿把原作者真名寫死在範本中！
    * 標點符號只允許使用全形逗號「，」、問號「？」、感嘆號「！」（絕對嚴禁句號「。」、冒號「：」、頓號「、」、各類引號「」“”‘’、破折號——與括號）。
    * 問號「？」與感嘆號「！」必須極度克制（90%以上使用全形逗號「，」銜接或換行斷句，問號感嘆號每 10~15 句至多出現 1 次）。
    * 自然且克制地嵌入 OmniVoice 官方副語言情緒標籤（如 [surprise-wa]、[surprise-oh]、[question-ei]、[sigh]、[laughter]、[confirmation-en]、[dissatisfaction-hnn] 等，平均每 4~6 句至多 1 個）。
    * 外語名詞、人名、機構名一律標準中譯。
-7. "structure_formula": 核心敘事結構與節奏公式（以 Markdown 條列 4~7 個步驟成片法，例如：1. 黃金 8 秒認知反差 Hook、2. 通俗生動降維比喻 Analogy、3. 質疑反詰與預設立場 Tension、4. 乾脆反轉 Reversal、5. 名場面展開、6. 純粹執念昇華致敬等，附帶典型句型引導）。
+7. "structure_formula": 核心敘事結構與節奏公式（以 Markdown 條列 4~7 個步驟成片法，必須精確提煉該講者專屬的開場、轉折、吐槽與收尾典型句型！若典型句型中有自稱，請一律寫作「{{頻道主}}」，勿出現原作者真名）。
 8. "punctuation_and_emotions": 標點與情緒標籤規範說明（Markdown 條列說明停頓節奏與情緒標籤嵌入時機）。
 
 OUTPUT FORMAT:
@@ -1368,9 +1450,12 @@ Return JSON with the exact keys:
     tags_str = ", ".join([str(t).strip() for t in tags])
 
     rec_voice = str(data.get("recommended_voice_instruct") or "女，青年，中音调")
-    desc = str(data.get("description") or "由 Vertex AI Gemini Flash 智慧萃取之說書人口吻範本。")
-    sample = sanitize_script_punctuation(str(data.get("sample_narration") or "").strip())
-    formula = str(data.get("structure_formula") or "").strip()
+    desc = _deidentify_extracted_narrator_name(
+        str(data.get("description") or "由 Vertex AI Gemini Flash 智慧萃取之說書人口吻範本。")
+    )
+    raw_sample = _deidentify_extracted_narrator_name(str(data.get("sample_narration") or "").strip())
+    sample = sanitize_script_punctuation(raw_sample)
+    formula = _deidentify_extracted_narrator_name(str(data.get("structure_formula") or "").strip())
     punct = str(data.get("punctuation_and_emotions") or "").strip()
 
     # 組裝成標準 Markdown + YAML Frontmatter

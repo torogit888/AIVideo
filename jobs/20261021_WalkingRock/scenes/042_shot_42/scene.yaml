@@ -1,0 +1,19 @@
+id: 042_shot_42
+index: 42
+title: 冰太厚
+narration: 冰太厚，會把石頭牢牢鎖死在冰原裡，冰太薄，又會被微風吹得粉碎無法形成推力，只有當這四五種極端罕見的氣候條件像精密齒輪一樣嚴絲合縫咬在一起時，這些巨石才會開始它們神秘的旅程！
+image_prompt: medium shot of a massive dolomite boulder, perfectly framed by a razor-thin
+  sheet of ice (3-6mm) on shallow water, with subtle visual cues of precision and
+  alignment, as if nature's gears have perfectly meshed, under the cold, pale winter
+  sun, ready for movement, rendered in Katsuhiro Otomo style, with crisp, hand-drawn
+  highlights, muted ochres, dusty beiges, pale greys, and a stark, desaturated blue
+  sky, 16:9 widescreen composition
+image_negative: ''
+act_index: 7
+act_title: 幻滅抑或敬畏，當大自然收起它的魔術障眼法
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261021T091414
+  image_take: image_20261021T091336

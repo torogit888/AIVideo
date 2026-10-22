@@ -1,0 +1,26 @@
+id: 026_shot_26
+index: 26
+title: 全法大約有五十家家樂福門市遭到暴
+narration: 全法大約有五十家家樂福門市遭到暴徒投擲石塊與暴力衝擊，其中更有整整二十家門市被徹底攻破洗劫，推車被推倒在滿是污泥的走道上昂貴的橄欖油摔得滿地都是，
+image_prompt: interior wide shot of a ransacked supermarket aisle, overturned chibi-sized
+  shopping carts, broken bottles of golden olive oil pooling across the tiled floor,
+  and ransacked grocery shelves, harsh flickering fluorescent lighting, in Q版 2D cartoon
+  illustration style, cel-shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 5
+act_title: 【平民避風港的粉碎——家樂福浩劫與底層互害的殘酷代價】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T150051
+  image_take: image_20261019T150038
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Carrefour supermarket looted France riots
+  fetch_error: 未找到合適照片

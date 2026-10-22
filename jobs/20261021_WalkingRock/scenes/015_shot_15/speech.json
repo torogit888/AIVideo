@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261021T085111",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.82,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "這可是相當於地表最強的五級龍捲風或者超級颶風的毀滅性風速",
+      "text_cn": "这可是相当于地表最强的五级龙卷风或者超级飓风的毁灭性风速",
+      "start_sec": 0.0,
+      "end_sec": 5.76,
+      "duration_sec": 5.76
+    },
+    {
+      "index": 2,
+      "text": "如果真有這麼大的風，整個盆地四周的小樹灌木早就被連根拔起吹上天了",
+      "text_cn": "如果真有这么大的风，整个盆地四周的小树灌木早就被连根拔起吹上天了",
+      "start_sec": 6.01,
+      "end_sec": 12.41,
+      "duration_sec": 6.4
+    },
+    {
+      "index": 3,
+      "text": "但現實中周圍那些脆弱的沙漠灌木卻完好無損",
+      "text_cn": "但现实中周围那些脆弱的沙漠灌木却完好无损",
+      "start_sec": 12.66,
+      "end_sec": 16.82,
+      "duration_sec": 4.16
+    }
+  ],
+  "created_at": "2026-10-21T08:51:11.759431+00:00"
+}

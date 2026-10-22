@@ -1,0 +1,27 @@
+id: 044_shot_44
+index: 44
+title: 但這不僅僅是一個謎團被戳破的問題
+narration: '[dissatisfaction-hnn]但這不僅僅是一個謎團被戳破的問題，有時，人類的無知甚至會對大自然造成無法挽回的傷害，自從真相大白後，不少遊客為了模仿或惡作劇，竟然開著越野車直接衝進這片脆弱的乾涸湖床，'
+image_prompt: wide shot of the Racetrack Playa, its pristine hexagonal cracked mud
+  marred by deep, ugly, and clearly man-made tire tracks from an off-road vehicle,
+  stretching across the delicate surface, under the harsh desert sun, rendered in
+  Katsuhiro Otomo style, with high-contrast, sharp shadows, muted ochres, dusty beiges,
+  pale greys, and a stark, desaturated blue sky, 16:9 widescreen composition
+image_negative: ''
+act_index: 7
+act_title: 幻滅抑或敬畏，當大自然收起它的魔術障眼法
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261021T091608
+  image_take: image_20261021T091531
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Racetrack Playa illegal vehicle tire damage photo
+  fetch_error: 未找到合適照片

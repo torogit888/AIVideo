@@ -1,0 +1,17 @@
+id: 037_shot_37
+index: 37
+title: 更令人擔憂的是這股藉著示威行打砸
+narration: 更令人擔憂的是這股藉著示威行打砸搶的病毒還跨過了阿爾卑斯山，短短幾天之內鄰國義大利米蘭的黃金商業區也開始警報大作，一群黑衣蒙面人同樣企圖用鐵撬砸毀高級服飾店的櫥窗進行模仿犯罪，歐洲自由市場那根緊繃的神經在暴力面前顯得無比脆弱，
+image_prompt: wide shot of Milan's high-end fashion district at night, masked chibi
+  looters attempting to smash the fortified window of a luxury clothing store with
+  iron crowbars against historic Italian stone facades, flashing red alarm beacons,
+  in Q版 2D cartoon illustration style, cel-shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 7
+act_title: 【跨越阿爾卑斯山的病毒——歷史的餘韻與白兔謝幕】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T151204
+  image_take: image_20261019T151100

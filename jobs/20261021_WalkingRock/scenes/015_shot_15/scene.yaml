@@ -1,0 +1,19 @@
+id: 015_shot_15
+index: 15
+title: 這可是相當於地表最強的五級龍捲風
+narration: 這可是相當於地表最強的五級龍捲風或者超級颶風的毀滅性風速，如果真有這麼大的風，整個盆地四周的小樹灌木早就被連根拔起吹上天了，但現實中周圍那些脆弱的沙漠灌木卻完好無損，
+image_prompt: medium wide shot of a massive dolomite boulder and its deep track on
+  the Racetrack Playa. In the foreground, several small, fragile desert shrubs stand
+  perfectly intact and undisturbed, their delicate branches unbent, starkly contradicting
+  the notion of hurricane-force winds, under the harsh desert sun, rendered in Katsuhiro
+  Otomo style, with high-contrast, sharp shadows, muted ochres, dusty beiges, pale
+  greys, and a stark, desaturated blue sky, 16:9 widescreen composition
+image_negative: ''
+act_index: 3
+act_title: 老派學者釘下「地獄木樁」，石頭卻在眼皮底下玩起失蹤
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261021T085111
+  image_take: image_20261021T085033

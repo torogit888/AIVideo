@@ -1,0 +1,30 @@
+id: 010_shot_10
+index: 10
+title: 隨後這股街頭風暴演變成席捲全城的
+narration: 隨後這股街頭風暴演變成席捲全城的砸搶麵包鋪狂潮，到了那一年的十月幾千名飢寒交迫的巴黎婦女再也忍不住了，她們手裡拿著菜刀和長矛冒著傾盆大雨徒步衝向凡爾賽宮，
+image_prompt: wide shot of the October 1789 Women's March, a resolute brigade of chibi
+  Parisian women in historical dresses marching along a muddy road in pouring rain
+  carrying kitchen knives and makeshift spears toward Versailles, grim overcast lighting,
+  in Q版 2D cartoon illustration style, cel-shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 2
+act_title: 【兩百多年前的一塊黑麥麵包——法國大革命的暴食與飢餓密碼】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T144551
+  image_take: image_20261019T144537
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Women's March on Versailles October 1789 engraving
+  source_title: File:Evénement du 5 octobre 1789. Les dames de la Halle et autres
+    femmes partant de Paris pour Versailles. G.13967(2).jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/c/c9/Ev%C3%A9nement_du_5_octobre_1789._Les_dames_de_la_Halle_et_autres_femmes_partant_de_Paris_pour_Versailles._G.13967%282%29.jpg
+  verified: true
+  review_reason: 圖片標題與內容明確指出是1789年10月5日巴黎婦女前往凡爾賽宮的事件，與旁白完全吻合。

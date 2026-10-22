@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261021T091909",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.9,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "比起虛無縹緲的飛碟，這種精巧到極致的自然法則，難道不更令人感到敬畏嗎？",
+      "text_cn": "比起虚无缥缈的飞碟，这种精巧到极致的自然法则，难道不更令人感到敬畏吗？",
+      "start_sec": 0.0,
+      "end_sec": 6.64,
+      "duration_sec": 6.64
+    },
+    {
+      "index": 2,
+      "text": "從1915年那個孤身走進荒漠的採礦工人",
+      "text_cn": "从1915年那个孤身走进荒漠的采矿工人",
+      "start_sec": 6.89,
+      "end_sec": 10.97,
+      "duration_sec": 4.08
+    },
+    {
+      "index": 3,
+      "text": "到2014年那組在寒風中記錄下奇蹟的衛星天線",
+      "text_cn": "到2014年那组在寒风中记录下奇迹的卫星天线",
+      "start_sec": 11.22,
+      "end_sec": 15.9,
+      "duration_sec": 4.68
+    }
+  ],
+  "created_at": "2026-10-21T09:19:09.401540+00:00"
+}

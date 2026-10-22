@@ -1,0 +1,19 @@
+id: 008_shot_8
+index: 8
+title: 更不可思議的是
+narration: 更不可思議的是，它們在看似完全沒有坡度的泥地上還能逆坡向上滑動，[question-ei]你可能無法想像，這個現象直接把當時的科學界看傻了眼，
+image_prompt: dramatic low-angle shot of a massive dolomite boulder and its long,
+  deep track on the Racetrack Playa. The perfectly flat, hexagonal cracked mud surface
+  appears to offer no gradient, emphasizing the impossible uphill movement of the
+  stone, under the stark desert sun, rendered in Katsuhiro Otomo style, with high-contrast,
+  sharp shadows, muted ochres, dusty beiges, pale greys, and a stark, desaturated
+  blue sky, 16:9 widescreen composition
+image_negative: ''
+act_index: 2
+act_title: 從地磁怪力到外星祭壇，科學家被一塊石頭當場打臉
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261021T084412
+  image_take: image_20261021T084333

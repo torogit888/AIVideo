@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261019T144028",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.98,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "回到當時的大環境來看歐洲正面臨漫長的地緣震盪",
+      "text_cn": "回到当时的大环境来看欧洲正面临漫长的地缘震荡",
+      "start_sec": 0.0,
+      "end_sec": 4.56,
+      "duration_sec": 4.56
+    },
+    {
+      "index": 2,
+      "text": "頑固的高通膨讓一般家庭的生活成本被推上了歷史頂峰",
+      "text_cn": "顽固的高通膨让一般家庭的生活成本被推上了历史顶峰",
+      "start_sec": 4.81,
+      "end_sec": 9.77,
+      "duration_sec": 4.96
+    },
+    {
+      "index": 3,
+      "text": "法蘭西第五共和國的底層民眾每天被帳單壓得喘不過氣",
+      "text_cn": "法兰西第五共和国的底层民众每天被账单压得喘不过气",
+      "start_sec": 10.02,
+      "end_sec": 14.98,
+      "duration_sec": 4.96
+    }
+  ],
+  "created_at": "2026-10-19T14:40:28.407565+00:00"
+}

@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261021T085233",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 72652389,
+  "prompt": "Katsuhiro Otomo Style, medium shot of Professor Robert Sharp, his deeply lined, intelligent face set with determination, gesturing towards the vast expanse of the Racetrack Playa, a clipboard in hand, with a team member visible slightly behind him, under the harsh desert sun, rendered in Katsuhiro Otomo style, with high-contrast, sharp shadows, muted ochres, dusty beiges, pale greys, and a stark, desaturated blue sky, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-21T08:52:33.003483+00:00"
+}

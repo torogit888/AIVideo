@@ -1,0 +1,17 @@
+id: 029_shot_29
+index: 29
+title: 隔天清晨許多靠著微薄養老金生活的
+narration: 隔天清晨許多靠著微薄養老金生活的老太太來到家樂福門口，迎接她們的不是便宜的蔬菜麵包而是燒焦的廢墟與警方封鎖線，
+image_prompt: wide shot of elderly chibi Parisian grandmothers holding wheeled shopping
+  carts standing frozen in disbelief in front of a charred, shuttered supermarket
+  entrance cordoned off with yellow police tape, soft overcast morning lighting, in
+  Q版 2D cartoon illustration style, clean outlines, cel-shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 5
+act_title: 【平民避風港的粉碎——家樂福浩劫與底層互害的殘酷代價】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T150350
+  image_take: image_20261019T150313

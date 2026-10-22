@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261021T092011",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.69,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "人類整整花了一百年的時間，才終於看懂了大自然在泥地上寫下的這封簡短情書",
+      "text_cn": "人类整整花了一百年的时间，才终于看懂了大自然在泥地上写下的这封简短情书",
+      "start_sec": 0.0,
+      "end_sec": 7.0,
+      "duration_sec": 7.0
+    },
+    {
+      "index": 2,
+      "text": "現在每到寒冬，只要條件允許，那些幾百公斤的巨石依然會在無人的跑道盆地上，伴隨著清脆的碎冰聲悄然前行",
+      "text_cn": "现在每到寒冬，只要条件允许，那些几百公斤的巨石依然会在无人的跑道盆地上，伴随着清脆的碎冰声悄然前行",
+      "start_sec": 7.25,
+      "end_sec": 16.69,
+      "duration_sec": 9.44
+    }
+  ],
+  "created_at": "2026-10-21T09:20:11.870919+00:00"
+}

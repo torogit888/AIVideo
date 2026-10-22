@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261021T090800",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 39693742,
+  "prompt": "Katsuhiro Otomo Style, medium close-up, eye-level, showing a massive dolomite boulder slowly but perceptibly sliding forward, its base carving a fresh, distinct track in the muddy lakebed beneath the shallow water and fractured ice, under the cold, pale winter sun, rendered in Katsuhiro Otomo style, with crisp, hand-drawn highlights, muted ochres, dusty beiges, pale greys, and a stark, desaturated blue sky, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-21T09:08:00.168479+00:00"
+}

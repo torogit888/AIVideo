@@ -1,0 +1,30 @@
+id: 002_shot_2
+index: 2
+title: 但在二零二六年十月十七日這一天
+narration: 但在二零二六年十月十七日這一天，整個巴黎甚至全法國飄散在空氣裡的，只有催淚瓦斯的刺鼻焦味以及燃燒輪胎的滾滾濃煙，
+image_prompt: wide establishing shot of a modern Paris boulevard engulfed in stylized
+  light-grey tear gas clouds and thick black plumes of smoke from burning tire barricades,
+  dim hazy yellowish-grey daylight, chaotic tense atmosphere, in Q版 2D cartoon illustration
+  style, clean outlines, cel-shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 1
+act_title: 【從斷頭台到香榭麗舍的基因突變——2026年深秋的巴黎烈焰】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T144011
+  image_take: image_20261019T143827
+pip:
+  enabled: false
+  image: null
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: null
+  source_title: null
+  source_url: null
+  fetch_error: null
+  verified: false
+  review_reason: null

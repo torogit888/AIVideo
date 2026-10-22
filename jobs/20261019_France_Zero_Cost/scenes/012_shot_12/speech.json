@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261019T144746",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.94,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[sigh]你看法國人自古以來就有一種直接走向街頭奪取生存物資的傳統",
+      "text_cn": "[sigh]你看法国人自古以来就有一种直接走向街头夺取生存物资的传统",
+      "start_sec": 0.0,
+      "end_sec": 6.08,
+      "duration_sec": 6.08
+    },
+    {
+      "index": 2,
+      "text": "但兩百年前他們的先祖搶奪麵包是為了不讓孩子在黑夜裡餓死",
+      "text_cn": "但两百年前他们的先祖抢夺面包是为了不让孩子在黑夜里饿死",
+      "start_sec": 6.33,
+      "end_sec": 11.89,
+      "duration_sec": 5.56
+    },
+    {
+      "index": 3,
+      "text": "那麼兩百年後繼承這種傳統的現代人搶的又是什麼呢？",
+      "text_cn": "那么两百年后继承这种传统的现代人抢的又是什么呢？",
+      "start_sec": 12.14,
+      "end_sec": 16.94,
+      "duration_sec": 4.8
+    }
+  ],
+  "created_at": "2026-10-19T14:47:46.628419+00:00"
+}

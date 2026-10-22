@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261021T085457",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.83,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[sigh]結果信不信由你，老先生整整蹲守追蹤了七年",
+      "text_cn": "[sigh]结果信不信由你，老先生整整蹲守追踪了七年",
+      "start_sec": 0.0,
+      "end_sec": 4.32,
+      "duration_sec": 4.32
+    },
+    {
+      "index": 2,
+      "text": "連一次石頭移動的瞬間都沒看到過",
+      "text_cn": "连一次石头移动的瞬间都没看到过",
+      "start_sec": 4.57,
+      "end_sec": 7.73,
+      "duration_sec": 3.16
+    },
+    {
+      "index": 3,
+      "text": "但每一次只要團隊前腳剛離開，碰上一場惡劣風暴",
+      "text_cn": "但每一次只要团队前脚刚离开，碰上一场恶劣风暴",
+      "start_sec": 7.98,
+      "end_sec": 12.38,
+      "duration_sec": 4.4
+    },
+    {
+      "index": 4,
+      "text": "後腳回來看時，木樁記錄全都亂了套",
+      "text_cn": "后脚回来看时，木桩记录全都乱了套",
+      "start_sec": 12.63,
+      "end_sec": 15.83,
+      "duration_sec": 3.2
+    }
+  ],
+  "created_at": "2026-10-21T08:54:57.574388+00:00"
+}

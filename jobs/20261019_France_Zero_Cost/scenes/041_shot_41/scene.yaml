@@ -1,0 +1,18 @@
+id: 041_shot_41
+index: 41
+title: 好了今天的事件就聊到這裡
+narration: 好了今天的事件就聊到這裡，[question-ei]你覺得這場法版零元購是底層被逼無奈的反抗還是單純的犯罪呢？歡迎在留言區留下你的看法，我是白兔如果你喜歡今天的故事別忘了點讚訂閱並開啟小鈴鐺，我們下一期繼續揭開更多魔幻又真實的歷史真相，
+image_prompt: grand cinematic wide shot of the Paris skyline at misty sunrise, featuring
+  the recognizable silhouette of the Eiffel Tower rising above quiet Haussmann rooftops
+  with faint smoke curls fading into the pale dawn sky, reflective and historic atmosphere,
+  in Q版 2D cartoon illustration style, clean outlines, cel-shaded coloring, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 7
+act_title: 【跨越阿爾卑斯山的病毒——歷史的餘韻與白兔謝幕】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T151544
+  image_take: image_20261019T151506

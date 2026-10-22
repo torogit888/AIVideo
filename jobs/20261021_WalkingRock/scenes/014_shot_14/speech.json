@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261021T085003",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 18.83,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "然而物理學家很快就跳出來狠狠打了他們的臉",
+      "text_cn": "然而物理学家很快就跳出来狠狠打了他们的脸",
+      "start_sec": 0.0,
+      "end_sec": 4.16,
+      "duration_sec": 4.16
+    },
+    {
+      "index": 2,
+      "text": "[laughter]因為根據風洞模擬測試，泥土含水時的摩擦係數顯示",
+      "text_cn": "[laughter]因为根据风洞模拟测试，泥土含水时的摩擦系数显示",
+      "start_sec": 4.41,
+      "end_sec": 9.61,
+      "duration_sec": 5.2
+    },
+    {
+      "index": 3,
+      "text": "要讓一塊重達一百五十公斤的粗糙白雲岩在泥地上滑動",
+      "text_cn": "要让一块重达一百五十公斤的粗糙白云岩在泥地上滑动",
+      "start_sec": 9.86,
+      "end_sec": 14.82,
+      "duration_sec": 4.96
+    },
+    {
+      "index": 4,
+      "text": "地面的風速至少要達到每小時近三百公里",
+      "text_cn": "地面的风速至少要达到每小时近三百公里",
+      "start_sec": 15.07,
+      "end_sec": 18.83,
+      "duration_sec": 3.76
+    }
+  ],
+  "created_at": "2026-10-21T08:50:03.073636+00:00"
+}

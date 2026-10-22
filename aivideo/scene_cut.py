@@ -36,6 +36,13 @@ def apply_scene_cut(job_dir: Path, scenes: list[dict[str, Any]]) -> dict[str, in
         narration = str(raw.get("narration") or existing.get("narration") or "")
         title = str(raw.get("title") or "").strip() or scene_title_from_narration(narration)
         existing.pop("visual_concept", None)
+        has_new_act = "act_index" in raw and raw.get("act_index") is not None
+        new_act_idx = int(raw.get("act_index") or 0) if has_new_act else int(existing.get("act_index") or 0)
+        new_act_title = (
+            str(raw.get("act_title") or "")
+            if has_new_act or ("act_title" in raw and raw.get("act_title") is not None)
+            else str(existing.get("act_title") or "")
+        )
         existing.update(
             {
                 "id": sid,
@@ -43,8 +50,8 @@ def apply_scene_cut(job_dir: Path, scenes: list[dict[str, Any]]) -> dict[str, in
                 "title": title,
                 "narration": narration,
                 "image_prompt": str(raw.get("image_prompt") or existing.get("image_prompt") or ""),
-                "act_index": int(raw.get("act_index") or existing.get("act_index") or 0),
-                "act_title": str(raw.get("act_title") or existing.get("act_title") or ""),
+                "act_index": new_act_idx,
+                "act_title": new_act_title,
             }
         )
         if "image_negative" not in existing:

@@ -1,0 +1,19 @@
+id: 029_shot_29
+index: 29
+title: 他們已經做好了把這套設備留在那裡
+narration: 他們已經做好了把這套設備留在那裡，等上整整二十年甚至等到自己退休再來收作業的心理準備！可是命運有的時候就是這麼戲劇化，
+image_prompt: wide shot of the vast, empty Racetrack Playa, with the Micro-Weather
+  Station & Camera standing vigil on a distant outcrop, and a single GPS-Embedded
+  Spy Stone visible on the hexagonal cracked mud below, conveying a sense of patient
+  waiting under the stark desert sun, rendered in Katsuhiro Otomo style, with high-contrast,
+  sharp shadows, muted ochres, dusty beiges, pale greys, and a stark, desaturated
+  blue sky, 16:9 widescreen composition
+image_negative: ''
+act_index: 5
+act_title: 世紀破曉！薄如窗玻璃的致命冰刃與微風合奏
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261021T090158
+  image_take: image_20261021T090138

@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261021T092234",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 62361376,
+  "prompt": "Katsuhiro Otomo Style, final, grand wide shot of the Racetrack Playa in winter, with several sailing stones leaving their tracks across the shallow, ice-covered water, under the cold, pale sun, a testament to the enduring, subtle power of nature, rendered in Katsuhiro Otomo style, with crisp, hand-drawn highlights, muted ochres, dusty beiges, pale greys, and a stark, desaturated blue sky, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-21T09:22:34.717279+00:00"
+}

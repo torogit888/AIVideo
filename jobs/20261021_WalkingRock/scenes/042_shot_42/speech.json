@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261021T091414",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 17.51,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "冰太厚，會把石頭牢牢鎖死在冰原裡，冰太薄",
+      "text_cn": "冰太厚，会把石头牢牢锁死在冰原里，冰太薄",
+      "start_sec": 0.0,
+      "end_sec": 3.84,
+      "duration_sec": 3.84
+    },
+    {
+      "index": 2,
+      "text": "又會被微風吹得粉碎無法形成推力",
+      "text_cn": "又会被围风吹得粉碎无法形成推力",
+      "start_sec": 4.09,
+      "end_sec": 7.25,
+      "duration_sec": 3.16
+    },
+    {
+      "index": 3,
+      "text": "只有當這四五種極端罕見的氣候條件像精密齒輪一樣嚴絲合縫咬在一起時",
+      "text_cn": "只有当这四五种极端罕见的气候条件像精密齿轮一样严丝合缝咬在一起时",
+      "start_sec": 7.5,
+      "end_sec": 14.06,
+      "duration_sec": 6.56
+    },
+    {
+      "index": 4,
+      "text": "這些巨石才會開始它們神秘的旅程！",
+      "text_cn": "这些巨石才会开始它们神秘的旅程！",
+      "start_sec": 14.31,
+      "end_sec": 17.51,
+      "duration_sec": 3.2
+    }
+  ],
+  "created_at": "2026-10-21T09:14:14.132722+00:00"
+}

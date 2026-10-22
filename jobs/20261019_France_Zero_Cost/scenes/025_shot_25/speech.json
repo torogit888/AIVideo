@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261019T150012",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.78,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "然而這場席捲法國的災難並沒有在名品街區停下腳步",
+      "text_cn": "然而这场席卷法国的灾难并没有在名品街区停下脚步",
+      "start_sec": 0.0,
+      "end_sec": 4.76,
+      "duration_sec": 4.76
+    },
+    {
+      "index": 2,
+      "text": "更令人寒心的是平民百姓賴以生存的社區賣場也成了犧牲品",
+      "text_cn": "更令人寒心的是平民百姓赖以生存的社区卖场也成了牺牲品",
+      "start_sec": 5.01,
+      "end_sec": 10.37,
+      "duration_sec": 5.36
+    },
+    {
+      "index": 3,
+      "text": "作為全法國平民日常採購支柱的家樂福賣場淪為了重災區",
+      "text_cn": "作为全法国平民日常采购支柱的家乐福卖场沦为了重灾区",
+      "start_sec": 10.62,
+      "end_sec": 15.78,
+      "duration_sec": 5.16
+    }
+  ],
+  "created_at": "2026-10-19T15:00:12.423159+00:00"
+}

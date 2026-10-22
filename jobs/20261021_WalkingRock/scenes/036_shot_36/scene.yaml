@@ -1,0 +1,19 @@
+id: 036_shot_36
+index: 36
+title: 伴隨著無數碎玻璃互相撞擊的清脆聲
+narration: 伴隨著無數碎玻璃互相撞擊的清脆聲響，巨石在他們眼前以每分鐘幾公尺的速度緩緩向前推進，地面上被硬生生犁出了一條條清晰的泥痕，
+image_prompt: medium close-up, eye-level, showing a massive dolomite boulder slowly
+  but perceptibly sliding forward, its base carving a fresh, distinct track in the
+  muddy lakebed beneath the shallow water and fractured ice, under the cold, pale
+  winter sun, rendered in Katsuhiro Otomo style, with crisp, hand-drawn highlights,
+  muted ochres, dusty beiges, pale greys, and a stark, desaturated blue sky, 16:9
+  widescreen composition
+image_negative: ''
+act_index: 6
+act_title: 數據收網，百年軌跡密碼的終極還原
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261021T090812
+  image_take: image_20261021T090800

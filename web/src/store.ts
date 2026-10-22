@@ -19,6 +19,7 @@ interface StudioState {
   jobs: JobSummary[];
   selectedJobId: string | null;
   isDraftMode: boolean;
+  draftResetKey: number;
   loadJobs: () => Promise<void>;
   selectJob: (jobId: string) => void;
   startNewDraft: () => void;
@@ -94,6 +95,7 @@ export const useStudioStore = create<StudioState>((set, get) => ({
   selectedJobId:
     typeof window !== "undefined" ? localStorage.getItem("aivideo_selected_job") || null : null,
   isDraftMode: false,
+  draftResetKey: 0,
   loadJobs: async () => {
     try {
       const jobs = await api.getJobs();
@@ -135,14 +137,17 @@ export const useStudioStore = create<StudioState>((set, get) => ({
   startNewDraft: () => {
     if (typeof window !== "undefined") {
       localStorage.removeItem("aivideo_selected_job");
+      localStorage.removeItem("aivideo_draft_custom_prompt");
+      localStorage.removeItem("aivideo_draft_outline");
     }
-    set({
+    set((state) => ({
       selectedJobId: null,
       isDraftMode: true,
+      draftResetKey: state.draftResetKey + 1,
       scenes: [],
       activeSceneId: null,
       isInspectorOpen: false,
-    });
+    }));
     get().setTab("script");
   },
 

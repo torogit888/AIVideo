@@ -1,0 +1,88 @@
+subject: '黃背心抗議者 (Yellow Vest Protester): An ordinary person in Q版 (chibi) 2D cartoon
+  illustration style. Features an expressive chibi face, showing emotions ranging
+  from frustration to determination, with prominent, expressive eyes. Hair is diverse,
+  reflecting a general populace, but simplified for the chibi style. The body has
+  chibi proportions, representing varying builds of everyday people. Dressed in standard
+  civilian clothes (e.g., jeans, jackets, sweaters) with the distinctive bright yellow
+  high-visibility vest worn prominently over them. The vest is clearly cel-shaded
+  in a vibrant, flat yellow with a slightly lighter highlight to suggest its reflective
+  quality. All elements have clear outlines. Lighting is generally clear, suggesting
+  daylight or early evening, with a slightly somber or determined feel. | 法國總統馬克宏
+  (French President Macron): A chibi caricature of French President Macron in Q版 2D
+  cartoon illustration style. The face is recognizable but simplified, with a slight,
+  perhaps detached, smile and small, focused eyes. Hair is neatly combed, a distinct
+  chibi version of his actual hairstyle. The body has chibi proportions but maintains
+  an air of formality and authority, appearing slightly slender. Dressed in a sharp,
+  well-tailored dark suit, white shirt, and a tie (possibly blue or red). All clothing
+  is cel-shaded with crisp lines, indicating smooth, formal fabric textures through
+  flat colors and sharp highlights. Lighting is bright, almost stage-like, suggesting
+  an indoor, VIP setting, possibly with subtle spotlights, contrasting with the street
+  scenes. | 防暴裝甲車 (Riot Armored Vehicle): A robust, heavy-duty riot control vehicle,
+  likely a VAB (Véhicule de l''Avant Blindé) or similar, rendered in Q版 2D cartoon
+  illustration style. It features a blocky, utilitarian hull design with distinct
+  armored plating and multiple wheels (e.g., 6x6). Key features like reinforced grilles
+  over windows and a turret-mounted water cannon or observation post are simplified
+  but clearly visible. Materials are indicated as thick, reinforced steel or composite
+  armor, with heavy-duty tires. Colors are dark, utilitarian shades like matte black,
+  dark green, or police blue-grey. Proportions are chibi-fied, making it appear squatter
+  or wider than realistic, but it retains its imposing, powerful presence. It is strictly
+  a non-anthropomorphic machine with no face, eyes, or human-like features. All components
+  have clear outlines and are cel-shaded.'
+environment: 'The shared world is a stylized, simplified version of Paris, rendered
+  in Q版 2D cartoon illustration style, with iconic landmarks (e.g., Eiffel Tower,
+  Louvre) visible in the background as simplified elements. Architecture varies between
+  historical 1789 Paris and contemporary 2026 Paris. 1789 scenes feature cobblestone
+  streets, tall, narrow Parisian buildings with mansard roofs, and simplified but
+  recognizable historical facades like the Bastille prison (blocky, imposing) and
+  Versailles Palace (ornate but simplified, with gold accents). 2026 scenes depict
+  modern Parisian boulevards, Haussmann-style buildings with clear outlines, and luxury
+  storefronts (e.g., Galeries Lafayette, Apple Store, Carrefour) with large, shattered
+  windows. Street barricades are made of burning tires and debris. The palette shifts
+  dramatically: 1789 scenes use earthy tones, grays, and browns, with flat, diffused,
+  overcast lighting. 2026 scenes feature a hazy, yellowish-grey sky from smoke and
+  tear gas during the day, or deep blues and purples at night. Colors are vibrant
+  and garish from luxury items and police lights, contrasted with dark, sooty tones
+  from fires. Lighting is consistently cel-shaded with hard-edged shadows and highlights.
+  2026 scenes have dramatic, high-contrast lighting from fires, streetlights, and
+  police vehicles, creating areas of deep shadow. The atmosphere is thick with visible,
+  stylized tear gas clouds (light grey/blue) and thick, black smoke plumes from burning
+  tires, all rendered with clear outlines and flat colors, conveying dynamic chaos,
+  tension, and a surreal contrast between luxury and destruction.'
+use_image_reference: true
+characters:
+- id: yellow_vest_protester
+  name: 黃背心抗議者 (Yellow Vest Protester)
+  appearance: An ordinary person in Q版 (chibi) 2D cartoon illustration style. Features
+    an expressive chibi face, showing emotions ranging from frustration to determination,
+    with prominent, expressive eyes. Hair is diverse, reflecting a general populace,
+    but simplified for the chibi style. The body has chibi proportions, representing
+    varying builds of everyday people. Dressed in standard civilian clothes (e.g.,
+    jeans, jackets, sweaters) with the distinctive bright yellow high-visibility vest
+    worn prominently over them. The vest is clearly cel-shaded in a vibrant, flat
+    yellow with a slightly lighter highlight to suggest its reflective quality. All
+    elements have clear outlines. Lighting is generally clear, suggesting daylight
+    or early evening, with a slightly somber or determined feel.
+- id: french_president_macron
+  name: 法國總統馬克宏 (French President Macron)
+  appearance: A chibi caricature of French President Macron in Q版 2D cartoon illustration
+    style. The face is recognizable but simplified, with a slight, perhaps detached,
+    smile and small, focused eyes. Hair is neatly combed, a distinct chibi version
+    of his actual hairstyle. The body has chibi proportions but maintains an air of
+    formality and authority, appearing slightly slender. Dressed in a sharp, well-tailored
+    dark suit, white shirt, and a tie (possibly blue or red). All clothing is cel-shaded
+    with crisp lines, indicating smooth, formal fabric textures through flat colors
+    and sharp highlights. Lighting is bright, almost stage-like, suggesting an indoor,
+    VIP setting, possibly with subtle spotlights, contrasting with the street scenes.
+- id: riot_armored_vehicle
+  name: 防暴裝甲車 (Riot Armored Vehicle)
+  appearance: A robust, heavy-duty riot control vehicle, likely a VAB (Véhicule de
+    l'Avant Blindé) or similar, rendered in Q版 2D cartoon illustration style. It features
+    a blocky, utilitarian hull design with distinct armored plating and multiple wheels
+    (e.g., 6x6). Key features like reinforced grilles over windows and a turret-mounted
+    water cannon or observation post are simplified but clearly visible. Materials
+    are indicated as thick, reinforced steel or composite armor, with heavy-duty tires.
+    Colors are dark, utilitarian shades like matte black, dark green, or police blue-grey.
+    Proportions are chibi-fied, making it appear squatter or wider than realistic,
+    but it retains its imposing, powerful presence. It is strictly a non-anthropomorphic
+    machine with no face, eyes, or human-like features. All components have clear
+    outlines and are cel-shaded.

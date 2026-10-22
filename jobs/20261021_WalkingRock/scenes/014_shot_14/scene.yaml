@@ -1,0 +1,20 @@
+id: 014_shot_14
+index: 14
+title: 然而物理學家很快就跳出來狠狠打了
+narration: 然而物理學家很快就跳出來狠狠打了他們的臉，[laughter]因為根據風洞模擬測試，泥土含水時的摩擦係數顯示，要讓一塊重達一百五十公斤的粗糙白雲岩在泥地上滑動，地面的風速至少要達到每小時近三百公里，
+image_prompt: dramatic close-up of a massive, rough-textured, angular grey-white dolomite
+  boulder on the Racetrack Playa. Exaggerated, powerful wind effects swirl dust and
+  small debris violently around its base, yet the stone itself appears stubbornly
+  immovable, highlighting the immense, almost impossible wind force required to shift
+  it, under the harsh desert sun, rendered in Katsuhiro Otomo style, with high-contrast,
+  sharp shadows, muted ochres, dusty beiges, pale greys, and a stark, desaturated
+  blue sky, 16:9 widescreen composition
+image_negative: ''
+act_index: 2
+act_title: 從地磁怪力到外星祭壇，科學家被一塊石頭當場打臉
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261021T085003
+  image_take: image_20261021T084925

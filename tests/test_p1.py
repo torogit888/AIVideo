@@ -177,9 +177,16 @@ def test_frontend_p1_contracts():
     assert 'scriptWorkspaceMode' in ts
     assert 'STORYBOARD_GHOST_ACTIONS' in ts
     assert "DEFAULT_USE_PIP" in ts
+    assert 'DEFAULT_CUSTOM_PROMPT = "開頭: 大家好~我是白兔!"' in ts
     editor = (REPO_ROOT / "web" / "src" / "components" / "ScriptEditor.tsx").read_text(encoding="utf-8")
     assert "美國太空總署羅曼太空望遠鏡" not in editor
     assert "故事要求" in editor
+    assert "DEFAULT_CUSTOM_PROMPT" in editor
+    assert "draftResetKey" in editor
+    store = (REPO_ROOT / "web" / "src" / "store.ts").read_text(encoding="utf-8")
+    assert "draftResetKey" in store
+    assert 'removeItem("aivideo_draft_custom_prompt")' in store
+    assert 'removeItem("aivideo_draft_outline")' in store
     rail = (REPO_ROOT / "web" / "src" / "components" / "SidebarRail.tsx").read_text(encoding="utf-8")
     assert "AI_TEXT_MODELS" not in rail
     assert "AI_IMAGE_MODELS" not in rail

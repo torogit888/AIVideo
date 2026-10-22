@@ -1,0 +1,27 @@
+id: 037_shot_37
+index: 37
+title: 百年未解之謎
+narration: 百年未解之謎，就在這個平凡的下午，被兩位目瞪口呆的科學家徹底親眼破解了！當這篇劃時代的論文在2014年正式發表在國際頂尖期刊上的時候，整個地質學界終於鬆了一口氣，
+image_prompt: medium close-up of Richard Norris, his face illuminated by the pale
+  winter sun, eyes wide with a mixture of awe, triumph, and profound understanding
+  as he witnesses the slow movement of a sailing stone, on the Racetrack Playa, rendered
+  in Katsuhiro Otomo style, with crisp, hand-drawn highlights, muted ochres, dusty
+  beiges, pale greys, and a stark, desaturated blue sky, 16:9 widescreen composition
+image_negative: ''
+act_index: 6
+act_title: 數據收網，百年軌跡密碼的終極還原
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261021T090916
+  image_take: image_20261021T090836
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: PLOS ONE 2014 paper Sliding Rocks on Racetrack Playa Norris
+  fetch_error: 未找到合適照片

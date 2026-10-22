@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261021T091011",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 19.43,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "所有困擾了人類一個世紀的怪異疑點",
+      "text_cn": "所有困扰了人类一个世纪的怪异疑点",
+      "start_sec": 0.0,
+      "end_sec": 3.36,
+      "duration_sec": 3.36
+    },
+    {
+      "index": 2,
+      "text": "在這一刻全部得到了完美閉環，為什麼有些石頭會突然來個九十度直角大轉彎",
+      "text_cn": "在这一刻全部得到了完美闭环，为什么有些石头会图然来个九十度直脚大转弯",
+      "start_sec": 3.61,
+      "end_sec": 10.41,
+      "duration_sec": 6.8
+    },
+    {
+      "index": 3,
+      "text": "因為推動它們的根本不是風直接吹在石頭上",
+      "text_cn": "因为推动它们的根本不是风直接吹在石头上",
+      "start_sec": 10.66,
+      "end_sec": 14.62,
+      "duration_sec": 3.96
+    },
+    {
+      "index": 4,
+      "text": "而是整塊巨大的浮冰板在湖面上被水流推著轉了向",
+      "text_cn": "而是整块巨大的浮冰板在湖面上被水流推著转了向",
+      "start_sec": 14.87,
+      "end_sec": 19.43,
+      "duration_sec": 4.56
+    }
+  ],
+  "created_at": "2026-10-21T09:10:11.521094+00:00"
+}

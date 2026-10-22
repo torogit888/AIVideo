@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261021T090607",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 11.86,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "到了第二天上午，冬日的陽光直射下來",
+      "text_cn": "到了第二天上午，冬日的阳光直射下来",
+      "start_sec": 0.0,
+      "end_sec": 3.4,
+      "duration_sec": 3.4
+    },
+    {
+      "index": 2,
+      "text": "巨大的冰面開始碎裂成幾十公尺寬的浮冰板",
+      "text_cn": "巨大的冰面开始碎裂成几十米宽的浮冰板",
+      "start_sec": 3.65,
+      "end_sec": 7.41,
+      "duration_sec": 3.76
+    },
+    {
+      "index": 3,
+      "text": "中午十二點剛過，平靜的湖面上吹起了一陣微風",
+      "text_cn": "中午十二点刚过，平静的湖面上吹起了一阵围风",
+      "start_sec": 7.66,
+      "end_sec": 11.86,
+      "duration_sec": 4.2
+    }
+  ],
+  "created_at": "2026-10-21T09:06:07.225580+00:00"
+}

@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261021T084800",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.77,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "回到當時的大環境來看，1948年美國地質調查局的兩位學者跑去現場研究了半天",
+      "text_cn": "回到当时的大环境来看，1948年美国地直调查局的两位学者跑去现场研旧了半天",
+      "start_sec": 0.0,
+      "end_sec": 7.52,
+      "duration_sec": 7.52
+    },
+    {
+      "index": 2,
+      "text": "他們發表了第一份學術報告，給出了一個看起來非常合乎常理的解釋",
+      "text_cn": "他们发表了第一份学术报告，给出了一个看起来非常合乎常理的解释",
+      "start_sec": 7.77,
+      "end_sec": 13.77,
+      "duration_sec": 6.0
+    }
+  ],
+  "created_at": "2026-10-21T08:48:00.801074+00:00"
+}

@@ -1,0 +1,27 @@
+id: 020_shot_20
+index: 20
+title: 愛馬仕路易威登迪奧和賽琳的鋼化展
+narration: '[surprise-wa]愛馬仕路易威登迪奧和賽琳的鋼化展示櫃被砸得粉碎，甚至連勞力士專櫃裡那些昂貴的名錶也被洗劫一空，'
+image_prompt: interior medium wide shot of a ransacked luxury department store, showing
+  shattered tempered-glass display cases, chibi looters sweeping luxury leather handbags
+  and high-end watches into large sacks, sparkling chandelier light reflecting off
+  glass shards, in Q版 2D cartoon illustration style, cel-shading, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 4
+act_title: 【黑塊戰術衝垮老佛爺——精品帝國淪為零元購打卡點】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T145532
+  image_take: image_20261019T145516
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Champs-Elysees luxury store looted riot Paris
+  fetch_error: 未找到合適照片

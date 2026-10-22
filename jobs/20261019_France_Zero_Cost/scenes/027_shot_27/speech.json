@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261019T150144",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.38,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "嬰兒奶粉高檔肉品和成箱的罐頭被整箱整箱地推上黑車載走",
+      "text_cn": "婴儿奶粉高档肉品和成箱的罐头被整箱整箱地推上黑车载走",
+      "start_sec": 0.0,
+      "end_sec": 5.36,
+      "duration_sec": 5.36
+    },
+    {
+      "index": 2,
+      "text": "甚至連收銀機裡的少量零錢都被鐵棒砸碎拿得一乾二淨",
+      "text_cn": "甚至连收银机里的少量零钱都被铁棒砸碎拿得一干二净",
+      "start_sec": 5.61,
+      "end_sec": 10.57,
+      "duration_sec": 4.96
+    },
+    {
+      "index": 3,
+      "text": "單單家樂福一家企業的直接損失就高達數千萬歐元",
+      "text_cn": "单单家乐福一家气业的直接损失就高达数千万欧元",
+      "start_sec": 10.82,
+      "end_sec": 15.38,
+      "duration_sec": 4.56
+    }
+  ],
+  "created_at": "2026-10-19T15:01:44.745247+00:00"
+}

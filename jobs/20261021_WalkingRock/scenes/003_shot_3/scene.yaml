@@ -1,0 +1,28 @@
+id: 003_shot_3
+index: 3
+title: 一位名叫約瑟夫的採礦工深入這片無
+narration: 一位名叫約瑟夫的採礦工深入這片無人區，結果在一處名為跑道盆地的乾涸湖床上，看到了一輩子都無法理解的詭異場景，
+image_prompt: medium shot of Joseph the Miner, his rugged, sun-baked face etched with
+  bewilderment and disbelief, standing motionless on the perfectly flat, hexagonal
+  cracked mud of Racetrack Playa, staring wide-eyed at an unseen, inexplicable phenomenon
+  in the distance, under the harsh, direct desert sun, rendered in Katsuhiro Otomo
+  style, with high-contrast, sharp shadows, muted ochres, dusty beiges, pale greys,
+  and a stark, desaturated blue sky, 16:9 widescreen composition
+image_negative: ''
+act_index: 1
+act_title: 死寂荒原上的幽靈軌跡，連重力都失效的百年泥潭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261021T083940
+  image_take: image_20261021T083927
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Racetrack Playa Death Valley dry lake bed aerial photo
+  fetch_error: 未找到合適照片

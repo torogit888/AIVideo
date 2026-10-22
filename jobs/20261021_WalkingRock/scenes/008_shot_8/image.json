@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261021T084333",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 40519887,
+  "prompt": "Katsuhiro Otomo Style, dramatic low-angle shot of a massive dolomite boulder and its long, deep track on the Racetrack Playa. The perfectly flat, hexagonal cracked mud surface appears to offer no gradient, emphasizing the impossible uphill movement of the stone, under the stark desert sun, rendered in Katsuhiro Otomo style, with high-contrast, sharp shadows, muted ochres, dusty beiges, pale greys, and a stark, desaturated blue sky, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-21T08:43:33.871355+00:00"
+}

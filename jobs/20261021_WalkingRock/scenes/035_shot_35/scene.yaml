@@ -1,0 +1,28 @@
+id: 035_shot_35
+index: 35
+title: 那塊長達幾十公尺的巨大薄冰板
+narration: 那塊長達幾十公尺的巨大薄冰板，像一張無邊無際的巨型風帆一樣吃滿了風力，雖然冰層非常薄，但它的面積大到難以想像，匯聚起來的推力直接推著好幾塊大石頭在泥濘的湖底往前慢慢滑行，
+image_prompt: medium shot, low angle, showing a massive dolomite boulder being slowly
+  pushed forward by the edge of an enormous, thin ice sheet acting like a sail, gliding
+  across the shallow, muddy water of the Racetrack Playa, under the cold, pale winter
+  sun, rendered in Katsuhiro Otomo style, with crisp, hand-drawn highlights, muted
+  ochres, dusty beiges, pale greys, and a stark, desaturated blue sky, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 5
+act_title: 世紀破曉！薄如窗玻璃的致命冰刃與微風合奏
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261021T090730
+  image_take: image_20261021T090719
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Richard Norris floating ice sheet pushing sailing rock photo
+  fetch_error: 未找到合適照片

@@ -1,0 +1,18 @@
+id: 034_shot_34
+index: 34
+title: 注意
+narration: 注意，這根本不是什麼超級颶風，風速只有每秒三到五公尺，就是你走在路上稍微拂過臉頰的微風程度，[surprise-oh]但奇蹟就在這一秒發生了，
+image_prompt: close-up on the water surface of the Racetrack Playa, showing subtle,
+  gentle ripples caused by a light breeze, with small, fractured ice plates beginning
+  to drift almost imperceptibly, reflecting the cold winter sun, rendered in Katsuhiro
+  Otomo style, with crisp, hand-drawn highlights, muted ochres, dusty beiges, pale
+  greys, and a stark, desaturated blue sky, 16:9 widescreen composition
+image_negative: ''
+act_index: 5
+act_title: 世紀破曉！薄如窗玻璃的致命冰刃與微風合奏
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261021T090700
+  image_take: image_20261021T090631

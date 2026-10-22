@@ -1,0 +1,26 @@
+id: 032_shot_32
+index: 32
+title: 法國總統馬克宏隨後在電視螢幕前發
+narration: 法國總統馬克宏隨後在電視螢幕前發表了言辭極度嚴厲的講話，他公開痛斥這些洗劫商鋪的暴徒是可恥的趁火打劫者，並且信誓旦旦地向全國保證一定會動用最強硬的司法手段嚴懲，
+image_prompt: medium shot of French President Macron in Q版 caricature, wearing a crisp
+  dark suit and tie, standing formally behind a polished presidential lectern inside
+  a gilded palace room, delivering a stern address, warm indoor state lighting, in
+  Q版 2D cartoon illustration style, clean outlines, cel-shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 6
+act_title: 【黑夜裡的RAID裝甲車 vs 天后演唱會上的國家元首】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T150653
+  image_take: image_20261019T150616
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Emmanuel Macron televised speech Elysee Palace
+  fetch_error: 'AI 審核未通過（與口白不符）：AI 判定不吻合: 照片人物並非馬克宏，而是班諾瓦·阿蒙，且事件背景不符。，已自動切換為純 AI 生成畫面'

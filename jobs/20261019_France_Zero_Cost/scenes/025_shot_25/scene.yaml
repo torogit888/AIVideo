@@ -1,0 +1,17 @@
+id: 025_shot_25
+index: 25
+title: 然而這場席捲法國的災難並沒有在名
+narration: 然而這場席捲法國的災難並沒有在名品街區停下腳步，更令人寒心的是平民百姓賴以生存的社區賣場也成了犧牲品，作為全法國平民日常採購支柱的家樂福賣場淪為了重災區，
+image_prompt: wide exterior shot of a neighborhood Carrefour supermarket at dusk,
+  masked chibi agitators throwing cobblestones at the large glass sliding doors while
+  alarms flash, deep purple and orange evening sky, in Q版 2D cartoon illustration
+  style, cel-shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 5
+act_title: 【平民避風港的粉碎——家樂福浩劫與底層互害的殘酷代價】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T150012
+  image_take: image_20261019T145920

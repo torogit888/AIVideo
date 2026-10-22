@@ -1,0 +1,26 @@
+id: 018_shot_18
+index: 18
+title: 十月十七日午後極左翼常用的黑塊戰
+narration: 十月十七日午後極左翼常用的黑塊戰術在巴黎街頭全面上演，數千名身穿黑衣頭戴面罩的破壞分子迅速集結，他們隨身攜帶鐵撬角磨機和燃燒瓶把遊行人群當成掩護，
+image_prompt: dynamic medium shot of a coordinated black bloc group of chibi figures
+  wearing black hoods, gas masks, and dark jackets, holding heavy iron crowbars and
+  glass bottles, moving briskly through drifting smoke, in Q版 2D cartoon illustration
+  style, hard-edged cel-shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 4
+act_title: 【黑塊戰術衝垮老佛爺——精品帝國淪為零元購打卡點】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T145340
+  image_take: image_20261019T145319
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Black bloc tactics Paris demonstration riot
+  fetch_error: 未找到合適照片

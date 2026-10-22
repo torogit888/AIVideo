@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261019T145744",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.18,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "法國商業與零售聯合會隨後發布了一份觸目驚心的通報",
+      "text_cn": "法国商业与零售联合会随后发布了一份触目惊心的通报",
+      "start_sec": 0.0,
+      "end_sec": 4.96,
+      "duration_sec": 4.96
+    },
+    {
+      "index": 2,
+      "text": "全法在短短幾天內估計有一千五百家各類商鋪直接遇襲",
+      "text_cn": "全法在短短几天内估计有一千五百家各类商铺直接遇袭",
+      "start_sec": 5.21,
+      "end_sec": 10.17,
+      "duration_sec": 4.96
+    },
+    {
+      "index": 3,
+      "text": "整個零售業的直接財產損失高達數億歐元",
+      "text_cn": "整个零售业的直接财产损失高达数亿欧元",
+      "start_sec": 10.42,
+      "end_sec": 14.18,
+      "duration_sec": 3.76
+    }
+  ],
+  "created_at": "2026-10-19T14:57:44.904414+00:00"
+}

@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261019T145652",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.18,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "這種極度魔幻的打砸搶很快蔓延到了外省的大城市",
+      "text_cn": "这种极度魔幻的打砸抢很快蔓延到了外省的大城市",
+      "start_sec": 0.0,
+      "end_sec": 4.56,
+      "duration_sec": 4.56
+    },
+    {
+      "index": 2,
+      "text": "里爾和波爾多的蘋果直營店同樣被黑衣人野蠻破門",
+      "text_cn": "里尔和波尔多的苹果直营店同样被黑衣人野蛮破门",
+      "start_sec": 4.81,
+      "end_sec": 9.37,
+      "duration_sec": 4.56
+    },
+    {
+      "index": 3,
+      "text": "整面昂貴的落地玻璃碎落一地展示桌上的手機被整台連根拔起",
+      "text_cn": "整面昂贵的落地玻璃碎落一地展示桌上的手机被整台连根拔起",
+      "start_sec": 9.62,
+      "end_sec": 15.18,
+      "duration_sec": 5.56
+    }
+  ],
+  "created_at": "2026-10-19T14:56:52.074458+00:00"
+}

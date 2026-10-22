@@ -1,0 +1,19 @@
+id: 043_shot_43
+index: 43
+title: 真相揭開之後
+narration: 真相揭開之後，有些專門研究超自然現象的愛好者反而覺得失望了，他們覺得原本一個充滿外星人和未知能量的神秘傳說，最後竟然被幾塊薄冰和一陣微風給打回了原形，這不是很煞風景嗎，
+image_prompt: medium shot, slightly low angle, showing a generic person (back to camera)
+  looking down at a simple dolomite boulder and a thin, ordinary-looking sheet of
+  ice on the Racetrack Playa, their posture conveying a sense of profound disappointment
+  or disillusionment, under the stark desert sun, rendered in Katsuhiro Otomo style,
+  with high-contrast, sharp shadows, muted ochres, dusty beiges, pale greys, and a
+  stark, desaturated blue sky, 16:9 widescreen composition
+image_negative: ''
+act_index: 7
+act_title: 幻滅抑或敬畏，當大自然收起它的魔術障眼法
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261021T091505
+  image_take: image_20261021T091444

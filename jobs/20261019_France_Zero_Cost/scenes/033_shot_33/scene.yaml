@@ -1,0 +1,27 @@
+id: 033_shot_33
+index: 33
+title: 可就在特警在火海中與暴徒搏鬥商店
+narration: 可就在特警在火海中與暴徒搏鬥商店化為焦炭的同一天晚上，[surprise-wa]一段令人瞠目結舌的短影音卻在各大社群媒體上瘋傳開來，影片裡的法國總統馬克宏竟然悠閒地現身在加拿大天后席琳狄翁的演唱會現場，
+image_prompt: 'split-screen framing shot: on the left side, French President Macron
+  sits comfortably in a plush velvet VIP concert suite swaying slightly with a detached
+  smile; on the right side, tactical police face burning street barricades in dark
+  Paris, high contrast, in Q版 2D cartoon illustration style, cel-shading, 16:9 widescreen
+  composition'
+image_negative: ''
+act_index: 6
+act_title: 【黑夜裡的RAID裝甲車 vs 天后演唱會上的國家元首】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T150745
+  image_take: image_20261019T150733
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Emmanuel Macron Elton John concert Paris riots video
+  fetch_error: 未找到合適照片

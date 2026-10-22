@@ -1,0 +1,31 @@
+id: 001_shot_1
+index: 1
+title: 大家好！我是白兔！當你想到法國巴
+narration: 大家好！我是白兔！當你想到法國巴黎的時候你腦海中浮現的是什麼，是塞納河畔飄著香氣的咖啡館，還是羅浮宮前微笑的蒙娜麗莎？[question-ei]，
+image_prompt: wide establishing shot of an idyllic Paris street by the Seine River,
+  featuring a cozy outdoor café with striped awnings and a simplified view of the
+  Louvre pyramid in the background, warm bright sunlight, cheerful pastel atmosphere,
+  in Q版 2D cartoon illustration style, clean crisp outlines, cel-shaded coloring,
+  16:9 widescreen composition
+image_negative: ''
+act_index: 1
+act_title: 【從斷頭台到香榭麗舍的基因突變——2026年深秋的巴黎烈焰】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T143955
+  image_take: image_20261019T143218
+pip:
+  enabled: false
+  image: null
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: null
+  source_title: null
+  source_url: null
+  fetch_error: null
+  verified: false
+  review_reason: null

@@ -1,0 +1,18 @@
+id: 038_shot_38
+index: 38
+title: 我們回頭審視這段從一七八九年走到
+narration: 我們回頭審視這段從一七八九年走到二零二六年的荒誕歷史，法國人似乎從來沒有丟掉過他們走向街頭反抗體制的歷史遺產，但問題是當初為了爭取生存權利的光輝記憶，如今卻在演算法和消費主義的侵蝕下被徹底掏空了內核，
+image_prompt: 'wide historical panorama seamlessly transitioning from left to right:
+  on the left, 1789 revolutionary chibi peasants fighting for basic survival amid
+  cobblestones; on the right, 2026 chibi looters carrying designer shopping bags amid
+  burning tires, stylized historic contrast, in Q版 2D cartoon illustration style,
+  cel-shading, 16:9 widescreen composition'
+image_negative: ''
+act_index: 7
+act_title: 【跨越阿爾卑斯山的病毒——歷史的餘韻與白兔謝幕】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T151251
+  image_take: image_20261019T151238

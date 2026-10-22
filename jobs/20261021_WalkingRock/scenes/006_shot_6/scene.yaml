@@ -1,0 +1,18 @@
+id: 006_shot_6
+index: 6
+title: 地面上沒有任何車輪印
+narration: 地面上沒有任何車輪印，沒有任何動物腳印，更沒有任何機械拖拽的痕跡，它們就像是在深夜擁有了生命一樣，趁著無人注意時在泥地上悄無聲息地散步，
+image_prompt: close-up shot of a deep, perfectly straight track carved into the hexagonal
+  cracked mud of the Racetrack Playa. The surrounding mud is pristine and undisturbed,
+  with no other footprints or drag marks visible, under the stark, high-contrast lighting
+  of the desert sun, rendered in Katsuhiro Otomo style, with muted ochres, dusty beiges,
+  pale greys, and a stark, desaturated blue sky, 16:9 widescreen composition
+image_negative: ''
+act_index: 1
+act_title: 死寂荒原上的幽靈軌跡，連重力都失效的百年泥潭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261021T084206
+  image_take: image_20261021T084155

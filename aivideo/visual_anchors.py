@@ -64,7 +64,10 @@ def normalize_characters(raw: Iterable[Any] | None) -> list[dict[str, str]]:
             cid = raw_id
         else:
             cid = slug_character_id(name, used, index=i)
-        out.append({"id": cid, "name": name, "appearance": appearance})
+        entity_type = str(item.get("entity_type") or "").strip().lower()
+        if entity_type not in ("character", "object"):
+            entity_type = "character"
+        out.append({"id": cid, "name": name, "appearance": appearance, "entity_type": entity_type})
     return out
 
 
@@ -227,7 +230,12 @@ def persist_characters_on_anchors(
     characters: list[dict[str, str]],
 ) -> dict[str, Any]:
     v_anchors["characters"] = [
-        {"id": ch["id"], "name": ch["name"], "appearance": ch.get("appearance", "")}
+        {
+            "id": ch["id"],
+            "name": ch["name"],
+            "appearance": ch.get("appearance", ""),
+            "entity_type": ch.get("entity_type", "character"),
+        }
         for ch in characters
     ]
     composed = compose_subject_anchor(characters)
@@ -261,34 +269,68 @@ def prune_character_images(job_dir: Path, keep_ids: Iterable[str]) -> None:
             path.unlink(missing_ok=True)
 
 
+def clear_all_character_images(job_dir: Path) -> None:
+    """徹底清空專案內所有角色定裝圖與舊版單張 hero_anchor.png。"""
+    hero = legacy_hero_path(job_dir)
+    if hero.is_file():
+        hero.unlink(missing_ok=True)
+    folder = job_dir / "characters"
+    if folder.is_dir():
+        for path in folder.glob("*.png"):
+            path.unlink(missing_ok=True)
+
+
+def invalidate_changed_character_images(
+    job_dir: Path,
+    old_chars: list[dict[str, str]],
+    new_chars: list[dict[str, str]],
+) -> None:
+    """比對新舊角色清單：刪除已移除角色的定裝圖，且若某角色名稱或外觀敘述已變更，自動清除其過期定裝圖。"""
+    prune_character_images(job_dir, [ch["id"] for ch in new_chars])
+    old_map = {
+        ch["id"]: (
+            str(ch.get("name") or "").strip(),
+            str(ch.get("appearance") or "").strip(),
+        )
+        for ch in (old_chars or [])
+        if ch.get("id")
+    }
+    any_changed = len(old_chars or []) != len(new_chars or [])
+    for idx, ch in enumerate(new_chars or []):
+        cid = ch["id"]
+        new_sig = (
+            str(ch.get("name") or "").strip(),
+            str(ch.get("appearance") or "").strip(),
+        )
+        old_sig = old_map.get(cid)
+        if old_sig != new_sig:
+            any_changed = True
+            img = character_image_path(job_dir, cid)
+            if img.is_file():
+                img.unlink(missing_ok=True)
+            if idx == 0:
+                hero = legacy_hero_path(job_dir)
+                if hero.is_file():
+                    hero.unlink(missing_ok=True)
+    if any_changed:
+        hero = legacy_hero_path(job_dir)
+        if hero.is_file():
+            hero.unlink(missing_ok=True)
+
+
 def build_character_hero_prompt(
     style_prefix: str,
     name: str,
     appearance: str,
     environment: str = "",
+    entity_type: str = "character",
 ) -> str:
-    """構建乾淨純粹的定裝基準圖 Prompt，智慧感知主體是人物還是核心物件/載具，避免非人物體被擬人化。"""
+    """構建乾淨純粹的定裝基準圖 Prompt，由 LLM 語意分析標記的 entity_type ('character' | 'object') 決定模板，不使用脆弱的關鍵字規則。"""
     prefix = (style_prefix or "").strip("，")
     char_desc = f"{name}: {appearance}" if name and appearance else (appearance or name)
-
-    combined_text = f"{name} {appearance}".lower()
-
-    # 判定是否為物品、道具、飲料、載具、機器等非人物實體
-    object_keywords = (
-        "bottle", "can", "drink", "beverage", "soda", "pepsi", "coke",
-        "submarine", "ship", "cruiser", "destroyer", "boat", "vessel", "fleet", "warship",
-        "plane", "aircraft", "car", "tank", "vehicle", "machine", "device", "apparatus",
-        "prop", "artifact", "weapon", "sword", "gun", "glass", "container",
-        "telescope", "satellite", "rocket", "station", "building", "chip", "wafer"
-    )
-    person_keywords = (
-        "kendall", "nixon", "khrushchev", "person", "man", "woman", "boy", "girl",
-        "president", "leader", "ceo", "captain", "sailor", "soldier", "character", "official"
-    )
-
-    is_object = any(k in combined_text for k in object_keywords) and not any(p in name.lower() for p in person_keywords)
-
     sep = ", " if not any("\u4e00" <= c <= "\u9fff" for c in prefix) else "，"
+
+    is_object = str(entity_type).strip().lower() == "object"
 
     if is_object:
         # 物件/道具/載具展示模板：強調物品本體細節與材質，嚴禁擬人化或長出手腳

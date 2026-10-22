@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20261021T084022",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 9.56,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[surprise-wa]這究竟是怎麼回事呢，在方圓幾公里完全像鏡子一樣平整的硬化泥地上，散落著幾十塊巨大無比的岩石",
+      "text_cn": "[surprise-wa]这旧竟是怎么回事呢，在方圆几公里完全像镜子一样平整的硬化泥地上，散落着几十块巨大无比的岩石",
+      "start_sec": 0.0,
+      "end_sec": 9.56,
+      "duration_sec": 9.56
+    }
+  ],
+  "created_at": "2026-10-21T08:40:22.206105+00:00"
+}

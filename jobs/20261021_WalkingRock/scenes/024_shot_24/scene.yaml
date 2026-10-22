@@ -1,0 +1,27 @@
+id: 024_shot_24
+index: 24
+title: 斯克里普斯海洋研究所的一位古生物
+narration: 斯克里普斯海洋研究所的一位古生物學家理查諾里斯，跟他那位造火箭搞航空工程的堂弟詹姆斯湊在了一起，這對堂兄弟組建了一個研究小組，決定用現代衛星物聯網徹底終結這場百年懸案，
+image_prompt: medium shot of Richard Norris, his focused, determined expression clear,
+  holding a rugged handheld GPS receiver and scanning the vast expanse of the Racetrack
+  Playa, a utility backpack on his back, under the harsh desert sun, rendered in Katsuhiro
+  Otomo style, with high-contrast, sharp shadows, muted ochres, dusty beiges, pale
+  greys, and a stark, desaturated blue sky, 16:9 widescreen composition
+image_negative: ''
+act_index: 4
+act_title: 狂客集結，給死谷巨石裝上GPS心臟的「懶人俱樂部」
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261021T085802
+  image_take: image_20261021T085724
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Richard Norris paleobiologist Scripps Institution of Oceanography
+  fetch_error: 未找到合適照片

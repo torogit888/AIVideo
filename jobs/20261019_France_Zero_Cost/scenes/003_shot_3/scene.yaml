@@ -1,0 +1,30 @@
+id: 003_shot_3
+index: 3
+title: 回到當時的大環境來看歐洲正面臨漫
+narration: 回到當時的大環境來看歐洲正面臨漫長的地緣震盪，頑固的高通膨讓一般家庭的生活成本被推上了歷史頂峰，法蘭西第五共和國的底層民眾每天被帳單壓得喘不過氣，
+image_prompt: medium shot of a French working-class family with expressive chibi proportions
+  sitting at a humble kitchen table surrounded by towering stacks of unpaid utility
+  bills, worried facial expressions, soft indoor domestic lighting, in Q版 2D cartoon
+  illustration style, clean outlines, cel-shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 1
+act_title: 【從斷頭台到香榭麗舍的基因突變——2026年深秋的巴黎烈焰】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T144028
+  image_take: image_20261019T143851
+pip:
+  enabled: false
+  image: null
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: null
+  source_title: null
+  source_url: null
+  fetch_error: null
+  verified: false
+  review_reason: null

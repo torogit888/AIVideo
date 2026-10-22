@@ -1,0 +1,86 @@
+subject: 'Joseph the Miner: A rugged 1915 American pioneer and miner. He has a weathered,
+  sun-baked face with sharp, realistic features, intense eyes, and a scruffy, unkempt
+  beard in Katsuhiro Otomo''s signature hand-drawn style. He wears a dusty, heavy
+  canvas work jacket, suspenders over a faded flannel shirt, rugged trousers, and
+  worn leather boots. He holds a heavy, metallic iron pickaxe with realistic wear
+  and tear. | Professor Robert Sharp: An elderly, distinguished geologist in his late
+  60s. He has a deeply lined, intelligent face, thin-framed wire glasses, and short,
+  neatly parted grey hair. He is dressed in a 1970s-style outdoor utility vest with
+  multiple pockets over a long-sleeved shirt, durable khaki trousers, and sturdy hiking
+  boots, holding a metal measuring tape and a clipboard. | Richard Norris: A modern
+  paleobiologist in his 40s with a focused, determined expression. He has short, practical
+  brown hair and a clean-shaven face rendered in realistic, clean anime ink lines.
+  He wears a windproof technical outdoor jacket, cargo pants, and a utility backpack,
+  holding a rugged, handheld GPS receiver. | Karen (The Sailing Stone): A massive,
+  113-kilogram dolomite boulder. It is a completely inanimate, rough-textured, angular
+  grey-white rock with sharp geological facets and fine mineral cracks. It has no
+  human features whatsoever. Behind it, a deep, perfectly straight, parallel track
+  is carved into the dry, cracked mud of the desert floor, extending hundreds of meters
+  into the distance. | GPS-Embedded Spy Stone: A medium-sized dolomite rock, physically
+  identical to the natural stones but shown in a technical cutaway view. The interior
+  is precisely hollowed out to house a compact, rugged green circuit board, a miniature
+  low-power GPS sensor, a small antenna, and a lithium battery pack. The mechanical
+  and electronic components are drawn with clean, hard-sci-fi industrial precision.
+  | Micro-Weather Station & Camera: A rugged, functional scientific instrument rig
+  mounted on a heavy metal tripod. It features a matte-black, weather-resistant high-resolution
+  camera housing, a miniature spinning-cup anemometer, and a small, angled solar panel.
+  The design is highly industrial and utilitarian, with visible cables and clean,
+  precise mechanical lines.'
+environment: The Racetrack Playa in Death Valley, rendered in a classic cel-shaded
+  widescreen layout. The ground is a vast, flat expanse of dried mud, detailed with
+  a precise mosaic of hexagonal cracked earth patterns. Under the harsh, direct desert
+  sun, the landscape is cast in high-contrast, sharp shadows. The color palette is
+  dominated by muted ochres, dusty beiges, pale greys, and a stark, desaturated blue
+  sky. In winter scenes, a razor-thin, transparent sheet of ice (3-6mm) covers a shallow
+  layer of water, reflecting the cold, pale sun with crisp, hand-drawn highlights
+  and floating, fractured ice plates.
+use_image_reference: true
+characters:
+- id: joseph_miner
+  name: Joseph the Miner
+  appearance: A rugged 1915 American pioneer and miner. He has a weathered, sun-baked
+    face with sharp, realistic features, intense eyes, and a scruffy, unkempt beard
+    in Katsuhiro Otomo's signature hand-drawn style. He wears a dusty, heavy canvas
+    work jacket, suspenders over a faded flannel shirt, rugged trousers, and worn
+    leather boots. He holds a heavy, metallic iron pickaxe with realistic wear and
+    tear.
+  entity_type: character
+- id: professor_sharp
+  name: Professor Robert Sharp
+  appearance: An elderly, distinguished geologist in his late 60s. He has a deeply
+    lined, intelligent face, thin-framed wire glasses, and short, neatly parted grey
+    hair. He is dressed in a 1970s-style outdoor utility vest with multiple pockets
+    over a long-sleeved shirt, durable khaki trousers, and sturdy hiking boots, holding
+    a metal measuring tape and a clipboard.
+  entity_type: character
+- id: richard_norris
+  name: Richard Norris
+  appearance: A modern paleobiologist in his 40s with a focused, determined expression.
+    He has short, practical brown hair and a clean-shaven face rendered in realistic,
+    clean anime ink lines. He wears a windproof technical outdoor jacket, cargo pants,
+    and a utility backpack, holding a rugged, handheld GPS receiver.
+  entity_type: character
+- id: karen_sailing_stone
+  name: Karen (The Sailing Stone)
+  appearance: A massive, 113-kilogram dolomite boulder. It is a completely inanimate,
+    rough-textured, angular grey-white rock with sharp geological facets and fine
+    mineral cracks. It has no human features whatsoever. Behind it, a deep, perfectly
+    straight, parallel track is carved into the dry, cracked mud of the desert floor,
+    extending hundreds of meters into the distance.
+  entity_type: object
+- id: gps_spy_stone
+  name: GPS-Embedded Spy Stone
+  appearance: A medium-sized dolomite rock, physically identical to the natural stones
+    but shown in a technical cutaway view. The interior is precisely hollowed out
+    to house a compact, rugged green circuit board, a miniature low-power GPS sensor,
+    a small antenna, and a lithium battery pack. The mechanical and electronic components
+    are drawn with clean, hard-sci-fi industrial precision.
+  entity_type: object
+- id: weather_station_rig
+  name: Micro-Weather Station & Camera
+  appearance: A rugged, functional scientific instrument rig mounted on a heavy metal
+    tripod. It features a matte-black, weather-resistant high-resolution camera housing,
+    a miniature spinning-cup anemometer, and a small, angled solar panel. The design
+    is highly industrial and utilitarian, with visible cables and clean, precise mechanical
+    lines.
+  entity_type: object

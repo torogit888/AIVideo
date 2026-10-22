@@ -1,0 +1,19 @@
+id: 004_shot_4
+index: 4
+title: 這究竟是怎麼回事呢
+narration: '[surprise-wa]這究竟是怎麼回事呢，在方圓幾公里完全像鏡子一樣平整的硬化泥地上，散落著幾十塊巨大無比的岩石，'
+image_prompt: wide, slightly elevated shot of the Racetrack Playa, showcasing dozens
+  of massive, rough-textured, angular grey-white dolomite boulders scattered across
+  the perfectly flat, mirror-like expanse of hexagonal cracked mud, casting sharp,
+  long shadows under the harsh desert sun, rendered in Katsuhiro Otomo style, with
+  muted ochres, dusty beiges, pale greys, and a stark, desaturated blue sky, 16:9
+  widescreen composition
+image_negative: ''
+act_index: 1
+act_title: 死寂荒原上的幽靈軌跡，連重力都失效的百年泥潭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261021T084022
+  image_take: image_20261021T084009

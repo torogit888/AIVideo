@@ -1,0 +1,26 @@
+id: 011_shot_11
+index: 11
+title: 強行把國王路易十六一家從金碧輝煌
+narration: 強行把國王路易十六一家從金碧輝煌的王宮裡押回巴黎，她們沿途高喊的根本不是什麼博愛的高尚口號，而是非常直白的一句我們要麵包我們要生存！
+image_prompt: medium wide shot outside the ornate gilded gates of Versailles Palace,
+  chibi Parisian women firmly escorting the royal carriage of King Louis XVI back
+  to Paris under heavy grey skies, stylized rain streaks, in Q版 2D cartoon illustration
+  style, clean outlines, cel-shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 2
+act_title: 【兩百多年前的一塊黑麥麵包——法國大革命的暴食與飢餓密碼】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T144654
+  image_take: image_20261019T144641
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Louis XVI brought to Paris October 1789 engraving
+  fetch_error: 未找到合適照片

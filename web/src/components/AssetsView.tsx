@@ -192,6 +192,7 @@ export const AssetsView: React.FC = () => {
   const [createToneMode, setCreateToneMode] = useState<"vertex" | "manual">("vertex");
   const [extractText, setExtractText] = useState("");
   const [extractToneId, setExtractToneId] = useState("");
+  const [extractToneTitle, setExtractToneTitle] = useState("");
   const [extracting, setExtracting] = useState(false);
   const [extractMsg, setExtractMsg] = useState("");
   const [newToneId, setNewToneId] = useState("");
@@ -448,6 +449,7 @@ export const AssetsView: React.FC = () => {
       const created = await api.extractAndSaveTone({
         text: extractText.trim(),
         tone_id: extractToneId.trim() || undefined,
+        title: extractToneTitle.trim() || undefined,
         auto_save: true,
         model: selectedAiModel,
       });
@@ -455,6 +457,7 @@ export const AssetsView: React.FC = () => {
       setIsCreateToneOpen(false);
       setExtractText("");
       setExtractToneId("");
+      setExtractToneTitle("");
       await loadData();
       handleSelectTone(created);
     } catch (e: any) {
@@ -1628,9 +1631,9 @@ export const AssetsView: React.FC = () => {
                 <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 text-xs text-amber-200/90 leading-relaxed">
                   <div className="flex items-center space-x-1.5 font-semibold text-amber-300 mb-1">
                     <Sparkles className="w-3.5 h-3.5" />
-                    <span>Vertex AI (Gemini Flash) 直接寫入專案</span>
+                    <span>Vertex AI (Gemini Flash) 100% 深度模仿口吻 ＋ 人名去識別化</span>
                   </div>
-                  輸入參考口白文字或上傳文字檔，Vertex AI 會自動分析語言節奏、敘事公式、發音人建議，並提煉成專案標準規範，<strong>直接儲存入專案 assets/tones/ 目錄</strong>。
+                  貼上任何 YouTuber 的逐字稿，AI 會 <strong>100% 原汁原味提煉其說話口氣、吐槽句式與敘事公式</strong>，並自動將原頻道主自稱去識別化為 <code>{"{頻道主}"}</code>，生成腳本時再自動套入您的頻道名稱（如：白兔）。
                 </div>
 
                 <div className="flex items-center justify-between">
@@ -1656,10 +1659,23 @@ export const AssetsView: React.FC = () => {
                   className="w-full p-2.5 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text resize-none focus:outline-none focus:border-amber-cta leading-relaxed"
                 />
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <div>
                     <label className="block text-[11px] text-cinema-muted mb-1">
-                      指定口吻英文 ID (選填，留空自動命名)
+                      口吻顯示名稱 (選填，留空通用命名)
+                    </label>
+                    <input
+                      type="text"
+                      value={extractToneTitle}
+                      onChange={(e) => setExtractToneTitle(e.target.value)}
+                      disabled={extracting}
+                      placeholder="例如: 叉雞風 / 懸疑揭秘風"
+                      className="w-full h-8 px-2.5 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text focus:outline-none focus:border-amber-cta"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[11px] text-cinema-muted mb-1">
+                      指定英文 ID (選填，留空自動命名)
                     </label>
                     <input
                       type="text"

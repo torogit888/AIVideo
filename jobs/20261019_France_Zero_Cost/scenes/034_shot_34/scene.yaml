@@ -1,0 +1,17 @@
+id: 034_shot_34
+index: 34
+title: 在視野極佳的貴賓包廂裡這位國家元
+narration: 在視野極佳的貴賓包廂裡這位國家元首正跟著音樂輕快地搖擺著身體，滿面春風的笑容與幾公里外燃燒的巴黎街頭形成了極致的反差，這段畫面瞬間點燃了法國輿論與在野黨的狂暴怒火，
+image_prompt: medium close-up shot of French President Macron in a sharp suit smiling
+  happily while leaning over the golden railing of a VIP concert box, surrounded by
+  vibrant concert stage spotlights and celebratory arena ambience, in Q版 2D cartoon
+  illustration style, clean outlines, cel-shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 6
+act_title: 【黑夜裡的RAID裝甲車 vs 天后演唱會上的國家元首】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T150852
+  image_take: image_20261019T150816

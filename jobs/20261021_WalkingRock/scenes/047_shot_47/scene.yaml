@@ -1,0 +1,19 @@
+id: 047_shot_47
+index: 47
+title: 比起虛無縹緲的飛碟
+narration: 比起虛無縹緲的飛碟，這種精巧到極致的自然法則，難道不更令人感到敬畏嗎？從1915年那個孤身走進荒漠的採礦工人，到2014年那組在寒風中記錄下奇蹟的衛星天線，
+image_prompt: 'split-screen or diptych composition: on one side, a distant silhouette
+  of Joseph the Miner with his pickaxe on the vast, dry Racetrack Playa; on the other,
+  a detailed shot of the Micro-Weather Station & Camera standing vigil on a rocky
+  outcrop, both under the harsh desert sun, spanning a century of observation, rendered
+  in Katsuhiro Otomo style, with high-contrast, sharp shadows, muted ochres, dusty
+  beiges, pale greys, and a stark, desaturated blue sky, 16:9 widescreen composition'
+image_negative: ''
+act_index: 8
+act_title: 永恆的行者，在無聲荒原留下的歷史刻痕（歷史餘韻與訂閱謝幕）
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261021T091909
+  image_take: image_20261021T091832

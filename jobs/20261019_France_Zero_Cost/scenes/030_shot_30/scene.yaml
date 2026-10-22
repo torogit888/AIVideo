@@ -1,0 +1,17 @@
+id: 030_shot_30
+index: 30
+title: 你看這些劫匪嘴上打著替窮人向高物
+narration: '[dissatisfaction-hnn]你看這些劫匪嘴上打著替窮人向高物價討公道的旗號，轉過頭來卻把窮人社區賴以果腹的平價賣場砸個稀爛，當短暫的搶劫狂歡散去真正承受這場苦果的，依然是那些老老實實工作生活的底層老百姓，'
+image_prompt: medium shot of everyday working-class chibi citizens walking past charred
+  debris and overturned shopping carts on a damp urban sidewalk, somber and resigned
+  expressions, dreary grey city atmosphere, in Q版 2D cartoon illustration style, cel-shading,
+  16:9 widescreen composition
+image_negative: ''
+act_index: 6
+act_title: 【黑夜裡的RAID裝甲車 vs 天后演唱會上的國家元首】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T150449
+  image_take: image_20261019T150410

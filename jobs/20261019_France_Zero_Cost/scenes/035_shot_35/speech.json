@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261019T150941",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 10.97,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "無數網民紛紛湧入社交平台痛批這是現代版的何不食肉糜",
+      "text_cn": "无数网民纷纷涌入社交平台痛批这是现代版的何不食肉糜",
+      "start_sec": 0.0,
+      "end_sec": 5.16,
+      "duration_sec": 5.16
+    },
+    {
+      "index": 2,
+      "text": "底層青年在街頭砸玻璃特警在第一線吸瓦斯總統卻在高堂看秀",
+      "text_cn": "底层青年在街头砸玻璃特警在第一线吸瓦斯总统却在高堂看秀",
+      "start_sec": 5.41,
+      "end_sec": 10.97,
+      "duration_sec": 5.56
+    }
+  ],
+  "created_at": "2026-10-19T15:09:41.330852+00:00"
+}

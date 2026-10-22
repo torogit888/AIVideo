@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261021T090836",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 63382176,
+  "prompt": "Katsuhiro Otomo Style, medium close-up of Richard Norris, his face illuminated by the pale winter sun, eyes wide with a mixture of awe, triumph, and profound understanding as he witnesses the slow movement of a sailing stone, on the Racetrack Playa, rendered in Katsuhiro Otomo style, with crisp, hand-drawn highlights, muted ochres, dusty beiges, pale greys, and a stark, desaturated blue sky, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-21T09:08:36.966021+00:00"
+}

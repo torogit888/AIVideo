@@ -1,0 +1,29 @@
+id: 005_shot_5
+index: 5
+title: 有些石頭甚至重達兩三百公斤
+narration: 有些石頭甚至重達兩三百公斤，相當於好幾個成年男性的重量，而這些石頭身後，居然整整齊齊拖著長達數百公尺的滑行軌跡，
+image_prompt: dramatic medium-low angle shot of a massive, rough-textured, angular
+  grey-white dolomite boulder, like Karen, on the Racetrack Playa. Behind it, a deep,
+  perfectly straight, parallel track is carved into the dry, cracked mud, extending
+  hundreds of meters into the distance, under the harsh, direct desert sun, rendered
+  in Katsuhiro Otomo style, with high-contrast, sharp shadows, muted ochres, dusty
+  beiges, pale greys, and a stark, desaturated blue sky, 16:9 widescreen composition
+image_negative: ''
+act_index: 1
+act_title: 死寂荒原上的幽靈軌跡，連重力都失效的百年泥潭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261021T084122
+  image_take: image_20261021T084037
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Racetrack Playa sailing stone trail photograph
+  fetch_error: 'AI 審核未通過（與口白不符）：AI 判定不吻合: 照片顯示死亡谷地貌，但未呈現旁白所述的「滑行石」及其「滑行軌跡」。，已自動切換為純
+    AI 生成畫面'

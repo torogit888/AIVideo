@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261021T084738",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 77909622,
+  "prompt": "Katsuhiro Otomo Style, medium shot of two distinguished geologists in 1940s field attire, kneeling on the Racetrack Playa. One points intently at a deep track in the hexagonal cracked mud, while the other meticulously scribbles notes on a small pad, under the harsh, direct desert sun, rendered in Katsuhiro Otomo style, with high-contrast, sharp shadows, muted ochres, dusty beiges, pale greys, and a stark, desaturated blue sky, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-21T08:47:38.181840+00:00"
+}

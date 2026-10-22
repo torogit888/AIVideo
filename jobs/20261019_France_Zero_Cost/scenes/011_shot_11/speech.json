@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261019T144654",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.62,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "強行把國王路易十六一家從金碧輝煌的王宮裡押回巴黎",
+      "text_cn": "强行把国王路易十六一家从金碧辉煌的王宫里押回巴黎",
+      "start_sec": 0.0,
+      "end_sec": 4.96,
+      "duration_sec": 4.96
+    },
+    {
+      "index": 2,
+      "text": "她們沿途高喊的根本不是什麼博愛的高尚口號",
+      "text_cn": "她们沿途高喊的根本不是什么博爱的高尚口号",
+      "start_sec": 5.21,
+      "end_sec": 9.37,
+      "duration_sec": 4.16
+    },
+    {
+      "index": 3,
+      "text": "而是非常直白的一句我們要麵包我們要生存！",
+      "text_cn": "而是非常直白的一句我们要面包我们要生存！",
+      "start_sec": 9.62,
+      "end_sec": 13.62,
+      "duration_sec": 4.0
+    }
+  ],
+  "created_at": "2026-10-19T14:46:54.584447+00:00"
+}

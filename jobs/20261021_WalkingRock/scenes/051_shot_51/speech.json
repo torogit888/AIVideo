@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261021T092312",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 22.75,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "好了，死亡谷會走路的石頭今天就聊到這裡",
+      "text_cn": "好了，死亡谷会走路的石头今天就聊到这里",
+      "start_sec": 0.0,
+      "end_sec": 3.8,
+      "duration_sec": 3.8
+    },
+    {
+      "index": 2,
+      "text": "如果你也喜歡這種撕開神秘面紗，探索真實世界背後精巧機制的深度故事",
+      "text_cn": "如果你也喜欢这种撕开神秘面纱，探索真实世界背后精巧机制的深度故事",
+      "start_sec": 4.05,
+      "end_sec": 10.45,
+      "duration_sec": 6.4
+    },
+    {
+      "index": 3,
+      "text": "請務必點個喜歡並訂閱我的頻道，也歡迎在評論區留下你的想法",
+      "text_cn": "请务必点个喜欢并订阅我的频道，也欢迎在评论区留下你的想法",
+      "start_sec": 10.7,
+      "end_sec": 16.3,
+      "duration_sec": 5.6
+    },
+    {
+      "index": 4,
+      "text": "[question-ei]那麼，你對這種極致巧合的自然法則有何看法呢，我們下期再見",
+      "text_cn": "[question-ei]那么，你对这种极致巧合的自然法则有何看法呢，我们下棋再见",
+      "start_sec": 16.55,
+      "end_sec": 22.75,
+      "duration_sec": 6.2
+    }
+  ],
+  "created_at": "2026-10-21T09:23:12.972115+00:00"
+}

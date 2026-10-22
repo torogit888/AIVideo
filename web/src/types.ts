@@ -171,6 +171,7 @@ export interface CharacterAnchor {
   id: string;
   name: string;
   appearance: string;
+  entity_type?: "character" | "object";
   has_image?: boolean;
   image_url?: string | null;
 }

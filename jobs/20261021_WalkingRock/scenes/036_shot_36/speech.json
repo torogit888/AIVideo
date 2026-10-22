@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261021T090812",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 12.38,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "伴隨著無數碎玻璃互相撞擊的清脆聲響",
+      "text_cn": "伴随着无数碎玻璃互相撞集的清脆声响",
+      "start_sec": 0.0,
+      "end_sec": 3.56,
+      "duration_sec": 3.56
+    },
+    {
+      "index": 2,
+      "text": "巨石在他們眼前以每分鐘幾公尺的速度緩緩向前推進",
+      "text_cn": "巨石在他们眼前以每分钟几米的速度缓缓向前推进",
+      "start_sec": 3.81,
+      "end_sec": 8.37,
+      "duration_sec": 4.56
+    },
+    {
+      "index": 3,
+      "text": "地面上被硬生生犁出了一條條清晰的泥痕",
+      "text_cn": "地面上被硬生生犁出了一条条清晰的泥痕",
+      "start_sec": 8.62,
+      "end_sec": 12.38,
+      "duration_sec": 3.76
+    }
+  ],
+  "created_at": "2026-10-21T09:08:12.402555+00:00"
+}

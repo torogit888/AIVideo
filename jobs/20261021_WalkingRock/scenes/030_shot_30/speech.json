@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261021T090300",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.71,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "兩兄弟的設備才剛擺進去不到兩年",
+      "text_cn": "两兄弟的设备才刚摆进去不到两年",
+      "start_sec": 0.0,
+      "end_sec": 3.16,
+      "duration_sec": 3.16
+    },
+    {
+      "index": 2,
+      "text": "2013年12月20日的中午，奇蹟就毫無預警地降臨了",
+      "text_cn": "2013年12月20日的中午，奇迹就毫无预警地降临了",
+      "start_sec": 3.41,
+      "end_sec": 8.85,
+      "duration_sec": 5.44
+    },
+    {
+      "index": 3,
+      "text": "當時他們正好趁著聖誕假期去更換相機電池",
+      "text_cn": "当时他们正好趁着圣诞假棋去更换相机电池",
+      "start_sec": 9.1,
+      "end_sec": 13.06,
+      "duration_sec": 3.96
+    },
+    {
+      "index": 4,
+      "text": "結果剛走進盆地，整個人都徹底愣住了",
+      "text_cn": "结果刚走进盆地，整个人都彻底愣住了",
+      "start_sec": 13.31,
+      "end_sec": 16.71,
+      "duration_sec": 3.4
+    }
+  ],
+  "created_at": "2026-10-21T09:03:00.375169+00:00"
+}

@@ -1,0 +1,17 @@
+id: 039_shot_39
+index: 39
+title: 街頭不再孕育推動社會進步的偉大思
+narration: 街頭不再孕育推動社會進步的偉大思想，留下來的只有滿地的碎玻璃被燒焦的廢棄推車以及昂貴的名牌紙袋，
+image_prompt: melancholic wide shot of an empty Parisian boulevard at early dawn,
+  littered with glittering carpet of shattered glass, a charred overturned shopping
+  cart, and discarded colorful luxury gift bags drifting in the wind, cool blue morning
+  light, in Q版 2D cartoon illustration style, cel-shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 7
+act_title: 【跨越阿爾卑斯山的病毒——歷史的餘韻與白兔謝幕】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T151343
+  image_take: image_20261019T151322

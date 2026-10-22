@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261021T083901",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.94,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "早在上個世紀初，也就是1915年那個淘金狂潮剛剛退去的年代",
+      "text_cn": "早在上个世纪初，也就是1915年那个淘金狂潮刚刚退去的年代",
+      "start_sec": 0.0,
+      "end_sec": 5.92,
+      "duration_sec": 5.92
+    },
+    {
+      "index": 2,
+      "text": "整個世界正深陷第一次世界大戰的殘酷泥淖",
+      "text_cn": "整个世界正深陷第一次世界大战的残酷泥淖",
+      "start_sec": 6.17,
+      "end_sec": 10.13,
+      "duration_sec": 3.96
+    },
+    {
+      "index": 3,
+      "text": "北美大陸的拓荒者們正拿著鐵鎬在荒漠裡尋找最後的金銀礦脈",
+      "text_cn": "北美大陆的拓荒者们正拿着铁镐在荒漠里寻找最后的金银矿脉",
+      "start_sec": 10.38,
+      "end_sec": 15.94,
+      "duration_sec": 5.56
+    }
+  ],
+  "created_at": "2026-10-21T08:39:01.689338+00:00"
+}

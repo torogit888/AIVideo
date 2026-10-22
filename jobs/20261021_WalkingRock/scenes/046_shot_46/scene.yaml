@@ -1,0 +1,19 @@
+id: 046_shot_46
+index: 46
+title: 我們總以為外星文明或者超自然力量
+narration: 我們總以為外星文明或者超自然力量才算奇蹟，但事實上，大自然只用了最普通的水，冰，泥土和微風，經過千萬年的耐心調配，就演繹出了一場連人類最頂尖大腦都困惑了一個世紀的魔術，
+image_prompt: medium close-up, artistic shot of the Racetrack Playa, highlighting
+  the delicate interplay of a razor-thin sheet of ice (3-6mm), shallow water, precisely
+  hexagonal cracked mud, and subtle wind ripples on the surface, creating a mesmerizing
+  natural pattern under the cold, pale winter sun, rendered in Katsuhiro Otomo style,
+  with crisp, hand-drawn highlights, muted ochres, dusty beiges, pale greys, and a
+  stark, desaturated blue sky, 16:9 widescreen composition
+image_negative: ''
+act_index: 7
+act_title: 幻滅抑或敬畏，當大自然收起它的魔術障眼法
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261021T091806
+  image_take: image_20261021T091730

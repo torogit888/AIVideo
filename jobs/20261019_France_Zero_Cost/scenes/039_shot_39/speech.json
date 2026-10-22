@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261019T151343",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 9.77,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "街頭不再孕育推動社會進步的偉大思想",
+      "text_cn": "街头不再孕育推动社会进步的伟大思想",
+      "start_sec": 0.0,
+      "end_sec": 3.56,
+      "duration_sec": 3.56
+    },
+    {
+      "index": 2,
+      "text": "留下來的只有滿地的碎玻璃被燒焦的廢棄推車以及昂貴的名牌紙袋",
+      "text_cn": "留下来的只有满地的碎玻璃被烧焦的废弃推车以及昂贵的名牌纸袋",
+      "start_sec": 3.81,
+      "end_sec": 9.77,
+      "duration_sec": 5.96
+    }
+  ],
+  "created_at": "2026-10-19T15:13:43.646084+00:00"
+}

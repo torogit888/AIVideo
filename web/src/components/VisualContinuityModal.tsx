@@ -30,6 +30,7 @@ export const VisualContinuityModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const [generatingId, setGeneratingId] = useState<string | null>(null);
   const [uploadingId, setUploadingId] = useState<string | null>(null);
   const [syncingPrompts, setSyncingPrompts] = useState(false);
+  const [reanalyzing, setReanalyzing] = useState(false);
 
   const [environment, setEnvironment] = useState("");
   const [useImageRef, setUseImageRef] = useState(true);
@@ -71,6 +72,7 @@ export const VisualContinuityModal: React.FC<Props> = ({ isOpen, onClose }) => {
       id: c.id,
       name: c.name.trim(),
       appearance: c.appearance.trim(),
+      entity_type: c.entity_type || "character",
     }));
 
   const handleSave = async (showSuccessToast = true) => {
@@ -116,20 +118,24 @@ export const VisualContinuityModal: React.FC<Props> = ({ isOpen, onClose }) => {
     }
   };
 
-  const handleGenerateOne = async (charId: string) => {
+  const handleGenerateOne = async (charId: string, index?: number) => {
     if (!selectedJobId) return;
     setGeneratingId(charId);
     try {
-      await api.updateJobAnchors(selectedJobId, {
+      const savedAnchors = await api.updateJobAnchors(selectedJobId, {
         environment: environment.trim(),
         use_image_reference: useImageRef,
         characters: persistCharacters(),
       });
-      const updated = await api.generateCharacterHero(selectedJobId, charId);
+      const targetCharId =
+        typeof index === "number" && savedAnchors.characters?.[index]?.id
+          ? savedAnchors.characters[index].id
+          : charId;
+      const updated = await api.generateCharacterHero(selectedJobId, targetCharId);
       applyAnchors(updated);
       await loadJobs();
       window.dispatchEvent(new CustomEvent("aivideo:anchors-updated"));
-      showToast("已依專案風格生成此角色定裝圖", "success");
+      showToast("已依專案風格與最新外觀敘述生成此角色定裝圖", "success");
     } catch (e: any) {
       showToast("生成定裝圖失敗: " + (e.message || "未知錯誤"), "error");
     } finally {
@@ -171,7 +177,7 @@ export const VisualContinuityModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const handleAddCharacter = () => {
     setCharacters((prev) => [
       ...prev,
-      { id: `char_${prev.length + 1}`, name: "", appearance: "", has_image: false },
+      { id: `char_${prev.length + 1}`, name: "", appearance: "", entity_type: "character", has_image: false },
     ]);
   };
 
@@ -220,7 +226,42 @@ export const VisualContinuityModal: React.FC<Props> = ({ isOpen, onClose }) => {
     }
   };
 
-  const busy = generatingAll || generatingId !== null || uploadingId !== null;
+  const handleReanalyzeFromScript = async () => {
+    if (!selectedJobId) return;
+    setReanalyzing(true);
+    try {
+      const detail = await api.getJobDetail(selectedJobId);
+      const scriptText = (detail.script_content || "").trim();
+      if (!scriptText) {
+        showToast("此專案尚無腳本內容可供分析", "error");
+        return;
+      }
+      const styleId = detail.config?.image?.style || "otomo_katsuhiro";
+      const analyzed = await api.analyzeAnchors(detail.title || selectedJobId, scriptText, styleId);
+      const nextChars = (analyzed.characters || []).map((c, i) => ({
+        id: c.id || `char_${i + 1}`,
+        name: c.name || `角色 ${i + 1}`,
+        appearance: c.appearance || "",
+      }));
+      const updated = await api.updateJobAnchors(selectedJobId, {
+        subject: analyzed.subject_anchor || undefined,
+        environment: (analyzed.environment_anchor || "").trim(),
+        use_image_reference: useImageRef,
+        characters: nextChars,
+        clear_hero_images: true,
+      });
+      applyAnchors(updated);
+      await loadJobs();
+      window.dispatchEvent(new CustomEvent("aivideo:anchors-updated"));
+      showToast("✨ 已依最新腳本重新分析角色與世界觀，並已清空舊定裝圖！", "success");
+    } catch (e: any) {
+      showToast("重新分析失敗: " + (e.message || "未知錯誤"), "error");
+    } finally {
+      setReanalyzing(false);
+    }
+  };
+
+  const busy = generatingAll || generatingId !== null || uploadingId !== null || reanalyzing;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-4 animate-in fade-in duration-200">
@@ -296,11 +337,26 @@ export const VisualContinuityModal: React.FC<Props> = ({ isOpen, onClose }) => {
                   <ImageIcon className="w-4 h-4 text-amber-cta" />
                   角色定裝圖（每人一張）
                 </label>
-                <div className="flex gap-2">
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    onClick={handleReanalyzeFromScript}
+                    disabled={busy}
+                    className="flex items-center px-2.5 py-1.5 rounded bg-cinema-card hover:bg-cinema-cardHover text-amber-cta text-[11px] border border-amber-cta/40 disabled:opacity-50"
+                    title="讀取目前專案腳本重新提煉角色外觀，並自動清空舊定裝圖"
+                  >
+                    {reanalyzing ? (
+                      <Loader2 className="w-3.5 h-3.5 mr-1 animate-spin" />
+                    ) : (
+                      <RefreshCw className="w-3.5 h-3.5 mr-1" />
+                    )}
+                    重分析腳本並清空舊定裝
+                  </button>
                   <button
                     type="button"
                     onClick={handleAddCharacter}
-                    className="flex items-center px-2.5 py-1.5 rounded bg-cinema-card hover:bg-cinema-cardHover text-cinema-text text-[11px] border border-cinema-border"
+                    disabled={busy}
+                    className="flex items-center px-2.5 py-1.5 rounded bg-cinema-card hover:bg-cinema-cardHover text-cinema-text text-[11px] border border-cinema-border disabled:opacity-50"
                   >
                     <Plus className="w-3.5 h-3.5 mr-1" />
                     新增角色
@@ -338,6 +394,21 @@ export const VisualContinuityModal: React.FC<Props> = ({ isOpen, onClose }) => {
                         className="flex-1 h-8 px-2 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text focus:outline-none focus:border-amber-cta"
                         placeholder="角色名稱"
                       />
+                      <select
+                        value={ch.entity_type || "character"}
+                        onChange={(e) =>
+                          setCharacters((prev) =>
+                            prev.map((x, i) =>
+                              i === idx ? { ...x, entity_type: e.target.value as "character" | "object" } : x
+                            )
+                          )
+                        }
+                        className="h-8 px-1.5 rounded bg-cinema-darker border border-cinema-border text-[11px] text-amber-cta font-medium focus:outline-none focus:border-amber-cta cursor-pointer"
+                        title="選擇實體類型（由 LLM 智慧標記，亦可手動切換）"
+                      >
+                        <option value="character">👤 人物立繪</option>
+                        <option value="object">📦 道具/載具</option>
+                      </select>
                       <button
                         onClick={() => handleRemoveCharacter(ch.id, idx)}
                         className="p-1.5 rounded text-cinema-muted hover:text-red-400"
@@ -378,7 +449,7 @@ export const VisualContinuityModal: React.FC<Props> = ({ isOpen, onClose }) => {
 
                     <div className="flex gap-2">
                       <button
-                        onClick={() => handleGenerateOne(ch.id)}
+                        onClick={() => handleGenerateOne(ch.id, idx)}
                         disabled={busy}
                         className="flex-1 flex items-center justify-center py-1.5 rounded bg-amber-cta/15 hover:bg-amber-cta/25 text-amber-cta border border-amber-cta/40 text-[11px] disabled:opacity-50"
                       >

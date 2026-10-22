@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261021T090501",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.26,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "而在前一天寒冷的冬夜裡，氣溫驟降到零下三度",
+      "text_cn": "而在前一天寒冷的冬夜里，气温骤降到零下三度",
+      "start_sec": 0.0,
+      "end_sec": 4.2,
+      "duration_sec": 4.2
+    },
+    {
+      "index": 2,
+      "text": "水面上結了一層薄如窗戶玻璃的透明冰層",
+      "text_cn": "水面上结了一层薄如窗户玻璃的透明冰层",
+      "start_sec": 4.45,
+      "end_sec": 8.21,
+      "duration_sec": 3.76
+    },
+    {
+      "index": 3,
+      "text": "這層冰的厚度僅僅只有三到六毫米，脆弱得像蟬翼一樣",
+      "text_cn": "这层冰的厚度仅仅只有三到六毫米，脆弱得像蝉翼一样",
+      "start_sec": 8.46,
+      "end_sec": 13.26,
+      "duration_sec": 4.8
+    }
+  ],
+  "created_at": "2026-10-21T09:05:01.360316+00:00"
+}

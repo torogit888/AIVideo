@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261021T084206",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.66,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "地面上沒有任何車輪印，沒有任何動物腳印",
+      "text_cn": "地面上没有任何车轮印，没有任何动物脚印",
+      "start_sec": 0.0,
+      "end_sec": 3.8,
+      "duration_sec": 3.8
+    },
+    {
+      "index": 2,
+      "text": "更沒有任何機械拖拽的痕跡，它們就像是在深夜擁有了生命一樣",
+      "text_cn": "更没有任何机械拖拽的痕迹，它们就像是在深夜拥有了生命一样",
+      "start_sec": 4.05,
+      "end_sec": 9.65,
+      "duration_sec": 5.6
+    },
+    {
+      "index": 3,
+      "text": "趁著無人注意時在泥地上悄無聲息地散步",
+      "text_cn": "趁着无人注意时在泥地上悄无声息地散步",
+      "start_sec": 9.9,
+      "end_sec": 13.66,
+      "duration_sec": 3.76
+    }
+  ],
+  "created_at": "2026-10-21T08:42:06.443905+00:00"
+}

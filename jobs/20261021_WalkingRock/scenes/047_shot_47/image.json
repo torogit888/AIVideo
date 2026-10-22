@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261021T091832",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 38470109,
+  "prompt": "Katsuhiro Otomo Style, split-screen or diptych composition: on one side, a distant silhouette of Joseph the Miner with his pickaxe on the vast, dry Racetrack Playa; on the other, a detailed shot of the Micro-Weather Station & Camera standing vigil on a rocky outcrop, both under the harsh desert sun, spanning a century of observation, rendered in Katsuhiro Otomo style, with high-contrast, sharp shadows, muted ochres, dusty beiges, pale greys, and a stark, desaturated blue sky, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-21T09:18:32.417017+00:00"
+}

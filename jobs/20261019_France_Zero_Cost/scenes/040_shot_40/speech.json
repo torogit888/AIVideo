@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261019T151440",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.54,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[sigh]只能說當街頭的怒火不再是為了追求公理與正義",
+      "text_cn": "[sigh]只能说当街头的怒火不再是为了追求公理与正义",
+      "start_sec": 0.0,
+      "end_sec": 4.68,
+      "duration_sec": 4.68
+    },
+    {
+      "index": 2,
+      "text": "而是為了一場免費抱走奢華商品的零元狂歡",
+      "text_cn": "而是为了一场免费抱走奢华商品的零元狂欢",
+      "start_sec": 4.93,
+      "end_sec": 8.89,
+      "duration_sec": 3.96
+    },
+    {
+      "index": 3,
+      "text": "這場革命從它打碎第一面櫥窗開始就已經注定淪為一場鬧劇！",
+      "text_cn": "这场革命从它打碎第一面橱窗开始就已经注定沦为一场闹剧！",
+      "start_sec": 9.14,
+      "end_sec": 14.54,
+      "duration_sec": 5.4
+    }
+  ],
+  "created_at": "2026-10-19T15:14:40.894690+00:00"
+}

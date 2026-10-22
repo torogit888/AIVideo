@@ -1,0 +1,26 @@
+id: 019_shot_19
+index: 19
+title: 老佛爺百貨這座象徵法式精緻奢華的
+narration: 老佛爺百貨這座象徵法式精緻奢華的百年地標最先遭殃，防暴金屬捲門在撬棍與巨錘的猛烈衝擊下被硬生生扯開，暴徒們如同蝗蟲過境一般衝進了精品專櫃大廳，
+image_prompt: dramatic wide shot of the grand entrance of Galeries Lafayette with
+  Haussmann architecture, its reinforced metal security shutters bent and ripped open
+  with heavy crowbars as chibi masked rioters rush inside, high-contrast city night
+  lighting, in Q版 2D cartoon illustration style, cel-shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 4
+act_title: 【黑塊戰術衝垮老佛爺——精品帝國淪為零元購打卡點】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T145447
+  image_take: image_20261019T145410
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Galeries Lafayette Haussmann Paris flagship store
+  fetch_error: 未找到合適照片

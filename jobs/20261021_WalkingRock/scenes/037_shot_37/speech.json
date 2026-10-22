@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261021T090916",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.42,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "百年未解之謎，就在這個平凡的下午",
+      "text_cn": "百年未解之谜，就在这个平凡的下午",
+      "start_sec": 0.0,
+      "end_sec": 3.2,
+      "duration_sec": 3.2
+    },
+    {
+      "index": 2,
+      "text": "被兩位目瞪口呆的科學家徹底親眼破解了！",
+      "text_cn": "被两位目瞪口呆的科学家彻底亲眼破解了！",
+      "start_sec": 3.45,
+      "end_sec": 7.25,
+      "duration_sec": 3.8
+    },
+    {
+      "index": 3,
+      "text": "當這篇劃時代的論文在2014年正式發表在國際頂尖期刊上的時候，整個地質學界終於鬆了一口氣",
+      "text_cn": "当这篇划时代的论文在2014年正式发表在国际顶尖棋刊上的时候，整个地直学界终于松了一口气",
+      "start_sec": 7.5,
+      "end_sec": 16.42,
+      "duration_sec": 8.92
+    }
+  ],
+  "created_at": "2026-10-21T09:09:16.640270+00:00"
+}

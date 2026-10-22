@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261021T085203",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.43,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "更詭異的是，有些原本肩並肩一起直線滑行的石頭",
+      "text_cn": "更诡异的是，有些原本肩并肩一起直线滑行的石头",
+      "start_sec": 0.0,
+      "end_sec": 4.4,
+      "duration_sec": 4.4
+    },
+    {
+      "index": 2,
+      "text": "走著走著突然一塊向左轉九十度，另一塊向右轉九十度",
+      "text_cn": "走着走着图然一块向左转九十度，另一块向右转九十度",
+      "start_sec": 4.65,
+      "end_sec": 9.38,
+      "duration_sec": 4.73
+    },
+    {
+      "index": 3,
+      "text": "[surprise-wa]大自然這套自相矛盾的操作，直接把當時所有的地質學泰斗整不會了！",
+      "text_cn": "[surprise-wa]大自然这套自相矛盾的操作，直接把当时所有的地直学泰斗整不会了！",
+      "start_sec": 9.63,
+      "end_sec": 16.43,
+      "duration_sec": 6.8
+    }
+  ],
+  "created_at": "2026-10-21T08:52:03.212448+00:00"
+}

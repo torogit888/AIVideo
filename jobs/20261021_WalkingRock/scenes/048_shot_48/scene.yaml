@@ -1,0 +1,19 @@
+id: 048_shot_48
+index: 48
+title: 人類整整花了一百年的時間
+narration: 人類整整花了一百年的時間，才終於看懂了大自然在泥地上寫下的這封簡短情書，現在每到寒冬，只要條件允許，那些幾百公斤的巨石依然會在無人的跑道盆地上，伴隨著清脆的碎冰聲悄然前行，
+image_prompt: wide shot of the Racetrack Playa in winter, showing a massive dolomite
+  boulder silently gliding across the shallow water, leaving a fresh track in the
+  mud, surrounded by floating, fractured ice plates reflecting the pale sun, emphasizing
+  its continuous, quiet journey, rendered in Katsuhiro Otomo style, with crisp, hand-drawn
+  highlights, muted ochres, dusty beiges, pale greys, and a stark, desaturated blue
+  sky, 16:9 widescreen composition
+image_negative: ''
+act_index: 8
+act_title: 永恆的行者，在無聲荒原留下的歷史刻痕（歷史餘韻與訂閱謝幕）
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261021T092011
+  image_take: image_20261021T091934

@@ -1,0 +1,18 @@
+id: 028_shot_28
+index: 28
+title: 理查當時在接受採訪時甚至自嘲說
+narration: '[confirmation-en]理查當時在接受採訪時甚至自嘲說，這可能是科學史上最無聊的實驗，因為死亡谷平均幾年甚至幾十年才下一場足以積水的大雨，'
+image_prompt: medium shot of Richard Norris, standing on the edge of the Racetrack
+  Playa, looking out at the vast, bone-dry expanse of hexagonal cracked mud with a
+  patient, slightly resigned expression, under the harsh desert sun, rendered in Katsuhiro
+  Otomo style, with high-contrast, sharp shadows, muted ochres, dusty beiges, pale
+  greys, and a stark, desaturated blue sky, 16:9 widescreen composition
+image_negative: ''
+act_index: 4
+act_title: 狂客集結，給死谷巨石裝上GPS心臟的「懶人俱樂部」
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261021T090118
+  image_take: image_20261021T090106

@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261019T153342",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.78,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "於是各大短影音平台和加密通訊群組開始瘋狂轉發號召",
+      "text_cn": "于是各大短影音平台和加密通讯群组开始疯狂转发号召",
+      "start_sec": 0.0,
+      "end_sec": 4.96,
+      "duration_sec": 4.96
+    },
+    {
+      "index": 2,
+      "text": "人們高喊著崇啟黃背心運動奪回屬於我們的正常生活",
+      "text_cn": "人们高喊著崇启黄背心运动夺回属于我们的正常生活",
+      "start_sec": 5.21,
+      "end_sec": 9.97,
+      "duration_sec": 4.76
+    },
+    {
+      "index": 3,
+      "text": "短短半個月之內全法就有五十五萬人響應走向街頭",
+      "text_cn": "短短半个月之内全法就有五十五万人响应走向街头",
+      "start_sec": 10.22,
+      "end_sec": 14.78,
+      "duration_sec": 4.56
+    }
+  ],
+  "created_at": "2026-10-19T15:33:42.510666+00:00"
+}

@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261021T085323",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.18,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "他們決定給這群不安分的石頭立下規矩",
+      "text_cn": "他们决定给这群不安分的石头立下规矩",
+      "start_sec": 0.0,
+      "end_sec": 3.56,
+      "duration_sec": 3.56
+    },
+    {
+      "index": 2,
+      "text": "老爺子在盆地裡挑選了三十塊大小各異的石頭",
+      "text_cn": "老爷子在盆地里挑选了三十块大小各异的石头",
+      "start_sec": 3.81,
+      "end_sec": 7.97,
+      "duration_sec": 4.16
+    },
+    {
+      "index": 3,
+      "text": "甚至還給每一塊石頭都取了名字，比如其中一塊重達一百一十三公斤的大石頭就被叫做凱倫",
+      "text_cn": "甚至还给每一块石头都取了名字，比如其中一块重达一百一十三公斤的大石头就被叫做凯伦",
+      "start_sec": 8.22,
+      "end_sec": 16.18,
+      "duration_sec": 7.96
+    }
+  ],
+  "created_at": "2026-10-21T08:53:23.093556+00:00"
+}

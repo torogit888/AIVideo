@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261021T085444",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 14437592,
+  "prompt": "Katsuhiro Otomo Style, medium shot of Karen (The Sailing Stone), with several wooden stakes around it clearly shifted, some knocked over or out of alignment, suggesting recent movement, on the hexagonal cracked mud of Racetrack Playa, under a dramatic, slightly overcast desert sky, rendered in Katsuhiro Otomo style, with high-contrast, sharp shadows, muted ochres, dusty beiges, pale greys, and a stark, desaturated blue sky, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-21T08:54:44.397200+00:00"
+}

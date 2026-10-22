@@ -1,0 +1,27 @@
+id: 031_shot_31
+index: 31
+title: 因為他們居然碰上了百年難得一遇的
+narration: '[surprise-wa]因為他們居然碰上了百年難得一遇的氣象巧合，在11月下旬一場罕見的暴風雪之後，盆地裡剛好積了七到十公分左右的淺水，這個水深極其精妙，剛好淹沒石頭的底座，但又沒有把石頭徹底滅頂，'
+image_prompt: medium close-up, low angle, showing the base of a massive dolomite boulder
+  perfectly immersed in a shallow layer of clear water on the Racetrack Playa, with
+  the water level just reaching its lower edges, under the cold, pale winter sun,
+  rendered in Katsuhiro Otomo style, with crisp, hand-drawn highlights, muted ochres,
+  dusty beiges, pale greys, and a stark, desaturated blue sky, 16:9 widescreen composition
+image_negative: ''
+act_index: 5
+act_title: 世紀破曉！薄如窗玻璃的致命冰刃與微風合奏
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261021T090407
+  image_take: image_20261021T090330
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Racetrack Playa flooded shallow water December 2013 Norris
+  fetch_error: 未找到合適照片

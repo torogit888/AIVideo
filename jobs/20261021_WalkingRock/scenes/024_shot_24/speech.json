@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261021T085802",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 17.02,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "斯克里普斯海洋研究所的一位古生物學家理查諾里斯",
+      "text_cn": "斯克里普斯海洋研旧所的一位古生物学家理查诺里斯",
+      "start_sec": 0.0,
+      "end_sec": 4.76,
+      "duration_sec": 4.76
+    },
+    {
+      "index": 2,
+      "text": "跟他那位造火箭搞航空工程的堂弟詹姆斯湊在了一起",
+      "text_cn": "跟他那位造火箭搞航空工程的堂弟詹姆斯凑在了一起",
+      "start_sec": 5.01,
+      "end_sec": 9.77,
+      "duration_sec": 4.76
+    },
+    {
+      "index": 3,
+      "text": "這對堂兄弟組建了一個研究小組，決定用現代衛星物聯網徹底終結這場百年懸案",
+      "text_cn": "这对堂兄弟组建了一个研旧小组，决定用现代卫星物联网彻底终结这场百年悬案",
+      "start_sec": 10.02,
+      "end_sec": 17.02,
+      "duration_sec": 7.0
+    }
+  ],
+  "created_at": "2026-10-21T08:58:02.841589+00:00"
+}

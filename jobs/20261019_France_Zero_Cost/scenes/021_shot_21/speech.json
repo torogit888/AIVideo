@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261019T145611",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.58,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "幾分鐘前這群人還在街頭高喊著打倒資本主義的激進口號",
+      "text_cn": "几分钟前这群人还在街头高喊著打倒资本主义的激进口号",
+      "start_sec": 0.0,
+      "end_sec": 5.16,
+      "duration_sec": 5.16
+    },
+    {
+      "index": 2,
+      "text": "下一秒他們卻手提七八個精品橘色紙袋在燃燒的街壘旁比讚拍照",
+      "text_cn": "下一秒他们却手提七八个精品橘色纸袋在燃烧的街垒旁比赞拍照",
+      "start_sec": 5.41,
+      "end_sec": 11.17,
+      "duration_sec": 5.76
+    },
+    {
+      "index": 3,
+      "text": "有些人甚至當場打開手機開直播標價轉賣剛到手的名牌包",
+      "text_cn": "有些人甚至当场打开手机开直播标价转卖刚到手的名牌包",
+      "start_sec": 11.42,
+      "end_sec": 16.58,
+      "duration_sec": 5.16
+    }
+  ],
+  "created_at": "2026-10-19T14:56:11.209523+00:00"
+}

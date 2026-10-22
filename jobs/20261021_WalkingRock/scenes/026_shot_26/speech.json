@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261021T085958",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 21.79,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[laughter]於是這兩兄弟想出了一個極其刁鑽的辦法",
+      "text_cn": "[laughter]于是这两兄弟想出了一个极其刁钻的办法",
+      "start_sec": 0.0,
+      "end_sec": 4.36,
+      "duration_sec": 4.36
+    },
+    {
+      "index": 2,
+      "text": "他們自己掏腰包從南加州採石場買了一批密度質地完全一樣的白雲岩",
+      "text_cn": "他们自己掏腰包从南加州采石场买了一批密度直地完全一样的白云岩",
+      "start_sec": 4.61,
+      "end_sec": 10.77,
+      "duration_sec": 6.16
+    },
+    {
+      "index": 3,
+      "text": "在石頭內部掏空後塞進了特製的低功耗全球定位系統感測器",
+      "text_cn": "在石头内部掏空后塞进了特制的低功耗全球定位系统感测器",
+      "start_sec": 11.02,
+      "end_sec": 16.38,
+      "duration_sec": 5.36
+    },
+    {
+      "index": 4,
+      "text": "然後把這些偽裝成間諜的假石頭擺在了盆地乾涸的湖床上",
+      "text_cn": "然后把这些伪装成间谍的假石头摆在了盆地干涸的湖床上",
+      "start_sec": 16.63,
+      "end_sec": 21.79,
+      "duration_sec": 5.16
+    }
+  ],
+  "created_at": "2026-10-21T08:59:58.140262+00:00"
+}

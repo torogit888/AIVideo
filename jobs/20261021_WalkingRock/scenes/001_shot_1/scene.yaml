@@ -1,0 +1,27 @@
+id: 001_shot_1
+index: 1
+title: 大家好
+narration: 大家好，我是白兔！你去美國西部自駕旅遊的時候，有沒有聽說過一個連死神都要繞道走的地方，那裡是北美洲海拔最低，溫度最高也最荒涼的加州死亡谷，
+image_prompt: wide establishing shot of a vast, desolate panoramic view of Death Valley's
+  Racetrack Playa under a scorching sun. The cracked earth stretches to the horizon,
+  emphasizing extreme heat and barrenness, rendered in Katsuhiro Otomo style, with
+  high-contrast, sharp shadows, muted ochres, dusty beiges, pale greys, and a stark,
+  desaturated blue sky, 16:9 widescreen composition
+image_negative: ''
+act_index: 1
+act_title: 死寂荒原上的幽靈軌跡，連重力都失效的百年泥潭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261021T083818
+  image_take: image_20261021T083752
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Death Valley National Park vintage topographic map
+  fetch_error: 未找到合適照片

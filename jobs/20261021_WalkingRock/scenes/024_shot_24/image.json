@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261021T085724",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 18268352,
+  "prompt": "Katsuhiro Otomo Style, medium shot of Richard Norris, his focused, determined expression clear, holding a rugged handheld GPS receiver and scanning the vast expanse of the Racetrack Playa, a utility backpack on his back, under the harsh desert sun, rendered in Katsuhiro Otomo style, with high-contrast, sharp shadows, muted ochres, dusty beiges, pale greys, and a stark, desaturated blue sky, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-21T08:57:24.793961+00:00"
+}

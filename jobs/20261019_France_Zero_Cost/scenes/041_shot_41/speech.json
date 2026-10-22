@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261019T151544",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 21.78,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "好了今天的事件就聊到這裡，[question-ei]你覺得這場法版零元購是底層被逼無奈的反抗還是單純的犯罪呢？",
+      "text_cn": "好了今天的事件就聊到这里，[question-ei]你觉得这场法版零元购是底层被逼无奈的反抗还是单纯的犯罪呢？",
+      "start_sec": 0.0,
+      "end_sec": 8.96,
+      "duration_sec": 8.96
+    },
+    {
+      "index": 2,
+      "text": "歡迎在留言區留下你的看法，我是白兔如果你喜歡今天的故事別忘了點讚訂閱並開啟小鈴鐺",
+      "text_cn": "欢迎在留言区留下你的看法，我是白兔如果你喜欢今天的故事别忘了点赞订阅并开启小铃铛",
+      "start_sec": 9.21,
+      "end_sec": 17.17,
+      "duration_sec": 7.96
+    },
+    {
+      "index": 3,
+      "text": "我們下一期繼續揭開更多魔幻又真實的歷史真相",
+      "text_cn": "我们下一棋继续揭开更多魔幻又真实的历史真相",
+      "start_sec": 17.42,
+      "end_sec": 21.78,
+      "duration_sec": 4.36
+    }
+  ],
+  "created_at": "2026-10-19T15:15:44.181228+00:00"
+}

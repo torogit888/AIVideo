@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261019T144246",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.78,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "要弄清楚這件事我們得把時間撥回到兩百多年前的一七八九年",
+      "text_cn": "要弄清楚这件事我们得把时间拨回到两百多年前的一七八九年",
+      "start_sec": 0.0,
+      "end_sec": 5.56,
+      "duration_sec": 5.56
+    },
+    {
+      "index": 2,
+      "text": "當時的法國剛經歷了一場罕見的小冰期極端嚴冬",
+      "text_cn": "当时的法国刚经历了一场罕见的小冰棋极端严冬",
+      "start_sec": 5.81,
+      "end_sec": 10.17,
+      "duration_sec": 4.36
+    },
+    {
+      "index": 3,
+      "text": "農田大面積歉收直接引爆了全法蘭西的糧食恐慌",
+      "text_cn": "农田大面积歉收直接引爆了全法兰西的粮食恐慌",
+      "start_sec": 10.42,
+      "end_sec": 14.78,
+      "duration_sec": 4.36
+    }
+  ],
+  "created_at": "2026-10-19T14:42:46.336642+00:00"
+}

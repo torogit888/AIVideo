@@ -89,3 +89,40 @@ def apply_acts_to_scenes(scenes: list[dict[str, Any]], acts: list[dict[str, Any]
 
 def acts_from_job(job_dir) -> list[dict[str, Any]]:
     return parse_outline_acts(read_outline_text(job_dir))
+
+
+def sync_job_scene_acts(job_dir, outline_text: str | None = None) -> int:
+    """依最新大綱重新計算並寫回所有既有 scene.yaml 的 act_index 與 act_title，消除殘留舊幕次。"""
+    from pathlib import Path
+    import yaml
+
+    jdir = Path(job_dir)
+    scenes_dir = jdir / "scenes"
+    if not scenes_dir.is_dir():
+        return 0
+
+    scene_dirs = sorted([d for d in scenes_dir.iterdir() if d.is_dir() and (d / "scene.yaml").is_file()])
+    if not scene_dirs:
+        return 0
+
+    text = outline_text if outline_text is not None else read_outline_text(jdir)
+    acts = parse_outline_acts(text or "")
+    assigned = assign_acts(len(scene_dirs), acts)
+
+    updated = 0
+    for s_dir, act in zip(scene_dirs, assigned):
+        s_yaml = s_dir / "scene.yaml"
+        try:
+            data = yaml.safe_load(s_yaml.read_text(encoding="utf-8")) or {}
+            if not isinstance(data, dict):
+                continue
+            new_idx = int(act["index"])
+            new_title = str(act["title"])
+            if data.get("act_index") != new_idx or data.get("act_title") != new_title:
+                data["act_index"] = new_idx
+                data["act_title"] = new_title
+                s_yaml.write_text(yaml.safe_dump(data, allow_unicode=True, sort_keys=False), encoding="utf-8")
+                updated += 1
+        except Exception:
+            continue
+    return updated

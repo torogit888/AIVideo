@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261021T084231",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 74046219,
+  "prompt": "Katsuhiro Otomo Style, medium shot of a massive dolomite boulder on the Racetrack Playa, positioned at the sharp apex of an inexplicable 90-degree turn in its deep, parallel track, which extends for hundreds of meters across the cracked mud, under the harsh desert sun, rendered in Katsuhiro Otomo style, with high-contrast, sharp shadows, muted ochres, dusty beiges, pale greys, and a stark, desaturated blue sky, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-21T08:42:31.300029+00:00"
+}

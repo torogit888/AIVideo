@@ -1,0 +1,31 @@
+id: 004_shot_4
+index: 4
+title: 當天有五十五萬名憤怒的抗議者湧上
+narration: 當天有五十五萬名憤怒的抗議者湧上全法各大城市街頭，他們原本打著重振黃背心運動的大旗，想要替買不起教材的窮學生以及微薄的薪水討個公道，
+image_prompt: wide shot of a massive crowd of chibi Yellow Vest Protesters marching
+  down a grand Parisian avenue, dressed in everyday civilian clothes with bright flat
+  yellow reflective vests, determined and frustrated expressions, crisp daylight,
+  in Q版 2D cartoon illustration style, clean outlines, cel-shaded coloring, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 1
+act_title: 【從斷頭台到香榭麗舍的基因突變——2026年深秋的巴黎烈焰】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T144047
+  image_take: image_20261019T143911
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Gilets jaunes Champs-Elysees protest 2018
+  source_title: null
+  source_url: null
+  fetch_error: 未找到合適照片
+  verified: false
+  review_reason: null

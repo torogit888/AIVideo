@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261019T144452",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 19.65,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "課本上總是告訴我們攻佔巴士底監獄是為了自由",
+      "text_cn": "课本上总是告诉我们攻占巴士底监狱是为了自由",
+      "start_sec": 0.0,
+      "end_sec": 4.36,
+      "duration_sec": 4.36
+    },
+    {
+      "index": 2,
+      "text": "但回到一七八九年七月十四日的真實街頭來看",
+      "text_cn": "但回到一七八九年七月十四日的真实街头来看",
+      "start_sec": 4.61,
+      "end_sec": 8.77,
+      "duration_sec": 4.16
+    },
+    {
+      "index": 3,
+      "text": "[dissatisfaction-hnn]飢餓的暴民衝進監獄的第一動機其實是奪取火藥",
+      "text_cn": "[dissatisfaction-hnn]饥饿的暴民冲进监狱的第一动机其实是夺取火药",
+      "start_sec": 9.02,
+      "end_sec": 14.66,
+      "duration_sec": 5.64
+    },
+    {
+      "index": 4,
+      "text": "他們害怕凡爾賽宮的軍隊會封鎖糧道活活把百姓餓死",
+      "text_cn": "他们害怕凡尔赛宫的军队会封锁粮道活活把百姓饿死",
+      "start_sec": 14.91,
+      "end_sec": 19.65,
+      "duration_sec": 4.74
+    }
+  ],
+  "created_at": "2026-10-19T14:44:52.641061+00:00"
+}

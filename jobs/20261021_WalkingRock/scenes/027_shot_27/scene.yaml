@@ -1,0 +1,29 @@
+id: 027_shot_27
+index: 27
+title: 同時在旁邊的懸崖制高點上
+narration: 同時在旁邊的懸崖制高點上，架設了耐極端低溫的微型氣象站與高解析度縮時攝影機，氣象站每秒都在記錄風速風向，相機則設定為每隔幾分鐘自動拍下一張照片，
+image_prompt: medium shot of the Micro-Weather Station & Camera, a rugged, functional
+  scientific instrument rig mounted on a heavy metal tripod, featuring a matte-black
+  camera housing, a miniature spinning-cup anemometer, and a small, angled solar panel,
+  positioned on a rocky outcrop overlooking the vast Racetrack Playa, under the harsh
+  desert sun, rendered in Katsuhiro Otomo style, with high-contrast, sharp shadows,
+  muted ochres, dusty beiges, pale greys, and a stark, desaturated blue sky, 16:9
+  widescreen composition
+image_negative: ''
+act_index: 4
+act_title: 狂客集結，給死谷巨石裝上GPS心臟的「懶人俱樂部」
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261021T090046
+  image_take: image_20261021T090034
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Racetrack Playa weather station timelapse camera rig Norris
+  fetch_error: 未找到合適照片

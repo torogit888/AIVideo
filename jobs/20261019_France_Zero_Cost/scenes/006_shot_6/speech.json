@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261019T144157",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.38,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "那麼一個以啟蒙思想自豪的古老國度",
+      "text_cn": "那么一个以启蒙思想自豪的古老国度",
+      "start_sec": 0.0,
+      "end_sec": 3.36,
+      "duration_sec": 3.36
+    },
+    {
+      "index": 2,
+      "text": "[question-ei]為什麼反抗物價的行動會淪為手提精品紙袋狂歡的零元購呢？",
+      "text_cn": "[question-ei]为什么反抗物价的行动会沦为手提精品纸袋狂欢的零元购呢？",
+      "start_sec": 3.61,
+      "end_sec": 9.77,
+      "duration_sec": 6.16
+    },
+    {
+      "index": 3,
+      "text": "這究竟是革命基因的突變還是人性慾望的失控呢",
+      "text_cn": "这旧竟是革命基因的图变还是人性欲望的失控呢",
+      "start_sec": 10.02,
+      "end_sec": 14.38,
+      "duration_sec": 4.36
+    }
+  ],
+  "created_at": "2026-10-19T14:41:57.378340+00:00"
+}

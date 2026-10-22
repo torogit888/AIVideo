@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261019T150449",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 19.04,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[dissatisfaction-hnn]你看這些劫匪嘴上打著替窮人向高物價討公道的旗號",
+      "text_cn": "[dissatisfaction-hnn]你看这些劫匪嘴上打着替穷人向高物价讨公道的旗号",
+      "start_sec": 0.0,
+      "end_sec": 6.04,
+      "duration_sec": 6.04
+    },
+    {
+      "index": 2,
+      "text": "轉過頭來卻把窮人社區賴以果腹的平價賣場砸個稀爛",
+      "text_cn": "转过头来却把穷人社区赖以果腹的平价卖场砸个稀烂",
+      "start_sec": 6.29,
+      "end_sec": 11.05,
+      "duration_sec": 4.76
+    },
+    {
+      "index": 3,
+      "text": "當短暫的搶劫狂歡散去真正承受這場苦果的",
+      "text_cn": "当短战的抢劫狂欢散去真正承受这场苦果的",
+      "start_sec": 11.3,
+      "end_sec": 15.26,
+      "duration_sec": 3.96
+    },
+    {
+      "index": 4,
+      "text": "依然是那些老老實實工作生活的底層老百姓",
+      "text_cn": "依然是那些老老实实工作生活的底层老百姓",
+      "start_sec": 15.51,
+      "end_sec": 19.04,
+      "duration_sec": 3.53
+    }
+  ],
+  "created_at": "2026-10-19T15:04:49.054735+00:00"
+}

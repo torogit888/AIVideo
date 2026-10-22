@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261019T145250",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 19.07,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "但這場運動從一開始就沒有任何理性的談判代表",
+      "text_cn": "但这场运动从一开始就没有任何理性的谈判代表",
+      "start_sec": 0.0,
+      "end_sec": 4.36,
+      "duration_sec": 4.36
+    },
+    {
+      "index": 2,
+      "text": "[dissatisfaction-hnn]這也給有備而來的極端分子留下了完美的掩護",
+      "text_cn": "[dissatisfaction-hnn]这也给有备而来的极端分子留下了完美的掩护",
+      "start_sec": 4.61,
+      "end_sec": 10.05,
+      "duration_sec": 5.44
+    },
+    {
+      "index": 3,
+      "text": "當巨大的民怨火山失去控制憤怒就不會流向談判桌",
+      "text_cn": "当巨大的民怨火山失去控制愤怒就不会流向谈判桌",
+      "start_sec": 10.3,
+      "end_sec": 14.86,
+      "duration_sec": 4.56
+    },
+    {
+      "index": 4,
+      "text": "而是直接衝向街邊那些閃閃發光的昂貴櫥窗",
+      "text_cn": "而是直接冲向街边那些闪闪发光的昂贵橱窗",
+      "start_sec": 15.11,
+      "end_sec": 19.07,
+      "duration_sec": 3.96
+    }
+  ],
+  "created_at": "2026-10-19T14:52:50.338125+00:00"
+}

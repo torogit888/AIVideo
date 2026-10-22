@@ -1,0 +1,20 @@
+id: 011_shot_11
+index: 11
+title: 於是很多人言之鑿鑿地聲稱
+narration: 於是很多人言之鑿鑿地聲稱，這絕對是地外文明留下的導航信標，或者是死亡谷地底下存在著某種超自然的反重力旋渦與地磁能量場，[dissatisfaction-hnn]但嚴肅的科學家當然不可能相信這種荒誕的鬼話，
+image_prompt: medium close-up of a massive, rough-textured, angular grey-white dolomite
+  boulder on the Racetrack Playa, its angular facets catching the harsh desert sun.
+  Its presence, along with its deep track in the cracked mud, evokes the wild, speculative
+  theories of extraterrestrial navigation or anti-gravity fields, yet it remains just
+  a rock, rendered in Katsuhiro Otomo style, with high-contrast, sharp shadows, muted
+  ochres, dusty beiges, pale greys, and a stark, desaturated blue sky, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 2
+act_title: 從地磁怪力到外星祭壇，科學家被一塊石頭當場打臉
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261021T084713
+  image_take: image_20261021T084635

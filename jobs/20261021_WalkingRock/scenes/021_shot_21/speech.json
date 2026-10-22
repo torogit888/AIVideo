@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261021T085539",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 20.3,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "更離譜的是，那塊重達一百多公斤的凱倫",
+      "text_cn": "更离谱的是，那块重达一百多公斤的凯伦",
+      "start_sec": 0.0,
+      "end_sec": 3.6,
+      "duration_sec": 3.6
+    },
+    {
+      "index": 2,
+      "text": "竟然在某個冬天直接越過了他們的木樁防線",
+      "text_cn": "竟然在某个冬天直接越过了他们的木桩防线",
+      "start_sec": 3.85,
+      "end_sec": 7.81,
+      "duration_sec": 3.96
+    },
+    {
+      "index": 3,
+      "text": "在眾目睽睽之下人間蒸發了，周圍設置的木樁與防護標記竟然毫髮無損",
+      "text_cn": "在众目睽睽之下人间蒸发了，周围设置的木桩与防护标记竟然毫发无损",
+      "start_sec": 8.06,
+      "end_sec": 14.25,
+      "duration_sec": 6.19
+    },
+    {
+      "index": 4,
+      "text": "直到好幾年後，團隊才在幾百公尺外的一處爛泥地裡把凱倫重新找到",
+      "text_cn": "直到好几年后，团队才在几百米外的一处烂泥地里把凯伦重新找到",
+      "start_sec": 14.5,
+      "end_sec": 20.3,
+      "duration_sec": 5.8
+    }
+  ],
+  "created_at": "2026-10-21T08:55:39.105199+00:00"
+}

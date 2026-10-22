@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261021T083752",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3-pro-image",
+  "seed": 72229678,
+  "prompt": "Katsuhiro Otomo Style, wide establishing shot of a vast, desolate panoramic view of Death Valley's Racetrack Playa under a scorching sun. The cracked earth stretches to the horizon, emphasizing extreme heat and barrenness, rendered in Katsuhiro Otomo style, with high-contrast, sharp shadows, muted ochres, dusty beiges, pale greys, and a stark, desaturated blue sky, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-21T08:37:52.836547+00:00"
+}

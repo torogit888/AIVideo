@@ -1,0 +1,19 @@
+id: 013_shot_13
+index: 13
+title: 他們認為就是盆地冬季偶爾下雨
+narration: 他們認為就是盆地冬季偶爾下雨，地面變得像肥皂一樣滑，然後冬天的極端狂風把石頭吹著跑，聽起來是不是非常符合邏輯，
+image_prompt: wide shot of a massive dolomite boulder on the Racetrack Playa. The
+  hexagonal cracked mud surface is subtly glistening, suggesting recent moisture,
+  while strong, dynamic wind lines are etched into the air and dust around the rock,
+  implying extreme wind forces under a pale, winter desert sky, rendered in Katsuhiro
+  Otomo style, with crisp, hand-drawn highlights, muted ochres, dusty beiges, pale
+  greys, and a stark, desaturated blue sky, 16:9 widescreen composition
+image_negative: ''
+act_index: 2
+act_title: 從地磁怪力到外星祭壇，科學家被一塊石頭當場打臉
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261021T084906
+  image_take: image_20261021T084825

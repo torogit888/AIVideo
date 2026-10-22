@@ -25,17 +25,65 @@ import {
 import { useStudioStore } from "../store";
 import { api } from "../api";
 import { AssetStyle, AssetTone, AssetVoice } from "../types";
-import { asciiSlug, DEFAULT_VOICE_ID, scriptWorkspaceMode } from "../studioActions";
+import {
+  applyChannelPersonaToPrompt,
+  asciiSlug,
+  buildOpeningPromptLine,
+  DEFAULT_CHANNEL_NAME,
+  DEFAULT_CHANNEL_PRESETS,
+  DEFAULT_CUSTOM_PROMPT,
+  DEFAULT_VOICE_ID,
+  detectChannelFromPrompt,
+  scriptWorkspaceMode,
+} from "../studioActions";
+
+const getInitialChannelPresets = (): string[] => {
+  if (typeof window !== "undefined") {
+    try {
+      const raw = localStorage.getItem("aivideo_channel_presets");
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed;
+        }
+      }
+    } catch {
+      // ignore
+    }
+  }
+  return DEFAULT_CHANNEL_PRESETS;
+};
+
+const getActiveChannelDefaultPrompt = (): string => {
+  if (typeof window !== "undefined") {
+    const savedChannel = localStorage.getItem("aivideo_active_channel");
+    if (savedChannel) {
+      return buildOpeningPromptLine(savedChannel);
+    }
+  }
+  return DEFAULT_CUSTOM_PROMPT;
+};
 
 export const ScriptEditor: React.FC = () => {
-  const { setTab, loadJobs, selectedJobId, jobs, showToast, selectedAiModel, startNewDraft } = useStudioStore();
+  const {
+    setTab,
+    loadJobs,
+    loadScenes,
+    selectedJobId,
+    draftResetKey,
+    jobs,
+    showToast,
+    selectedAiModel,
+    startNewDraft,
+  } = useStudioStore();
   const currentJob = jobs.find((j) => j.id === selectedJobId);
   const workspaceMode = scriptWorkspaceMode(selectedJobId);
   const isEditMode = workspaceMode === "edit";
 
   const [topic, setTopic] = useState("");
-  const [customPrompt, setCustomPrompt] = useState("");
-  const [showCustomPrompt, setShowCustomPrompt] = useState(false);
+  const [channelPresets, setChannelPresets] = useState<string[]>(getInitialChannelPresets);
+  const [customPrompt, setCustomPrompt] = useState(getActiveChannelDefaultPrompt);
+  const [showCustomPrompt, setShowCustomPrompt] = useState(true);
   const [outlineNotes, setOutlineNotes] = useState("");
   const [showOutlineBox, setShowOutlineBox] = useState(false);
   const [isGeneratingOutline, setIsGeneratingOutline] = useState(false);
@@ -69,6 +117,7 @@ export const ScriptEditor: React.FC = () => {
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
   const [galleryFilter, setGalleryFilter] = useState("all");
   const [gallerySearch, setGallerySearch] = useState("");
+  const containerRef = useRef<HTMLDivElement>(null);
   const styleScrollRef = useRef<HTMLDivElement>(null);
   const scriptBoxRef = useRef<HTMLDivElement>(null);
 
@@ -79,9 +128,12 @@ export const ScriptEditor: React.FC = () => {
   // 視覺一致性主體分析狀態
   const [subjectAnchor, setSubjectAnchor] = useState("");
   const [environmentAnchor, setEnvironmentAnchor] = useState("");
-  const [characters, setCharacters] = useState<{ id: string; name: string; appearance: string }[]>([]);
+  const [characters, setCharacters] = useState<
+    { id: string; name: string; appearance: string; entity_type?: "character" | "object" }[]
+  >([]);
   const [isAnalyzingAnchors, setIsAnalyzingAnchors] = useState(false);
   const [showAnchors, setShowAnchors] = useState(false);
+  const [anchorsReanalyzed, setAnchorsReanalyzed] = useState(false);
 
   useEffect(() => {
     api
@@ -104,43 +156,103 @@ export const ScriptEditor: React.FC = () => {
     }
   }, [currentJob?.voice_id]);
 
-  // 切換不同專案時自動載入該專案的最新腳本內容與設定（含指定 Prompt 與 6 幕大綱）
+  // 監聽定裝中心更新錨點事件，確保腳本頁的角色與環境錨點不會殘留舊值覆蓋回去
   useEffect(() => {
+    if (!selectedJobId) return;
+    const syncFromAnchorsModal = () => {
+      api
+        .getJobAnchors(selectedJobId)
+        .then((data) => {
+          setSubjectAnchor(data.subject || "");
+          setEnvironmentAnchor(data.environment || "");
+          setCharacters(
+            (data.characters || []).map((c, i) => ({
+              id: c.id || `char_${i + 1}`,
+              name: c.name || `角色 ${i + 1}`,
+              appearance: c.appearance || "",
+            }))
+          );
+        })
+        .catch(() => {});
+    };
+    window.addEventListener("aivideo:anchors-updated", syncFromAnchorsModal);
+    return () => window.removeEventListener("aivideo:anchors-updated", syncFromAnchorsModal);
+  }, [selectedJobId]);
+
+  // 切換不同專案或點擊「新建專案」時，自動載入該專案內容或完整重置為全新草稿
+  useEffect(() => {
+    let cancelled = false;
+
     if (!selectedJobId) {
       setTopic("");
       setScriptText("");
       setSavedScript("");
       setJobSlug("");
       setSlugTouched(false);
-      setShowCustomPrompt(false);
+      setShowCustomPrompt(true);
       setShowOutlineBox(false);
       setShowAnchors(false);
-      const draftPrompt = localStorage.getItem("aivideo_draft_custom_prompt") || "";
+      setSubjectAnchor("");
+      setEnvironmentAnchor("");
+      setCharacters([]);
+      setSelectedTone(tones.length > 0 ? tones[0].id : "michelin_curious");
+      setSelectedVoice(DEFAULT_VOICE_ID);
+      setSelectedStyle("otomo_katsuhiro");
+      setVisualPacing("balanced");
+
+      const draftPrompt = localStorage.getItem("aivideo_draft_custom_prompt");
       const draftOutline = localStorage.getItem("aivideo_draft_outline") || "";
-      setCustomPrompt(draftPrompt);
+      setCustomPrompt(
+        draftPrompt && draftPrompt.trim() ? draftPrompt : getActiveChannelDefaultPrompt()
+      );
       setOutlineNotes(draftOutline);
+      containerRef.current?.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
+
     api
       .getJobDetail(selectedJobId)
       .then((detail) => {
-        if (detail.title) setTopic(detail.title);
+        if (cancelled) return;
+        setTopic(detail.title || "");
         const sc = detail.script_content || "";
-        if (sc) {
-          setScriptText(sc);
-          setSavedScript(sc);
-        }
-        if (detail.config?.voice_id) setSelectedVoice(detail.config.voice_id);
-        if (detail.config?.image?.style) setSelectedStyle(detail.config.image.style);
-        if (detail.config?.tone_id) setSelectedTone(detail.config.tone_id);
+        setScriptText(sc);
+        setSavedScript(sc);
+        setSelectedVoice(detail.config?.voice_id || DEFAULT_VOICE_ID);
+        setSelectedStyle(detail.config?.image?.style || "otomo_katsuhiro");
+        setSelectedTone(detail.config?.tone_id || (tones[0]?.id || "michelin_curious"));
 
-        const savedPrompt = detail.custom_prompt || detail.config?.custom_prompt || "";
+        const vAnchors = detail.config?.visual_anchors || {};
+        setSubjectAnchor(vAnchors.subject || "");
+        setEnvironmentAnchor(vAnchors.environment || "");
+        setCharacters(
+          Array.isArray(vAnchors.characters)
+            ? vAnchors.characters.map((c: any, i: number) => ({
+                id: c.id || `char_${i + 1}`,
+                name: c.name || `角色 ${i + 1}`,
+                appearance: c.appearance || "",
+              }))
+            : []
+        );
+        setShowAnchors(false);
+
+        const savedPrompt =
+          detail.custom_prompt || detail.config?.custom_prompt || getActiveChannelDefaultPrompt();
         setCustomPrompt(savedPrompt);
+        setShowCustomPrompt(true);
         const savedOutline = detail.outline || detail.config?.outline || "";
         setOutlineNotes(savedOutline);
+        setShowOutlineBox(Boolean(savedOutline.trim()));
+        containerRef.current?.scrollTo({ top: 0, behavior: "smooth" });
       })
-      .catch((e) => console.error("載入專案詳情失敗", e));
-  }, [selectedJobId]);
+      .catch((e) => {
+        if (!cancelled) console.error("載入專案詳情失敗", e);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [selectedJobId, draftResetKey]);
 
   // 儲存或同步指定 Prompt 與 6 幕大綱
   const persistPromptAndOutline = async (
@@ -351,18 +463,38 @@ export const ScriptEditor: React.FC = () => {
         id: c.id || `char_${i + 1}`,
         name: c.name || `角色 ${i + 1}`,
         appearance: c.appearance || "",
+        entity_type: (c.entity_type as "character" | "object") || "character",
       }));
-      setCharacters(
-        nextChars.length
-          ? nextChars
-          : res.subject_anchor
-            ? [{ id: "main", name: "Main Subject", appearance: res.subject_anchor }]
-            : []
-      );
+      const finalChars = nextChars.length
+        ? nextChars
+        : res.subject_anchor
+          ? [{ id: "main", name: "Main Subject", appearance: res.subject_anchor }]
+          : [];
+      setCharacters(finalChars);
       setSubjectAnchor(res.subject_anchor || "");
       setEnvironmentAnchor(res.environment_anchor || "");
       setShowAnchors(true);
-      showToast("✨ 已依目前生圖風格分析腳本，提煉出各角色外觀與環境光影。", "success");
+      setAnchorsReanalyzed(true);
+
+      // 若目前正在編輯既有專案，立即寫入 anchors.yaml 並清空舊角色定裝圖，避免定裝中心殘留舊敘述與舊圖
+      if (selectedJobId) {
+        await api.updateJob(selectedJobId, {
+          title: topic || undefined,
+          style_id: selectedStyle,
+          subject_anchor: (res.subject_anchor || "").trim() || undefined,
+          environment_anchor: (res.environment_anchor || "").trim() || undefined,
+          characters: finalChars,
+          clear_hero_images: true,
+        });
+        await loadJobs();
+        window.dispatchEvent(new CustomEvent("aivideo:anchors-updated"));
+        showToast(
+          "✨ 已重新分析角色與世界觀，並自動寫入專案、清空舊定裝圖！可前往定裝中心重新生成定裝圖。",
+          "success"
+        );
+      } else {
+        showToast("✨ 已依目前生圖風格分析腳本，提煉出各角色外觀與環境光影。", "success");
+      }
     } catch (e: any) {
       showToast("分析視覺錨點失敗: " + (e.message || "未知錯誤"), "error");
     } finally {
@@ -425,9 +557,12 @@ export const ScriptEditor: React.FC = () => {
         subject_anchor: subjectAnchor.trim() || undefined,
         environment_anchor: environmentAnchor.trim() || undefined,
         characters: validChars.length ? validChars : undefined,
+        clear_hero_images: anchorsReanalyzed ? true : undefined,
       });
+      setAnchorsReanalyzed(false);
       setSavedScript(scriptText);
       await loadJobs();
+      window.dispatchEvent(new CustomEvent("aivideo:anchors-updated"));
       const hasScenes = (currentJob?.progress.scenes_count || 0) > 0;
       const recut =
         hasScenes &&
@@ -437,6 +572,7 @@ export const ScriptEditor: React.FC = () => {
         setIsRecutting(true);
         await api.recutJob(selectedJobId, { script: scriptText, visual_pacing: visualPacing });
         await loadJobs();
+        await loadScenes(selectedJobId);
         showToast("已儲存並重切分鏡", "success");
         setTab("storyboard");
       } else {
@@ -444,11 +580,14 @@ export const ScriptEditor: React.FC = () => {
         if (hasScenes && validChars.length > 0) {
           try {
             await api.syncScenePrompts(selectedJobId);
+            await loadScenes(selectedJobId);
             showToast("已寫回此專案，並同步更新全片分鏡出圖 Prompt！", "success");
           } catch {
+            await loadScenes(selectedJobId);
             showToast("已寫回此專案", "success");
           }
         } else {
+          await loadScenes(selectedJobId);
           showToast("已寫回此專案", "success");
         }
       }
@@ -460,12 +599,55 @@ export const ScriptEditor: React.FC = () => {
     }
   };
 
+  const detectedChannel = detectChannelFromPrompt(customPrompt);
+
+  const handleSelectChannelPersona = (channelName: string) => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("aivideo_active_channel", channelName);
+    }
+    const nextPrompt = applyChannelPersonaToPrompt(customPrompt, channelName);
+    setCustomPrompt(nextPrompt);
+    setShowCustomPrompt(true);
+    persistPromptAndOutline(nextPrompt, outlineNotes, true);
+    showToast(
+      channelName === "無自稱"
+        ? "已切換為「無自稱（直接破題）」"
+        : `已切換頻道主自稱為「${channelName}」（開頭: 大家好~我是${channelName}!）`,
+      "info"
+    );
+  };
+
+  const handleAddChannelPreset = () => {
+    const input = window.prompt("請輸入新頻道／說書人名稱（例如：白兔、夜梟）：");
+    const name = (input || "").trim();
+    if (!name) return;
+    const nextList = channelPresets.includes(name) ? channelPresets : [...channelPresets, name];
+    setChannelPresets(nextList);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("aivideo_channel_presets", JSON.stringify(nextList));
+    }
+    handleSelectChannelPersona(name);
+  };
+
+  const handleRemoveChannelPreset = (name: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (name === DEFAULT_CHANNEL_NAME) return;
+    const nextList = channelPresets.filter((c) => c !== name);
+    setChannelPresets(nextList);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("aivideo_channel_presets", JSON.stringify(nextList));
+    }
+  };
+
   // 腳本逐行分割
   const scriptLines = scriptText.split("\n");
   const totalChars = scriptText.replace(/\s/g, "").length;
 
   return (
-    <div className="flex-1 flex flex-col h-full overflow-y-auto p-6 pb-20 max-w-5xl mx-auto space-y-5">
+    <div
+      ref={containerRef}
+      className="flex-1 flex flex-col h-full overflow-y-auto p-6 pb-20 max-w-5xl mx-auto space-y-5"
+    >
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-lg font-semibold text-cinema-text">
@@ -477,15 +659,16 @@ export const ScriptEditor: React.FC = () => {
               : "空白草稿。可貼上已有口白，或填主題後生成。"}
           </p>
         </div>
-        {isEditMode && (
-          <button
-            type="button"
-            onClick={() => startNewDraft()}
-            className="h-8 px-3 rounded border border-cinema-border text-xs text-cinema-muted hover:text-amber-cta"
-          >
-            開始新草稿
-          </button>
-        )}
+        <button
+          type="button"
+          onClick={() => {
+            startNewDraft();
+            showToast("已開啟全新專案草稿", "info");
+          }}
+          className="h-8 px-3 rounded border border-cinema-border text-xs text-cinema-muted hover:text-amber-cta"
+        >
+          {isEditMode ? "開始新草稿" : "重置空白草稿"}
+        </button>
       </div>
 
       {/* 故事主題與字數規模 */}
@@ -547,8 +730,8 @@ export const ScriptEditor: React.FC = () => {
       )}
 
       {/* 區塊一：自訂故事要求與指定 Prompt（獨立永久保存，不被大綱生成覆蓋） */}
-      <div className="p-3.5 rounded-lg bg-cinema-card/90 border border-cinema-border space-y-2">
-        <div className="flex items-center justify-between">
+      <div className="p-3.5 rounded-lg bg-cinema-card/90 border border-cinema-border space-y-2.5">
+        <div className="flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center space-x-2">
             <span className="text-amber-cta text-sm">🎯</span>
             <span className="text-xs font-semibold text-cinema-text">
@@ -596,6 +779,61 @@ export const ScriptEditor: React.FC = () => {
           </div>
         </div>
 
+        {/* 頻道主／YTR 自稱快捷切換列 */}
+        <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
+          <span className="text-[11px] text-cinema-muted mr-1">🎙️ 頻道主自稱快捷切換：</span>
+          {channelPresets.map((ch) => {
+            const isActive = detectedChannel === ch;
+            return (
+              <button
+                key={ch}
+                type="button"
+                onClick={() => handleSelectChannelPersona(ch)}
+                className={`group flex items-center h-6 px-2.5 rounded-full text-[11px] font-medium border transition-colors cursor-pointer ${
+                  isActive
+                    ? "bg-amber-cta text-cinema-bg border-amber-cta font-semibold"
+                    : "bg-cinema-darker text-cinema-text border-cinema-border hover:border-amber-cta/60"
+                }`}
+                title={`將開頭設為：大家好~我是${ch}!（保留下方選定的口吻靈魂）`}
+              >
+                <span>我是{ch}</span>
+                {ch !== DEFAULT_CHANNEL_NAME && (
+                  <span
+                    onClick={(e) => handleRemoveChannelPreset(ch, e)}
+                    className={`ml-1.5 text-[10px] hover:text-red-400 ${
+                      isActive ? "text-cinema-bg/70 hover:text-red-900" : "text-cinema-muted"
+                    }`}
+                    title="移除此快捷頻道名"
+                  >
+                    ×
+                  </span>
+                )}
+              </button>
+            );
+          })}
+          <button
+            type="button"
+            onClick={() => handleSelectChannelPersona("無自稱")}
+            className={`flex items-center h-6 px-2.5 rounded-full text-[11px] border transition-colors cursor-pointer ${
+              detectedChannel === "無自稱"
+                ? "bg-amber-cta text-cinema-bg border-amber-cta font-semibold"
+                : "bg-cinema-darker text-cinema-muted border-cinema-border hover:text-cinema-text hover:border-amber-cta/60"
+            }`}
+            title="不加固定頻道名打招呼，直接以口吻的反差提問破題"
+          >
+            無自稱（直接破題）
+          </button>
+          <button
+            type="button"
+            onClick={handleAddChannelPreset}
+            className="flex items-center h-6 px-2 rounded-full text-[11px] bg-cinema-darker hover:bg-cinema-card text-amber-cta border border-dashed border-amber-cta/40 hover:border-amber-cta transition-colors cursor-pointer"
+            title="新增常用頻道／YTR 自稱並自動記憶"
+          >
+            <Plus className="w-3 h-3 mr-0.5" />
+            <span>新增頻道名</span>
+          </button>
+        </div>
+
         {showCustomPrompt || customPrompt.trim() ? (
           <div className="space-y-1">
             <textarea
@@ -608,7 +846,11 @@ export const ScriptEditor: React.FC = () => {
                   localStorage.setItem("aivideo_draft_custom_prompt", val);
                 }
               }}
-              onBlur={() => persistPromptAndOutline(customPrompt, outlineNotes, true)}
+              onBlur={() => {
+                if (selectedJobId) {
+                  persistPromptAndOutline(customPrompt, outlineNotes, true);
+                }
+              }}
               placeholder="在此輸入您個人的指定 Prompt、特定劇情限制或核心看點...例如：
 - 希望視角聚焦在台積電林本堅如何說服張忠謀賭上浸潤式微影
 - 必須描繪阿斯麥與德國蔡司鏡頭千錘百鍊的同盟生死戰
@@ -714,7 +956,11 @@ export const ScriptEditor: React.FC = () => {
                   localStorage.setItem("aivideo_draft_outline", val);
                 }
               }}
-              onBlur={() => persistPromptAndOutline(customPrompt, outlineNotes, true)}
+              onBlur={() => {
+                if (selectedJobId) {
+                  persistPromptAndOutline(customPrompt, outlineNotes, true);
+                }
+              }}
               placeholder="點擊右上角「⚡ 規劃 6 幕大綱」後，生成的大綱會出現在此處，不會覆蓋上方的指定 Prompt；您亦可直接手動條列大綱..."
               className="w-full p-2.5 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text font-mono leading-relaxed focus:outline-none focus:border-amber-cta resize-y"
             />
@@ -1164,6 +1410,21 @@ export const ScriptEditor: React.FC = () => {
                       placeholder={`角色 ${idx + 1} 名稱`}
                       className="flex-1 h-7 px-2 rounded bg-cinema-card border border-cinema-border text-xs text-cinema-text focus:outline-none focus:border-amber-cta"
                     />
+                    <select
+                      value={ch.entity_type || "character"}
+                      onChange={(e) =>
+                        setCharacters((prev) =>
+                          prev.map((x, i) =>
+                            i === idx ? { ...x, entity_type: e.target.value as "character" | "object" } : x
+                          )
+                        )
+                      }
+                      className="h-7 px-1.5 rounded bg-cinema-card border border-cinema-border text-[11px] text-amber-cta font-medium focus:outline-none focus:border-amber-cta cursor-pointer"
+                      title="選擇實體類型（由 LLM 智慧標記，亦可手動切換）"
+                    >
+                      <option value="character">👤 人物立繪</option>
+                      <option value="object">📦 道具/載具</option>
+                    </select>
                     <button
                       type="button"
                       onClick={() => setCharacters((prev) => prev.filter((_, i) => i !== idx))}

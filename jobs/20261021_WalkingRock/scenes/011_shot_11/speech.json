@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261021T084713",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 17.7,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "於是很多人言之鑿鑿地聲稱，這絕對是地外文明留下的導航信標",
+      "text_cn": "于是很多人言之凿凿地声称，这绝对是地外文明留下的导航信标",
+      "start_sec": 0.0,
+      "end_sec": 5.6,
+      "duration_sec": 5.6
+    },
+    {
+      "index": 2,
+      "text": "或者是死亡谷地底下存在著某種超自然的反重力旋渦與地磁能量場",
+      "text_cn": "或者是死亡谷地底下存在着某种超自然的反重力旋涡与地磁能量场",
+      "start_sec": 5.85,
+      "end_sec": 11.81,
+      "duration_sec": 5.96
+    },
+    {
+      "index": 3,
+      "text": "[dissatisfaction-hnn]但嚴肅的科學家當然不可能相信這種荒誕的鬼話",
+      "text_cn": "[dissatisfaction-hnn]但严肃的科学家当然不可能相信这种荒诞的鬼话",
+      "start_sec": 12.06,
+      "end_sec": 17.7,
+      "duration_sec": 5.64
+    }
+  ],
+  "created_at": "2026-10-21T08:47:13.507022+00:00"
+}

@@ -1,0 +1,17 @@
+id: 024_shot_24
+index: 24
+title: 這場面真的非常諷刺兩百年前是為了
+narration: '[laughter]這場面真的非常諷刺兩百年前是為了活命搶黑麥麵包，兩百年後卻成了為了虛榮和點讚搶昂貴的奢侈品包包，暴徒自以為砸碎了資本的牢籠其實只是把自己送進了物慾的狂歡，'
+image_prompt: symbolic conceptual shot of an ornate empty birdcage with broken golden
+  bars, surrounded by fallen luxury leather goods and glossy gift boxes amidst drifting
+  soot, contrasting vanity and ruin, theatrical spotlighting, in Q版 2D cartoon illustration
+  style, clean outlines, cel-shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 4
+act_title: 【黑塊戰術衝垮老佛爺——精品帝國淪為零元購打卡點】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T145852
+  image_take: image_20261019T145815

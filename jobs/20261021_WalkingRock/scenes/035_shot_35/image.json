@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261021T090719",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 75043592,
+  "prompt": "Katsuhiro Otomo Style, medium shot, low angle, showing a massive dolomite boulder being slowly pushed forward by the edge of an enormous, thin ice sheet acting like a sail, gliding across the shallow, muddy water of the Racetrack Playa, under the cold, pale winter sun, rendered in Katsuhiro Otomo style, with crisp, hand-drawn highlights, muted ochres, dusty beiges, pale greys, and a stark, desaturated blue sky, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-21T09:07:19.588468+00:00"
+}

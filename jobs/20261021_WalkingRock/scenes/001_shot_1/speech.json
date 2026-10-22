@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261021T083818",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.6,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "大家好，我是白兔！",
+      "text_cn": "大家好，我是白兔！",
+      "start_sec": 0.0,
+      "end_sec": 2.0,
+      "duration_sec": 2.0
+    },
+    {
+      "index": 2,
+      "text": "你去美國西部自駕旅遊的時候，有沒有聽說過一個連死神都要繞道走的地方",
+      "text_cn": "你去美国西部自驾旅游的时候，有没有听说过一个连死神都要绕道走的地方",
+      "start_sec": 2.25,
+      "end_sec": 8.51,
+      "duration_sec": 6.26
+    },
+    {
+      "index": 3,
+      "text": "那裡是北美洲海拔最低，溫度最高也最荒涼的加州死亡谷",
+      "text_cn": "那里是北美洲海拔最低，温度最高也最荒凉的加州死亡谷",
+      "start_sec": 8.76,
+      "end_sec": 13.6,
+      "duration_sec": 4.84
+    }
+  ],
+  "created_at": "2026-10-21T08:38:18.015861+00:00"
+}

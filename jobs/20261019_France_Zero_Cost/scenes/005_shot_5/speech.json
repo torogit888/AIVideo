@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261019T144119",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.18,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "但誰也沒想到這場浩大的請願在短短幾小時內徹底變調",
+      "text_cn": "但谁也没想到这场浩大的请愿在短短几小时内彻底变调",
+      "start_sec": 0.0,
+      "end_sec": 4.96,
+      "duration_sec": 4.96
+    },
+    {
+      "index": 2,
+      "text": "一群黑衣蒙面人如同潮水般迅速滲透進抗議隊伍",
+      "text_cn": "一群黑衣蒙面人如同潮水般迅速渗透进抗议队伍",
+      "start_sec": 5.21,
+      "end_sec": 9.57,
+      "duration_sec": 4.36
+    },
+    {
+      "index": 3,
+      "text": "和平的遊行瞬間滑向一場波及全法的大規模縱火與暴力洗劫",
+      "text_cn": "和平的游行瞬间滑向一场波及全法的大规模纵火与暴力洗劫",
+      "start_sec": 9.82,
+      "end_sec": 15.18,
+      "duration_sec": 5.36
+    }
+  ],
+  "created_at": "2026-10-19T14:41:19.979738+00:00"
+}

@@ -1,0 +1,26 @@
+id: 031_shot_31
+index: 31
+title: 面對全法多處幾近失控的無政府狀態
+narration: 面對全法多處幾近失控的無政府狀態官方終於動手了，法國當局緊急授權出動了專門應對極端反恐的雷德特警部隊，沉重的防暴裝甲車直接開進了催淚瓦斯瀰漫的巴黎街區，閃光彈高壓水砲和全副武裝的黑衣特警在黑夜中展開全面清場，
+image_prompt: dramatic low-angle wide shot of a blocky, heavy-duty Riot Armored Vehicle
+  with reinforced grilles advancing through thick swirling tear gas, surrounded by
+  heavily armored tactical police units with shields under flashing blue vehicle lights,
+  in Q版 2D cartoon illustration style, cel-shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 6
+act_title: 【黑夜裡的RAID裝甲車 vs 天后演唱會上的國家元首】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T150540
+  image_take: image_20261019T150520
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Gendarmerie Centaure armored vehicle Paris riot
+  fetch_error: 未找到合適照片

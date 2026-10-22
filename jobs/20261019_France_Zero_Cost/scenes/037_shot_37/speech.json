@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261019T151204",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 23.19,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "更令人擔憂的是這股藉著示威行打砸搶的病毒還跨過了阿爾卑斯山",
+      "text_cn": "更令人担忧的是这股借着示威行打砸抢的病毒还跨过了阿尔卑斯山",
+      "start_sec": 0.0,
+      "end_sec": 5.96,
+      "duration_sec": 5.96
+    },
+    {
+      "index": 2,
+      "text": "短短幾天之內鄰國義大利米蘭的黃金商業區也開始警報大作",
+      "text_cn": "短短几天之内邻国意大利米兰的黄金商业区也开始警报大作",
+      "start_sec": 6.21,
+      "end_sec": 11.57,
+      "duration_sec": 5.36
+    },
+    {
+      "index": 3,
+      "text": "一群黑衣蒙面人同樣企圖用鐵撬砸毀高級服飾店的櫥窗進行模仿犯罪",
+      "text_cn": "一群黑衣蒙面人同样气图用铁撬砸毁高级服饰店的橱窗进行模仿犯罪",
+      "start_sec": 11.82,
+      "end_sec": 17.98,
+      "duration_sec": 6.16
+    },
+    {
+      "index": 4,
+      "text": "歐洲自由市場那根緊繃的神經在暴力面前顯得無比脆弱",
+      "text_cn": "欧洲自由市场那根紧绷的神经在暴力面前显得无比脆弱",
+      "start_sec": 18.23,
+      "end_sec": 23.19,
+      "duration_sec": 4.96
+    }
+  ],
+  "created_at": "2026-10-19T15:12:04.584551+00:00"
+}

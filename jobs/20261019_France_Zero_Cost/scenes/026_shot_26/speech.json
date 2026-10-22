@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261019T150051",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.98,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "全法大約有五十家家樂福門市遭到暴徒投擲石塊與暴力衝擊",
+      "text_cn": "全法大约有五十家家乐福门市遭到暴徒投掷石块与暴力冲集",
+      "start_sec": 0.0,
+      "end_sec": 5.36,
+      "duration_sec": 5.36
+    },
+    {
+      "index": 2,
+      "text": "其中更有整整二十家門市被徹底攻破洗劫",
+      "text_cn": "其中更有整整二十家门市被彻底攻破洗劫",
+      "start_sec": 5.61,
+      "end_sec": 9.37,
+      "duration_sec": 3.76
+    },
+    {
+      "index": 3,
+      "text": "推車被推倒在滿是污泥的走道上昂貴的橄欖油摔得滿地都是",
+      "text_cn": "推车被推倒在满是污泥的走道上昂贵的橄榄油摔得满地都是",
+      "start_sec": 9.62,
+      "end_sec": 14.98,
+      "duration_sec": 5.36
+    }
+  ],
+  "created_at": "2026-10-19T15:00:51.687505+00:00"
+}

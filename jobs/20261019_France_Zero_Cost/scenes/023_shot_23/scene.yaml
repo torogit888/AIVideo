@@ -1,0 +1,26 @@
+id: 023_shot_23
+index: 23
+title: 法國商業與零售聯合會隨後發布了一
+narration: 法國商業與零售聯合會隨後發布了一份觸目驚心的通報，全法在短短幾天內估計有一千五百家各類商鋪直接遇襲，整個零售業的直接財產損失高達數億歐元，
+image_prompt: high-angle wide establishing shot of a ransacked Paris shopping boulevard
+  at night, showing dozens of damaged boutique fronts with broken windows, scattered
+  cardboard boxes on sidewalks, and distant flashing blue emergency lights, in Q版
+  2D cartoon illustration style, cel-shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 4
+act_title: 【黑塊戰術衝垮老佛爺——精品帝國淪為零元購打卡點】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T145744
+  image_take: image_20261019T145723
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Alliance du Commerce France retail riot damage report
+  fetch_error: 未找到合適照片

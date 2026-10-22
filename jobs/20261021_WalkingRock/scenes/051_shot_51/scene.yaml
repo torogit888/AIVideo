@@ -1,0 +1,18 @@
+id: 051_shot_51
+index: 51
+title: 好了
+narration: 好了，死亡谷會走路的石頭今天就聊到這裡，如果你也喜歡這種撕開神秘面紗，探索真實世界背後精巧機制的深度故事，請務必點個喜歡並訂閱我的頻道，也歡迎在評論區留下你的想法，[question-ei]那麼，你對這種極致巧合的自然法則有何看法呢，我們下期再見，
+image_prompt: final, grand wide shot of the Racetrack Playa in winter, with several
+  sailing stones leaving their tracks across the shallow, ice-covered water, under
+  the cold, pale sun, a testament to the enduring, subtle power of nature, rendered
+  in Katsuhiro Otomo style, with crisp, hand-drawn highlights, muted ochres, dusty
+  beiges, pale greys, and a stark, desaturated blue sky, 16:9 widescreen composition
+image_negative: ''
+act_index: 8
+act_title: 永恆的行者，在無聲荒原留下的歷史刻痕（歷史餘韻與訂閱謝幕）
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261021T092312
+  image_take: image_20261021T092234

@@ -1,0 +1,29 @@
+id: 026_shot_26
+index: 26
+title: 於是這兩兄弟想出了一個極其刁鑽的
+narration: '[laughter]於是這兩兄弟想出了一個極其刁鑽的辦法，他們自己掏腰包從南加州採石場買了一批密度質地完全一樣的白雲岩，在石頭內部掏空後塞進了特製的低功耗全球定位系統感測器，然後把這些偽裝成間諜的假石頭擺在了盆地乾涸的湖床上，'
+image_prompt: medium close-up, detailed cutaway view of the GPS-Embedded Spy Stone.
+  The rough exterior of the dolomite rock is visible, but the interior is precisely
+  hollowed out to reveal a compact, rugged green circuit board, miniature low-power
+  GPS sensor, antenna, and lithium battery pack, rendered with clean, hard-sci-fi
+  industrial precision, on the hexagonal cracked mud of Racetrack Playa, rendered
+  in Katsuhiro Otomo style, with high-contrast, sharp shadows, muted ochres, dusty
+  beiges, pale greys, and a stark, desaturated blue sky, 16:9 widescreen composition
+image_negative: ''
+act_index: 4
+act_title: 狂客集結，給死谷巨石裝上GPS心臟的「懶人俱樂部」
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261021T085958
+  image_take: image_20261021T085945
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Richard Norris custom GPS instrumented rock Racetrack Playa
+  fetch_error: 未找到合適照片

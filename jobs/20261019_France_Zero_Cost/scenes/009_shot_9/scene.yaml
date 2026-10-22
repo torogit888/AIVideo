@@ -1,0 +1,29 @@
+id: 009_shot_9
+index: 9
+title: 課本上總是告訴我們攻佔巴士底監獄
+narration: 課本上總是告訴我們攻佔巴士底監獄是為了自由，但回到一七八九年七月十四日的真實街頭來看，[dissatisfaction-hnn]飢餓的暴民衝進監獄的第一動機其實是奪取火藥，他們害怕凡爾賽宮的軍隊會封鎖糧道活活把百姓餓死，
+image_prompt: dramatic low angle wide shot of a determined mob of 1789 chibi citizens
+  with pitchforks and torches storming the imposing blocky stone drawbridge of the
+  Bastille fortress under smoky skies, flickering torchlight, in Q版 2D cartoon illustration
+  style, clean outlines, cel-shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 2
+act_title: 【兩百多年前的一塊黑麥麵包——法國大革命的暴食與飢餓密碼】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T144452
+  image_take: image_20261019T144413
+pip:
+  enabled: true
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Storming of the Bastille 1789 Jean-Pierre Houel
+  source_title: File:Prise de la Bastille.jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/4/4e/Prise_de_la_Bastille.jpg
+  verified: true
+  review_reason: 圖片為巴士底監獄被攻佔的著名歷史畫作，與旁白描述的事件、地點及時間完全吻合。

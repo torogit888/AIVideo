@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261019T150852",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.78,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "在視野極佳的貴賓包廂裡這位國家元首正跟著音樂輕快地搖擺著身體",
+      "text_cn": "在视野极佳的贵宾包厢里这位国家元首正跟着音乐轻快地摇摆着身体",
+      "start_sec": 0.0,
+      "end_sec": 6.16,
+      "duration_sec": 6.16
+    },
+    {
+      "index": 2,
+      "text": "滿面春風的笑容與幾公里外燃燒的巴黎街頭形成了極致的反差",
+      "text_cn": "满面春风的笑容与几公里外燃烧的巴黎街头形成了极致的反差",
+      "start_sec": 6.41,
+      "end_sec": 11.97,
+      "duration_sec": 5.56
+    },
+    {
+      "index": 3,
+      "text": "這段畫面瞬間點燃了法國輿論與在野黨的狂暴怒火",
+      "text_cn": "这段画面瞬间点燃了法国舆论与在野党的狂暴怒火",
+      "start_sec": 12.22,
+      "end_sec": 16.78,
+      "duration_sec": 4.56
+    }
+  ],
+  "created_at": "2026-10-19T15:08:52.876882+00:00"
+}

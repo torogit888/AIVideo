@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261019T145340",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.98,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "十月十七日午後極左翼常用的黑塊戰術在巴黎街頭全面上演",
+      "text_cn": "十月十七日午后极左翼常用的黑块战术在巴黎街头全面上演",
+      "start_sec": 0.0,
+      "end_sec": 5.36,
+      "duration_sec": 5.36
+    },
+    {
+      "index": 2,
+      "text": "數千名身穿黑衣頭戴面罩的破壞分子迅速集結",
+      "text_cn": "数千名身穿黑衣头戴面罩的破坏分子迅速集结",
+      "start_sec": 5.61,
+      "end_sec": 9.77,
+      "duration_sec": 4.16
+    },
+    {
+      "index": 3,
+      "text": "他們隨身攜帶鐵撬角磨機和燃燒瓶把遊行人群當成掩護",
+      "text_cn": "他们随身携带铁撬脚磨机和燃烧瓶把游行人群当成掩护",
+      "start_sec": 10.02,
+      "end_sec": 14.98,
+      "duration_sec": 4.96
+    }
+  ],
+  "created_at": "2026-10-19T14:53:40.662047+00:00"
+}

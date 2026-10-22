@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261019T144011",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 11.58,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "但在二零二六年十月十七日這一天",
+      "text_cn": "但在二零二六年十月十七日这一天",
+      "start_sec": 0.0,
+      "end_sec": 3.16,
+      "duration_sec": 3.16
+    },
+    {
+      "index": 2,
+      "text": "整個巴黎甚至全法國飄散在空氣裡的",
+      "text_cn": "整个巴黎甚至全法国飘散在空气里的",
+      "start_sec": 3.41,
+      "end_sec": 6.77,
+      "duration_sec": 3.36
+    },
+    {
+      "index": 3,
+      "text": "只有催淚瓦斯的刺鼻焦味以及燃燒輪胎的滾滾濃煙",
+      "text_cn": "只有催泪瓦斯的刺鼻焦味以及燃烧轮胎的滚滚浓烟",
+      "start_sec": 7.02,
+      "end_sec": 11.58,
+      "duration_sec": 4.56
+    }
+  ],
+  "created_at": "2026-10-19T14:40:11.939093+00:00"
+}

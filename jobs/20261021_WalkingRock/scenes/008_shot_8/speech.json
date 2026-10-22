@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261021T084412",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 12.21,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "更不可思議的是，它們在看似完全沒有坡度的泥地上還能逆坡向上滑動",
+      "text_cn": "更不可思议的是，它们在看似完全没有坡度的泥地上还能逆坡向上滑动",
+      "start_sec": 0.0,
+      "end_sec": 6.2,
+      "duration_sec": 6.2
+    },
+    {
+      "index": 2,
+      "text": "[question-ei]你可能無法想像，這個現象直接把當時的科學界看傻了眼",
+      "text_cn": "[question-ei]你可能无法想像，这个现象直接把当时的科学界看傻了眼",
+      "start_sec": 6.45,
+      "end_sec": 12.21,
+      "duration_sec": 5.76
+    }
+  ],
+  "created_at": "2026-10-21T08:44:12.031724+00:00"
+}

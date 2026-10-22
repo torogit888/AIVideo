@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261021T091505",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.86,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "真相揭開之後，有些專門研究超自然現象的愛好者反而覺得失望了",
+      "text_cn": "真相揭开之后，有些专门研旧超自然现象的爱好者反而觉得失望了",
+      "start_sec": 0.0,
+      "end_sec": 5.8,
+      "duration_sec": 5.8
+    },
+    {
+      "index": 2,
+      "text": "他們覺得原本一個充滿外星人和未知能量的神秘傳說",
+      "text_cn": "他们觉得原本一个充满外星人和未知能量的神秘传说",
+      "start_sec": 6.05,
+      "end_sec": 10.81,
+      "duration_sec": 4.76
+    },
+    {
+      "index": 3,
+      "text": "最後竟然被幾塊薄冰和一陣微風給打回了原形，這不是很煞風景嗎",
+      "text_cn": "最后竟然被几块薄冰和一阵围风给打回了原形，这不是很煞风景吗",
+      "start_sec": 11.06,
+      "end_sec": 16.86,
+      "duration_sec": 5.8
+    }
+  ],
+  "created_at": "2026-10-21T09:15:05.977311+00:00"
+}

@@ -1,0 +1,19 @@
+id: 049_shot_49
+index: 49
+title: 它們不需要觀眾
+narration: 它們不需要觀眾，也不在乎人類是否理解，只是靜靜地遵循著最基礎的物理規律，日復一日地在荒野上刻下屬於自己的痕跡，
+image_prompt: wide establishing shot of the Racetrack Playa, showing a single massive
+  dolomite boulder slowly moving across the vast, empty expanse of hexagonal cracked
+  mud, leaving a long, solitary track, under the stark, indifferent desert sky, emphasizing
+  its timeless, unobserved journey, rendered in Katsuhiro Otomo style, with high-contrast,
+  sharp shadows, muted ochres, dusty beiges, pale greys, and a stark, desaturated
+  blue sky, 16:9 widescreen composition
+image_negative: ''
+act_index: 8
+act_title: 永恆的行者，在無聲荒原留下的歷史刻痕（歷史餘韻與訂閱謝幕）
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261021T092110
+  image_take: image_20261021T092033

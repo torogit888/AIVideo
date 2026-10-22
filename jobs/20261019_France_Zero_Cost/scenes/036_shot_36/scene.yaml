@@ -1,0 +1,17 @@
+id: 036_shot_36
+index: 36
+title: 這種上位者與民間疾苦完全脫節的平
+narration: 這種上位者與民間疾苦完全脫節的平行宇宙感，[sigh]或許才是法蘭西社會這場頑疾永遠無法癒合的真正根源，
+image_prompt: conceptual wide shot of a grand Haussmannian palace facade hovering
+  in the sky bathed in golden luxury light, while down below on the cracked pavement,
+  exhausted chibi citizens navigate street litter and flashing police sirens, in Q版
+  2D cartoon illustration style, rich details, cel-shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 7
+act_title: 【跨越阿爾卑斯山的病毒——歷史的餘韻與白兔謝幕】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T151040
+  image_take: image_20261019T151002

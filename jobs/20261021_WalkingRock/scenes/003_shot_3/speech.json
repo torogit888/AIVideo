@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261021T083940",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 11.18,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "一位名叫約瑟夫的採礦工深入這片無人區",
+      "text_cn": "一位名叫约瑟夫的采矿工深入这片无人区",
+      "start_sec": 0.0,
+      "end_sec": 3.76,
+      "duration_sec": 3.76
+    },
+    {
+      "index": 2,
+      "text": "結果在一處名為跑道盆地的乾涸湖床上",
+      "text_cn": "结果在一处名为跑道盆地的干涸湖床上",
+      "start_sec": 4.01,
+      "end_sec": 7.57,
+      "duration_sec": 3.56
+    },
+    {
+      "index": 3,
+      "text": "看到了一輩子都無法理解的詭異場景",
+      "text_cn": "看到了一辈子都无法理解的诡异场景",
+      "start_sec": 7.82,
+      "end_sec": 11.18,
+      "duration_sec": 3.36
+    }
+  ],
+  "created_at": "2026-10-21T08:39:40.146966+00:00"
+}

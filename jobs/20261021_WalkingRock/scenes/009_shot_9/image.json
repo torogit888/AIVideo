@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261021T084432",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 99724184,
+  "prompt": "Katsuhiro Otomo Style, wide establishing shot of the Racetrack Playa, showing several massive dolomite boulders with their long, enigmatic tracks stretching across the vast, flat expanse of hexagonal cracked mud, under the stark, desaturated blue sky and harsh desert sun, conveying an overwhelming sense of unexplained mystery, rendered in Katsuhiro Otomo style, with high-contrast, sharp shadows, muted ochres, dusty beiges, pale greys, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-21T08:44:32.160165+00:00"
+}

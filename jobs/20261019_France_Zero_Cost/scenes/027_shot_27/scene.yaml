@@ -1,0 +1,17 @@
+id: 027_shot_27
+index: 27
+title: 嬰兒奶粉高檔肉品和成箱的罐頭被整
+narration: 嬰兒奶粉高檔肉品和成箱的罐頭被整箱整箱地推上黑車載走，甚至連收銀機裡的少量零錢都被鐵棒砸碎拿得一乾二淨，單單家樂福一家企業的直接損失就高達數千萬歐元，
+image_prompt: medium shot of chibi looters loading heavy cardboard crates of infant
+  formula and canned goods into the open trunk of an unmarked dark car, a smashed
+  cash register lying upside down on the pavement, dim alleyway lighting, in Q版 2D
+  cartoon illustration style, clean outlines, cel-shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 5
+act_title: 【平民避風港的粉碎——家樂福浩劫與底層互害的殘酷代價】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T150144
+  image_take: image_20261019T150121

@@ -1,0 +1,17 @@
+id: 012_shot_12
+index: 12
+title: 你看法國人自古以來就有一種直接走
+narration: '[sigh]你看法國人自古以來就有一種直接走向街頭奪取生存物資的傳統，但兩百年前他們的先祖搶奪麵包是為了不讓孩子在黑夜裡餓死，那麼兩百年後繼承這種傳統的現代人搶的又是什麼呢？'
+image_prompt: side-by-side split comparison shot showing an 18th-century chibi peasant
+  clutching a hard loaf of black rye bread on the left, and a modern 2026 chibi youth
+  clutching glossy luxury boutique shopping bags on the right, high-contrast lighting,
+  in Q版 2D cartoon illustration style, cel-shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 2
+act_title: 【兩百多年前的一塊黑麥麵包——法國大革命的暴食與飢餓密碼】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T144746
+  image_take: image_20261019T144723

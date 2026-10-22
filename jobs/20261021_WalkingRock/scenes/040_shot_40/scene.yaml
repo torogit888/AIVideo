@@ -1,0 +1,19 @@
+id: 040_shot_40
+index: 40
+title: 至於當年夏普教授設置的金屬木樁為
+narration: 至於當年夏普教授設置的金屬木樁為什麼沒被撞爛，而巨石卻越位瞬移，那是因為冰板只漂浮在水面上，推著石頭滑過之後，隨著氣溫升高徹底融化蒸發得無影無蹤，根本不會留下任何機械接觸的痕跡，
+image_prompt: medium shot, showing a massive dolomite boulder having just passed a
+  perfectly intact wooden stake line, pushed by a thin, almost translucent ice sheet
+  that is already beginning to melt and dissipate into the shallow water, leaving
+  no trace of its passage, under the cold, pale winter sun, rendered in Katsuhiro
+  Otomo style, with crisp, hand-drawn highlights, muted ochres, dusty beiges, pale
+  greys, and a stark, desaturated blue sky, 16:9 widescreen composition
+image_negative: ''
+act_index: 6
+act_title: 數據收網，百年軌跡密碼的終極還原
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261021T091202
+  image_take: image_20261021T091126

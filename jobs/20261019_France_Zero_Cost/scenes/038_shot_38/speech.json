@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261019T151251",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 19.97,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "我們回頭審視這段從一七八九年走到二零二六年的荒誕歷史",
+      "text_cn": "我们回头审视这段从一七八九年走到二零二六年的荒诞历史",
+      "start_sec": 0.0,
+      "end_sec": 4.94,
+      "duration_sec": 4.94
+    },
+    {
+      "index": 2,
+      "text": "法國人似乎從來沒有丟掉過他們走向街頭反抗體制的歷史遺產",
+      "text_cn": "法国人似乎从来没有丢掉过他们走向街头反抗体制的历史遗产",
+      "start_sec": 5.19,
+      "end_sec": 10.75,
+      "duration_sec": 5.56
+    },
+    {
+      "index": 3,
+      "text": "但問題是當初為了爭取生存權利的光輝記憶",
+      "text_cn": "但问题是当初为了争取生存权利的光辉记忆",
+      "start_sec": 11.0,
+      "end_sec": 14.96,
+      "duration_sec": 3.96
+    },
+    {
+      "index": 4,
+      "text": "如今卻在演算法和消費主義的侵蝕下被徹底掏空了內核",
+      "text_cn": "如今却在算法和消费主义的侵蚀下被彻底掏空了内核",
+      "start_sec": 15.21,
+      "end_sec": 19.97,
+      "duration_sec": 4.76
+    }
+  ],
+  "created_at": "2026-10-19T15:12:51.897262+00:00"
+}

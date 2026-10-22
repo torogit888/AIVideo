@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261019T145852",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.38,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[laughter]這場面真的非常諷刺兩百年前是為了活命搶黑麥麵包",
+      "text_cn": "[laughter]这场面真的非常讽刺两百年前是为了活命抢黑麦面包",
+      "start_sec": 0.0,
+      "end_sec": 5.36,
+      "duration_sec": 5.36
+    },
+    {
+      "index": 2,
+      "text": "兩百年後卻成了為了虛榮和點讚搶昂貴的奢侈品包包",
+      "text_cn": "两百年后却成了为了虚荣和点赞抢昂贵的奢侈品包包",
+      "start_sec": 5.61,
+      "end_sec": 10.37,
+      "duration_sec": 4.76
+    },
+    {
+      "index": 3,
+      "text": "暴徒自以為砸碎了資本的牢籠其實只是把自己送進了物慾的狂歡",
+      "text_cn": "暴徒自以为砸碎了资本的牢笼其实只是把自己送进了物欲的狂欢",
+      "start_sec": 10.62,
+      "end_sec": 16.38,
+      "duration_sec": 5.76
+    }
+  ],
+  "created_at": "2026-10-19T14:58:52.561493+00:00"
+}

@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261019T150653",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.38,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "法國總統馬克宏隨後在電視螢幕前發表了言辭極度嚴厲的講話",
+      "text_cn": "法国总统马克宏随后在电视萤幕前发表了言辞极度严厉的讲话",
+      "start_sec": 0.0,
+      "end_sec": 5.56,
+      "duration_sec": 5.56
+    },
+    {
+      "index": 2,
+      "text": "他公開痛斥這些洗劫商鋪的暴徒是可恥的趁火打劫者",
+      "text_cn": "他公开痛斥这些洗劫商铺的暴徒是可耻的趁火打劫者",
+      "start_sec": 5.81,
+      "end_sec": 10.57,
+      "duration_sec": 4.76
+    },
+    {
+      "index": 3,
+      "text": "並且信誓旦旦地向全國保證一定會動用最強硬的司法手段嚴懲",
+      "text_cn": "并且信誓旦旦地向全国保证一定会动用最强硬的司法手段严惩",
+      "start_sec": 10.82,
+      "end_sec": 16.38,
+      "duration_sec": 5.56
+    }
+  ],
+  "created_at": "2026-10-19T15:06:53.389001+00:00"
+}

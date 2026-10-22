@@ -1,0 +1,18 @@
+id: 040_shot_40
+index: 40
+title: 只能說當街頭的怒火不再是為了追求
+narration: '[sigh]只能說當街頭的怒火不再是為了追求公理與正義，而是為了一場免費抱走奢華商品的零元狂歡，這場革命從它打碎第一面櫥窗開始就已經注定淪為一場鬧劇！'
+image_prompt: dramatic medium wide shot of a lone masked chibi looter standing atop
+  an extinguished pile of burnt tires, holding up an expensive designer leather handbag
+  like a trophy amidst smoky deserted city ruins, moody atmospheric rim lighting,
+  in Q版 2D cartoon illustration style, clean outlines, cel-shading, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 7
+act_title: 【跨越阿爾卑斯山的病毒——歷史的餘韻與白兔謝幕】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T151440
+  image_take: image_20261019T151404

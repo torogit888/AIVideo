@@ -68,6 +68,7 @@ export const api = {
       subject_anchor?: string;
       environment_anchor?: string;
       characters?: { id?: string; name: string; appearance?: string }[];
+      clear_hero_images?: boolean;
       metaphor_style?: string;
     }
   ) => request<JobSummary>(`/jobs/${id}`, { method: "PATCH", body: JSON.stringify(patch) }),
@@ -94,6 +95,7 @@ export const api = {
       environment?: string;
       use_image_reference?: boolean;
       characters?: { id?: string; name: string; appearance: string }[];
+      clear_hero_images?: boolean;
     }
   ) =>
     request<JobVisualAnchors>(`/jobs/${jobId}/anchors`, {

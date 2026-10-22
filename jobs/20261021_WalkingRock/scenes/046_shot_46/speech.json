@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261021T091806",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.36,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "我們總以為外星文明或者超自然力量才算奇蹟，但事實上",
+      "text_cn": "我们总以为外星文明或者超自然力量才算奇迹，但事实上",
+      "start_sec": 0.0,
+      "end_sec": 5.0,
+      "duration_sec": 5.0
+    },
+    {
+      "index": 2,
+      "text": "大自然只用了最普通的水，冰，泥土和微風",
+      "text_cn": "大自然只用了最普通的水，冰，泥土和围风",
+      "start_sec": 5.25,
+      "end_sec": 8.89,
+      "duration_sec": 3.64
+    },
+    {
+      "index": 3,
+      "text": "經過千萬年的耐心調配，就演繹出了一場連人類最頂尖大腦都困惑了一個世紀的魔術",
+      "text_cn": "经过千万年的耐心调配，就演绎出了一场连人类最顶尖大脑都困惑了一个世纪的魔术",
+      "start_sec": 9.14,
+      "end_sec": 16.36,
+      "duration_sec": 7.22
+    }
+  ],
+  "created_at": "2026-10-21T09:18:06.841734+00:00"
+}

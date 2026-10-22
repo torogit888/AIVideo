@@ -1,0 +1,17 @@
+id: 005_shot_5
+index: 5
+title: 但誰也沒想到這場浩大的請願在短短
+narration: 但誰也沒想到這場浩大的請願在短短幾小時內徹底變調，一群黑衣蒙面人如同潮水般迅速滲透進抗議隊伍，和平的遊行瞬間滑向一場波及全法的大規模縱火與暴力洗劫，
+image_prompt: medium wide shot of mysterious chibi figures in black hoodies and balaclavas
+  surreptitiously weaving through the colorful protest crowd, casting long shadows
+  under an overcast sky, dynamic and unsettling atmosphere, in Q版 2D cartoon illustration
+  style, clean outlines, cel-shading, 16:9 widescreen composition
+image_negative: ''
+act_index: 1
+act_title: 【從斷頭台到香榭麗舍的基因突變——2026年深秋的巴黎烈焰】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T144119
+  image_take: image_20261019T144104

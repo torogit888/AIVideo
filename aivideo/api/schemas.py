@@ -109,6 +109,7 @@ class CharacterAnchorInput(BaseModel):
     id: Optional[str] = None
     name: str
     appearance: str = ""
+    entity_type: Optional[str] = "character"
 
 
 class CreateJobRequest(BaseModel):
@@ -143,6 +144,7 @@ class UpdateJobRequest(BaseModel):
     subject_anchor: Optional[str] = None
     environment_anchor: Optional[str] = None
     characters: Optional[List[CharacterAnchorInput]] = None
+    clear_hero_images: Optional[bool] = None
     metaphor_style: Optional[str] = None
 
 
@@ -266,6 +268,7 @@ class CharacterAnchorDraft(BaseModel):
     id: str
     name: str
     appearance: str = ""
+    entity_type: Optional[str] = "character"
 
 
 class AnalyzeAnchorsResponse(BaseModel):
@@ -278,6 +281,7 @@ class CharacterAnchor(BaseModel):
     id: str
     name: str
     appearance: str = ""
+    entity_type: Optional[str] = "character"
     has_image: bool = False
     image_url: Optional[str] = None
 
@@ -296,16 +300,19 @@ class UpdateVisualAnchorsRequest(BaseModel):
     environment: Optional[str] = None
     use_image_reference: Optional[bool] = None
     characters: Optional[List[CharacterAnchorInput]] = None
+    clear_hero_images: Optional[bool] = None
 
 
 class AddCharacterRequest(BaseModel):
     name: str
     appearance: str = ""
+    entity_type: Optional[str] = "character"
 
 
 class PatchCharacterRequest(BaseModel):
     name: Optional[str] = None
     appearance: Optional[str] = None
+    entity_type: Optional[str] = None
 
 
 class GenerateHeroAnchorResponse(BaseModel):

@@ -1,0 +1,28 @@
+id: 012_shot_12
+index: 12
+title: 回到當時的大環境來看
+narration: 回到當時的大環境來看，1948年美國地質調查局的兩位學者跑去現場研究了半天，他們發表了第一份學術報告，給出了一個看起來非常合乎常理的解釋，
+image_prompt: medium shot of two distinguished geologists in 1940s field attire, kneeling
+  on the Racetrack Playa. One points intently at a deep track in the hexagonal cracked
+  mud, while the other meticulously scribbles notes on a small pad, under the harsh,
+  direct desert sun, rendered in Katsuhiro Otomo style, with high-contrast, sharp
+  shadows, muted ochres, dusty beiges, pale greys, and a stark, desaturated blue sky,
+  16:9 widescreen composition
+image_negative: ''
+act_index: 2
+act_title: 從地磁怪力到外星祭壇，科學家被一塊石頭當場打臉
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261021T084800
+  image_take: image_20261021T084738
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: McAllister Agnew 1948 USGS report Death Valley playa
+  fetch_error: 未找到合適照片

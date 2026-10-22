@@ -1,0 +1,26 @@
+id: 007_shot_7
+index: 7
+title: 要弄清楚這件事我們得把時間撥回到
+narration: 要弄清楚這件事我們得把時間撥回到兩百多年前的一七八九年，當時的法國剛經歷了一場罕見的小冰期極端嚴冬，農田大面積歉收直接引爆了全法蘭西的糧食恐慌，
+image_prompt: wide establishing shot of the harsh winter of 1789 in rural France,
+  shivering chibi peasants in 18th-century rags standing in snow-covered barren wheat
+  fields beside a frozen wooden cart, chilly grey overcast lighting, in Q版 2D cartoon
+  illustration style, earthy tones, clean outlines, 16:9 widescreen composition
+image_negative: ''
+act_index: 2
+act_title: 【兩百多年前的一塊黑麥麵包——法國大革命的暴食與飢餓密碼】
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261019T144246
+  image_take: image_20261019T144225
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: 1788 1789 French famine harvest failure document
+  fetch_error: 未找到合適照片

@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261019T144852",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.12,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "時間快轉到二零一八年底席捲全法的黃背心運動",
+      "text_cn": "时间快转到二零一八年底席卷全法的黄背心运动",
+      "start_sec": 0.0,
+      "end_sec": 4.36,
+      "duration_sec": 4.36
+    },
+    {
+      "index": 2,
+      "text": "當時的導火線不過是政府試圖調漲幾分錢的柴油稅",
+      "text_cn": "当时的导火线不过是政府试图调涨几分钱的柴油税",
+      "start_sec": 4.61,
+      "end_sec": 9.11,
+      "duration_sec": 4.5
+    },
+    {
+      "index": 3,
+      "text": "但背後折射出的卻是郊區通勤族難以承受的綠能代價",
+      "text_cn": "但背后折射出的却是郊区通勤族难以承受的绿能代价",
+      "start_sec": 9.36,
+      "end_sec": 14.12,
+      "duration_sec": 4.76
+    }
+  ],
+  "created_at": "2026-10-19T14:48:52.491907+00:00"
+}

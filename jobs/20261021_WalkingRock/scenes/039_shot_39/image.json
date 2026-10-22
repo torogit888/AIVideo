@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261021T091041",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 22720959,
+  "prompt": "Katsuhiro Otomo Style, medium wide shot, showing a large ice sheet fracturing into two distinct pieces as it moves, each piece then pushing a separate dolomite boulder in a different direction, creating diverging tracks in the muddy lakebed, under the cold, pale winter sun, rendered in Katsuhiro Otomo style, with crisp, hand-drawn highlights, muted ochres, dusty beiges, pale greys, and a stark, desaturated blue sky, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-21T09:10:41.525243+00:00"
+}

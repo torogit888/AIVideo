@@ -1,0 +1,19 @@
+id: 009_shot_9
+index: 9
+title: 因為在經典物理學中
+narration: 因為在經典物理學中，如果沒有任何外力推動，一塊幾百公斤的石頭是絕對不可能在平地上自己移動的，那麼，究竟是什麼神秘力量在操控這一切呢？
+image_prompt: wide establishing shot of the Racetrack Playa, showing several massive
+  dolomite boulders with their long, enigmatic tracks stretching across the vast,
+  flat expanse of hexagonal cracked mud, under the stark, desaturated blue sky and
+  harsh desert sun, conveying an overwhelming sense of unexplained mystery, rendered
+  in Katsuhiro Otomo style, with high-contrast, sharp shadows, muted ochres, dusty
+  beiges, pale greys, 16:9 widescreen composition
+image_negative: ''
+act_index: 2
+act_title: 從地磁怪力到外星祭壇，科學家被一塊石頭當場打臉
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261021T084509
+  image_take: image_20261021T084432

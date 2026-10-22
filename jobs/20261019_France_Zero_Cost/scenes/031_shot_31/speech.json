@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261019T150540",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 21.39,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "面對全法多處幾近失控的無政府狀態官方終於動手了",
+      "text_cn": "面对全法多处几近失控的无政府状态官方终于动手了",
+      "start_sec": 0.0,
+      "end_sec": 4.76,
+      "duration_sec": 4.76
+    },
+    {
+      "index": 2,
+      "text": "法國當局緊急授權出動了專門應對極端反恐的雷德特警部隊",
+      "text_cn": "法国当局紧急授权出动了专门应对极端反恐的雷德特警部队",
+      "start_sec": 5.01,
+      "end_sec": 10.37,
+      "duration_sec": 5.36
+    },
+    {
+      "index": 3,
+      "text": "沉重的防暴裝甲車直接開進了催淚瓦斯瀰漫的巴黎街區",
+      "text_cn": "沉重的防暴装甲车直接开进了催泪瓦斯弥漫的巴黎街区",
+      "start_sec": 10.62,
+      "end_sec": 15.58,
+      "duration_sec": 4.96
+    },
+    {
+      "index": 4,
+      "text": "閃光彈高壓水砲和全副武裝的黑衣特警在黑夜中展開全面清場",
+      "text_cn": "闪光弹高压水炮和全副武装的黑衣特警在黑夜中展开全面清场",
+      "start_sec": 15.83,
+      "end_sec": 21.39,
+      "duration_sec": 5.56
+    }
+  ],
+  "created_at": "2026-10-19T15:05:40.707628+00:00"
+}

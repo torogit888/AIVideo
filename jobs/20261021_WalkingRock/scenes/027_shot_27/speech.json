@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261021T090046",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.21,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "同時在旁邊的懸崖制高點上，架設了耐極端低溫的微型氣象站與高解析度縮時攝影機",
+      "text_cn": "同时在旁边的悬崖制高点上，架设了耐极端低温的围型气象站与高分辨率缩时摄影机",
+      "start_sec": 0.0,
+      "end_sec": 7.36,
+      "duration_sec": 7.36
+    },
+    {
+      "index": 2,
+      "text": "氣象站每秒都在記錄風速風向，相機則設定為每隔幾分鐘自動拍下一張照片",
+      "text_cn": "气象站每秒都在记录风速风向，相机则设定为每隔几分钟自动拍下一张照片",
+      "start_sec": 7.61,
+      "end_sec": 14.21,
+      "duration_sec": 6.6
+    }
+  ],
+  "created_at": "2026-10-21T09:00:46.355791+00:00"
+}

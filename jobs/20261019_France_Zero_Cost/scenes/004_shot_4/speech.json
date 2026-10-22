@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261019T144047",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.58,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "當天有五十五萬名憤怒的抗議者湧上全法各大城市街頭",
+      "text_cn": "当天有五十五万名愤怒的抗议者涌上全法各大城市街头",
+      "start_sec": 0.0,
+      "end_sec": 4.96,
+      "duration_sec": 4.96
+    },
+    {
+      "index": 2,
+      "text": "他們原本打著重振黃背心運動的大旗",
+      "text_cn": "他们原本打着重振黄背心运动的大旗",
+      "start_sec": 5.21,
+      "end_sec": 8.57,
+      "duration_sec": 3.36
+    },
+    {
+      "index": 3,
+      "text": "想要替買不起教材的窮學生以及微薄的薪水討個公道",
+      "text_cn": "想要替买不起教材的穷学生以及围薄的薪水讨个公道",
+      "start_sec": 8.82,
+      "end_sec": 13.58,
+      "duration_sec": 4.76
+    }
+  ],
+  "created_at": "2026-10-19T14:40:47.094384+00:00"
+}

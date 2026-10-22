@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261021T090700",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 11.85,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "注意，這根本不是什麼超級颶風，風速只有每秒三到五公尺",
+      "text_cn": "注意，这根本不是什么超级飓风，风速只有每秒三到五米",
+      "start_sec": 0.0,
+      "end_sec": 4.84,
+      "duration_sec": 4.84
+    },
+    {
+      "index": 2,
+      "text": "就是你走在路上稍微拂過臉頰的微風程度，[surprise-oh]但奇蹟就在這一秒發生了",
+      "text_cn": "就是你走在路上稍围拂过脸颊的围风程度，[surprise-oh]但奇迹就在这一秒发生了",
+      "start_sec": 5.09,
+      "end_sec": 11.85,
+      "duration_sec": 6.76
+    }
+  ],
+  "created_at": "2026-10-21T09:07:00.307152+00:00"
+}

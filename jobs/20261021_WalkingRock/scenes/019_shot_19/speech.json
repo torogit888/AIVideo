@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261021T085410",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 17.11,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "夏普在這些石頭周圍釘滿了木樁和鋼筋",
+      "text_cn": "夏普在这些石头周围钉满了木桩和钢筋",
+      "start_sec": 0.0,
+      "end_sec": 3.56,
+      "duration_sec": 3.56
+    },
+    {
+      "index": 2,
+      "text": "甚至圍上了金屬同心圓護欄，只要石頭稍微挪動一下",
+      "text_cn": "甚至围上了金属同心圆护栏，只要石头稍围挪动一下",
+      "start_sec": 3.81,
+      "end_sec": 8.41,
+      "duration_sec": 4.6
+    },
+    {
+      "index": 3,
+      "text": "木樁的位置就會改變，他們原本以為，只要自己盯得足夠緊",
+      "text_cn": "木桩的位置就会改变，他们原本以为，只要自己盯得足够紧",
+      "start_sec": 8.66,
+      "end_sec": 13.7,
+      "duration_sec": 5.04
+    },
+    {
+      "index": 4,
+      "text": "就一定能抓到這群石頭移動的現行",
+      "text_cn": "就一定能抓到这群石头移动的现行",
+      "start_sec": 13.95,
+      "end_sec": 17.11,
+      "duration_sec": 3.16
+    }
+  ],
+  "created_at": "2026-10-21T08:54:10.427727+00:00"
+}
