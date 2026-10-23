@@ -155,7 +155,9 @@ def _calculate_job_progress(job_dir: Path) -> JobProgress:
 
     scene_dirs = sorted([d for d in scenes_dir.iterdir() if d.is_dir()])
     total_scenes = len(scene_dirs)
-    images_ready = sum(1 for d in scene_dirs if (d / "image.png").is_file())
+    images_ready = sum(
+        1 for d in scene_dirs if (d / "image.png").is_file() or (d / "pip.mp4").is_file()
+    )
     audio_ready = sum(1 for d in scene_dirs if (d / "speech.wav").is_file() or (d / "audio.wav").is_file())
     film_ready = (job_dir / "compose" / "film.mp4").is_file()
 
@@ -556,7 +558,9 @@ def add_character_anchor(job_id: str, req: AddCharacterRequest) -> JobVisualAnch
     cfg = _load_job_cfg(job_dir)
     v_anchors = _ensure_visual_anchors(cfg)
     characters = ensure_characters(v_anchors)
-    extra = normalize_characters([{"name": req.name, "appearance": req.appearance}])
+    extra = normalize_characters(
+        [{"name": req.name, "appearance": req.appearance, "entity_type": req.entity_type}]
+    )
     if not extra:
         raise HTTPException(status_code=400, detail="角色名稱不能為空")
     # 避免與既有 id 碰撞
@@ -848,7 +852,7 @@ def clear_job_media(job_id: str):
             if not s_dir.is_dir():
                 continue
             # 刪除已生成的圖、音、考據圖與 takes
-            for fname in ("image.png", "image.json", "speech.wav", "speech.json", "audio.wav", "pip.png"):
+            for fname in ("image.png", "image.json", "speech.wav", "speech.json", "audio.wav", "pip.png", "pip.mp4"):
                 f = s_dir / fname
                 if f.is_file():
                     try:

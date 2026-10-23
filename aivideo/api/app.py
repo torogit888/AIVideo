@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from contextlib import asynccontextmanager
 import os
 from pathlib import Path
 from fastapi import FastAPI
@@ -9,15 +10,27 @@ from fastapi.staticfiles import StaticFiles
 from aivideo.api.routes import assets, jobs, pipeline, scenes, system, youtube
 from aivideo.commands.check import _load_dotenv
 from aivideo.media import media_mounts, spa_dist_dir
+from aivideo.pipeline_runner import cleanup_stale_run_states, stop_all_pipeline_runners
 
 _load_dotenv()
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
+
+@asynccontextmanager
+async def _lifespan(_app: FastAPI):
+    # 啟動時：自動清除前次因 Reload Window 或重啟而殘留的 is_running 狀態
+    cleanup_stale_run_states(REPO_ROOT / "jobs")
+    yield
+    # 關閉 / 熱重載時：自動停止所有正在跑的背景 Job 執行緒
+    stop_all_pipeline_runners()
+
+
 app = FastAPI(
     title="AIVideo Studio API",
     description="說書人影片合成與分鏡創作 Studio 後端 API 服務",
     version="1.0.0",
+    lifespan=_lifespan,
 )
 
 # 跨域配置：允許現代前端開發環境（Vite localhost:5173 / Next.js localhost:3000 等）

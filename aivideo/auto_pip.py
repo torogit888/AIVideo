@@ -3,9 +3,13 @@ from __future__ import annotations
 import io
 import json
 import re
+import shutil
+import subprocess
+import tempfile
 import time
 import urllib.parse
 from pathlib import Path
+from typing import Any
 from PIL import Image
 import requests
 import yaml
@@ -20,6 +24,237 @@ WIKIMEDIA_HEADERS = {
     "User-Agent": "AIVideoDocBot/2.0 (https://github.com/aivideo/aivideo; documentary-research@aivideo-studio.org)",
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
 }
+
+
+def search_nasa_video(query: str, limit: int = 3) -> list[dict[str, object]]:
+    """呼叫 NASA 官方開放影音 API (images-api.nasa.gov) 檢索太空、航太、火箭發射與天文真實影片。"""
+    clean_q = re.sub(r'["\'\(\)\[\]]', '', query).strip()
+    if not clean_q:
+        return []
+    url = f"https://images-api.nasa.gov/search?q={urllib.parse.quote(clean_q)}&media_type=video"
+    try:
+        resp = requests.get(url, headers=WIKIMEDIA_HEADERS, timeout=10)
+        if resp.status_code != 200:
+            return []
+        items = resp.json().get("collection", {}).get("items", [])
+        results: list[dict[str, object]] = []
+        for it in items[: limit * 2]:
+            data_list = it.get("data", [])
+            href = it.get("href", "")
+            links_list = it.get("links", [])
+            if not data_list or not href:
+                continue
+            title = data_list[0].get("title", "")
+            thumb_url = ""
+            for lk in links_list:
+                if lk.get("render") == "image" and lk.get("href"):
+                    thumb_url = str(lk.get("href")).split("?")[0]
+                    break
+            try:
+                c_resp = requests.get(href, headers=WIKIMEDIA_HEADERS, timeout=8)
+                if c_resp.status_code != 200:
+                    continue
+                asset_urls = c_resp.json()
+                if not isinstance(asset_urls, list):
+                    continue
+                mp4_urls = [str(u) for u in asset_urls if str(u).lower().endswith(".mp4") and "mobile" not in str(u).lower()]
+                if not mp4_urls:
+                    mp4_urls = [str(u) for u in asset_urls if str(u).lower().endswith((".mp4", ".webm", ".mov"))]
+                if not mp4_urls:
+                    continue
+                # 優先挑選 medium / preview / 720p / orig
+                chosen_url = mp4_urls[0]
+                for u in mp4_urls:
+                    ul = u.lower()
+                    if any(tag in ul for tag in ("~medium.mp4", "~large.mp4", "~preview.mp4", "720", "1080")):
+                        chosen_url = u
+                        break
+                results.append({
+                    "title": title,
+                    "url": chosen_url,
+                    "thumbnail_url": thumb_url,
+                    "source": "NASA 官方影片庫",
+                    "width": 1920,
+                    "height": 1080,
+                    "mime": "video/mp4",
+                    "media_type": "video",
+                })
+                if len(results) >= limit:
+                    break
+            except Exception:
+                continue
+        return results
+    except Exception:
+        return []
+
+
+def search_wikimedia_video(query: str, limit: int = 3) -> list[dict[str, object]]:
+    """呼叫 Wikimedia Commons API 檢索歷史新聞片、科學實驗、設備運作與公共領域真實影片。"""
+    clean_q = re.sub(r'["\'\(\)\[\]]', '', query).strip()
+    if not clean_q:
+        return []
+
+    params = {
+        "action": "query",
+        "generator": "search",
+        "gsrsearch": f"{clean_q} filetype:video",
+        "gsrnamespace": 6,
+        "gsrlimit": 8,
+        "prop": "imageinfo",
+        "iiprop": "url|size|mime|thumbMime",
+        "iiurlwidth": 640,
+        "format": "json",
+    }
+    url = f"https://commons.wikimedia.org/w/api.php?{urllib.parse.urlencode(params)}"
+    try:
+        resp = requests.get(url, headers=WIKIMEDIA_HEADERS, timeout=12)
+        if resp.status_code != 200:
+            return []
+        pages = resp.json().get("query", {}).get("pages", {})
+        if not pages:
+            return []
+
+        results: list[dict[str, object]] = []
+        for _pid, pdata in pages.items():
+            imginfo = pdata.get("imageinfo", [{}])[0]
+            raw_url = str(imginfo.get("url", ""))
+            mime = str(imginfo.get("mime", "")).lower()
+            width = int(imginfo.get("width") or 0)
+            height = int(imginfo.get("height") or 0)
+            size_bytes = int(imginfo.get("size") or 0)
+            thumb_url = str(imginfo.get("thumburl") or "")
+
+            if not raw_url:
+                continue
+            if not any(v_m in mime for v_m in ("video/webm", "video/mp4", "application/ogg", "video/ogg")):
+                continue
+            # 排除過大 (> 120MB) 或過小解析度的影片，確保檢索與轉碼迅速
+            if size_bytes > 120 * 1024 * 1024:
+                continue
+            if width >= 320 and height >= 200:
+                results.append({
+                    "title": pdata.get("title", clean_q),
+                    "url": raw_url,
+                    "thumbnail_url": thumb_url,
+                    "width": width,
+                    "height": height,
+                    "mime": mime,
+                    "source": "維基共享影片 (Wikimedia Video)",
+                    "media_type": "video",
+                })
+                if len(results) >= limit:
+                    break
+        return results
+    except Exception:
+        return []
+
+
+def search_internet_archive_video(query: str, limit: int = 3) -> list[dict[str, object]]:
+    """呼叫 Internet Archive (archive.org) 檢索歷史新聞片、紀錄片與全網影片檔案。"""
+    clean_q = re.sub(r'["\'\(\)\[\]]', '', query).strip()
+    if not clean_q:
+        return []
+    q_str = f'({clean_q}) AND mediatype:(movies)'
+    search_url = (
+        f"https://archive.org/advancedsearch.php?q={urllib.parse.quote(q_str)}"
+        f"&fl[]=identifier&fl[]=title&sort[]=downloads+desc&rows={limit * 2}&page=1&output=json"
+    )
+    try:
+        resp = requests.get(search_url, headers=WIKIMEDIA_HEADERS, timeout=10)
+        if resp.status_code != 200:
+            return []
+        docs = resp.json().get("response", {}).get("docs", [])
+        results: list[dict[str, object]] = []
+        for doc in docs:
+            ident = str(doc.get("identifier") or "").strip()
+            title = str(doc.get("title") or clean_q).strip()
+            if not ident:
+                continue
+            meta_url = f"https://archive.org/metadata/{urllib.parse.quote(ident)}"
+            try:
+                m_resp = requests.get(meta_url, headers=WIKIMEDIA_HEADERS, timeout=8)
+                if m_resp.status_code != 200:
+                    continue
+                files = m_resp.json().get("files", [])
+                chosen_file = None
+                for f in files:
+                    fname = str(f.get("name") or "")
+                    fmt = str(f.get("format") or "").lower()
+                    size_b = int(f.get("size") or 0) if str(f.get("size") or "").isdigit() else 0
+                    if fname.lower().endswith(".mp4") and (0 < size_b <= 150 * 1024 * 1024):
+                        chosen_file = fname
+                        if "512kb" in fmt or "h.264" in fmt or "mpeg4" in fmt:
+                            break
+                if chosen_file:
+                    dl_url = f"https://archive.org/download/{urllib.parse.quote(ident)}/{urllib.parse.quote(chosen_file)}"
+                    thumb_url = f"https://archive.org/services/img/{urllib.parse.quote(ident)}"
+                    results.append({
+                        "title": title,
+                        "url": dl_url,
+                        "thumbnail_url": thumb_url,
+                        "source": "Internet Archive 歷史影片庫",
+                        "width": 1280,
+                        "height": 720,
+                        "mime": "video/mp4",
+                        "media_type": "video",
+                    })
+                    if len(results) >= limit:
+                        break
+            except Exception:
+                continue
+        return results
+    except Exception:
+        return []
+
+
+def search_duckduckgo_video(query: str, limit: int = 4) -> list[dict[str, object]]:
+    """透過全網影片檢索（DuckDuckGo Videos / 各大影音與新聞平台）搜尋相關影片候選。"""
+    clean_q = re.sub(r'["\'\(\)\[\]]', '', query).strip()
+    if not clean_q:
+        return []
+    try:
+        url = f"https://duckduckgo.com/?q={urllib.parse.quote(clean_q)}&iax=videos&ia=videos"
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        }
+        res = requests.get(url, headers=headers, timeout=6)
+        m = re.search(r'vqd=([\"\']?)([\d-]+)\1', res.text)
+        if not m:
+            return []
+        vqd = m.group(2)
+        api_url = f"https://duckduckgo.com/v.js?l=wt-wt&o=json&q={urllib.parse.quote(clean_q)}&vqd={vqd}&f=,,,&p=1"
+        resp = requests.get(api_url, headers=headers, timeout=6)
+        if resp.status_code != 200:
+            return []
+        items = resp.json().get("results", [])
+        candidates: list[dict[str, object]] = []
+        has_ytdlp = shutil.which("yt-dlp") is not None
+        for it in items:
+            content_url = str(it.get("content") or "").strip()
+            if not content_url:
+                continue
+            # 若為直鏈 mp4/webm，或系統有安裝 yt-dlp 可解析全網影片網址，皆納入候選
+            is_direct = any(content_url.lower().split("?")[0].endswith(ext) for ext in (".mp4", ".webm", ".mov", ".ogv"))
+            if not is_direct and not has_ytdlp:
+                continue
+            images_dict = it.get("images") if isinstance(it.get("images"), dict) else {}
+            thumb = str(images_dict.get("large") or images_dict.get("medium") or images_dict.get("small") or "")
+            candidates.append({
+                "title": str(it.get("title") or clean_q),
+                "url": content_url,
+                "thumbnail_url": thumb,
+                "source": f"全網影片 ({it.get('provider') or 'Web Video'})",
+                "width": 1280,
+                "height": 720,
+                "mime": "video/mp4",
+                "media_type": "video",
+            })
+            if len(candidates) >= limit:
+                break
+        return candidates
+    except Exception:
+        return []
 
 
 def search_nasa_image(query: str, limit: int = 4) -> list[dict[str, object]]:
@@ -450,6 +685,102 @@ def search_all_source_candidates(query: str, limit: int = 6) -> list[dict[str, o
     return candidates[:limit]
 
 
+def search_all_source_video_candidates(query: str, limit: int = 6) -> list[dict[str, object]]:
+    """跨全網來源（NASA 影音庫、Wikimedia Commons 影片、Internet Archive 歷史影片、全網影片搜尋）聚合檢索真實考據影片。"""
+    candidates: list[dict[str, object]] = []
+    seen_urls: set[str] = set()
+
+    clean_q = query.strip()
+    if not clean_q:
+        return []
+
+    en_q = translate_entity_query_to_en(clean_q)
+    search_terms = [t for t in [en_q, clean_q] if t]
+    if len(search_terms) == 2 and search_terms[0] == search_terms[1]:
+        search_terms = [clean_q]
+
+    # 1. 太空、航太、天文詞彙優先呼叫 NASA 官方影片庫
+    space_keywords = {"space", "telescope", "nasa", "galaxy", "satellite", "star", "hubble", "roman", "webb", "planet", "orbit", "astronaut", "mars", "moon", "apollo", "rocket", "launch"}
+    q_lower = clean_q.lower()
+    if any(k in q_lower for k in space_keywords) or (en_q and any(k in en_q.lower() for k in space_keywords)):
+        for term in search_terms:
+            for it in search_nasa_video(term, limit=3):
+                u = str(it.get("url") or "")
+                if u and u not in seen_urls:
+                    seen_urls.add(u)
+                    candidates.append(it)
+
+    # 2. 檢索 Wikimedia Commons 真實歷史/科學影片
+    for term in search_terms:
+        for it in search_wikimedia_video(term, limit=3):
+            u = str(it.get("url") or "")
+            if u and u not in seen_urls:
+                seen_urls.add(u)
+                candidates.append(it)
+
+    # 3. 檢索 Internet Archive (archive.org) 歷史新聞片與紀錄片
+    for term in search_terms:
+        if len(candidates) >= limit + 2:
+            break
+        for it in search_internet_archive_video(term, limit=2):
+            u = str(it.get("url") or "")
+            if u and u not in seen_urls:
+                seen_urls.add(u)
+                candidates.append(it)
+
+    # 4. 檢索全網影片 (DuckDuckGo Video Search / 各大影音新聞源)
+    for term in search_terms:
+        if len(candidates) >= limit + 2:
+            break
+        for it in search_duckduckgo_video(term, limit=3):
+            u = str(it.get("url") or "")
+            if u and u not in seen_urls:
+                seen_urls.add(u)
+                candidates.append(it)
+
+    candidates.sort(key=lambda c: score_candidate_image(c, clean_q, en_q), reverse=True)
+    return candidates[:limit]
+
+
+def should_prefer_archival_video(query: str | None, narration: str = "") -> bool:
+    """
+    AI 依敘述與檢索詞自動判斷本幕是否應優先抓取「真實考據影片（動態 B-Roll）」：
+    - 若涉及靜態契約、藍圖、文件、肖像、地圖、硬幣/標誌 -> 優先抓靜態照片 (False)
+    - 若涉及動態事件、發射、航行、演說、簽署現場、街頭活動、實驗運作、戰爭演習、工業產線 -> 優先抓影片 (True)
+    """
+    if not query:
+        return False
+
+    q_lower = query.lower()
+    narr_lower = (narration or "").lower()
+
+    # 明確屬於靜態紙本/肖像/圖表的關鍵詞 -> 維持抓照片
+    static_keywords = (
+        "blueprint", "contract", "document", "portrait", "map", "diagram", "chart",
+        "letter", "patent", "logo", "coin", "stamp", "newspaper", "headline", "book",
+        "藍圖", "合約", "契約", "文件", "肖像", "地圖", "圖表", "信件", "專利", "報紙", "頭版",
+    )
+    if any(k in q_lower for k in static_keywords) and not any(w in narr_lower for w in ("儀式", "現場", "演說", "發射")):
+        return False
+
+    # 明確具有動態感、歷史現場或運作過程的關鍵詞 -> 優先抓影片
+    dynamic_query_keywords = (
+        "launch", "flight", "sailing", "submarine", "fleet", "navy", "speech", "summit",
+        "ceremony", "exhibition", "street", "protest", "parade", "collapse", "fall",
+        "test", "experiment", "factory", "production", "assembly", "orbit", "landing",
+        "footage", "newsreel", "video", "archive", "walking", "moving", "explosion",
+    )
+    dynamic_narr_keywords = (
+        "發射", "升空", "航行", "潛航", "艦隊", "演說", "演講", "致詞", "展覽會", "街頭",
+        "遊行", "排隊", "湧入", "倒塌", "解體", "實驗", "測試", "運轉", "生產線", "工廠",
+        "登陸", "著陸", "觀測", "移動", "滑行", "呼嘯", "駛入", "簽署儀式", "畫面", "鏡頭",
+    )
+    if any(k in q_lower for k in dynamic_query_keywords) or any(k in narr_lower for k in dynamic_narr_keywords):
+        return True
+
+    return False
+
+
 def search_multi_source_image(query: str) -> dict[str, object] | None:
     """自動為 Auto-PiP 挑選最佳匹配的真實考據照片（級聯多來源聚合）。"""
     cands = search_all_source_candidates(query, limit=6)
@@ -513,11 +844,21 @@ def mark_scene_pip_error(scene_dir: Path, message: str, query: str | None = None
 
 def _write_pip_yaml(scene_dir: Path, scfg: dict, query: str, result: dict[str, object], enabled: bool) -> None:
     s_yaml_p = scene_dir / "scene.yaml"
-    chosen_mode = _pip_cfg(scfg).get("mode") or infer_pip_mode(query, str(scfg.get("narration", "")))
     prev = _pip_cfg(scfg)
+    is_video = str(result.get("media_type") or prev.get("media_type") or "image").lower() == "video"
+    # 只要是考據影片，一律作為全螢幕 B-Roll (mode="broll" / spotlight 家族) 取代或覆蓋該幕背景圖
+    if is_video:
+        chosen_mode = "broll"
+    else:
+        chosen_mode = prev.get("mode") or infer_pip_mode(query, str(scfg.get("narration", "")))
+        if chosen_mode == "broll":
+            chosen_mode = infer_pip_mode(query, str(scfg.get("narration", "")))
+
     scfg["pip"] = {
         "enabled": enabled,
+        "media_type": "video" if is_video else "image",
         "image": "pip.png",
+        "video": "pip.mp4" if is_video else None,
         "position": prev.get("position", "right-center"),
         "mode": chosen_mode,
         "scale": prev.get("scale", 0.24),
@@ -647,40 +988,190 @@ def infer_pip_mode(query: str | None, narration: str = "") -> str:
     return "pip"
 
 
+def _extract_video_clip_and_frames(
+    video_url: str,
+    out_mp4: Path,
+    out_png: Path,
+    max_duration: float = 16.0,
+) -> list[bytes]:
+    """
+    從遠端或本地影片網址擷取前段高畫質無音軌 B-Roll 片段 (out_mp4)，
+    並抽取 3 張不同時間點的關鍵影格 (JPEG bytes) 供 Gemini 多模態敘述符合度審查，
+    同時輸出第一張清晰影格為 out_png 作為預覽縮圖。
+    """
+    with tempfile.TemporaryDirectory(prefix="aivideo_pip_vid_") as tmp_dir_str:
+        tmp_dir = Path(tmp_dir_str)
+        raw_input = tmp_dir / "raw_input.mp4"
+
+        clean_u = video_url.strip()
+        is_direct_media = any(
+            clean_u.lower().split("?")[0].endswith(ext)
+            for ext in (".mp4", ".webm", ".ogv", ".ogg", ".mov", ".mkv")
+        )
+
+        # 1. 下載或透過 yt-dlp / requests 取得影片前段至暫存檔
+        downloaded = False
+        if not is_direct_media and shutil.which("yt-dlp"):
+            try:
+                cmd_yt = [
+                    "yt-dlp",
+                    "--no-playlist",
+                    "-f", "mp4[height<=1080]/best[height<=1080]/best",
+                    "--download-sections", f"*0-{int(max_duration + 4)}",
+                    "-o", str(raw_input),
+                    clean_u,
+                ]
+                proc = subprocess.run(cmd_yt, capture_output=True, text=True, timeout=35)
+                if proc.returncode == 0 and raw_input.is_file() and raw_input.stat().st_size > 10_000:
+                    downloaded = True
+            except Exception:
+                pass
+
+        if not downloaded:
+            try:
+                with requests.get(clean_u, headers=WIKIMEDIA_HEADERS, stream=True, timeout=20) as r:
+                    if r.status_code == 200:
+                        max_bytes = 45 * 1024 * 1024  # 最多讀取 45MB 避免超大型檔案卡住
+                        written = 0
+                        with open(raw_input, "wb") as f:
+                            for chunk in r.iter_content(chunk_size=256 * 1024):
+                                if not chunk:
+                                    break
+                                f.write(chunk)
+                                written += len(chunk)
+                                if written >= max_bytes:
+                                    break
+                        if written > 10_000:
+                            downloaded = True
+            except Exception as exc:
+                print(f"[warn] 考據影片串流下載失敗：{exc}")
+
+        src_target = str(raw_input) if downloaded else clean_u
+
+        # 2. 用 ffprobe 探測影片長度，挑選略過片頭黑畫面後的精華區間
+        vid_dur = 8.0
+        try:
+            probe = subprocess.run(
+                [
+                    "ffprobe", "-v", "error",
+                    "-show_entries", "format=duration",
+                    "-of", "default=noprint_wrappers=1:nokey=1",
+                    src_target,
+                ],
+                capture_output=True,
+                text=True,
+                timeout=12,
+            )
+            d_val = float((probe.stdout or "").strip())
+            if d_val > 0.5:
+                vid_dur = d_val
+        except Exception:
+            pass
+
+        # 若影片較長（如新聞片含片頭字卡），自動略過前 1.5~3 秒片頭
+        start_sec = 2.0 if vid_dur > 10.0 else (0.5 if vid_dur > 3.0 else 0.0)
+        clip_dur = min(max_duration, max(2.0, vid_dur - start_sec))
+
+        # 3. 轉碼產生標準無聲 16:9 1080p B-Roll MP4
+        norm_mp4 = tmp_dir / "norm.mp4"
+        vf_scale = (
+            "scale=1920:1080:force_original_aspect_ratio=increase,"
+            "crop=1920:1080,setsar=1"
+        )
+        cmd_norm = [
+            "ffmpeg", "-y",
+            "-ss", f"{start_sec:.2f}",
+            "-i", src_target,
+            "-t", f"{clip_dur:.2f}",
+            "-an",
+            "-vf", vf_scale,
+            "-r", "30",
+            "-c:v", "libx264",
+            "-preset", "ultrafast",
+            "-pix_fmt", "yuv420p",
+            str(norm_mp4),
+        ]
+        proc_norm = subprocess.run(cmd_norm, capture_output=True, text=True, timeout=35)
+        if proc_norm.returncode != 0 or not norm_mp4.is_file() or norm_mp4.stat().st_size < 5_000:
+            return []
+
+        # 4. 從轉碼後的片段抽取 3 張代表影格（15%、50%、85%）供 AI 審查
+        frames_bytes: list[bytes] = []
+        sample_points = [
+            max(0.1, clip_dur * 0.15),
+            max(0.3, clip_dur * 0.50),
+            max(0.5, clip_dur * 0.82),
+        ]
+        for idx_f, t_sec in enumerate(sample_points):
+            frame_jpg = tmp_dir / f"frame_{idx_f}.jpg"
+            cmd_f = [
+                "ffmpeg", "-y",
+                "-ss", f"{t_sec:.2f}",
+                "-i", str(norm_mp4),
+                "-frames:v", "1",
+                "-q:v", "3",
+                str(frame_jpg),
+            ]
+            subprocess.run(cmd_f, capture_output=True, text=True, timeout=10)
+            if frame_jpg.is_file() and frame_jpg.stat().st_size > 1_000:
+                frames_bytes.append(frame_jpg.read_bytes())
+
+        if not frames_bytes:
+            return []
+
+        # 暫存複製到目標路徑（若審查未過會由呼叫端清理或覆蓋）
+        shutil.copyfile(norm_mp4, out_mp4)
+        try:
+            # 用中段或首張清晰影格存為 pip.png 縮圖
+            chosen_thumb = frames_bytes[min(1, len(frames_bytes) - 1)]
+            img = Image.open(io.BytesIO(chosen_thumb)).convert("RGBA")
+            img.thumbnail((1600, 1600), Image.Resampling.LANCZOS)
+            img.save(out_png, "PNG")
+        except Exception:
+            pass
+
+        return frames_bytes
+
+
 def verify_pip_match_with_ai(
     narration: str,
     query: str,
     candidate_title: str,
     image_bytes: bytes | None = None,
+    frame_bytes_list: list[bytes] | None = None,
+    media_type: str = "image",
 ) -> dict[str, Any]:
     """
     呼叫 Gemini AI 進行多模態/語意視覺考據審查裁判：
-    嚴格檢驗此候選照片是否真正吻合口白台詞的情境與實體。
+    嚴格檢驗此候選照片或影片（多張關鍵影格）是否真正吻合口白台詞的情境與實體。
     若吻合且合理 -> passed: True
-    若主題歪樓、概念不符、抽象圖表 -> passed: False
+    若主題歪樓、概念不符、抽象圖表或無關訪談字卡 -> passed: False
     """
     clean_narr = (narration or "").strip()
     if not clean_narr:
         return {"passed": True, "confidence": 1.0, "reason": "無口白，預設通過"}
+
+    is_video = media_type == "video" or bool(frame_bytes_list)
+    media_label = "archival video clip (represented by sequential keyframes)" if is_video else "real-world photograph"
 
     prompt = f"""You are a documentary film fact-checker and visual verification editor.
 A scene has the following Chinese voiceover narration:
 "{clean_narr}"
 
 The researcher queried: "{query}"
-The candidate photograph title/description: "{candidate_title}"
+The candidate {media_label} title/description: "{candidate_title}"
 
 VERIFICATION TASK:
-Determine if this real-world photograph is factually and contextually SUITABLE to show as an authentic archival reference photo (Picture-in-Picture card) during this exact narration.
+Determine if this {media_label} is factually and contextually SUITABLE to show as authentic documentary visual evidence during this exact narration.
 
 STRICT CRITERIA:
-1. RELEVANCE & AUTHENTICITY: Does the photo genuinely depict the subject, person, weapon/vehicle, place, or historical event mentioned in the narration?
+1. RELEVANCE & AUTHENTICITY: Does the visual content genuinely depict the subject, person, weapon/vehicle, place, scientific process, or historical event mentioned in the narration?
 2. REJECT (passed = false) IF:
    - Topic drift: Completely different historical event or military battle when talking about a street or peacetime treaty.
-   - Irrelevant animals, memes, modern tourist snapshots, unrelated diagrams, or icons.
-   - The photo contradicts the core message of the voiceover.
+   - Pure text title cards, blank/corrupted frames, unrelated talking-head studio interviews, video game footage, memes, or unrelated icons.
+   - The visual content contradicts or is unrelated to the core message of the voiceover.
 3. APPROVE (passed = true) IF:
-   - It shows the actual historical figure, signed document, vehicle/ship, facility, or authentic historical archival scene described.
+   - It shows the actual historical figure, signed document, vehicle/ship, facility, spacecraft/experiment, or authentic historical/archival scene described.
 
 Return ONLY a valid JSON object:
 {{
@@ -699,9 +1190,12 @@ Return ONLY a valid JSON object:
         client = genai.Client(**client_kwargs)
 
         contents: list[Any] = [prompt]
-        if image_bytes:
+        raw_images = frame_bytes_list if frame_bytes_list else ([image_bytes] if image_bytes else [])
+        for b_data in raw_images[:3]:
+            if not b_data:
+                continue
             try:
-                img_io = io.BytesIO(image_bytes)
+                img_io = io.BytesIO(b_data)
                 pil_img = Image.open(img_io).convert("RGB")
                 pil_img.thumbnail((512, 512), Image.Resampling.LANCZOS)
                 thumb_io = io.BytesIO()
@@ -736,8 +1230,18 @@ Return ONLY a valid JSON object:
     return {"passed": True, "confidence": 0.5, "reason": "預設放行"}
 
 
-def fetch_single_scene_pip(scene_dir: Path, query: str | None = None) -> bool:
-    """為單一分鏡檢索並下載真實考據照片 (pip.png)。經由 AI 視覺與口白吻合度審查，通過才啟用，不符自動退件。"""
+def fetch_single_scene_pip(
+    scene_dir: Path,
+    query: str | None = None,
+    media_type: str = "auto",
+) -> bool:
+    """
+    為單一分鏡檢索並下載真實考據素材（支援動態影片 pip.mp4 或靜態照片 pip.png）：
+    - media_type="auto"：由 AI 依口白與檢索詞自動判斷是否優先抓影片；若影片無結果或未通過審查，自動退回抓考據照片。
+    - media_type="video"：強制檢索考據影片並驗證關鍵影格。
+    - media_type="image"：僅檢索考據照片。
+    所有候選皆須通過 Gemini AI 視覺與口白敘述吻合度審查才啟用。
+    """
     s_yaml_p = scene_dir / "scene.yaml"
     if not s_yaml_p.is_file():
         return False
@@ -745,17 +1249,87 @@ def fetch_single_scene_pip(scene_dir: Path, query: str | None = None) -> bool:
     scfg = yaml.safe_load(s_yaml_p.read_text(encoding="utf-8")) or {}
     q = str(query or _pip_cfg(scfg).get("query") or "").strip()
     if not q:
-        print(f"[skip] 【{scene_dir.name}】本幕無需考據圖")
-        return False
-
-    candidates = search_all_source_candidates(q, limit=6)
-    if not candidates:
-        print(f"[skip] 【{scene_dir.name}】未檢索到合適考據照片：{q}")
-        mark_scene_pip_error(scene_dir, "未找到合適照片", q)
+        print(f"[skip] 【{scene_dir.name}】本幕無需考據素材")
         return False
 
     narration = str(scfg.get("narration") or "")
     last_err = None
+
+    want_video_first = (
+        media_type == "video"
+        or (media_type == "auto" and should_prefer_archival_video(q, narration))
+    )
+
+    # ==========================================================
+    # 階段 A：優先嘗試檢索並驗證「真實考據影片 (pip.mp4)」
+    # ==========================================================
+    if want_video_first:
+        vid_candidates = search_all_source_video_candidates(q, limit=5)
+        if vid_candidates:
+            print(f"[info] 【{scene_dir.name}】偵測為動態考據需求，優先審核 {len(vid_candidates)} 部候選影片：{q}")
+        for i, v_cand in enumerate(vid_candidates, 1):
+            v_url = str(v_cand.get("url") or "").strip()
+            if not v_url:
+                continue
+            tmp_mp4 = scene_dir / "pip_candidate_tmp.mp4"
+            tmp_png = scene_dir / "pip_candidate_tmp.png"
+            try:
+                frames = _extract_video_clip_and_frames(v_url, tmp_mp4, tmp_png)
+                if not frames or not tmp_mp4.is_file():
+                    last_err = f"無法擷取影片候選 {i}"
+                    continue
+
+                cand_title = str(v_cand.get("title") or "")
+                review = verify_pip_match_with_ai(
+                    narration=narration,
+                    query=q,
+                    candidate_title=cand_title,
+                    frame_bytes_list=frames,
+                    media_type="video",
+                )
+                if not review["passed"]:
+                    print(f"[review-reject] 【{scene_dir.name}】影片候選 {i} 未通過 AI 審查: {review['reason']}，改試下一部")
+                    last_err = f"影片 AI 判定不吻合: {review['reason']}"
+                    continue
+
+                # 通過審查！正式啟用 pip.mp4 與代表縮圖 pip.png
+                shutil.move(str(tmp_mp4), str(scene_dir / "pip.mp4"))
+                if tmp_png.is_file():
+                    shutil.move(str(tmp_png), str(scene_dir / "pip.png"))
+                result = {
+                    **v_cand,
+                    "url": v_url,
+                    "media_type": "video",
+                    "verified": True,
+                    "review_reason": review["reason"],
+                }
+                _write_pip_yaml(scene_dir, scfg, q, result, enabled=True)
+                print(f"[ok]   【{scene_dir.name}】🎬 通過 AI 多影格審核並套用全螢幕考據影片：{q} ({review['reason']})")
+                return True
+            except Exception as e:
+                last_err = e
+                print(f"[warn] 【{scene_dir.name}】影片候選 {i} 處理失敗: {e}")
+            finally:
+                for p_tmp in (tmp_mp4, tmp_png):
+                    if p_tmp.is_file():
+                        try:
+                            p_tmp.unlink()
+                        except Exception:
+                            pass
+
+        if media_type == "video":
+            mark_scene_pip_error(scene_dir, f"未找到符合口白的考據影片：{last_err or '無候選影片'}", q)
+            return False
+        print(f"[info] 【{scene_dir.name}】未找到合適考據影片，自動退回檢索真實考據照片：{q}")
+
+    # ==========================================================
+    # 階段 B：檢索並驗證「真實考據照片 (pip.png)」
+    # ==========================================================
+    candidates = search_all_source_candidates(q, limit=6)
+    if not candidates:
+        print(f"[skip] 【{scene_dir.name}】未檢索到合適考據照片：{q}")
+        mark_scene_pip_error(scene_dir, "未找到合適照片或影片", q)
+        return False
 
     for i, result in enumerate(candidates, 1):
         raw_url = str(result.get("url", ""))
@@ -775,6 +1349,7 @@ def fetch_single_scene_pip(scene_dir: Path, query: str | None = None) -> bool:
                 query=q,
                 candidate_title=cand_title,
                 image_bytes=content,
+                media_type="image",
             )
 
             if not review["passed"]:
@@ -782,13 +1357,21 @@ def fetch_single_scene_pip(scene_dir: Path, query: str | None = None) -> bool:
                 last_err = f"AI 判定不吻合: {review['reason']}"
                 continue
 
-            # 通過審核！正式縮圖存檔並啟用
+            # 通過審核！若先前殘留 pip.mp4 則清除，正式縮圖存檔並啟用
+            old_mp4 = scene_dir / "pip.mp4"
+            if old_mp4.is_file():
+                try:
+                    old_mp4.unlink()
+                except Exception:
+                    pass
+
             img = Image.open(io.BytesIO(content)).convert("RGBA")
             img.thumbnail((1600, 1600), Image.Resampling.LANCZOS)
             img.save(scene_dir / "pip.png", "PNG")
             result = {
                 **result,
                 "url": img_url,
+                "media_type": "image",
                 "verified": True,
                 "review_reason": review["reason"],
             }
@@ -801,7 +1384,7 @@ def fetch_single_scene_pip(scene_dir: Path, query: str | None = None) -> bool:
             continue
 
     # 若所有候選皆未通過 AI 吻合度審核，果斷自動降級為純 AI 生成畫面！
-    print(f"[fallback] 【{scene_dir.name}】考據圖未通過 AI 吻合度審核，自動降級為純 AI 生成圖 ({last_err})")
+    print(f"[fallback] 【{scene_dir.name}】考據素材未通過 AI 吻合度審核，自動降級為純 AI 生成圖 ({last_err})")
     mark_scene_pip_error(scene_dir, f"AI 審核未通過（與口白不符）：{last_err}，已自動切換為純 AI 生成畫面", q)
     return False
 

@@ -42,17 +42,21 @@ export interface SceneStatus {
   has_image: boolean;
   has_audio: boolean;
   has_pip?: boolean;
+  has_pip_video?: boolean;
   image_url: string | null;
   audio_url: string | null;
   pip_url?: string | null;
+  pip_video_url?: string | null;
   duration: number;
 }
 
 export interface ScenePipConfig {
   enabled: boolean;
+  media_type?: "image" | "video";
   image?: string;
+  video?: string | null;
   position: string;
-  mode?: "pip" | "spotlight";
+  mode?: "pip" | "spotlight" | "broll";
   scale: number;
   border: number;
   query?: string;
@@ -72,8 +76,10 @@ export interface SceneSummary {
   act_title?: string;
   pip_query?: string | null;
   has_pip?: boolean;
+  has_pip_video?: boolean;
+  pip_media_type?: "image" | "video";
   pip_enabled?: boolean;
-  pip_mode?: "pip" | "spotlight";
+  pip_mode?: "pip" | "spotlight" | "broll";
   pip_error?: string | null;
   locks?: { speech: boolean; image: boolean };
   status: SceneStatus;
@@ -91,7 +97,7 @@ export interface SceneDetail {
   locks: { speech: boolean; image: boolean };
   current: Record<string, string | null>;
   pip: ScenePipConfig;
-  pip_mode?: "pip" | "spotlight";
+  pip_mode?: "pip" | "spotlight" | "broll";
   status: SceneStatus;
   takes?: SceneTakes;
 }
@@ -218,7 +224,9 @@ export interface ModelsStatusResponse {
 export interface PipCandidateItem {
   title: string;
   url: string;
+  thumbnail_url?: string | null;
   source: string;
+  media_type?: "image" | "video";
   width?: number;
   height?: number;
 }

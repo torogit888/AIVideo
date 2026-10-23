@@ -57,7 +57,7 @@ export const SceneInspector: React.FC = () => {
   const [pipQuery, setPipQuery] = useState("");
   const [pipEnabled, setPipEnabled] = useState(false);
   const [pipPos, setPipPos] = useState("right-center");
-  const [pipMode, setPipMode] = useState<"pip" | "spotlight">("pip");
+  const [pipMode, setPipMode] = useState<"pip" | "spotlight" | "broll">("pip");
   const [pipScale, setPipScale] = useState(0.24);
   const [isTranslatingPrompt, setIsTranslatingPrompt] = useState(false);
 
@@ -70,11 +70,11 @@ export const SceneInspector: React.FC = () => {
   const [isSearchingCandidates, setIsSearchingCandidates] = useState(false);
   const [applyingCandidateUrl, setApplyingCandidateUrl] = useState<string | null>(null);
 
-  const handleApplyPipUrl = async (targetUrl: string, targetTitle?: string) => {
+  const handleApplyPipUrl = async (targetUrl: string, targetTitle?: string, mediaType: string = "auto") => {
     if (!selectedJobId || !activeSceneId) return;
     const cleanUrl = targetUrl.trim();
     if (!cleanUrl || (!cleanUrl.startsWith("http://") && !cleanUrl.startsWith("https://"))) {
-      showToast("請輸入有效的圖片網址 (http:// 或 https://)！", "error");
+      showToast("請輸入有效的圖片或影片網址 (http:// 或 https://)！", "error");
       return;
     }
     setIsApplyingUrl(true);
@@ -83,13 +83,20 @@ export const SceneInspector: React.FC = () => {
         selectedJobId,
         activeSceneId,
         cleanUrl,
-        targetTitle || "自訂圖片網址",
-        pipQuery.trim() || undefined
+        targetTitle || "自訂考據網址",
+        pipQuery.trim() || undefined,
+        mediaType
       );
       setDetail(fresh);
       setPipEnabled(true);
+      if (fresh.pip?.mode) setPipMode(fresh.pip.mode);
       await loadScenes(selectedJobId);
-      showToast("已成功下載並套用真實考據照片！", "success");
+      showToast(
+        fresh.status?.has_pip_video
+          ? "🎬 已通過 AI 敘述符合度審核，並套用全螢幕考據影片 (B-Roll)！"
+          : "📷 已通過 AI 敘述符合度審核，並套用真實考據照片！",
+        "success"
+      );
       setCustomImageUrl("");
       setPipCandidates([]);
     } catch (e: any) {
@@ -107,8 +114,9 @@ export const SceneInspector: React.FC = () => {
       const fresh = await api.uploadScenePipFile(selectedJobId, activeSceneId, file);
       setDetail(fresh);
       setPipEnabled(true);
+      if (fresh.pip?.mode) setPipMode(fresh.pip.mode);
       await loadScenes(selectedJobId);
-      showToast(`已成功上傳真實照片【${file.name}】！`, "success");
+      showToast(`已成功上傳考據素材【${file.name}】！`, "success");
       setPipCandidates([]);
     } catch (e: any) {
       showToast("上傳失敗: " + (e.message || "未知錯誤"), "error");
@@ -127,12 +135,12 @@ export const SceneInspector: React.FC = () => {
     }
     setIsSearchingCandidates(true);
     try {
-      const res = await api.getScenePipCandidates(selectedJobId, activeSceneId, pipQuery.trim() || undefined);
+      const res = await api.getScenePipCandidates(selectedJobId, activeSceneId, pipQuery.trim() || undefined, "all");
       setPipCandidates(res.candidates || []);
       if (!res.candidates || res.candidates.length === 0) {
-        showToast("全網未檢索到相關圖片，建議換個關鍵字或直接貼上圖片網址", "info");
+        showToast("全網未檢索到相關影片或照片，建議換個關鍵字或直接貼上網址", "info");
       } else {
-        showToast(`已全網找到 ${res.candidates.length} 張真實照片候選，請點選最 match 的一張！`, "success");
+        showToast(`已全網找到 ${res.candidates.length} 個真實影片/照片候選，點選後將經 AI 驗證口白符合度並套用！`, "success");
       }
     } catch (e: any) {
       showToast("全網檢索失敗: " + (e.message || "未知錯誤"), "error");
@@ -145,7 +153,7 @@ export const SceneInspector: React.FC = () => {
     if (!selectedJobId || !activeSceneId) return;
     setApplyingCandidateUrl(cand.url);
     try {
-      await handleApplyPipUrl(cand.url, cand.title);
+      await handleApplyPipUrl(cand.url, cand.title, cand.media_type || "auto");
     } finally {
       setApplyingCandidateUrl(null);
     }
@@ -272,7 +280,7 @@ export const SceneInspector: React.FC = () => {
 
   const handleQuickUpdatePip = async (
     nextEnabled: boolean,
-    nextMode: "pip" | "spotlight",
+    nextMode: "pip" | "spotlight" | "broll",
     customMsg?: string
   ) => {
     setPipEnabled(nextEnabled);
@@ -580,7 +588,22 @@ export const SceneInspector: React.FC = () => {
                 </div>
               )}
 
-              {pipMode === "spotlight" && pipEnabled && detail?.status?.has_pip && detail?.status?.pip_url ? (
+              {pipEnabled && detail?.status?.has_pip_video && detail?.status?.pip_video_url ? (
+                <div className="relative w-full h-full bg-black flex items-center justify-center">
+                  <video
+                    key={detail.status.pip_video_url}
+                    src={detail.status.pip_video_url}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute top-2 right-2 px-2 py-0.5 rounded bg-emerald-500/95 text-black font-semibold text-[10px] z-10 shadow">
+                    🎬 全螢幕考據影片 (B-Roll)
+                  </div>
+                </div>
+              ) : (pipMode === "spotlight" || pipMode === "broll") && pipEnabled && detail?.status?.has_pip && detail?.status?.pip_url ? (
                 <div className="relative w-full h-full bg-black flex items-center justify-center">
                   <img
                     key={detail.status.pip_url}
@@ -969,7 +992,7 @@ export const SceneInspector: React.FC = () => {
                     <span className="text-[10px] text-cinema-muted mt-0.5">點擊選擇本機 JPG, PNG, WEBP</span>
                     <input
                       type="file"
-                      accept="image/*"
+                      accept="image/*,video/*"
                       onChange={handleUploadPipFile}
                       disabled={isUploadingFile}
                       className="hidden"
@@ -982,7 +1005,7 @@ export const SceneInspector: React.FC = () => {
               {pipSourceTab === "search" && (
                 <div className="p-2.5 rounded bg-cinema-card border border-cinema-border/70 space-y-2 text-[11px]">
                   <div className="flex items-center justify-between text-cinema-muted">
-                    <span className="font-medium text-cinema-text">全網搜尋真實照片 (不限授權):</span>
+                    <span className="font-medium text-cinema-text">全網搜尋考據影片 / 照片:</span>
                     <button
                       type="button"
                       onClick={handleSearchCandidates}
@@ -997,7 +1020,7 @@ export const SceneInspector: React.FC = () => {
                       ) : (
                         <>
                           <Search className="w-3 h-3 mr-1" />
-                          <span>搜尋真圖</span>
+                          <span>搜尋影片/真圖</span>
                         </>
                       )}
                     </button>
@@ -1021,8 +1044,8 @@ export const SceneInspector: React.FC = () => {
                   {pipCandidates.length > 0 && (
                     <div className="pt-2 border-t border-cinema-border/60 space-y-1.5">
                       <div className="flex items-center justify-between text-[10px] text-cinema-muted">
-                        <span className="text-amber-cta font-medium">✨ 請點選最符合口白的照片套用：</span>
-                        <span>{pipCandidates.length} 張候選</span>
+                        <span className="text-amber-cta font-medium">✨ 點選候選（將經 AI 審查符合口白）：</span>
+                        <span>{pipCandidates.length} 個候選</span>
                       </div>
                       <div className="grid grid-cols-2 gap-1.5 max-h-48 overflow-y-auto pr-0.5">
                         {pipCandidates.map((c, i) => (
@@ -1032,7 +1055,20 @@ export const SceneInspector: React.FC = () => {
                             className="relative group p-1 rounded bg-cinema-darker border border-cinema-border hover:border-amber-cta cursor-pointer transition-all flex flex-col items-center"
                           >
                             <div className="relative w-full h-16 rounded overflow-hidden bg-black flex items-center justify-center">
-                              <img src={c.url} alt={c.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                              <img
+                                src={c.thumbnail_url || c.url}
+                                alt={c.title}
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                              />
+                              <span
+                                className={`absolute top-1 left-1 px-1 py-0.2 rounded text-[8px] font-bold ${
+                                  c.media_type === "video"
+                                    ? "bg-emerald-500/95 text-black"
+                                    : "bg-purple-600/90 text-white"
+                                }`}
+                              >
+                                {c.media_type === "video" ? "🎬 影片 B-Roll" : "📷 照片"}
+                              </span>
                               {applyingCandidateUrl === c.url && (
                                 <div className="absolute inset-0 bg-black/70 flex items-center justify-center">
                                   <Loader2 className="w-4 h-4 text-amber-cta animate-spin" />

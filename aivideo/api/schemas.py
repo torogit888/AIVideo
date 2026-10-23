@@ -352,15 +352,19 @@ class SceneStatus(BaseModel):
     has_image: bool = False
     has_audio: bool = False
     has_pip: bool = False
+    has_pip_video: bool = False
     image_url: Optional[str] = None
     audio_url: Optional[str] = None
     pip_url: Optional[str] = None
+    pip_video_url: Optional[str] = None
     duration: float = 0.0
 
 
 class ScenePipConfig(BaseModel):
     enabled: bool = False
+    media_type: Optional[str] = "image"
     image: Optional[str] = None
+    video: Optional[str] = None
     position: str = "right-center"
     mode: str = "pip"
     scale: float = 0.24
@@ -382,6 +386,8 @@ class SceneSummary(BaseModel):
     act_title: str = ""
     pip_query: Optional[str] = None
     has_pip: bool = False
+    has_pip_video: bool = False
+    pip_media_type: str = "image"
     pip_enabled: bool = False
     pip_mode: str = "pip"
     pip_error: Optional[str] = None
@@ -424,18 +430,22 @@ class TranslatePromptResponse(BaseModel):
 
 class FetchScenePipRequest(BaseModel):
     query: Optional[str] = None
+    media_type: Optional[str] = "auto"
 
 
 class ApplyPipUrlRequest(BaseModel):
     url: str
     title: Optional[str] = "自訂圖片網址"
     query: Optional[str] = None
+    media_type: Optional[str] = "auto"
 
 
 class PipCandidateItem(BaseModel):
     title: str
     url: str
+    thumbnail_url: Optional[str] = None
     source: str
+    media_type: str = "image"
     width: Optional[int] = 0
     height: Optional[int] = 0
 

@@ -50,13 +50,16 @@ def _render_single_segment(
     pip_cfg = scene_cfg.get("pip", {})
     pip_enabled = bool(pip_cfg.get("enabled", False)) if isinstance(pip_cfg, dict) else False
     pip_img_name = (pip_cfg.get("image") or "pip.png") if isinstance(pip_cfg, dict) else "pip.png"
+    pip_vid_name = (pip_cfg.get("video") or "pip.mp4") if isinstance(pip_cfg, dict) else "pip.mp4"
     pip_path = s_dir / pip_img_name
-    has_pip = pip_enabled and pip_path.is_file()
+    pip_vid_path = s_dir / pip_vid_name
+    has_pip_video = pip_enabled and pip_vid_path.is_file()
+    has_pip = pip_enabled and (has_pip_video or pip_path.is_file())
 
     pip_mode = str(pip_cfg.get("mode") or "pip").lower() if has_pip else ""
-    is_spotlight = has_pip and pip_mode in ("spotlight", "focus", "black_bg", "fullscreen")
+    is_spotlight = has_pip and (has_pip_video or pip_mode in ("spotlight", "focus", "black_bg", "fullscreen", "broll"))
 
-    # 若為黑底歷史聚焦 (spotlight) 且已有考據真實照片，則畫面以此為主角，不強制要求 image.png
+    # 若為考據影片 (B-Roll) 或黑底歷史聚焦 (spotlight)，則畫面以此為主角，不強制要求 image.png
     if not is_spotlight and not img_path.is_file():
         raise FileNotFoundError(f"{s_id} 缺少 image.png，請先跑 aivideo images")
     if not wav_path.is_file():
@@ -65,13 +68,34 @@ def _render_single_segment(
     seg_mp4 = compose_dir / f"seg_{idx:03d}.mp4"
     frames = max(1, int(round(duration * fps)))
 
-    if has_pip:
+    if has_pip_video:
+        # ----------------------------------------------------
+        # 模式 C: 真實考據影片全螢幕 B-Roll（取代或覆蓋該幕背景圖，自動循環/裁切對齊口白時長）
+        # ----------------------------------------------------
+        vf_broll = (
+            f"scale={width}:{height}:force_original_aspect_ratio=increase,"
+            f"crop={width}:{height},setsar=1,fps={fps},"
+            f"fade=t=in:st=0.0:d=0.4"
+        )
+        cmd = [
+            "ffmpeg", "-y",
+            "-stream_loop", "-1",
+            "-i", str(pip_vid_path),
+            "-t", str(duration),
+            "-an",
+            "-vf", vf_broll,
+            "-c:v", "libx264",
+            "-preset", "ultrafast",
+            "-pix_fmt", "yuv420p",
+            str(seg_mp4),
+        ]
+    elif has_pip:
         pip_mode = str(pip_cfg.get("mode", "pip")).lower()
 
         # ----------------------------------------------------
         # 模式 B: 黑底歷史原照聚焦 (Archival Spotlight + 8000px 座標級抗抖動緩慢推鏡)
         # ----------------------------------------------------
-        if pip_mode in ("spotlight", "focus", "black_bg", "fullscreen"):
+        if pip_mode in ("spotlight", "focus", "black_bg", "fullscreen", "broll"):
             cw = width * 4
             ch = height * 4
             spot_w = int(round(cw * float(pip_cfg.get("scale", 0.60))))

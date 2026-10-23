@@ -170,6 +170,7 @@ export const ScriptEditor: React.FC = () => {
               id: c.id || `char_${i + 1}`,
               name: c.name || `角色 ${i + 1}`,
               appearance: c.appearance || "",
+              entity_type: (c.entity_type as "character" | "object") || "character",
             }))
           );
         })
@@ -231,6 +232,7 @@ export const ScriptEditor: React.FC = () => {
                 id: c.id || `char_${i + 1}`,
                 name: c.name || `角色 ${i + 1}`,
                 appearance: c.appearance || "",
+                entity_type: (c.entity_type as "character" | "object") || "character",
               }))
             : []
         );
@@ -468,7 +470,7 @@ export const ScriptEditor: React.FC = () => {
       const finalChars = nextChars.length
         ? nextChars
         : res.subject_anchor
-          ? [{ id: "main", name: "Main Subject", appearance: res.subject_anchor }]
+          ? [{ id: "main", name: "Main Subject", appearance: res.subject_anchor, entity_type: "character" as const }]
           : [];
       setCharacters(finalChars);
       setSubjectAnchor(res.subject_anchor || "");
@@ -519,7 +521,12 @@ export const ScriptEditor: React.FC = () => {
         environment_anchor: environmentAnchor.trim() || undefined,
         characters: characters
           .filter((c) => c.name.trim() || c.appearance.trim())
-          .map((c) => ({ id: c.id, name: c.name.trim(), appearance: c.appearance.trim() })),
+          .map((c) => ({
+            id: c.id,
+            name: c.name.trim(),
+            appearance: c.appearance.trim(),
+            entity_type: c.entity_type || "character",
+          })),
         custom_prompt: customPrompt.trim() || undefined,
         outline: outlineNotes.trim() || undefined,
         use_pip: true,
@@ -544,7 +551,12 @@ export const ScriptEditor: React.FC = () => {
     try {
       const validChars = characters
         .filter((c) => c.name.trim() || c.appearance.trim())
-        .map((c) => ({ id: c.id, name: c.name.trim(), appearance: c.appearance.trim() }));
+        .map((c) => ({
+          id: c.id,
+          name: c.name.trim(),
+          appearance: c.appearance.trim(),
+          entity_type: c.entity_type || "character",
+        }));
 
       await api.updateJob(selectedJobId, {
         title: topic,
@@ -1384,7 +1396,7 @@ export const ScriptEditor: React.FC = () => {
                 onClick={() =>
                   setCharacters((prev) => [
                     ...prev,
-                    { id: `char_${prev.length + 1}`, name: "", appearance: "" },
+                    { id: `char_${prev.length + 1}`, name: "", appearance: "", entity_type: "character" },
                   ])
                 }
                 className="flex items-center h-7 px-2.5 rounded bg-cinema-darker hover:bg-cinema-card text-cinema-muted hover:text-amber-cta text-[11px] border border-cinema-border transition-colors cursor-pointer"
@@ -1412,13 +1424,31 @@ export const ScriptEditor: React.FC = () => {
                     />
                     <select
                       value={ch.entity_type || "character"}
-                      onChange={(e) =>
-                        setCharacters((prev) =>
-                          prev.map((x, i) =>
-                            i === idx ? { ...x, entity_type: e.target.value as "character" | "object" } : x
-                          )
-                        )
-                      }
+                      onChange={(e) => {
+                        const newType = e.target.value as "character" | "object";
+                        const updatedList = characters.map((x, i) =>
+                          i === idx ? { ...x, entity_type: newType } : x
+                        );
+                        setCharacters(updatedList);
+                        if (selectedJobId) {
+                          const valid = updatedList
+                            .filter((c) => c.name.trim() || c.appearance.trim())
+                            .map((c) => ({
+                              id: c.id,
+                              name: c.name.trim(),
+                              appearance: c.appearance.trim(),
+                              entity_type: c.entity_type || "character",
+                            }));
+                          if (valid.length > 0) {
+                            api
+                              .updateJobAnchors(selectedJobId, { characters: valid })
+                              .then(() => {
+                                window.dispatchEvent(new CustomEvent("aivideo:anchors-updated"));
+                              })
+                              .catch(() => {});
+                          }
+                        }
+                      }}
                       className="h-7 px-1.5 rounded bg-cinema-card border border-cinema-border text-[11px] text-amber-cta font-medium focus:outline-none focus:border-amber-cta cursor-pointer"
                       title="選擇實體類型（由 LLM 智慧標記，亦可手動切換）"
                     >

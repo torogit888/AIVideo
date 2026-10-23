@@ -67,7 +67,7 @@ export const api = {
       use_pip?: boolean;
       subject_anchor?: string;
       environment_anchor?: string;
-      characters?: { id?: string; name: string; appearance?: string }[];
+      characters?: { id?: string; name: string; appearance?: string; entity_type?: "character" | "object" }[];
       clear_hero_images?: boolean;
       metaphor_style?: string;
     }
@@ -94,7 +94,7 @@ export const api = {
       subject?: string;
       environment?: string;
       use_image_reference?: boolean;
-      characters?: { id?: string; name: string; appearance: string }[];
+      characters?: { id?: string; name: string; appearance: string; entity_type?: "character" | "object" }[];
       clear_hero_images?: boolean;
     }
   ) =>
@@ -121,7 +121,7 @@ export const api = {
     return res.json() as Promise<{ success: boolean; message: string; hero_image_url: string }>;
   },
   deleteHeroAnchor: (jobId: string) => request<any>(`/jobs/${jobId}/anchors/hero`, { method: "DELETE" }),
-  addCharacterAnchor: (jobId: string, data: { name: string; appearance?: string }) =>
+  addCharacterAnchor: (jobId: string, data: { name: string; appearance?: string; entity_type?: "character" | "object" }) =>
     request<JobVisualAnchors>(`/jobs/${jobId}/anchors/characters`, {
       method: "POST",
       body: JSON.stringify(data),
@@ -175,15 +175,15 @@ export const api = {
       method: "POST",
       body: JSON.stringify({ take_id: takeId, kind }),
     }),
-  fetchScenePip: (jobId: string, sceneId: string, query?: string) =>
+  fetchScenePip: (jobId: string, sceneId: string, query?: string, mediaType?: string) =>
     request<any>(`/jobs/${jobId}/scenes/${sceneId}/pip`, {
       method: "POST",
-      body: JSON.stringify(query ? { query } : {}),
+      body: JSON.stringify({ query, media_type: mediaType || "auto" }),
     }),
-  applyScenePipUrl: (jobId: string, sceneId: string, url: string, title?: string, query?: string) =>
+  applyScenePipUrl: (jobId: string, sceneId: string, url: string, title?: string, query?: string, mediaType?: string) =>
     request<SceneDetail>(`/jobs/${jobId}/scenes/${sceneId}/pip/url`, {
       method: "POST",
-      body: JSON.stringify({ url, title, query }),
+      body: JSON.stringify({ url, title, query, media_type: mediaType || "auto" }),
     }),
   uploadScenePipFile: async (jobId: string, sceneId: string, file: File) => {
     const formData = new FormData();
@@ -194,14 +194,19 @@ export const api = {
     });
     if (!res.ok) {
       const err = await res.json().catch(() => ({ detail: res.statusText }));
-      throw new Error(err.detail || "考據照片上傳失敗");
+      throw new Error(err.detail || "考據素材上傳失敗");
     }
     return res.json() as Promise<SceneDetail>;
   },
-  getScenePipCandidates: (jobId: string, sceneId: string, query?: string) =>
-    request<PipCandidatesResponse>(
-      `/jobs/${jobId}/scenes/${sceneId}/pip/candidates${query ? `?query=${encodeURIComponent(query)}` : ""}`
-    ),
+  getScenePipCandidates: (jobId: string, sceneId: string, query?: string, mediaType: string = "all") => {
+    const params = new URLSearchParams();
+    if (query) params.set("query", query);
+    if (mediaType) params.set("media_type", mediaType);
+    const qs = params.toString();
+    return request<PipCandidatesResponse>(
+      `/jobs/${jobId}/scenes/${sceneId}/pip/candidates${qs ? `?${qs}` : ""}`
+    );
+  },
   translateScenePrompt: (jobId: string, sceneId: string, narration?: string) =>
     request<{ image_prompt: string }>(`/jobs/${jobId}/scenes/${sceneId}/translate-prompt`, {
       method: "POST",

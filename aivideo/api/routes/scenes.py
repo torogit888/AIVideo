@@ -92,18 +92,20 @@ def _get_scene_status(scene_dir: Path, job_id: str) -> SceneStatus:
     if not aud_file.is_file():
         aud_file = scene_dir / "audio.wav"
     pip_file = scene_dir / "pip.png"
+    pip_vid_file = scene_dir / "pip.mp4"
 
     has_aud = aud_file.is_file()
-    has_pip = pip_file.is_file()
+    has_pip_video = pip_vid_file.is_file()
+    has_pip = pip_file.is_file() or has_pip_video
 
-    # 檢查是否為黑底歷史聚焦 (spotlight) 且已有真實考據圖
-    is_spotlight = False
+    # 檢查是否為考據影片 (B-Roll) 或黑底歷史聚焦 (spotlight)
+    is_spotlight = has_pip_video
     s_yaml_p = scene_dir / "scene.yaml"
     if s_yaml_p.is_file():
         try:
             sc_data = yaml.safe_load(s_yaml_p.read_text(encoding="utf-8")) or {}
             p_mode = str(sc_data.get("pip", {}).get("mode", "")).lower()
-            if p_mode in ("spotlight", "focus", "black_bg", "fullscreen") and has_pip:
+            if p_mode in ("spotlight", "focus", "black_bg", "fullscreen", "broll") and has_pip:
                 is_spotlight = True
         except Exception:
             pass
@@ -112,16 +114,18 @@ def _get_scene_status(scene_dir: Path, job_id: str) -> SceneStatus:
 
     img_mtime = int(img_file.stat().st_mtime) if img_file.is_file() else 0
     aud_mtime = int(aud_file.stat().st_mtime) if has_aud else 0
-    pip_mtime = int(pip_file.stat().st_mtime) if has_pip else 0
+    pip_mtime = int(pip_file.stat().st_mtime) if pip_file.is_file() else 0
+    pip_vid_mtime = int(pip_vid_file.stat().st_mtime) if has_pip_video else 0
 
     import urllib.parse
     job_id_encoded = urllib.parse.quote(job_id)
 
     img_url = f"/media/jobs/{job_id_encoded}/scenes/{scene_dir.name}/image.png?t={img_mtime}" if img_file.is_file() else (
-        f"/media/jobs/{job_id_encoded}/scenes/{scene_dir.name}/pip.png?t={pip_mtime}" if is_spotlight else None
+        f"/media/jobs/{job_id_encoded}/scenes/{scene_dir.name}/pip.png?t={pip_mtime}" if (is_spotlight and pip_file.is_file()) else None
     )
     aud_url = f"/media/jobs/{job_id_encoded}/scenes/{scene_dir.name}/{aud_file.name}?t={aud_mtime}" if has_aud else None
-    pip_url = f"/media/jobs/{job_id_encoded}/scenes/{scene_dir.name}/pip.png?t={pip_mtime}" if has_pip else None
+    pip_url = f"/media/jobs/{job_id_encoded}/scenes/{scene_dir.name}/pip.png?t={pip_mtime}" if pip_file.is_file() else None
+    pip_video_url = f"/media/jobs/{job_id_encoded}/scenes/{scene_dir.name}/pip.mp4?t={pip_vid_mtime}" if has_pip_video else None
 
     duration = _audio_duration_sec(scene_dir, aud_file) if has_aud else 0.0
 
@@ -129,9 +133,11 @@ def _get_scene_status(scene_dir: Path, job_id: str) -> SceneStatus:
         has_image=has_img,
         has_audio=has_aud,
         has_pip=has_pip,
+        has_pip_video=has_pip_video,
         image_url=img_url,
         audio_url=aud_url,
         pip_url=pip_url,
+        pip_video_url=pip_video_url,
         duration=duration,
     )
 
@@ -201,8 +207,10 @@ def list_scenes(job_id: str) -> List[SceneSummary]:
                     act_title=act_title,
                     pip_query=pip_query,
                     has_pip=status.has_pip,
+                    has_pip_video=status.has_pip_video,
+                    pip_media_type="video" if status.has_pip_video else str(pip_data.get("media_type") or "image"),
                     pip_enabled=bool(pip_data.get("enabled", False)),
-                    pip_mode=pip_data.get("mode", "pip"),
+                    pip_mode="broll" if status.has_pip_video else pip_data.get("mode", "pip"),
                     pip_error=None if status.has_pip else pip_error,
                     locks={"image": bool(locks.get("image", False)), "speech": bool(locks.get("speech", False))},
                     status=status,
@@ -225,9 +233,11 @@ def get_scene_detail(job_id: str, scene_id: str) -> SceneDetail:
     pip_data = data.get("pip", {}) or {}
     pip_cfg = ScenePipConfig(
         enabled=pip_data.get("enabled", False),
+        media_type="video" if status.has_pip_video else (pip_data.get("media_type") or "image"),
         image=pip_data.get("image"),
+        video="pip.mp4" if status.has_pip_video else pip_data.get("video"),
         position=pip_data.get("position", "right-center"),
-        mode=pip_data.get("mode", "pip"),
+        mode="broll" if status.has_pip_video else pip_data.get("mode", "pip"),
         scale=pip_data.get("scale", 0.24),
         border=pip_data.get("border", 5),
         query=pip_data.get("query"),
@@ -402,55 +412,125 @@ def regenerate_scene_audio(
 
 @router.post("/{scene_id}/pip")
 def fetch_scene_pip(job_id: str, scene_id: str, req: Optional[FetchScenePipRequest] = None):
-    """為單一分鏡檢索並下載考據照片 (pip.png)，支援傳入自訂檢索詞覆蓋。"""
+    """為單一分鏡檢索並下載考據照片或影片 (pip.png / pip.mp4)，支援傳入自訂檢索詞與 media_type。"""
     scene_dir = JOBS_DIR / job_id / "scenes" / scene_id
     if not scene_dir.is_dir():
         raise HTTPException(status_code=404, detail="分鏡不存在")
 
     custom_q = req.query.strip() if (req and req.query and req.query.strip()) else None
+    m_type = (req.media_type or "auto").strip().lower() if req else "auto"
     from aivideo.auto_pip import fetch_single_scene_pip
-    ok = fetch_single_scene_pip(scene_dir, query=custom_q)
+    ok = fetch_single_scene_pip(scene_dir, query=custom_q, media_type=m_type)
     if not ok:
-        raise HTTPException(status_code=400, detail="未檢索到合適考據照片或未指定檢索詞")
-    return {"message": "考據照片已成功下載並套用", "job_id": job_id, "scene_id": scene_id}
+        raise HTTPException(status_code=400, detail="未檢索到符合口白敘述的考據素材或未指定檢索詞")
+    return {"message": "考據素材已成功下載並通過 AI 審核套用", "job_id": job_id, "scene_id": scene_id}
 
 
 @router.post("/{scene_id}/pip/url", response_model=SceneDetail)
 def apply_scene_pip_url(job_id: str, scene_id: str, req: ApplyPipUrlRequest):
-    """直接依指定的圖片 URL 下載並套用為本幕真實考據照片 (pip.png)。"""
+    """直接依指定的圖片或影片 URL 下載、經 AI 驗證符合口白敘述後套用為本幕真實考據素材 (pip.png / pip.mp4)。"""
     scene_dir = JOBS_DIR / job_id / "scenes" / scene_id
     if not scene_dir.is_dir():
         raise HTTPException(status_code=404, detail="分鏡不存在")
 
     url = (req.url or "").strip()
     if not url or not (url.startswith("http://") or url.startswith("https://")):
-        raise HTTPException(status_code=400, detail="請提供有效的 http(s) 圖片網址")
+        raise HTTPException(status_code=400, detail="請提供有效的 http(s) 網址")
 
-    from aivideo.auto_pip import _download_image_bytes, _write_pip_yaml
+    from aivideo.auto_pip import (
+        _download_image_bytes,
+        _extract_video_clip_and_frames,
+        _write_pip_yaml,
+        verify_pip_match_with_ai,
+    )
     from PIL import Image
     import io
+
+    scfg = _load_scene_yaml(scene_dir)
+    narration = str(scfg.get("narration") or "")
+    q = req.query or scfg.get("pip", {}).get("query") or req.title or "自訂考據網址"
+    req_mtype = (req.media_type or "auto").strip().lower()
+    url_lower = url.lower().split("?")[0]
+    is_video_url = (
+        req_mtype == "video"
+        or url_lower.endswith((".mp4", ".webm", ".ogv", ".ogg", ".mov", ".mkv"))
+        or any(host in url.lower() for host in ("youtube.com/", "youtu.be/", "archive.org/download/"))
+    )
+
+    if is_video_url:
+        tmp_mp4 = scene_dir / "pip_url_tmp.mp4"
+        tmp_png = scene_dir / "pip_url_tmp.png"
+        try:
+            frames = _extract_video_clip_and_frames(url, tmp_mp4, tmp_png)
+            if not frames or not tmp_mp4.is_file():
+                raise HTTPException(status_code=400, detail="無法自該網址擷取有效影片片段")
+            review = verify_pip_match_with_ai(
+                narration=narration,
+                query=str(q),
+                candidate_title=str(req.title or q),
+                frame_bytes_list=frames,
+                media_type="video",
+            )
+            if not review["passed"]:
+                raise HTTPException(status_code=400, detail=f"AI 審核判定影片與本幕口白不符：{review['reason']}")
+            shutil.move(str(tmp_mp4), str(scene_dir / "pip.mp4"))
+            if tmp_png.is_file():
+                shutil.move(str(tmp_png), str(scene_dir / "pip.png"))
+            result = {
+                "title": req.title or "自訂考據影片",
+                "url": url,
+                "media_type": "video",
+                "verified": True,
+                "review_reason": review["reason"],
+            }
+            _write_pip_yaml(scene_dir, scfg, str(q), result, enabled=True)
+            return get_scene_detail(job_id, scene_id)
+        finally:
+            for p_tmp in (tmp_mp4, tmp_png):
+                if p_tmp.is_file():
+                    try:
+                        p_tmp.unlink()
+                    except Exception:
+                        pass
 
     content = _download_image_bytes(url)
     if not content:
         raise HTTPException(status_code=400, detail="無法自該網址下載圖片，請檢查網址有效性或防盜鏈設定")
 
+    review = verify_pip_match_with_ai(
+        narration=narration,
+        query=str(q),
+        candidate_title=str(req.title or q),
+        image_bytes=content,
+        media_type="image",
+    )
+    if not review["passed"]:
+        raise HTTPException(status_code=400, detail=f"AI 審核判定照片與本幕口白不符：{review['reason']}")
+
     try:
+        old_mp4 = scene_dir / "pip.mp4"
+        if old_mp4.is_file():
+            old_mp4.unlink(missing_ok=True)
         img = Image.open(io.BytesIO(content)).convert("RGBA")
         img.thumbnail((1600, 1600), Image.Resampling.LANCZOS)
         img.save(scene_dir / "pip.png", "PNG")
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"圖片解析失敗: {str(e)}")
 
-    scfg = _load_scene_yaml(scene_dir)
-    q = req.query or scfg.get("pip", {}).get("query") or req.title or "自訂圖片網址"
-    result = {"title": req.title or "自訂圖片網址", "url": url}
-    _write_pip_yaml(scene_dir, scfg, q, result, enabled=True)
+    result = {
+        "title": req.title or "自訂圖片網址",
+        "url": url,
+        "media_type": "image",
+        "verified": True,
+        "review_reason": review["reason"],
+    }
+    _write_pip_yaml(scene_dir, scfg, str(q), result, enabled=True)
     return get_scene_detail(job_id, scene_id)
 
 
 @router.post("/{scene_id}/pip/upload", response_model=SceneDetail)
 async def upload_scene_pip_file(job_id: str, scene_id: str, file: UploadFile = File(...)):
-    """支援本機直接上傳真實歷史考據照片檔案 (pip.png)。"""
+    """支援本機直接上傳真實歷史考據照片或影片檔案 (pip.png / pip.mp4)。"""
     scene_dir = JOBS_DIR / job_id / "scenes" / scene_id
     if not scene_dir.is_dir():
         raise HTTPException(status_code=404, detail="分鏡不存在")
@@ -459,29 +539,66 @@ async def upload_scene_pip_file(job_id: str, scene_id: str, file: UploadFile = F
     if not content:
         raise HTTPException(status_code=400, detail="上傳檔案為空")
 
-    from aivideo.auto_pip import _write_pip_yaml
+    from aivideo.auto_pip import _extract_video_clip_and_frames, _write_pip_yaml
     from PIL import Image
     import io
+    import tempfile
+
+    filename = file.filename or "本地上傳素材"
+    is_video = (
+        (file.content_type or "").startswith("video/")
+        or filename.lower().endswith((".mp4", ".webm", ".mov", ".mkv", ".ogv"))
+    )
+
+    scfg = _load_scene_yaml(scene_dir)
+    q = scfg.get("pip", {}).get("query") or filename
+
+    if is_video:
+        with tempfile.TemporaryDirectory(prefix="aivideo_upload_vid_") as td:
+            raw_p = Path(td) / filename
+            raw_p.write_bytes(content)
+            tmp_mp4 = scene_dir / "pip_upload_tmp.mp4"
+            tmp_png = scene_dir / "pip_upload_tmp.png"
+            frames = _extract_video_clip_and_frames(str(raw_p), tmp_mp4, tmp_png)
+            if not frames or not tmp_mp4.is_file():
+                raise HTTPException(status_code=400, detail="影片格式解析失敗")
+            shutil.move(str(tmp_mp4), str(scene_dir / "pip.mp4"))
+            if tmp_png.is_file():
+                shutil.move(str(tmp_png), str(scene_dir / "pip.png"))
+        result = {
+            "title": filename,
+            "url": f"/media/jobs/{job_id}/scenes/{scene_id}/pip.mp4",
+            "media_type": "video",
+            "verified": True,
+            "review_reason": "本機上傳考據影片",
+        }
+        _write_pip_yaml(scene_dir, scfg, str(q), result, enabled=True)
+        return get_scene_detail(job_id, scene_id)
 
     try:
+        old_mp4 = scene_dir / "pip.mp4"
+        if old_mp4.is_file():
+            old_mp4.unlink(missing_ok=True)
         img = Image.open(io.BytesIO(content)).convert("RGBA")
         img.thumbnail((1600, 1600), Image.Resampling.LANCZOS)
         img.save(scene_dir / "pip.png", "PNG")
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"圖片格式解析失敗: {str(e)}")
 
-    scfg = _load_scene_yaml(scene_dir)
-    filename = file.filename or "本地上傳照片"
-    q = scfg.get("pip", {}).get("query") or filename
-    result = {"title": filename, "url": f"/media/jobs/{job_id}/scenes/{scene_id}/pip.png"}
-    _write_pip_yaml(scene_dir, scfg, q, result, enabled=True)
+    result = {"title": filename, "url": f"/media/jobs/{job_id}/scenes/{scene_id}/pip.png", "media_type": "image"}
+    _write_pip_yaml(scene_dir, scfg, str(q), result, enabled=True)
     return get_scene_detail(job_id, scene_id)
 
 
 @router.get("/{scene_id}/pip/candidates", response_model=PipCandidatesResponse)
-def get_scene_pip_candidates(job_id: str, scene_id: str, query: Optional[str] = None):
+def get_scene_pip_candidates(
+    job_id: str,
+    scene_id: str,
+    query: Optional[str] = None,
+    media_type: Optional[str] = "all",
+):
     """
-    全網跨圖庫（不限版權與公有領域限制，廣泛搜尋新聞歷史照片）檢索真實候選圖片供創作者自由挑選。
+    全網跨圖庫與影音庫（不限版權與公有領域限制，廣泛搜尋新聞歷史影片與照片）檢索真實候選素材供創作者自由挑選。
     """
     scene_dir = JOBS_DIR / job_id / "scenes" / scene_id
     if not scene_dir.is_dir():
@@ -500,8 +617,14 @@ def get_scene_pip_candidates(job_id: str, scene_id: str, query: Optional[str] = 
     if not search_q:
         raise HTTPException(status_code=400, detail="請輸入欲檢索的實體關鍵字")
 
-    from aivideo.auto_pip import search_all_source_candidates
-    candidates = search_all_source_candidates(search_q, limit=8)
+    from aivideo.auto_pip import search_all_source_candidates, search_all_source_video_candidates
+    m_filter = (media_type or "all").strip().lower()
+    candidates: list[dict[str, object]] = []
+    if m_filter in ("all", "video", "auto"):
+        candidates.extend(search_all_source_video_candidates(search_q, limit=5))
+    if m_filter in ("all", "image", "auto"):
+        candidates.extend(search_all_source_candidates(search_q, limit=6))
+
     items = []
     for c in candidates:
         raw_u = str(c.get("url") or "")
@@ -510,7 +633,9 @@ def get_scene_pip_candidates(job_id: str, scene_id: str, query: Optional[str] = 
                 PipCandidateItem(
                     title=str(c.get("title") or search_q),
                     url=raw_u,
-                    source=str(c.get("source") or "全網歷史照片"),
+                    thumbnail_url=str(c.get("thumbnail_url") or "") or None,
+                    source=str(c.get("source") or "全網歷史素材"),
+                    media_type=str(c.get("media_type") or "image"),
                     width=int(c.get("width") or 0),
                     height=int(c.get("height") or 0),
                 )
@@ -631,18 +756,19 @@ def clear_scene_audio(job_id: str, scene_id: str):
 
 @router.delete("/{scene_id}/pip")
 def clear_scene_pip(job_id: str, scene_id: str):
-    """單幕清空考據圖 (pip.png) 並重置考據狀態"""
+    """單幕清空考據圖/影片 (pip.png / pip.mp4) 並重置考據狀態"""
     job_dir = JOBS_DIR / job_id
     scene_dir = job_dir / "scenes" / scene_id
     if not scene_dir.is_dir():
         raise HTTPException(status_code=404, detail="分鏡不存在")
 
-    pip_file = scene_dir / "pip.png"
-    if pip_file.is_file():
-        try:
-            pip_file.unlink()
-        except Exception:
-            pass
+    for fname in ("pip.png", "pip.mp4"):
+        pip_file = scene_dir / fname
+        if pip_file.is_file():
+            try:
+                pip_file.unlink()
+            except Exception:
+                pass
 
     # 更新 scene.yaml
     s_yaml = scene_dir / "scene.yaml"
@@ -651,7 +777,9 @@ def clear_scene_pip(job_id: str, scene_id: str):
             scfg = yaml.safe_load(s_yaml.read_text(encoding="utf-8")) or {}
             pip_dict = scfg.get("pip", {}) if isinstance(scfg.get("pip"), dict) else {}
             pip_dict["enabled"] = False
+            pip_dict["media_type"] = "image"
             pip_dict["image"] = None
+            pip_dict["video"] = None
             pip_dict["mode"] = "pip"
             pip_dict["source_title"] = None
             pip_dict["source_url"] = None

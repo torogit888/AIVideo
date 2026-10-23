@@ -285,12 +285,13 @@ def invalidate_changed_character_images(
     old_chars: list[dict[str, str]],
     new_chars: list[dict[str, str]],
 ) -> None:
-    """比對新舊角色清單：刪除已移除角色的定裝圖，且若某角色名稱或外觀敘述已變更，自動清除其過期定裝圖。"""
+    """比對新舊角色清單：刪除已移除角色的定裝圖，且若某角色名稱、外觀敘述或實體分類已變更，自動清除其過期定裝圖。"""
     prune_character_images(job_dir, [ch["id"] for ch in new_chars])
     old_map = {
         ch["id"]: (
             str(ch.get("name") or "").strip(),
             str(ch.get("appearance") or "").strip(),
+            str(ch.get("entity_type") or "character").strip().lower(),
         )
         for ch in (old_chars or [])
         if ch.get("id")
@@ -301,6 +302,7 @@ def invalidate_changed_character_images(
         new_sig = (
             str(ch.get("name") or "").strip(),
             str(ch.get("appearance") or "").strip(),
+            str(ch.get("entity_type") or "character").strip().lower(),
         )
         old_sig = old_map.get(cid)
         if old_sig != new_sig:

@@ -351,7 +351,21 @@ export const StoryboardGrid: React.FC = () => {
                       </div>
                     )}
 
-                    {scene.pip_enabled && scene.status.has_pip && scene.status.pip_url && scene.pip_mode === "spotlight" ? (
+                    {scene.pip_enabled && scene.status.has_pip_video && scene.status.pip_video_url ? (
+                      <div className="relative w-full h-full bg-black flex items-center justify-center overflow-hidden">
+                        <video
+                          src={scene.status.pip_video_url}
+                          autoPlay
+                          loop
+                          muted
+                          playsInline
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded bg-emerald-500/95 text-black font-semibold text-[9px] z-20 shadow-md flex items-center">
+                          <span>🎬 全螢幕考據影片</span>
+                        </div>
+                      </div>
+                    ) : scene.pip_enabled && scene.status.has_pip && scene.status.pip_url && (scene.pip_mode === "spotlight" || scene.pip_mode === "broll") ? (
                       <div className="w-full h-full bg-black flex items-center justify-center overflow-hidden">
                         <img
                           src={scene.status.pip_url}

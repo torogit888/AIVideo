@@ -242,6 +242,7 @@ export const VisualContinuityModal: React.FC<Props> = ({ isOpen, onClose }) => {
         id: c.id || `char_${i + 1}`,
         name: c.name || `角色 ${i + 1}`,
         appearance: c.appearance || "",
+        entity_type: (c.entity_type as "character" | "object") || "character",
       }));
       const updated = await api.updateJobAnchors(selectedJobId, {
         subject: analyzed.subject_anchor || undefined,
@@ -396,13 +397,31 @@ export const VisualContinuityModal: React.FC<Props> = ({ isOpen, onClose }) => {
                       />
                       <select
                         value={ch.entity_type || "character"}
-                        onChange={(e) =>
-                          setCharacters((prev) =>
-                            prev.map((x, i) =>
-                              i === idx ? { ...x, entity_type: e.target.value as "character" | "object" } : x
-                            )
-                          )
-                        }
+                        onChange={(e) => {
+                          const newType = e.target.value as "character" | "object";
+                          const updatedList = characters.map((x, i) =>
+                            i === idx ? { ...x, entity_type: newType } : x
+                          );
+                          setCharacters(updatedList);
+                          if (selectedJobId) {
+                            api
+                              .updateJobAnchors(selectedJobId, {
+                                environment: environment.trim(),
+                                use_image_reference: useImageRef,
+                                characters: updatedList.map((c) => ({
+                                  id: c.id,
+                                  name: c.name.trim(),
+                                  appearance: c.appearance.trim(),
+                                  entity_type: c.entity_type || "character",
+                                })),
+                              })
+                              .then((updated) => {
+                                applyAnchors(updated);
+                                window.dispatchEvent(new CustomEvent("aivideo:anchors-updated"));
+                              })
+                              .catch(() => {});
+                          }
+                        }}
                         className="h-8 px-1.5 rounded bg-cinema-darker border border-cinema-border text-[11px] text-amber-cta font-medium focus:outline-none focus:border-amber-cta cursor-pointer"
                         title="選擇實體類型（由 LLM 智慧標記，亦可手動切換）"
                       >

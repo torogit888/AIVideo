@@ -271,47 +271,54 @@ class PipelineRunner:
                     need_aud = (not aud_file.is_file()) or (not skip_done)
                     did_work = False
 
-                    # 0. 考據先行判定：若分鏡規劃為黑底歷史聚焦 (spotlight)，優先檢索並下載真實歷史原照
+                    # 0. 考據先行判定：若分鏡規劃為黑底歷史聚焦 (spotlight) 或適合抓取全螢幕考據影片 (B-Roll)，優先檢索
                     is_spotlight_mode = False
+                    prefer_video = False
                     pip_q = None
                     s_yaml_p = s_dir / "scene.yaml"
                     if s_yaml_p.is_file():
                         try:
+                            from aivideo.auto_pip import should_prefer_archival_video
                             scfg_data = yaml.safe_load(s_yaml_p.read_text(encoding="utf-8")) or {}
                             p_cfg = scfg_data.get("pip", {})
+                            s_narr = str(scfg_data.get("narration") or "")
                             if isinstance(p_cfg, dict):
                                 p_mode = str(p_cfg.get("mode", "")).lower()
                                 pip_q = str(p_cfg.get("query", "")).strip()
-                                if p_mode in ("spotlight", "focus", "black_bg", "fullscreen"):
+                                if p_mode in ("spotlight", "focus", "black_bg", "fullscreen", "broll"):
                                     is_spotlight_mode = True
+                                if pip_q and should_prefer_archival_video(pip_q, s_narr):
+                                    prefer_video = True
                         except Exception:
                             pass
 
                     pip_file = s_dir / "pip.png"
+                    pip_vid_file = s_dir / "pip.mp4"
                     spotlight_ready = False
 
-                    if is_spotlight_mode:
-                        if pip_file.is_file():
+                    if is_spotlight_mode or prefer_video or pip_vid_file.is_file():
+                        if pip_vid_file.is_file() or (is_spotlight_mode and pip_file.is_file()):
                             spotlight_ready = True
-                        elif auto_pip and pip_q:
+                        elif auto_pip and pip_q and not pip_file.is_file():
                             with self._lock:
                                 self.live_cur = idx
                                 self.live_tot = total_scenes
                                 self.live_phase = "考據"
                                 self.live_dir = s_dir
-                                self.status_msg = f"🏛️ 第 {idx}/{total_scenes} 幕：檢索黑底考據圖 ({pip_q})..."
+                                self.status_msg = f"🎬 第 {idx}/{total_scenes} 幕：檢索考據影片/原照 ({pip_q})..."
                             try:
                                 from aivideo.auto_pip import fetch_single_scene_pip
                                 if fetch_single_scene_pip(s_dir, pip_q):
-                                    spotlight_ready = True
                                     did_work = True
-                                    print(f"[info] 第 {idx} 幕已成功抓取黑底考據圖 ({pip_q})，自動略過 AI 生圖")
+                                    if pip_vid_file.is_file() or is_spotlight_mode:
+                                        spotlight_ready = True
+                                        print(f"[info] 第 {idx} 幕已成功抓取全螢幕考據素材 ({pip_q})，自動略過 AI 生圖")
                                 else:
-                                    print(f"[warn] 第 {idx} 幕黑底考據圖未檢索到，自動降級為 AI 生圖")
+                                    print(f"[warn] 第 {idx} 幕考據素材未檢索到，自動降級為 AI 生圖")
                             except Exception as exc:
                                 from aivideo.auto_pip import mark_scene_pip_error
                                 mark_scene_pip_error(s_dir, str(exc), pip_q)
-                                print(f"[warn] 第 {idx} 幕黑底考據圖檢索失敗（{exc}），自動降級為 AI 生圖")
+                                print(f"[warn] 第 {idx} 幕考據檢索失敗（{exc}），自動降級為 AI 生圖")
 
                     # 若黑底考據真實照片已就緒，該幕成片完全使用黑底考據圖，直接跳過 AI 生圖（省下 API 配額與冷卻）
                     if spotlight_ready:
@@ -594,3 +601,52 @@ def get_pipeline_runner(job_name: str, job_path: Path) -> PipelineRunner:
         # 更新路徑（若有變更）
         _GLOBAL_RUNNERS[job_name].job_path = job_path
     return _GLOBAL_RUNNERS[job_name]
+
+
+def stop_all_pipeline_runners() -> int:
+    """停止目前記憶體中所有正在執行的背景流水線任務（供伺服器關閉或重載時自動呼叫）。"""
+    stopped = 0
+    for runner in list(_GLOBAL_RUNNERS.values()):
+        if runner.is_running:
+            runner.stop()
+            stopped += 1
+            try:
+                from aivideo.run_state import persist_runner
+
+                persist_runner(runner)
+            except Exception:
+                pass
+    return stopped
+
+
+def cleanup_stale_run_states(jobs_dir: Path | None = None) -> int:
+    """
+    伺服器啟動時自動清理因上一次 Reload Window / 容器重啟而殘留 `is_running: true` 的 run.json，
+    避免前端重新載入後誤以為舊 Job 仍在背景執行。
+    """
+    from aivideo.run_state import load_run_json, write_run_json
+
+    target_jobs_dir = jobs_dir or (REPO_ROOT / "jobs")
+    if not target_jobs_dir.is_dir():
+        return 0
+
+    cleaned = 0
+    for job_dir in target_jobs_dir.iterdir():
+        if not job_dir.is_dir():
+            continue
+        runner = _GLOBAL_RUNNERS.get(job_dir.name)
+        if runner and runner.is_running:
+            continue
+        data = load_run_json(job_dir)
+        if data and (data.get("is_running") or data.get("is_paused")):
+            data["is_running"] = False
+            data["is_paused"] = False
+            data["is_stopped"] = True
+            data["message"] = "⏹️ 前次執行已隨視窗重載或服務重啟自動中止"
+            try:
+                write_run_json(job_dir, data)
+                cleaned += 1
+            except Exception:
+                pass
+    return cleaned
+
