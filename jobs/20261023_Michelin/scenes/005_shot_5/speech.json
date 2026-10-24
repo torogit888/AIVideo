@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261024T042205",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.78,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "當時的歐洲甚至連一條像樣的鋪裝伯油公路都沒有",
+      "text_cn": "当时的欧洲甚至连一条像样的铺装伯油公路都没有",
+      "start_sec": 0.0,
+      "end_sec": 4.56,
+      "duration_sec": 4.56
+    },
+    {
+      "index": 2,
+      "text": "沿途完全沒有現代化的加油站可以提供燃料補給",
+      "text_cn": "沿途完全没有现代化的加油站可以提供燃料补给",
+      "start_sec": 4.81,
+      "end_sec": 9.17,
+      "duration_sec": 4.36
+    },
+    {
+      "index": 3,
+      "text": "駕駛如果想給汽車加油必須提著鐵桶去藥房裡一公升一公升地購買輕質汽油",
+      "text_cn": "驾驶如果想给汽车加油必须提着铁桶去药房里一升一升地购买轻直汽油",
+      "start_sec": 9.42,
+      "end_sec": 15.78,
+      "duration_sec": 6.36
+    }
+  ],
+  "created_at": "2026-10-24T04:22:05.321644+00:00"
+}

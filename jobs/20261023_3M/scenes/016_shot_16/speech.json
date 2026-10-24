@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261023T112438",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.13,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[question-ah]他創造出了一個堪稱奇蹟的答案但全世界卻連問題是什麼都不知道",
+      "text_cn": "[question-ah]他创造出了一个堪称奇迹的答案但全世界却连问题是什么都不知道",
+      "start_sec": 0.0,
+      "end_sec": 6.72,
+      "duration_sec": 6.72
+    },
+    {
+      "index": 2,
+      "text": "這項顛覆性的專利就這樣在冰冷的公文檔案夾裡一天天走向過期廢棄",
+      "text_cn": "这项颠覆性的专利就这样在冰冷的公文档案夹里一天天走向过棋废弃",
+      "start_sec": 6.97,
+      "end_sec": 13.13,
+      "duration_sec": 6.16
+    }
+  ],
+  "created_at": "2026-10-23T11:24:38.633132+00:00"
+}

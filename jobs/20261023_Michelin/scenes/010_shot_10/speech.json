@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261023T161510",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 10.77,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "但這本最初的手冊裡根本找不到任何高級料理或是珍貴食材",
+      "text_cn": "但这本最初的手册里根本找不到任何高级料理或是珍贵食材",
+      "start_sec": 0.0,
+      "end_sec": 5.36,
+      "duration_sec": 5.36
+    },
+    {
+      "index": 2,
+      "text": "裡面寫滿了如何更換充氣輪胎以及如何修理簡陋的化油器",
+      "text_cn": "里面写满了如何更换充气轮胎以及如何修理简陋的化油器",
+      "start_sec": 5.61,
+      "end_sec": 10.77,
+      "duration_sec": 5.16
+    }
+  ],
+  "created_at": "2026-10-23T16:15:10.068916+00:00"
+}

@@ -1,0 +1,20 @@
+id: 006_shot_6
+index: 6
+title: 一旦汽車在荒郊野外拋錨或者爆胎
+narration: '[dissatisfaction-hnn]一旦汽車在荒郊野外拋錨或者爆胎，你除了被當地農民當成怪胎嘲笑之外根本找不到任何救援，而就是在這種幾乎不存在汽車市場的荒涼時代，'
+image_prompt: A wide shot in Q版 2D 卡通插畫 style of an early 1900s car broken down on
+  a desolate, unpaved country road. One of its large, spoked wheels has a visibly
+  flat tire. In the mid-ground, a few simplified, curious farmers are looking at the
+  stranded vehicle, some with amused expressions. Muted, natural lighting, 16:9 widescreen
+  composition.
+image_negative: ''
+act_index: 1
+act_title: 輪胎廠的荒謬陽謀，馬車時代的致命賭局
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T161105
+  image_take: image_20261023T161045
+character_ids:
+- early_1900s_car

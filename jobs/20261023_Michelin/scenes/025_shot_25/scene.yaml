@@ -1,0 +1,21 @@
+id: 025_shot_25
+index: 25
+title: 這樣來回折騰一趟客人吃飽了肚子而
+narration: 這樣來回折騰一趟客人吃飽了肚子而汽車底盤上的橡膠輪胎也徹底磨平報廢了，[laughter]全歐洲最頂尖的名廚在廚房裡為了爭奪星星累得精疲力竭，全歐洲最有錢的食客開著跑車在泥濘公路上瘋狂磨損輪胎，而坐在克萊蒙費朗辦公室裡笑著數鈔票的始終是那家賣橡膠輪胎的工廠，
+image_prompt: 'A dynamic triptych in Q版 2D 卡通插畫 style. Left panel: A chef frantically
+  cooking in a high-pressure, steamy kitchen. Right panel: A luxurious car driving
+  on a muddy road with visibly worn tires. Center panel: André and Édouard Michelin
+  in their office, gleefully counting stacks of money, connecting the dots of their
+  strategy. Bright, illustrative lighting, 16:9 widescreen composition.'
+image_negative: ''
+act_index: 4
+act_title: 名廚飲彈與起司冤案，紅色魔鬼的血色代價
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T162704
+  image_take: image_20261023T162637
+character_ids:
+- andre_michelin
+- edouard_michelin

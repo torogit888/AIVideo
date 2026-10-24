@@ -1,0 +1,29 @@
+id: 038_shot_38
+index: 38
+title: 但整件事最耐人尋味的諷刺其實藏在
+narration: 但整件事最耐人尋味的諷刺其實藏在米其林那個白胖的輪胎吉祥物身上，這個名為必比登的輪胎人其最初的拉丁文全名意思是現在正是舉杯暢飲之時，這句古羅馬詩句的下一句廣告宣傳詞叫做米其林輪胎能一口吞下所有障礙，
+image_prompt: A medium shot in Q版 2D 卡通插畫 style. Bibendum, the Michelin Man, jovially
+  raises a glass in a toast, with a wide, friendly smile. In the subtle background,
+  a road with various obstacles (rocks, potholes) is depicted, with stylized tires
+  appearing to 'swallow' them, highlighting the ironic origin of his name. Bright,
+  cheerful lighting, 16:9 widescreen composition.
+image_negative: ''
+act_index: 6
+act_title: 百年陽謀的反思，當味蕾被資本徹底馴化
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T163707
+  image_take: image_20261023T163654
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Early Michelin Bibendum advertisement Nunc est bibendum
+  fetch_error: 未找到合適照片或影片
+character_ids:
+- bibendum

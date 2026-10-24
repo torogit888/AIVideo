@@ -135,94 +135,46 @@ def first_hero_url(job_id: str, job_dir: Path, characters: list[dict[str, str]])
     return False, None
 
 
-def collect_character_ref_images(
-    job_dir: Path,
-    v_anchors: dict[str, Any] | None,
-) -> list[tuple[Path, str]]:
-    """出圖用的多模態參考圖：每人一張，最多 MAX_REF_IMAGES。"""
-    v_anchors = v_anchors if isinstance(v_anchors, dict) else {}
-    if not v_anchors.get("use_image_reference", True):
-        return []
-
-    characters = ensure_characters(v_anchors)
-    attach_legacy_hero_to_first(job_dir, characters)
-
-    refs: list[tuple[Path, str]] = []
-    for ch in characters:
-        if len(refs) >= MAX_REF_IMAGES:
-            break
-        path = character_image_path(job_dir, ch["id"])
-        if not path.is_file():
-            continue
-        name = ch.get("name") or ch["id"]
-        appearance = (ch.get("appearance") or "").strip()
-        label = f'character "{name}"'
-        if appearance:
-            label += f" ({appearance[:220]})"
-        refs.append((path, label))
-
-    if refs:
-        return refs
-
-    hero = legacy_hero_path(job_dir)
-    if hero.is_file():
-        return [(hero, "the primary visual subject / character")]
-    return []
-
-
 def collect_scene_character_ref_images(
     job_dir: Path,
     v_anchors: dict[str, Any] | None,
-    narration: str = "",
-    image_prompt: str = "",
+    character_ids: list[str] | None = None,
 ) -> list[tuple[Path, str]]:
-    """針對特定場景分鏡，依據台詞與出圖 Prompt 智慧篩選出場角色的定裝圖，避免全體角色圖混雜干擾一致性。"""
-    all_refs = collect_character_ref_images(job_dir, v_anchors)
-    if not all_refs:
+    """針對特定場景分鏡，嚴格依據 LLM 寫入該幕的 `character_ids` 清單載入對應定裝圖。
+    若 `character_ids` 為空陣列或未指定，回傳 `[]`（不掛載任何參考圖）。
+    """
+    v_anchors = v_anchors if isinstance(v_anchors, dict) else {}
+    if not v_anchors.get("use_image_reference", True):
+        return []
+    if not character_ids or not isinstance(character_ids, list):
         return []
 
     characters = ensure_characters(v_anchors)
-    if not characters or len(characters) <= 1:
-        return all_refs
+    if not characters:
+        return []
 
-    combined_text = f"{narration} {image_prompt}".lower()
+    char_map = {str(ch.get("id") or "").strip(): ch for ch in characters if ch.get("id")}
 
-    # 比對各角色關鍵字
     matched_refs: list[tuple[Path, str]] = []
-    for ch in characters:
-        ch_id = str(ch.get("id") or "").lower()
-        ch_name = str(ch.get("name") or "").lower()
-        # 拆解中文名、英文名關鍵字
-        tokens = set(re.findall(r"[\w\u4e00-\u9fff]+", f"{ch_id} {ch_name}"))
-        # 過濾太短的無意義通用字
-        tokens = {t for t in tokens if len(t) >= 2 and t not in {"角色", "char", "character", "main"}}
+    for raw_id in character_ids:
+        if len(matched_refs) >= MAX_REF_IMAGES:
+            break
+        cid = str(raw_id or "").strip()
+        ch = char_map.get(cid)
+        if not ch:
+            continue
+        path = character_image_path(job_dir, cid)
+        if path.is_file():
+            name = ch.get("name") or cid
+            appearance = (ch.get("appearance") or "").strip()
+            entity_type = str(ch.get("entity_type") or "character").strip().lower()
+            kind_label = "object/prop" if entity_type == "object" else "character"
+            label = f'{kind_label} "{name}"'
+            if appearance:
+                label += f" ({appearance[:220]})"
+            matched_refs.append((path, label))
 
-        if any(t in combined_text for t in tokens):
-            path = character_image_path(job_dir, ch["id"])
-            if path.is_file():
-                name = ch.get("name") or ch["id"]
-                appearance = (ch.get("appearance") or "").strip()
-                label = f'character "{name}"'
-                if appearance:
-                    label += f" ({appearance[:220]})"
-                matched_refs.append((path, label))
-
-    # 若精準匹配到 1~2 位出場角色，只傳這幾位！
-    if matched_refs:
-        return matched_refs[:MAX_REF_IMAGES]
-
-    # 若未特別指名某角色，僅回傳第一位主角的定裝圖，不傳入其餘無關角色，保證主體穩定
-    first_path = character_image_path(job_dir, characters[0]["id"])
-    if first_path.is_file():
-        ch0 = characters[0]
-        name0 = ch0.get("name") or ch0["id"]
-        app0 = (ch0.get("appearance") or "").strip()
-        label0 = f'character "{name0}"'
-        if app0:
-            label0 += f" ({app0[:220]})"
-        return [(first_path, label0)]
-
-    return all_refs[:1]
+    return matched_refs
 
 
 def persist_characters_on_anchors(
@@ -249,9 +201,11 @@ def character_bible_for_prompts(characters: list[dict[str, str]]) -> str:
         return ""
     lines = []
     for ch in characters:
-        name = ch.get("name") or ch.get("id") or "Character"
+        cid = ch.get("id") or "main"
+        name = ch.get("name") or cid or "Character"
+        etype = ch.get("entity_type") or "character"
         appearance = (ch.get("appearance") or "").strip() or "distinct, consistent appearance"
-        lines.append(f'- "{name}": {appearance}')
+        lines.append(f'- id="{cid}" | name="{name}" ({etype}): {appearance}')
     return "\n".join(lines)
 
 

@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261023T163105",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 25.59,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "憤怒的維拉拿出了所有當地的進貨單據證明自己使用的是最地道的法國薩瓦起司",
+      "text_cn": "愤怒的维拉拿出了所有当地的进货单据证明自己使用的是最地道的法国萨瓦起司",
+      "start_sec": 0.0,
+      "end_sec": 7.16,
+      "duration_sec": 7.16
+    },
+    {
+      "index": 2,
+      "text": "他痛斥密探根本連起司的風味都分不清楚味覺完全失靈",
+      "text_cn": "他痛斥密探根本连起司的风味都分不清楚味觉完全失灵",
+      "start_sec": 7.41,
+      "end_sec": 12.37,
+      "duration_sec": 4.96
+    },
+    {
+      "index": 3,
+      "text": "絕望的維拉憤而將這家輪胎公司告上法庭要求法官強制公開密探的評審筆記",
+      "text_cn": "绝望的维拉愤而将这家轮胎公司告上法庭要求法官强制公开密探的评审笔记",
+      "start_sec": 12.62,
+      "end_sec": 19.38,
+      "duration_sec": 6.76
+    },
+    {
+      "index": 4,
+      "text": "然而米其林只是冷冰冰地以商業機密為藉口拒絕透露任何評選標準",
+      "text_cn": "然而米其林只是冷冰冰地以商业机密为借口拒绝透露任何评选标准",
+      "start_sec": 19.63,
+      "end_sec": 25.59,
+      "duration_sec": 5.96
+    }
+  ],
+  "created_at": "2026-10-23T16:31:05.448231+00:00"
+}

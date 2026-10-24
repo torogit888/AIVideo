@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261023T112829",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 31291972,
+  "prompt": "Masaaki Yuasa Style, medium close-up of Art Fry, his thick, round glasses distorting his eyes into swirling spirals of brilliant epiphany, his body momentarily rigid before springing into action with a burst of psychedelic energy, as abstract forms of traditional bookmarks dissolve into a shimmering, peelable yellow square, dramatic non-realistic lighting, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-23T11:28:29.850326+00:00"
+}

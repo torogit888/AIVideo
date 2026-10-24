@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261023T113438",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 23.19,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "雪上加霜的是三愛姆的精密機械部直接給這個非主流專案判了死刑",
+      "text_cn": "雪上加霜的是三爱姆的精密机械部直接给这个非主流专案判了死刑",
+      "start_sec": 0.0,
+      "end_sec": 5.96,
+      "duration_sec": 5.96
+    },
+    {
+      "index": 2,
+      "text": "既要塗底漆又要塗微球全世界根本沒有現成的自動化生產線",
+      "text_cn": "既要涂底漆又要涂围球全世界根本没有现成的自动化生产线",
+      "start_sec": 6.21,
+      "end_sec": 11.57,
+      "duration_sec": 5.36
+    },
+    {
+      "index": 3,
+      "text": "為了研發一台專屬機器至少需要投入數百萬美元的巨額資金",
+      "text_cn": "为了研发一台专属机器至少需要投入数百万美元的巨额资金",
+      "start_sec": 11.82,
+      "end_sec": 17.18,
+      "duration_sec": 5.36
+    },
+    {
+      "index": 4,
+      "text": "董事會根本不可能為了一個唱詩班的書籤去冒這麼大的商業風險",
+      "text_cn": "董事会根本不可能为了一个唱诗班的书签去冒这么大的商业风险",
+      "start_sec": 17.43,
+      "end_sec": 23.19,
+      "duration_sec": 5.76
+    }
+  ],
+  "created_at": "2026-10-23T11:34:38.880083+00:00"
+}

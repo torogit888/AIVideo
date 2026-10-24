@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261023T111819",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 17.7,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "在那個崇尚堅不可摧的重工業時代這簡直是化工界最大的笑話",
+      "text_cn": "在那个崇尚坚不可摧的重工业时代这简直是化工界最大的笑话",
+      "start_sec": 0.0,
+      "end_sec": 5.56,
+      "duration_sec": 5.56
+    },
+    {
+      "index": 2,
+      "text": "[dissatisfaction-hnn]花著最頂級的軍工預算卻做出了全世界最軟弱無能的膠水",
+      "text_cn": "[dissatisfaction-hnn]花著最顶级的军工预算却做出了全世界最软弱无能的胶水",
+      "start_sec": 5.81,
+      "end_sec": 12.25,
+      "duration_sec": 6.44
+    },
+    {
+      "index": 3,
+      "text": "席爾瓦博士到底該怎麼向公司董事會交代這場昂貴的災難？",
+      "text_cn": "席尔瓦博士到底该怎么向公司董事会交代这场昂贵的灾难？",
+      "start_sec": 12.5,
+      "end_sec": 17.7,
+      "duration_sec": 5.2
+    }
+  ],
+  "created_at": "2026-10-23T11:18:19.712437+00:00"
+}

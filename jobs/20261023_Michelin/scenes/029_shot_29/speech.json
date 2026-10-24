@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261023T162943",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 23.5,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "2003年初先是競爭對手的指南調低了他的評分緊接著坊間瘋傳米其林密探準備將他降為二星",
+      "text_cn": "2003年初先是竞争对手的指南调低了他的评分紧接着坊间疯传米其林密探准备将他降为二星",
+      "start_sec": 0.0,
+      "end_sec": 8.68,
+      "duration_sec": 8.68
+    },
+    {
+      "index": 2,
+      "text": "面對鋪天蓋地的負面輿論以及即將破產的巨大恐懼這位五十二歲的廚神徹底崩潰了",
+      "text_cn": "面对铺天盖地的负面舆论以及即将破产的巨大恐惧这位五十二岁的厨神彻底崩溃了",
+      "start_sec": 8.93,
+      "end_sec": 16.29,
+      "duration_sec": 7.36
+    },
+    {
+      "index": 3,
+      "text": "在一個安靜的午後盧瓦索走進自家的臥室拿起心愛的獵槍扣動了扳機飲彈自盡",
+      "text_cn": "在一个安静的午后卢瓦索走进自家的卧室拿起心爱的猎枪扣动了扳机饮弹自尽",
+      "start_sec": 16.54,
+      "end_sec": 23.5,
+      "duration_sec": 6.96
+    }
+  ],
+  "created_at": "2026-10-23T16:29:43.540488+00:00"
+}

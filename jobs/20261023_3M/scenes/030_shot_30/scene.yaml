@@ -1,0 +1,26 @@
+id: 030_shot_30
+index: 30
+title: 冰冷的市場調查報告直接將它定性為
+narration: 冰冷的市場調查報告直接將它定性為毫無商業前途的高價垃圾，管理層的耐心徹底耗盡專案終止通知書已經送到了辦公桌上，這項耗費兩代工程師十年青春的發明眼看著就要被徹底扔進歷史焚化爐，
+image_prompt: wide establishing shot of a vibrant yellow Post-it Note, its edges curling
+  in despair, being sucked into a distorted, fiery "incinerator of history," while
+  a rigid, angular "project termination" notice floats ominously towards a desk, stark
+  clinical lighting, 16:9 widescreen composition
+image_negative: ''
+act_index: 5
+act_title: 波伊西突擊戰：攻破權力中樞的特洛伊木馬
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T113926
+  image_take: image_20261023T113850
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: 3M Post-it market research report 1977
+  fetch_error: 未找到合適照片或影片

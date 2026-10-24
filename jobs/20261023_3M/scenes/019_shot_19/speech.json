@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261023T112720",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 17.58,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "為了在主日崇拜快速翻頁弗萊在厚重的聖歌集裡夾滿了小紙條當書籤",
+      "text_cn": "为了在主日崇拜快速翻页弗莱在厚重的圣歌集里夹满了小纸条当书签",
+      "start_sec": 0.0,
+      "end_sec": 6.16,
+      "duration_sec": 6.16
+    },
+    {
+      "index": 2,
+      "text": "但在信徒起立翻動譜架的瞬間那些光滑的紙條竟然像雪花一樣散落一地",
+      "text_cn": "但在信徒起立翻动谱架的瞬间那些光滑的纸条竟然像雪花一样散落一地",
+      "start_sec": 6.41,
+      "end_sec": 12.77,
+      "duration_sec": 6.36
+    },
+    {
+      "index": 3,
+      "text": "弗萊在全場信眾注視下手忙腳亂地跪在地上撿紙條",
+      "text_cn": "弗莱在全场信众注视下手忙脚乱地跪在地上捡纸条",
+      "start_sec": 13.02,
+      "end_sec": 17.58,
+      "duration_sec": 4.56
+    }
+  ],
+  "created_at": "2026-10-23T11:27:20.613960+00:00"
+}

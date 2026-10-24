@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261023T113520",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 92429241,
+  "prompt": "Masaaki Yuasa Style, wide establishing shot of Fry's basement 'factory,' a chaotic, dimly lit space filled with a jumble of writhing and connecting salvaged industrial parts, illuminated by harsh, flickering lights that cast exaggerated, distorted shadows, Art Fry's prototype machine, a sprawling, multi-limbed Frankenstein's monster of gears and belts, dominates the scene, dramatic non-realistic lighting, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-23T11:35:20.893945+00:00"
+}

@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261023T115556",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 70438006,
+  "prompt": "Masaaki Yuasa Style, medium close-up of a serene, fluid portrait of an elderly Dr. Spencer Silver, his face gently smiling, his eyes swirling with wisdom, holding a shimmering, glowing container of the \"most useless adhesive,\" which radiates a subtle, magical light, dramatic non-realistic lighting, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-23T11:55:56.500625+00:00"
+}

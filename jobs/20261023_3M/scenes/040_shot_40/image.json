@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261023T114802",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 32001322,
+  "prompt": "Masaaki Yuasa Style, wide establishing shot of a vibrant, overwhelming 'yellow tsunami' of Post-it Notes engulfing stylized representations of the White House Situation Room, Wall Street trading screens with glowing red and green charts, and the rigid, imposing architecture of the Kremlin, all covered in glowing canary yellow squares, pop psychedelic lighting, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-23T11:48:02.176965+00:00"
+}

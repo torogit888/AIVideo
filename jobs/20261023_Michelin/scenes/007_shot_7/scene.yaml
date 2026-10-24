@@ -1,0 +1,30 @@
+id: 007_shot_7
+index: 7
+title: 位在克萊蒙費朗的米其林橡膠工廠裡
+narration: 位在克萊蒙費朗的米其林橡膠工廠裡，安德烈米其林與愛德華米其林這對親兄弟正面臨看似無解的商業死局，路上跑的車輛這麼少而且當時的輪胎又極為笨重不容易損耗，他們這家剛起步的橡膠工廠究竟該怎麼生存下去呢，[question-ei]，
+image_prompt: A medium shot in Q版 2D 卡通插畫 style inside an early 20th-century rubber
+  factory office. André Michelin and Édouard Michelin, in their chibi proportions,
+  stand looking worried and contemplative. They are surrounded by stacks of heavy,
+  unused rubber tires, conveying a sense of business dilemma and uncertainty. Warm,
+  soft lighting, 16:9 widescreen composition.
+image_negative: ''
+act_index: 2
+act_title: 從墊桌腳的廢紙到定價七法郎，摸透人性的營銷反轉
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T161201
+  image_take: image_20261023T161140
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Early Michelin factory Clermont-Ferrand archival photo
+  fetch_error: 未找到合適照片或影片
+character_ids:
+- andre_michelin
+- edouard_michelin

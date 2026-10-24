@@ -1,0 +1,19 @@
+id: 039_shot_39
+index: 39
+title: 這場世紀陽謀從一開始就坦坦蕩蕩地
+narration: '[surprise-wa]這場世紀陽謀從一開始就坦坦蕩蕩地寫在人類工業文明的歷史扉頁上，這家橡膠公司從來沒有掩飾過自己追求利潤的商人本質，只是我們人類在追逐階級地位與虛榮精緻的過程中自願走進了這張美食大網，'
+image_prompt: A wide shot in Q版 2D 卡通插畫 style. A grand, historical-looking book titled
+  'Industrial Civilization' is open to a page. On the page, a subtle blueprint or
+  diagram of the Michelin strategy is visible, with a stylized web of fine dining
+  subtly trapping human figures seeking status and luxury. Muted, historical lighting,
+  16:9 widescreen composition.
+image_negative: ''
+act_index: 6
+act_title: 百年陽謀的反思，當味蕾被資本徹底馴化
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T163749
+  image_take: image_20261023T163738
+character_ids: []

@@ -1,0 +1,17 @@
+id: 035_shot_35
+index: 35
+title: 這招堪稱直擊現代官僚體系心臟的最
+narration: '[surprise-oh]這招堪稱直擊現代官僚體系心臟的最陰險陽謀，秘書是所有企業內部文件傳遞與辦公用品採購申請的神經中樞，'
+image_prompt: wide establishing shot of a distorted, stylized office environment,
+  with secretaries' desks as glowing, pulsating nerve centers, connected by flowing
+  lines of documents, all subtly being infiltrated by the 'yellow virus' of Post-it
+  Notes, dramatic non-realistic lighting, 16:9 widescreen composition
+image_negative: ''
+act_index: 5
+act_title: 波伊西突擊戰：攻破權力中樞的特洛伊木馬
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T114319
+  image_take: image_20261023T114243

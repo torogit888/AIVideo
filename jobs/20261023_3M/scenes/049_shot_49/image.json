@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261023T115637",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 15013330,
+  "prompt": "Masaaki Yuasa Style, wide establishing shot of distorted, angular gears relentlessly compressing stylized human figures into rigid, identical cogs, contrasted with a vibrant, glowing \"absurd accident\" emerging from a swirling, chaotic \"ruin of failure,\" radiating warmth and hope, pop psychedelic lighting, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-23T11:56:37.905306+00:00"
+}

@@ -43,11 +43,7 @@ def get_candidate_locations_for_model(model_name: str, env_location: str = "") -
     if model_name in _MODEL_LOCATION_CACHE:
         return [_MODEL_LOCATION_CACHE[model_name]]
 
-    # grok 系列模型在 Vertex AI 僅支援 global 端點
-    if "grok" in m:
-        return ["global"]
-
-    # 3 系列模型 (gemini-3.8-flash, gemini-3.5-flash, gemini-3.1-flash-image 等) 在 Vertex AI 必須使用 global 全域端點
+    # 3 系列模型 (gemini-3.8-flash, gemini-3.7-flash, gemini-3.1-flash-image 等) 在 Vertex AI 必須使用 global 全域端點
     if "gemini-3" in m:
         return ["global", "us-central1", "us-east4", "us-west1"]
 
@@ -215,8 +211,8 @@ def generate_image(
         if len(labeled_refs) == 1:
             instruction = (
                 f"Visual Reference: The attached image defines {labeled_refs[0][1]}. "
-                "Maintain strict visual consistency with the subject shown in the reference image "
-                f"while rendering the following new 16:9 widescreen scene:\n{prompt}"
+                "Match the exact visual design, face, proportions, colors, and structure shown in the reference image "
+                f"when rendering this subject in the following 16:9 widescreen scene:\n{prompt}"
             )
         else:
             mapping = " ".join(

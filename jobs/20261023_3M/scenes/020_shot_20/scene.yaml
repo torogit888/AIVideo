@@ -1,0 +1,17 @@
+id: 020_shot_20
+index: 20
+title: 就在這狼狽不堪的瞬間一道思想的閃
+narration: '[surprise-wa]就在這狼狽不堪的瞬間一道思想的閃電猛烈劈中了他的大腦，他突然想起了五年前在席爾瓦博士宣講會上看過的那罐廢物膠水，'
+image_prompt: medium close-up of Art Fry, his head expanding and glowing with vibrant,
+  shifting colors, a jagged, psychedelic lightning bolt striking his brain, superimposed
+  with a fleeting, distorted image of Dr. Spencer Silver's bubbling, failed adhesive,
+  dramatic non-realistic lighting, 16:9 widescreen composition
+image_negative: ''
+act_index: 3
+act_title: 唱詩班的頓悟：一首聖歌引發的百億美元靈感
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T112808
+  image_take: image_20261023T112747

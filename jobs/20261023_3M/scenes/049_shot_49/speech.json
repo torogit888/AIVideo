@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261023T115714",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 24.79,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[sigh]今天演算法與效率正在把我們每個人壓縮成毫無破綻的精密齒輪",
+      "text_cn": "[sigh]今天算法与效率正在把我们每个人压缩成毫无破绽的精密齿轮",
+      "start_sec": 0.0,
+      "end_sec": 5.88,
+      "duration_sec": 5.88
+    },
+    {
+      "index": 2,
+      "text": "但或許真正能拯救我們並改變這個冰冷世界的",
+      "text_cn": "但或许真正能拯救我们并改变这个冰冷世界的",
+      "start_sec": 6.13,
+      "end_sec": 10.29,
+      "duration_sec": 4.16
+    },
+    {
+      "index": 3,
+      "text": "往往正是那些在失敗廢墟中被溫柔寬容過的荒謬意外",
+      "text_cn": "往往正是那些在失败废墟中被温柔宽容过的荒谬意外",
+      "start_sec": 10.54,
+      "end_sec": 15.3,
+      "duration_sec": 4.76
+    },
+    {
+      "index": 4,
+      "text": "感謝大家的收看我是白兔，如果你也喜歡這段荒謬又真實的商業傳奇別忘了點個喜歡訂閱頻道，我們下次見！",
+      "text_cn": "感谢大家的收看我是白兔，如果你也喜欢这段荒谬又真实的商业传奇别忘了点个喜欢订阅频道，我们下次见！",
+      "start_sec": 15.55,
+      "end_sec": 24.79,
+      "duration_sec": 9.24
+    }
+  ],
+  "created_at": "2026-10-23T11:57:14.579047+00:00"
+}

@@ -1,0 +1,17 @@
+id: 010_shot_10
+index: 10
+title: 當時所有同事都在私下勸他趕緊把這
+narration: 當時所有同事都在私下勸他趕緊把這桶廢液倒進下水道銷毀，只要假裝什麼事都沒發生過就能保住自己的年終考績，
+image_prompt: medium close-up of Dr. Spencer Silver, his fluid form slightly hunched,
+  holding a bubbling container of the failed adhesive, surrounded by shadowy, distorted
+  figures of colleagues with exaggerated whispering mouths, their forms melting into
+  the background, dramatic non-realistic lighting, 16:9 widescreen composition
+image_negative: ''
+act_index: 2
+act_title: 孤獨的布道者：在巨頭體制裡當了五年的小丑
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T111908
+  image_take: image_20261023T111846

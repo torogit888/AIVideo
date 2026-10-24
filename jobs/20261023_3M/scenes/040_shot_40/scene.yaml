@@ -1,0 +1,27 @@
+id: 040_shot_40
+index: 40
+title: 一場狂暴的黃色海嘯在短短兩年之內
+narration: 一場狂暴的黃色海嘯在短短兩年之內徹底淹沒了整個現代文明世界，從白宮戰情室的機密情報到華爾街操盤手滿是紅色綠色走勢圖的螢幕上，甚至連冷戰時期克里姆林宮的備忘錄邊角都貼滿了這塊金絲雀黃小方塊，
+image_prompt: wide establishing shot of a vibrant, overwhelming 'yellow tsunami' of
+  Post-it Notes engulfing stylized representations of the White House Situation Room,
+  Wall Street trading screens with glowing red and green charts, and the rigid, imposing
+  architecture of the Kremlin, all covered in glowing canary yellow squares, pop psychedelic
+  lighting, 16:9 widescreen composition
+image_negative: ''
+act_index: 6
+act_title: 席捲全球的黃色病毒：從辦公桌到現代認知外包
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T114813
+  image_take: image_20261023T114802
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Post-it Notes White House Situation Room 1980s
+  fetch_error: 未找到合適照片或影片

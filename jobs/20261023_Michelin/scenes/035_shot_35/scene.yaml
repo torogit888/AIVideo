@@ -1,0 +1,19 @@
+id: 035_shot_35
+index: 35
+title: 一家默默經營了半個世紀的平民油雞
+narration: 一家默默經營了半個世紀的平民油雞飯或街頭炒粿條一旦意外被掛上一星榮譽，迎來的往往不是富貴吉祥而是一場毀滅性的經營災難，
+image_prompt: A dramatic medium shot in Q版 2D 卡通插畫 style. A humble, long-standing
+  street food stall (e.g., a chicken rice stall) has a single Michelin star unexpectedly
+  glowing above it. Instead of prosperity, the stall is surrounded by chaos, distressed
+  vendors, and overwhelmed customers, symbolizing an unexpected disaster. Overcast,
+  ironic lighting, 16:9 widescreen composition.
+image_negative: ''
+act_index: 6
+act_title: 百年陽謀的反思，當味蕾被資本徹底馴化
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T163438
+  image_take: image_20261023T163426
+character_ids: []

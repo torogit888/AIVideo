@@ -1,0 +1,27 @@
+id: 012_shot_12
+index: 12
+title: 然而商業現實的殘酷遠遠超出了科學
+narration: '[dissatisfaction-hnn]然而商業現實的殘酷遠遠超出了科學家的浪漫想像，三愛姆公司是一家靠砂紙和透明膠帶打下全球江山的工業帝國，這家企業七十年來的立足信仰只有一個那就是牢牢黏住絕不放手，'
+image_prompt: wide establishing shot of a towering, distorted industrial empire, its
+  architecture formed from impossibly rigid sandpaper and transparent tape, symbolizing
+  3M's history of strong adhesion, Dr. Spencer Silver's fluid form appearing small
+  and out of place against this imposing backdrop, stark clinical lighting, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 2
+act_title: 孤獨的布道者：在巨頭體制裡當了五年的小丑
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T112116
+  image_take: image_20261023T112104
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Vintage Scotch tape advertisement
+  fetch_error: 未找到合適照片或影片

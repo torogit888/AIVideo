@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261023T113926",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 17.78,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "冰冷的市場調查報告直接將它定性為毫無商業前途的高價垃圾",
+      "text_cn": "冰冷的市场调查报告直接将它定性为毫无商业前途的高价勒色",
+      "start_sec": 0.0,
+      "end_sec": 5.56,
+      "duration_sec": 5.56
+    },
+    {
+      "index": 2,
+      "text": "管理層的耐心徹底耗盡專案終止通知書已經送到了辦公桌上",
+      "text_cn": "管理层的耐心彻底耗尽专案终止通知书已经送到了办公桌上",
+      "start_sec": 5.81,
+      "end_sec": 11.17,
+      "duration_sec": 5.36
+    },
+    {
+      "index": 3,
+      "text": "這項耗費兩代工程師十年青春的發明眼看著就要被徹底扔進歷史焚化爐",
+      "text_cn": "这项耗费两代工程师十年青春的发明眼看着就要被彻底扔进历史焚化炉",
+      "start_sec": 11.42,
+      "end_sec": 17.78,
+      "duration_sec": 6.36
+    }
+  ],
+  "created_at": "2026-10-23T11:39:26.648699+00:00"
+}

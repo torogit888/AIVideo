@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261023T111411",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 63525025,
+  "prompt": "Masaaki Yuasa Style, wide establishing shot of stylized, flowing aerospace vehicles, their forms elongated and distorted, being held together by an abstract, shimmering representation of an impossibly strong adhesive, Dr. Spencer Silver's intensely focused, swirling eyes subtly superimposed, set against a backdrop of intense heat and pressure, pop psychedelic lighting, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-23T11:14:11.223421+00:00"
+}

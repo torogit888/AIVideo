@@ -1,0 +1,18 @@
+id: 013_shot_13
+index: 13
+title: 你現在端著一罐一撕就掉的膠水去各
+narration: 你現在端著一罐一撕就掉的膠水去各個部門推銷，在那些講求實用主義的經理人眼裡你就像是在給短跑選手推銷輪椅，
+image_prompt: medium close-up of Dr. Spencer Silver, his fluid form holding a bubbling
+  container of the failed adhesive, facing a group of distorted, skeptical managers
+  whose faces are squashed into masks of dismissive expressions, an abstract image
+  of a sprinter with impossibly long, flowing legs running past a comically small
+  wheelchair, dramatic non-realistic lighting, 16:9 widescreen composition
+image_negative: ''
+act_index: 2
+act_title: 孤獨的布道者：在巨頭體制裡當了五年的小丑
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T112206
+  image_take: image_20261023T112145

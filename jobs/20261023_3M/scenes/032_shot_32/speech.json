@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261023T114104",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 19.98,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "當你的產品具有顛覆性的互動屬性時把它裝進塑膠袋放在貨架上就是謀殺",
+      "text_cn": "当你的产品具有颠覆性的互动属性时把它装进塑料袋放在货架上就是谋杀",
+      "start_sec": 0.0,
+      "end_sec": 6.56,
+      "duration_sec": 6.56
+    },
+    {
+      "index": 2,
+      "text": "因為隔著冰冷的包裝袋消費者根本無法憑空想像它到底能解決什麼痛苦",
+      "text_cn": "因为隔着冰冷的包装袋消费者根本无法凭空想像它到底能解决什么痛苦",
+      "start_sec": 6.81,
+      "end_sec": 13.17,
+      "duration_sec": 6.36
+    },
+    {
+      "index": 3,
+      "text": "你不能站在原地賣產品你必須把這種成癮習慣直接強行塞進他們的身體裡",
+      "text_cn": "你不能站在原地卖产品你必须把这种成瘾习惯直接强行塞进他们的身体里",
+      "start_sec": 13.42,
+      "end_sec": 19.98,
+      "duration_sec": 6.56
+    }
+  ],
+  "created_at": "2026-10-23T11:41:04.803168+00:00"
+}

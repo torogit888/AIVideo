@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261023T115400",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 78599112,
+  "prompt": "Masaaki Yuasa Style, wide establishing shot of a vivid, distorted flashback: Dr. Spencer Silver's failed adhesive being instantly vaporized by a rigid, angular \"quality control\" system, followed by Art Fry, his rubbery body contorted in despair, being ejected from the corporate building by stern, distorted figures, stark clinical lighting, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-23T11:54:00.533068+00:00"
+}

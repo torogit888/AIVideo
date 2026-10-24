@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261023T164030",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 10.76,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "從1900年泥濘道路上那兩千多輛孤單拋錨的破舊老車",
+      "text_cn": "从1900年泥泞道路上那两千多辆孤单抛锚的破旧老车",
+      "start_sec": 0.0,
+      "end_sec": 5.28,
+      "duration_sec": 5.28
+    },
+    {
+      "index": 2,
+      "text": "到如今市值數百億歐元且掌控著全球味覺話語權的跨國帝國",
+      "text_cn": "到如今市值数百亿欧元且掌控著全球味觉话语权的跨国帝国",
+      "start_sec": 5.53,
+      "end_sec": 10.76,
+      "duration_sec": 5.23
+    }
+  ],
+  "created_at": "2026-10-23T16:40:30.846336+00:00"
+}

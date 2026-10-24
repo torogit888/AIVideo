@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261023T115124",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 17.54,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[surprise-oh]更絕妙的是當你處理完一項繁雜的工作伸手把它從螢幕上刺啦一聲撕下來",
+      "text_cn": "[surprise-oh]更绝妙的是当你处理完一项繁杂的工作伸手把它从萤幕上刺啦一声撕下来",
+      "start_sec": 0.0,
+      "end_sec": 7.32,
+      "duration_sec": 7.32
+    },
+    {
+      "index": 2,
+      "text": "隨手揉成一團狠狠砸進垃圾桶的那一秒鐘",
+      "text_cn": "随手揉成一团狠狠砸进勒色桶的那一秒钟",
+      "start_sec": 7.57,
+      "end_sec": 11.33,
+      "duration_sec": 3.76
+    },
+    {
+      "index": 3,
+      "text": "你的大腦神經元分泌出的多巴胺快感甚至超越了談一場短暫的戀愛",
+      "text_cn": "你的大脑神经元分泌出的多巴胺快感甚至超越了谈一场短战的恋爱",
+      "start_sec": 11.58,
+      "end_sec": 17.54,
+      "duration_sec": 5.96
+    }
+  ],
+  "created_at": "2026-10-23T11:51:24.301821+00:00"
+}

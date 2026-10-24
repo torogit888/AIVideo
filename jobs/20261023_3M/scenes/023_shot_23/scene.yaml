@@ -1,0 +1,17 @@
+id: 023_shot_23
+index: 23
+title: 然而當你以為看穿了需求財富大門就
+narration: 然而當你以為看穿了需求財富大門就會向你敞開那就大錯特錯了，[dissatisfaction-hnn]商業世界如果真有那麼順理成章滿大街早就都是億萬富翁了，弗萊很快就撞上了一堵名為量產工藝與製造成本的鋼筋水泥高牆，
+image_prompt: medium close-up of Art Fry, his rubbery body comically flailing, crashing
+  into a towering, distorted concrete wall, its surface rippling with impossible angles,
+  representing "Mass Production & Cost," dramatic non-realistic lighting, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 4
+act_title: 地下作坊與資本死刑：一台差點切碎工程師手臂的原型機
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T113313
+  image_take: image_20261023T113301

@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261023T113828",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 12.41,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "在普通顧客眼裡一包普通的裁切白紙只要幾十美分就能買到一大疊",
+      "text_cn": "在普通顾客眼里一包普通的裁切白纸只要几十美分就能买到一大叠",
+      "start_sec": 0.0,
+      "end_sec": 5.96,
+      "duration_sec": 5.96
+    },
+    {
+      "index": 2,
+      "text": "憑什麼要大家花幾倍的昂貴代價去買你這疊塗了奇怪膠水的黃色廢紙？",
+      "text_cn": "凭什么要大家花几倍的昂贵代价去买你这叠涂了奇怪胶水的黄色废纸？",
+      "start_sec": 6.21,
+      "end_sec": 12.41,
+      "duration_sec": 6.2
+    }
+  ],
+  "created_at": "2026-10-23T11:38:28.793611+00:00"
+}

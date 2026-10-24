@@ -359,16 +359,23 @@ def translate_scene_prompt_route(job_id: str, scene_id: str, req: TranslatePromp
     env = v_anchors.get("environment", "")
     style_key = (jcfg.get("image") or {}).get("style") or jcfg.get("style") or "otomo_katsuhiro"
 
-    new_prompt = translate_single_scene_prompt(
+    plan = translate_single_scene_prompt(
         narration=narr,
         style_key=style_key,
         subject_anchor=sub,
         environment_anchor=env,
         characters=characters,
     )
+    new_prompt = str(plan.get("image_prompt") or "").strip()
+    new_char_ids = list(plan.get("character_ids") or []) if isinstance(plan.get("character_ids"), list) else []
 
     if not new_prompt:
         raise HTTPException(status_code=500, detail="AI 視覺轉譯失敗，請稍後重試")
+
+    scfg["image_prompt"] = new_prompt
+    scfg["character_ids"] = new_char_ids
+    yaml_path = scene_dir / "scene.yaml"
+    yaml_path.write_text(yaml.safe_dump(scfg, allow_unicode=True, sort_keys=False), encoding="utf-8")
 
     return TranslatePromptResponse(
         image_prompt=new_prompt,

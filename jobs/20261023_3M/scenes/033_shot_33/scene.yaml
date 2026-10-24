@@ -1,0 +1,26 @@
+id: 033_shot_33
+index: 33
+title: 1978年商業史上最傳奇的一場特
+narration: 1978年商業史上最傳奇的一場特洛伊木馬行銷戰波伊西突擊正式打響，尼克爾森帶著團隊拉著好幾卡車的免費樣品殺進了愛達荷州的波伊西市，
+image_prompt: wide establishing shot of Nicholson, his crisp suit flowing like liquid,
+  leading a convoy of distorted, vibrant trucks overflowing with glowing yellow Post-it
+  Notes, dynamically stretching across a stylized cityscape of Boise, Idaho, pop psychedelic
+  lighting, 16:9 widescreen composition
+image_negative: ''
+act_index: 5
+act_title: 波伊西突擊戰：攻破權力中樞的特洛伊木馬
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T114144
+  image_take: image_20261023T114132
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Boise Blitz 3M Post-it marketing campaign 1978 news clipping
+  fetch_error: 未找到合適照片或影片

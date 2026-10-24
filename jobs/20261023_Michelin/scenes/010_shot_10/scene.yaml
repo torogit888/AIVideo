@@ -1,0 +1,19 @@
+id: 010_shot_10
+index: 10
+title: 但這本最初的手冊裡根本找不到任何
+narration: 但這本最初的手冊裡根本找不到任何高級料理或是珍貴食材，裡面寫滿了如何更換充氣輪胎以及如何修理簡陋的化油器，
+image_prompt: A close-up shot in Q版 2D 卡通插畫 style of an open 1900 Michelin Red Guide.
+  The pages clearly display simplified illustrations and text detailing how to change
+  a pneumatic tire and repair a basic carburetor, with no mention of food. The paper
+  has a slightly aged, clean look. Bright, direct lighting, 16:9 widescreen composition.
+image_negative: ''
+act_index: 2
+act_title: 從墊桌腳的廢紙到定價七法郎，摸透人性的營銷反轉
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T161510
+  image_take: image_20261023T161433
+character_ids:
+- michelin_red_guide

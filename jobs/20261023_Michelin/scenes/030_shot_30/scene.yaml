@@ -1,0 +1,28 @@
+id: 030_shot_30
+index: 30
+title: 整個法國社會為之震驚他的好友憤怒
+narration: '[sigh]整個法國社會為之震驚他的好友憤怒地在媒體前控訴是米其林的傲慢謀殺了天才，而類似的荒謬審判在十六年後的2019年再次上演，傳奇名廚馬克維拉因為一道舒芙蕾被密探質疑使用了廉價的英國切達起司而慘遭降星，'
+image_prompt: A dramatic medium shot in Q版 2D 卡通插畫 style. A chef (generic, representing
+  Marc Veyrat) looks distraught and angry, holding a perfectly puffed soufflé. A shadowy,
+  critical figure (a generic Michelin inspector) looms over the soufflé with a magnifying
+  glass, symbolizing unfair judgment and demotion. Stark, judgmental lighting, 16:9
+  widescreen composition.
+image_negative: ''
+act_index: 5
+act_title: 暗箱政治與文化霸權，誰在為昂貴的紅皮書買單
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T163023
+  image_take: image_20261023T163012
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Marc Veyrat French chef portrait
+  fetch_error: 未找到合適照片或影片
+character_ids: []

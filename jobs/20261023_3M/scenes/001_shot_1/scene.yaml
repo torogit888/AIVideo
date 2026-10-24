@@ -1,0 +1,17 @@
+id: 001_shot_1
+index: 1
+title: 大家好
+narration: 大家好，我是白兔！如果你今天走進全世界任何一棟現代化寫字樓，你有沒有看過每台電腦螢幕邊框上都貼著的黃色小方塊，
+image_prompt: wide establishing shot of a modern office building interior, its architecture
+  flowing with impossible curves, numerous computer screens glowing with vibrant,
+  shifting colors, each screen frame adorned with multiple intensely saturated, slightly
+  undulating yellow Post-it Notes, pop psychedelic lighting, 16:9 widescreen composition
+image_negative: ''
+act_index: 1
+act_title: 荒誕的失敗：想造太空飛船，卻搞出史上最廢的膠水
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T111205
+  image_take: image_20261023T111153

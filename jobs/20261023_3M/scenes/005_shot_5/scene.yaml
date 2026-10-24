@@ -1,0 +1,18 @@
+id: 005_shot_5
+index: 5
+title: 當時軍方與航太工業極度渴望能承受
+narration: 當時軍方與航太工業極度渴望能承受超音速風阻的超強結構膠，席爾瓦博士的任務就是要合成出一種耐高溫且撕不開的航太級黏著劑，
+image_prompt: wide establishing shot of stylized, flowing aerospace vehicles, their
+  forms elongated and distorted, being held together by an abstract, shimmering representation
+  of an impossibly strong adhesive, Dr. Spencer Silver's intensely focused, swirling
+  eyes subtly superimposed, set against a backdrop of intense heat and pressure, pop
+  psychedelic lighting, 16:9 widescreen composition
+image_negative: ''
+act_index: 1
+act_title: 荒誕的失敗：想造太空飛船，卻搞出史上最廢的膠水
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T111422
+  image_take: image_20261023T111411

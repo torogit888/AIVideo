@@ -1,0 +1,20 @@
+id: 017_shot_17
+index: 17
+title: 不僅如此他們還霸氣地砍掉了手冊裡
+narration: 不僅如此他們還霸氣地砍掉了手冊裡所有收費刊登的汽車零件廣告，對外高調宣布米其林指南從此只代表純粹的客觀與中立，[surprise-oh]信不信由你這招看似自斷財路的以退為進竟然徹底點燃了中產階級的搶購熱潮，
+image_prompt: A bustling wide shot in Q版 2D 卡通插畫 style. A crowd of middle-class people
+  eagerly queue and reach out to buy copies of the newly priced Michelin Red Guide
+  from a vendor. The guides are depicted as clean and advertisement-free, symbolizing
+  their newfound objectivity and desirability. Bright, energetic lighting, 16:9 widescreen
+  composition.
+image_negative: ''
+act_index: 3
+act_title: 幽靈密探與星級枷鎖，把食客馴化成輪胎磨損員
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T162101
+  image_take: image_20261023T162040
+character_ids:
+- michelin_red_guide

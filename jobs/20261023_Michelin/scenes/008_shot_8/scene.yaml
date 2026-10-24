@@ -1,0 +1,21 @@
+id: 008_shot_8
+index: 8
+title: 面對這個幾乎要倒閉的致命困境
+narration: 面對這個幾乎要倒閉的致命困境，哥哥安德烈想出了一個匪夷所思的奇招，他對弟弟說既然大家不開車出門是因為路上什麼補給設施都沒有，那我們不如親自替所有司機畫一張探索法國的行動地圖，
+image_prompt: A medium shot in Q版 2D 卡通插畫 style. André Michelin, with a sudden 'Eureka!'
+  expression, gestures excitedly towards a rudimentary, hand-drawn map of France.
+  Édouard Michelin, looking slightly surprised but intrigued, listens intently. They
+  are in their simple office, a lightbulb icon subtly appears above André's head.
+  Bright, clear lighting, 16:9 widescreen composition.
+image_negative: ''
+act_index: 2
+act_title: 從墊桌腳的廢紙到定價七法郎，摸透人性的營銷反轉
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T161302
+  image_take: image_20261023T161241
+character_ids:
+- andre_michelin
+- edouard_michelin

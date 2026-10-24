@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261023T161654",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.99,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "米其林兄弟心裡的算盤其實打得非常精明",
+      "text_cn": "米其林兄弟心里的算盘其实打得非常精明",
+      "start_sec": 0.0,
+      "end_sec": 3.76,
+      "duration_sec": 3.76
+    },
+    {
+      "index": 2,
+      "text": "只要司機敢拿著手冊開車出門冒險",
+      "text_cn": "只要司机敢拿着手册开车出门冒险",
+      "start_sec": 4.01,
+      "end_sec": 7.17,
+      "duration_sec": 3.16
+    },
+    {
+      "index": 3,
+      "text": "車輪在粗糙的碎石路上就會快速磨損",
+      "text_cn": "车轮在粗糙的碎石路上就会快速磨损",
+      "start_sec": 7.42,
+      "end_sec": 10.78,
+      "duration_sec": 3.36
+    },
+    {
+      "index": 4,
+      "text": "輪胎磨損得越快他們的橡膠工廠就能賣出越多備用輪胎",
+      "text_cn": "轮胎磨损得越快他们的橡胶工厂就能卖出越多备用轮胎",
+      "start_sec": 11.03,
+      "end_sec": 15.99,
+      "duration_sec": 4.96
+    }
+  ],
+  "created_at": "2026-10-23T16:16:54.108258+00:00"
+}

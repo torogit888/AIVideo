@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261023T161620",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 11.57,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "同時標註了哪裡有藥房可以買到汽油還有哪座火車站設有公廁",
+      "text_cn": "同时标注了哪里有药房可以买到汽油还有哪座火车站设有公厕",
+      "start_sec": 0.0,
+      "end_sec": 5.56,
+      "duration_sec": 5.56
+    },
+    {
+      "index": 2,
+      "text": "甚至還貼心記錄了哪些簡陋的鄉間旅店願意接待滿手黑油的司機",
+      "text_cn": "甚至还贴心记录了哪些简陋的乡间旅店愿意接待满手黑油的司机",
+      "start_sec": 5.81,
+      "end_sec": 11.57,
+      "duration_sec": 5.76
+    }
+  ],
+  "created_at": "2026-10-23T16:16:20.361242+00:00"
+}

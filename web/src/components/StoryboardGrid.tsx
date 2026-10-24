@@ -148,10 +148,6 @@ export const StoryboardGrid: React.FC = () => {
 
   const handleSyncAllPrompts = async () => {
     if (!selectedJobId || totalScenes === 0) return;
-    const ok = window.confirm(
-      `確定要依最新專案視覺風格與定裝錨點，一鍵重構全片 ${totalScenes} 幕的英文出圖 Prompt 嗎？`
-    );
-    if (!ok) return;
     setIsSyncingPrompts(true);
     showToast(`正在重新構思全片 ${totalScenes} 幕的英文出圖 Prompt...`, "info");
     try {

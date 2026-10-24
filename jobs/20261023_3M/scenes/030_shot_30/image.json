@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261023T113850",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 14016473,
+  "prompt": "Masaaki Yuasa Style, wide establishing shot of a vibrant yellow Post-it Note, its edges curling in despair, being sucked into a distorted, fiery \"incinerator of history,\" while a rigid, angular \"project termination\" notice floats ominously towards a desk, stark clinical lighting, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-23T11:38:50.246466+00:00"
+}

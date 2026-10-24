@@ -22,7 +22,7 @@ interface VertexAccountsPanelProps {
 }
 
 export const VertexAccountsPanel: React.FC<VertexAccountsPanelProps> = ({ onAccountChanged }) => {
-  const { showToast } = useStudioStore();
+  const { showToast, requestConfirm } = useStudioStore();
   const [accounts, setAccounts] = useState<VertexAccount[]>([]);
   const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -111,7 +111,12 @@ export const VertexAccountsPanel: React.FC<VertexAccountsPanelProps> = ({ onAcco
       showToast("無法刪除當前使用中的作用中帳戶，請先切換至其他帳戶再刪除", "error");
       return;
     }
-    const ok = window.confirm(`確定要刪除帳戶【${account.name}】嗎？`);
+    const ok = await requestConfirm({
+      title: "刪除憑證帳戶",
+      message: `確定要刪除帳戶【${account.name}】嗎？`,
+      confirmText: "確定刪除",
+      variant: "danger",
+    });
     if (!ok) return;
 
     setDeletingId(account.id);

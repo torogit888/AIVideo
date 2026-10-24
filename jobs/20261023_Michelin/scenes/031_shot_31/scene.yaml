@@ -1,0 +1,19 @@
+id: 031_shot_31
+index: 31
+title: 憤怒的維拉拿出了所有當地的進貨單
+narration: 憤怒的維拉拿出了所有當地的進貨單據證明自己使用的是最地道的法國薩瓦起司，他痛斥密探根本連起司的風味都分不清楚味覺完全失靈，絕望的維拉憤而將這家輪胎公司告上法庭要求法官強制公開密探的評審筆記，然而米其林只是冷冰冰地以商業機密為藉口拒絕透露任何評選標準，
+image_prompt: A dramatic medium shot in Q版 2D 卡通插畫 style. A chef (generic, representing
+  Veyrat) passionately presents stacks of invoices and documents in a courtroom setting.
+  Facing him is a cold, unyielding corporate entity, represented by a faceless, imposing
+  symbol or silhouette of a tire company, demanding transparency. Harsh, institutional
+  lighting, 16:9 widescreen composition.
+image_negative: ''
+act_index: 5
+act_title: 暗箱政治與文化霸權，誰在為昂貴的紅皮書買單
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T163105
+  image_take: image_20261023T163054
+character_ids: []

@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261023T115016",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 19.38,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "大腦天生對未完成的事情存在難以忍受的焦慮感這就是著名的蔡格尼效應",
+      "text_cn": "大脑天生对未完成的事情存在难以忍受的焦虑感这就是著名的蔡格尼效应",
+      "start_sec": 0.0,
+      "end_sec": 6.56,
+      "duration_sec": 6.56
+    },
+    {
+      "index": 2,
+      "text": "而鮮艷奪目的金絲雀黃與滿屋子灰白的文件產生了極其強烈的視覺反差刺激",
+      "text_cn": "而鲜艳夺目的金丝雀黄与满屋子灰白的文件产生了极其强烈的视觉反差刺激",
+      "start_sec": 6.81,
+      "end_sec": 13.57,
+      "duration_sec": 6.76
+    },
+    {
+      "index": 3,
+      "text": "便利貼把抽象的焦慮具象化成了一張隨時可以觸碰的物理實體",
+      "text_cn": "便利贴把抽象的焦虑具象化成了一张随时可以触碰的物理实体",
+      "start_sec": 13.82,
+      "end_sec": 19.38,
+      "duration_sec": 5.56
+    }
+  ],
+  "created_at": "2026-10-23T11:50:16.980723+00:00"
+}

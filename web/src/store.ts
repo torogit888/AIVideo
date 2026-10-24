@@ -8,6 +8,19 @@ export interface ToastItem {
   type?: "info" | "success" | "error";
 }
 
+export interface ConfirmDialogState {
+  isOpen: boolean;
+  mode: "confirm" | "prompt";
+  title: string;
+  message: string;
+  confirmText: string;
+  cancelText: string;
+  variant: "danger" | "primary";
+  placeholder?: string;
+  defaultValue?: string;
+  onResolve?: (value: any) => void;
+}
+
 interface StudioState {
   // 導航
   currentTab: NavTab;
@@ -62,6 +75,25 @@ interface StudioState {
   toasts: ToastItem[];
   showToast: (message: string, type?: "info" | "success" | "error") => void;
   removeToast: (id: string) => void;
+
+  // 全域 Studio 自訂確認／輸入對話框（取代瀏覽器原生 window.confirm / window.prompt）
+  confirmDialog: ConfirmDialogState | null;
+  requestConfirm: (options: {
+    title?: string;
+    message: string;
+    confirmText?: string;
+    cancelText?: string;
+    variant?: "danger" | "primary";
+  } | string) => Promise<boolean>;
+  requestPrompt: (options: {
+    title?: string;
+    message: string;
+    placeholder?: string;
+    defaultValue?: string;
+    confirmText?: string;
+    cancelText?: string;
+  } | string) => Promise<string | null>;
+  closeConfirmDialog: (result: any) => void;
 
   // 全域 AI 模型設定
   selectedAiModel: string;
@@ -247,6 +279,53 @@ export const useStudioStore = create<StudioState>((set, get) => ({
   },
   removeToast: (id) => {
     set((state) => ({ toasts: state.toasts.filter((t) => t.id !== id) }));
+  },
+
+  // 全域 Studio 自訂確認／輸入對話框
+  confirmDialog: null,
+  requestConfirm: (options) =>
+    new Promise<boolean>((resolve) => {
+      const opts = typeof options === "string" ? { message: options } : options;
+      const isDanger =
+        opts.variant === "danger" ||
+        (!opts.variant && /刪除|清空|清除|覆蓋|無法復原/.test(opts.message));
+      set({
+        confirmDialog: {
+          isOpen: true,
+          mode: "confirm",
+          title: opts.title || (isDanger ? "確認執行此操作" : "操作確認"),
+          message: opts.message,
+          confirmText: opts.confirmText || (isDanger ? "確定執行" : "確定"),
+          cancelText: opts.cancelText || "取消",
+          variant: isDanger ? "danger" : "primary",
+          onResolve: (val: boolean) => resolve(Boolean(val)),
+        },
+      });
+    }),
+  requestPrompt: (options) =>
+    new Promise<string | null>((resolve) => {
+      const opts = typeof options === "string" ? { message: options } : options;
+      set({
+        confirmDialog: {
+          isOpen: true,
+          mode: "prompt",
+          title: opts.title || "輸入資訊",
+          message: opts.message,
+          placeholder: opts.placeholder || "",
+          defaultValue: opts.defaultValue || "",
+          confirmText: opts.confirmText || "確定",
+          cancelText: opts.cancelText || "取消",
+          variant: "primary",
+          onResolve: (val: string | null) => resolve(val),
+        },
+      });
+    }),
+  closeConfirmDialog: (result) => {
+    const current = get().confirmDialog;
+    if (current?.onResolve) {
+      current.onResolve(result);
+    }
+    set({ confirmDialog: null });
   },
 
   // 全域 AI 模型設定 (持久化存入 localStorage)

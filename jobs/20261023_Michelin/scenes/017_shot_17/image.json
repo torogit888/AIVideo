@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261023T162040",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 50155493,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background\nVibrant contrasting color palettes, crisp details throughout, expressive chibi faces, rich background props.，A bustling wide shot in Q版 2D 卡通插畫 style. A crowd of middle-class people eagerly queue and reach out to buy copies of the newly priced Michelin Red Guide from a vendor. The guides are depicted as clean and advertisement-free, symbolizing their newfound objectivity and desirability. Bright, energetic lighting, 16:9 widescreen composition., 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-23T16:20:40.680394+00:00"
+}

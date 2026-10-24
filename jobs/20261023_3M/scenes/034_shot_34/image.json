@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261023T114210",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 61395458,
+  "prompt": "Masaaki Yuasa Style, wide establishing shot of Nicholson, a vibrant, abstract force, orchestrating the 'yellow virus' invasion, as boxes of glowing yellow Post-it Notes are air-dropped like psychedelic ammunition onto a multitude of distorted, flowing office desks, bypassing traditional, rigid store shelves, pop psychedelic lighting, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-23T11:42:10.007773+00:00"
+}

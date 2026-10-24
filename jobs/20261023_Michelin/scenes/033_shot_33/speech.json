@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261023T163303",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 26.99,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "你可能完全想像不到很多國家或城市之所以能迎來米其林指南的光臨",
+      "text_cn": "你可能完全想像不到很多国家或城市之所以能迎来米其林指南的光临",
+      "start_sec": 0.0,
+      "end_sec": 6.16,
+      "duration_sec": 6.16
+    },
+    {
+      "index": 2,
+      "text": "背後其實是當地政府旅遊部門掏出了動輒幾百萬美元的巨額納稅人公帑",
+      "text_cn": "背后其实是当地政府旅游部门掏出了动辄几百万美元的巨额纳税人公帑",
+      "start_sec": 6.41,
+      "end_sec": 12.77,
+      "duration_sec": 6.36
+    },
+    {
+      "index": 3,
+      "text": "泰國曼谷就曾被媒體曝光官方簽署了數百萬美元的贊助合約邀請評審團隊進駐",
+      "text_cn": "泰国曼谷就曾被媒体曝光官方签署了数百万美元的赞助合约邀请评审团队进驻",
+      "start_sec": 13.02,
+      "end_sec": 19.98,
+      "duration_sec": 6.96
+    },
+    {
+      "index": 4,
+      "text": "亞洲其他多個國際都市背後同樣充斥著高昂政府補貼與利益交換的公開秘密",
+      "text_cn": "雅洲其他多个国际都市背后同样充斥着高昂政府补贴与利益交换的公开秘密",
+      "start_sec": 20.23,
+      "end_sec": 26.99,
+      "duration_sec": 6.76
+    }
+  ],
+  "created_at": "2026-10-23T16:33:03.221311+00:00"
+}

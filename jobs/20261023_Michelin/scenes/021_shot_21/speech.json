@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261023T162354",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 22.03,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "但你必須理解這套神級評分系統背後隱藏著怎樣陰險的商業代碼",
+      "text_cn": "但你必须理解这套神级评分系统背后隐藏着怎样阴险的商业代码",
+      "start_sec": 0.0,
+      "end_sec": 5.76,
+      "duration_sec": 5.76
+    },
+    {
+      "index": 2,
+      "text": "[confirmation-en]如果你仔細閱讀米其林官方對每一顆星級的文字定義",
+      "text_cn": "[confirmation-en]如果你仔细阅读米其林官方对每一颗星级的文字定义",
+      "start_sec": 6.01,
+      "end_sec": 11.81,
+      "duration_sec": 5.8
+    },
+    {
+      "index": 3,
+      "text": "你會赫然發現這根本不是給美食家看的品鑑手冊",
+      "text_cn": "你会赫然发现这根本不是给美食家看的品鉴手册",
+      "start_sec": 12.06,
+      "end_sec": 16.42,
+      "duration_sec": 4.36
+    },
+    {
+      "index": 4,
+      "text": "這本質上就是一張替開車司機量身打造的輪胎消耗行動指南",
+      "text_cn": "这本直上就是一张替开车司机量身打造的轮胎消耗行动指南",
+      "start_sec": 16.67,
+      "end_sec": 22.03,
+      "duration_sec": 5.36
+    }
+  ],
+  "created_at": "2026-10-23T16:23:54.503439+00:00"
+}

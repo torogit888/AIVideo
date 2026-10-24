@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261023T114016",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.97,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[question-ei]到底是這項技術本身有缺陷還是傳統的商業思維在某個地方徹底失靈了？",
+      "text_cn": "[question-ei]到底是这项技术本身有缺陷还是传统的商业思维在某个地方彻底失灵了？",
+      "start_sec": 0.0,
+      "end_sec": 7.16,
+      "duration_sec": 7.16
+    },
+    {
+      "index": 2,
+      "text": "在這個退無可退的懸崖邊上商業開發主管尼克爾森看穿了人性的致命盲點",
+      "text_cn": "在这个退无可退的悬崖边上商业开发主管尼克尔森看穿了人性的致命盲点",
+      "start_sec": 7.41,
+      "end_sec": 13.97,
+      "duration_sec": 6.56
+    }
+  ],
+  "created_at": "2026-10-23T11:40:16.312651+00:00"
+}

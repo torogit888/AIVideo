@@ -126,7 +126,7 @@ const updateVoiceInstructTag = (
 };
 
 export const AssetsView: React.FC = () => {
-  const { showToast, selectedAiModel, setSelectedAiModel } = useStudioStore();
+  const { showToast, requestConfirm, selectedAiModel, setSelectedAiModel } = useStudioStore();
   const [tab, setTab] = useState<"tones" | "voices" | "styles">("styles");
 
   const [styles, setStyles] = useState<AssetStyle[]>([]);
@@ -269,7 +269,13 @@ export const AssetsView: React.FC = () => {
   };
 
   const handleDeleteStyle = async (id: string, name: string) => {
-    if (!window.confirm(`確定要徹底刪除視覺風格【${name} (${id})】嗎？此操作無法復原！`)) return;
+    const ok = await requestConfirm({
+      title: "刪除視覺風格",
+      message: `確定要徹底刪除視覺風格【${name} (${id})】嗎？此操作無法復原！`,
+      confirmText: "徹底刪除",
+      variant: "danger",
+    });
+    if (!ok) return;
     try {
       await api.deleteStyle(id);
       showToast("已成功刪除視覺風格！", "success");
@@ -394,7 +400,13 @@ export const AssetsView: React.FC = () => {
   };
 
   const handleDeleteTone = async (id: string, title: string) => {
-    if (!window.confirm(`確定要徹底刪除口吻範本【${title} (${id})】嗎？此操作無法復原！`)) return;
+    const ok = await requestConfirm({
+      title: "刪除口吻範本",
+      message: `確定要徹底刪除口吻範本【${title} (${id})】嗎？此操作無法復原！`,
+      confirmText: "徹底刪除",
+      variant: "danger",
+    });
+    if (!ok) return;
     try {
       await api.deleteTone(id);
       showToast("已成功刪除口吻範本！", "success");
@@ -580,7 +592,13 @@ export const AssetsView: React.FC = () => {
   };
 
   const handleDeleteVoice = async (id: string, name: string) => {
-    if (!window.confirm(`確定要徹底刪除發音人音色【${name} (${id})】嗎？（將刪除其參考音訊與設定）`)) return;
+    const ok = await requestConfirm({
+      title: "刪除發音人音色",
+      message: `確定要徹底刪除發音人音色【${name} (${id})】嗎？（將刪除其參考音訊與設定）`,
+      confirmText: "徹底刪除",
+      variant: "danger",
+    });
+    if (!ok) return;
     try {
       await api.deleteVoice(id);
       showToast("已成功刪除發音人角色！", "success");

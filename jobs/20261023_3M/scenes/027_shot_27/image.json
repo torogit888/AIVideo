@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261023T113559",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 60983690,
+  "prompt": "Masaaki Yuasa Style, medium close-up of Art Fry, his rubbery body contorted in a near-miss with the rapidly undulating conveyor belt of his prototype machine, his face squashed in panic, as shimmering, peelable yellow prototype samples emerge from the chaotic machinery, harsh flickering lights, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-23T11:35:59.102819+00:00"
+}

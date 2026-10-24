@@ -1,0 +1,19 @@
+id: 028_shot_28
+index: 28
+title: 在那個精緻餐飲的殘酷世界裡拿到三
+narration: 在那個精緻餐飲的殘酷世界裡拿到三星意味著餐廳營收能暴增百分之五十，但只要被摘掉哪怕一顆星等待你的就是訂位腰斬銀行抽走貸款以及毀滅性的羞辱，盧瓦索每天在高壓鍋一般的廚房裡工作超過十五個小時精神處於崩潰邊緣，
+image_prompt: A medium close-up in Q版 2D 卡通插畫 style of a chef (generic, representing
+  Loiseau) in a high-pressure, steamy kitchen. His face is contorted with extreme
+  stress, sweat beading on his brow, conveying he is on the verge of collapse from
+  the intense demands of fine dining. Hot, dramatic kitchen lighting, 16:9 widescreen
+  composition.
+image_negative: ''
+act_index: 5
+act_title: 暗箱政治與文化霸權，誰在為昂貴的紅皮書買單
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T162852
+  image_take: image_20261023T162840
+character_ids: []

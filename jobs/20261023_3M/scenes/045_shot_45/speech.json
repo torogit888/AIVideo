@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261023T115321",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 21.46,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "到了二十一世紀初追求極端零缺陷的六標準差管理模式全面入侵了這家公司",
+      "text_cn": "到了二十一世纪初追求极端零缺陷的六标准差管理模式全面入侵了这家公司",
+      "start_sec": 0.0,
+      "end_sec": 6.76,
+      "duration_sec": 6.76
+    },
+    {
+      "index": 2,
+      "text": "華爾街派來的職業經理人把所有研發流程精細量化把所有隨機變異當成敵人",
+      "text_cn": "华尔街派来的职业经理人把所有研发流程精细量化把所有随机变异当成敌人",
+      "start_sec": 7.01,
+      "end_sec": 13.77,
+      "duration_sec": 6.76
+    },
+    {
+      "index": 3,
+      "text": "[dissatisfaction-hnn]在演算法和極致效率的嚴厲絞殺下整個實驗室的創新活力迅速凍結成冰",
+      "text_cn": "[dissatisfaction-hnn]在算法和极致效率的严厉绞杀下整个实验室的创新活力迅速冻结成冰",
+      "start_sec": 14.02,
+      "end_sec": 21.46,
+      "duration_sec": 7.44
+    }
+  ],
+  "created_at": "2026-10-23T11:53:21.273103+00:00"
+}

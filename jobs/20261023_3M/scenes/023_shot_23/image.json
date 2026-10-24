@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261023T113301",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 62597293,
+  "prompt": "Masaaki Yuasa Style, medium close-up of Art Fry, his rubbery body comically flailing, crashing into a towering, distorted concrete wall, its surface rippling with impossible angles, representing \"Mass Production & Cost,\" dramatic non-realistic lighting, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-23T11:33:01.998603+00:00"
+}

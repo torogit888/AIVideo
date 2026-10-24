@@ -50,6 +50,11 @@ def apply_scene_cut(job_dir: Path, scenes: list[dict[str, Any]]) -> dict[str, in
                 "title": title,
                 "narration": narration,
                 "image_prompt": str(raw.get("image_prompt") or existing.get("image_prompt") or ""),
+                "character_ids": (
+                    list(raw["character_ids"])
+                    if isinstance(raw.get("character_ids"), list)
+                    else list(existing.get("character_ids") or [])
+                ),
                 "act_index": new_act_idx,
                 "act_title": new_act_title,
             }

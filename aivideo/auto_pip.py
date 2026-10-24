@@ -20,6 +20,11 @@ from aivideo.story_generator import TEXT_MODELS
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
+VISION_REVIEW_MODELS = (
+    "gemini-3.8-flash",
+    "gemini-3.7-flash",
+)
+
 WIKIMEDIA_HEADERS = {
     "User-Agent": "AIVideoDocBot/2.0 (https://github.com/aivideo/aivideo; documentary-research@aivideo-studio.org)",
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
@@ -293,12 +298,18 @@ def search_nasa_image(query: str, limit: int = 4) -> list[dict[str, object]]:
 def is_wikipedia_title_relevant(query: str, title: str) -> bool:
     """
     核驗維基百科搜尋回傳的條目標題是否與使用者檢索詞具有實質語意相關性。
-    嚴格防範「莫斯科街頭」因模糊檢索被硬配成「莫斯科戰役」等主題嚴重偏移的問題。
+    嚴格防範「莫斯科街頭」因模糊檢索被硬配成「莫斯科戰役」，或人物查詢命中「List of people with...」等列表頁的問題。
     """
     q = query.strip().lower()
     t = title.strip().lower()
     if not q or not t:
         return False
+
+    # 0. 嚴格排除維基百科匯總列表頁（例如 "List of people with bipolar disorder"），避免抓出列表內無關人物的照片
+    list_prefixes = ("list of ", "lists of ", "index of ", "outline of ", "glossary of ", "timeline of ", "category:")
+    if not any(q.startswith(p) for p in list_prefixes):
+        if any(t.startswith(p) for p in list_prefixes) or "列表" in t:
+            return False
 
     # 1. 衝突語意過濾：若搜尋詞不含軍事衝突/影視詞，但標題卻包含，直接判定為主題偏移
     conflict_categories = [
@@ -318,20 +329,31 @@ def is_wikipedia_title_relevant(query: str, title: str) -> bool:
     if q in t:
         return True
 
-    # 4. 標題是查詢詞的子字串（例如 查詢「莫斯科街頭」，標題是「莫斯科」）
-    # 若查詢詞長度明顯大於標題（相差 >= 2 字），代表查詢詞具有核心限定語境（如「街頭」），不能隨便降級為大城市條目
+    # 4. 標題是查詢詞的子字串（例如 查詢 "Bernard Loiseau French chef portrait"，標題是 "Bernard Loiseau"）
     if t in q:
+        # 英文條目若至少含一個完整專有單詞且長於 4 字元，或中文條目與查詢詞長度相近，視為命中核心實體
+        t_en_words = re.findall(r"[a-z0-9]{3,}", t)
+        if t_en_words and len(t) >= 5:
+            return True
         if len(q) - len(t) <= 1:
             return True
         return False
 
-    # 5. 跨詞組字符覆蓋率檢查
-    q_chars = set(re.findall(r"[\u4e00-\u9fa5a-zA-Z0-9]", q))
-    t_chars = set(re.findall(r"[\u4e00-\u9fa5a-zA-Z0-9]", t))
-    if not q_chars:
+    # 5. 分別針對中文字符與英文「完整單詞」計算覆蓋率（絕不可將英文拆成單一字母 a~z 比對）
+    q_zh = set(re.findall(r"[\u4e00-\u9fa5]", q))
+    t_zh = set(re.findall(r"[\u4e00-\u9fa5]", t))
+    if q_zh:
+        return (len(q_zh & t_zh) / len(q_zh)) >= 0.80
+
+    stop_en = {"the", "and", "for", "with", "from", "portrait", "photo", "image", "picture", "history", "historical"}
+    q_words = [w for w in re.findall(r"[a-z0-9]{2,}", q) if w not in stop_en]
+    t_words = set(re.findall(r"[a-z0-9]{2,}", t))
+    if not q_words or not t_words:
         return False
-    overlap = len(q_chars & t_chars) / len(q_chars)
-    return overlap >= 0.80
+    # 英文標題的所有核心單詞必須出現在查詢詞中，或查詢詞超過 60% 的核心單詞出現在標題中
+    overlap_q = sum(1 for w in q_words if w in t_words) / len(q_words)
+    overlap_t = sum(1 for w in t_words if w in q_words) / len(t_words)
+    return overlap_q >= 0.60 or (len(t_words) >= 2 and overlap_t >= 0.80)
 
 
 def translate_entity_query_to_en(query: str) -> str | None:
@@ -366,20 +388,23 @@ def translate_entity_query_to_en(query: str) -> str | None:
 
     # 2. 嘗試呼叫 Gemini 進行精準名詞翻譯
     try:
-        client_kwargs = get_gemini_client_kwargs()
         from google import genai
         from google.genai import types
 
-        client = genai.Client(**client_kwargs)
-        resp = client.models.generate_content(
-            model="gemini-3.8-flash",
-            contents=f"Translate this documentary historical scene/entity into 1 precise English photo search query (nouns only, max 4 words, e.g. '莫斯科街頭' -> 'Moscow street'):\n{clean_q}",
-            config=types.GenerateContentConfig(temperature=0.1, max_output_tokens=25),
-        )
-        if resp.text:
-            en = re.sub(r'["\'\.\n]', '', resp.text).strip()
-            if en and not any('\u4e00' <= c <= '\u9fa5' for c in en):
-                return en
+        for model_name in ("gemini-3.8-flash", "gemini-3.7-flash"):
+            try:
+                client = genai.Client(**get_gemini_client_kwargs(model=model_name))
+                resp = client.models.generate_content(
+                    model=model_name,
+                    contents=f"Translate this documentary historical scene/entity into 1 precise English photo search query (nouns only, max 4 words, e.g. '莫斯科街頭' -> 'Moscow street'):\n{clean_q}",
+                    config=types.GenerateContentConfig(temperature=0.1, max_output_tokens=25),
+                )
+                if resp.text:
+                    en = re.sub(r'["\'\.\n]', '', resp.text).strip()
+                    if en and not any('\u4e00' <= c <= '\u9fa5' for c in en):
+                        return en
+            except Exception:
+                continue
     except Exception:
         pass
     return None
@@ -1136,42 +1161,53 @@ def _extract_video_clip_and_frames(
 def verify_pip_match_with_ai(
     narration: str,
     query: str,
-    candidate_title: str,
+    candidate_title: str = "",
+    candidate_url: str = "",
     image_bytes: bytes | None = None,
     frame_bytes_list: list[bytes] | None = None,
     media_type: str = "image",
 ) -> dict[str, Any]:
     """
-    呼叫 Gemini AI 進行多模態/語意視覺考據審查裁判：
-    嚴格檢驗此候選照片或影片（多張關鍵影格）是否真正吻合口白台詞的情境與實體。
-    若吻合且合理 -> passed: True
-    若主題歪樓、概念不符、抽象圖表或無關訪談字卡 -> passed: False
+    呼叫 Gemini AI (優先使用 gemini-3.8-flash / gemini-3.7-flash) 進行多模態視覺考據審查裁判：
+    嚴格檢驗此候選照片或影片（多張關鍵影格）與圖片真實檔名是否真正吻合口白台詞的情境與實體。
+    - 若吻合且合理 -> passed: True
+    - 若主題歪樓、人物不符（如檔名為其他無關名人）、概念不符或審核連線異常 -> passed: False（嚴格把關，絕不預設放行）
     """
     clean_narr = (narration or "").strip()
     if not clean_narr:
-        return {"passed": True, "confidence": 1.0, "reason": "無口白，預設通過"}
+        return {"passed": False, "confidence": 0.0, "reason": "無口白可供核對"}
 
     is_video = media_type == "video" or bool(frame_bytes_list)
     media_label = "archival video clip (represented by sequential keyframes)" if is_video else "real-world photograph"
 
-    prompt = f"""You are a documentary film fact-checker and visual verification editor.
+    url_filename = ""
+    if candidate_url:
+        try:
+            url_filename = urllib.parse.unquote(candidate_url.split("?")[0].rstrip("/").split("/")[-1])
+        except Exception:
+            url_filename = candidate_url
+
+    prompt = f"""You are a strict documentary film fact-checker and visual verification editor.
 A scene has the following Chinese voiceover narration:
 "{clean_narr}"
 
 The researcher queried: "{query}"
-The candidate {media_label} title/description: "{candidate_title}"
+Candidate {media_label} page/source title: "{candidate_title}"
+Candidate file name from URL: "{url_filename}"
 
 VERIFICATION TASK:
 Determine if this {media_label} is factually and contextually SUITABLE to show as authentic documentary visual evidence during this exact narration.
 
 STRICT CRITERIA:
-1. RELEVANCE & AUTHENTICITY: Does the visual content genuinely depict the subject, person, weapon/vehicle, place, scientific process, or historical event mentioned in the narration?
-2. REJECT (passed = false) IF:
-   - Topic drift: Completely different historical event or military battle when talking about a street or peacetime treaty.
-   - Pure text title cards, blank/corrupted frames, unrelated talking-head studio interviews, video game footage, memes, or unrelated icons.
-   - The visual content contradicts or is unrelated to the core message of the voiceover.
-3. APPROVE (passed = true) IF:
-   - It shows the actual historical figure, signed document, vehicle/ship, facility, spacecraft/experiment, or authentic historical/archival scene described.
+1. IDENTITY & ENTITY MATCH:
+   - If the narration/query is about a specific historical person, scientist, chef, or leader, the image MUST actually depict that exact person (or their authentic work/restaurant/invention).
+   - Check the URL file name ("{url_filename}") and page title ("{candidate_title}") carefully: if the file name shows a completely different person (e.g. a pop singer or unrelated celebrity from a 'List of people...' page), IMMEDIATELY REJECT (`passed: false`)!
+2. REJECT (`passed = false`) IF:
+   - Wrong person, wrong vehicle/product, or topic drift (e.g., a generic list article, unrelated battle, map, coat of arms, or random icon).
+   - Pure text title cards, blank/corrupted frames, unrelated talking-head studio interviews, video game footage, or memes.
+   - The visual content contradicts or is unrelated to the core subject of the voiceover.
+3. APPROVE (`passed = true`) ONLY IF:
+   - It genuinely shows the actual historical figure, signed document, vehicle/ship, facility, spacecraft/experiment, or authentic historical/archival scene described.
 
 Return ONLY a valid JSON object:
 {{
@@ -1185,9 +1221,6 @@ Return ONLY a valid JSON object:
         _load_dotenv()
         from google import genai
         from google.genai import types
-
-        client_kwargs = get_gemini_client_kwargs()
-        client = genai.Client(**client_kwargs)
 
         contents: list[Any] = [prompt]
         raw_images = frame_bytes_list if frame_bytes_list else ([image_bytes] if image_bytes else [])
@@ -1205,29 +1238,37 @@ Return ONLY a valid JSON object:
             except Exception:
                 pass
 
-        resp = client.models.generate_content(
-            model="gemini-2.5-flash",
-            contents=contents,
-            config=types.GenerateContentConfig(
-                temperature=0.1,
-                response_mime_type="application/json",
-            ),
-        )
-        if resp.text:
-            parsed = json.loads(resp.text)
-            passed = bool(parsed.get("passed", False))
-            conf = float(parsed.get("confidence", 0.0))
-            reason = str(parsed.get("reason", "")).strip()
-            return {
-                "passed": passed and (conf >= 0.65),
-                "confidence": conf,
-                "reason": reason,
-            }
-    except Exception as e:
-        print(f"[warn] AI 考據審查呼叫失敗: {e}，採取安全放行策略")
-        return {"passed": True, "confidence": 0.5, "reason": "審核連線超時，預設放行"}
+        last_err = None
+        for model_name in VISION_REVIEW_MODELS:
+            try:
+                client = genai.Client(**get_gemini_client_kwargs(model=model_name))
+                resp = client.models.generate_content(
+                    model=model_name,
+                    contents=contents,
+                    config=types.GenerateContentConfig(
+                        temperature=0.1,
+                        response_mime_type="application/json",
+                    ),
+                )
+                if resp.text:
+                    parsed = json.loads(resp.text)
+                    passed = bool(parsed.get("passed", False))
+                    conf = float(parsed.get("confidence", 0.0))
+                    reason = str(parsed.get("reason", "")).strip()
+                    return {
+                        "passed": passed and (conf >= 0.65),
+                        "confidence": conf,
+                        "reason": reason,
+                    }
+            except Exception as model_err:
+                last_err = model_err
+                continue
 
-    return {"passed": True, "confidence": 0.5, "reason": "預設放行"}
+        print(f"[warn] AI 考據審查所有候選模型皆呼叫失敗 ({last_err})，採取嚴格拒絕策略 (Fail-Closed)")
+        return {"passed": False, "confidence": 0.0, "reason": "AI 審核連線異常，安全拒絕未驗證素材"}
+    except Exception as e:
+        print(f"[warn] AI 考據審查例外失敗: {e}，採取嚴格拒絕策略 (Fail-Closed)")
+        return {"passed": False, "confidence": 0.0, "reason": "AI 審核異常，安全拒絕未驗證素材"}
 
 
 def fetch_single_scene_pip(
@@ -1284,6 +1325,7 @@ def fetch_single_scene_pip(
                     narration=narration,
                     query=q,
                     candidate_title=cand_title,
+                    candidate_url=v_url,
                     frame_bytes_list=frames,
                     media_type="video",
                 )
@@ -1343,11 +1385,12 @@ def fetch_single_scene_pip(
                 continue
 
             cand_title = str(result.get("title") or "")
-            # 關鍵審查關卡：透過 AI 比對口白與圖片內容是否吻合
+            # 關鍵審查關卡：透過 AI 比對口白、檔名與圖片內容是否吻合
             review = verify_pip_match_with_ai(
                 narration=narration,
                 query=q,
                 candidate_title=cand_title,
+                candidate_url=img_url,
                 image_bytes=content,
                 media_type="image",
             )
@@ -1431,9 +1474,6 @@ def auto_detect_scene_reference_entities(job_dir: Path) -> dict[str, str]:
     from google import genai
     from google.genai import types
 
-    client_kwargs = get_gemini_client_kwargs()
-    client = genai.Client(**client_kwargs)
-
     context_lines = []
     if topic:
         context_lines.append(f"- Documentary Core Topic: {topic}")
@@ -1469,6 +1509,7 @@ Return a JSON object mapping scene_id to the search query string (or null):
 
     for model_name in TEXT_MODELS:
         try:
+            client = genai.Client(**get_gemini_client_kwargs(model=model_name))
             resp = client.models.generate_content(
                 model=model_name,
                 contents=prompt,

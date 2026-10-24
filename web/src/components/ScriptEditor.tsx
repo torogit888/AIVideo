@@ -73,6 +73,8 @@ export const ScriptEditor: React.FC = () => {
     draftResetKey,
     jobs,
     showToast,
+    requestConfirm,
+    requestPrompt,
     selectedAiModel,
     startNewDraft,
   } = useStudioStore();
@@ -579,7 +581,13 @@ export const ScriptEditor: React.FC = () => {
       const recut =
         hasScenes &&
         scriptText !== savedScript &&
-        window.confirm("口白已寫回此專案。要依新口白重切分鏡嗎？既有 takes 會依同鏡頭 id 保留。");
+        (await requestConfirm({
+          title: "是否依新口白重切分鏡？",
+          message: "口白已寫回此專案。要依新口白重切分鏡嗎？既有 takes 會依同鏡頭 id 保留。",
+          confirmText: "重切分鏡",
+          cancelText: "僅更新口白",
+          variant: "primary",
+        }));
       if (recut) {
         setIsRecutting(true);
         await api.recutJob(selectedJobId, { script: scriptText, visual_pacing: visualPacing });
@@ -629,8 +637,13 @@ export const ScriptEditor: React.FC = () => {
     );
   };
 
-  const handleAddChannelPreset = () => {
-    const input = window.prompt("請輸入新頻道／說書人名稱（例如：白兔、夜梟）：");
+  const handleAddChannelPreset = async () => {
+    const input = await requestPrompt({
+      title: "新增頻道／說書人名稱",
+      message: "請輸入新頻道／說書人名稱（例如：白兔、夜梟）：",
+      placeholder: "例如：白兔",
+      confirmText: "新增並套用",
+    });
     const name = (input || "").trim();
     if (!name) return;
     const nextList = channelPresets.includes(name) ? channelPresets : [...channelPresets, name];

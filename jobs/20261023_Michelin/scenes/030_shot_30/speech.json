@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261023T163023",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 20.42,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[sigh]整個法國社會為之震驚他的好友憤怒地在媒體前控訴是米其林的傲慢謀殺了天才",
+      "text_cn": "[sigh]整个法国社会为之震惊他的好友愤怒地在媒体前控诉是米其林的傲慢谋杀了天才",
+      "start_sec": 0.0,
+      "end_sec": 7.48,
+      "duration_sec": 7.48
+    },
+    {
+      "index": 2,
+      "text": "而類似的荒謬審判在十六年後的2019年再次上演",
+      "text_cn": "而类似的荒谬审判在十六年后的2019年再次上演",
+      "start_sec": 7.73,
+      "end_sec": 12.61,
+      "duration_sec": 4.88
+    },
+    {
+      "index": 3,
+      "text": "傳奇名廚馬克維拉因為一道舒芙蕾被密探質疑使用了廉價的英國切達起司而慘遭降星",
+      "text_cn": "传奇名厨马克维拉因为一道舒芙蕾被密探直疑使用了廉价的英国切达起司而惨遭降星",
+      "start_sec": 12.86,
+      "end_sec": 20.42,
+      "duration_sec": 7.56
+    }
+  ],
+  "created_at": "2026-10-23T16:30:23.405130+00:00"
+}

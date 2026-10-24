@@ -1,0 +1,26 @@
+id: 047_shot_47
+index: 47
+title: 商業歷史上最暴利的傳奇神話恰恰孕
+narration: 商業歷史上最暴利的傳奇神話恰恰孕育自對低效率的寬容和對失敗的敬畏，2021年斯賓塞席爾瓦博士安詳地走完了八十歲的人生旅程，
+image_prompt: wide establishing shot of a vibrant, glowing legend emerging from a
+  swirling, abstract vortex of "tolerance for inefficiency and reverence for failure,"
+  transitioning to a serene, fluid image of Dr. Spencer Silver, his form gently dissolving
+  into a peaceful, cosmic pattern, pop psychedelic lighting, 16:9 widescreen composition
+image_negative: ''
+act_index: 7
+act_title: 反噬與神話終局：當偶然成為不可複製的絕唱
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T115530
+  image_take: image_20261023T115452
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Spencer Silver obituary 2021
+  fetch_error: 未找到合適照片或影片

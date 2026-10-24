@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261023T111519",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 9.77,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "然而在一連串精密複雜的高分子聚合反應之後",
+      "text_cn": "然而在一连串精密复杂的高分子聚合反应之后",
+      "start_sec": 0.0,
+      "end_sec": 4.16,
+      "duration_sec": 4.16
+    },
+    {
+      "index": 2,
+      "text": "從反應釜裡倒出來的液體卻讓這位頂級科學家當場愣在原地",
+      "text_cn": "从反应釜里倒出来的液体却让这位顶级科学家当场愣在原地",
+      "start_sec": 4.41,
+      "end_sec": 9.77,
+      "duration_sec": 5.36
+    }
+  ],
+  "created_at": "2026-10-23T11:15:19.456297+00:00"
+}

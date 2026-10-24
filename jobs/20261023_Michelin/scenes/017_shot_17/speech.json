@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261023T162101",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 19.14,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "不僅如此他們還霸氣地砍掉了手冊裡所有收費刊登的汽車零件廣告",
+      "text_cn": "不仅如此他们还霸气地砍掉了手册里所有收费刊登的汽车零件广告",
+      "start_sec": 0.0,
+      "end_sec": 5.96,
+      "duration_sec": 5.96
+    },
+    {
+      "index": 2,
+      "text": "對外高調宣布米其林指南從此只代表純粹的客觀與中立",
+      "text_cn": "对外高调宣布米其林指南从此只代表纯粹的客观与中立",
+      "start_sec": 6.21,
+      "end_sec": 11.17,
+      "duration_sec": 4.96
+    },
+    {
+      "index": 3,
+      "text": "[surprise-oh]信不信由你這招看似自斷財路的以退為進竟然徹底點燃了中產階級的搶購熱潮",
+      "text_cn": "[surprise-oh]信不信由你这招看似自断财路的以退为进竟然彻底点燃了中产阶级的抢购热潮",
+      "start_sec": 11.42,
+      "end_sec": 19.14,
+      "duration_sec": 7.72
+    }
+  ],
+  "created_at": "2026-10-23T16:21:01.484742+00:00"
+}

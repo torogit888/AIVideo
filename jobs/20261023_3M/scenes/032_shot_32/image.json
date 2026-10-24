@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261023T114040",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3-pro-image",
+  "seed": 76748705,
+  "prompt": "Masaaki Yuasa Style, medium close-up of a vibrant yellow Post-it Note, its glow dulled and distorted, trapped within a cold, rigid plastic bag on a sterile shelf, while abstract, flowing lines representing \"addictive habits\" are forcefully injected into distorted, anonymous figures, dramatic non-realistic lighting, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-23T11:40:40.568881+00:00"
+}

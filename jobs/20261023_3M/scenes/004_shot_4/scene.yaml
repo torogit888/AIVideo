@@ -1,0 +1,26 @@
+id: 004_shot_4
+index: 4
+title: 位於明尼蘇達州聖保羅的三愛姆公司
+narration: 位於明尼蘇達州聖保羅的三愛姆公司中央實驗室裡，資深高分子化學家斯賓塞席爾瓦博士正死死盯著反應釜，
+image_prompt: medium close-up of Dr. Spencer Silver, his fluid and elongated form
+  hunched over a bubbling reactor in the 3M central lab, his eyes swirling with abstract
+  patterns, his lab coat billowing with vibrant outlines, glowing tubes and psychedelic
+  machinery pulsing around him, dramatic non-realistic lighting, 16:9 widescreen composition
+image_negative: ''
+act_index: 1
+act_title: 荒誕的失敗：想造太空飛船，卻搞出史上最廢的膠水
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T111345
+  image_take: image_20261023T111331
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Spencer Silver 3M chemist portrait
+  fetch_error: 未找到合適照片或影片

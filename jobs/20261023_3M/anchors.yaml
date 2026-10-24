@@ -1,0 +1,160 @@
+subject: 'Dr. Spencer Silver: A senior polymer chemist, Dr. Silver''s form is often
+  fluid and slightly elongated, reflecting his deep, almost obsessive thought. His
+  face, while generally human, can stretch and distort with intense focus or sudden
+  bewilderment, his eyes sometimes swirling with abstract patterns when struck by
+  an idea. His hair is a wild, flowing mass, perhaps graying, that seems to defy gravity,
+  especially when he''s hunched over his work. He wears a lab coat that billows and
+  stretches with impossible angles, its white fabric often outlined in vibrant, contrasting
+  colors, suggesting a hidden energy beneath. When staring at the reactor, his body
+  might appear to subtly melt into the machinery, a visual metaphor for his absorption.
+  His moments of realization are marked by a sudden, exaggerated snap into an upright
+  posture, radiating a psychedelic aura of insight. | Art Fry: A senior chemical engineer,
+  Art Fry is depicted as a slightly gangly and perpetually anxious figure, often with
+  beads of sweat forming exaggerated, shimmering droplets on his brow. His thick,
+  round glasses distort his eyes into swirling spirals of panic or sudden, brilliant
+  epiphany. His body is rubbery and awkward, prone to exaggerated flailing when stressed
+  or excited, his limbs capable of impossible contortions. His hair is perpetually
+  disheveled, often standing on end like static electricity when an idea strikes.
+  He wears a rumpled shirt and tie, perhaps a slightly ill-fitting suit jacket, all
+  rendered with fluid, wavy lines that suggest constant nervous energy. In moments
+  of embarrassment, his face might squash into a comically distorted mask. When inspiration
+  hits, his head could literally expand or glow with vibrant, shifting colors, his
+  body momentarily rigid before springing into action with a burst of psychedelic
+  energy. | Nicholson: The commercial development manager, Nicholson possesses a sharp,
+  almost predatory charisma, his movements smooth and calculated yet capable of sudden,
+  dramatic shifts. His face is angular, with a knowing, slightly mischievous grin
+  that can widen into an exaggerated, persuasive smile. His eyes gleam with strategic
+  insight, often depicted with a subtle, unsettling asymmetry. His hair is slicked
+  back or sharply styled, reflecting his professional demeanor, but might subtly ripple
+  or change color with his mood. He wears a crisp suit that, in true Yuasa fashion,
+  flows and ripples like liquid fabric, its colors shifting subtly to reflect his
+  persuasive power and the ''Trojan horse'' nature of his marketing. When orchestrating
+  the ''Boise Blitz,'' his form could stretch dynamically across cityscapes, a vibrant,
+  almost abstract force directing the ''yellow virus'' invasion with theatrical confidence.
+  | Yellow Post-it Note: The iconic Post-it Note is rendered as a vibrant, almost
+  glowing canary yellow square. Its edges are not perfectly straight but possess a
+  subtle, rubbery undulation, suggesting its flexible and adaptable nature. When depicted
+  adhering to a surface, it might ''squish'' slightly with a subtle, organic effect,
+  and when peeled off, it stretches momentarily before detaching cleanly, leaving
+  behind a shimmering, unmarred surface. The yellow color itself is intensely saturated,
+  almost radiating light, especially when contrasted against duller backgrounds. When
+  shown in use, it multiplies and spreads like a ''yellow virus,'' its corners curling
+  expressively, appearing as a dynamic, almost living entity that transforms mundane
+  documents into a vibrant, organized chaos. | The Failed Adhesive: Initially, the
+  adhesive appears as a viscous, milky liquid, bubbling with an unsettling, almost
+  alive quality within the reactor. Under a microscopic view, the ''acrylic copolymer
+  microspheres'' are depicted as swirling, iridescent orbs, refusing to form stable
+  molecular chains. They bounce off each other with a psychedelic, chaotic energy,
+  never quite connecting. When applied to a surface, it forms a thin, shimmering,
+  almost invisible film, but with a subtle, magical glow when it adheres or detaches.
+  Its ''weakness'' is visually represented by objects comically sliding apart or falling
+  with exaggerated, rubbery movements, emphasizing its non-permanent bond. | Fry''s
+  Prototype Machine: A sprawling, multi-limbed contraption, Fry''s prototype machine
+  is a Frankenstein''s monster of salvaged industrial parts. Gears, belts, and levers
+  twist and turn with exaggerated, fluid motion, creating a chaotic yet determined
+  rhythm. Its overall form is asymmetrical and precarious, constantly on the verge
+  of collapse, yet pulsing with frantic energy. The conveyor belt is depicted as a
+  rapidly undulating, almost liquid surface. Colors are a mix of dull, industrial
+  grays and browns, punctuated by sudden flashes of vibrant, almost electrical energy
+  where parts connect or move. The machine itself seems to breathe and groan, its
+  movements imbued with a strange, almost desperate life, reflecting Fry''s tireless,
+  almost dangerous efforts in his basement workshop.'
+environment: The world is a vibrant, fluid canvas where physical laws are playfully
+  bent. Architecture, from sleek modern office towers to the solemnity of a church,
+  is rendered with flowing lines that subtly undulate or stretch, reflecting emotional
+  states or narrative shifts. The 3M central lab is a maze of glowing tubes and bubbling
+  beakers, its machinery pulsing with psychedelic energy. Fry's basement 'factory'
+  is a chaotic, dimly lit space, filled with a jumble of discarded parts that seem
+  to writhe and connect in impossible ways, illuminated by harsh, flickering lights
+  that cast exaggerated, distorted shadows. The palette is dominated by pop psychedelic
+  colors, with high contrasts and unexpected combinations. Even mundane objects glow
+  with an inner light or are outlined in vibrant hues. Lighting is dramatic and non-realistic,
+  often emanating from unseen sources or from objects themselves, casting long, distorted
+  shadows or bathing scenes in flat, intensely saturated illumination. The atmosphere
+  shifts from the frantic energy of the Cold War era, depicted with swirling cosmic
+  patterns and stark, clinical lighting, to the overwhelming 'yellow tsunami' of Post-it
+  notes, which transforms entire cityscapes into a vibrant, almost overwhelming yellow
+  landscape, reflecting the product's viral spread and its psychological impact.
+use_image_reference: true
+characters:
+- id: dr_spencer_silver
+  name: Dr. Spencer Silver
+  appearance: A senior polymer chemist, Dr. Silver's form is often fluid and slightly
+    elongated, reflecting his deep, almost obsessive thought. His face, while generally
+    human, can stretch and distort with intense focus or sudden bewilderment, his
+    eyes sometimes swirling with abstract patterns when struck by an idea. His hair
+    is a wild, flowing mass, perhaps graying, that seems to defy gravity, especially
+    when he's hunched over his work. He wears a lab coat that billows and stretches
+    with impossible angles, its white fabric often outlined in vibrant, contrasting
+    colors, suggesting a hidden energy beneath. When staring at the reactor, his body
+    might appear to subtly melt into the machinery, a visual metaphor for his absorption.
+    His moments of realization are marked by a sudden, exaggerated snap into an upright
+    posture, radiating a psychedelic aura of insight.
+  entity_type: character
+- id: art_fry
+  name: Art Fry
+  appearance: A senior chemical engineer, Art Fry is depicted as a slightly gangly
+    and perpetually anxious figure, often with beads of sweat forming exaggerated,
+    shimmering droplets on his brow. His thick, round glasses distort his eyes into
+    swirling spirals of panic or sudden, brilliant epiphany. His body is rubbery and
+    awkward, prone to exaggerated flailing when stressed or excited, his limbs capable
+    of impossible contortions. His hair is perpetually disheveled, often standing
+    on end like static electricity when an idea strikes. He wears a rumpled shirt
+    and tie, perhaps a slightly ill-fitting suit jacket, all rendered with fluid,
+    wavy lines that suggest constant nervous energy. In moments of embarrassment,
+    his face might squash into a comically distorted mask. When inspiration hits,
+    his head could literally expand or glow with vibrant, shifting colors, his body
+    momentarily rigid before springing into action with a burst of psychedelic energy.
+  entity_type: character
+- id: nicholson
+  name: Nicholson
+  appearance: The commercial development manager, Nicholson possesses a sharp, almost
+    predatory charisma, his movements smooth and calculated yet capable of sudden,
+    dramatic shifts. His face is angular, with a knowing, slightly mischievous grin
+    that can widen into an exaggerated, persuasive smile. His eyes gleam with strategic
+    insight, often depicted with a subtle, unsettling asymmetry. His hair is slicked
+    back or sharply styled, reflecting his professional demeanor, but might subtly
+    ripple or change color with his mood. He wears a crisp suit that, in true Yuasa
+    fashion, flows and ripples like liquid fabric, its colors shifting subtly to reflect
+    his persuasive power and the 'Trojan horse' nature of his marketing. When orchestrating
+    the 'Boise Blitz,' his form could stretch dynamically across cityscapes, a vibrant,
+    almost abstract force directing the 'yellow virus' invasion with theatrical confidence.
+  entity_type: character
+- id: yellow_post_it_note
+  name: Yellow Post-it Note
+  appearance: The iconic Post-it Note is rendered as a vibrant, almost glowing canary
+    yellow square. Its edges are not perfectly straight but possess a subtle, rubbery
+    undulation, suggesting its flexible and adaptable nature. When depicted adhering
+    to a surface, it might 'squish' slightly with a subtle, organic effect, and when
+    peeled off, it stretches momentarily before detaching cleanly, leaving behind
+    a shimmering, unmarred surface. The yellow color itself is intensely saturated,
+    almost radiating light, especially when contrasted against duller backgrounds.
+    When shown in use, it multiplies and spreads like a 'yellow virus,' its corners
+    curling expressively, appearing as a dynamic, almost living entity that transforms
+    mundane documents into a vibrant, organized chaos.
+  entity_type: object
+- id: failed_adhesive
+  name: The Failed Adhesive
+  appearance: Initially, the adhesive appears as a viscous, milky liquid, bubbling
+    with an unsettling, almost alive quality within the reactor. Under a microscopic
+    view, the 'acrylic copolymer microspheres' are depicted as swirling, iridescent
+    orbs, refusing to form stable molecular chains. They bounce off each other with
+    a psychedelic, chaotic energy, never quite connecting. When applied to a surface,
+    it forms a thin, shimmering, almost invisible film, but with a subtle, magical
+    glow when it adheres or detaches. Its 'weakness' is visually represented by objects
+    comically sliding apart or falling with exaggerated, rubbery movements, emphasizing
+    its non-permanent bond.
+  entity_type: object
+- id: frys_prototype_machine
+  name: Fry's Prototype Machine
+  appearance: A sprawling, multi-limbed contraption, Fry's prototype machine is a
+    Frankenstein's monster of salvaged industrial parts. Gears, belts, and levers
+    twist and turn with exaggerated, fluid motion, creating a chaotic yet determined
+    rhythm. Its overall form is asymmetrical and precarious, constantly on the verge
+    of collapse, yet pulsing with frantic energy. The conveyor belt is depicted as
+    a rapidly undulating, almost liquid surface. Colors are a mix of dull, industrial
+    grays and browns, punctuated by sudden flashes of vibrant, almost electrical energy
+    where parts connect or move. The machine itself seems to breathe and groan, its
+    movements imbued with a strange, almost desperate life, reflecting Fry's tireless,
+    almost dangerous efforts in his basement workshop.
+  entity_type: object

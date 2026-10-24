@@ -1,0 +1,27 @@
+id: 031_shot_31
+index: 31
+title: 到底是這項技術本身有缺陷還是傳統
+narration: '[question-ei]到底是這項技術本身有缺陷還是傳統的商業思維在某個地方徹底失靈了？在這個退無可退的懸崖邊上商業開發主管尼克爾森看穿了人性的致命盲點，'
+image_prompt: medium close-up of Nicholson, his angular face with a knowing, slightly
+  mischievous grin, standing at the edge of a distorted, precipitous cliff, his eyes
+  gleaming with strategic insight, as abstract, swirling patterns representing "humanity's
+  fatal blind spot" coalesce around him, dramatic non-realistic lighting, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 5
+act_title: 波伊西突擊戰：攻破權力中樞的特洛伊木馬
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T114016
+  image_take: image_20261023T114004
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Geoff Nicholson 3M commercial development manager portrait
+  fetch_error: 未找到合適照片或影片

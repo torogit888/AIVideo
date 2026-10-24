@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261023T113751",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 48380991,
+  "prompt": "Masaaki Yuasa Style, medium close-up of a distorted, skeptical customer's face, eyes swirling with confusion, looking at a vibrant, glowing yellow Post-it Note, juxtaposed with a towering stack of cheap, dull white paper, emphasizing the perceived price disparity, dramatic non-realistic lighting, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-23T11:37:51.890846+00:00"
+}

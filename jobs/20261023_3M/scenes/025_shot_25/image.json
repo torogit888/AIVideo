@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261023T113424",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 32266641,
+  "prompt": "Masaaki Yuasa Style, medium close-up of Art Fry, his anxious figure, body contorted in despair, facing a towering, rigid, and distorted corporate machine, its gears and levers grinding to a halt, symbolizing the rejection of his project due to immense cost, stark clinical lighting, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-23T11:34:24.850334+00:00"
+}

@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261023T111239",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.98,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "這個一年在全世界狂賣數百億張的文具霸主",
+      "text_cn": "这个一年在全世界狂卖数百亿张的文具霸主",
+      "start_sec": 0.0,
+      "end_sec": 3.96,
+      "duration_sec": 3.96
+    },
+    {
+      "index": 2,
+      "text": "背後竟然隱藏著一段荒謬到極點的商業黑歷史",
+      "text_cn": "背后竟然隐藏着一段荒谬到极点的商业黑历史",
+      "start_sec": 4.21,
+      "end_sec": 8.37,
+      "duration_sec": 4.16
+    },
+    {
+      "index": 3,
+      "text": "[surprise-wa]你敢相信它最初的誕生居然是一場徹底搞砸的重大軍工事故嗎？",
+      "text_cn": "[surprise-wa]你敢相信它最初的诞生居然是一场彻底搞砸的重大军工事故吗？",
+      "start_sec": 8.62,
+      "end_sec": 14.98,
+      "duration_sec": 6.36
+    }
+  ],
+  "created_at": "2026-10-23T11:12:39.354493+00:00"
+}

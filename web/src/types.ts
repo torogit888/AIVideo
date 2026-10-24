@@ -160,9 +160,7 @@ export interface AiModelOption {
 
 export const AI_TEXT_MODELS: AiModelOption[] = [
   { id: "gemini-3.8-flash", name: "Gemini 3.8 Flash", badge: "3.8 Flash", tag: "極速高擬真・首選推薦" },
-  { id: "gemini-3.5-flash", name: "Gemini 3.5 Flash", badge: "3.5 Flash", tag: "經典平衡" },
-  { id: "gemini-2.5-flash", name: "Gemini 2.5 Flash", badge: "2.5 Flash", tag: "官方旗艦" },
-  { id: "grok-4.7", name: "xAI Grok 4.7", badge: "Grok 4.7", tag: "獨立風格" },
+  { id: "gemini-3.7-flash", name: "Gemini 3.7 Flash", badge: "3.7 Flash", tag: "高速穩定・次選推薦" },
 ];
 
 export const AI_IMAGE_MODELS: AiModelOption[] = [

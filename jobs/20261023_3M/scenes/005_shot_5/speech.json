@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261023T111422",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 11.97,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "當時軍方與航太工業極度渴望能承受超音速風阻的超強結構膠",
+      "text_cn": "当时军方与航太工业极度渴望能承受超音速风阻的超强结构胶",
+      "start_sec": 0.0,
+      "end_sec": 5.56,
+      "duration_sec": 5.56
+    },
+    {
+      "index": 2,
+      "text": "席爾瓦博士的任務就是要合成出一種耐高溫且撕不開的航太級黏著劑",
+      "text_cn": "席尔瓦博士的任务就是要合成出一种耐高温且撕不开的航太级黏着剂",
+      "start_sec": 5.81,
+      "end_sec": 11.97,
+      "duration_sec": 6.16
+    }
+  ],
+  "created_at": "2026-10-23T11:14:22.932157+00:00"
+}

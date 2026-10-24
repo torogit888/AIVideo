@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261023T161201",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 20.95,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "位在克萊蒙費朗的米其林橡膠工廠裡",
+      "text_cn": "位在克莱蒙费朗的米其林橡胶工厂里",
+      "start_sec": 0.0,
+      "end_sec": 3.36,
+      "duration_sec": 3.36
+    },
+    {
+      "index": 2,
+      "text": "安德烈米其林與愛德華米其林這對親兄弟正面臨看似無解的商業死局",
+      "text_cn": "安德烈米其林与爱德华米其林这对亲兄弟正面临看似无解的商业死局",
+      "start_sec": 3.61,
+      "end_sec": 9.77,
+      "duration_sec": 6.16
+    },
+    {
+      "index": 3,
+      "text": "路上跑的車輛這麼少而且當時的輪胎又極為笨重不容易損耗",
+      "text_cn": "路上跑的车辆这么少而且当时的轮胎又极为笨重不容易损耗",
+      "start_sec": 10.02,
+      "end_sec": 15.38,
+      "duration_sec": 5.36
+    },
+    {
+      "index": 4,
+      "text": "他們這家剛起步的橡膠工廠究竟該怎麼生存下去呢 [question-ei]",
+      "text_cn": "他们这家刚起步的橡胶工厂旧竟该怎么生存下去呢 [question-ei]",
+      "start_sec": 15.63,
+      "end_sec": 20.95,
+      "duration_sec": 5.32
+    }
+  ],
+  "created_at": "2026-10-23T16:12:01.159393+00:00"
+}

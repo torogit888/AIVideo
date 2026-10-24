@@ -20,10 +20,7 @@ CACHE_FILE = CREDENTIALS_DIR / "models_cache.json"
 # 常見需要檢查狀態的文本與生圖模型
 KNOWN_TEXT_MODELS = [
     {"id": "gemini-3.8-flash", "name": "Gemini 3.8 Flash"},
-    {"id": "gemini-3.5-flash", "name": "Gemini 3.5 Flash"},
-    {"id": "gemini-2.5-flash", "name": "Gemini 2.5 Flash"},
-    {"id": "gemini-2.0-flash", "name": "Gemini 2.0 Flash"},
-    {"id": "grok-4.7", "name": "xAI Grok 4.7"},
+    {"id": "gemini-3.7-flash", "name": "Gemini 3.7 Flash"},
 ]
 
 KNOWN_IMAGE_MODELS = [

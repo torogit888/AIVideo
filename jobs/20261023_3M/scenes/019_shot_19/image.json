@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261023T112641",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 86026508,
+  "prompt": "Masaaki Yuasa Style, medium close-up of Art Fry, his rubbery and awkward body flailing, his face squashed into a comically distorted mask of embarrassment, kneeling on the church floor amidst a flurry of smooth, white paper bookmarks scattering like snow, distorted churchgoers' faces observing from the pews, dramatic non-realistic lighting, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-23T11:26:41.985694+00:00"
+}

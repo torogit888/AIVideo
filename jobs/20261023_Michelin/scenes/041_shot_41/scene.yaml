@@ -1,0 +1,19 @@
+id: 041_shot_41
+index: 41
+title: 我們在那些昂貴星級餐廳裡咀嚼吞嚥
+narration: 我們在那些昂貴星級餐廳裡咀嚼吞嚥下去的究竟是主廚的匠人靈魂，還是資本家精密計算後向我們收取的輪胎磨損補償費呢，
+image_prompt: 'A medium shot in Q版 2D 卡通插畫 style. A diner in an opulent, star-rated
+  restaurant is eating a beautifully presented dish. Above their head, a thought bubble
+  is split: on one side, a chef''s passionate, artistic soul; on the other, a calculator
+  displaying tire wear calculations. Elegant, reflective lighting, 16:9 widescreen
+  composition.'
+image_negative: ''
+act_index: 7
+act_title: 歷史餘韻與訂閱謝幕，荒誕世界中的清醒回望
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T163907
+  image_take: image_20261023T163848
+character_ids: []

@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261023T162704",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 24.99,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "這樣來回折騰一趟客人吃飽了肚子而汽車底盤上的橡膠輪胎也徹底磨平報廢了",
+      "text_cn": "这样来回折腾一趟客人吃饱了肚子而汽车底盘上的橡胶轮胎也彻底磨平报废了",
+      "start_sec": 0.0,
+      "end_sec": 6.96,
+      "duration_sec": 6.96
+    },
+    {
+      "index": 2,
+      "text": "[laughter]全歐洲最頂尖的名廚在廚房裡為了爭奪星星累得精疲力竭",
+      "text_cn": "[laughter]全欧洲最顶尖的名厨在厨房里为了争夺星星累得精疲力竭",
+      "start_sec": 7.21,
+      "end_sec": 12.97,
+      "duration_sec": 5.76
+    },
+    {
+      "index": 3,
+      "text": "全歐洲最有錢的食客開著跑車在泥濘公路上瘋狂磨損輪胎",
+      "text_cn": "全欧洲最有钱的食客开着跑车在泥泞公路上疯狂磨损轮胎",
+      "start_sec": 13.22,
+      "end_sec": 18.38,
+      "duration_sec": 5.16
+    },
+    {
+      "index": 4,
+      "text": "而坐在克萊蒙費朗辦公室裡笑著數鈔票的始終是那家賣橡膠輪胎的工廠",
+      "text_cn": "而坐在克莱蒙费朗办公室里笑着数钞票的始终是那家卖橡胶轮胎的工厂",
+      "start_sec": 18.63,
+      "end_sec": 24.99,
+      "duration_sec": 6.36
+    }
+  ],
+  "created_at": "2026-10-23T16:27:04.908797+00:00"
+}

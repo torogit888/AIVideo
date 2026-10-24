@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261023T113313",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 18.02,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "然而當你以為看穿了需求財富大門就會向你敞開那就大錯特錯了",
+      "text_cn": "然而当你以为看穿了需求财富大门就会向你敞开那就大错特错了",
+      "start_sec": 0.0,
+      "end_sec": 5.76,
+      "duration_sec": 5.76
+    },
+    {
+      "index": 2,
+      "text": "[dissatisfaction-hnn]商業世界如果真有那麼順理成章滿大街早就都是億萬富翁了",
+      "text_cn": "[dissatisfaction-hnn]商业世界如果真有那么顺理成章满大街早就都是亿万富翁了",
+      "start_sec": 6.01,
+      "end_sec": 12.01,
+      "duration_sec": 6.0
+    },
+    {
+      "index": 3,
+      "text": "弗萊很快就撞上了一堵名為量產工藝與製造成本的鋼筋水泥高牆",
+      "text_cn": "弗莱很快就撞上了一堵名为量产工艺与制造成本的钢筋水泥高墙",
+      "start_sec": 12.26,
+      "end_sec": 18.02,
+      "duration_sec": 5.76
+    }
+  ],
+  "created_at": "2026-10-23T11:33:13.230163+00:00"
+}

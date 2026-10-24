@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261023T111153",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 69391592,
+  "prompt": "Masaaki Yuasa Style, wide establishing shot of a modern office building interior, its architecture flowing with impossible curves, numerous computer screens glowing with vibrant, shifting colors, each screen frame adorned with multiple intensely saturated, slightly undulating yellow Post-it Notes, pop psychedelic lighting, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-23T11:11:53.834364+00:00"
+}

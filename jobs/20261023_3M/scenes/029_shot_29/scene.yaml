@@ -1,0 +1,17 @@
+id: 029_shot_29
+index: 29
+title: 在普通顧客眼裡一包普通的裁切白紙
+narration: 在普通顧客眼裡一包普通的裁切白紙只要幾十美分就能買到一大疊，憑什麼要大家花幾倍的昂貴代價去買你這疊塗了奇怪膠水的黃色廢紙？
+image_prompt: medium close-up of a distorted, skeptical customer's face, eyes swirling
+  with confusion, looking at a vibrant, glowing yellow Post-it Note, juxtaposed with
+  a towering stack of cheap, dull white paper, emphasizing the perceived price disparity,
+  dramatic non-realistic lighting, 16:9 widescreen composition
+image_negative: ''
+act_index: 5
+act_title: 波伊西突擊戰：攻破權力中樞的特洛伊木馬
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T113828
+  image_take: image_20261023T113751

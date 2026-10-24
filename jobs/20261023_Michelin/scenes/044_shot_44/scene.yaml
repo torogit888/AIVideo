@@ -1,0 +1,19 @@
+id: 044_shot_44
+index: 44
+title: 好了那麼螢幕前的你是否也曾親自造
+narration: 好了那麼螢幕前的你是否也曾親自造訪過那些傳說中的米其林星級名店呢，你覺得那些被捧上神壇的高價料理是名副其實的極致美味還是包裝出來的資本泡沫呢，歡迎在影片下方留言分享你的真實經歷與看法，如果這期內容讓你重新看清了米其林背後的商業真相別忘了點讚訂閱並開啟小鈴鐺，你的支持是我繼續為大家挖掘更多荒誕歷史真相的最大動力，我們下次見!
+image_prompt: A thought-provoking medium shot in Q版 2D 卡通插畫 style. A beautifully plated,
+  expensive dish sits on a table in a Michelin-starred restaurant. A subtle, translucent
+  question mark or a delicate bubble hovers above the dish, inviting reflection on
+  its true value and whether it's genuine excellence or a capitalist construct. Soft,
+  contemplative lighting, 16:9 widescreen composition.
+image_negative: ''
+act_index: 7
+act_title: 歷史餘韻與訂閱謝幕，荒誕世界中的清醒回望
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T164202
+  image_take: image_20261023T164139
+character_ids: []

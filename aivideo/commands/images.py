@@ -11,7 +11,7 @@ import yaml
 
 from aivideo.commands.check import _load_dotenv
 from aivideo.gemini_image import generate_image, has_gemini_credentials
-from aivideo.visual_anchors import collect_character_ref_images, collect_scene_character_ref_images
+from aivideo.visual_anchors import collect_scene_character_ref_images
 from aivideo.job_files import load_job_config
 from aivideo.story_generator import resolve_style
 from aivideo.style_prompt import compose_styled_prompt
@@ -60,12 +60,7 @@ def run_images(args: Any = None, progress_callback=None, **kwargs) -> int:
     resolution = img_cfg.get("resolution", "1K")
     aspect_ratio = img_cfg.get("aspect_ratio", "16:9")
 
-    # 檢查專案是否啟用角色定裝參考圖 (每人一張，多模態一致性)
     visual_anchors = job_cfg.get("visual_anchors", {})
-    ref_images_to_use = collect_character_ref_images(job_dir, visual_anchors)
-    if ref_images_to_use:
-        names = ", ".join(p.name for p, _ in ref_images_to_use)
-        print(f"[info] 已掛載 {len(ref_images_to_use)} 張角色定裝參考圖進行多模態一致性生圖：{names}")
 
     scenes_dir = job_dir / "scenes"
     if not scenes_dir.is_dir():
@@ -178,12 +173,11 @@ def run_images(args: Any = None, progress_callback=None, **kwargs) -> int:
         dest_png = takes_dir / f"{take_id}.png"
         dest_json = takes_dir / f"{take_id}.json"
 
-        # 依據此分鏡之台詞與英文 Prompt 智慧匹配出場角色，精確掛載該角色的定裝圖進行一致性生圖
+        # 依據分鏡寫入之 character_ids 精確掛載出場角色的定裝圖
         scene_refs = collect_scene_character_ref_images(
             job_dir,
             visual_anchors,
-            narration=str(scene_cfg.get("narration", "")),
-            image_prompt=prompt,
+            character_ids=scene_cfg.get("character_ids"),
         )
 
         # 場景原地重試機制 (In-Place Scene Retry)，遇暫時性限制絕不直接跳過
@@ -311,6 +305,11 @@ def run_images(args: Any = None, progress_callback=None, **kwargs) -> int:
                 dest_png = takes_dir / f"{take_id}.png"
                 dest_json = takes_dir / f"{take_id}.json"
                 seed = random.randint(10000000, 99999999)
+                heal_refs = collect_scene_character_ref_images(
+                    job_dir,
+                    visual_anchors,
+                    character_ids=scene_cfg.get("character_ids"),
+                )
 
                 for heal_attempt in range(1, 3):
                     try:
@@ -321,7 +320,7 @@ def run_images(args: Any = None, progress_callback=None, **kwargs) -> int:
                             image_size=resolution,
                             model=model,
                             seed=seed,
-                            ref_images=ref_images_to_use or None,
+                            ref_images=heal_refs or None,
                         )
                         meta = {
                             "take_id": take_id,

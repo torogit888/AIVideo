@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261023T162852",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 20.78,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "在那個精緻餐飲的殘酷世界裡拿到三星意味著餐廳營收能暴增百分之五十",
+      "text_cn": "在那个精致餐饮的残酷世界里拿到三星意味着餐厅营收能暴增百分之五十",
+      "start_sec": 0.0,
+      "end_sec": 6.56,
+      "duration_sec": 6.56
+    },
+    {
+      "index": 2,
+      "text": "但只要被摘掉哪怕一顆星等待你的就是訂位腰斬銀行抽走貸款以及毀滅性的羞辱",
+      "text_cn": "但只要被摘掉哪怕一颗星等待你的就是订位腰斩银行抽走贷款以及毁灭性的羞辱",
+      "start_sec": 6.81,
+      "end_sec": 13.97,
+      "duration_sec": 7.16
+    },
+    {
+      "index": 3,
+      "text": "盧瓦索每天在高壓鍋一般的廚房裡工作超過十五個小時精神處於崩潰邊緣",
+      "text_cn": "卢瓦索每天在高压锅一般的厨房里工作超过十五个小时精神处于崩溃边缘",
+      "start_sec": 14.22,
+      "end_sec": 20.78,
+      "duration_sec": 6.56
+    }
+  ],
+  "created_at": "2026-10-23T16:28:52.414488+00:00"
+}

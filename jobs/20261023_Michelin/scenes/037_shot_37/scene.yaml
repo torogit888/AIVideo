@@ -1,0 +1,21 @@
+id: 037_shot_37
+index: 37
+title: 回顧這場跨越了一百二十多年的世紀
+narration: 回顧這場跨越了一百二十多年的世紀大戲我們不得不佩服這對米其林兄弟，他們絕對是人類商業史上最登峰造極的行銷大師，他們從不枯燥地向消費者推銷自家的橡膠有多麼厚實花紋有多麼耐磨，而是直接替全人類虛構出了一個非去不可的遠方為你的衝動消費賦予了神聖藉口，
+image_prompt: A wide shot in Q版 2D 卡通插畫 style. André and Édouard Michelin stand proudly
+  and confidently, like masterminds, looking out at a stylized map of the world. Glowing
+  paths lead from their position to various distant, desirable destinations, symbolizing
+  their genius in creating a desire for travel and experience. Bright, visionary lighting,
+  16:9 widescreen composition.
+image_negative: ''
+act_index: 6
+act_title: 百年陽謀的反思，當味蕾被資本徹底馴化
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T163622
+  image_take: image_20261023T163548
+character_ids:
+- andre_michelin
+- edouard_michelin

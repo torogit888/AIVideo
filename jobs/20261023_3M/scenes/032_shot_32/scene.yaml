@@ -1,0 +1,17 @@
+id: 032_shot_32
+index: 32
+title: 當你的產品具有顛覆性的互動屬性時
+narration: 當你的產品具有顛覆性的互動屬性時把它裝進塑膠袋放在貨架上就是謀殺，因為隔著冰冷的包裝袋消費者根本無法憑空想像它到底能解決什麼痛苦，你不能站在原地賣產品你必須把這種成癮習慣直接強行塞進他們的身體裡，
+image_prompt: medium close-up of a vibrant yellow Post-it Note, its glow dulled and
+  distorted, trapped within a cold, rigid plastic bag on a sterile shelf, while abstract,
+  flowing lines representing "addictive habits" are forcefully injected into distorted,
+  anonymous figures, dramatic non-realistic lighting, 16:9 widescreen composition
+image_negative: ''
+act_index: 5
+act_title: 波伊西突擊戰：攻破權力中樞的特洛伊木馬
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T114104
+  image_take: image_20261023T114040

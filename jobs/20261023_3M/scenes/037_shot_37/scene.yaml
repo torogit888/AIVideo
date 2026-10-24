@@ -1,0 +1,17 @@
+id: 037_shot_37
+index: 37
+title: 短短幾週之內波伊西市所有大公司的
+narration: 短短幾週之內波伊西市所有大公司的公文運轉全被這片黃色病毒徹底寄生，免費樣品消耗殆盡之後奇蹟在死寂的市場數據上瘋狂爆發，
+image_prompt: wide establishing shot of a stylized cityscape of Boise, its flowing
+  architecture now completely covered and transformed by a vibrant, overwhelming 'yellow
+  virus' of Post-it Notes, with abstract, glowing lines representing market data exploding
+  from previously dead, rigid charts, pop psychedelic lighting, 16:9 widescreen composition
+image_negative: ''
+act_index: 6
+act_title: 席捲全球的黃色病毒：從辦公桌到現代認知外包
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T114517
+  image_take: image_20261023T114441

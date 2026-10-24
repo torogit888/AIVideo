@@ -1,0 +1,17 @@
+id: 008_shot_8
+index: 8
+title: 他把這種膠水塗在紙上拿手輕輕一碰
+narration: '[surprise-oh]他把這種膠水塗在紙上拿手輕輕一碰居然就掉了下來，別說是拿去黏太空艙甚至連普通信封上的開口都封不住，反覆撕貼了十幾次附著表面竟然乾淨得完全不留一絲殘膠，'
+image_prompt: medium close-up of a hand with elongated, fluid fingers gently touching
+  a piece of paper coated with the failed adhesive, the paper comically sliding off
+  a surface with rubbery movements, leaving behind a shimmering, unmarred surface
+  with a subtle magical glow, dramatic non-realistic lighting, 16:9 widescreen composition
+image_negative: ''
+act_index: 2
+act_title: 孤獨的布道者：在巨頭體制裡當了五年的小丑
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T111714
+  image_take: image_20261023T111638

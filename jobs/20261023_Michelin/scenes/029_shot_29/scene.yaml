@@ -1,0 +1,18 @@
+id: 029_shot_29
+index: 29
+title: 2003年初先是競爭對手的指南調
+narration: 2003年初先是競爭對手的指南調低了他的評分緊接著坊間瘋傳米其林密探準備將他降為二星，面對鋪天蓋地的負面輿論以及即將破產的巨大恐懼這位五十二歲的廚神徹底崩潰了，在一個安靜的午後盧瓦索走進自家的臥室拿起心愛的獵槍扣動了扳機飲彈自盡，
+image_prompt: A somber, quiet medium shot in Q版 2D 卡通插畫 style of a bedroom in the
+  afternoon. Soft, diffused light enters through a window. A hunting rifle lies on
+  a neatly made bed or on the floor, implying a tragic, recent event, conveying immense
+  despair. Muted, melancholic lighting, 16:9 widescreen composition.
+image_negative: ''
+act_index: 5
+act_title: 暗箱政治與文化霸權，誰在為昂貴的紅皮書買單
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T162943
+  image_take: image_20261023T162920
+character_ids: []

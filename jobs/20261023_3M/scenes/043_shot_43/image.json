@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261023T115044",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 61962942,
+  "prompt": "Masaaki Yuasa Style, medium close-up of a hand with fluid, elongated fingers dramatically peeling a vibrant yellow Post-it Note from a glowing screen, the note crumpling into a distorted ball and forcefully thrown into a stylized, swirling trash can, followed by an explosive burst of psychedelic dopamine patterns emanating from a stylized brain, pop psychedelic lighting, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-23T11:50:44.952456+00:00"
+}

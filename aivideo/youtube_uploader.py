@@ -670,12 +670,10 @@ def generate_youtube_metadata(job_dir: Path) -> Dict[str, Any]:
   "thumbnail_prompt": "Cinematic, dramatic, high contrast 16:9 widescreen..."
 }"""
 
-    client_kwargs = get_gemini_client_kwargs()
-    client = genai.Client(**client_kwargs)
-
     raw_json = None
     for model_name in TEXT_MODELS:
         try:
+            client = genai.Client(**get_gemini_client_kwargs(model=model_name))
             resp = client.models.generate_content(
                 model=model_name,
                 contents=f"請為以下故事生成 YouTube 演算法最佳化中繼資料：\n\n{context_text}",

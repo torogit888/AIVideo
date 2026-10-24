@@ -1,0 +1,58 @@
+{
+  "take_id": "speech_20261023T164202",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 33.04,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "好了那麼螢幕前的你是否也曾親自造訪過那些傳說中的米其林星級名店呢",
+      "text_cn": "好了那么萤幕前的你是否也曾亲自造访过那些传说中的米其林星级名店呢",
+      "start_sec": 0.0,
+      "end_sec": 6.56,
+      "duration_sec": 6.56
+    },
+    {
+      "index": 2,
+      "text": "你覺得那些被捧上神壇的高價料理是名副其實的極致美味還是包裝出來的資本泡沫呢",
+      "text_cn": "你觉得那些被捧上神坛的高价料理是名副其实的极致美味还是包装出来的资本泡沫呢",
+      "start_sec": 6.81,
+      "end_sec": 14.37,
+      "duration_sec": 7.56
+    },
+    {
+      "index": 3,
+      "text": "歡迎在影片下方留言分享你的真實經歷與看法",
+      "text_cn": "欢迎在影片下方留言分享你的真实经历与看法",
+      "start_sec": 14.62,
+      "end_sec": 18.78,
+      "duration_sec": 4.16
+    },
+    {
+      "index": 4,
+      "text": "如果這期內容讓你重新看清了米其林背後的商業真相別忘了點讚訂閱並開啟小鈴鐺",
+      "text_cn": "如果这棋内容让你重新看清了米其林背后的商业真相别忘了点赞订阅并开启小铃铛",
+      "start_sec": 19.03,
+      "end_sec": 26.39,
+      "duration_sec": 7.36
+    },
+    {
+      "index": 5,
+      "text": "你的支持是我繼續為大家挖掘更多荒誕歷史真相的最大動力，我們下次見!",
+      "text_cn": "你的支持是我继续为大家挖掘更多荒诞历史真相的最大动力，我们下次见!",
+      "start_sec": 26.64,
+      "end_sec": 33.04,
+      "duration_sec": 6.4
+    }
+  ],
+  "created_at": "2026-10-23T16:42:02.063407+00:00"
+}

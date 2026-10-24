@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261023T111742",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 77200904,
+  "prompt": "Masaaki Yuasa Style, wide establishing shot of towering, distorted industrial structures, their forms rigid and imposing, representing an era of heavy industry, juxtaposed with a comically small, shimmering blob of the failed adhesive failing to hold two objects, Dr. Spencer Silver's face, stretched in anxiety, subtly superimposed in the background, stark clinical lighting, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-23T11:17:42.503246+00:00"
+}

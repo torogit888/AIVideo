@@ -1,0 +1,95 @@
+subject: '安德烈米其林 (André Michelin): A historical figure depicted in Q版 (chibi) style.
+  His face is round and expressive, with a neat, small mustache and a thoughtful or
+  determined expression. He has a sturdy, slightly portly build, reflecting a businessman
+  of the early 20th century, all in chibi proportions. Dressed in era-appropriate
+  European business attire, such as a dark, well-fitted suit, white shirt, and tie.
+  Clothing is simplified with clear, crisp outlines and smooth cel-shading, lacking
+  intricate fabric patterns. | 愛德華米其林 (Édouard Michelin): A historical figure, brother
+  to André, also in Q版 (chibi) style. His face is round and expressive, possibly with
+  a slightly more youthful or energetic look than André, and a clean-shaven or smaller
+  mustache. His body has chibi proportions, similar to André but perhaps slightly
+  leaner. Wears similar era-appropriate business attire, a simplified suit in a distinct
+  color from André''s, with clear outlines and smooth cel-shading. | 早期汽車 (Early 1900s
+  Car): An early 20th-century internal combustion automobile, rendered in a simplified,
+  rounded Q版 (chibi) style. It features large, spoked wheels, an open-top design,
+  and prominent, round headlamps. The body panels are smooth and rounded, with a simplified
+  grille. Materials appear as painted metal with subtle highlights for glossiness,
+  and rubber tires, all cel-shaded. Colors are classic for the era, such as dark green,
+  navy blue, or maroon, with contrasting lighter seats (e.g., brown leather). Proportions
+  are slightly squatter and wider than realistic, with wheels potentially exaggerated
+  in size, but it maintains the authentic silhouette of an early car. No anthropomorphic
+  features are present. | 米其林紅色指南 (Michelin Red Guide): A small, rectangular book
+  with an iconic, vibrant red cover, simplified for Q版 (chibi) illustration. The cover
+  prominently features a stylized ''MICHELIN'' text and possibly one or two stars,
+  rendered in white or gold. It appears as smooth paper/cardboard, with clear outlines
+  and solid, cel-shaded colors. Its proportions are slightly thicker or rounder at
+  the spine, but it is clearly recognizable as a compact guide book. No anthropomorphic
+  features are present. | 必比登 (Bibendum / Michelin Man): The iconic Michelin mascot,
+  depicted as a jovial character made of stacked, rounded white tire segments, rendered
+  in Q版 (chibi) proportions. He has a large, round head with simple dot eyes and a
+  wide, friendly smile. His body is plump and composed entirely of these smooth, clean
+  white rubber segments. The form is defined by clear outlines and smooth cel-shading,
+  with subtle shading to differentiate the tire segments. No clothing is worn, as
+  his form is his identity.'
+environment: The world is depicted in a Q版 2D 卡通插畫 (Chibi 2D Cartoon Illustration)
+  style, characterized by clear outlines, cel-shading, and rich details. Settings
+  range from early 20th-century Paris with simplified, iconic architecture like the
+  Eiffel Tower and Haussmannian buildings, to the rustic French countryside with farmhouses
+  and unpaved, dusty roads. Later scenes include bustling modern cityscapes and elegant
+  restaurant interiors. The color palette is bright, clean, and vibrant, using warm,
+  inviting tones for urban areas (creams, grays, blues) and natural, earthy hues for
+  the countryside (greens, browns, muted blues). Lighting is consistently bright,
+  even, and diffuse, typical of 2D cartoons, with shadows rendered as simple, flat
+  shapes. The overall atmosphere is clean, crisp, and slightly idealized, conveying
+  information and engaging the viewer without dramatic or gloomy effects, even when
+  illustrating 'absurd' or 'desolate' historical periods.
+use_image_reference: true
+characters:
+- id: andre_michelin
+  name: 安德烈米其林 (André Michelin)
+  appearance: A historical figure depicted in Q版 (chibi) style. His face is round
+    and expressive, with a neat, small mustache and a thoughtful or determined expression.
+    He has a sturdy, slightly portly build, reflecting a businessman of the early
+    20th century, all in chibi proportions. Dressed in era-appropriate European business
+    attire, such as a dark, well-fitted suit, white shirt, and tie. Clothing is simplified
+    with clear, crisp outlines and smooth cel-shading, lacking intricate fabric patterns.
+  entity_type: character
+- id: edouard_michelin
+  name: 愛德華米其林 (Édouard Michelin)
+  appearance: A historical figure, brother to André, also in Q版 (chibi) style. His
+    face is round and expressive, possibly with a slightly more youthful or energetic
+    look than André, and a clean-shaven or smaller mustache. His body has chibi proportions,
+    similar to André but perhaps slightly leaner. Wears similar era-appropriate business
+    attire, a simplified suit in a distinct color from André's, with clear outlines
+    and smooth cel-shading.
+  entity_type: character
+- id: early_1900s_car
+  name: 早期汽車 (Early 1900s Car)
+  appearance: An early 20th-century internal combustion automobile, rendered in a
+    simplified, rounded Q版 (chibi) style. It features large, spoked wheels, an open-top
+    design, and prominent, round headlamps. The body panels are smooth and rounded,
+    with a simplified grille. Materials appear as painted metal with subtle highlights
+    for glossiness, and rubber tires, all cel-shaded. Colors are classic for the era,
+    such as dark green, navy blue, or maroon, with contrasting lighter seats (e.g.,
+    brown leather). Proportions are slightly squatter and wider than realistic, with
+    wheels potentially exaggerated in size, but it maintains the authentic silhouette
+    of an early car. No anthropomorphic features are present.
+  entity_type: object
+- id: michelin_red_guide
+  name: 米其林紅色指南 (Michelin Red Guide)
+  appearance: A small, rectangular book with an iconic, vibrant red cover, simplified
+    for Q版 (chibi) illustration. The cover prominently features a stylized 'MICHELIN'
+    text and possibly one or two stars, rendered in white or gold. It appears as smooth
+    paper/cardboard, with clear outlines and solid, cel-shaded colors. Its proportions
+    are slightly thicker or rounder at the spine, but it is clearly recognizable as
+    a compact guide book. No anthropomorphic features are present.
+  entity_type: object
+- id: bibendum
+  name: 必比登 (Bibendum / Michelin Man)
+  appearance: The iconic Michelin mascot, depicted as a jovial character made of stacked,
+    rounded white tire segments, rendered in Q版 (chibi) proportions. He has a large,
+    round head with simple dot eyes and a wide, friendly smile. His body is plump
+    and composed entirely of these smooth, clean white rubber segments. The form is
+    defined by clear outlines and smooth cel-shading, with subtle shading to differentiate
+    the tire segments. No clothing is worn, as his form is his identity.
+  entity_type: character

@@ -1,0 +1,18 @@
+id: 042_shot_42
+index: 42
+title: 大腦天生對未完成的事情存在難以忍
+narration: 大腦天生對未完成的事情存在難以忍受的焦慮感這就是著名的蔡格尼效應，而鮮艷奪目的金絲雀黃與滿屋子灰白的文件產生了極其強烈的視覺反差刺激，便利貼把抽象的焦慮具象化成了一張隨時可以觸碰的物理實體，
+image_prompt: medium close-up of a vibrant, intensely saturated canary yellow Post-it
+  Note, its glow radiating, standing out against a backdrop of dull, gray, flowing
+  documents, as abstract, swirling patterns representing "unbearable anxiety" coalesce
+  into a tangible, physical yellow square, dramatic non-realistic lighting, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 6
+act_title: 席捲全球的黃色病毒：從辦公桌到現代認知外包
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T115016
+  image_take: image_20261023T114940

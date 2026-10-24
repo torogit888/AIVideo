@@ -1,0 +1,27 @@
+id: 045_shot_45
+index: 45
+title: 到了二十一世紀初追求極端零缺陷的
+narration: 到了二十一世紀初追求極端零缺陷的六標準差管理模式全面入侵了這家公司，華爾街派來的職業經理人把所有研發流程精細量化把所有隨機變異當成敵人，[dissatisfaction-hnn]在演算法和極致效率的嚴厲絞殺下整個實驗室的創新活力迅速凍結成冰，
+image_prompt: wide establishing shot of a stylized 3M lab, its glowing tubes and bubbling
+  beakers freezing into rigid, angular ice, as distorted, robotic figures representing
+  Wall Street managers, their eyes cold and calculating, impose a grid of algorithms
+  and "Six Sigma" over the scene, suffocating all creative flow, stark clinical lighting,
+  16:9 widescreen composition
+image_negative: ''
+act_index: 7
+act_title: 反噬與神話終局：當偶然成為不可複製的絕唱
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T115321
+  image_take: image_20261023T115243
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Six Sigma management methodology diagram
+  fetch_error: 未找到合適照片或影片

@@ -1,0 +1,37 @@
+id: 024_shot_24
+index: 24
+title: 至於美食界最高榮耀的三星餐廳官方
+narration: 至於美食界最高榮耀的三星餐廳官方定義竟然是卓越的菜餚值得專程造訪，這句話到底意味著什麼呢，[question-ei]，這意味著米其林鼓勵住在巴黎的豪門貴族為了一道烤乳鴿特意發動引擎，在那種沒有伯油鋪裝的鄉間碎石路上長途顛簸幾百公里開到偏遠的勃艮第，
+image_prompt: A close-up shot in Q版 2D 卡通插畫 style of an open Michelin Red Guide showing
+  the definition for a three-star restaurant. Next to it, a luxurious early 1900s
+  car is depicted driving a long distance on a bumpy, unpaved country road towards
+  a distant, elegant restaurant, emphasizing a dedicated journey for exceptional food.
+  Bright, aspirational lighting, 16:9 widescreen composition.
+image_negative: ''
+act_index: 4
+act_title: 名廚飲彈與起司冤案，紅色魔鬼的血色代價
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T043201
+  image_take: image_20261023T162551
+pip:
+  enabled: false
+  media_type: image
+  image: pip.png
+  video: null
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Michelin Guide official definition of three-star restaurant page archival
+    photo
+  source_title: null
+  source_url: null
+  fetch_error: 未找到合適照片或影片
+  verified: false
+  review_reason: null
+character_ids:
+- michelin_red_guide
+- early_1900s_car

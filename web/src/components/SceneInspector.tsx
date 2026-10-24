@@ -38,6 +38,7 @@ export const SceneInspector: React.FC = () => {
     loadScenes,
     loadJobs,
     showToast,
+    requestConfirm,
   } = useStudioStore();
 
   const [detail, setDetail] = useState<SceneDetail | null>(null);
@@ -243,7 +244,12 @@ export const SceneInspector: React.FC = () => {
 
   const handleGcTakes = async () => {
     if (!selectedJobId || !activeSceneId) return;
-    const ok = window.confirm("清理本場過舊 takes，保留 current 與最新 3 個？");
+    const ok = await requestConfirm({
+      title: "清理過舊歷史版本 (Takes)",
+      message: "確定清理本場過舊 takes，僅保留目前使用中版本與最新 3 個嗎？",
+      confirmText: "確定清理",
+      variant: "primary",
+    });
     if (!ok) return;
     setGcing(true);
     try {
@@ -470,9 +476,12 @@ export const SceneInspector: React.FC = () => {
 
   const handleClearImage = async () => {
     if (!selectedJobId || !activeSceneId || !detail) return;
-    const ok = window.confirm(
-      `確定要清空第 ${detail.index} 幕已生成的圖片嗎？\n\n清空後此幕將回到初始「待出圖」狀態，口白台詞與語音將完整保留。`
-    );
+    const ok = await requestConfirm({
+      title: `清空第 ${detail.index} 幕圖片`,
+      message: `確定要清空第 ${detail.index} 幕已生成的圖片嗎？\n\n清空後此幕將回到初始「待出圖」狀態，口白台詞與語音將完整保留。`,
+      confirmText: "確定清空圖片",
+      variant: "danger",
+    });
     if (!ok) return;
 
     setIsClearingImage(true);
@@ -491,9 +500,12 @@ export const SceneInspector: React.FC = () => {
 
   const handleClearAudio = async () => {
     if (!selectedJobId || !activeSceneId || !detail) return;
-    const ok = window.confirm(
-      `確定要清空第 ${detail.index} 幕已生成的語音嗎？\n\n清空後此幕將回到初始「待配音」狀態，畫面圖片與口白台詞將完整保留。`
-    );
+    const ok = await requestConfirm({
+      title: `清空第 ${detail.index} 幕語音`,
+      message: `確定要清空第 ${detail.index} 幕已生成的語音嗎？\n\n清空後此幕將回到初始「待配音」狀態，畫面圖片與口白台詞將完整保留。`,
+      confirmText: "確定清空語音",
+      variant: "danger",
+    });
     if (!ok) return;
 
     setIsClearingAudio(true);
@@ -512,9 +524,12 @@ export const SceneInspector: React.FC = () => {
 
   const handleClearPip = async () => {
     if (!selectedJobId || !activeSceneId || !detail) return;
-    const ok = window.confirm(
-      `確定要清除第 ${detail.index} 幕的真實考據照片 (pip.png) 嗎？\n\n清除後此幕將不再疊加或聚焦該考據圖，完全以 AI 生圖為主畫面。`
-    );
+    const ok = await requestConfirm({
+      title: `清除第 ${detail.index} 幕考據素材`,
+      message: `確定要清除第 ${detail.index} 幕的真實考據素材嗎？\n\n清除後此幕將不再疊加或聚焦該考據圖，完全以 AI 生圖為主畫面。`,
+      confirmText: "確定清除考據",
+      variant: "danger",
+    });
     if (!ok) return;
 
     setIsClearingPip(true);

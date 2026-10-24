@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261023T112747",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 87207729,
+  "prompt": "Masaaki Yuasa Style, medium close-up of Art Fry, his head expanding and glowing with vibrant, shifting colors, a jagged, psychedelic lightning bolt striking his brain, superimposed with a fleeting, distorted image of Dr. Spencer Silver's bubbling, failed adhesive, dramatic non-realistic lighting, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-23T11:27:47.844740+00:00"
+}

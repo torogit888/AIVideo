@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261023T161740",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.3,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "然而這套免費贈送的策略很快就迎來了一記無比屈辱的重擊",
+      "text_cn": "然而这套免费赠送的策略很快就迎来了一记无比屈辱的重集",
+      "start_sec": 0.0,
+      "end_sec": 5.36,
+      "duration_sec": 5.36
+    },
+    {
+      "index": 2,
+      "text": "轉折點發生在二十年後的1920年",
+      "text_cn": "转折点发生在二十年后的1920年",
+      "start_sec": 5.61,
+      "end_sec": 9.09,
+      "duration_sec": 3.48
+    },
+    {
+      "index": 3,
+      "text": "安德烈米其林親自前往一家合作的修車廠進行業務考察",
+      "text_cn": "安德烈米其林亲自前往一家合作的修车厂进行业务考察",
+      "start_sec": 9.34,
+      "end_sec": 14.3,
+      "duration_sec": 4.96
+    }
+  ],
+  "created_at": "2026-10-23T16:17:40.932904+00:00"
+}

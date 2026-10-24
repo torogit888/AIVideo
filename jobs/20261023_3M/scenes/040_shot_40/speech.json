@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261023T114813",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 19.12,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "一場狂暴的黃色海嘯在短短兩年之內徹底淹沒了整個現代文明世界",
+      "text_cn": "一场狂暴的黄色海啸在短短两年之内彻底淹没了整个现代文明世界",
+      "start_sec": 0.0,
+      "end_sec": 5.96,
+      "duration_sec": 5.96
+    },
+    {
+      "index": 2,
+      "text": "從白宮戰情室的機密情報到華爾街操盤手滿是紅色綠色走勢圖的螢幕上",
+      "text_cn": "从白宫战情室的机密情报到华尔街操盘手满是红色绿色走势图的萤幕上",
+      "start_sec": 6.21,
+      "end_sec": 12.51,
+      "duration_sec": 6.3
+    },
+    {
+      "index": 3,
+      "text": "甚至連冷戰時期克里姆林宮的備忘錄邊角都貼滿了這塊金絲雀黃小方塊",
+      "text_cn": "甚至连冷战时棋克里姆林宫的备忘录边脚都贴满了这块金丝雀黄小方块",
+      "start_sec": 12.76,
+      "end_sec": 19.12,
+      "duration_sec": 6.36
+    }
+  ],
+  "created_at": "2026-10-23T11:48:13.940518+00:00"
+}

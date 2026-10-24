@@ -1,0 +1,17 @@
+id: 048_shot_48
+index: 48
+title: 這位名下擁有近四十項發明的老人在
+narration: 這位名下擁有近四十項發明的老人在接受最後一次採訪時依然平靜地笑著，他坦言自己這輩子最驕傲的成就就是合成出了全世界最沒用的一罐膠水，
+image_prompt: medium close-up of a serene, fluid portrait of an elderly Dr. Spencer
+  Silver, his face gently smiling, his eyes swirling with wisdom, holding a shimmering,
+  glowing container of the "most useless adhesive," which radiates a subtle, magical
+  light, dramatic non-realistic lighting, 16:9 widescreen composition
+image_negative: ''
+act_index: 7
+act_title: 反噬與神話終局：當偶然成為不可複製的絕唱
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T115616
+  image_take: image_20261023T115556

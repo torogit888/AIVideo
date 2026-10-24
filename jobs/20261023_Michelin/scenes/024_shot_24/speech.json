@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261024T043201",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 22.7,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "至於美食界最高榮耀的三星餐廳官方定義竟然是卓越的菜餚值得專程造訪",
+      "text_cn": "至于美食界最高荣耀的三星餐厅官方定义竟然是卓越的菜肴值得专程造访",
+      "start_sec": 0.0,
+      "end_sec": 6.56,
+      "duration_sec": 6.56
+    },
+    {
+      "index": 2,
+      "text": "這句話到底意味著什麼呢，[question-ei]，這意味著米其林鼓勵住在巴黎的豪門貴族為了一道烤乳鴿特意發動引擎",
+      "text_cn": "这句话到底意味着什么呢，[question-ei]，这意味着米其林鼓励住在巴黎的豪门贵族为了一道烤乳鸽特意发动引擎",
+      "start_sec": 6.81,
+      "end_sec": 16.17,
+      "duration_sec": 9.36
+    },
+    {
+      "index": 3,
+      "text": "在那種沒有伯油鋪裝的鄉間碎石路上長途顛簸幾百公里開到偏遠的勃艮第",
+      "text_cn": "在那种没有伯油铺装的乡间碎石路上长途颠簸几百公里开到偏远的勃艮第",
+      "start_sec": 16.42,
+      "end_sec": 22.7,
+      "duration_sec": 6.28
+    }
+  ],
+  "created_at": "2026-10-24T04:32:01.036617+00:00"
+}

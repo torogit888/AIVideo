@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261023T113658",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 38546994,
+  "prompt": "Masaaki Yuasa Style, medium close-up of Art Fry, his anxious figure, body deflating, standing before distorted, empty stationery store shelves, the vibrant yellow Post-it Notes appearing as tiny, insignificant specks, a giant, distorted hand delivering a \"slap\" of failure, stark clinical lighting, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-23T11:36:58.442026+00:00"
+}

@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261023T114653",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 43761355,
+  "prompt": "Masaaki Yuasa Style, wide establishing shot of distorted, angular 3M executives, their faces shifting from bewilderment to awe, looking at a glowing, undulating financial report that transforms into a vibrant yellow Post-it Note, which then expands to cover a stylized globe with flowing lines, pop psychedelic lighting, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-23T11:46:53.363629+00:00"
+}

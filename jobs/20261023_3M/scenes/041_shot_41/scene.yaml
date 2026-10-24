@@ -1,0 +1,17 @@
+id: 041_shot_41
+index: 41
+title: 它不再只是一張微不足道的辦公便條
+narration: 它不再只是一張微不足道的辦公便條而是變成了人類大腦的外部儲存器官，心理學家深入研究後驚恐地發現人類對這種小紙片產生了嚴重的認知依賴，
+image_prompt: medium close-up of a vibrant yellow Post-it Note, its edges undulating,
+  glowing intensely, depicted as an external, pulsating organ attached to a stylized,
+  distorted human brain, while abstract figures of psychologists with swirling, panicked
+  eyes observe, dramatic non-realistic lighting, 16:9 widescreen composition
+image_negative: ''
+act_index: 6
+act_title: 席捲全球的黃色病毒：從辦公桌到現代認知外包
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T114919
+  image_take: image_20261023T114842

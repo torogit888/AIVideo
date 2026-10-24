@@ -21,7 +21,7 @@ interface Props {
 }
 
 export const VisualContinuityModal: React.FC<Props> = ({ isOpen, onClose }) => {
-  const { selectedJobId, loadJobs, loadScenes, showToast } = useStudioStore();
+  const { selectedJobId, loadJobs, loadScenes, showToast, requestConfirm } = useStudioStore();
 
   const [anchors, setAnchors] = useState<JobVisualAnchors | null>(null);
   const [loading, setLoading] = useState(false);
@@ -188,7 +188,12 @@ export const VisualContinuityModal: React.FC<Props> = ({ isOpen, onClose }) => {
       setCharacters((prev) => prev.filter((_, i) => i !== index));
       return;
     }
-    const ok = window.confirm("確定要移除此角色及其定裝圖嗎？");
+    const ok = await requestConfirm({
+      title: "移除定裝角色",
+      message: "確定要移除此角色及其定裝圖嗎？",
+      confirmText: "移除角色",
+      variant: "danger",
+    });
     if (!ok) return;
     try {
       await api.updateJobAnchors(selectedJobId, {
@@ -204,12 +209,9 @@ export const VisualContinuityModal: React.FC<Props> = ({ isOpen, onClose }) => {
 
   const handleSyncPrompts = async () => {
     if (!selectedJobId) return;
-    const ok = window.confirm(
-      "確定要依據最新角色定裝、環境錨點與專案生圖風格，重新產生全片所有分鏡的英文出圖 Prompt 嗎？"
-    );
-    if (!ok) return;
 
     setSyncingPrompts(true);
+    showToast("正在依最新定裝與風格重產全片分鏡 Prompt...", "info");
     try {
       await api.updateJobAnchors(selectedJobId, {
         environment: environment.trim(),

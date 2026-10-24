@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261023T114615",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 17.18,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "波伊西地區的二次回購率竟然高達不可思議的百分之九十以上",
+      "text_cn": "波伊西地区的二次回购率竟然高达不可思议的百分之九十以上",
+      "start_sec": 0.0,
+      "end_sec": 5.56,
+      "duration_sec": 5.56
+    },
+    {
+      "index": 2,
+      "text": "習慣了便利貼的行政秘書們甚至集體向管理層發出嚴正通牒",
+      "text_cn": "习惯了便利贴的行政秘书们甚至集体向管理层发出严正通牒",
+      "start_sec": 5.81,
+      "end_sec": 11.17,
+      "duration_sec": 5.36
+    },
+    {
+      "index": 3,
+      "text": "如果下個月的辦公用品清單裡沒有這種黃色紙片她們就集體罷工",
+      "text_cn": "如果下个月的办公用品清单里没有这种黄色纸片她们就集体罢工",
+      "start_sec": 11.42,
+      "end_sec": 17.18,
+      "duration_sec": 5.76
+    }
+  ],
+  "created_at": "2026-10-23T11:46:15.352246+00:00"
+}

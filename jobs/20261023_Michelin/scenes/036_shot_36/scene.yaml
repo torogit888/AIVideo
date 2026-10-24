@@ -1,0 +1,19 @@
+id: 036_shot_36
+index: 36
+title: 瘋狂的觀光客會在幾天之內塞爆整條
+narration: 瘋狂的觀光客會在幾天之內塞爆整條原本寧靜的街道讓幾十年的老街坊再也吃不上飯，與此同時聞風而來的貪婪房東則會在租約到期時直接將店租翻倍暴漲，迫於成本壓力這些老店要麼只能選擇偷工減料壓縮品質要麼只能無奈關門倒閉，西方資本的標準就這樣粗暴地將幾代人傳承的煙火氣息生生連根拔起，
+image_prompt: A wide shot in Q版 2D 卡通插畫 style. A once-quaint street food stall is
+  now completely overwhelmed by a massive, chaotic crowd of tourists. A greedy landlord
+  with dollar signs in his eyes looms in the background, while the original local
+  customers look on sadly from the sidelines, symbolizing the destruction of local
+  culture. Bright, chaotic lighting, 16:9 widescreen composition.
+image_negative: ''
+act_index: 6
+act_title: 百年陽謀的反思，當味蕾被資本徹底馴化
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T163512
+  image_take: image_20261023T163500
+character_ids: []

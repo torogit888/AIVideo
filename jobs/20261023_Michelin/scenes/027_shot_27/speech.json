@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261023T162820",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 18.5,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "最震撼整個西方餐飲界的一幕發生在2003年法國國寶級名廚貝爾納盧瓦索身上",
+      "text_cn": "最震撼整个西方餐饮界的一幕发生在2003年法国国宝级名厨贝尔纳卢瓦索身上",
+      "start_sec": 0.0,
+      "end_sec": 7.48,
+      "duration_sec": 7.48
+    },
+    {
+      "index": 2,
+      "text": "盧瓦索先生經營著傳奇的金牛宮餐廳是無數年輕廚師心中的精神圖騰",
+      "text_cn": "卢瓦索先生经营著传奇的金牛宫餐厅是无数年轻厨师心中的精神图腾",
+      "start_sec": 7.73,
+      "end_sec": 13.89,
+      "duration_sec": 6.16
+    },
+    {
+      "index": 3,
+      "text": "他連續維持了整整十二年的米其林三星最高榮譽",
+      "text_cn": "他连续维持了整整十二年的米其林三星最高荣誉",
+      "start_sec": 14.14,
+      "end_sec": 18.5,
+      "duration_sec": 4.36
+    }
+  ],
+  "created_at": "2026-10-23T16:28:20.896173+00:00"
+}

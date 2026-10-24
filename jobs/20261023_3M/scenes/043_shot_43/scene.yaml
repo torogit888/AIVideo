@@ -1,0 +1,18 @@
+id: 043_shot_43
+index: 43
+title: 更絕妙的是當你處理完一項繁雜的工
+narration: '[surprise-oh]更絕妙的是當你處理完一項繁雜的工作伸手把它從螢幕上刺啦一聲撕下來，隨手揉成一團狠狠砸進垃圾桶的那一秒鐘，你的大腦神經元分泌出的多巴胺快感甚至超越了談一場短暫的戀愛，'
+image_prompt: medium close-up of a hand with fluid, elongated fingers dramatically
+  peeling a vibrant yellow Post-it Note from a glowing screen, the note crumpling
+  into a distorted ball and forcefully thrown into a stylized, swirling trash can,
+  followed by an explosive burst of psychedelic dopamine patterns emanating from a
+  stylized brain, pop psychedelic lighting, 16:9 widescreen composition
+image_negative: ''
+act_index: 7
+act_title: 反噬與神話終局：當偶然成為不可複製的絕唱
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T115124
+  image_take: image_20261023T115044

@@ -1,0 +1,26 @@
+id: 014_shot_14
+index: 14
+title: 唯一保住他飯碗的是公司傳奇董事長
+narration: 唯一保住他飯碗的是公司傳奇董事長麥克奈特留下的百分之十五規則，這項制度允許工程師用一成半的工作時間自由摸索感興趣的冷門項目，
+image_prompt: medium close-up of Dr. Spencer Silver, his fluid form clinging to a
+  glowing, abstract representation of the "15% rule," depicted as a vibrant, protected
+  bubble within a rigid, angular corporate structure, pop psychedelic lighting, 16:9
+  widescreen composition
+image_negative: ''
+act_index: 2
+act_title: 孤獨的布道者：在巨頭體制裡當了五年的小丑
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T112317
+  image_take: image_20261023T112226
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: William L. McKnight 3M chairman portrait
+  fetch_error: 未找到合適照片或影片

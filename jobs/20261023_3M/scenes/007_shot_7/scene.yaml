@@ -1,0 +1,26 @@
+id: 007_shot_7
+index: 7
+title: 這堆乳液在顯微鏡下根本沒有形成牢
+narration: 這堆乳液在顯微鏡下根本沒有形成牢固的網狀分子鏈，反而凝結成一顆顆極其微小的丙烯酸共聚物微球，
+image_prompt: medium close-up, microscopic view of the failed adhesive, depicting
+  iridescent orbs of acrylic copolymer microspheres swirling and bouncing chaotically
+  with psychedelic energy, refusing to form stable molecular chains, vibrant pop psychedelic
+  lighting, 16:9 widescreen composition
+image_negative: ''
+act_index: 1
+act_title: 荒誕的失敗：想造太空飛船，卻搞出史上最廢的膠水
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T111615
+  image_take: image_20261023T111538
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Acrylic copolymer microspheres microscopic image
+  fetch_error: 未找到合適照片或影片

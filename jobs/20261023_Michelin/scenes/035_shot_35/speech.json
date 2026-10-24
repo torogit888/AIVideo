@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261023T163438",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 11.97,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "一家默默經營了半個世紀的平民油雞飯或街頭炒粿條一旦意外被掛上一星榮譽",
+      "text_cn": "一家默默经营了半个世纪的平民油鸡饭或街头炒粿条一旦意外被挂上一星荣誉",
+      "start_sec": 0.0,
+      "end_sec": 6.96,
+      "duration_sec": 6.96
+    },
+    {
+      "index": 2,
+      "text": "迎來的往往不是富貴吉祥而是一場毀滅性的經營災難",
+      "text_cn": "迎来的往往不是富贵吉祥而是一场毁灭性的经营灾难",
+      "start_sec": 7.21,
+      "end_sec": 11.97,
+      "duration_sec": 4.76
+    }
+  ],
+  "created_at": "2026-10-23T16:34:38.847355+00:00"
+}

@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261023T161641",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 15123701,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background\nVibrant contrasting color palettes, crisp details throughout, expressive chibi faces, rich background props.，A dynamic split scene in Q版 2D 卡通插畫 style. On one side, André and Édouard Michelin, with sly, knowing smiles, are rubbing their hands together. On the other side, an early 1900s car is driving on a rough, gravel road, with its tires visibly wearing down, leaving dust trails. Bright, clear lighting, 16:9 widescreen composition., 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-23T16:16:41.677376+00:00"
+}

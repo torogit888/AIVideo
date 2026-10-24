@@ -1,0 +1,19 @@
+id: 034_shot_34
+index: 34
+title: 而更荒唐的是西方那套傲慢的刀叉標
+narration: '[dissatisfaction-hnn]而更荒唐的是西方那套傲慢的刀叉標準對東方傳統飲食的粗暴閹割，當一群習慣了法式大餐精緻擺盤的評委拿著放大鏡走進香港或曼谷的狹窄小巷時，無法避免的文化悲劇就接二連三地在平民街頭真實上演了，'
+image_prompt: A wide shot in Q版 2D 卡通插畫 style. A group of stern-faced, Western-dressed
+  food critics (generic, holding forks and knives) with magnifying glasses are looking
+  disdainfully at vibrant, authentic street food stalls in a narrow Hong Kong alley.
+  The scene highlights cultural misunderstanding and judgment. Bright, contrasting
+  lighting, 16:9 widescreen composition.
+image_negative: ''
+act_index: 6
+act_title: 百年陽謀的反思，當味蕾被資本徹底馴化
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T163400
+  image_take: image_20261023T163337
+character_ids: []

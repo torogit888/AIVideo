@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261023T160916",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 50891682,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background\nVibrant contrasting color palettes, crisp details throughout, expressive chibi faces, rich background props.，A medium shot of a street scene in early 1900s France in Q版 2D 卡通插畫 style. The street is dominated by numerous horse-drawn carriages and visible piles of horse manure. A single, distinct early 1900s car, looking somewhat out of place, navigates the chaotic street. Clear outlines, earthy tones, bright daylight, 16:9 widescreen composition., 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-23T16:09:16.644342+00:00"
+}

@@ -1,0 +1,26 @@
+id: 039_shot_39
+index: 39
+title: 三愛姆高層看著這份狂暴的財務報表
+narration: '[confirmation-en]三愛姆高層看著這份狂暴的財務報表終於明白自己手裡握著什麼樣的神器，1980年4月6日這款產品正式定名為波斯特依特便利貼全面推向全球市場，'
+image_prompt: wide establishing shot of distorted, angular 3M executives, their faces
+  shifting from bewilderment to awe, looking at a glowing, undulating financial report
+  that transforms into a vibrant yellow Post-it Note, which then expands to cover
+  a stylized globe with flowing lines, pop psychedelic lighting, 16:9 widescreen composition
+image_negative: ''
+act_index: 6
+act_title: 席捲全球的黃色病毒：從辦公桌到現代認知外包
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T114729
+  image_take: image_20261023T114653
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Post-it Note global launch press release 1980
+  fetch_error: 未找到合適照片或影片

@@ -1,0 +1,31 @@
+id: 003_shot_3
+index: 3
+title: 時光倒流回1968年全世界正深陷
+narration: 時光倒流回1968年全世界正深陷在冷戰太空競賽的瘋狂狂熱裡，阿波羅登月計畫前夕各國頂級實驗室都在進行極限材料軍備競賽，
+image_prompt: wide establishing shot of a stylized 1960s laboratory, its machinery
+  rendered with exaggerated, flowing lines and psychedelic colors, set against a backdrop
+  of swirling cosmic patterns and distorted celestial bodies, stark clinical lighting,
+  16:9 widescreen composition
+image_negative: ''
+act_index: 1
+act_title: 荒誕的失敗：想造太空飛船，卻搞出史上最廢的膠水
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T111319
+  image_take: null
+pip:
+  enabled: true
+  media_type: video
+  image: pip.png
+  video: pip.mp4
+  position: right-center
+  mode: broll
+  scale: 0.24
+  border: 5
+  query: Apollo program 1968
+  source_title: File:Apollo 4 separation of interstage ring.webm
+  source_url: https://upload.wikimedia.org/wikipedia/commons/8/8f/Apollo_4_separation_of_interstage_ring.webm?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original
+  verified: true
+  review_reason: 影片顯示阿波羅4號分離，與旁白提及的1968年太空競賽及阿波羅計畫吻合。

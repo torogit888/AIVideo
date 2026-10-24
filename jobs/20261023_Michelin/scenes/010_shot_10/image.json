@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261023T161433",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 72698388,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background\nVibrant contrasting color palettes, crisp details throughout, expressive chibi faces, rich background props.，A close-up shot in Q版 2D 卡通插畫 style of an open 1900 Michelin Red Guide. The pages clearly display simplified illustrations and text detailing how to change a pneumatic tire and repair a basic carburetor, with no mention of food. The paper has a slightly aged, clean look. Bright, direct lighting, 16:9 widescreen composition., 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-23T16:14:33.216062+00:00"
+}

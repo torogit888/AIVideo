@@ -1,0 +1,18 @@
+id: 036_shot_36
+index: 36
+title: 主管要簽字秘書順手貼一張提示有文
+narration: 主管要簽字秘書順手貼一張提示有文件被改動秘書隨手貼一張備忘，那種隨手撕下時發出的清脆聲響與絕不傷紙的滑順快感簡直讓人停不下來，
+image_prompt: medium close-up of a hand with fluid, elongated fingers peeling a vibrant
+  yellow Post-it Note from a document, the note stretching momentarily before detaching
+  cleanly, leaving a shimmering, unmarred surface, the action depicted with a burst
+  of psychedelic energy and flowing lines, dramatic non-realistic lighting, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 5
+act_title: 波伊西突擊戰：攻破權力中樞的特洛伊木馬
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T114419
+  image_take: image_20261023T114340

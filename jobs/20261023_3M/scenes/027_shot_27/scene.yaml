@@ -1,0 +1,17 @@
+id: 027_shot_27
+index: 27
+title: 在無數個深夜的測試中弗萊好幾次差
+narration: 在無數個深夜的測試中弗萊好幾次差點被高速運轉的傳送帶捲入截肢，歷經千辛萬苦手工熬出了一批名為壓貼的原型樣品，
+image_prompt: medium close-up of Art Fry, his rubbery body contorted in a near-miss
+  with the rapidly undulating conveyor belt of his prototype machine, his face squashed
+  in panic, as shimmering, peelable yellow prototype samples emerge from the chaotic
+  machinery, harsh flickering lights, 16:9 widescreen composition
+image_negative: ''
+act_index: 4
+act_title: 地下作坊與資本死刑：一台差點切碎工程師手臂的原型機
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T113623
+  image_take: image_20261023T113559

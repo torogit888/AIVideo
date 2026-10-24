@@ -1,0 +1,29 @@
+id: 004_shot_4
+index: 4
+title: 當時全法國四千萬人口中登記在冊的
+narration: 當時全法國四千萬人口中登記在冊的內燃機汽車竟然不到三千輛，準確地說整個國家只有兩千八百九十七輛汽車，大街小巷裡跑的全是馬車以及堆積如山的馬糞，
+image_prompt: A medium shot of a street scene in early 1900s France in Q版 2D 卡通插畫
+  style. The street is dominated by numerous horse-drawn carriages and visible piles
+  of horse manure. A single, distinct early 1900s car, looking somewhat out of place,
+  navigates the chaotic street. Clear outlines, earthy tones, bright daylight, 16:9
+  widescreen composition.
+image_negative: ''
+act_index: 1
+act_title: 輪胎廠的荒謬陽謀，馬車時代的致命賭局
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T160928
+  image_take: image_20261023T160916
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Early 1900s Paris street scene horse carriages few cars archival photo
+  fetch_error: 未找到合適照片或影片
+character_ids:
+- early_1900s_car

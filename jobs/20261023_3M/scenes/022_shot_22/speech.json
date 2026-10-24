@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261023T113105",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 18.78,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "隔天清晨弗萊激動地衝進席爾瓦的實驗室說明了這個天才構想",
+      "text_cn": "隔天清晨弗莱激动地冲进席尔瓦的实验室说明了这个天才构想",
+      "start_sec": 0.0,
+      "end_sec": 5.56,
+      "duration_sec": 5.56
+    },
+    {
+      "index": 2,
+      "text": "為了製作樣品弗萊跑到隔壁實驗室隨手撿了一疊沒人要的亮黃色下腳料廢紙",
+      "text_cn": "为了制作样品弗莱跑到隔壁实验室随手捡了一叠没人要的亮黄色下脚料废纸",
+      "start_sec": 5.81,
+      "end_sec": 12.57,
+      "duration_sec": 6.76
+    },
+    {
+      "index": 3,
+      "text": "世界上第一張標誌性的金絲雀黃便利貼就在這個湊合的早晨誕生了",
+      "text_cn": "世界上第一张标志性的金丝雀黄便利贴就在这个凑合的早晨诞生了",
+      "start_sec": 12.82,
+      "end_sec": 18.78,
+      "duration_sec": 5.96
+    }
+  ],
+  "created_at": "2026-10-23T11:31:05.632943+00:00"
+}

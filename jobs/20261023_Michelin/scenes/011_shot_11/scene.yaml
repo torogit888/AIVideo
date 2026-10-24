@@ -1,0 +1,20 @@
+id: 011_shot_11
+index: 11
+title: 同時標註了哪裡有藥房可以買到汽油
+narration: 同時標註了哪裡有藥房可以買到汽油還有哪座火車站設有公廁，甚至還貼心記錄了哪些簡陋的鄉間旅店願意接待滿手黑油的司機，
+image_prompt: A close-up shot in Q版 2D 卡通插畫 style of an open Michelin Red Guide. The
+  pages feature clear icons and text pointing to a pharmacy (for gasoline), a train
+  station with a public toilet, and a rustic country inn with a sign welcoming 'greasy
+  drivers.' The overall impression is practical and helpful. Bright, even lighting,
+  16:9 widescreen composition.
+image_negative: ''
+act_index: 2
+act_title: 從墊桌腳的廢紙到定價七法郎，摸透人性的營銷反轉
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T161620
+  image_take: image_20261023T161531
+character_ids:
+- michelin_red_guide

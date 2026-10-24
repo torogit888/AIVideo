@@ -1,0 +1,28 @@
+id: 022_shot_22
+index: 22
+title: 官方手冊裡對一星餐廳的定義是同類
+narration: 官方手冊裡對一星餐廳的定義是同類別中出色的餐廳，白話翻譯就是當你開車路過這座城鎮時可以順便停下來吃一頓，
+image_prompt: A close-up shot in Q版 2D 卡通插畫 style of an open Michelin Red Guide. The
+  page clearly shows the definition for a one-star restaurant. A small, stylized illustration
+  next to it depicts an early 1900s car briefly stopping by a charming town for a
+  meal, emphasizing convenience. Bright, informative lighting, 16:9 widescreen composition.
+image_negative: ''
+act_index: 4
+act_title: 名廚飲彈與起司冤案，紅色魔鬼的血色代價
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T162441
+  image_take: image_20261023T162429
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Michelin Guide official definition of one-star restaurant page archival photo
+  fetch_error: 未找到合適照片或影片
+character_ids:
+- michelin_red_guide

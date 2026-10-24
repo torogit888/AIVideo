@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261023T161105",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.13,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[dissatisfaction-hnn]一旦汽車在荒郊野外拋錨或者爆胎",
+      "text_cn": "[dissatisfaction-hnn]一旦汽车在荒郊野外抛锚或者爆胎",
+      "start_sec": 0.0,
+      "end_sec": 4.44,
+      "duration_sec": 4.44
+    },
+    {
+      "index": 2,
+      "text": "你除了被當地農民當成怪胎嘲笑之外根本找不到任何救援",
+      "text_cn": "你除了被当地农民当成怪胎嘲笑之外根本找不到任何救援",
+      "start_sec": 4.69,
+      "end_sec": 9.72,
+      "duration_sec": 5.03
+    },
+    {
+      "index": 3,
+      "text": "而就是在這種幾乎不存在汽車市場的荒涼時代",
+      "text_cn": "而就是在这种几乎不存在汽车市场的荒凉时代",
+      "start_sec": 9.97,
+      "end_sec": 14.13,
+      "duration_sec": 4.16
+    }
+  ],
+  "created_at": "2026-10-23T16:11:05.921922+00:00"
+}

@@ -76,7 +76,7 @@ def build_parser() -> argparse.ArgumentParser:
     tones.add_argument("--import-file", help="指定輸入的參考文字檔路徑 (例如: sample.txt)")
     tones.add_argument("--text", help="直接指定參考文字內容")
     tones.add_argument("--id", help="指定口吻 ID (選填，未填由 Vertex AI 自動產生)")
-    tones.add_argument("--model", help="指定使用的 Gemini Flash 模型 (例如: gemini-3.8-flash, gemini-3.5-flash)")
+    tones.add_argument("--model", help="指定使用的 Gemini Flash 模型 (例如: gemini-3.8-flash, gemini-3.7-flash)")
     tones.set_defaults(func=run_tones)
 
     youtube = sub.add_parser("youtube", help="將合成完畢的 1080p 成片自動發布至 YouTube")

@@ -1,0 +1,17 @@
+id: 002_shot_2
+index: 2
+title: 這個一年在全世界狂賣數百億張的文
+narration: 這個一年在全世界狂賣數百億張的文具霸主，背後竟然隱藏著一段荒謬到極點的商業黑歷史，[surprise-wa]你敢相信它最初的誕生居然是一場徹底搞砸的重大軍工事故嗎？
+image_prompt: wide establishing shot of a vibrant, overwhelming 'yellow tsunami' of
+  Post-it Notes engulfing a cityscape, its flowing lines and pop psychedelic colors
+  contrasting sharply with a sudden, distorted vision of a bubbling, viscous reactor,
+  stark clinical lighting, 16:9 widescreen composition
+image_negative: ''
+act_index: 1
+act_title: 荒誕的失敗：想造太空飛船，卻搞出史上最廢的膠水
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T111239
+  image_take: image_20261023T111227

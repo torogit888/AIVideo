@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261023T161826",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 19.26,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "當他走進滿是油污的車間時眼前的一幕讓他當場目瞪口呆",
+      "text_cn": "当他走进满是油污的车间时眼前的一幕让他当场目瞪口呆",
+      "start_sec": 0.0,
+      "end_sec": 5.16,
+      "duration_sec": 5.16
+    },
+    {
+      "index": 2,
+      "text": "[dissatisfaction-hnn]他嘔心瀝血編纂印刷的珍貴指南竟然被工人撕下來墊在工作台腳下防滑",
+      "text_cn": "[dissatisfaction-hnn]他呕心沥血编纂印刷的珍贵指南竟然被工人撕下来垫在工作台脚下防滑",
+      "start_sec": 5.41,
+      "end_sec": 13.05,
+      "duration_sec": 7.64
+    },
+    {
+      "index": 3,
+      "text": "這張被踩在腳底下墊桌腳的廢紙狠狠打醒了沉迷免費推廣的安德烈",
+      "text_cn": "这张被踩在脚底下垫桌脚的废纸狠狠打醒了沉迷免费推广的安德烈",
+      "start_sec": 13.3,
+      "end_sec": 19.26,
+      "duration_sec": 5.96
+    }
+  ],
+  "created_at": "2026-10-23T16:18:26.366318+00:00"
+}

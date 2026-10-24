@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261023T113351",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 17.58,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "看似簡單的便利貼背後隱藏著極其陰險的化學陷阱",
+      "text_cn": "看似简单的便利贴背后隐藏着极其阴险的化学陷阱",
+      "start_sec": 0.0,
+      "end_sec": 4.56,
+      "duration_sec": 4.56
+    },
+    {
+      "index": 2,
+      "text": "微球膠水直接塗在紙背撕下來時膠水會黏在文件上把字跡徹底毀掉",
+      "text_cn": "围球胶水直接涂在纸背撕下来时胶水会黏在文件上把字迹彻底毁掉",
+      "start_sec": 4.81,
+      "end_sec": 10.77,
+      "duration_sec": 5.96
+    },
+    {
+      "index": 3,
+      "text": "弗萊必須在紙張背面先塗上一層特殊的底塗劑才能把微球像樹根一樣鎖死",
+      "text_cn": "弗莱必须在纸张背面先涂上一层特殊的底涂剂才能把围球像树根一样锁死",
+      "start_sec": 11.02,
+      "end_sec": 17.58,
+      "duration_sec": 6.56
+    }
+  ],
+  "created_at": "2026-10-23T11:33:51.402128+00:00"
+}

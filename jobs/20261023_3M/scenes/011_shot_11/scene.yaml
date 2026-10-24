@@ -1,0 +1,18 @@
+id: 011_shot_11
+index: 11
+title: 但席爾瓦博士卻像著了魔一樣看透了
+narration: 但席爾瓦博士卻像著了魔一樣看透了一個反常識的底層真相，把東西黏得死死的人類已經做了幾千年這根本不算稀奇，但能夠輕巧黏住又隨時撕下且完全不傷表面這在人類歷史上從未存在過，他認為這不是研發失敗而是一種前所未見的全新物理特性，
+image_prompt: medium close-up of Dr. Spencer Silver, his body snapping into an exaggerated
+  upright posture, radiating a psychedelic aura of insight, his eyes swirling with
+  abstract patterns, as abstract, flowing lines representing ancient, permanent adhesion
+  dissolve into shimmering, temporary bonds that peel away cleanly, dramatic non-realistic
+  lighting, 16:9 widescreen composition
+image_negative: ''
+act_index: 2
+act_title: 孤獨的布道者：在巨頭體制裡當了五年的小丑
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T112032
+  image_take: image_20261023T111928

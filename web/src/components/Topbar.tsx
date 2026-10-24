@@ -48,6 +48,7 @@ export const Topbar: React.FC = () => {
     pipelineProgress,
     pipelineMessage,
     pipelineCooldown,
+    requestConfirm,
     setPipelineRunning,
     setTab,
     showToast,
@@ -139,9 +140,12 @@ export const Topbar: React.FC = () => {
 
   const handleDeleteJob = async () => {
     if (!selectedJobId) return;
-    const confirmDelete = window.confirm(
-      `確定要徹底刪除專案【${currentJob?.title || selectedJobId}】嗎？\n\n此操作將永久刪除此專案的所有分鏡、生圖、配音與成片，無法復原！`
-    );
+    const confirmDelete = await requestConfirm({
+      title: "刪除專案確認",
+      message: `確定要徹底刪除專案【${currentJob?.title || selectedJobId}】嗎？\n\n此操作將永久刪除此專案的所有分鏡、生圖、配音與成片，無法復原！`,
+      confirmText: "徹底刪除",
+      variant: "danger",
+    });
     if (!confirmDelete) return;
 
     try {
@@ -173,7 +177,12 @@ export const Topbar: React.FC = () => {
 
   const handleForceImages = async () => {
     if (!selectedJobId) return;
-    const ok = window.confirm("強制全覆蓋會重畫所有鏡頭畫面（含已完成）。確定？");
+    const ok = await requestConfirm({
+      title: "強制全覆蓋重畫",
+      message: "強制全覆蓋會重畫所有鏡頭畫面（含已完成）。確定要執行嗎？",
+      confirmText: "確定重畫",
+      variant: "danger",
+    });
     if (!ok) return;
     setPipelineRunning(true, 10, "正在強制覆蓋出圖...");
     await api.runPipeline(selectedJobId, "images", true);
@@ -181,7 +190,12 @@ export const Topbar: React.FC = () => {
 
   const handleClearImagesOnly = async () => {
     if (!selectedJobId) return;
-    const ok = window.confirm("確定清空所有分鏡已生成的圖片？（語音與口白會保留）");
+    const ok = await requestConfirm({
+      title: "清空全片圖片",
+      message: "確定清空所有分鏡已生成的圖片？（語音與口白會保留）",
+      confirmText: "確定清空圖片",
+      variant: "danger",
+    });
     if (!ok) return;
     try {
       await api.clearJobImages(selectedJobId);
@@ -195,7 +209,12 @@ export const Topbar: React.FC = () => {
 
   const handleClearAudioOnly = async () => {
     if (!selectedJobId) return;
-    const ok = window.confirm("確定清空所有分鏡已生成的配音？（畫面與口白會保留）");
+    const ok = await requestConfirm({
+      title: "清空全片配音",
+      message: "確定清空所有分鏡已生成的配音？（畫面與口白會保留）",
+      confirmText: "確定清空配音",
+      variant: "danger",
+    });
     if (!ok) return;
     try {
       await api.clearJobAudio(selectedJobId);
@@ -209,7 +228,12 @@ export const Topbar: React.FC = () => {
 
   const handleClearAllMedia = async () => {
     if (!selectedJobId) return;
-    const ok = window.confirm("確定清空所有已生成素材（圖、聲、考據、成片）？口白與設定會保留。");
+    const ok = await requestConfirm({
+      title: "清空所有已生成素材",
+      message: "確定清空所有已生成素材（圖、聲、考據、成片）？口白與設定會保留。",
+      confirmText: "確定全部清空",
+      variant: "danger",
+    });
     if (!ok) return;
     try {
       await api.clearJobMedia(selectedJobId);

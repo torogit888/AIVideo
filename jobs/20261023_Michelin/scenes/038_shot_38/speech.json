@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261023T163707",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 19.95,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "但整件事最耐人尋味的諷刺其實藏在米其林那個白胖的輪胎吉祥物身上",
+      "text_cn": "但整件事最耐人寻味的讽刺其实藏在米其林那个白胖的轮胎吉祥物身上",
+      "start_sec": 0.0,
+      "end_sec": 6.13,
+      "duration_sec": 6.13
+    },
+    {
+      "index": 2,
+      "text": "這個名為必比登的輪胎人其最初的拉丁文全名意思是現在正是舉杯暢飲之時",
+      "text_cn": "这个名为必比登的轮胎人其最初的拉丁文全名意思是现在正是举杯畅饮之时",
+      "start_sec": 6.38,
+      "end_sec": 13.14,
+      "duration_sec": 6.76
+    },
+    {
+      "index": 3,
+      "text": "這句古羅馬詩句的下一句廣告宣傳詞叫做米其林輪胎能一口吞下所有障礙",
+      "text_cn": "这句古罗马诗句的下一句广告宣传词叫做米其林轮胎能一口吞下所有障碍",
+      "start_sec": 13.39,
+      "end_sec": 19.95,
+      "duration_sec": 6.56
+    }
+  ],
+  "created_at": "2026-10-23T16:37:07.071503+00:00"
+}

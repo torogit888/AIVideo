@@ -1,0 +1,20 @@
+id: 042_shot_42
+index: 42
+title: 從1900年泥濘道路上那兩千多輛
+narration: 從1900年泥濘道路上那兩千多輛孤單拋錨的破舊老車，到如今市值數百億歐元且掌控著全球味覺話語權的跨國帝國，
+image_prompt: A dynamic split image in Q版 2D 卡通插畫 style. On the left, a lonely, broken-down
+  early 1900s car sits on a muddy road under a gray sky. On the right, a towering,
+  sleek modern corporate skyscraper with a glowing Michelin Red Guide symbol at its
+  peak, representing the vast transformation and power. Contrasting lighting, 16:9
+  widescreen composition.
+image_negative: ''
+act_index: 7
+act_title: 歷史餘韻與訂閱謝幕，荒誕世界中的清醒回望
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T164030
+  image_take: image_20261023T163927
+character_ids:
+- early_1900s_car

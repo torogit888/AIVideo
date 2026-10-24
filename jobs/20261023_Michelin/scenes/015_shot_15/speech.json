@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261023T161905",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.98,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "他回到辦公室後立刻總結出一條殘酷而清醒的人性鐵律",
+      "text_cn": "他回到办公室后立刻总结出一条残酷而清醒的人性铁律",
+      "start_sec": 0.0,
+      "end_sec": 4.96,
+      "duration_sec": 4.96
+    },
+    {
+      "index": 2,
+      "text": "那就是人類從來不會真正珍惜那些免費得到的東西",
+      "text_cn": "那就是人类从来不会真正珍惜那些免费得到的东西",
+      "start_sec": 5.21,
+      "end_sec": 9.77,
+      "duration_sec": 4.56
+    },
+    {
+      "index": 3,
+      "text": "唯有讓人們付出真金白銀的代價他們才會對你頂禮膜拜",
+      "text_cn": "唯有让人们付出真金白银的代价他们才会对你顶礼膜拜",
+      "start_sec": 10.02,
+      "end_sec": 14.98,
+      "duration_sec": 4.96
+    }
+  ],
+  "created_at": "2026-10-23T16:19:05.585936+00:00"
+}

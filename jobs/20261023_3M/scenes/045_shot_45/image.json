@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261023T115243",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 36496045,
+  "prompt": "Masaaki Yuasa Style, wide establishing shot of a stylized 3M lab, its glowing tubes and bubbling beakers freezing into rigid, angular ice, as distorted, robotic figures representing Wall Street managers, their eyes cold and calculating, impose a grid of algorithms and \"Six Sigma\" over the scene, suffocating all creative flow, stark clinical lighting, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-23T11:52:43.536300+00:00"
+}

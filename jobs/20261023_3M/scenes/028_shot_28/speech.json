@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261023T113719",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 17.37,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "1977年三愛姆市場部信心滿滿地將產品推向四個試點城市的文具店",
+      "text_cn": "1977年三爱姆市场部信心满满地将产品推向四个试点城市的文具店",
+      "start_sec": 0.0,
+      "end_sec": 6.19,
+      "duration_sec": 6.19
+    },
+    {
+      "index": 2,
+      "text": "[surprise-wa]結果殘酷的現實卻給了研發團隊一記震耳欲聾的響亮耳光",
+      "text_cn": "[surprise-wa]结果残酷的现实却给了研发团队一记震耳欲聋的响亮耳光",
+      "start_sec": 6.44,
+      "end_sec": 12.36,
+      "duration_sec": 5.92
+    },
+    {
+      "index": 3,
+      "text": "貨架上的銷量數據慘澹到近乎為零試銷計畫全面潰敗",
+      "text_cn": "货架上的销量数据惨淡到近乎为零试销计划全面溃败",
+      "start_sec": 12.61,
+      "end_sec": 17.37,
+      "duration_sec": 4.76
+    }
+  ],
+  "created_at": "2026-10-23T11:37:19.006712+00:00"
+}

@@ -1,0 +1,18 @@
+id: 034_shot_34
+index: 34
+title: 他們完全繞過了所有的傳統文具批發
+narration: 他們完全繞過了所有的傳統文具批發商也不在報紙上刊登任何廣告，而是像空投彈藥一樣把成箱的黃色紙片免費送進全城各大企業的秘書桌上，
+image_prompt: wide establishing shot of Nicholson, a vibrant, abstract force, orchestrating
+  the 'yellow virus' invasion, as boxes of glowing yellow Post-it Notes are air-dropped
+  like psychedelic ammunition onto a multitude of distorted, flowing office desks,
+  bypassing traditional, rigid store shelves, pop psychedelic lighting, 16:9 widescreen
+  composition
+image_negative: ''
+act_index: 5
+act_title: 波伊西突擊戰：攻破權力中樞的特洛伊木馬
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T114221
+  image_take: image_20261023T114210

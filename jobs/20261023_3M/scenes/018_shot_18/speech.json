@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261023T112612",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 17.7,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "1974年某個莊嚴肅穆的星期天北聖保羅長老會教堂裡管風琴悠揚",
+      "text_cn": "1974年某个庄严肃穆的星棋天北圣保罗长老会教堂里管风琴悠扬",
+      "start_sec": 0.0,
+      "end_sec": 6.28,
+      "duration_sec": 6.28
+    },
+    {
+      "index": 2,
+      "text": "台下的詩班席裡有一位戴著厚眼鏡的男低音工程師正滿頭大汗",
+      "text_cn": "台下的诗班席里有一位戴着厚眼镜的男低音工程师正满头大汗",
+      "start_sec": 6.53,
+      "end_sec": 12.09,
+      "duration_sec": 5.56
+    },
+    {
+      "index": 3,
+      "text": "他就是三愛姆商業膠帶研發部門的資深化學工程師亞特弗萊",
+      "text_cn": "他就是三爱姆商业胶带研发部门的资深化学工程师雅特弗莱",
+      "start_sec": 12.34,
+      "end_sec": 17.7,
+      "duration_sec": 5.36
+    }
+  ],
+  "created_at": "2026-10-23T11:26:12.499105+00:00"
+}

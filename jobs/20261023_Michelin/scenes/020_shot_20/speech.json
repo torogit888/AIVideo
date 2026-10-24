@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261023T162314",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 19.38,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "為了維持所謂的絕對權威他們組建了一支神經質般的神秘客評審隊伍",
+      "text_cn": "为了维持所谓的绝对权威他们组建了一支神经直般的神秘客评审队伍",
+      "start_sec": 0.0,
+      "end_sec": 6.16,
+      "duration_sec": 6.16
+    },
+    {
+      "index": 2,
+      "text": "這些密探像情報局間諜一樣單獨行動而且在用餐時絕不透露真實身份",
+      "text_cn": "这些密探像情报局间谍一样单独行动而且在用餐时绝不透露真实身份",
+      "start_sec": 6.41,
+      "end_sec": 12.57,
+      "duration_sec": 6.16
+    },
+    {
+      "index": 3,
+      "text": "他們嚴格自掏腰包結帳並且在事後針對菜餚火候擺盤與服務進行嚴苛審查",
+      "text_cn": "他们严格自掏腰包结账并且在事后针对菜肴火候摆盘与服务进行严苛审查",
+      "start_sec": 12.82,
+      "end_sec": 19.38,
+      "duration_sec": 6.56
+    }
+  ],
+  "created_at": "2026-10-23T16:23:14.395357+00:00"
+}

@@ -1,0 +1,21 @@
+id: 012_shot_12
+index: 12
+title: 米其林兄弟心裡的算盤其實打得非常
+narration: 米其林兄弟心裡的算盤其實打得非常精明，只要司機敢拿著手冊開車出門冒險，車輪在粗糙的碎石路上就會快速磨損，輪胎磨損得越快他們的橡膠工廠就能賣出越多備用輪胎，
+image_prompt: A dynamic split scene in Q版 2D 卡通插畫 style. On one side, André and Édouard
+  Michelin, with sly, knowing smiles, are rubbing their hands together. On the other
+  side, an early 1900s car is driving on a rough, gravel road, with its tires visibly
+  wearing down, leaving dust trails. Bright, clear lighting, 16:9 widescreen composition.
+image_negative: ''
+act_index: 2
+act_title: 從墊桌腳的廢紙到定價七法郎，摸透人性的營銷反轉
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T161654
+  image_take: image_20261023T161641
+character_ids:
+- andre_michelin
+- edouard_michelin
+- early_1900s_car

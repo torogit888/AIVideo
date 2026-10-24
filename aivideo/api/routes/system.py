@@ -119,7 +119,7 @@ def test_vertex_account(account_id: str):
     from aivideo.credentials_manager import activate_account, probe_single_model
     try:
         activate_account(account_id)
-        res = probe_single_model("gemini-2.5-flash", model_type="text")
+        res = probe_single_model("gemini-3.8-flash", model_type="text")
         return res
     except Exception as e:
         return {"status": "error", "message": f"測試失敗: {str(e)}"}

@@ -1,0 +1,17 @@
+id: 006_shot_6
+index: 6
+title: 然而在一連串精密複雜的高分子聚合
+narration: 然而在一連串精密複雜的高分子聚合反應之後，從反應釜裡倒出來的液體卻讓這位頂級科學家當場愣在原地，
+image_prompt: medium close-up of Dr. Spencer Silver, his face stretching and distorting
+  with sudden bewilderment, his body rigid, as a viscous, milky liquid, bubbling with
+  an unsettling, alive quality, pours from a psychedelic reactor into a beaker, dramatic
+  non-realistic lighting, 16:9 widescreen composition
+image_negative: ''
+act_index: 1
+act_title: 荒誕的失敗：想造太空飛船，卻搞出史上最廢的膠水
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T111519
+  image_take: image_20261023T111442

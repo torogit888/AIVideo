@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261023T115452",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 48373752,
+  "prompt": "Masaaki Yuasa Style, wide establishing shot of a vibrant, glowing legend emerging from a swirling, abstract vortex of \"tolerance for inefficiency and reverence for failure,\" transitioning to a serene, fluid image of Dr. Spencer Silver, his form gently dissolving into a peaceful, cosmic pattern, pop psychedelic lighting, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-23T11:54:52.864894+00:00"
+}

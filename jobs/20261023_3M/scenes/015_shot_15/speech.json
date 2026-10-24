@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261023T112351",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 22.39,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "但在長達整整五年的時間裡席爾瓦博士在公司內部開了無數場宣講會",
+      "text_cn": "但在长达整整五年的时间里席尔瓦博士在公司内部开了无数场宣讲会",
+      "start_sec": 0.0,
+      "end_sec": 6.16,
+      "duration_sec": 6.16
+    },
+    {
+      "index": 2,
+      "text": "他拿著這罐怪膠在黑板上貼了又撕撕了又撕",
+      "text_cn": "他拿着这罐怪胶在黑板上贴了又撕撕了又撕",
+      "start_sec": 6.41,
+      "end_sec": 10.37,
+      "duration_sec": 3.96
+    },
+    {
+      "index": 3,
+      "text": "台下各產品線主管的眼神裡只有掩飾不住的冷漠與嘲諷",
+      "text_cn": "台下各产品线主管的眼神里只有掩饰不住的冷漠与嘲讽",
+      "start_sec": 10.62,
+      "end_sec": 15.58,
+      "duration_sec": 4.96
+    },
+    {
+      "index": 4,
+      "text": "私底下大家都笑他是一個手裡拿著萬能鑰匙卻在全公司四處找鎖孔的瘋子",
+      "text_cn": "私底下大家都笑他是一个手里拿着万能钥匙却在全公司四处找锁孔的疯子",
+      "start_sec": 15.83,
+      "end_sec": 22.39,
+      "duration_sec": 6.56
+    }
+  ],
+  "created_at": "2026-10-23T11:23:51.856753+00:00"
+}

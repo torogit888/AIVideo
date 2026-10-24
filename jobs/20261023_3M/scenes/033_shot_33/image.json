@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261023T114132",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 61218959,
+  "prompt": "Masaaki Yuasa Style, wide establishing shot of Nicholson, his crisp suit flowing like liquid, leading a convoy of distorted, vibrant trucks overflowing with glowing yellow Post-it Notes, dynamically stretching across a stylized cityscape of Boise, Idaho, pop psychedelic lighting, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-23T11:41:32.702720+00:00"
+}

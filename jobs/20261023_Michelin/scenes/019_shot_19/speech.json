@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261023T162226",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 12.41,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "1926年米其林首次在指南裡引進了代表優秀餐廳的星號標記",
+      "text_cn": "1926年米其林首次在指南里引进了代表优秀餐厅的星号标记",
+      "start_sec": 0.0,
+      "end_sec": 5.88,
+      "duration_sec": 5.88
+    },
+    {
+      "index": 2,
+      "text": "到了1931年他們正式確立了流傳至今的一星二星與三星評級體系",
+      "text_cn": "到了1931年他们正式确立了流传至今的一星二星与三星评级体系",
+      "start_sec": 6.13,
+      "end_sec": 12.41,
+      "duration_sec": 6.28
+    }
+  ],
+  "created_at": "2026-10-23T16:22:26.655403+00:00"
+}

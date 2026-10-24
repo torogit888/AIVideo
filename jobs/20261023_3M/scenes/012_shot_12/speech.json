@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261023T112116",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 17.66,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[dissatisfaction-hnn]然而商業現實的殘酷遠遠超出了科學家的浪漫想像",
+      "text_cn": "[dissatisfaction-hnn]然而商业现实的残酷远远超出了科学家的浪漫想像",
+      "start_sec": 0.0,
+      "end_sec": 5.84,
+      "duration_sec": 5.84
+    },
+    {
+      "index": 2,
+      "text": "三愛姆公司是一家靠砂紙和透明膠帶打下全球江山的工業帝國",
+      "text_cn": "三爱姆公司是一家靠砂纸和透明胶带打下全球江山的工业帝国",
+      "start_sec": 6.09,
+      "end_sec": 11.65,
+      "duration_sec": 5.56
+    },
+    {
+      "index": 3,
+      "text": "這家企業七十年來的立足信仰只有一個那就是牢牢黏住絕不放手",
+      "text_cn": "这家气业七十年来的立足信仰只有一个那就是牢牢黏住绝不放手",
+      "start_sec": 11.9,
+      "end_sec": 17.66,
+      "duration_sec": 5.76
+    }
+  ],
+  "created_at": "2026-10-23T11:21:16.181380+00:00"
+}

@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261023T162750",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 12.37,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "但這並不僅僅是一場精妙絕倫的跨界商業行銷案例",
+      "text_cn": "但这并不仅仅是一场精妙绝伦的跨界商业行销案例",
+      "start_sec": 0.0,
+      "end_sec": 4.56,
+      "duration_sec": 4.56
+    },
+    {
+      "index": 2,
+      "text": "當這本紅色小冊子被世人推上神壇之後它所掌控的話語權開始異化為吞噬人命的怪獸",
+      "text_cn": "当这本红色小册子被世人推上神坛之后它所掌控的话语权开始异化为吞噬人命的怪兽",
+      "start_sec": 4.81,
+      "end_sec": 12.37,
+      "duration_sec": 7.56
+    }
+  ],
+  "created_at": "2026-10-23T16:27:50.563084+00:00"
+}

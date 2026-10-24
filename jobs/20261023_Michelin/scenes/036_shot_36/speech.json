@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261023T163512",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 27.59,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "瘋狂的觀光客會在幾天之內塞爆整條原本寧靜的街道讓幾十年的老街坊再也吃不上飯",
+      "text_cn": "疯狂的观光客会在几天之内塞爆整条原本宁静的街道让几十年的老街坊再也吃不上饭",
+      "start_sec": 0.0,
+      "end_sec": 7.56,
+      "duration_sec": 7.56
+    },
+    {
+      "index": 2,
+      "text": "與此同時聞風而來的貪婪房東則會在租約到期時直接將店租翻倍暴漲",
+      "text_cn": "与此同时闻风而来的贪婪房东则会在租约到棋时直接将店租翻倍暴涨",
+      "start_sec": 7.81,
+      "end_sec": 13.97,
+      "duration_sec": 6.16
+    },
+    {
+      "index": 3,
+      "text": "迫於成本壓力這些老店要麼只能選擇偷工減料壓縮品質要麼只能無奈關門倒閉",
+      "text_cn": "迫于成本压力这些老店要么只能选择偷工减料压缩品直要么只能无奈关门倒闭",
+      "start_sec": 14.22,
+      "end_sec": 21.18,
+      "duration_sec": 6.96
+    },
+    {
+      "index": 4,
+      "text": "西方資本的標準就這樣粗暴地將幾代人傳承的煙火氣息生生連根拔起",
+      "text_cn": "西方资本的标准就这样粗暴地将几代人传承的烟火气息生生连根拔起",
+      "start_sec": 21.43,
+      "end_sec": 27.59,
+      "duration_sec": 6.16
+    }
+  ],
+  "created_at": "2026-10-23T16:35:12.516445+00:00"
+}

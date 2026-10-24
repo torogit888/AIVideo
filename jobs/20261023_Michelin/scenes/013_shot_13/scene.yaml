@@ -1,0 +1,29 @@
+id: 013_shot_13
+index: 13
+title: 然而這套免費贈送的策略很快就迎來
+narration: 然而這套免費贈送的策略很快就迎來了一記無比屈辱的重擊，轉折點發生在二十年後的1920年，安德烈米其林親自前往一家合作的修車廠進行業務考察，
+image_prompt: A medium shot in Q版 2D 卡通插畫 style. André Michelin, looking slightly
+  concerned and dressed in his business suit, steps into a bustling, oil-stained early
+  20th-century car repair shop. Tools hang on the walls, and a partially disassembled
+  car is visible in the background. Gritty but clean cel-shaded details. Dim, practical
+  workshop lighting, 16:9 widescreen composition.
+image_negative: ''
+act_index: 2
+act_title: 從墊桌腳的廢紙到定價七法郎，摸透人性的營銷反轉
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T161740
+  image_take: image_20261023T161727
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: 1920s French car repair shop archival photo
+  fetch_error: 未找到合適照片或影片
+character_ids:
+- andre_michelin

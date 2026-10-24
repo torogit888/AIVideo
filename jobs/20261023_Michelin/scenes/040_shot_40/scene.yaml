@@ -1,0 +1,19 @@
+id: 040_shot_40
+index: 40
+title: 世界上本該有千姿百態的美味但是從
+narration: 世界上本該有千姿百態的美味但是從什麼時候開始，一道菜好不好吃居然必須由一家賣橡膠輪胎的跨國工廠說了才算呢，[question-ei]，
+image_prompt: A conceptual wide shot in Q版 2D 卡通插畫 style. A diverse array of delicious,
+  colorful dishes from various global cultures are spread out beautifully. In the
+  background, a single, imposing, simplified tire factory building looms, questioning
+  the authority of a tire company over global cuisine. Bright, contrasting lighting,
+  16:9 widescreen composition.
+image_negative: ''
+act_index: 7
+act_title: 歷史餘韻與訂閱謝幕，荒誕世界中的清醒回望
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T163826
+  image_take: image_20261023T163816
+character_ids: []

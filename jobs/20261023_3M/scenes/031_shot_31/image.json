@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261023T114004",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 99732716,
+  "prompt": "Masaaki Yuasa Style, medium close-up of Nicholson, his angular face with a knowing, slightly mischievous grin, standing at the edge of a distorted, precipitous cliff, his eyes gleaming with strategic insight, as abstract, swirling patterns representing \"humanity's fatal blind spot\" coalesce around him, dramatic non-realistic lighting, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-23T11:40:04.034365+00:00"
+}

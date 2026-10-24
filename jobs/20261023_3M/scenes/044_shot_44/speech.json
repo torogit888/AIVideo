@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261023T115221",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.17,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "席爾瓦和弗萊最初只是想解決書籤滑落的尷尬但他們無意中重構了人類的行為",
+      "text_cn": "席尔瓦和弗莱最初只是想解决书签滑落的尴尬但他们无意中重构了人类的行为",
+      "start_sec": 0.0,
+      "end_sec": 6.96,
+      "duration_sec": 6.96
+    },
+    {
+      "index": 2,
+      "text": "然而當這家商業帝國變得無比龐大且極度追求精密時故事卻迎來了殘酷的轉折",
+      "text_cn": "然而当这家商业帝国变得无比庞大且极度追求精密时故事却迎来了残酷的转折",
+      "start_sec": 7.21,
+      "end_sec": 14.17,
+      "duration_sec": 6.96
+    }
+  ],
+  "created_at": "2026-10-23T11:52:21.038510+00:00"
+}

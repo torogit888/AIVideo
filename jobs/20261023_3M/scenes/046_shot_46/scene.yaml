@@ -1,0 +1,18 @@
+id: 046_shot_46
+index: 46
+title: 大家突然驚醒如果回到那個追求百分
+narration: 大家突然驚醒如果回到那個追求百分之百確定性的現代管理制度下，席爾瓦博士的那罐無能膠水大概在產生的第一分鐘就會被品管系統直接當場銷毀，而那個在教堂裡摸魚並私自改造地下室的弗萊也會因為績效不達標而被勒令開除，
+image_prompt: 'wide establishing shot of a vivid, distorted flashback: Dr. Spencer
+  Silver''s failed adhesive being instantly vaporized by a rigid, angular "quality
+  control" system, followed by Art Fry, his rubbery body contorted in despair, being
+  ejected from the corporate building by stern, distorted figures, stark clinical
+  lighting, 16:9 widescreen composition'
+image_negative: ''
+act_index: 7
+act_title: 反噬與神話終局：當偶然成為不可複製的絕唱
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T115421
+  image_take: image_20261023T115400

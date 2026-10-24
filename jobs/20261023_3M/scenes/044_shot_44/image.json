@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261023T115155",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 79017644,
+  "prompt": "Masaaki Yuasa Style, wide establishing shot of Dr. Spencer Silver and Art Fry, their fluid and rubbery forms, looking at a simple, shimmering bookmark, then transitioning to a towering, rigid, and distorted corporate empire, its gears grinding with extreme precision, a cruel, jagged crack appearing in its structure, stark clinical lighting, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-23T11:51:55.251770+00:00"
+}

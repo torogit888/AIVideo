@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261023T112458",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 69491512,
+  "prompt": "Masaaki Yuasa Style, wide establishing shot of a brightly lit, sterile conference room with rigid, angular figures, abruptly transitioning to a dimly lit, distorted, awkward moment where a single bead of sweat forms an exaggerated, shimmering droplet on a brow, dramatic non-realistic lighting, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-23T11:24:58.637455+00:00"
+}

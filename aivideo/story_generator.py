@@ -16,23 +16,14 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 
 TEXT_MODELS = (
     "gemini-3.8-flash",
-    "gemini-2.5-flash",
-    "grok-4.7",
-    "gemini-3.5-flash",
-    "gemini-2.0-flash",
-    "gemini-1.5-flash",
-    "gemini-flash-latest",
+    "gemini-3.7-flash",
 )
 
 
 def resolve_text_model_name(model_name: str | None) -> str:
-    """將使用者或前端傳入的模型名稱映射為 Vertex AI 支援的真實名稱。"""
+    """將使用者或前端傳入的模型名稱正規化，預設為 gemini-3.8-flash。"""
     m = (model_name or "").strip()
-    if not m:
-        return "gemini-3.8-flash"
-    if m.lower() in {"grok-4.7", "grok4.7", "grok", "xai-grok-4.7"}:
-        return "xai/grok-4.7"
-    return m
+    return m if m else "gemini-3.8-flash"
 
 
 def get_candidate_text_models(preferred_model: str | None = None) -> list[str]:
@@ -804,7 +795,7 @@ CRITICAL ENTITY CATEGORIZATION RULES:
    - DO NOT give warships, submarines, bottles, cans, or machines human eyes, faces, smiles, arms, hands, legs, or feet!
    - An object/vehicle must remain a physical, authentic non-living item/vehicle (even in stylized or chibi art styles, simplify the geometric shape and clean lines, but NEVER turn it into a walking creature with limbs).
 3. Do not merge multiple entities into one entry. List up to 6 key recurring entities.
-4. "environment_anchor" is the shared world, architecture, palette, and lighting — not an entity — and must match the locked art style (medium, line, color, lighting).
+4. "environment_anchor" is the shared world art style, atmospheric lighting, line quality, and color palette — NEVER include specific characters, specific props, or single-scene events in environment_anchor.
 
 Story Topic: {topic}
 Selected image style: {style["name"]}
@@ -822,7 +813,7 @@ Output JSON with exact keys:
       "appearance": "English visual description. For humans: face, hair, clothing. For objects/vehicles: authentic physical model, materials, colors (NO face/limbs)."
     }}
   ],
-  "environment_anchor": "English description of world, architecture, lighting..."
+  "environment_anchor": "English description of overall world aesthetic, architectural era, lighting mood, and color palette (no specific characters or props)..."
 }}
 """
         for model_name in get_candidate_text_models(model):
@@ -866,20 +857,25 @@ Output JSON with exact keys:
     }
 
 
-def batch_generate_english_image_prompts(
+def batch_generate_scene_visual_plans(
     narrations: list[str],
     subject_anchor: str = "",
     environment_anchor: str = "",
     characters: list[dict[str, str]] | None = None,
     style_key: str = "",
-) -> list[str]:
-    """呼叫 Gemini 依據專案全域視覺風格與視覺錨點，將中文旁白直接轉換為專業英文畫面出圖提示詞。"""
+) -> list[dict[str, object]]:
+    """呼叫 Gemini 依據專案全域視覺風格與視覺錨點，為每一幕先判定實際登場的定裝 ID (character_ids)，
+    再將中文旁白轉換為只包含登場主體的專業英文畫面提示詞 (image_prompt)。
+    回傳格式: [{"image_prompt": str, "character_ids": list[str]}, ...]
+    """
     if not narrations:
         return []
 
     from aivideo.visual_anchors import character_bible_for_prompts
 
-    bible = character_bible_for_prompts(characters or [])
+    char_list = characters or []
+    valid_char_ids = {str(ch.get("id") or "").strip() for ch in char_list if ch.get("id")}
+    bible = character_bible_for_prompts(char_list)
 
     try:
         from google import genai
@@ -887,7 +883,7 @@ def batch_generate_english_image_prompts(
 
         tag_pattern = re.compile(r"\[[a-zA-Z0-9_\-]+\]")
         items_text = "\n".join([f"[{i+1}] {tag_pattern.sub('', n).strip()}" for i, n in enumerate(narrations)])
-        
+
         clean_bible = bible.replace("educational storyboard", "2D animation").replace("educational panels", "clean 2D panels") if bible else ""
         clean_sub_anchor = subject_anchor.replace("educational storyboard", "2D animation").replace("educational panels", "clean 2D panels")
         clean_env_anchor = environment_anchor.replace("educational storyboard", "2D animation").replace("educational panels", "clean 2D panels")
@@ -896,40 +892,55 @@ def batch_generate_english_image_prompts(
         if clean_bible or clean_sub_anchor or clean_env_anchor:
             if clean_bible:
                 subject_rule = (
-                    "CHARACTER & ENTITY BIBLE (include visual details ONLY when that entity actually appears in the scene; never force unused entities into the frame):\n"
+                    "AVAILABLE CHARACTER & ENTITY BIBLE (Reference Catalog):\n"
                     f"{clean_bible}\n"
+                    "- STRICT SCENE CASTING RULE: For each scene, first decide `character_ids` — the exact list of `id`s from the catalog above that ACTUALLY appear in that specific scene's narration (including clear pronoun references like 'he', 'this scientist', 'the glue' resolved from adjacent scenes).\n"
+                    "- WHEN TO USE EMPTY `character_ids: []`: If a scene narration describes general history, corporate background, macroeconomic context, anonymous crowds/colleagues/executives, pure landscapes, or conceptual transitions where NO catalog entity is physically present, `character_ids` MUST be `[]`.\n"
+                    "- STRICT ZERO-HALLUCINATION RULE: If an entity's `id` is NOT in that scene's `character_ids`, you are STRICTLY FORBIDDEN from mentioning its name or visual traits in that scene's `image_prompt`! Never force unused protagonists or props into the frame (NO superimposed faces/eyes, NO tiny protagonist standing in the background, NO floating phantom props).\n"
                     "- STRICT NO-ANTHROPOMORPHISM: Never give inanimate objects/ships/bottles human eyes, faces, arms, or legs."
                 )
             else:
-                subject_rule = f'- MAIN SUBJECT ANCHOR: Whenever the main protagonist/object appears, incorporate these specific physical details: "{clean_sub_anchor}"'
+                subject_rule = (
+                    f'- MAIN SUBJECT ANCHOR: ONLY when the main protagonist/object is actually present in the scene narration, incorporate these details: "{clean_sub_anchor}". If the scene is a general setting or transition without the main subject, do NOT include it.'
+                )
             env_rule = ""
             if clean_env_anchor:
-                env_rule = f'\n- ENVIRONMENT & LIGHTING ANCHOR: Maintain this consistent background atmosphere and cinematic lighting palette: "{clean_env_anchor}"'
+                env_rule = (
+                    f'\n- LIGHTING & PALETTE ANCHOR: Use the general lighting mood, line quality, and color palette from "{clean_env_anchor}", '
+                    "but ALWAYS set the actual location/room/building strictly according to each scene's narration (never force a specific lab, basement, or object from the environment description into unrelated scenes)."
+                )
             anchor_rules = f"""
-STRICT VISUAL CONTINUITY RULES (Apply to all scenes to maintain consistency):
+VISUAL CONTINUITY & SCENE CASTING RULES:
 {subject_rule}{env_rule}
 """
 
         style = resolve_style(style_key)
         style_lock = style_lock_instructions(style_key)
         prompt = f"""You are a master storyboard visual director and concept artist.
-Analyze the following scene narrations from a video documentary.
-Transform each scene narration into a compelling, evocative visual text-to-image prompt strictly in ENGLISH.
+Analyze the following sequential scene narrations from a video documentary.
+For each scene, first determine which recurring entities (`character_ids`) from the Character & Entity Bible actually appear in that scene, and then write a compelling, evocative visual text-to-image prompt strictly in ENGLISH (`image_prompt`).
 
 {style_lock}
 {anchor_rules}
 
 CRITICAL PROMPT CRAFTING REQUIREMENTS:
-1. Every prompt MUST be written completely in ENGLISH.
+1. Every `image_prompt` MUST be written completely in ENGLISH.
 2. Formulate the visual prompt strictly in the locked project art medium: {style["name"]}. Do NOT contradict it with unrelated art styles.
-3. Translate abstract voiceover concepts into CONCRETE, VISUALLY STRIKING PHYSICAL SCENES: subjects, dynamic character action or expressive posture, tangible props, lighting, atmosphere, and camera framing (wide establishing shot, medium close-up, dramatic low angle) in 16:9 widescreen composition.
-4. Keep inanimate objects strictly physical (never give objects cartoon human eyes, limbs, or faces).
-5. NEVER include any dialogue, speech bubbles, quotes, text, subtitles, words, letters, logos, or watermarks.
-6. If the final scene contains ending channel subscription or call-to-action lines (e.g. 'like and subscribe', 'see you next time', '點個喜歡', '訂閱頻道'), strictly IGNORE the subscription wording and focus the visual prompt completely on the grand narrative conclusion, final historical scene, or character climax.
-7. Output EXACTLY a JSON array of strings containing exactly {len(narrations)} prompts in the same order as the input scenes:
+3. Translate each scene narration into a CONCRETE, VISUALLY STRIKING PHYSICAL SCENE matching ONLY what that narration describes: subjects, dynamic action or posture, tangible props, lighting, atmosphere, and camera framing (wide establishing shot, medium close-up, dramatic low angle) in 16:9 widescreen composition.
+4. ONLY include visual descriptions of catalog entities whose `id` you placed in that scene's `character_ids`. If `character_ids` is `[]`, depict the environment, architecture, anonymous figures, or objects mentioned in that scene's narration WITHOUT inserting any catalog protagonist or prop.
+5. Keep inanimate objects strictly physical (never give objects cartoon human eyes, limbs, or faces).
+6. NEVER include any dialogue, speech bubbles, quotes, text, subtitles, words, letters, logos, or watermarks.
+7. If the final scene contains ending channel subscription or call-to-action lines (e.g. 'like and subscribe', 'see you next time', '點個喜歡', '訂閱頻道'), strictly IGNORE the subscription wording and focus the visual prompt completely on the grand narrative conclusion, final historical scene, or character climax.
+8. Output EXACTLY a JSON array of {len(narrations)} objects in the exact same order as the input scenes:
 [
-  "wide establishing shot of [subject and action description], [lighting], [environment], 16:9 widescreen composition",
-  "..."
+  {{
+    "character_ids": ["entity_id_1"],
+    "image_prompt": "wide establishing shot of [subject and action description], [lighting], [environment], 16:9 widescreen composition"
+  }},
+  {{
+    "character_ids": [],
+    "image_prompt": "wide establishing shot of [environment or scene without catalog characters], [lighting], 16:9 widescreen composition"
+  }}
 ]
 
 Scenes:
@@ -942,34 +953,55 @@ Scenes:
                     model=model_name,
                     contents=prompt,
                     config=types.GenerateContentConfig(
-                        temperature=0.4,
+                        temperature=0.35,
                         response_mime_type="application/json",
                     ),
                 )
                 if resp.text:
                     parsed = json.loads(resp.text)
                     if isinstance(parsed, list) and len(parsed) == len(narrations):
-                        result = []
-                        for p in parsed:
-                            p_text = str(p.get("image_prompt") if isinstance(p, dict) else p).strip()
-                            p_text = re.sub(r"\b(?:educational storyboard|educational panels)\b", "2D cartoon illustration", p_text, flags=re.IGNORECASE)
-                            result.append(p_text)
-                        return result
+                        plans: list[dict[str, object]] = []
+                        for item in parsed:
+                            if isinstance(item, dict):
+                                p_text = str(item.get("image_prompt") or item.get("prompt") or "").strip()
+                                raw_ids = item.get("character_ids")
+                                c_ids = (
+                                    [
+                                        str(cid).strip()
+                                        for cid in raw_ids
+                                        if str(cid).strip() in valid_char_ids
+                                    ]
+                                    if isinstance(raw_ids, list)
+                                    else []
+                                )
+                            else:
+                                p_text = str(item).strip()
+                                c_ids = []
+
+                            p_text = re.sub(
+                                r"\b(?:educational storyboard|educational panels)\b",
+                                "2D cartoon illustration",
+                                p_text,
+                                flags=re.IGNORECASE,
+                            )
+                            plans.append({
+                                "image_prompt": p_text,
+                                "character_ids": c_ids,
+                            })
+                        return plans
             except Exception:
                 continue
     except Exception:
         pass
 
-    # 備援 (Fallback)
-    fallbacks = []
     style = resolve_style(style_key)
-    base_sub = subject_anchor if subject_anchor else "the central subject"
-    base_env = environment_anchor if environment_anchor else f"{style['name']} environment"
-    for _ in narrations:
-        fallbacks.append(
-            f"{style['name']} wide angle shot featuring {base_sub}, {base_env}, 16:9 widescreen composition"
-        )
-    return fallbacks
+    return [
+        {
+            "image_prompt": f"{style['name']} cinematic wide angle shot, dramatic lighting, 16:9 widescreen composition",
+            "character_ids": [],
+        }
+        for _ in narrations
+    ]
 
 
 def translate_single_scene_prompt(
@@ -978,16 +1010,16 @@ def translate_single_scene_prompt(
     subject_anchor: str = "",
     environment_anchor: str = "",
     characters: list[dict[str, str]] | None = None,
-) -> str:
-    """為單一分鏡依據專案全域視覺風格與錨點，將中文旁白直接重新轉譯為高品質純英文出圖 Prompt。"""
-    res = batch_generate_english_image_prompts(
+) -> dict[str, object]:
+    """為單一分鏡依據專案全域視覺風格與錨點，將中文旁白轉譯為英文出圖 Prompt 與實際出場 character_ids。"""
+    plans = batch_generate_scene_visual_plans(
         [narration],
         subject_anchor=subject_anchor,
         environment_anchor=environment_anchor,
         characters=characters,
         style_key=style_key,
     )
-    return res[0] if res else ""
+    return plans[0] if plans else {"image_prompt": "", "character_ids": []}
 
 
 def batch_detect_pip_queries(
@@ -1003,12 +1035,6 @@ def batch_detect_pip_queries(
     _load_dotenv()
     from google import genai
     from google.genai import types
-
-    try:
-        client_kwargs = get_gemini_client_kwargs()
-        client = genai.Client(**client_kwargs)
-    except Exception:
-        return [None] * len(narrations)
 
     scene_items = [{"index": idx + 1, "text": text} for idx, text in enumerate(narrations)]
 
@@ -1047,6 +1073,7 @@ Return a JSON array of strings or nulls, with EXACTLY {len(narrations)} items co
 
     for model_name in TEXT_MODELS:
         try:
+            client = genai.Client(**get_gemini_client_kwargs(model=model_name))
             resp = client.models.generate_content(
                 model=model_name,
                 contents=prompt,
@@ -1123,9 +1150,6 @@ def ai_semantic_chunk_script(
         from google import genai
         from google.genai import types
 
-        client_kwargs = get_gemini_client_kwargs()
-        client = genai.Client(**client_kwargs)
-
         numbered_lines = "\n".join([f"[{i + 1}] {line}" for i, line in enumerate(lines)])
         prompt = f"""You are a master Hollywood film director, storyboard artist, and visual editor.
 We are converting a spoken video script into cinematic storyboard scenes for image generation.
@@ -1152,6 +1176,7 @@ Return ONLY a valid JSON 2D array of integers, like:
 
         for model_name in TEXT_MODELS:
             try:
+                client = genai.Client(**get_gemini_client_kwargs(model=model_name))
                 resp = client.models.generate_content(
                     model=model_name,
                     contents=prompt,
@@ -1297,7 +1322,7 @@ def parse_script_lines_to_scenes(
         return "".join(processed)
 
     narrations = [_join_scene_sentences(c) for c in chunks]
-    english_prompts = batch_generate_english_image_prompts(
+    visual_plans = batch_generate_scene_visual_plans(
         narrations,
         subject_anchor=subject_anchor,
         environment_anchor=environment_anchor,
@@ -1312,10 +1337,16 @@ def parse_script_lines_to_scenes(
 
     scenes: list[dict[str, object]] = []
     for idx, (chunk, narration) in enumerate(zip(chunks, narrations), start=1):
+        plan = visual_plans[idx - 1] if idx - 1 < len(visual_plans) else {}
         img_prompt = (
-            english_prompts[idx - 1]
-            if idx - 1 < len(english_prompts)
+            str(plan.get("image_prompt") or "")
+            if isinstance(plan, dict) and plan.get("image_prompt")
             else "Cinematic wide angle shot, dramatic lighting, 16:9 widescreen composition"
+        )
+        char_ids = (
+            list(plan.get("character_ids"))
+            if isinstance(plan, dict) and isinstance(plan.get("character_ids"), list)
+            else []
         )
         q = pip_queries[idx - 1] if idx - 1 < len(pip_queries) else None
 
@@ -1326,6 +1357,7 @@ def parse_script_lines_to_scenes(
             "narration": narration,
             "sentences": list(chunk),
             "image_prompt": img_prompt,
+            "character_ids": char_ids,
             "pip_query": q,
         })
 
@@ -1412,6 +1444,7 @@ Return JSON with the exact keys:
     data: dict[str, object] = {}
     for model_name in models_to_try:
         try:
+            client = genai.Client(**get_gemini_client_kwargs(model=model_name))
             resp = client.models.generate_content(
                 model=model_name,
                 contents=prompt,
@@ -1605,6 +1638,7 @@ def create_job_bundle(
             "title": s["title"],
             "narration": s["narration"],
             "image_prompt": s["image_prompt"],
+            "character_ids": list(s.get("character_ids") or []) if "character_ids" in s else [],
             "image_negative": "",
             "act_index": s.get("act_index") or 0,
             "act_title": s.get("act_title") or "",
@@ -1677,7 +1711,7 @@ def regenerate_job_scene_prompts(
     except Exception:
         style_key = ""
 
-    new_prompts = batch_generate_english_image_prompts(
+    visual_plans = batch_generate_scene_visual_plans(
         narrations,
         subject_anchor=subject_anchor,
         environment_anchor=environment_anchor,
@@ -1687,8 +1721,11 @@ def regenerate_job_scene_prompts(
 
     updated_count = 0
     for idx, (s_yaml_p, scfg) in enumerate(scene_yamls):
-        if idx < len(new_prompts):
-            scfg["image_prompt"] = str(new_prompts[idx])
+        if idx < len(visual_plans):
+            plan = visual_plans[idx]
+            scfg["image_prompt"] = str(plan.get("image_prompt") or "")
+            if isinstance(plan.get("character_ids"), list):
+                scfg["character_ids"] = list(plan["character_ids"])
             scfg.pop("visual_concept", None)
             with open(s_yaml_p, "w", encoding="utf-8") as f:
                 yaml.safe_dump(scfg, f, allow_unicode=True, sort_keys=False)

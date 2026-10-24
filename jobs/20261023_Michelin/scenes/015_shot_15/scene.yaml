@@ -1,0 +1,19 @@
+id: 015_shot_15
+index: 15
+title: 他回到辦公室後立刻總結出一條殘酷
+narration: 他回到辦公室後立刻總結出一條殘酷而清醒的人性鐵律，那就是人類從來不會真正珍惜那些免費得到的東西，唯有讓人們付出真金白銀的代價他們才會對你頂禮膜拜，
+image_prompt: A close-up shot in Q版 2D 卡通插畫 style of André Michelin in his office.
+  He has a determined, enlightened expression, as if a profound realization has just
+  struck him. His eyes are focused, conveying a moment of deep insight and resolve.
+  Soft, thoughtful lighting, 16:9 widescreen composition.
+image_negative: ''
+act_index: 3
+act_title: 幽靈密探與星級枷鎖，把食客馴化成輪胎磨損員
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261023T161905
+  image_take: image_20261023T161854
+character_ids:
+- andre_michelin
