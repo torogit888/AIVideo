@@ -15,6 +15,7 @@ import {
   Wand2,
 } from "lucide-react";
 import { api } from "../api";
+import { useStudioStore } from "../store";
 import {
   YouTubeAuthStatus,
   YouTubePrepareData,
@@ -27,6 +28,7 @@ interface Props {
 }
 
 export const YouTubeUploadModal: React.FC<Props> = ({ jobId, isOpen, onClose }) => {
+  const { loadJobs, showToast } = useStudioStore();
   const [loading, setLoading] = useState(false);
   const [optimizing, setOptimizing] = useState(false);
   const [generatingThumb, setGeneratingThumb] = useState(false);
@@ -95,17 +97,18 @@ export const YouTubeUploadModal: React.FC<Props> = ({ jobId, isOpen, onClose }) 
 
   useEffect(() => {
     const justOpened = isOpen && !prevOpenRef.current;
-    const jobChanged = isOpen && prevJobIdRef.current !== jobId;
+    const jobChanged = prevJobIdRef.current !== "" && prevJobIdRef.current !== jobId;
 
-    if (justOpened || jobChanged) {
+    if (jobChanged && pollIntervalRef.current) {
+      clearInterval(pollIntervalRef.current);
+      pollIntervalRef.current = null;
+    }
+
+    if (justOpened || (isOpen && prevJobIdRef.current !== jobId)) {
       loadInitialData();
     }
     prevOpenRef.current = isOpen;
     prevJobIdRef.current = jobId;
-
-    if (!isOpen && pollIntervalRef.current) {
-      clearInterval(pollIntervalRef.current);
-    }
 
     const handleWindowMessage = (event: MessageEvent) => {
       if (event.data?.type === "YOUTUBE_AUTH_SUCCESS") {
@@ -115,10 +118,15 @@ export const YouTubeUploadModal: React.FC<Props> = ({ jobId, isOpen, onClose }) 
     window.addEventListener("message", handleWindowMessage);
 
     return () => {
-      if (pollIntervalRef.current) clearInterval(pollIntervalRef.current);
       window.removeEventListener("message", handleWindowMessage);
     };
   }, [isOpen, jobId]);
+
+  useEffect(() => {
+    return () => {
+      if (pollIntervalRef.current) clearInterval(pollIntervalRef.current);
+    };
+  }, []);
 
   const loadInitialData = async () => {
     setLoading(true);
@@ -152,6 +160,7 @@ export const YouTubeUploadModal: React.FC<Props> = ({ jobId, isOpen, onClose }) 
         startPolling();
       } else if (currentStatus.result) {
         setUploadResult(currentStatus.result);
+        void loadJobs();
       }
     } catch (err: any) {
       setAuthError(err.message || "載入 YouTube 資料失敗");
@@ -215,6 +224,8 @@ export const YouTubeUploadModal: React.FC<Props> = ({ jobId, isOpen, onClose }) 
       });
 
       setUploadResult(res);
+      await loadJobs();
+      showToast("已更新 YouTube 影片資訊！", "success");
     } catch (err: any) {
       setAuthError(err.message || "更新現有影片資訊失敗");
     } finally {
@@ -279,6 +290,8 @@ export const YouTubeUploadModal: React.FC<Props> = ({ jobId, isOpen, onClose }) 
             setUploadError(status.error);
           } else if (status.result) {
             setUploadResult(status.result);
+            void loadJobs();
+            showToast("🎉 成片已成功發布至 YouTube！", "success");
           }
         }
       } catch (e) {
@@ -504,31 +517,7 @@ export const YouTubeUploadModal: React.FC<Props> = ({ jobId, isOpen, onClose }) 
             )}
           </div>
 
-          {/* 2. 上傳中進度展示 */}
-          {uploading && (
-            <div className="p-4 rounded-lg bg-amber-cta/10 border border-amber-cta/30 space-y-2.5">
-              <div className="flex items-center justify-between text-xs">
-                <span className="font-medium text-amber-cta flex items-center gap-1.5">
-                  <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                  {uploadMessage || "正在上傳成片至 YouTube..."}
-                </span>
-                <span className="font-mono text-amber-cta font-bold">
-                  {Math.round(uploadProgress * 100)}%
-                </span>
-              </div>
-              <div className="w-full h-2 rounded-full bg-black/40 overflow-hidden">
-                <div
-                  className="h-full bg-gradient-to-r from-red-600 to-amber-cta transition-all duration-300"
-                  style={{ width: `${Math.max(uploadProgress * 100, 3)}%` }}
-                />
-              </div>
-              <p className="text-[11px] text-cinema-muted">
-                大檔案採用 Resumable 斷點續傳分塊傳輸，請保持瀏覽器開啟。
-              </p>
-            </div>
-          )}
-
-          {/* 3. 上傳成功結果畫面 */}
+          {/* 2. 上傳成功結果畫面 */}
           {uploadResult ? (
             <div className="p-5 rounded-xl bg-emerald-950/40 border border-emerald-800/60 space-y-4">
               <div className="flex items-center space-x-2 text-emerald-400 text-base font-semibold">
@@ -849,6 +838,37 @@ export const YouTubeUploadModal: React.FC<Props> = ({ jobId, isOpen, onClose }) 
                 </label>
               </div>
             </div>
+
+            {/* 上傳中進度與錯誤展示（位於底部發布按鈕正上方，方便點擊後直接觀看進度） */}
+            {uploadError && (
+              <div className="p-3.5 rounded-lg bg-red-950/40 border border-red-800/60 flex items-start space-x-2.5 text-xs text-red-300">
+                <AlertCircle className="w-4 h-4 shrink-0 text-red-400 mt-0.5" />
+                <div className="flex-1 leading-relaxed">{uploadError}</div>
+              </div>
+            )}
+
+            {uploading && (
+              <div className="p-4 rounded-lg bg-amber-cta/10 border border-amber-cta/30 space-y-2.5">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="font-medium text-amber-cta flex items-center gap-1.5">
+                    <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                    {uploadMessage || "正在上傳成片至 YouTube..."}
+                  </span>
+                  <span className="font-mono text-amber-cta font-bold">
+                    {Math.round(uploadProgress * 100)}%
+                  </span>
+                </div>
+                <div className="w-full h-2 rounded-full bg-black/40 overflow-hidden">
+                  <div
+                    className="h-full bg-gradient-to-r from-red-600 to-amber-cta transition-all duration-300"
+                    style={{ width: `${Math.max(uploadProgress * 100, 3)}%` }}
+                  />
+                </div>
+                <p className="text-[11px] text-cinema-muted">
+                  大檔案採用 Resumable 斷點續傳分塊傳輸，請保持瀏覽器開啟。
+                </p>
+              </div>
+            )}
 
             {/* 底部按鈕 */}
             <div className="flex items-center justify-end space-x-2.5 pt-2 border-t border-cinema-border">

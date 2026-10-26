@@ -78,7 +78,7 @@
 - [x] **4. 測試檔案依功能領域語意化分類（移除 `test_p0.py`～`test_p3.py` 階段代號）**
   - 拆分為 `tests/test_naming_and_spoken.py`、`tests/test_job_and_script.py`、`tests/test_scenes_and_takes.py`、`tests/test_pipeline_and_cli.py`、`tests/test_studio_frontend_contracts.py` 共 5 個具明確領域名稱之測試檔。
 
-### ✅ 第五批（Batch 5）：全面複查與遺留細節收尾（已完成並通過 56 項後端測試 + 前端 `tsc && vite build`）
+### ✅ 第五批（Batch 5）：全面複查與遺留細節收尾（已完成並通過 57 項後端測試 + 前端 `tsc && vite build`）
 
 - [x] **1. 移除未使用的 `metaphor_style` 與 `lines_per_scene` 遺留欄位**
   - 從 `aivideo/api/schemas.py`（`JobSummary`、`CreateJobRequest`、`UpdateJobRequest`、`RecutJobRequest`）、`aivideo/api/routes/jobs.py`、`aivideo/story_generator.py`（`parse_script_lines_to_scenes`、`create_job_bundle`）、`web/src/types.ts`、`web/src/api.ts` 全面移除從未於介面與生圖邏輯中實際使用的 `metaphor_style` 與 `lines_per_scene`，切鏡統一只保留 `visual_pacing`（快／標準／慢）。
@@ -98,6 +98,10 @@
   - `aivideo/pipeline_runner.py` 在 `mode == "all"` 加入 `pip_attempted` 與 `pip.mp4` 判斷，避免同一幕於前置考據階段嘗試後又在後置小卡階段重複檢索。
   - `assets/voices/tw_female01/voice.yaml` 與 `hk_male01/voice.yaml` 補上中文顯示名稱（`台灣女聲 01`、`香港男聲 01`），並將 `aivideo/api/app.py` 的 `CORSMiddleware` 修正為 `allow_credentials=False`。
   - 測試驗證：`tests/test_studio_frontend_contracts.py::test_shared_delete_job_and_backend_hygiene`、`tests/test_pipeline_and_cli.py::test_all_mode_respects_scene_pip_switch`。
+- [x] **5. YouTube 上傳完成即時更新總覽卡片狀態，並將上傳進度條移至底部發布按鈕正上方**
+  - `web/src/components/YouTubeUploadModal.tsx` 於上傳完成、更新現有影片完成時立即呼叫 `useStudioStore` 的 `loadJobs()` 與 `showToast`，且背景上傳中關閉彈窗不中斷輪詢；`OverviewPanel.tsx` 掛載時亦同步呼叫 `loadJobs()`，確保總覽卡片上的「YouTube 已發布 / 已上架」狀態即時更新。
+  - 將 `YouTubeUploadModal.tsx` 中的上傳進度條與上傳錯誤提示由彈窗頂端移至底部「關閉 / 立即發布至 YouTube」按鈕列正上方，點擊發布時視線正前方即可直接查看進度百分比。
+  - 測試驗證：`tests/test_studio_frontend_contracts.py::test_youtube_modal_refreshes_overview_and_places_progress_above_submit`。
 
 ### 📋 後續可選進階拆分（視需要再分批進行）
 

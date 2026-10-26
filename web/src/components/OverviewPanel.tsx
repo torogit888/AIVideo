@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Film, Trash2, ArrowRight } from "lucide-react";
 import { useStudioStore } from "../store";
 
@@ -6,11 +6,16 @@ export const OverviewPanel: React.FC = () => {
   const {
     jobs,
     selectedJobId,
+    loadJobs,
     selectJob,
     deleteJob,
     setTab,
     startNewDraft,
   } = useStudioStore();
+
+  useEffect(() => {
+    void loadJobs();
+  }, [loadJobs]);
 
   const handleDeleteJobFromList = async (
     jobId: string,

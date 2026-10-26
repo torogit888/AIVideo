@@ -190,3 +190,20 @@ def test_shared_delete_job_and_backend_hygiene():
         text = (REPO_ROOT / rel).read_text(encoding="utf-8")
         assert "audio.wav" not in text
 
+
+def test_youtube_modal_refreshes_overview_and_places_progress_above_submit():
+    yt_modal = (REPO_ROOT / "web" / "src" / "components" / "YouTubeUploadModal.tsx").read_text(encoding="utf-8")
+    overview = (REPO_ROOT / "web" / "src" / "components" / "OverviewPanel.tsx").read_text(encoding="utf-8")
+
+    # 1. 上傳完成後必須呼叫 loadJobs() 讓總覽卡片即時更新「YouTube 已發布」
+    assert "loadJobs" in yt_modal
+    assert "void loadJobs()" in yt_modal
+    assert "void loadJobs()" in overview
+
+    # 2. 上傳進度條應位於底部發布按鈕正上方（在「自動掛載繁中字幕」之後、「立即發布至 YouTube」之前）
+    srt_idx = yt_modal.index("自動掛載繁中字幕")
+    prog_idx = yt_modal.index("正在上傳成片至 YouTube...")
+    submit_idx = yt_modal.index("立即發布至 YouTube")
+    assert srt_idx < prog_idx < submit_idx
+
+
