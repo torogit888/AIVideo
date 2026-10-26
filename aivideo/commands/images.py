@@ -13,6 +13,8 @@ from aivideo.commands.check import _load_dotenv
 from aivideo.gemini_image import generate_image, has_gemini_credentials
 from aivideo.visual_anchors import collect_scene_character_ref_images
 from aivideo.job_files import load_job_config
+from aivideo.naming import DEFAULT_IMAGE_MODEL
+from aivideo.takes import prune_scene_takes_after_adopt
 from aivideo.story_generator import resolve_style
 from aivideo.style_prompt import compose_styled_prompt
 
@@ -56,7 +58,7 @@ def run_images(args: Any = None, progress_callback=None, **kwargs) -> int:
     img_cfg = job_cfg.get("image", {}) if isinstance(job_cfg.get("image"), dict) else {}
     style_key = img_cfg.get("style") or job_cfg.get("style") or ""
     style_prefix = resolve_style(style_key)["prefix"] or str(job_cfg.get("style_prefix", "")).strip()
-    model = img_cfg.get("model", "gemini-3-pro-image")
+    model = img_cfg.get("model") or DEFAULT_IMAGE_MODEL
     resolution = img_cfg.get("resolution", "1K")
     aspect_ratio = img_cfg.get("aspect_ratio", "16:9")
 
@@ -251,6 +253,7 @@ def run_images(args: Any = None, progress_callback=None, **kwargs) -> int:
             scene_cfg["current"]["image_take"] = take_id
             with open(scene_yaml_path, "w", encoding="utf-8") as f:
                 yaml.safe_dump(scene_cfg, f, allow_unicode=True, sort_keys=False)
+            prune_scene_takes_after_adopt(s_dir)
 
         print(f"[ok]   {s_id} -> {take_id}.png")
         processed += 1
@@ -343,6 +346,7 @@ def run_images(args: Any = None, progress_callback=None, **kwargs) -> int:
                         scene_cfg["current"]["image_take"] = take_id
                         with open(scene_yaml_path, "w", encoding="utf-8") as f:
                             yaml.safe_dump(scene_cfg, f, allow_unicode=True, sort_keys=False)
+                        prune_scene_takes_after_adopt(s_dir)
 
                         processed += 1
                         errors = max(0, errors - 1)

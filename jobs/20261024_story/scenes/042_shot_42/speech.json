@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261024T131508",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 10.78,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "主流媒體甚至在頭條文章中嚴厲拷問這家跨國巨頭",
+      "text_cn": "主流媒体甚至在头条文章中严厉拷问这家跨国巨头",
+      "start_sec": 0.0,
+      "end_sec": 4.56,
+      "duration_sec": 4.56
+    },
+    {
+      "index": 2,
+      "text": "一家靠著帶給人類快樂發家的企業怎麼能把靈魂從產品裡硬生生抽走",
+      "text_cn": "一家靠着带给人类快乐发家的气业怎么能把灵魂从产品里硬生生抽走",
+      "start_sec": 4.81,
+      "end_sec": 10.78,
+      "duration_sec": 5.97
+    }
+  ],
+  "created_at": "2026-10-24T13:15:08.846731+00:00"
+}

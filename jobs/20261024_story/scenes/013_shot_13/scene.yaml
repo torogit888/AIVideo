@@ -1,0 +1,22 @@
+id: 013_shot_13
+index: 13
+title: 他們開著破舊皮卡穿梭在各個花卉農
+narration: 他們開著破舊皮卡穿梭在各個花卉農場憑三寸不爛之舌到處推銷，還真的忽悠了一批渴望降低成本的花農掏出真金白銀買單，
+image_prompt: Wide dynamic shot in Q-version 2D cartoon illustration style, Alfred
+  Fielding driving a sputtering vintage red pickup truck loaded with rolls of bubble
+  wrap packaging sheet, while Marc Chavannes leans out the passenger window gesturing
+  persuasively to curious chibi greenhouse farmers holding wallets, sunny rural landscape,
+  vibrant 2D cartoon aesthetic, 16:9 widescreen composition.
+character_ids:
+- alfred_fielding
+- marc_chavannes
+- classic_bubble_wrap
+image_negative: ''
+act_index: 2
+act_title: 悶熱溫室裡的二次窒息：保溫棉騙局與物理法則的暴擊
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T124751
+  image_take: image_20261024T124739

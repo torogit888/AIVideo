@@ -1,0 +1,19 @@
+id: 002_shot_2
+index: 2
+title: 你可能以為這東西一開始就是為了保
+narration: '[question-ei]你可能以為這東西一開始就是為了保護易碎品而誕生的偉大發明，但我只能說你太高估商業市場的理性規劃了，'
+image_prompt: Wide establishing shot in Q-version 2D cartoon illustration style, showing
+  a whimsical corporate packaging assembly line where oversized ceramic teacups and
+  fragile crystal globes roll along conveyor belts in a pristine mid-century industrial
+  facility, clean vector lines, soft pastel colors, graphic cast shadows, 16:9 widescreen
+  composition.
+character_ids: []
+image_negative: ''
+act_index: 1
+act_title: 時髦客廳的荒誕殘局：從前衛壁紙跌落的塑膠氣泡
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T123839
+  image_take: image_20261024T123827

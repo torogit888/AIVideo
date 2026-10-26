@@ -1,0 +1,30 @@
+id: 028_shot_28
+index: 28
+title: 面對這場殘酷的惡性競爭兩位創始人
+narration: 面對這場殘酷的惡性競爭兩位創始人展現了真正的硬核工程天賦，他們研發出極其複雜的多層共擠技術強行夾入一層阻隔聚合物，這就像是在漏風的木板牆中間澆築了一層密不透風的鋼筋水泥，把空氣分子的自然滲透率壓低到了微乎其微的物理極限，
+image_prompt: Medium shot in Q-version 2D cartoon illustration style, Alfred Fielding
+  with magnifying goggles and Marc Chavannes holding technical calipers, collaborating
+  over a complex multi-layer polymer extrusion laboratory machine, successfully laminating
+  a high-tech barrier layer into plastic film, glowing technical highlights, 16:9
+  widescreen composition.
+character_ids:
+- alfred_fielding
+- marc_chavannes
+image_negative: ''
+act_index: 4
+act_title: 減震封印下的暴利帝國：希悅爾的專利防禦網
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T130115
+  image_take: image_20261024T130038
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Sealed Air barrier bubble coextrusion patent diagram
+  fetch_error: 未找到合適照片或影片

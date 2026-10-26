@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261024T131803",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 19.94,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[surprise-oh]回顧整整半個多世紀的演變你不得不感嘆命運那充滿黑色的幽默",
+      "text_cn": "[surprise-oh]回顾整整半个多世纪的演变你不得不感叹命运那充满黑色的幽默",
+      "start_sec": 0.0,
+      "end_sec": 6.52,
+      "duration_sec": 6.52
+    },
+    {
+      "index": 2,
+      "text": "如果一九五七年那兩張浴簾熱壓成功世界上只會多出一款過氣的塑料壁紙",
+      "text_cn": "如果一九五七年那两张浴帘热压成功世界上只会多出一款过气的塑料壁纸",
+      "start_sec": 6.77,
+      "end_sec": 13.33,
+      "duration_sec": 6.56
+    },
+    {
+      "index": 3,
+      "text": "如果一九五九年的花農沒有抗議索賠他們可能早就倒在某個破產法庭上",
+      "text_cn": "如果一九五九年的花农没有抗议索赔他们可能早就倒在某个破产法庭上",
+      "start_sec": 13.58,
+      "end_sec": 19.94,
+      "duration_sec": 6.36
+    }
+  ],
+  "created_at": "2026-10-24T13:18:03.597594+00:00"
+}

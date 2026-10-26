@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useCallback } from "react";
-import { Film, Trash2, ArrowRight, CheckCircle2, AlertCircle, Info, Copy, Check, RefreshCw, Loader2 } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { CheckCircle2, AlertCircle, Info, Copy, Check } from "lucide-react";
 import { SidebarRail } from "./components/SidebarRail";
 import { Topbar } from "./components/Topbar";
 import { StoryboardGrid } from "./components/StoryboardGrid";
@@ -7,218 +7,11 @@ import { SceneInspector } from "./components/SceneInspector";
 import { ScriptEditor } from "./components/ScriptEditor";
 import { FilmViewer } from "./components/FilmViewer";
 import { AssetsView } from "./components/AssetsView";
-import { VertexAccountsPanel } from "./components/VertexAccountsPanel";
+import { OverviewPanel } from "./components/OverviewPanel";
+import { SettingsPanel } from "./components/SettingsPanel";
+import { StudioConfirmModal } from "./components/StudioConfirmModal";
 import { useStudioStore } from "./store";
 import { api } from "./api";
-import { AI_IMAGE_MODELS, AI_TEXT_MODELS, ModelsStatusResponse } from "./types";
-import { ConnectionLights } from "./components/ConnectionLights";
-
-const SettingsHealthPanel: React.FC = () => {
-  const { refreshConnectionLights, showToast } = useStudioStore();
-  const [checking, setChecking] = useState(false);
-  const [defaults, setDefaults] = useState<{
-    default_voice_id?: string;
-    tones?: string[];
-    font_path?: string | null;
-    font_ok?: boolean;
-  }>({});
-
-  useEffect(() => {
-    api
-      .getSystemStatus()
-      .then((st: any) =>
-        setDefaults({
-          default_voice_id: st.default_voice_id,
-          tones: st.tones,
-          font_path: st.font_path,
-          font_ok: st.font_ok,
-        })
-      )
-      .catch(() => undefined);
-  }, []);
-
-  const runCheck = async (target: string) => {
-    setChecking(true);
-    try {
-      await api.checkConnections(target);
-      await refreshConnectionLights();
-      showToast(target === "gemini" ? "已檢測 Gemini 憑證" : target === "comfy" ? "已檢測 Comfy" : "已檢測連線", "success");
-    } catch (e: any) {
-      showToast("檢測失敗: " + (e.message || "未知錯誤"), "error");
-    } finally {
-      setChecking(false);
-    }
-  };
-
-  return (
-    <div className="p-5 rounded-lg bg-cinema-card border border-cinema-border space-y-4 text-xs">
-      <div className="flex items-center justify-between">
-        <h3 className="text-sm font-semibold text-cinema-text">連線與預設資產</h3>
-        <ConnectionLights />
-      </div>
-      <div className="flex flex-wrap gap-2">
-        <button
-          type="button"
-          disabled={checking}
-          onClick={() => runCheck("gemini")}
-          className="h-8 px-3 rounded-lg border border-cinema-border bg-cinema-darker text-cinema-text hover:border-amber-cta/60 hover:text-amber-cta"
-        >
-          檢測 Gemini
-        </button>
-        <button
-          type="button"
-          disabled={checking}
-          onClick={() => runCheck("comfy")}
-          className="h-8 px-3 rounded-lg border border-cinema-border bg-cinema-darker text-cinema-text hover:border-amber-cta/60 hover:text-amber-cta"
-        >
-          檢測 Comfy
-        </button>
-        <button
-          type="button"
-          disabled={checking}
-          onClick={() => runCheck("all")}
-          className="h-8 px-3 rounded-lg bg-amber-cta text-cinema-bg font-semibold hover:bg-amber-ctaHover"
-        >
-          全部檢測
-        </button>
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-[11px]">
-        <div className="p-3 rounded-md bg-cinema-darker border border-cinema-border/70">
-          <div className="text-cinema-muted mb-1">預設發音人</div>
-          <div className="font-mono text-cinema-text">{defaults.default_voice_id || "tw_female01"}</div>
-        </div>
-        <div className="p-3 rounded-md bg-cinema-darker border border-cinema-border/70">
-          <div className="text-cinema-muted mb-1">口吻庫</div>
-          <div className="text-cinema-text">{(defaults.tones || []).join("、") || "—"}</div>
-        </div>
-        <div className="p-3 rounded-md bg-cinema-darker border border-cinema-border/70">
-          <div className="text-cinema-muted mb-1">字幕字型</div>
-          <div className={`font-mono truncate ${defaults.font_ok ? "text-emerald-400" : "text-amber-400"}`} title={defaults.font_path || ""}>
-            {defaults.font_ok ? defaults.font_path : "未找到檔案，ASS 用 Noto Sans CJK TC"}
-          </div>
-        </div>
-      </div>
-      <details className="pt-1">
-        <summary className="cursor-pointer text-cinema-muted hover:text-cinema-text">開發端點</summary>
-        <div className="space-y-1.5 text-cinema-muted mt-2">
-          <div className="flex justify-between py-1 border-b border-cinema-border/40">
-            <span>後端 API</span>
-            <span className="text-cinema-text font-mono">http://localhost:8000</span>
-          </div>
-          <div className="flex justify-between py-1 border-b border-cinema-border/40">
-            <span>靜態媒體</span>
-            <span className="text-cinema-text font-mono">/media/jobs</span>
-          </div>
-          <div className="flex justify-between py-1">
-            <span>ComfyUI</span>
-            <span className="text-cinema-text font-mono">http://127.0.0.1:8188</span>
-          </div>
-        </div>
-      </details>
-    </div>
-  );
-};
-
-const StudioConfirmModal: React.FC = () => {
-  const { confirmDialog, closeConfirmDialog } = useStudioStore();
-  const [inputValue, setInputValue] = useState("");
-
-  useEffect(() => {
-    if (confirmDialog?.isOpen) {
-      setInputValue(confirmDialog.defaultValue || "");
-    }
-  }, [confirmDialog]);
-
-  useEffect(() => {
-    if (!confirmDialog?.isOpen) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        e.preventDefault();
-        closeConfirmDialog(confirmDialog.mode === "prompt" ? null : false);
-      } else if (e.key === "Enter" && confirmDialog.mode === "confirm") {
-        e.preventDefault();
-        closeConfirmDialog(true);
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [confirmDialog, closeConfirmDialog]);
-
-  if (!confirmDialog?.isOpen) return null;
-
-  const isDanger = confirmDialog.variant === "danger";
-
-  return (
-    <div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 animate-in fade-in duration-150"
-      onClick={() => closeConfirmDialog(confirmDialog.mode === "prompt" ? null : false)}
-    >
-      <div
-        className="w-full max-w-md rounded-xl bg-cinema-card border border-cinema-border shadow-2xl overflow-hidden animate-in zoom-in-95 duration-150"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="px-5 pt-5 pb-4 space-y-3">
-          <div className="flex items-center gap-2.5">
-            {isDanger ? (
-              <div className="w-8 h-8 rounded-lg bg-red-950/80 border border-red-800/70 flex items-center justify-center shrink-0">
-                <AlertCircle className="w-4 h-4 text-red-400" />
-              </div>
-            ) : (
-              <div className="w-8 h-8 rounded-lg bg-amber-500/15 border border-amber-500/30 flex items-center justify-center shrink-0">
-                <Info className="w-4 h-4 text-amber-cta" />
-              </div>
-            )}
-            <h3 className="text-sm font-semibold text-cinema-text">{confirmDialog.title}</h3>
-          </div>
-
-          <p className="text-xs text-cinema-muted leading-relaxed whitespace-pre-line pl-0.5">
-            {confirmDialog.message}
-          </p>
-
-          {confirmDialog.mode === "prompt" && (
-            <input
-              type="text"
-              autoFocus
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  e.preventDefault();
-                  closeConfirmDialog(inputValue);
-                }
-              }}
-              placeholder={confirmDialog.placeholder || "請輸入..."}
-              className="w-full px-3 py-2 rounded-lg bg-cinema-bg border border-cinema-border text-xs text-cinema-text focus:outline-none focus:border-amber-cta"
-            />
-          )}
-        </div>
-
-        <div className="px-5 py-3 bg-cinema-darker/80 border-t border-cinema-border flex items-center justify-end gap-2">
-          <button
-            type="button"
-            onClick={() => closeConfirmDialog(confirmDialog.mode === "prompt" ? null : false)}
-            className="px-3.5 py-1.5 rounded-lg bg-cinema-bg hover:bg-zinc-800 border border-cinema-border text-xs text-cinema-muted hover:text-cinema-text transition-colors"
-          >
-            {confirmDialog.cancelText}
-          </button>
-          <button
-            type="button"
-            onClick={() =>
-              closeConfirmDialog(confirmDialog.mode === "prompt" ? inputValue : true)
-            }
-            className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition-colors shadow ${
-              isDanger
-                ? "bg-red-600 hover:bg-red-500 text-white"
-                : "bg-amber-cta hover:bg-amber-ctaHover text-cinema-bg"
-            }`}
-          >
-            {confirmDialog.confirmText}
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 export const App: React.FC = () => {
   const {
@@ -229,143 +22,12 @@ export const App: React.FC = () => {
     loadScenes,
     loadJobs,
     patchSceneCard,
-    jobs,
-    selectJob,
-    setTab,
     toasts,
     showToast,
     removeToast,
-    requestConfirm,
-    selectedAiModel,
-    setSelectedAiModel,
-    selectedImageModel,
-    setSelectedImageModel,
-    startNewDraft,
   } = useStudioStore();
 
   const [copiedToastId, setCopiedToastId] = useState<string | null>(null);
-  const [modelsReport, setModelsReport] = useState<ModelsStatusResponse | null>(null);
-  const [isCheckingModels, setIsCheckingModels] = useState(false);
-
-  const fetchModelsStatus = useCallback(
-    async (force = false) => {
-      setIsCheckingModels(true);
-      try {
-        const res = force ? await api.checkModelsAvailability() : await api.getModelsStatus();
-        setModelsReport(res);
-        if (force) {
-          showToast("已完成所有模型可用性與權限檢測！", "success");
-        }
-      } catch (e: any) {
-        if (force) {
-          showToast("模型可用性檢測失敗: " + (e.message || "未知錯誤"), "error");
-        }
-      } finally {
-        setIsCheckingModels(false);
-      }
-    },
-    [showToast]
-  );
-
-  // 當進入設定頁時，自動讀取現有模型可用性快取
-  useEffect(() => {
-    if (currentTab === "settings" && !modelsReport) {
-      fetchModelsStatus(false);
-    }
-  }, [currentTab, modelsReport, fetchModelsStatus]);
-
-  const renderModelStatusBadge = (modelId: string) => {
-    if (isCheckingModels) {
-      return (
-        <span className="flex items-center text-[10px] text-amber-cta font-mono">
-          <Loader2 className="w-2.5 h-2.5 animate-spin mr-1" />
-          <span>檢測中</span>
-        </span>
-      );
-    }
-    const item = modelsReport?.models?.[modelId];
-    if (!item) return null;
-
-    if (item.status === "available") {
-      return (
-        <span
-          className="flex items-center px-1.5 py-0.5 rounded bg-emerald-950/80 border border-emerald-800 text-[10px] text-emerald-400 font-mono"
-          title={`狀態: ${item.message} ${item.latency_ms ? `(延遲 ${item.latency_ms}ms)` : ""}`}
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1 animate-pulse" />
-          <span>可用 {item.latency_ms ? `${item.latency_ms}ms` : ""}</span>
-        </span>
-      );
-    }
-    if (item.status === "disabled") {
-      return (
-        <span
-          className="flex items-center px-1.5 py-0.5 rounded bg-amber-950/80 border border-amber-800 text-[10px] text-amber-300 font-mono"
-          title={item.message}
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mr-1" />
-          <span>需啟用 API</span>
-        </span>
-      );
-    }
-    if (item.status === "quota_exceeded") {
-      return (
-        <span
-          className="flex items-center px-1.5 py-0.5 rounded bg-red-950/80 border border-red-800 text-[10px] text-red-300 font-mono"
-          title={item.message}
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-red-400 mr-1" />
-          <span>額度耗盡</span>
-        </span>
-      );
-    }
-    if (item.status === "permission_denied") {
-      return (
-        <span
-          className="flex items-center px-1.5 py-0.5 rounded bg-red-950/80 border border-red-800 text-[10px] text-red-300 font-mono"
-          title={item.message}
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-red-400 mr-1" />
-          <span>權限不足</span>
-        </span>
-      );
-    }
-    return (
-      <span
-        className="flex items-center px-1.5 py-0.5 rounded bg-zinc-800 border border-zinc-700 text-[10px] text-zinc-400 font-mono"
-        title={item.message}
-      >
-        <span>未開放</span>
-      </span>
-    );
-  };
-
-  const handleDeleteJobFromList = async (jobId: string, jobTitle: string, e: React.MouseEvent) => {
-    e.stopPropagation();
-    const confirmDelete = await requestConfirm({
-      title: "刪除專案確認",
-      message: `確定要徹底刪除專案【${jobTitle || jobId}】嗎？\n\n此操作將永久刪除此專案的所有分鏡、生圖、配音與成片，無法復原！`,
-      confirmText: "徹底刪除",
-      variant: "danger",
-    });
-    if (!confirmDelete) return;
-
-    try {
-      await api.deleteJob(jobId);
-      const remainingJobs = await api.getJobs();
-      useStudioStore.setState({ jobs: remainingJobs });
-      if (selectedJobId === jobId) {
-        if (remainingJobs.length > 0) {
-          selectJob(remainingJobs[0].id);
-        } else {
-          useStudioStore.setState({ selectedJobId: null, scenes: [], activeSceneId: null });
-        }
-      }
-      showToast("專案已成功刪除！", "success");
-    } catch (e: any) {
-      showToast("刪除專案失敗: " + (e.message || "未知錯誤"), "error");
-    }
-  };
 
   // 全域初始化：網頁開啟或重新整理時，第一時間向後端載入所有專案
   useEffect(() => {
@@ -378,10 +40,12 @@ export const App: React.FC = () => {
 
     let lastSceneId = "";
     let isAlreadyDone = false;
+    let lastShownErrorKey = "";
 
     const cleanup = api.subscribePipeline(selectedJobId, (data) => {
       if (data.is_running) {
         isAlreadyDone = false;
+        lastShownErrorKey = "";
         setPipelineRunning(
           true,
           data.progress,
@@ -411,9 +75,14 @@ export const App: React.FC = () => {
           loadJobs();
         }
       } else {
-        // 任務已結束且非正常完成（中斷、失敗或手動停止）
-        if (data.error || (data.message && data.message.includes("失敗"))) {
-          showToast(data.error || data.message, "error");
+        // 任務已結束且非正常完成（中斷、失敗或手動停止）：去重確保同一次錯誤只跳一次通知
+        const errText = data.error || (data.message && data.message.includes("失敗") ? data.message : "");
+        if (errText) {
+          const errKey = `${data.notice_seq || 0}:${errText}`;
+          if (errKey !== lastShownErrorKey) {
+            lastShownErrorKey = errKey;
+            showToast(errText, "error");
+          }
         }
         setPipelineRunning(
           false,
@@ -447,287 +116,25 @@ export const App: React.FC = () => {
           <div className={currentTab === "script" ? "flex-1 flex h-full overflow-hidden" : "hidden"}>
             <ScriptEditor key={selectedJobId || `draft-${draftResetKey}`} />
           </div>
-          <div className={currentTab === "film" ? "flex-1 flex h-full overflow-hidden" : "hidden"}>
+          {/* 成片頁改用 invisible 保留版面，避免 display:none 讓瀏覽器卸載 video 並從 0 秒重播 */}
+          <div
+            className={
+              currentTab === "film"
+                ? "relative z-10 flex-1 flex h-full min-w-0 overflow-hidden"
+                : "absolute inset-0 z-0 invisible pointer-events-none flex h-full overflow-hidden"
+            }
+            aria-hidden={currentTab !== "film"}
+          >
             <FilmViewer />
           </div>
           <div className={currentTab === "assets" ? "flex-1 flex h-full overflow-hidden" : "hidden"}>
             <AssetsView />
           </div>
-          {currentTab === "overview" && (
-            <div className="flex-1 p-8 space-y-6 max-w-5xl mx-auto overflow-y-auto">
-              <div className="flex justify-between items-end border-b border-cinema-border pb-4">
-                <div>
-                  <h2 className="text-xl font-bold text-cinema-text">專案總覽與管理</h2>
-                  <p className="text-xs text-cinema-muted mt-1">
-                    快速檢視所有影片專案製作進度、切換工作階段或清理已完成專案。
-                  </p>
-                </div>
-                <button
-                  onClick={() => startNewDraft()}
-                  className="px-3.5 py-1.5 rounded bg-amber-cta hover:bg-amber-ctaHover text-cinema-bg font-semibold text-xs transition-colors shadow"
-                >
-                  + 新建專案
-                </button>
-              </div>
+          {currentTab === "overview" && <OverviewPanel />}
+          {currentTab === "settings" && <SettingsPanel />}
 
-              {jobs.length === 0 ? (
-                <div className="p-12 text-center rounded-lg bg-cinema-card border border-cinema-border space-y-3">
-                  <Film className="w-8 h-8 text-cinema-muted/50 mx-auto" />
-                  <p className="text-xs text-cinema-muted">目前尚無任何專案</p>
-                  <button
-                    onClick={() => startNewDraft()}
-                    className="text-xs text-amber-cta hover:underline font-medium"
-                  >
-                    立即點此建立第一個說書故事
-                  </button>
-                </div>
-              ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {jobs.map((j) => {
-                    const isSelected = selectedJobId === j.id;
-                    const total = j.progress.scenes_count;
-                    const imgReady = j.progress.images_ready;
-                    const audReady = j.progress.audio_ready;
-                    const filmReady = j.progress.film_ready;
-
-                    return (
-                      <div
-                        key={j.id}
-                        onClick={() => {
-                          selectJob(j.id);
-                          setTab("storyboard");
-                        }}
-                        className={`p-4 rounded-lg bg-cinema-card border cursor-pointer transition-all space-y-3 flex flex-col justify-between ${
-                          isSelected
-                            ? "border-amber-cta ring-2 ring-amber-cta/30"
-                            : "border-cinema-border hover:border-cinema-muted"
-                        }`}
-                      >
-                        <div className="space-y-1.5">
-                          <div className="flex items-start justify-between gap-2">
-                            <h3 className="text-sm font-semibold text-cinema-text truncate" title={j.title}>
-                              {j.title}
-                            </h3>
-                            <div className="flex items-center gap-1.5 shrink-0">
-                              {j.progress.youtube_published && (
-                                <a
-                                  href={j.progress.youtube_video_url || `https://youtu.be/${j.progress.youtube_video_id}`}
-                                  target="_blank"
-                                  rel="noreferrer"
-                                  onClick={(e) => e.stopPropagation()}
-                                  className="text-[10px] px-2 py-0.5 rounded bg-red-600/20 hover:bg-red-600/30 text-red-400 border border-red-500/30 font-medium flex items-center gap-1 transition-colors"
-                                  title={`已於 ${j.progress.youtube_uploaded_at || "YouTube"} 發布，點擊前往觀看`}
-                                >
-                                  <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-                                  <span>YouTube 已上架</span>
-                                </a>
-                              )}
-                              {isSelected && (
-                                <span className="text-[10px] px-2 py-0.5 rounded bg-amber-cta/20 text-amber-cta font-medium">
-                                  當前作用中
-                                </span>
-                              )}
-                            </div>
-                          </div>
-                          <div className="text-[11px] font-mono text-cinema-muted truncate">
-                            ID: {j.id}
-                          </div>
-                        </div>
-
-                        {/* 進度指標 (4 欄位：畫面、配音、成片、YouTube) */}
-                        <div className="grid grid-cols-4 gap-2 py-2 border-y border-cinema-border/50 text-[11px]">
-                          <div>
-                            <span className="text-cinema-muted block text-[10px]">畫面產出</span>
-                            <span className={`font-semibold ${imgReady === total && total > 0 ? "text-emerald-400" : "text-cinema-text"}`}>
-                              {imgReady} / {total}
-                            </span>
-                          </div>
-                          <div>
-                            <span className="text-cinema-muted block text-[10px]">語音配音</span>
-                            <span className={`font-semibold ${audReady === total && total > 0 ? "text-emerald-400" : "text-cinema-text"}`}>
-                              {audReady} / {total}
-                            </span>
-                          </div>
-                          <div>
-                            <span className="text-cinema-muted block text-[10px]">成片狀態</span>
-                            <span className={`font-semibold ${filmReady ? "text-emerald-400" : "text-amber-500"}`}>
-                              {filmReady ? "已合成" : "待合成"}
-                            </span>
-                          </div>
-                          <div>
-                            <span className="text-cinema-muted block text-[10px]">YouTube</span>
-                            <span className={`font-semibold ${j.progress.youtube_published ? "text-red-400" : "text-cinema-muted"}`}>
-                              {j.progress.youtube_published ? "已發布" : "未發布"}
-                            </span>
-                          </div>
-                        </div>
-
-                        {/* 操作列 */}
-                        <div className="flex items-center justify-between pt-1">
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              selectJob(j.id);
-                              setTab("storyboard");
-                            }}
-                            className="flex items-center text-xs text-amber-cta hover:text-amber-ctaHover font-medium"
-                          >
-                            <span>進入故事板</span>
-                            <ArrowRight className="w-3.5 h-3.5 ml-1" />
-                          </button>
-                          <button
-                            onClick={(e) => handleDeleteJobFromList(j.id, j.title, e)}
-                            title="刪除此專案"
-                            className="p-1.5 rounded hover:bg-red-950/60 text-cinema-muted hover:text-red-400 transition-colors"
-                          >
-                            <Trash2 className="w-3.5 h-3.5" />
-                          </button>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-          )}
-          {currentTab === "settings" && (
-            <div className="flex-1 p-8 space-y-6 max-w-3xl mx-auto overflow-y-auto">
-              <div>
-                <h2 className="text-xl font-bold text-cinema-text">Studio 設定</h2>
-                <p className="text-xs text-cinema-muted mt-1">管理 Vertex AI 憑證帳戶、模型可用性授權、環境端點與渲染管線配置。</p>
-              </div>
-
-              {/* 1. Vertex AI 憑證與多帳號管理 */}
-              <VertexAccountsPanel
-                onAccountChanged={() => {
-                  fetchModelsStatus(true);
-                }}
-              />
-
-              {/* 2. AI 文本大模型設定卡片 */}
-              <div className="p-5 rounded-lg bg-cinema-card border border-cinema-border space-y-4">
-                <div className="flex items-center justify-between border-b border-cinema-border/60 pb-3">
-                  <div>
-                    <h3 className="text-sm font-semibold text-cinema-text flex items-center">
-                      <span className="text-amber-cta mr-2">⚡</span>
-                      Google Cloud Vertex AI 核心大模型
-                    </h3>
-                    <p className="text-xs text-cinema-muted mt-0.5">
-                      驅動故事發想長篇寫作、說書人口吻特徵萃取、AI 分鏡切鏡與英文電影提示詞生成。
-                    </p>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => fetchModelsStatus(true)}
-                    disabled={isCheckingModels}
-                    className="flex items-center h-7 px-2.5 rounded-lg border border-amber-cta/40 bg-amber-cta/10 hover:bg-amber-cta/20 text-amber-cta text-[11px] font-medium transition-colors disabled:opacity-50 shrink-0"
-                    title="立即探測當前帳戶所有模型的可用性與配額狀態"
-                  >
-                    <RefreshCw className={`w-3 h-3 mr-1.5 ${isCheckingModels ? "animate-spin" : ""}`} />
-                    <span>{isCheckingModels ? "正在檢測中..." : "⚡ 檢測模型可用性"}</span>
-                  </button>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
-                  {AI_TEXT_MODELS.map((m) => {
-                    const isSelected = selectedAiModel === m.id;
-                    return (
-                      <div
-                        key={m.id}
-                        onClick={() => {
-                          setSelectedAiModel(m.id);
-                          showToast(`已切換全域核心 AI 模型為 ${m.name}`, "success");
-                        }}
-                        className={`p-3 rounded-lg border cursor-pointer transition-all ${
-                          isSelected
-                            ? "border-amber-cta bg-amber-cta/10 ring-1 ring-amber-cta/30"
-                            : "border-cinema-border bg-cinema-darker/60 hover:border-cinema-muted"
-                        }`}
-                      >
-                        <div className="flex items-center justify-between mb-1">
-                          <span className={`text-xs font-semibold ${isSelected ? "text-amber-cta" : "text-cinema-text"}`}>
-                            {m.name}
-                          </span>
-                          <span className={`text-[10px] px-1.5 py-0.5 rounded font-mono ${
-                            isSelected ? "bg-amber-cta text-cinema-bg font-bold" : "bg-cinema-card text-cinema-muted"
-                          }`}>
-                            {m.badge}
-                          </span>
-                        </div>
-                        <div className="flex items-center justify-between mt-2 pt-1.5 border-t border-cinema-border/50">
-                          <span className="text-[11px] text-cinema-muted truncate mr-1">{m.tag}</span>
-                          <div className="shrink-0">{renderModelStatusBadge(m.id)}</div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* 3. 生圖模型設定卡片 */}
-              <div className="p-5 rounded-lg bg-cinema-card border border-cinema-border space-y-4">
-                <div className="flex items-center justify-between border-b border-cinema-border/60 pb-3">
-                  <div>
-                    <h3 className="text-sm font-semibold text-cinema-text">生圖模型</h3>
-                    <p className="text-xs text-cinema-muted mt-0.5">分鏡出圖使用的 Gemini／Imagen 影像模型。</p>
-                  </div>
-                  {modelsReport?.checked_at && (
-                    <span className="text-[10px] text-cinema-muted font-mono">
-                      最近檢測: {modelsReport.checked_at}
-                    </span>
-                  )}
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  {AI_IMAGE_MODELS.map((m) => {
-                    const isSelected = selectedImageModel === m.id;
-                    return (
-                      <div
-                        key={m.id}
-                        onClick={async () => {
-                          setSelectedImageModel(m.id);
-                          if (selectedJobId) {
-                            try {
-                              await api.updateJob(selectedJobId, { image_model: m.id });
-                              await loadJobs();
-                            } catch {
-                              /* 預設仍寫入本機 */
-                            }
-                          }
-                          showToast(`已切換生圖模型為 ${m.name}`, "success");
-                        }}
-                        className={`p-3 rounded-lg border cursor-pointer transition-all ${
-                          isSelected
-                            ? "border-amber-cta bg-amber-cta/10 ring-1 ring-amber-cta/30"
-                            : "border-cinema-border bg-cinema-darker/60 hover:border-cinema-muted"
-                        }`}
-                      >
-                        <div className="flex items-center justify-between mb-1">
-                          <span className={`text-xs font-semibold ${isSelected ? "text-amber-cta" : "text-cinema-text"}`}>
-                            {m.name}
-                          </span>
-                          <span className={`text-[10px] px-1.5 py-0.5 rounded font-mono ${
-                            isSelected ? "bg-amber-cta text-cinema-bg font-bold" : "bg-cinema-card text-cinema-muted"
-                          }`}>
-                            {m.badge}
-                          </span>
-                        </div>
-                        <div className="flex items-center justify-between mt-2 pt-1.5 border-t border-cinema-border/50">
-                          <span className="text-[11px] text-cinema-muted truncate mr-1">{m.tag}</span>
-                          <div className="shrink-0">{renderModelStatusBadge(m.id)}</div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* 4. 連線檢測與預設配置 */}
-              <SettingsHealthPanel />
-            </div>
-          )}
-
-          {/* 右側滑出抽屜 (當前選中鏡頭時開啟) */}
-          <SceneInspector />
+          {/* 右側滑出抽屜 (支援分鏡頁與成片頁開啟，切換分頁時由 setTab 自動收起) */}
+          {(currentTab === "storyboard" || currentTab === "film") && <SceneInspector />}
         </div>
       </div>
 

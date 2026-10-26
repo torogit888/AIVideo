@@ -1,0 +1,97 @@
+subject: 'Alfred Fielding: Chibi 2.5-head proportion human male with a large expressive
+  head, tousled dark brown hair, and oversized round wire-frame spectacles. Wears
+  1950s American tinkerer workshop clothing: an unbuttoned cream work shirt with sleeves
+  rolled up past the elbows, olive-green high-waisted trousers held by suspenders,
+  and a yellow drafting pencil tucked behind his ear. Styled in 2D cartoon illustration
+  with clean dark contour line art, flat cel-shading, and vibrant graphic highlights.
+  | Marc Chavannes: Chibi 2.5-head proportion human male with refined Swiss aesthetic,
+  featuring neatly combed side-parted black hair, thin manicured mustache, and a thoughtful,
+  focused expression. Dressed in a cozy charcoal-grey turtleneck sweater beneath a
+  fitted tweed vest, tailored beige slacks, and polished leather loafers. Rendered
+  in clean 2D cel-shaded cartoon art with crisp ink outlines and warm mid-century
+  color accents. | Frederick Bowers: Chibi 3-head proportion human male depicting
+  an energetic 1960s corporate marketing executive. Features slicked-back golden-blonde
+  hair, sharp confident smile, and oversized expressive cartoon eyes. Dressed in a
+  sharp navy-blue mid-century business suit, crisp white dress shirt, slender crimson
+  necktie, and holding a vintage brown leather attache briefcase. Rendered in dynamic
+  2D vector-style cel-shading with clear outline definition. | Bubble Wrap Packaging
+  Sheet: Inanimate transparent packing material rendered in stylized 2D cartoon format.
+  A wide flexible roll of clear, soft polyethylene plastic film studded with hundreds
+  of perfectly geometric, puffed hemispherical air bubbles arranged in a hexagonal
+  matrix. Uses glossy curved white specular highlights and faint cool cyan translucent
+  shading with clean perimeter outline inks. Pure physical industrial prop with strictly
+  zero anthropomorphic features. | IBM 1401 Data Processing System: Inanimate vintage
+  1959 transistorized mainframe computer in simplified chibi 2D industrial aesthetic.
+  A tall, boxy steel cabinet painted in signature IBM two-tone slate blue and off-white
+  enamel, featuring dual prominent magnetic tape drives with round spinning reels
+  behind glass, rows of square jewel-toned indicator buttons, and ventilation louvers.
+  Sharp mechanical linework with stepped cel-shading, completely non-anthropomorphic.
+  | Garage Heat-Sealing Contraption: Inanimate DIY mechanical workbench device built
+  from cast-iron scrap, twin parallel brass compression rollers, exposed glowing orange
+  electrical heating wires, a heavy side-mounted hand crank, and analog pressure dials
+  mounted on a polished oak block. Illustrated in detailed 2D cartoon cel-shading
+  with clean ink outlines, metallic sheen gradients, and absolutely no living or facial
+  elements.'
+environment: Q-version 2D cartoon aesthetic world set across mid-century American
+  suburban workshops, vintage botanical greenhouses, and pristine corporate conference
+  halls. The visual language features clean, bold contour line art, vibrant flat-to-stepped
+  cel-shading, and simplified geometric architectural volumes. The color palette blends
+  nostalgic 1950s pastel mint green, warm mustard yellow, and garage brick red with
+  stark corporate slate blue and glossy transparent cyan highlights. Lighting is stylized
+  and bright, featuring soft ambient fills and crisp, graphic cast shadows without
+  gritty photographic textures or cinematic lens grain.
+use_image_reference: true
+characters:
+- id: alfred_fielding
+  name: Alfred Fielding
+  appearance: 'Chibi 2.5-head proportion human male with a large expressive head,
+    tousled dark brown hair, and oversized round wire-frame spectacles. Wears 1950s
+    American tinkerer workshop clothing: an unbuttoned cream work shirt with sleeves
+    rolled up past the elbows, olive-green high-waisted trousers held by suspenders,
+    and a yellow drafting pencil tucked behind his ear. Styled in 2D cartoon illustration
+    with clean dark contour line art, flat cel-shading, and vibrant graphic highlights.'
+  entity_type: character
+- id: marc_chavannes
+  name: Marc Chavannes
+  appearance: Chibi 2.5-head proportion human male with refined Swiss aesthetic, featuring
+    neatly combed side-parted black hair, thin manicured mustache, and a thoughtful,
+    focused expression. Dressed in a cozy charcoal-grey turtleneck sweater beneath
+    a fitted tweed vest, tailored beige slacks, and polished leather loafers. Rendered
+    in clean 2D cel-shaded cartoon art with crisp ink outlines and warm mid-century
+    color accents.
+  entity_type: character
+- id: frederick_bowers
+  name: Frederick Bowers
+  appearance: Chibi 3-head proportion human male depicting an energetic 1960s corporate
+    marketing executive. Features slicked-back golden-blonde hair, sharp confident
+    smile, and oversized expressive cartoon eyes. Dressed in a sharp navy-blue mid-century
+    business suit, crisp white dress shirt, slender crimson necktie, and holding a
+    vintage brown leather attache briefcase. Rendered in dynamic 2D vector-style cel-shading
+    with clear outline definition.
+  entity_type: character
+- id: classic_bubble_wrap
+  name: Bubble Wrap Packaging Sheet
+  appearance: Inanimate transparent packing material rendered in stylized 2D cartoon
+    format. A wide flexible roll of clear, soft polyethylene plastic film studded
+    with hundreds of perfectly geometric, puffed hemispherical air bubbles arranged
+    in a hexagonal matrix. Uses glossy curved white specular highlights and faint
+    cool cyan translucent shading with clean perimeter outline inks. Pure physical
+    industrial prop with strictly zero anthropomorphic features.
+  entity_type: object
+- id: ibm_1401_mainframe
+  name: IBM 1401 Data Processing System
+  appearance: Inanimate vintage 1959 transistorized mainframe computer in simplified
+    chibi 2D industrial aesthetic. A tall, boxy steel cabinet painted in signature
+    IBM two-tone slate blue and off-white enamel, featuring dual prominent magnetic
+    tape drives with round spinning reels behind glass, rows of square jewel-toned
+    indicator buttons, and ventilation louvers. Sharp mechanical linework with stepped
+    cel-shading, completely non-anthropomorphic.
+  entity_type: object
+- id: makeshift_heat_sealer
+  name: Garage Heat-Sealing Contraption
+  appearance: Inanimate DIY mechanical workbench device built from cast-iron scrap,
+    twin parallel brass compression rollers, exposed glowing orange electrical heating
+    wires, a heavy side-mounted hand crank, and analog pressure dials mounted on a
+    polished oak block. Illustrated in detailed 2D cartoon cel-shading with clean
+    ink outlines, metallic sheen gradients, and absolutely no living or facial elements.
+  entity_type: object

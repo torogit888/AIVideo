@@ -1,0 +1,20 @@
+id: 043_shot_43
+index: 43
+title: 面對排山倒海的輿論海嘯這家工業巨
+narration: 面對排山倒海的輿論海嘯這家工業巨鱷最終不得不公開妥協，他們發布公告承諾那些能被捏破的傳統泡泡紙永遠都不會停產，
+image_prompt: Wide shot in Q-version 2D cartoon illustration style, a formal corporate
+  press conference where Sealed Air executives sheepishly stand behind a podium filled
+  with microphones, holding up an official guarantee scroll alongside a large roll
+  of classic bubble wrap packaging sheet to appease cheering journalists, 16:9 widescreen
+  composition.
+character_ids:
+- classic_bubble_wrap
+image_negative: ''
+act_index: 6
+act_title: 捏不破的致命背叛：一場引發全球公憤的綠色清洗
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T131604
+  image_take: image_20261024T131544

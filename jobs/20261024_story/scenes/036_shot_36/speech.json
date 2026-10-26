@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261024T130902",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.98,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "兩位發明家原本想改變人類客廳結果卻徹底綁架了全人類的大腦",
+      "text_cn": "两位发明家原本想改变人类客厅结果却彻底绑架了全人类的大脑",
+      "start_sec": 0.0,
+      "end_sec": 5.76,
+      "duration_sec": 5.76
+    },
+    {
+      "index": 2,
+      "text": "事情的高潮發生在二零一五年全球電子商務迎來了爆炸性增長",
+      "text_cn": "事情的高潮发生在二零一五年全球电子商务迎来了爆炸性增长",
+      "start_sec": 6.01,
+      "end_sec": 11.57,
+      "duration_sec": 5.56
+    },
+    {
+      "index": 3,
+      "text": "各大網購平台每天發出的快遞包裹數以千萬計",
+      "text_cn": "各大网购平台每天发出的快递包裹数以千万计",
+      "start_sec": 11.82,
+      "end_sec": 15.98,
+      "duration_sec": 4.16
+    }
+  ],
+  "created_at": "2026-10-24T13:09:02.602425+00:00"
+}

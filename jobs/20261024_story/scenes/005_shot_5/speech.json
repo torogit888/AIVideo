@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261024T124043",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.98,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "但與此同時美國國內的戰後嬰兒潮正在瘋狂擴張",
+      "text_cn": "但与此同时美国国内的战后婴儿潮正在疯狂扩张",
+      "start_sec": 0.0,
+      "end_sec": 4.36,
+      "duration_sec": 4.36
+    },
+    {
+      "index": 2,
+      "text": "成千上萬的中產階級搬進了整齊劃一的郊區獨棟木屋",
+      "text_cn": "成千上万的中产阶级搬进了整齐划一的郊区独栋木屋",
+      "start_sec": 4.61,
+      "end_sec": 9.37,
+      "duration_sec": 4.76
+    },
+    {
+      "index": 3,
+      "text": "當時的年輕人看膩了老一輩沉悶死板的碎花牆紙",
+      "text_cn": "当时的年轻人看腻了老一辈沉闷死板的碎花墙纸",
+      "start_sec": 9.62,
+      "end_sec": 13.98,
+      "duration_sec": 4.36
+    }
+  ],
+  "created_at": "2026-10-24T12:40:43.703914+00:00"
+}

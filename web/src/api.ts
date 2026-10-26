@@ -63,18 +63,19 @@ export const api = {
       custom_prompt?: string;
       outline?: string;
       tone_id?: string;
+      visual_pacing?: string;
       script?: string;
       use_pip?: boolean;
+      burn_subtitles?: boolean;
       subject_anchor?: string;
       environment_anchor?: string;
       characters?: { id?: string; name: string; appearance?: string; entity_type?: "character" | "object" }[];
       clear_hero_images?: boolean;
-      metaphor_style?: string;
     }
   ) => request<JobSummary>(`/jobs/${id}`, { method: "PATCH", body: JSON.stringify(patch) }),
   recutJob: (
     id: string,
-    data?: { script?: string; visual_pacing?: string; lines_per_scene?: number; metaphor_style?: string }
+    data?: { script?: string; visual_pacing?: string }
   ) => request<JobSummary>(`/jobs/${id}/recut`, { method: "POST", body: JSON.stringify(data || {}) }),
   deleteJob: (id: string) => request<any>(`/jobs/${id}`, { method: "DELETE" }),
   clearJobMedia: (id: string) => request<any>(`/jobs/${id}/clear`, { method: "POST" }),
@@ -214,10 +215,22 @@ export const api = {
     }),
 
   // 腳本與大綱
-  generateOutline: (topic: string, toneId: string, model?: string, userPrompt?: string) =>
+  generateOutline: (
+    topic: string,
+    toneId: string,
+    model?: string,
+    userPrompt?: string,
+    wordCount?: number
+  ) =>
     request<{ outline: string }>("/script/generate-outline", {
       method: "POST",
-      body: JSON.stringify({ topic, tone_id: toneId, model, user_prompt: userPrompt }),
+      body: JSON.stringify({
+        topic,
+        tone_id: toneId,
+        model,
+        user_prompt: userPrompt,
+        word_count: wordCount,
+      }),
     }),
 
   generateScript: (
@@ -225,7 +238,7 @@ export const api = {
     toneId: string,
     wordCount: number,
     model?: string,
-    notes?: string,
+    outline?: string,
     userPrompt?: string
   ) =>
     request<{ script: string; word_count: number; estimated_scenes: number }>("/script/generate", {
@@ -235,7 +248,7 @@ export const api = {
         tone_id: toneId,
         word_count: wordCount,
         model,
-        notes,
+        outline,
         user_prompt: userPrompt,
       }),
     }),
@@ -402,5 +415,8 @@ export const api = {
       method: "POST",
       body: JSON.stringify(payload),
     }),
-  getYouTubeUploadStatus: () => request<YouTubeUploadStatus>("/youtube/upload/status"),
+  getYouTubeUploadStatus: (jobId?: string) =>
+    request<YouTubeUploadStatus>(
+      jobId ? `/youtube/upload/status?job_id=${encodeURIComponent(jobId)}` : "/youtube/upload/status"
+    ),
 };

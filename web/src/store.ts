@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { api } from "./api";
+import { DEFAULT_IMAGE_MODEL } from "./studioActions";
 import { JobSummary, NavTab, SceneSummary } from "./types";
 
 export interface ToastItem {
@@ -34,8 +35,11 @@ interface StudioState {
   isDraftMode: boolean;
   draftResetKey: number;
   loadJobs: () => Promise<void>;
-  selectJob: (jobId: string) => void;
-  startNewDraft: () => void;
+  selectJob: (jobId: string) => Promise<boolean>;
+  deleteJob: (jobId: string, jobTitle?: string) => Promise<boolean>;
+  startNewDraft: () => Promise<boolean>;
+  scriptDirty: boolean;
+  setScriptDirty: (dirty: boolean) => void;
 
   // 分鏡與右側抽屜
   scenes: SceneSummary[];
@@ -101,6 +105,14 @@ interface StudioState {
   selectedImageModel: string;
   setSelectedImageModel: (model: string) => void;
 
+  // 跨元件共用狀態（取代瀏覽器 CustomEvent 廣播）
+  burnSubtitles: boolean;
+  setBurnSubtitles: (burn: boolean) => void;
+  isContinuityOpen: boolean;
+  setContinuityOpen: (open: boolean) => void;
+  anchorsRevision: number;
+  bumpAnchorsRevision: () => void;
+
   geminiOnline: boolean | null;
   comfyOnline: boolean | null;
   apiOnline: boolean | null;
@@ -117,7 +129,7 @@ export const useStudioStore = create<StudioState>((set, get) => ({
     if (typeof window !== "undefined") {
       localStorage.setItem("aivideo_current_tab", tab);
     }
-    set({ currentTab: tab });
+    set({ currentTab: tab, isInspectorOpen: false });
   },
   isSidebarExpanded: true,
   toggleSidebar: () => set((state) => ({ isSidebarExpanded: !state.isSidebarExpanded })),
@@ -128,6 +140,8 @@ export const useStudioStore = create<StudioState>((set, get) => ({
     typeof window !== "undefined" ? localStorage.getItem("aivideo_selected_job") || null : null,
   isDraftMode: false,
   draftResetKey: 0,
+  scriptDirty: false,
+  setScriptDirty: (dirty) => set({ scriptDirty: dirty }),
   loadJobs: async () => {
     try {
       const jobs = await api.getJobs();
@@ -139,11 +153,20 @@ export const useStudioStore = create<StudioState>((set, get) => ({
       const currentSelected = get().selectedJobId || savedJobId;
       if (jobs.length > 0) {
         if (currentSelected && jobs.some((j) => j.id === currentSelected)) {
+          const matched = jobs.find((j) => j.id === currentSelected);
+          if (matched && typeof matched.burn_subtitles === "boolean") {
+            set({ burnSubtitles: matched.burn_subtitles });
+          }
           if (get().selectedJobId !== currentSelected) {
-            get().selectJob(currentSelected);
+            await get().selectJob(currentSelected);
+          } else {
+            const jobModel = matched?.image_model || DEFAULT_IMAGE_MODEL;
+            if (get().selectedImageModel !== jobModel) {
+              set({ selectedImageModel: jobModel });
+            }
           }
         } else {
-          get().selectJob(jobs[0].id);
+          await get().selectJob(jobs[0].id);
         }
       } else {
         set({ selectedJobId: null, scenes: [] });
@@ -152,35 +175,104 @@ export const useStudioStore = create<StudioState>((set, get) => ({
       console.error("載入專案失敗", e);
     }
   },
-  selectJob: (jobId) => {
-    if (typeof window !== "undefined" && jobId) {
+  selectJob: async (jobId) => {
+    if (!jobId) return false;
+    if (get().scriptDirty && get().selectedJobId !== jobId) {
+      const ok = await get().requestConfirm({
+        title: "口白尚未儲存",
+        message: "這份口白有修改還沒按儲存。換專案後這些修改會消失。",
+        confirmText: "放棄修改",
+        cancelText: "留在這裡",
+        variant: "danger",
+      });
+      if (!ok) return false;
+      set({ scriptDirty: false });
+    }
+    if (typeof window !== "undefined") {
       localStorage.setItem("aivideo_selected_job", jobId);
     }
     const targetJob = get().jobs.find((j) => j.id === jobId);
-    if (targetJob?.image_model) {
-      if (typeof window !== "undefined") {
-        localStorage.setItem("aivideo_selected_image_model", targetJob.image_model);
-      }
-      set({ selectedImageModel: targetJob.image_model });
-    }
-    set({ selectedJobId: jobId, isDraftMode: false, activeSceneId: null, isInspectorOpen: false });
-    get().loadScenes(jobId);
+    const jobModel = targetJob?.image_model || DEFAULT_IMAGE_MODEL;
+    set({
+      selectedJobId: jobId,
+      selectedImageModel: jobModel,
+      isDraftMode: false,
+      scenes: get().selectedJobId === jobId ? get().scenes : [],
+      activeSceneId: null,
+      isInspectorOpen: false,
+      burnSubtitles: Boolean(targetJob?.burn_subtitles),
+    });
+    return true;
   },
-  startNewDraft: () => {
+  deleteJob: async (jobId, jobTitle) => {
+    if (!jobId) return false;
+    const title = jobTitle || get().jobs.find((j) => j.id === jobId)?.title || jobId;
+    const confirmDelete = await get().requestConfirm({
+      title: "刪除專案確認",
+      message: `確定要徹底刪除專案【${title}】嗎？\n\n此操作將永久刪除此專案的所有分鏡、生圖、配音與成片，無法復原！`,
+      confirmText: "徹底刪除",
+      variant: "danger",
+    });
+    if (!confirmDelete) return false;
+
+    try {
+      await api.deleteJob(jobId);
+      const wasSelected = get().selectedJobId === jobId;
+      if (wasSelected) {
+        set({ scriptDirty: false });
+      }
+      const remainingJobs = await api.getJobs();
+      set({ jobs: remainingJobs });
+      if (wasSelected) {
+        if (remainingJobs.length > 0) {
+          await get().selectJob(remainingJobs[0].id);
+        } else {
+          if (typeof window !== "undefined") {
+            localStorage.removeItem("aivideo_selected_job");
+          }
+          set({ selectedJobId: null, scenes: [], activeSceneId: null, isInspectorOpen: false });
+        }
+      }
+      get().showToast("專案已成功刪除！", "success");
+      return true;
+    } catch (e: any) {
+      get().showToast("刪除專案失敗: " + (e.message || "未知錯誤"), "error");
+      return false;
+    }
+  },
+  startNewDraft: async () => {
+    if (get().scriptDirty) {
+      const ok = await get().requestConfirm({
+        title: "口白尚未儲存",
+        message: "這份口白有修改還沒按儲存。開新草稿後這些修改會消失。",
+        confirmText: "放棄修改",
+        cancelText: "留在這裡",
+        variant: "danger",
+      });
+      if (!ok) return false;
+      set({ scriptDirty: false });
+    }
     if (typeof window !== "undefined") {
       localStorage.removeItem("aivideo_selected_job");
       localStorage.removeItem("aivideo_draft_custom_prompt");
       localStorage.removeItem("aivideo_draft_outline");
     }
+    const draftImage =
+      typeof window !== "undefined"
+        ? localStorage.getItem("aivideo_selected_image_model") || DEFAULT_IMAGE_MODEL
+        : DEFAULT_IMAGE_MODEL;
     set((state) => ({
       selectedJobId: null,
+      selectedImageModel: draftImage,
       isDraftMode: true,
       draftResetKey: state.draftResetKey + 1,
       scenes: [],
       activeSceneId: null,
       isInspectorOpen: false,
+      scriptDirty: false,
     }));
     get().setTab("script");
+    return true;
   },
 
   // 分鏡
@@ -194,6 +286,7 @@ export const useStudioStore = create<StudioState>((set, get) => ({
     }
     try {
       const scenes = await api.getScenes(jobId);
+      if (get().selectedJobId !== jobId) return;
       set({ scenes });
     } catch (e) {
       console.error("載入分鏡失敗", e);
@@ -285,10 +378,12 @@ export const useStudioStore = create<StudioState>((set, get) => ({
   confirmDialog: null,
   requestConfirm: (options) =>
     new Promise<boolean>((resolve) => {
+      const prev = get().confirmDialog;
+      if (prev?.isOpen && prev.onResolve) {
+        prev.onResolve(prev.mode === "prompt" ? null : false);
+      }
       const opts = typeof options === "string" ? { message: options } : options;
-      const isDanger =
-        opts.variant === "danger" ||
-        (!opts.variant && /刪除|清空|清除|覆蓋|無法復原/.test(opts.message));
+      const isDanger = opts.variant === "danger";
       set({
         confirmDialog: {
           isOpen: true,
@@ -304,6 +399,10 @@ export const useStudioStore = create<StudioState>((set, get) => ({
     }),
   requestPrompt: (options) =>
     new Promise<string | null>((resolve) => {
+      const prev = get().confirmDialog;
+      if (prev?.isOpen && prev.onResolve) {
+        prev.onResolve(prev.mode === "prompt" ? null : false);
+      }
       const opts = typeof options === "string" ? { message: options } : options;
       set({
         confirmDialog: {
@@ -346,11 +445,19 @@ export const useStudioStore = create<StudioState>((set, get) => ({
       ? localStorage.getItem("aivideo_selected_image_model") || "gemini-3.1-flash-image"
       : "gemini-3.1-flash-image",
   setSelectedImageModel: (model) => {
-    if (typeof window !== "undefined") {
+    set({ selectedImageModel: model });
+    if (!get().selectedJobId && typeof window !== "undefined") {
       localStorage.setItem("aivideo_selected_image_model", model);
     }
-    set({ selectedImageModel: model });
   },
+
+  // 跨元件共用狀態
+  burnSubtitles: false,
+  setBurnSubtitles: (burn) => set({ burnSubtitles: burn }),
+  isContinuityOpen: false,
+  setContinuityOpen: (open) => set({ isContinuityOpen: open }),
+  anchorsRevision: 0,
+  bumpAnchorsRevision: () => set((state) => ({ anchorsRevision: state.anchorsRevision + 1 })),
 
   geminiOnline: null,
   comfyOnline: null,

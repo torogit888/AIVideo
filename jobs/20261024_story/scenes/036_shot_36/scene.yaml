@@ -1,0 +1,28 @@
+id: 036_shot_36
+index: 36
+title: 兩位發明家原本想改變人類客廳結果
+narration: 兩位發明家原本想改變人類客廳結果卻徹底綁架了全人類的大腦，事情的高潮發生在二零一五年全球電子商務迎來了爆炸性增長，各大網購平台每天發出的快遞包裹數以千萬計，
+image_prompt: Wide panoramic shot in Q-version 2D cartoon illustration style, depicting
+  a massive automated e-commerce distribution warehouse in 2015, with endless rows
+  of tall shelving units, robotic carts, and conveyor systems overflowing with millions
+  of brown cardboard shipping parcels, dynamic modern industrial lighting, 16:9 widescreen
+  composition.
+character_ids: []
+image_negative: ''
+act_index: 5
+act_title: 大腦深處的按壓鴉片：集體強迫症與治癒狂歡
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T130902
+  image_take: image_20261024T130850
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Amazon fulfillment center shipping boxes 2015
+  fetch_error: 未找到合適照片或影片

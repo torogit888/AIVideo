@@ -1,0 +1,21 @@
+id: 045_shot_45
+index: 45
+title: 回顧整整半個多世紀的演變你不得不
+narration: '[surprise-oh]回顧整整半個多世紀的演變你不得不感嘆命運那充滿黑色的幽默，如果一九五七年那兩張浴簾熱壓成功世界上只會多出一款過氣的塑料壁紙，如果一九五九年的花農沒有抗議索賠他們可能早就倒在某個破產法庭上，'
+image_prompt: 'Split-panel whimsical montage in Q-version 2D cartoon illustration
+  style, showing Alfred Fielding and Marc Chavannes reflecting on their comedic journey:
+  on the left, peeling shower curtains off living room walls; on the right, ducking
+  from angry rose farmers; smiling together in the center with triumphant pride, 16:9
+  widescreen composition.'
+character_ids:
+- alfred_fielding
+- marc_chavannes
+image_negative: ''
+act_index: 7
+act_title: 空氣的代價與歷史餘韻：從荒唐失敗到文明容器
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T131803
+  image_take: image_20261024T131726

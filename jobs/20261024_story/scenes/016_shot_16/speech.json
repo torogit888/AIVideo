@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261024T125012",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.34,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "短短兩年內同一個發明在兩個完全不同的領域慘敗兩次",
+      "text_cn": "短短两年内同一个发明在两个完全不同的领域惨败两次",
+      "start_sec": 0.0,
+      "end_sec": 4.96,
+      "duration_sec": 4.96
+    },
+    {
+      "index": 2,
+      "text": "換作是你可能已經把這台倒楣的機器砸碎當作廢鐵賣掉了",
+      "text_cn": "换作是你可能已经把这台倒楣的机器砸碎当作废铁卖掉了",
+      "start_sec": 5.21,
+      "end_sec": 10.37,
+      "duration_sec": 5.16
+    },
+    {
+      "index": 3,
+      "text": "[question-ei]但命運偏偏在最絕望的深淵給他們安排了一場跨界奇蹟",
+      "text_cn": "[question-ei]但命运偏偏在最绝望的深渊给他们安排了一场跨界奇迹",
+      "start_sec": 10.62,
+      "end_sec": 16.34,
+      "duration_sec": 5.72
+    }
+  ],
+  "created_at": "2026-10-24T12:50:12.973240+00:00"
+}

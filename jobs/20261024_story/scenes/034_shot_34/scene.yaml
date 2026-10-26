@@ -1,0 +1,19 @@
+id: 034_shot_34
+index: 34
+title: 演化心理學家後來給出了一種深層且
+narration: 演化心理學家後來給出了一種深層且令人信服的科學解釋，在數百萬年前的原始叢林裡我們的靈長類祖先會互相清理寄生蟲，用指甲捏碎跳蚤時發出的微小爆裂感在基因深處烙下了清潔獎勵信號，
+image_prompt: Wide shot in Q-version 2D cartoon illustration style, in a prehistoric
+  sun-dappled jungle where ancient chibi hominid ancestors groom each other's fur
+  under giant tropical ferns, cracking microscopic pests between fingernails with
+  comedic satisfaction, warm vibrant prehistoric palette, clean outlines, 16:9 widescreen
+  composition.
+character_ids: []
+image_negative: ''
+act_index: 5
+act_title: 大腦深處的按壓鴉片：集體強迫症與治癒狂歡
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T130711
+  image_take: image_20261024T130633

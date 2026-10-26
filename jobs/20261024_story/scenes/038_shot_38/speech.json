@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261024T131116",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.58,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "希悅爾的管理層做出了一個震驚全人類的商業決定",
+      "text_cn": "希悦尔的管理层做出了一个震惊全人类的商业决定",
+      "start_sec": 0.0,
+      "end_sec": 4.56,
+      "duration_sec": 4.56
+    },
+    {
+      "index": 2,
+      "text": "他們投入巨資研發了一款新型產品取名為充氣式泡泡膜",
+      "text_cn": "他们投入巨资研发了一款新型产品取名为充气式泡泡膜",
+      "start_sec": 4.81,
+      "end_sec": 9.77,
+      "duration_sec": 4.96
+    },
+    {
+      "index": 3,
+      "text": "它在出廠時只是一層薄膜直到打包的最後一秒才現場充氣封閉",
+      "text_cn": "它在出厂时只是一层薄膜直到打包的最后一秒才现场充气封闭",
+      "start_sec": 10.02,
+      "end_sec": 15.58,
+      "duration_sec": 5.56
+    }
+  ],
+  "created_at": "2026-10-24T13:11:16.771159+00:00"
+}

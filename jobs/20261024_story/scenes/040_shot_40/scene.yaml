@@ -1,0 +1,19 @@
+id: 040_shot_40
+index: 40
+title: 然而當這款產品流向市場時全世界的
+narration: 然而當這款產品流向市場時全世界的消費者徹底崩潰了，因為氣道是互相連通的當你用力用手指按壓其中一個氣泡時，裡面的空氣只會悄無聲息地滑向隔壁氣泡任憑你怎麼使勁也不會爆裂，
+image_prompt: Close-up comical shot in Q-version 2D cartoon illustration style, a
+  disappointed chibi consumer using two thumbs to forcefully squash an inflatable
+  air pocket, only for the air to slide quietly into the adjacent bubble with a soft
+  cartoon puff, causing tears of frustration to stream down the consumer's face, 16:9
+  widescreen composition.
+character_ids: []
+image_negative: ''
+act_index: 6
+act_title: 捏不破的致命背叛：一場引發全球公憤的綠色清洗
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T131302
+  image_take: image_20261024T131227

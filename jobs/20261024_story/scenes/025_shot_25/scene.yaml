@@ -1,0 +1,21 @@
+id: 025_shot_25
+index: 25
+title: 原本客廳和菜園都容不下的垃圾一夜
+narration: 原本客廳和菜園都容不下的垃圾一夜之間成為尖端科技的神聖護甲，但你別以為這條通往財富的道路從此就能一帆風順了，
+image_prompt: Wide shot in Q-version 2D cartoon illustration style, in a high-tech
+  cleanroom assembly bay where the IBM 1401 data processing system is carefully enveloped
+  in protective swaths of glowing translucent bubble wrap packaging sheet, looking
+  like futuristic shining armor, clean geometric composition, soft cyan and slate
+  blue tones, 16:9 widescreen composition.
+character_ids:
+- classic_bubble_wrap
+- ibm_1401_mainframe
+image_negative: ''
+act_index: 4
+act_title: 減震封印下的暴利帝國：希悅爾的專利防禦網
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T125813
+  image_take: image_20261024T125734

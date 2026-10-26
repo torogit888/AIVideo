@@ -1,0 +1,35 @@
+id: 004_shot_4
+index: 4
+title: 讓我們把時間倒推回一九五七年的美
+narration: '[surprise-wa]讓我們把時間倒推回一九五七年的美國，那是一個充滿躁動與冷戰焦慮的黃金年代，蘇聯剛剛把第一顆人造衛星送上太空引發全美恐慌，'
+image_prompt: Wide establishing shot in Q-version 2D cartoon illustration style, depicting
+  the retro year 1957 with a spherical chibi Sputnik satellite beeping in starry navy-blue
+  night sky, while anxious suburban American families in mid-century attire gaze upward
+  from manicured lawns, bold graphic lines, nostalgic 1950s color palette, 16:9 widescreen
+  composition.
+character_ids: []
+image_negative: ''
+act_index: 1
+act_title: 時髦客廳的荒誕殘局：從前衛壁紙跌落的塑膠氣泡
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T124015
+  image_take: null
+pip:
+  enabled: true
+  media_type: image
+  image: pip.png
+  video: null
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Sputnik 1 satellite 1957
+  source_title: File:Romania 1957 MI 1677, 1679 stamp triptych (Launching of Artificial
+    Satellite by Russia. Sputnik 1 and Earth. Label. Sputniks 1 and 2 circling globe)
+    1200dpi.jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/6/67/Romania_1957_MI_1677%2C_1679_stamp_triptych_%28Launching_of_Artificial_Satellite_by_Russia._Sputnik_1_and_Earth._Label._Sputniks_1_and_2_circling_globe%29_1200dpi.jpg
+  verified: true
+  review_reason: 1957年紀念蘇聯發射首顆人造衛星的歷史郵票，符合旁白背景。

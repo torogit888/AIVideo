@@ -1,0 +1,30 @@
+id: 006_shot_6
+index: 6
+title: 在新澤西州霍桑市的一間悶熱車庫裡
+narration: 在新澤西州霍桑市的一間悶熱車庫裡，美國工程師菲爾丁與瑞士合夥人沙瓦納正趴在工作台前，他們拿著兩張剛從雜貨店買回來的廉價塑膠浴簾，
+image_prompt: Medium establishing shot in Q-version 2D cartoon illustration style,
+  set in a sweltering brick garage workshop in Hawthorne New Jersey, where Alfred
+  Fielding in rolled-up sleeves and Marc Chavannes in a tweed vest lean eagerly over
+  a wooden workbench, examining two cheap translucent vinyl shower curtains, warm
+  ambient lighting, clean cel-shading, 16:9 widescreen composition.
+character_ids:
+- alfred_fielding
+- marc_chavannes
+image_negative: ''
+act_index: 1
+act_title: 時髦客廳的荒誕殘局：從前衛壁紙跌落的塑膠氣泡
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T124156
+  image_take: image_20261024T124144
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Alfred Fielding Marc Chavannes inventors portrait
+  fetch_error: 未找到合適照片或影片

@@ -1,0 +1,19 @@
+id: 011_shot_11
+index: 11
+title: 一九五九年前後美國戰後現代農業正
+narration: 一九五九年前後美國戰後現代農業正在迅猛抬頭，大型溫室花卉與反季節蔬菜種植成為新一代暴利行業，當時農民最頭痛的問題就是玻璃溫室在冬天熱量流失過快，
+image_prompt: Wide establishing shot in Q-version 2D cartoon illustration style, depicting
+  vast mid-century glass greenhouses on an American farm covered in light winter snow,
+  chibi farmers bustling around tending to blooming rows of potted flowers and off-season
+  tomatoes beneath frosty glass panes, crisp linework, cool winter pastel lighting,
+  16:9 widescreen composition.
+character_ids: []
+image_negative: ''
+act_index: 2
+act_title: 悶熱溫室裡的二次窒息：保溫棉騙局與物理法則的暴擊
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T124611
+  image_take: image_20261024T124536

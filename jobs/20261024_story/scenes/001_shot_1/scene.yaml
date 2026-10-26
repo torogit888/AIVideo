@@ -1,0 +1,20 @@
+id: 001_shot_1
+index: 1
+title: 大家好~我是白兔!你有沒有過拆開
+narration: 大家好~我是白兔!你有沒有過拆開網購包裹時抓著防震薄膜捏個不停的經歷，聽著那種劈裡啪啦的清脆聲響直到整張紙被徹底捏平，
+image_prompt: Close-up shot in Q-version 2D cartoon illustration style, showing cheerful
+  chibi hands gleefully popping raised translucent domes on a wide sheet of bubble
+  wrap packaging sheet, with dynamic stylized pop bursts and sparkling air effects
+  radiating outward, clean contour line art, bright cel-shading, vibrant pastel living
+  room background, 16:9 widescreen composition.
+character_ids:
+- classic_bubble_wrap
+image_negative: ''
+act_index: 1
+act_title: 時髦客廳的荒誕殘局：從前衛壁紙跌落的塑膠氣泡
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T123801
+  image_take: image_20261024T123748

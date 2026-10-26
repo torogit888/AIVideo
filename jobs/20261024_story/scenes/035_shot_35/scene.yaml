@@ -1,0 +1,29 @@
+id: 035_shot_35
+index: 35
+title: 希悅爾無意間創造出了一款最符合人
+narration: 希悅爾無意間創造出了一款最符合人體工學的觸覺多巴胺釋放器，到了九十年代末每年一月的最後一個星期一被定為泡泡紙感謝日，好萊塢電影裡的角色靠捏它來緩解嚴重的創傷後壓力症候群，
+image_prompt: Wide celebratory shot in Q-version 2D cartoon illustration style, depicting
+  a late 1990s festive living room celebration with confetti falling, where people
+  of all ages joyfully stomp and squeeze bubble wrap packaging sheet, while a vintage
+  CRT television in the corner plays a Hollywood action movie parody, 16:9 widescreen
+  composition.
+character_ids:
+- classic_bubble_wrap
+image_negative: ''
+act_index: 5
+act_title: 大腦深處的按壓鴉片：集體強迫症與治癒狂歡
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T130819
+  image_take: image_20261024T130738
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Bubble Wrap Appreciation Day Sealed Air celebration
+  fetch_error: 未找到合適照片或影片

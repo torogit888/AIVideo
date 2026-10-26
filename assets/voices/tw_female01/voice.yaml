@@ -1,5 +1,5 @@
 id: tw_female01
-display_name: tw_female01
+display_name: 台灣女聲 01
 engine: omnivoice
 model: OmniVoice-bf16
 mode: clone

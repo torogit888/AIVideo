@@ -168,6 +168,23 @@ def select_current_take(scene_dir: Path, take_id: str, kind: str) -> dict[str, A
     return {"take_id": take_id, "kind": kind, "current": current}
 
 
+# 跟右側抽屜「只留目前使用中版本與最新 3 個」同一數字。
+ADOPT_TAKE_KEEP = 3
+
+
+def prune_scene_takes_after_adopt(scene_dir: Path, keep: int = ADOPT_TAKE_KEEP) -> dict[str, Any]:
+    """新畫面或新配音已採用後，清掉更舊的歷史版本。清失敗不影響已生成的檔。"""
+    try:
+        result = gc_scene_takes(scene_dir, keep=keep)
+    except Exception as exc:
+        print(f"[warn] {scene_dir.name} 清理舊版本失敗：{exc}")
+        return {"removed": 0, "removed_names": [], "kept": [], "keep": keep, "error": str(exc)}
+    removed = int(result.get("removed") or 0)
+    if removed:
+        print(f"[info] {scene_dir.name} 已清掉 {removed} 個舊版本，保留使用中的和最近 {keep} 份")
+    return result
+
+
 def gc_scene_takes(scene_dir: Path, keep: int = 3) -> dict[str, Any]:
     """刪除過舊 takes，保留 current 與最新 keep 個。句段／靜音檔一併清。"""
     keep = max(1, int(keep))

@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261024T131302",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.98,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "然而當這款產品流向市場時全世界的消費者徹底崩潰了",
+      "text_cn": "然而当这款产品流向市场时全世界的消费者彻底崩溃了",
+      "start_sec": 0.0,
+      "end_sec": 4.96,
+      "duration_sec": 4.96
+    },
+    {
+      "index": 2,
+      "text": "因為氣道是互相連通的當你用力用手指按壓其中一個氣泡時",
+      "text_cn": "因为气道是互相连通的当你用力用手指按压其中一个气泡时",
+      "start_sec": 5.21,
+      "end_sec": 10.57,
+      "duration_sec": 5.36
+    },
+    {
+      "index": 3,
+      "text": "裡面的空氣只會悄無聲息地滑向隔壁氣泡任憑你怎麼使勁也不會爆裂",
+      "text_cn": "里面的空气只会悄无声息地滑向隔壁气泡任凭你怎么使劲也不会爆裂",
+      "start_sec": 10.82,
+      "end_sec": 16.98,
+      "duration_sec": 6.16
+    }
+  ],
+  "created_at": "2026-10-24T13:13:02.086775+00:00"
+}

@@ -1,0 +1,19 @@
+id: 039_shot_39
+index: 39
+title: 更絕的是工程師把原本獨立隔離的氣
+narration: 更絕的是工程師把原本獨立隔離的氣泡設計成互相貫通的微型氣道，[dissatisfaction-hnn]這項設計將卡車空間節省了整整五十倍商業上堪稱完美，
+image_prompt: Close-up technical diagram shot in Q-version 2D cartoon illustration
+  style, showing the interconnected internal air micro-tunnels of the new unpoppable
+  air cushion packaging, with stylized blue arrows indicating smooth air transfer
+  between adjacent chambers without rupturing, clean graphic vector linework, 16:9
+  widescreen composition.
+character_ids: []
+image_negative: ''
+act_index: 6
+act_title: 捏不破的致命背叛：一場引發全球公憤的綠色清洗
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T131206
+  image_take: image_20261024T131146

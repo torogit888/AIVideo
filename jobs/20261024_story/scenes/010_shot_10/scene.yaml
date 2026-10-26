@@ -1,0 +1,21 @@
+id: 010_shot_10
+index: 10
+title: 他們心想既然挑剔的人類不想把這玩
+narration: 他們心想既然挑剔的人類不想把這玩意貼在自家客廳的牆壁上，那麼農田裡毫無審美概念的綠色植物總不會挑剔了吧，
+image_prompt: Medium shot in Q-version 2D cartoon illustration style, Alfred Fielding
+  adjusting his oversized round spectacles and pointing energetically at a lush potted
+  green fern on the workbench, while Marc Chavannes strokes his mustache with a cunning
+  grin of sudden realization, warm sunlight streaming through garage windows, clean
+  graphic lines, 16:9 widescreen composition.
+character_ids:
+- alfred_fielding
+- marc_chavannes
+image_negative: ''
+act_index: 2
+act_title: 悶熱溫室裡的二次窒息：保溫棉騙局與物理法則的暴擊
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T124513
+  image_take: image_20261024T124435

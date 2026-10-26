@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261024T124407",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.66,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "一般人在經歷這種毀滅性打擊後大概早就乖乖回工廠上班了",
+      "text_cn": "一般人在经历这种毁灭性打集后大概早就乖乖回工厂上班了",
+      "start_sec": 0.0,
+      "end_sec": 4.86,
+      "duration_sec": 4.86
+    },
+    {
+      "index": 2,
+      "text": "但這兩位發明家的固執程度堪比輸光底褲卻堅信能翻盤的賭徒",
+      "text_cn": "但这两位发明家的固执程度堪比输光底裤却坚信能翻盘的赌徒",
+      "start_sec": 5.11,
+      "end_sec": 10.67,
+      "duration_sec": 5.56
+    },
+    {
+      "index": 3,
+      "text": "[dissatisfaction-hnn]他們盯著堆滿倉庫的塑膠氣泡大腦開始進行二次合理化",
+      "text_cn": "[dissatisfaction-hnn]他们盯着堆满仓库的塑胶气泡大脑开始进行二次合理化",
+      "start_sec": 10.92,
+      "end_sec": 16.66,
+      "duration_sec": 5.74
+    }
+  ],
+  "created_at": "2026-10-24T12:44:07.008457+00:00"
+}

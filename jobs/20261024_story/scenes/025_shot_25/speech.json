@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261024T125813",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 10.97,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "原本客廳和菜園都容不下的垃圾一夜之間成為尖端科技的神聖護甲",
+      "text_cn": "原本客厅和菜园都容不下的勒色一夜之间成为尖端科技的神圣护甲",
+      "start_sec": 0.0,
+      "end_sec": 5.96,
+      "duration_sec": 5.96
+    },
+    {
+      "index": 2,
+      "text": "但你別以為這條通往財富的道路從此就能一帆風順了",
+      "text_cn": "但你别以为这条通往财富的道路从此就能一帆风顺了",
+      "start_sec": 6.21,
+      "end_sec": 10.97,
+      "duration_sec": 4.76
+    }
+  ],
+  "created_at": "2026-10-24T12:58:13.208941+00:00"
+}

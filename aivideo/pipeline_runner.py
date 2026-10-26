@@ -264,8 +264,6 @@ class PipelineRunner:
 
                     img_file = s_dir / "image.png"
                     aud_file = s_dir / "speech.wav"
-                    if not aud_file.is_file():
-                        aud_file = s_dir / "audio.wav"
 
                     need_img = (not img_file.is_file()) or (not skip_done)
                     need_aud = (not aud_file.is_file()) or (not skip_done)
@@ -274,20 +272,22 @@ class PipelineRunner:
                     # 0. 考據先行判定：若分鏡規劃為黑底歷史聚焦 (spotlight) 或適合抓取全螢幕考據影片 (B-Roll)，優先檢索
                     is_spotlight_mode = False
                     prefer_video = False
-                    pip_q = None
+                    pip_q = ""
+                    pip_on = False
                     s_yaml_p = s_dir / "scene.yaml"
                     if s_yaml_p.is_file():
                         try:
-                            from aivideo.auto_pip import should_prefer_archival_video
+                            from aivideo.auto_pip import pip_switch_on, should_prefer_archival_video
                             scfg_data = yaml.safe_load(s_yaml_p.read_text(encoding="utf-8")) or {}
                             p_cfg = scfg_data.get("pip", {})
                             s_narr = str(scfg_data.get("narration") or "")
                             if isinstance(p_cfg, dict):
+                                pip_on = pip_switch_on(p_cfg)
                                 p_mode = str(p_cfg.get("mode", "")).lower()
                                 pip_q = str(p_cfg.get("query", "")).strip()
                                 if p_mode in ("spotlight", "focus", "black_bg", "fullscreen", "broll"):
                                     is_spotlight_mode = True
-                                if pip_q and should_prefer_archival_video(pip_q, s_narr):
+                                if pip_on and pip_q and should_prefer_archival_video(pip_q, s_narr):
                                     prefer_video = True
                         except Exception:
                             pass
@@ -295,11 +295,14 @@ class PipelineRunner:
                     pip_file = s_dir / "pip.png"
                     pip_vid_file = s_dir / "pip.mp4"
                     spotlight_ready = False
+                    pip_attempted = False
 
-                    if is_spotlight_mode or prefer_video or pip_vid_file.is_file():
+                    # 右邊開關關掉時，不下載，也不把舊考據圖當成這幕的主畫面。
+                    if pip_on and (is_spotlight_mode or prefer_video or pip_vid_file.is_file()):
                         if pip_vid_file.is_file() or (is_spotlight_mode and pip_file.is_file()):
                             spotlight_ready = True
                         elif auto_pip and pip_q and not pip_file.is_file():
+                            pip_attempted = True
                             with self._lock:
                                 self.live_cur = idx
                                 self.live_tot = total_scenes
@@ -369,13 +372,19 @@ class PipelineRunner:
                         if self.check_control(phase=f"第 {idx}/{total_scenes} 幕配音完畢", s_dir=s_dir):
                             return
 
-                    # 3. 常規考據：非 spotlight 的畫中畫小卡 (PiP)，於此處抓取
-                    if auto_pip and not is_spotlight_mode and not (s_dir / "pip.png").is_file():
-                        q = None
+                    # 3. 常規考據：非 spotlight 的畫中畫小卡。右邊開關關掉或已於前置階段嘗試過的幕跳過。
+                    if (
+                        auto_pip
+                        and pip_on
+                        and not is_spotlight_mode
+                        and not pip_attempted
+                        and not (s_dir / "pip.png").is_file()
+                        and not (s_dir / "pip.mp4").is_file()
+                    ):
+                        q = pip_q
                         try:
-                            from aivideo.auto_pip import fetch_single_scene_pip, read_scene_pip_query
+                            from aivideo.auto_pip import fetch_single_scene_pip
 
-                            q = read_scene_pip_query(s_dir)
                             if q:
                                 with self._lock:
                                     self.status_msg = f"📷 第 {idx}/{total_scenes} 幕：正在檢索考據圖 ({q})..."
@@ -436,6 +445,7 @@ class PipelineRunner:
                 if ret_comp != 0:
                     self.error_msg = "FFmpeg 成片合成失敗，請檢查素材或日誌。"
                     self.status_msg = "❌ 成片合成失敗"
+                    self.emit_notice(self.error_msg, level="error")
                     return
 
                 generate_preview_html(self.job_path)
@@ -506,29 +516,17 @@ class PipelineRunner:
             # 獨立模式 4: 合成 1080p 成片 (mode == "compose")
             # ========================
             elif mode == "compose":
+                from aivideo.naming import is_scene_visual_ready
+
                 self.stage = "🎬 [成片合成]"
                 self.status_msg = "正在檢查分鏡素材完整度..."
 
                 scenes_dir = self.job_path / "scenes"
                 scene_folders = sorted([p for p in scenes_dir.iterdir() if p.is_dir()]) if scenes_dir.is_dir() else []
-                missing_images = []
-                for s in scene_folders:
-                    if (s / "image.png").is_file():
-                        continue
-                    # 若為黑底歷史聚焦 (spotlight) 且已備齊真實照片 pip.png，視為畫面已就緒
-                    s_yaml = s / "scene.yaml"
-                    if s_yaml.is_file() and (s / "pip.png").is_file():
-                        try:
-                            sc_d = yaml.safe_load(s_yaml.read_text(encoding="utf-8")) or {}
-                            p_m = str(sc_d.get("pip", {}).get("mode", "")).lower()
-                            if p_m in ("spotlight", "focus", "black_bg", "fullscreen"):
-                                continue
-                        except Exception:
-                            pass
-                    missing_images.append(s.name)
+                missing_images = [s.name for s in scene_folders if not is_scene_visual_ready(s)]
                 missing_audios = [
                     s.name for s in scene_folders
-                    if not (s / "speech.wav").is_file() and not (s / "audio.wav").is_file()
+                    if not (s / "speech.wav").is_file()
                 ]
 
                 if missing_images or missing_audios:
@@ -539,6 +537,7 @@ class PipelineRunner:
                         err_details.append(f"缺音: {', '.join(missing_audios[:4])}{'...' if len(missing_audios) > 4 else ''}")
                     self.error_msg = f"分鏡素材未就緒 ({' ｜ '.join(err_details)})，請先補齊出圖與配音。"
                     self.status_msg = f"⚠️ [合成終止] 分鏡素材未就緒 ({' ｜ '.join(err_details)})"
+                    self.emit_notice(self.error_msg, level="error")
                     return
 
                 self.status_msg = "正在透過 FFmpeg 合成 1080p 影片、推鏡、畫中畫與字幕..."
@@ -565,6 +564,7 @@ class PipelineRunner:
                 if ret_comp != 0:
                     self.error_msg = "FFmpeg 成片合成失敗，請檢查分鏡素材是否齊全或 FFmpeg 日誌。"
                     self.status_msg = "❌ 成片合成失敗"
+                    self.emit_notice(self.error_msg, level="error")
                     return
 
                 generate_preview_html(self.job_path)
@@ -579,6 +579,7 @@ class PipelineRunner:
         except Exception as exc:
             self.error_msg = str(exc)
             self.status_msg = f"❌ 執行中斷: {exc}"
+            self.emit_notice(self.error_msg, level="error")
         finally:
             with self._lock:
                 self.is_running = False

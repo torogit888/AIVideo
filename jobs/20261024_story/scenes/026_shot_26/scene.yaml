@@ -1,0 +1,18 @@
+id: 026_shot_26
+index: 26
+title: 當競爭對手看到這塊巨大的肥肉時無
+narration: 當競爭對手看到這塊巨大的肥肉時無數仿冒工廠如雨後春筍般湧現，市場上頓時充斥著大量偷工減料的廉價仿製品，[dissatisfaction-hnn]然而這些仿冒品很快就在跨洋長途運輸中露出了致命破綻，
+image_prompt: Wide shot in Q-version 2D cartoon illustration style, inside a smoky
+  industrial rival factory where competing chibi business owners in cheap suits churn
+  out piles of flimsy, uneven imitation plastic sheets on creaking machinery, graphic
+  conveyor belts, dull murky tones, sharp outlines, 16:9 widescreen composition.
+character_ids: []
+image_negative: ''
+act_index: 4
+act_title: 減震封印下的暴利帝國：希悅爾的專利防禦網
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T125909
+  image_take: image_20261024T125834

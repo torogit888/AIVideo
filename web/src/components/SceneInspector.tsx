@@ -183,10 +183,12 @@ export const SceneInspector: React.FC = () => {
   };
 
   const liveScene = scenes.find((s) => s.id === activeSceneId);
+  const liveImageUrl = liveScene?.status?.image_url || "";
+  const livePipUrl = liveScene?.status?.pip_url || liveScene?.status?.pip_video_url || "";
   const liveAudioUrl = liveScene?.status?.audio_url || "";
   const liveDuration = liveScene?.status?.duration ?? 0;
 
-  // 載入當前鏡頭細節（一鍵生成過程中語音就緒時會再抓一次）
+  // 載入當前鏡頭細節（一鍵生成過程中畫面、考據或語音就緒時會自動同步刷新）
   useEffect(() => {
     if (!selectedJobId || !activeSceneId || !isInspectorOpen) return;
 
@@ -214,7 +216,7 @@ export const SceneInspector: React.FC = () => {
     return () => {
       mounted = false;
     };
-  }, [selectedJobId, activeSceneId, isInspectorOpen, liveAudioUrl, liveDuration]);
+  }, [selectedJobId, activeSceneId, isInspectorOpen, liveImageUrl, livePipUrl, liveAudioUrl, liveDuration]);
 
   if (!isInspectorOpen || !activeSceneId) return null;
 
@@ -287,10 +289,15 @@ export const SceneInspector: React.FC = () => {
   const handleQuickUpdatePip = async (
     nextEnabled: boolean,
     nextMode: "pip" | "spotlight" | "broll",
-    customMsg?: string
+    customMsg?: string,
+    overrides?: { scale?: number; position?: string }
   ) => {
     setPipEnabled(nextEnabled);
     setPipMode(nextMode);
+    const nextScale = overrides?.scale !== undefined ? overrides.scale : pipScale;
+    const nextPos = overrides?.position !== undefined ? overrides.position : pipPos;
+    if (overrides?.scale !== undefined) setPipScale(overrides.scale);
+    if (overrides?.position !== undefined) setPipPos(overrides.position);
     if (!selectedJobId || !activeSceneId || !detail) return;
     try {
       const updated = await api.patchScene(selectedJobId, activeSceneId, {
@@ -298,8 +305,8 @@ export const SceneInspector: React.FC = () => {
           ...detail.pip,
           enabled: nextEnabled,
           mode: nextMode,
-          position: pipPos,
-          scale: pipScale,
+          position: nextPos,
+          scale: nextScale,
           query: pipQuery.trim() || undefined,
         },
       });
@@ -1178,11 +1185,17 @@ export const SceneInspector: React.FC = () => {
                   <span className="text-cinema-muted">呈現方式</span>
                   <select
                     value={pipMode}
-                    onChange={(e) => handleQuickUpdatePip(pipEnabled, e.target.value as "pip" | "spotlight")}
+                    onChange={(e) =>
+                      handleQuickUpdatePip(
+                        pipEnabled,
+                        e.target.value as "pip" | "spotlight" | "broll"
+                      )
+                    }
                     className="h-7 px-2 rounded bg-cinema-card border border-cinema-border text-cinema-text text-[11px] font-medium"
                   >
                     <option value="pip">📌 畫中畫小卡 (PiP · 角落小卡)</option>
                     <option value="spotlight">🏛️ 黑底歷史聚焦 (慢推浮現 · 主角)</option>
+                    <option value="broll">🎬 全螢幕考據影片 (B-Roll · 動態主畫面)</option>
                   </select>
                 </div>
 
@@ -1192,7 +1205,12 @@ export const SceneInspector: React.FC = () => {
                       <span className="text-cinema-muted">卡片大小比例</span>
                       <select
                         value={pipScale}
-                        onChange={(e) => setPipScale(parseFloat(e.target.value))}
+                        onChange={(e) => {
+                          const nextScale = parseFloat(e.target.value);
+                          handleQuickUpdatePip(pipEnabled, pipMode, "已更新考據卡片大小", {
+                            scale: nextScale,
+                          });
+                        }}
                         className="h-7 px-2 rounded bg-cinema-card border border-cinema-border text-cinema-text text-[11px]"
                       >
                         <option value="0.20">精巧微縮 (20%)</option>
@@ -1204,7 +1222,12 @@ export const SceneInspector: React.FC = () => {
                       <span className="text-cinema-muted">疊加位置</span>
                       <select
                         value={pipPos}
-                        onChange={(e) => setPipPos(e.target.value)}
+                        onChange={(e) => {
+                          const nextPos = e.target.value;
+                          handleQuickUpdatePip(pipEnabled, pipMode, "已更新考據疊加位置", {
+                            position: nextPos,
+                          });
+                        }}
                         className="h-7 px-2 rounded bg-cinema-card border border-cinema-border text-cinema-text text-[11px]"
                       >
                         <option value="right-center">右半部置中 (推薦)</option>

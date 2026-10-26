@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261024T130850",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 21780515,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background\nVibrant contrasting color palettes, crisp details throughout, expressive chibi faces, rich background props., Wide panoramic shot in Q-version 2D cartoon illustration style, depicting a massive automated e-commerce distribution warehouse in 2015, with endless rows of tall shelving units, robotic carts, and conveyor systems overflowing with millions of brown cardboard shipping parcels, dynamic modern industrial lighting, 16:9 widescreen composition., 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-24T13:08:50.195885+00:00"
+}

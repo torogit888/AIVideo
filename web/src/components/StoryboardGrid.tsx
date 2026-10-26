@@ -3,6 +3,7 @@ import { Image as ImageIcon, Volume2, CheckCircle2, AlertCircle, Camera, Search,
 import { useStudioStore } from "../store";
 import { SceneSummary } from "../types";
 import { api } from "../api";
+import { estimateJobDuration, formatDurationClock } from "../studioActions";
 import { VisualContinuityModal } from "./VisualContinuityModal";
 
 export const StoryboardGrid: React.FC = () => {
@@ -16,10 +17,12 @@ export const StoryboardGrid: React.FC = () => {
     loadJobs,
     loadScenes,
     showToast,
+    burnSubtitles,
+    isContinuityOpen,
+    setContinuityOpen,
+    anchorsRevision,
   } = useStudioStore();
 
-  const [isContinuityOpen, setIsContinuityOpen] = useState(false);
-  const [burnSubtitles, setBurnSubtitles] = useState(false);
   const [dismissSetup, setDismissSetup] = useState(false);
   const [hasHeroImage, setHasHeroImage] = useState<boolean | null>(null);
 
@@ -40,26 +43,10 @@ export const StoryboardGrid: React.FC = () => {
   };
 
   useEffect(() => {
-    const open = () => setIsContinuityOpen(true);
-    const burn = (e: Event) => {
-      const detail = (e as CustomEvent<boolean>).detail;
-      if (typeof detail === "boolean") setBurnSubtitles(detail);
-    };
-    window.addEventListener("aivideo:open-continuity", open);
-    window.addEventListener("aivideo:burn-subtitles", burn as EventListener);
-    window.addEventListener("aivideo:anchors-updated", checkAnchorsStatus);
-    return () => {
-      window.removeEventListener("aivideo:open-continuity", open);
-      window.removeEventListener("aivideo:burn-subtitles", burn as EventListener);
-      window.removeEventListener("aivideo:anchors-updated", checkAnchorsStatus);
-    };
-  }, [selectedJobId]);
-
-  useEffect(() => {
     if (!selectedJobId) return;
     setDismissSetup(localStorage.getItem(`aivideo_continuity_dismissed_${selectedJobId}`) === "1");
     checkAnchorsStatus();
-  }, [selectedJobId]);
+  }, [selectedJobId, anchorsRevision]);
 
   // 當專案存在時，確保分鏡列表自動載入
   useEffect(() => {
@@ -70,52 +57,37 @@ export const StoryboardGrid: React.FC = () => {
 
   const currentJob = jobs.find((j) => j.id === selectedJobId);
 
-  // 依據目前分鏡語音時間加總並預估成片時間
-  const totalScenes = scenes.length;
-  const readyAudioScenes = scenes.filter((s) => s.status.has_audio && (s.status.duration || 0) > 0);
-  const totalAudioSec = readyAudioScenes.reduce((sum, s) => sum + (s.status.duration || 0), 0);
-
-  let estimatedTotalSec = 0;
-  if (readyAudioScenes.length === totalScenes && totalScenes > 0 && totalAudioSec > 0) {
-    estimatedTotalSec = totalAudioSec;
-  } else if (readyAudioScenes.length > 0 && totalScenes > 0) {
-    const avgSec = totalAudioSec / readyAudioScenes.length;
-    estimatedTotalSec = totalAudioSec + avgSec * (totalScenes - readyAudioScenes.length);
-  } else if (currentJob?.progress.estimated_duration_sec) {
-    estimatedTotalSec = currentJob.progress.estimated_duration_sec;
-  } else if (totalScenes > 0) {
-    estimatedTotalSec = totalScenes * 5.5;
-  }
-
-  const formatTime = (sec: number): string => {
-    const total = Math.round(sec);
-    const m = Math.floor(total / 60);
-    const s = total % 60;
-    if (m >= 60) {
-      const h = Math.floor(m / 60);
-      const remM = m % 60;
-      return `${h}:${String(remM).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
-    }
-    return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
-  };
-
-  const isAllAudioDone = readyAudioScenes.length === totalScenes && totalScenes > 0;
-  const durationTooltip = isAllAudioDone
-    ? `全部分鏡已完成配音，成片總長度預計為 ${formatTime(estimatedTotalSec)} (${Math.round(totalAudioSec)} 秒)`
-    : readyAudioScenes.length > 0
-    ? `已完成 ${readyAudioScenes.length}/${totalScenes} 幕配音 (${formatTime(totalAudioSec)})，依平均時長預估全片長度約 ${formatTime(estimatedTotalSec)}`
-    : `尚未生成語音，依標準每幕 5.5 秒預估全片長度約 ${formatTime(estimatedTotalSec)}`;
+  const {
+    totalScenes,
+    isAllAudioDone,
+    formattedDuration,
+    tooltip: durationTooltip,
+  } = estimateJobDuration(
+    scenes,
+    currentJob?.progress.estimated_duration_sec,
+    currentJob?.progress.scenes_count
+  );
 
   const handleBatchImages = async () => {
     if (!selectedJobId) return;
     setPipelineRunning(true, 10, "正在批次出圖...");
-    await api.runPipeline(selectedJobId, "images");
+    try {
+      await api.runPipeline(selectedJobId, "images");
+    } catch (e: any) {
+      setPipelineRunning(false, 0, "");
+      showToast("啟動批次出圖失敗: " + (e.message || "未知錯誤"), "error");
+    }
   };
 
   const handleBatchTTS = async () => {
     if (!selectedJobId) return;
     setPipelineRunning(true, 10, "正在批次配音...");
-    await api.runPipeline(selectedJobId, "tts");
+    try {
+      await api.runPipeline(selectedJobId, "tts");
+    } catch (e: any) {
+      setPipelineRunning(false, 0, "");
+      showToast("啟動批次配音失敗: " + (e.message || "未知錯誤"), "error");
+    }
   };
 
   const handleCompose = async () => {
@@ -141,7 +113,12 @@ export const StoryboardGrid: React.FC = () => {
       10,
       burnSubtitles ? "正在合成 1080p 影片 (燒錄 ASS 字幕)..." : "正在極速合成 1080p 影片 (純淨畫面直通合流)..."
     );
-    await api.runPipeline(selectedJobId, "compose", false, burnSubtitles);
+    try {
+      await api.runPipeline(selectedJobId, "compose", false, burnSubtitles);
+    } catch (e: any) {
+      setPipelineRunning(false, 0, "");
+      showToast("啟動合成失敗: " + (e.message || "未知錯誤"), "error");
+    }
   };
 
   const [isSyncingPrompts, setIsSyncingPrompts] = useState(false);
@@ -197,7 +174,7 @@ export const StoryboardGrid: React.FC = () => {
           </div>
           <div className="flex items-center space-x-2">
             <button
-              onClick={() => setIsContinuityOpen(true)}
+              onClick={() => setContinuityOpen(true)}
               className="h-7 px-3 rounded bg-amber-cta text-cinema-bg font-semibold"
             >
               開始定裝
@@ -267,11 +244,11 @@ export const StoryboardGrid: React.FC = () => {
 
           <label
             className="flex items-center space-x-1.5 cursor-pointer text-cinema-muted hover:text-cinema-text text-[11px] select-none px-1.5 shrink-0"
-            title="Job 級考據開關。預設關閉；打開後一鍵 all 才會跑考據"
+            title="Job 級考據開關。預設開啟；打開後一鍵 all 會自動檢索考據素材"
           >
             <input
               type="checkbox"
-              checked={Boolean(currentJob?.use_pip)}
+              checked={currentJob?.use_pip ?? true}
               onChange={(e) => handleTogglePip(e.target.checked)}
               className="rounded border-cinema-border bg-cinema-darker text-amber-cta focus:ring-0 w-3.5 h-3.5 cursor-pointer"
             />
@@ -293,7 +270,7 @@ export const StoryboardGrid: React.FC = () => {
               <span className="text-[11px]">預估片長</span>
               <span className="font-mono font-semibold text-cinema-text text-[11px]">
                 {isAllAudioDone ? "" : "~"}
-                {formatTime(estimatedTotalSec)}
+                {formattedDuration}
               </span>
             </div>
           )}
@@ -440,7 +417,7 @@ export const StoryboardGrid: React.FC = () => {
 
                     {/* 右下角秒數標籤 */}
                     <div className="absolute bottom-1.5 right-1.5 px-1.5 py-0.5 rounded bg-black/80 font-mono text-[10px] text-zinc-300 z-10">
-                      {formatTime(scene.status.duration)}
+                      {formatDurationClock(scene.status.duration)}
                     </div>
 
                     {/* 左下角 PiP 考據實體標籤 */}
@@ -521,7 +498,7 @@ export const StoryboardGrid: React.FC = () => {
       {/* 定裝參考中心彈窗 */}
       <VisualContinuityModal
         isOpen={isContinuityOpen}
-        onClose={() => setIsContinuityOpen(false)}
+        onClose={() => setContinuityOpen(false)}
       />
     </div>
   );

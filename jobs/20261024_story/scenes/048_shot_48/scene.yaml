@@ -1,0 +1,19 @@
+id: 048_shot_48
+index: 48
+title: 我們一邊捏碎氣泡獲取短暫的心靈撫
+narration: 我們一邊捏碎氣泡獲取短暫的心靈撫慰一邊製造著龐大的生態代價，人類的現代文明在某種程度上就像這張鼓脹輕盈的泡泡紙，
+image_prompt: Wide conceptual shot in Q-version 2D cartoon illustration style, a miniature
+  modern chibi civilization bustling with tiny cars and skyscrapers resting entirely
+  atop an enormous, inflated sheet of bubble wrap packaging sheet, fragile yet protective,
+  glowing with golden sunset backlight, rich cel-shading, 16:9 widescreen composition.
+character_ids:
+- classic_bubble_wrap
+image_negative: ''
+act_index: 7
+act_title: 空氣的代價與歷史餘韻：從荒唐失敗到文明容器
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T132101
+  image_take: image_20261024T132041

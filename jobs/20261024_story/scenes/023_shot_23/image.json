@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261024T125602",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 90063395,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background\nVibrant contrasting color palettes, crisp details throughout, expressive chibi faces, rich background props., Dramatic dynamic shot in Q-version 2D cartoon illustration style, set inside a high-level executive boardroom in New York, Frederick Bowers forcefully slamming a fragile scientific instrument wrapped in bubble wrap packaging sheet onto the solid concrete floor, stunned corporate executives jumping back in shock, bold comic action lines, 16:9 widescreen composition., 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-24T12:56:02.099370+00:00"
+}

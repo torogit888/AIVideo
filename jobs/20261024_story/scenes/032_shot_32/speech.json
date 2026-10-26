@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261024T130501",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.73,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "一九九二年美國西新英格蘭大學的心理學教授進行了嚴格的對照實驗",
+      "text_cn": "一九九二年美国西新英格兰大学的心理学教授进行了严格的对照实验",
+      "start_sec": 0.0,
+      "end_sec": 5.91,
+      "duration_sec": 5.91
+    },
+    {
+      "index": 2,
+      "text": "他們找來了數十名處於高度焦慮與心理壓力下的受試者",
+      "text_cn": "他们找来了数十名处于高度焦虑与心理压力下的受试者",
+      "start_sec": 6.16,
+      "end_sec": 11.12,
+      "duration_sec": 4.96
+    },
+    {
+      "index": 3,
+      "text": "讓他們隨意按壓泡泡紙並同時精確監測他們的各項生理指標",
+      "text_cn": "让他们随意按压泡泡纸并同时精确监测他们的各项生理指标",
+      "start_sec": 11.37,
+      "end_sec": 16.73,
+      "duration_sec": 5.36
+    }
+  ],
+  "created_at": "2026-10-24T13:05:01.664072+00:00"
+}

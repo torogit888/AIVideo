@@ -184,6 +184,7 @@ def generate_outline(req: GenerateOutlineRequest) -> GenerateOutlineResponse:
             tone_id=req.tone_id,
             model=req.model,
             user_prompt=req.user_prompt,
+            word_count=req.word_count,
         )
         return GenerateOutlineResponse(outline=outline)
     except Exception as e:
@@ -199,7 +200,7 @@ def generate_script(req: GenerateScriptRequest) -> GenerateScriptResponse:
             word_count=req.word_count,
             search_grounding=req.internet_search,
             model=req.model,
-            notes=req.notes,
+            outline=req.outline or req.notes,
             user_prompt=req.user_prompt,
         )
         # 清理並統計字數與估算秒數 (中文語速約每分鐘 200~240 字)

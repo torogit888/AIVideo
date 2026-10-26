@@ -3,19 +3,36 @@ import { PlaySquare, Download, FileText, Youtube, RefreshCw, AlertCircle } from 
 import { useStudioStore } from "../store";
 import { YouTubeUploadModal } from "./YouTubeUploadModal";
 
+/** 合成時沒有配音秒數就用 5 秒，與 compose.py 的後備時長相同。 */
+const COMPOSE_FALLBACK_SEC = 5;
+const filmResumeSec = new Map<string, number>();
+
+function filmResumeKey(jobId: string, filmMtime: number, manualReload: number): string {
+  return `${jobId}|${filmMtime}|${manualReload}`;
+}
+
 export const FilmViewer: React.FC = () => {
-  const { currentTab, jobs, selectedJobId, scenes, loadScenes, loadJobs, setTab, openInspector } =
-    useStudioStore();
+  const {
+    currentTab,
+    jobs,
+    selectedJobId,
+    scenes,
+    activeSceneId,
+    loadScenes,
+    loadJobs,
+    openInspector,
+  } = useStudioStore();
   const [showYouTubeModal, setShowYouTubeModal] = useState(false);
-  const [filmVersion, setFilmVersion] = useState<number>(Date.now());
+  const [manualReloadCount, setManualReloadCount] = useState<number>(0);
   const [videoError, setVideoError] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const currentJob = jobs.find((j) => j.id === selectedJobId);
   const hasFilm = currentJob?.progress.film_ready ?? false;
+  const filmMtime = currentJob?.progress.film_mtime || 0;
 
   const refreshFilm = useCallback(() => {
-    setFilmVersion(Date.now());
+    setManualReloadCount((c) => c + 1);
     setVideoError(false);
     if (selectedJobId) {
       loadScenes(selectedJobId);
@@ -23,25 +40,60 @@ export const FilmViewer: React.FC = () => {
     }
   }, [selectedJobId, loadScenes, loadJobs]);
 
-  // 當使用者切換到成片分頁（或切換專案）時，自動同步最新專案資料並重新載入影片
+  const resumeKey = selectedJobId ? filmResumeKey(selectedJobId, filmMtime, manualReloadCount) : "";
+
+  // 切換專案或成片檔案 mtime 更新時清除錯誤狀態
   useEffect(() => {
-    if (currentTab === "film" && selectedJobId) {
-      refreshFilm();
+    setVideoError(false);
+  }, [selectedJobId, filmMtime]);
+
+  // 離開成片頁時記住秒數並暫停。父層不用 display:none，避免瀏覽器把媒體元件卸載後從 0 秒重播。
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !resumeKey) return;
+    if (currentTab !== "film") {
+      if (video.currentTime > 0.2) {
+        filmResumeSec.set(resumeKey, video.currentTime);
+      }
+      if (!video.paused) video.pause();
+      return;
     }
-  }, [currentTab, selectedJobId, refreshFilm]);
+    const saved = filmResumeSec.get(resumeKey) ?? 0;
+    if (saved <= 0.3) return;
+    let cancelled = false;
+    const restore = () => {
+      const el = videoRef.current;
+      if (cancelled || !el) return;
+      if (el.currentTime < 0.25 || Math.abs(el.currentTime - saved) > 0.75) {
+        try {
+          el.currentTime = saved;
+        } catch {
+          /* 元資料尚未就緒 */
+        }
+      }
+    };
+    restore();
+    video.addEventListener("loadedmetadata", restore);
+    video.addEventListener("canplay", restore);
+    return () => {
+      cancelled = true;
+      video.removeEventListener("loadedmetadata", restore);
+      video.removeEventListener("canplay", restore);
+    };
+  }, [currentTab, resumeKey]);
 
   const encodedJobId = selectedJobId ? encodeURIComponent(selectedJobId) : "";
   const rawFilmUrl = encodedJobId && hasFilm ? `/media/jobs/${encodedJobId}/compose/film.mp4` : null;
-  // 加上時間戳防止瀏覽器快取舊成片或快取先前的 404 狀態
-  const filmPlayUrl = rawFilmUrl ? `${rawFilmUrl}?t=${filmVersion}` : null;
+  // 以成片實際修改時間 (film_mtime) 與手動重載次數作為快取鍵，切分頁時不會重讀影片
+  const filmPlayUrl = rawFilmUrl ? `${rawFilmUrl}?t=${filmMtime}-${manualReloadCount}` : null;
   const srtUrl = encodedJobId ? `/media/jobs/${encodedJobId}/compose/timeline.srt` : null;
   const assUrl = encodedJobId ? `/media/jobs/${encodedJobId}/compose/timeline.ass` : null;
 
   const cues = useMemo(() => {
     let t = 0;
     return scenes.map((s) => {
-      const dur = s.status.duration > 0 ? s.status.duration : 5.5;
-      const cue = { id: s.id, title: s.title, start: t, end: t + dur };
+      const dur = s.status.duration > 0 ? s.status.duration : COMPOSE_FALLBACK_SEC;
+      const cue = { id: s.id, index: s.index, title: s.title, start: t, end: t + dur };
       t += dur;
       return cue;
     });
@@ -52,7 +104,6 @@ export const FilmViewer: React.FC = () => {
     if (videoRef.current) {
       videoRef.current.currentTime = startSec;
     }
-    setTab("storyboard");
     openInspector(sceneId);
   };
 
@@ -130,6 +181,12 @@ export const FilmViewer: React.FC = () => {
             controls
             className="w-full h-full object-contain"
             autoPlay={false}
+            onTimeUpdate={() => {
+              const el = videoRef.current;
+              if (resumeKey && el && el.currentTime > 0.2) {
+                filmResumeSec.set(resumeKey, el.currentTime);
+              }
+            }}
             onError={() => setVideoError(true)}
           />
         ) : videoError ? (
@@ -159,20 +216,25 @@ export const FilmViewer: React.FC = () => {
       {cues.length > 0 && (
         <div className="shrink-0 space-y-2">
           <div className="flex items-center justify-between text-[11px] text-cinema-muted">
-            <span>時間軸（點一場進入分鏡 Inspector）</span>
-            <span className="font-mono">{cues.length} 場</span>
+            <span>時間軸（點任一鏡可跳轉影片秒數，並在右側滑出該鏡精修抽屜）</span>
+            <span className="font-mono">{cues.length} 鏡</span>
           </div>
           <div className="flex h-10 rounded-lg overflow-hidden border border-cinema-border bg-cinema-darker">
             {cues.map((cue) => {
               const pct = ((cue.end - cue.start) / totalDur) * 100;
+              const isSelected = activeSceneId === cue.id;
               return (
                 <button
                   key={cue.id}
                   type="button"
-                  title={`${cue.title} · ${cue.start.toFixed(1)}s`}
+                  title={`#${cue.index} ${cue.title} · ${cue.start.toFixed(1)}s`}
                   onClick={() => jumpToScene(cue.id, cue.start)}
                   style={{ width: `${Math.max(pct, 0.8)}%` }}
-                  className="h-full min-w-[4px] border-r border-cinema-border/60 last:border-r-0 bg-cinema-card hover:bg-amber-cta/40 text-[9px] text-cinema-muted hover:text-cinema-text truncate px-0.5 transition-colors"
+                  className={`h-full min-w-[4px] border-r border-cinema-border/60 last:border-r-0 text-[9px] truncate px-0.5 transition-colors ${
+                    isSelected
+                      ? "bg-amber-cta/30 text-amber-cta font-semibold"
+                      : "bg-cinema-card hover:bg-amber-cta/40 text-cinema-muted hover:text-cinema-text"
+                  }`}
                 >
                   {pct >= 3 ? cue.title : ""}
                 </button>

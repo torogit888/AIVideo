@@ -19,8 +19,10 @@ def snapshot_runner(runner: Any) -> dict[str, Any]:
     has_audio = False
     if live_dir is not None:
         try:
-            has_image = (live_dir / "image.png").is_file()
-            has_audio = (live_dir / "speech.wav").is_file() or (live_dir / "audio.wav").is_file()
+            from aivideo.naming import is_scene_visual_ready
+
+            has_image = is_scene_visual_ready(live_dir)
+            has_audio = (live_dir / "speech.wav").is_file()
         except OSError:
             pass
     return {

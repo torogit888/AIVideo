@@ -1,0 +1,19 @@
+id: 027_shot_27
+index: 27
+title: 最普通的聚乙烯高分子結構其實存在
+narration: 最普通的聚乙烯高分子結構其實存在著微小的天然孔隙，在承受重物持續壓力的情況下氣泡裡的氣體會在幾天內慢慢滲漏，等到貨物漂洋過海運到港口時原本鼓脹的氣泡早就全癟掉了，
+image_prompt: Medium close-up shot in Q-version 2D cartoon illustration style, deep
+  in the dark humid cargo hold of a swaying ocean freighter, where stacked heavy wooden
+  freight crates squash sagging, deflated counterfeit plastic bubble sheets completely
+  flat, with tiny stylized air molecules escaping through micro-pores, cool dim palette,
+  16:9 widescreen composition.
+character_ids: []
+image_negative: ''
+act_index: 4
+act_title: 減震封印下的暴利帝國：希悅爾的專利防禦網
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T130011
+  image_take: image_20261024T125935

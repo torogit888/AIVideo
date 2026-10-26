@@ -9,7 +9,12 @@ import yaml
 
 from aivideo.commands.check import _load_dotenv
 from aivideo.gemini_image import get_gemini_client_kwargs
-from aivideo.naming import DEFAULT_VOICE_ID, scene_folder_id, scene_title_from_narration
+from aivideo.naming import (
+    DEFAULT_IMAGE_MODEL,
+    DEFAULT_VOICE_ID,
+    scene_folder_id,
+    scene_title_from_narration,
+)
 from aivideo.spoken import OMNIVOICE_TAG_RE as _OMNIVOICE_TAG_RE
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -38,129 +43,16 @@ def get_candidate_text_models(preferred_model: str | None = None) -> list[str]:
             candidates.append(resolved)
     return candidates
 
-STYLES_FILE = REPO_ROOT / "assets" / "styles.yaml"
-
-DEFAULT_STYLE_PRESETS = {
-    "otomo_katsuhiro": {
-        "name": "大友克洋風格 (Katsuhiro Otomo Style)",
-        "prefix": "Katsuhiro Otomo Style",
-        "negative": "文字浮水印、現代3D塑料感、低細節模糊、走形手部, text, words, Chinese characters, subtitles, watermark",
-    },
-    "cinematic_realistic": {
-        "name": "電影寫實風格 (Cinematic Realistic)",
-        "prefix": "Cinematic Realistic Style",
-        "negative": "文字浮水印、過曝、變形、塑料感, text, words, Chinese characters, subtitles, watermark",
-    },
-    "japanese_anime": {
-        "name": "新海誠日系動漫風格 (Makoto Shinkai Style)",
-        "prefix": "Makoto Shinkai Style",
-        "negative": "文字浮水印、寫實暗沉、粗糙雜訊, text, words, Chinese characters, subtitles, watermark",
-    },
-    "european_fairytale": {
-        "name": "歐式古典童話繪本風格 (European Fairytale Style)",
-        "prefix": "European Fairytale Style",
-        "negative": "文字浮水印、照片寫實、現代冰冷科技感, text, words, Chinese characters, subtitles, watermark",
-    },
-    "retro_scifi": {
-        "name": "70年代復古科幻太空風格 (Retro Sci-Fi Style)",
-        "prefix": "1970s Retro Sci-Fi Style",
-        "negative": "文字浮水印、數碼平滑、雜亂畸形, text, words, Chinese characters, subtitles, watermark",
-    },
-}
-
-
-def resolve_style(style_key: str | None = None) -> dict[str, str]:
-    """取得專案生圖風格的名稱、prefix 與說明，供分析與分鏡 prompt 鎖定畫風。"""
-    styles = load_style_presets()
-    key = (style_key or "").strip()
-    info = styles.get(key) if key else None
-    if not isinstance(info, dict) or not info:
-        info = styles.get("otomo_katsuhiro") or next(iter(styles.values()), {}) or {}
-        key = key or "otomo_katsuhiro"
-    return {
-        "key": key,
-        "name": str(info.get("name") or key or "").strip(),
-        "prefix": str(info.get("prefix") or "").strip(),
-        "description": str(info.get("description") or "").strip(),
-        "negative": str(info.get("negative") or "").strip(),
-    }
-
-
-def style_lock_instructions(style_key: str | None = None) -> str:
-    style = resolve_style(style_key)
-    desc = style["description"] or style["prefix"]
-    return f"""ART STYLE LOCK (mandatory — this is the project's selected image style):
-- Style name: {style["name"]}
-- Visual language: {desc}
-- Write faces, bodies, clothing, materials, lighting and atmosphere IN THIS MEDIUM.
-- Do NOT add photoreal photography, 35mm film grain, live-action cinematography, or volumetric cinematic lighting unless this style is itself realistic / cinematic.
-- Do not contradict the style with a different art movement."""
-
-
-def load_style_presets() -> dict[str, dict[str, str]]:
-    """載入視覺風格預設值。優先從 assets/styles.yaml 載入，若不存在則初始化並存檔。"""
-    if STYLES_FILE.is_file():
-        try:
-            with open(STYLES_FILE, "r", encoding="utf-8") as f:
-                data = yaml.safe_load(f)
-                if isinstance(data, dict) and data:
-                    return data
-        except Exception:
-            pass
-    # 初始化寫入預設風格
-    save_all_style_presets(DEFAULT_STYLE_PRESETS)
-    return dict(DEFAULT_STYLE_PRESETS)
-
-
-def save_all_style_presets(styles: dict[str, dict[str, str]]) -> None:
-    STYLES_FILE.parent.mkdir(parents=True, exist_ok=True)
-    with open(STYLES_FILE, "w", encoding="utf-8") as f:
-        yaml.safe_dump(styles, f, allow_unicode=True, sort_keys=False)
-
-
-def save_style_preset(
-    style_key: str,
-    name: str,
-    prefix: str,
-    negative: str,
-    preview: str = "",
-    description: str = "",
-) -> None:
-    styles = load_style_presets()
-    item = styles.get(style_key, {})
-    item.update({
-        "name": name,
-        "prefix": prefix,
-        "negative": negative,
-    })
-    if preview:
-        item["preview"] = preview
-    elif "preview" not in item:
-        item["preview"] = ""
-    if description:
-        item["description"] = description
-    elif "description" not in item:
-        item["description"] = ""
-    styles[style_key] = item
-    save_all_style_presets(styles)
-
-
-def delete_style_preset(style_key: str) -> bool:
-    styles = load_style_presets()
-    if style_key in styles:
-        prev_path = styles[style_key].get("preview")
-        if prev_path:
-            p_file = REPO_ROOT / prev_path
-            if p_file.is_file() and "assets/styles/previews" in str(p_file).replace("\\", "/"):
-                try:
-                    p_file.unlink()
-                except Exception:
-                    pass
-        del styles[style_key]
-        save_all_style_presets(styles)
-        return True
-    return False
-
+from aivideo.style_prompt import (
+    DEFAULT_STYLE_PRESETS,
+    STYLES_FILE,
+    delete_style_preset,
+    load_style_presets,
+    resolve_style,
+    save_all_style_presets,
+    save_style_preset,
+    style_lock_instructions,
+)
 
 # 向下相容
 STYLE_PRESETS = load_style_presets()
@@ -447,13 +339,25 @@ def _strip_outline_preamble(text: str) -> str:
     return raw
 
 
+def build_outline_target_spec(word_count: int = 3500) -> str:
+    """依目標字數滑桿動態換算預估片長與建議幕數，避免大綱永遠固定為 4000 字／12~15 分鐘。"""
+    wc = max(300, min(5000, int(word_count or 3500)))
+    est_min = max(1, round(wc / 220))
+    if wc <= 1200:
+        acts_range = "4～6 幕"
+    else:
+        acts_range = "6～8 幕"
+    return f"片長約 {est_min} 分鐘（目標約 {wc} 字）的「{acts_range}核心情節大綱與關鍵看點」"
+
+
 def generate_story_outline(
     topic: str,
     tone_id: str = "michelin_curious",
     model: str | None = None,
     user_prompt: str | None = None,
+    word_count: int = 3500,
 ) -> str:
-    """由 AI 聯網檢索並規劃長篇深度故事的 6~8 個核心情節大綱與關鍵看點，可依據使用者自訂的 Prompt/靈感深化。"""
+    """由 AI 聯網檢索並規劃故事的核心情節大綱與關鍵看點，依目標字數滑桿與使用者自訂 Prompt 深化。"""
     _load_dotenv()
     from google import genai
     from google.genai import types
@@ -461,6 +365,7 @@ def generate_story_outline(
     host_name = resolve_host_persona_name(user_prompt)
     raw_tone_sample = load_tone_sample(tone_id)
     tone_sample = deidentify_and_bind_tone(raw_tone_sample, host_name)
+    target_spec = build_outline_target_spec(word_count)
 
     user_prompt_section = ""
     if user_prompt and user_prompt.strip():
@@ -478,7 +383,7 @@ def generate_story_outline(
     )
 
     prompt = f"""你是一位頂級專題紀錄片與故事腳本總策劃。
-請針對以下主題進行深度資料檢索，規劃一套結構嚴密、高潮迭起、長達 12~15 分鐘（目標約 4000 字）的「6～8 幕核心情節大綱與關鍵看點」：
+請針對以下主題進行深度資料檢索，規劃一套結構嚴密、高潮迭起、{target_spec}：
 
 【主題】
 {topic}
@@ -539,6 +444,7 @@ def generate_story_script(
     word_count: int = 2000,
     search_grounding: bool = True,
     model: str | None = None,
+    outline: str | None = None,
     notes: str | None = None,
     user_prompt: str | None = None,
     # 向下相容參數別名
@@ -549,6 +455,7 @@ def generate_story_script(
         tone_id = tone
     if internet_search is not None:
         search_grounding = internet_search
+    outline_text = outline if outline is not None else notes
 
     _load_dotenv()
     from google import genai
@@ -570,10 +477,10 @@ def generate_story_script(
 """
 
     notes_section = ""
-    if notes and notes.strip():
+    if outline_text and outline_text.strip():
         notes_section = f"""
 【故事核心大綱與關鍵看點（僅供內部情節骨架，禁止照抄欄位文字）】
-{notes.strip()}
+{outline_text.strip()}
 請嚴格依據上述大綱架構逐幕深入鋪陳，每幕展開足夠的台詞與名場面細節，切忌一筆帶過！
 大綱裡的「幕次標題」「核心矛盾衝突」「此幕要帶給觀眾的懸念或情緒高潮」是給編劇看的場記。
 必須改寫成聽眾聽得懂的說書口白，嚴禁把標題或情緒標註原句唸出來。
@@ -664,7 +571,7 @@ def generate_story_script(
                 config=config,
             )
             if resp.text:
-                return sanitize_script_punctuation(resp.text.strip(), outline_notes=notes)
+                return sanitize_script_punctuation(resp.text.strip(), outline_notes=outline_text)
         except Exception as exc:
             errors.append(f"{model_name}: {exc}")
             continue
@@ -1269,17 +1176,15 @@ def merge_trailing_cta_chunks(chunks: list[list[str]]) -> list[list[str]]:
 def parse_script_lines_to_scenes(
     script_lines_text: str,
     visual_pacing: str = "balanced",
-    sentences_per_scene: int | None = None,
     style_key: str = "otomo_katsuhiro",
     subject_anchor: str = "",
     environment_anchor: str = "",
     topic: str = "",
     characters: list[dict[str, str]] | None = None,
     outline: str | None = None,
-    metaphor_style: str = "fantasy",
 ) -> list[dict[str, object]]:
-    """將逐行台詞依據 AI 語意情節與設定的視覺節奏 (Visual Pacing) 自動切分為分鏡場景，
-    並為每場分鏡產生英文提示詞與前置分析考據實體 (PiP)。若傳入 sentences_per_scene 則保留向下相容。"""
+    """將逐行台詞依據 AI 語意情節與設定的視覺節奏 (Visual Pacing: fast / balanced / slow) 自動切分為分鏡場景，
+    並為每場分鏡產生英文提示詞與前置分析考據實體 (PiP)。"""
     # 先行清理並嚴格規範標點符號（頓號、句號、冒號轉逗號，移除引號）
     sanitized_text = sanitize_script_punctuation(script_lines_text)
     raw_lines = [line.strip() for line in sanitized_text.strip().splitlines() if line.strip()]
@@ -1291,20 +1196,12 @@ def parse_script_lines_to_scenes(
         if l:
             clean_lines.append(l)
 
-    # 決定分鏡區塊 (Chunks)
-    if sentences_per_scene is not None and sentences_per_scene > 0:
-        # 向下相容傳統固定句數切分
-        chunks: list[list[str]] = []
-        chunk_size = max(1, min(5, sentences_per_scene))
-        for idx in range(0, len(clean_lines), chunk_size):
-            chunks.append(clean_lines[idx : idx + chunk_size])
-    else:
-        # AI 智能語意切分 (結合視覺節奏)
-        chunks = ai_semantic_chunk_script(
-            clean_lines,
-            visual_pacing=visual_pacing,
-            topic=topic,
-        )
+    # AI 智能語意切分 (結合視覺節奏：快 / 標準 / 慢)
+    chunks = ai_semantic_chunk_script(
+        clean_lines,
+        visual_pacing=visual_pacing,
+        topic=topic,
+    )
 
     # 自動吸收合併片尾訂閱呼籲語 (CTA)，確保訂閱口白留在故事最後一幕，不產生孤立新分鏡
     chunks = merge_trailing_cta_chunks(chunks)
@@ -1545,15 +1442,13 @@ def create_job_bundle(
     outline: str | None = None,
     tone_id: str | None = None,
     use_pip: bool = True,
-    metaphor_style: str = "fantasy",
+    script_text: str | None = None,
+    visual_pacing: str = "balanced",
 ) -> Path:
     job_dir = REPO_ROOT / "jobs" / job_id
     job_dir.mkdir(parents=True, exist_ok=True)
     scenes_dir = job_dir / "scenes"
     scenes_dir.mkdir(parents=True, exist_ok=True)
-
-    styles = load_style_presets()
-    style_cfg = styles.get(style_key, styles.get("otomo_katsuhiro", DEFAULT_STYLE_PRESETS["otomo_katsuhiro"]))
 
     from aivideo.visual_anchors import compose_subject_anchor, persist_characters_on_anchors
 
@@ -1576,7 +1471,7 @@ def create_job_bundle(
         "voice_id": voice_id,
         "use_pip": bool(use_pip),
         "tone_id": tone_id or "",
-        "metaphor_style": metaphor_style or "fantasy",
+        "visual_pacing": visual_pacing or "balanced",
         "custom_prompt": custom_prompt or "",
         "outline": outline or "",
         "visual_anchors": visual_anchors,
@@ -1590,14 +1485,11 @@ def create_job_bundle(
         },
         "image": {
             "backend": "gemini",
-            "model": (image_model or os.environ.get("GEMINI_IMAGE_MODEL", "gemini-3-pro-image")).strip(),
-            "model_final": (image_model or os.environ.get("GEMINI_IMAGE_MODEL", "gemini-3-pro-image")).strip(),
+            "model": (image_model or DEFAULT_IMAGE_MODEL).strip(),
             "resolution": "1K",
             "aspect_ratio": "16:9",
             "style": style_key,
         },
-        "style_prefix": style_cfg["prefix"],
-        "style_negative": style_cfg["negative"],
         "subtitle": {
             "mode": "none",
             "font": subtitle_font_for_job(),
@@ -1607,24 +1499,16 @@ def create_job_bundle(
     }
     save_job_config(job_dir, job_yaml)
 
-    # 寫入 script.md
-    script_md_lines = [f"# {title}\n"]
-    if characters:
-        for ch in characters:
-            script_md_lines.append(
-                f"> **角色定裝 ({ch.get('name') or ch.get('id')}):** {ch.get('appearance', '')}"
-            )
-        if environment_anchor:
-            script_md_lines.append(f"> **環境錨定 (Environment Anchor):** {environment_anchor}\n")
-    elif subject_anchor or environment_anchor:
-        script_md_lines.append(f"> **主體錨定 (Subject Anchor):** {subject_anchor}")
-        script_md_lines.append(f"> **環境錨定 (Environment Anchor):** {environment_anchor}\n")
-
-    for s in scenes:
-        script_md_lines.append(f"## {s['index']:03d} {s['title']}")
-        script_md_lines.append(f"畫面：{s['image_prompt']}")
-        script_md_lines.append(f"旁白：{s['narration']}\n")
-    (job_dir / "script.md").write_text("\n".join(script_md_lines), encoding="utf-8")
+    # 寫入 script.md（直接寫入純口白文字，不寫入「畫面：／旁白：」導演筆記再二次覆寫）
+    if script_text is not None:
+        final_script_md = script_text
+    else:
+        final_script_md = "\n".join(
+            str(s.get("narration") or "").strip()
+            for s in scenes
+            if str(s.get("narration") or "").strip()
+        )
+    (job_dir / "script.md").write_text(final_script_md, encoding="utf-8")
 
     # 寫入各場景 scene.yaml
     for s in scenes:

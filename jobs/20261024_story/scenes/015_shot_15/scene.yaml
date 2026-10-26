@@ -1,0 +1,21 @@
+id: 015_shot_15
+index: 15
+title: 氣泡在高溫下紛紛爆裂薄膜內側更凝
+narration: 氣泡在高溫下紛紛爆裂薄膜內側更凝結出密密麻麻的水珠，缺乏光照與高濕環境導致整片整片的玫瑰花苗大面積爛根霉變，憤怒的花農拿著枯死的花枝圍堵車庫要求賠償所有經濟損失，
+image_prompt: Wide shot in Q-version 2D cartoon illustration style, outside the brick
+  garage workshop, where a crowd of furious chibi farmers shake wilting, moldy rose
+  bushes and demand compensation, while Alfred Fielding and Marc Chavannes peek out
+  nervously from behind half-closed garage doors with sweating comical expressions,
+  16:9 widescreen composition.
+character_ids:
+- alfred_fielding
+- marc_chavannes
+image_negative: ''
+act_index: 2
+act_title: 悶熱溫室裡的二次窒息：保溫棉騙局與物理法則的暴擊
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T124908
+  image_take: image_20261024T124854

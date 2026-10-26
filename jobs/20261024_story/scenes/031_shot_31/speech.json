@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261024T130416",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.93,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[question-ei]你有沒有納悶過為什麼無論男女老少只要手裡拿到一張泡泡紙",
+      "text_cn": "[question-ei]你有没有纳闷过为什么无论男女老少只要手里拿到一张泡泡纸",
+      "start_sec": 0.0,
+      "end_sec": 5.67,
+      "duration_sec": 5.67
+    },
+    {
+      "index": 2,
+      "text": "手指就會不由自主地去按壓那些排列整齊的小圓點呢？",
+      "text_cn": "手指就会不由自主地去按压那些排列整齐的小圆点呢？",
+      "start_sec": 5.92,
+      "end_sec": 10.72,
+      "duration_sec": 4.8
+    },
+    {
+      "index": 3,
+      "text": "而且每捏爆一顆聽著那一聲短促清脆的啪嗒聲心裡就湧起一陣暗爽",
+      "text_cn": "而且每捏爆一颗听着那一声短促清脆的啪嗒声心里就涌起一阵暗爽",
+      "start_sec": 10.97,
+      "end_sec": 16.93,
+      "duration_sec": 5.96
+    }
+  ],
+  "created_at": "2026-10-24T13:04:16.323279+00:00"
+}

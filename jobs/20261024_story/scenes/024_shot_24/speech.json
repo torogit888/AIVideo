@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261024T125706",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 17.42,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "當主管鐵青著臉把它撿起來拆開檢查時所有人都目瞪口呆",
+      "text_cn": "当主管铁青著脸把它捡起来拆开检查时所有人都目瞪口呆",
+      "start_sec": 0.0,
+      "end_sec": 5.16,
+      "duration_sec": 5.16
+    },
+    {
+      "index": 2,
+      "text": "[confirmation-en]內部零件完好無損每一個脆弱的微小接點都沒有發生位移",
+      "text_cn": "[confirmation-en]内部零件完好无损每一个脆弱的围小接点都没有发生位移",
+      "start_sec": 5.41,
+      "end_sec": 11.61,
+      "duration_sec": 6.2
+    },
+    {
+      "index": 3,
+      "text": "就憑這石破天驚的一摔希悅爾拿下了全美電腦零件的獨家合約",
+      "text_cn": "就凭这石破天惊的一摔希悦尔拿下了全美电脑零件的独家合约",
+      "start_sec": 11.86,
+      "end_sec": 17.42,
+      "duration_sec": 5.56
+    }
+  ],
+  "created_at": "2026-10-24T12:57:06.518592+00:00"
+}

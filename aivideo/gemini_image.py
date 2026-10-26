@@ -18,10 +18,10 @@ SMOKE_PROMPT = (
     "一盞暖色路燈，沒有行人，膠片顆粒，低光照。不要任何文字或浮水印。"
 )
 
-# 金鑰能用哪個 id 因帳號而異；由新到舊試。
+# 金鑰能用哪個 id 因帳號而異；預設首選與全站 DEFAULT_IMAGE_MODEL 對齊。
 MODEL_CANDIDATES = (
-    "gemini-3-pro-image",
     "gemini-3.1-flash-image",
+    "gemini-3-pro-image",
     "gemini-3.1-flash-image-preview",
     "gemini-3.1-flash-lite-image",
     "gemini-2.5-flash-image",
@@ -165,7 +165,9 @@ def generate_image(
     ref_image: Path | bytes | None = None,
     ref_images: list[Path | bytes | tuple[Path | bytes, str]] | None = None,
 ) -> tuple[Path, str, int | None]:
-    preferred = (model or os.environ.get("GEMINI_IMAGE_MODEL", "")).strip()
+    from aivideo.naming import DEFAULT_IMAGE_MODEL
+
+    preferred = (model or os.environ.get("GEMINI_IMAGE_MODEL", "") or DEFAULT_IMAGE_MODEL).strip()
     models = [preferred] if preferred else []
     for name in MODEL_CANDIDATES:
         if name not in models:

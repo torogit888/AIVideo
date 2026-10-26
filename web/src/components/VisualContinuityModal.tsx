@@ -21,7 +21,7 @@ interface Props {
 }
 
 export const VisualContinuityModal: React.FC<Props> = ({ isOpen, onClose }) => {
-  const { selectedJobId, loadJobs, loadScenes, showToast, requestConfirm } = useStudioStore();
+  const { selectedJobId, loadJobs, loadScenes, showToast, requestConfirm, bumpAnchorsRevision } = useStudioStore();
 
   const [anchors, setAnchors] = useState<JobVisualAnchors | null>(null);
   const [loading, setLoading] = useState(false);
@@ -86,7 +86,7 @@ export const VisualContinuityModal: React.FC<Props> = ({ isOpen, onClose }) => {
       });
       applyAnchors(updated);
       await loadJobs();
-      window.dispatchEvent(new CustomEvent("aivideo:anchors-updated"));
+      bumpAnchorsRevision();
       if (showSuccessToast) {
         showToast("視覺錨點與參考圖設定已儲存！", "success");
       }
@@ -109,7 +109,7 @@ export const VisualContinuityModal: React.FC<Props> = ({ isOpen, onClose }) => {
       const res = await api.generateHeroAnchor(selectedJobId);
       await fetchAnchors();
       await loadJobs();
-      window.dispatchEvent(new CustomEvent("aivideo:anchors-updated"));
+      bumpAnchorsRevision();
       showToast(res.message || "已依專案風格為各角色生成定裝圖", "success");
     } catch (e: any) {
       showToast("生成定裝圖失敗: " + (e.message || "未知錯誤"), "error");
@@ -134,7 +134,7 @@ export const VisualContinuityModal: React.FC<Props> = ({ isOpen, onClose }) => {
       const updated = await api.generateCharacterHero(selectedJobId, targetCharId);
       applyAnchors(updated);
       await loadJobs();
-      window.dispatchEvent(new CustomEvent("aivideo:anchors-updated"));
+      bumpAnchorsRevision();
       showToast("已依專案風格與最新外觀敘述生成此角色定裝圖", "success");
     } catch (e: any) {
       showToast("生成定裝圖失敗: " + (e.message || "未知錯誤"), "error");
@@ -151,7 +151,7 @@ export const VisualContinuityModal: React.FC<Props> = ({ isOpen, onClose }) => {
       const updated = await api.uploadCharacterHero(selectedJobId, charId, file);
       applyAnchors(updated);
       await loadJobs();
-      window.dispatchEvent(new CustomEvent("aivideo:anchors-updated"));
+      bumpAnchorsRevision();
       showToast("角色定裝參考圖上傳成功", "success");
     } catch (err: any) {
       showToast("上傳失敗: " + (err.message || "未知錯誤"), "error");
@@ -167,7 +167,7 @@ export const VisualContinuityModal: React.FC<Props> = ({ isOpen, onClose }) => {
       const updated = await api.deleteCharacterHero(selectedJobId, charId);
       applyAnchors(updated);
       await loadJobs();
-      window.dispatchEvent(new CustomEvent("aivideo:anchors-updated"));
+      bumpAnchorsRevision();
       showToast("已移除此角色定裝圖", "info");
     } catch (e: any) {
       showToast("移除失敗: " + (e.message || "未知錯誤"), "error");
@@ -255,7 +255,7 @@ export const VisualContinuityModal: React.FC<Props> = ({ isOpen, onClose }) => {
       });
       applyAnchors(updated);
       await loadJobs();
-      window.dispatchEvent(new CustomEvent("aivideo:anchors-updated"));
+      bumpAnchorsRevision();
       showToast("✨ 已依最新腳本重新分析角色與世界觀，並已清空舊定裝圖！", "success");
     } catch (e: any) {
       showToast("重新分析失敗: " + (e.message || "未知錯誤"), "error");
@@ -419,7 +419,7 @@ export const VisualContinuityModal: React.FC<Props> = ({ isOpen, onClose }) => {
                               })
                               .then((updated) => {
                                 applyAnchors(updated);
-                                window.dispatchEvent(new CustomEvent("aivideo:anchors-updated"));
+                                bumpAnchorsRevision();
                               })
                               .catch(() => {});
                           }

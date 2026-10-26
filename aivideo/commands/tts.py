@@ -19,6 +19,7 @@ import zhconv
 
 from aivideo.commands.check import _load_dotenv
 from aivideo.spoken import prepare_tts_text
+from aivideo.takes import prune_scene_takes_after_adopt
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
@@ -662,6 +663,7 @@ def run_tts(args: Any = None, progress_callback=None, **kwargs) -> int:
                 scene_cfg["current"]["speech_take"] = take_id
                 with open(scene_yaml_path, "w", encoding="utf-8") as f:
                     yaml.safe_dump(scene_cfg, f, allow_unicode=True, sort_keys=False)
+                prune_scene_takes_after_adopt(s_dir)
 
             print(f"[ok]   {s_id} 逐句合成完畢 -> {take_id}.wav (共 {total_duration_sec}s)")
             processed += 1

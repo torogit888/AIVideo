@@ -817,6 +817,11 @@ def _pip_cfg(scfg: dict) -> dict:
     return pip if isinstance(pip, dict) else {}
 
 
+def pip_switch_on(pip_cfg: object) -> bool:
+    """右邊抽屜「啟用本幕考據」。沒寫或關掉就是關，自動下載不得把它打開。"""
+    return isinstance(pip_cfg, dict) and bool(pip_cfg.get("enabled", False))
+
+
 def read_scene_pip_query(scene_dir: Path) -> str | None:
     """只讀建案時寫入的考據詞，不再現場補判。"""
     s_yaml_p = scene_dir / "scene.yaml"
@@ -967,9 +972,11 @@ def backfill_missing_pip_queries(job_dir: Path) -> int:
         s_yaml_p = s_dir / "scene.yaml"
         scfg = yaml.safe_load(s_yaml_p.read_text(encoding="utf-8")) or {}
         prev = _pip_cfg(scfg)
+        # 這一幕原本沒有開關，代表是這次自動挑中的，打開。使用者已關掉的維持關掉。
+        prev_enabled = prev.get("enabled") if "enabled" in prev else None
         scfg["pip"] = {
             **prev,
-            "enabled": False,
+            "enabled": True if prev_enabled is None else bool(prev_enabled),
             "image": prev.get("image", "pip.png"),
             "position": prev.get("position", "right-center"),
             "mode": prev.get("mode") or infer_pip_mode(q, str(scfg.get("narration", ""))),
@@ -1541,21 +1548,25 @@ def auto_fetch_and_apply_pip(job_dir: Path, progress_callback=None, check_contro
     if not scene_folders:
         return 0
 
-    # 1. 優先從各分鏡的 scene.yaml 讀取建案時已預先分析好的實體檢索詞
+    # 1. 只抓右邊開關還開著、而且已有考據詞的幕。關掉的幕留著詞，但不下載、不重新打開。
+    has_any_query = False
     entity_map = {}
     for s_dir in scene_folders:
         s_yaml_p = s_dir / "scene.yaml"
         if s_yaml_p.is_file():
             try:
                 scfg = yaml.safe_load(s_yaml_p.read_text(encoding="utf-8")) or {}
-                q = str(_pip_cfg(scfg).get("query") or "").strip()
+                pip = _pip_cfg(scfg)
+                q = str(pip.get("query") or "").strip()
                 if q:
+                    has_any_query = True
+                if q and pip_switch_on(pip):
                     entity_map[s_dir.name] = q
             except Exception:
                 pass
 
-    # 2. 全片都沒有預置 query（舊專案）才補判一次；已有選擇性標註的專案不再逐幕加詞
-    if not entity_map:
+    # 2. 全片都沒有考據詞（舊專案）才補判一次。已經有詞的片子不再逐幕加詞，避免碰到使用者關掉的幕。
+    if not has_any_query:
         if progress_callback:
             progress_callback(0, 1, "正在以 AI 檢索全片口白實體名詞與考據需求...")
         backfill_missing_pip_queries(job_dir)
@@ -1564,8 +1575,9 @@ def auto_fetch_and_apply_pip(job_dir: Path, progress_callback=None, check_contro
             if not s_yaml_p.is_file():
                 continue
             scfg = yaml.safe_load(s_yaml_p.read_text(encoding="utf-8")) or {}
-            q = str(_pip_cfg(scfg).get("query") or "").strip()
-            if q:
+            pip = _pip_cfg(scfg)
+            q = str(pip.get("query") or "").strip()
+            if q and pip_switch_on(pip):
                 entity_map[s_dir.name] = q
 
     if not entity_map:

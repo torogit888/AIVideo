@@ -1,0 +1,21 @@
+id: 023_shot_23
+index: 23
+title: 他拎著裝滿塑膠氣泡的手提箱直接搭
+narration: 他拎著裝滿塑膠氣泡的手提箱直接搭乘飛機飛往紐約採購部門，他當著高層的面用薄膜隨意包裹一隻精密儀器重重砸向水泥地面，儀器掉在地上發出一聲悶響整個會議室頓時陷入一片死寂，
+image_prompt: Dramatic dynamic shot in Q-version 2D cartoon illustration style, set
+  inside a high-level executive boardroom in New York, Frederick Bowers forcefully
+  slamming a fragile scientific instrument wrapped in bubble wrap packaging sheet
+  onto the solid concrete floor, stunned corporate executives jumping back in shock,
+  bold comic action lines, 16:9 widescreen composition.
+character_ids:
+- classic_bubble_wrap
+- frederick_bowers
+image_negative: ''
+act_index: 4
+act_title: 減震封印下的暴利帝國：希悅爾的專利防禦網
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T125614
+  image_take: image_20261024T125602

@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261024T130207",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 17.53,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "希悅爾憑藉這項阻隔氣泡專利技術在整個行業築起了鋼鐵長城",
+      "text_cn": "希悦尔凭借这项阻隔气泡专利技术在整个行业筑起了钢铁长城",
+      "start_sec": 0.0,
+      "end_sec": 5.54,
+      "duration_sec": 5.54
+    },
+    {
+      "index": 2,
+      "text": "到了一九七零年代全世界所有脆弱的工業明珠全部被氣泡所包裹",
+      "text_cn": "到了一九七零年代全世界所有脆弱的工业明珠全部被气泡所包裹",
+      "start_sec": 5.79,
+      "end_sec": 11.52,
+      "duration_sec": 5.73
+    },
+    {
+      "index": 3,
+      "text": "他們成功把隨處可見的空氣包裝成了跨國物流中最昂貴的保險單",
+      "text_cn": "他们成功把随处可见的空气包装成了跨国物流中最昂贵的保险单",
+      "start_sec": 11.77,
+      "end_sec": 17.53,
+      "duration_sec": 5.76
+    }
+  ],
+  "created_at": "2026-10-24T13:02:07.467779+00:00"
+}

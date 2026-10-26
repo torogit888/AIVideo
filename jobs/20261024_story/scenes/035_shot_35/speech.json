@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261024T130819",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 17.38,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "希悅爾無意間創造出了一款最符合人體工學的觸覺多巴胺釋放器",
+      "text_cn": "希悦尔无意间创造出了一款最符合人体工学的触觉多巴胺释放器",
+      "start_sec": 0.0,
+      "end_sec": 5.76,
+      "duration_sec": 5.76
+    },
+    {
+      "index": 2,
+      "text": "到了九十年代末每年一月的最後一個星期一被定為泡泡紙感謝日",
+      "text_cn": "到了九十年代末每年一月的最后一个星棋一被定为泡泡纸感谢日",
+      "start_sec": 6.01,
+      "end_sec": 11.77,
+      "duration_sec": 5.76
+    },
+    {
+      "index": 3,
+      "text": "好萊塢電影裡的角色靠捏它來緩解嚴重的創傷後壓力症候群",
+      "text_cn": "好莱坞电影里的脚色靠捏它来缓解严重的创伤后压力症候群",
+      "start_sec": 12.02,
+      "end_sec": 17.38,
+      "duration_sec": 5.36
+    }
+  ],
+  "created_at": "2026-10-24T13:08:19.914952+00:00"
+}

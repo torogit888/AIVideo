@@ -1,0 +1,22 @@
+id: 008_shot_8
+index: 8
+title: 然而當他們拿著樣品敲開曼哈頓一間
+narration: 然而當他們拿著樣品敲開曼哈頓一間間室內設計公司時，設計師看著那散發刺鼻臭味又黏糊糊的透明破布臉色鐵青，誰願意把廉價浴室浴簾貼在自家客廳幾個月下來訂單完全是零，
+image_prompt: Wide shot in Q-version 2D cartoon illustration style, set inside a sleek
+  modernist Manhattan design studio, where haughty chibi interior designers in berets
+  recoil with disgusted expressions from a sticky, pungent roll of bubble wrap packaging
+  sheet presented nervously by Alfred Fielding and Marc Chavannes, crisp ink line
+  work, stark corporate palette, 16:9 widescreen composition.
+character_ids:
+- alfred_fielding
+- marc_chavannes
+- classic_bubble_wrap
+image_negative: ''
+act_index: 1
+act_title: 時髦客廳的荒誕殘局：從前衛壁紙跌落的塑膠氣泡
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T124325
+  image_take: image_20261024T124309

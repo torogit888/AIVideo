@@ -1,0 +1,19 @@
+id: 033_shot_33
+index: 33
+title: 實驗結果發現僅僅捏上一分鐘體內的
+narration: '[surprise-wa]實驗結果發現僅僅捏上一分鐘體內的壓力荷爾蒙就會顯著下降，其緩解神經緊張的效果甚至遠遠超過了傳統的靜坐冥想，'
+image_prompt: Split composition shot in Q-version 2D cartoon illustration style, comparing
+  a stressed chibi monk trying to meditate on a cushion versus a relaxed office worker
+  slouching happily on an armchair popping bubble wrap packaging sheet, with stylized
+  downward stress-level arrows and cheerful dopamine sparkles, 16:9 widescreen composition.
+character_ids:
+- classic_bubble_wrap
+image_negative: ''
+act_index: 5
+act_title: 大腦深處的按壓鴉片：集體強迫症與治癒狂歡
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T130613
+  image_take: image_20261024T130534

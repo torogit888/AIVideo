@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261024T124908",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.58,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "氣泡在高溫下紛紛爆裂薄膜內側更凝結出密密麻麻的水珠",
+      "text_cn": "气泡在高温下纷纷爆裂薄膜内侧更凝结出密密麻麻的水珠",
+      "start_sec": 0.0,
+      "end_sec": 5.16,
+      "duration_sec": 5.16
+    },
+    {
+      "index": 2,
+      "text": "缺乏光照與高濕環境導致整片整片的玫瑰花苗大面積爛根霉變",
+      "text_cn": "缺乏光照与高湿环境导致整片整片的玫瑰花苗大面积烂根霉变",
+      "start_sec": 5.41,
+      "end_sec": 10.97,
+      "duration_sec": 5.56
+    },
+    {
+      "index": 3,
+      "text": "憤怒的花農拿著枯死的花枝圍堵車庫要求賠償所有經濟損失",
+      "text_cn": "愤怒的花农拿着枯死的花枝围堵车库要求赔偿所有经济损失",
+      "start_sec": 11.22,
+      "end_sec": 16.58,
+      "duration_sec": 5.36
+    }
+  ],
+  "created_at": "2026-10-24T12:49:08.509943+00:00"
+}

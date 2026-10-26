@@ -77,6 +77,9 @@ export const ScriptEditor: React.FC = () => {
     requestPrompt,
     selectedAiModel,
     startNewDraft,
+    anchorsRevision,
+    bumpAnchorsRevision,
+    setScriptDirty,
   } = useStudioStore();
   const currentJob = jobs.find((j) => j.id === selectedJobId);
   const workspaceMode = scriptWorkspaceMode(selectedJobId);
@@ -158,29 +161,25 @@ export const ScriptEditor: React.FC = () => {
     }
   }, [currentJob?.voice_id]);
 
-  // 監聽定裝中心更新錨點事件，確保腳本頁的角色與環境錨點不會殘留舊值覆蓋回去
+  // 當定裝中心彈窗更新角色或環境錨點時，確保腳本頁的角色與環境錨點即時同步
   useEffect(() => {
-    if (!selectedJobId) return;
-    const syncFromAnchorsModal = () => {
-      api
-        .getJobAnchors(selectedJobId)
-        .then((data) => {
-          setSubjectAnchor(data.subject || "");
-          setEnvironmentAnchor(data.environment || "");
-          setCharacters(
-            (data.characters || []).map((c, i) => ({
-              id: c.id || `char_${i + 1}`,
-              name: c.name || `角色 ${i + 1}`,
-              appearance: c.appearance || "",
-              entity_type: (c.entity_type as "character" | "object") || "character",
-            }))
-          );
-        })
-        .catch(() => {});
-    };
-    window.addEventListener("aivideo:anchors-updated", syncFromAnchorsModal);
-    return () => window.removeEventListener("aivideo:anchors-updated", syncFromAnchorsModal);
-  }, [selectedJobId]);
+    if (!selectedJobId || anchorsRevision === 0) return;
+    api
+      .getJobAnchors(selectedJobId)
+      .then((data) => {
+        setSubjectAnchor(data.subject || "");
+        setEnvironmentAnchor(data.environment || "");
+        setCharacters(
+          (data.characters || []).map((c, i) => ({
+            id: c.id || `char_${i + 1}`,
+            name: c.name || `角色 ${i + 1}`,
+            appearance: c.appearance || "",
+            entity_type: (c.entity_type as "character" | "object") || "character",
+          }))
+        );
+      })
+      .catch(() => {});
+  }, [selectedJobId, anchorsRevision]);
 
   // 切換不同專案或點擊「新建專案」時，自動載入該專案內容或完整重置為全新草稿
   useEffect(() => {
@@ -224,6 +223,12 @@ export const ScriptEditor: React.FC = () => {
         setSelectedVoice(detail.config?.voice_id || DEFAULT_VOICE_ID);
         setSelectedStyle(detail.config?.image?.style || "otomo_katsuhiro");
         setSelectedTone(detail.config?.tone_id || (tones[0]?.id || "michelin_curious"));
+        const savedPacing = detail.config?.visual_pacing;
+        if (savedPacing === "fast" || savedPacing === "balanced" || savedPacing === "slow") {
+          setVisualPacing(savedPacing);
+        } else {
+          setVisualPacing("balanced");
+        }
 
         const vAnchors = detail.config?.visual_anchors || {};
         setSubjectAnchor(vAnchors.subject || "");
@@ -257,6 +262,13 @@ export const ScriptEditor: React.FC = () => {
       cancelled = true;
     };
   }, [selectedJobId, draftResetKey]);
+
+  useEffect(() => {
+    const dirty = selectedJobId ? scriptText !== savedScript : scriptText.trim().length > 0;
+    if (useStudioStore.getState().scriptDirty !== dirty) {
+      setScriptDirty(dirty);
+    }
+  }, [scriptText, savedScript, selectedJobId, setScriptDirty]);
 
   // 儲存或同步指定 Prompt 與 6 幕大綱
   const persistPromptAndOutline = async (
@@ -341,7 +353,8 @@ export const ScriptEditor: React.FC = () => {
         topic,
         selectedTone,
         selectedAiModel,
-        customPrompt.trim() || undefined
+        customPrompt.trim() || undefined,
+        wordCount
       );
       setOutlineNotes(res.outline);
       setShowOutlineBox(true);
@@ -491,7 +504,7 @@ export const ScriptEditor: React.FC = () => {
           clear_hero_images: true,
         });
         await loadJobs();
-        window.dispatchEvent(new CustomEvent("aivideo:anchors-updated"));
+        bumpAnchorsRevision();
         showToast(
           "✨ 已重新分析角色與世界觀，並自動寫入專案、清空舊定裝圖！可前往定裝中心重新生成定裝圖。",
           "success"
@@ -537,7 +550,8 @@ export const ScriptEditor: React.FC = () => {
       localStorage.removeItem("aivideo_draft_custom_prompt");
       localStorage.removeItem("aivideo_draft_outline");
       await loadJobs();
-      useStudioStore.getState().selectJob(res.id);
+      useStudioStore.getState().setScriptDirty(false);
+      await useStudioStore.getState().selectJob(res.id);
       showToast(`專案【${topic}】建立成功`, "success");
       setTab("storyboard");
     } catch (e: any) {
@@ -565,6 +579,7 @@ export const ScriptEditor: React.FC = () => {
         voice_id: selectedVoice,
         style_id: selectedStyle,
         tone_id: selectedTone,
+        visual_pacing: visualPacing,
         script: scriptText,
         custom_prompt: customPrompt.trim() || undefined,
         outline: outlineNotes.trim() || undefined,
@@ -573,10 +588,9 @@ export const ScriptEditor: React.FC = () => {
         characters: validChars.length ? validChars : undefined,
         clear_hero_images: anchorsReanalyzed ? true : undefined,
       });
-      setAnchorsReanalyzed(false);
       setSavedScript(scriptText);
       await loadJobs();
-      window.dispatchEvent(new CustomEvent("aivideo:anchors-updated"));
+      bumpAnchorsRevision();
       const hasScenes = (currentJob?.progress.scenes_count || 0) > 0;
       const recut =
         hasScenes &&
@@ -589,6 +603,7 @@ export const ScriptEditor: React.FC = () => {
           variant: "primary",
         }));
       if (recut) {
+        setAnchorsReanalyzed(false);
         setIsRecutting(true);
         await api.recutJob(selectedJobId, { script: scriptText, visual_pacing: visualPacing });
         await loadJobs();
@@ -596,19 +611,21 @@ export const ScriptEditor: React.FC = () => {
         showToast("已儲存並重切分鏡", "success");
         setTab("storyboard");
       } else {
-        // 若未重切分鏡，但有分鏡且更新了定裝或風格，提醒或自動同步 Prompt
-        if (hasScenes && validChars.length > 0) {
+        // 選「僅更新口白」時，除非剛重新分析過視覺錨點（anchorsReanalyzed），否則絕不重刷全片英文生圖 Prompt
+        if (hasScenes && anchorsReanalyzed) {
+          setAnchorsReanalyzed(false);
           try {
             await api.syncScenePrompts(selectedJobId);
             await loadScenes(selectedJobId);
-            showToast("已寫回此專案，並同步更新全片分鏡出圖 Prompt！", "success");
-          } catch {
+            showToast("已寫回此專案，並依新定裝同步更新全片分鏡出圖 Prompt！", "success");
+          } catch (e: any) {
             await loadScenes(selectedJobId);
-            showToast("已寫回此專案", "success");
+            showToast("口白已寫回，但英文出圖句子沒有全部更新: " + (e.message || "未知錯誤"), "error");
           }
         } else {
+          setAnchorsReanalyzed(false);
           await loadScenes(selectedJobId);
-          showToast("已寫回此專案", "success");
+          showToast("已寫回此專案（僅更新口白，保留原分鏡與英文 Prompt）", "success");
         }
       }
     } catch (e: any) {
@@ -1272,7 +1289,6 @@ export const ScriptEditor: React.FC = () => {
             <div className="space-y-1 min-w-0">
               <div className="flex items-center space-x-2">
                 <span className="font-semibold text-amber-cta">{currentStyleObj.name}</span>
-                <span className="text-[10px] font-mono text-cinema-muted">({currentStyleObj.id})</span>
               </div>
               <p className="text-[11px] text-cinema-muted leading-relaxed line-clamp-2">
                 {currentStyleObj.description}
@@ -1456,7 +1472,7 @@ export const ScriptEditor: React.FC = () => {
                             api
                               .updateJobAnchors(selectedJobId, { characters: valid })
                               .then(() => {
-                                window.dispatchEvent(new CustomEvent("aivideo:anchors-updated"));
+                                bumpAnchorsRevision();
                               })
                               .catch(() => {});
                           }

@@ -1,0 +1,28 @@
+id: 038_shot_38
+index: 38
+title: 希悅爾的管理層做出了一個震驚全人
+narration: 希悅爾的管理層做出了一個震驚全人類的商業決定，他們投入巨資研發了一款新型產品取名為充氣式泡泡膜，它在出廠時只是一層薄膜直到打包的最後一秒才現場充氣封閉，
+image_prompt: Medium shot in Q-version 2D cartoon illustration style, inside a sleek
+  modern corporate testing room, engineers demonstrating a compact flat deflated plastic
+  roll feeding into an on-demand high-speed air inflation nozzle, producing pillowed
+  air cushions right beside packing boxes, cool corporate lighting, clean vector style,
+  16:9 widescreen composition.
+character_ids: []
+image_negative: ''
+act_index: 6
+act_title: 捏不破的致命背叛：一場引發全球公憤的綠色清洗
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T131116
+  image_take: image_20261024T131041
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Sealed Air iBubble Wrap inflatable packaging 2015
+  fetch_error: 未找到合適照片或影片

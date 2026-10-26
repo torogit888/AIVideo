@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261024T132223",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 18.62,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "表面上看起來充滿了抵禦外界衝擊的安全感",
+      "text_cn": "表面上看起来充满了抵御外界冲集的安全感",
+      "start_sec": 0.0,
+      "end_sec": 3.96,
+      "duration_sec": 3.96
+    },
+    {
+      "index": 2,
+      "text": "但只要輕輕一擠裡面包裹的其實除了一小團虛無的空氣之外什麼也沒有",
+      "text_cn": "但只要轻轻一挤里面包裹的其实除了一小团虚无的空气之外什么也没有",
+      "start_sec": 4.21,
+      "end_sec": 10.57,
+      "duration_sec": 6.36
+    },
+    {
+      "index": 3,
+      "text": "如果你也喜歡這段荒謬又真實的歷史別忘了點個喜歡訂閱頻道並開啟小鈴鐺，我們下次見!",
+      "text_cn": "如果你也喜欢这段荒谬又真实的历史别忘了点个喜欢订阅频道并开启小铃铛，我们下次见!",
+      "start_sec": 10.82,
+      "end_sec": 18.62,
+      "duration_sec": 7.8
+    }
+  ],
+  "created_at": "2026-10-24T13:22:23.356705+00:00"
+}

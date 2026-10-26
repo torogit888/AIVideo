@@ -1,0 +1,20 @@
+id: 037_shot_37
+index: 37
+title: 但在冷血的資本算盤眼裡傳統泡泡紙
+narration: 但在冷血的資本算盤眼裡傳統泡泡紙有一個致命的硬傷，那就是它實在太佔據寶貴的倉儲與貨運空間了，你運送一整卷直徑一公尺的傳統泡泡紙裡面百分之九十九都是空氣，這意味著物流巨頭每時每刻都在花費昂貴的燃油運送虛無的空氣，
+image_prompt: Medium shot in Q-version 2D cartoon illustration style, illustrating
+  the logistics dilemma with a gigantic, puffy one-meter-wide roll of bubble wrap
+  packaging sheet occupying almost the entire cargo hold of a delivery truck, with
+  a comical cutaway showing it containing mostly floating air molecules while the
+  delivery driver frowns at a gas gauge, 16:9 widescreen composition.
+character_ids:
+- classic_bubble_wrap
+image_negative: ''
+act_index: 6
+act_title: 捏不破的致命背叛：一場引發全球公憤的綠色清洗
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T131008
+  image_take: image_20261024T130931

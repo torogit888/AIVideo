@@ -144,7 +144,7 @@ export const YouTubeUploadModal: React.FC<Props> = ({ jobId, isOpen, onClose }) 
       setIsSaved(true);
 
       // 檢查是否有進行中的上傳任務
-      const currentStatus = await api.getYouTubeUploadStatus();
+      const currentStatus = await api.getYouTubeUploadStatus(jobId);
       if (currentStatus.is_uploading) {
         setUploading(true);
         setUploadProgress(currentStatus.progress);
@@ -268,7 +268,8 @@ export const YouTubeUploadModal: React.FC<Props> = ({ jobId, isOpen, onClose }) 
     if (pollIntervalRef.current) clearInterval(pollIntervalRef.current);
     pollIntervalRef.current = setInterval(async () => {
       try {
-        const status = await api.getYouTubeUploadStatus();
+        const status = await api.getYouTubeUploadStatus(jobId);
+        if (status.job_id && status.job_id !== jobId) return;
         setUploadProgress(status.progress);
         setUploadMessage(status.message);
         if (!status.is_uploading) {

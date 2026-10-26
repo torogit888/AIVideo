@@ -1,0 +1,21 @@
+id: 003_shot_3
+index: 3
+title: 這項今天每年產值幾十億美元的神奇
+narration: 這項今天每年產值幾十億美元的神奇產物最初的誕生過程，蠢到連它的親生父親在成名後都不太願意隨便提起，
+image_prompt: Medium shot in Q-version 2D cartoon illustration style, showing Alfred
+  Fielding scratching his tousled hair behind round spectacles and Marc Chavannes
+  smoothing his thin mustache with an embarrassed, blushing sweatdrop expression,
+  seated amidst scattered blueprints and early prototypes in a cozy vintage workshop,
+  crisp ink outlines, flat cel-shading, 16:9 widescreen composition.
+character_ids:
+- alfred_fielding
+- marc_chavannes
+image_negative: ''
+act_index: 1
+act_title: 時髦客廳的荒誕殘局：從前衛壁紙跌落的塑膠氣泡
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T123912
+  image_take: image_20261024T123858

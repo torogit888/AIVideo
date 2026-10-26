@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261024T131206",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 12.32,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "更絕的是工程師把原本獨立隔離的氣泡設計成互相貫通的微型氣道",
+      "text_cn": "更绝的是工程师把原本独立隔离的气泡设计成互相贯通的围型气道",
+      "start_sec": 0.0,
+      "end_sec": 5.83,
+      "duration_sec": 5.83
+    },
+    {
+      "index": 2,
+      "text": "[dissatisfaction-hnn]這項設計將卡車空間節省了整整五十倍商業上堪稱完美",
+      "text_cn": "[dissatisfaction-hnn]这项设计将卡车空间节省了整整五十倍商业上堪称完美",
+      "start_sec": 6.08,
+      "end_sec": 12.32,
+      "duration_sec": 6.24
+    }
+  ],
+  "created_at": "2026-10-24T13:12:06.088102+00:00"
+}

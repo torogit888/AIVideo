@@ -1,0 +1,29 @@
+id: 032_shot_32
+index: 32
+title: 一九九二年美國西新英格蘭大學的心
+narration: 一九九二年美國西新英格蘭大學的心理學教授進行了嚴格的對照實驗，他們找來了數十名處於高度焦慮與心理壓力下的受試者，讓他們隨意按壓泡泡紙並同時精確監測他們的各項生理指標，
+image_prompt: Medium shot in Q-version 2D cartoon illustration style, set in a 1992
+  university psychology lab, where a chibi professor in a white lab coat monitors
+  brainwave graphs on an oscilloscope while an anxious student subject with electrode
+  patches breaks into a serene, blissful smile while squeezing bubble wrap packaging
+  sheet, clean cel-shading, 16:9 widescreen composition.
+character_ids:
+- classic_bubble_wrap
+image_negative: ''
+act_index: 5
+act_title: 大腦深處的按壓鴉片：集體強迫症與治癒狂歡
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T130501
+  image_take: image_20261024T130449
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Kathleen Dillon Western New England College Bubble Wrap research 1992
+  fetch_error: 未找到合適照片或影片

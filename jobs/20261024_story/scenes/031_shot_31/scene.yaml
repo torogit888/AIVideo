@@ -1,0 +1,20 @@
+id: 031_shot_31
+index: 31
+title: 你有沒有納悶過為什麼無論男女老少
+narration: '[question-ei]你有沒有納悶過為什麼無論男女老少只要手裡拿到一張泡泡紙，手指就會不由自主地去按壓那些排列整齊的小圓點呢？而且每捏爆一顆聽著那一聲短促清脆的啪嗒聲心裡就湧起一陣暗爽，'
+image_prompt: Extreme close-up shot in Q-version 2D cartoon illustration style, index
+  finger and thumb pinching a single puffed hemisphere on a sheet of bubble wrap packaging
+  sheet, capturing the precise split-second before bursting, with glossy white reflections
+  and comic excitement sparks radiating around the transparent plastic, 16:9 widescreen
+  composition.
+character_ids:
+- classic_bubble_wrap
+image_negative: ''
+act_index: 5
+act_title: 大腦深處的按壓鴉片：集體強迫症與治癒狂歡
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T130416
+  image_take: image_20261024T130339

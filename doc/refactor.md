@@ -1,6 +1,109 @@
 # AIVideo 重構備忘
 
-日期：2026-10-24。這份只是檢查紀錄，程式還沒改，測試也沒跑。
+日期：2026-10-24。
+
+---
+
+## 重構執行進度追蹤
+
+### ✅ 第一批（Batch 1）：建議先改的六件（已完成並通過 49 項後端測試 + 前端 `tsc && vite build`）
+
+- [x] **1. 考據開關 (`use_pip`) 全站統一預設開啟 (`True`)**
+  - 對齊 `aivideo/naming.py`（`DEFAULT_USE_PIP = True`、`job_use_pip`、`should_auto_pip`）、`aivideo/api/schemas.py`（`CreateJobRequest`、`JobSummary` 預設 `True`）、`aivideo/api/routes/jobs.py`（`_to_job_summary` 缺欄時預設 `True`）與 `web/src/components/StoryboardGrid.tsx`（勾選框預設與提示文字）。
+  - 測試驗證：`tests/test_pipeline_and_cli.py::test_all_action_auto_pip_default`、`test_all_action_respects_job_pip_switch`、`test_schema_default_use_pip_on`、`tests/test_job_and_script.py::test_new_job_bundle_writes_use_pip_true`。
+- [x] **2. 失敗只跳一次訊息（SSE 去重與啟動失敗停轉圈）**
+  - `aivideo/pipeline_runner.py` 在合成或執行失敗時呼叫 `emit_notice` 遞增 `notice_seq`；`web/src/App.tsx` 的 SSE 監聽以 `lastShownErrorKey`（`${notice_seq}:${errText}`）去重，同一次失敗只跳一次 Toast。
+  - `Topbar.tsx` 與 `StoryboardGrid.tsx` 呼叫 `api.runPipeline` 加上 `try / catch`，請求失敗時立即重置 `setPipelineRunning(false)`。
+  - 測試驗證：`tests/test_pipeline_and_cli.py::test_pipeline_runner_emits_notice_seq_on_compose_failure`、`tests/test_studio_frontend_contracts.py::test_frontend_sse_dedup_and_inspector_tab_visibility`。
+- [x] **3. 「圖做好幾張」全站共用同一套算法 (`is_scene_visual_ready`)**
+  - 於 `aivideo/naming.py` 定義 `is_scene_visual_ready(scene_dir)` 與 `SPOTLIGHT_MODES = ("spotlight", "focus", "black_bg", "fullscreen", "broll")`，同時由 `jobs.py`（總覽進度）、`scenes.py`（分鏡頁狀態）、`pipeline_runner.py`（合成前缺圖檢查）與 `run_state.py` 共用。
+  - 測試驗證：`tests/test_scenes_and_takes.py::test_scene_visual_ready_unified_across_overview_and_storyboard`。
+- [x] **4. 成片過期 (`film_stale`) 自動偵測與醒目標示**
+  - 於 `aivideo/naming.py` 新增 `is_film_stale(job_dir)`（比對 `compose/film.mp4` 與 `script.md`、各鏡 `scene.yaml`、`image.png`、`pip.*`、`speech.wav` 的修改時間），寫入 `JobProgress.film_stale`。
+  - 頂列「預覽成片」大按鈕維持預覽功能並加上「已過期」醒目琥珀色徽章；專案下拉選單與總覽卡片同步顯示「已成片(過期)／已合成 (已過期)」。
+  - 測試驗證：`tests/test_scenes_and_takes.py::test_film_stale_detection`。
+- [x] **5. 換頁時把右側分鏡抽屜收起，且支援在「成片頁」點擊時間軸直接打開右側抽屜（不再每次切頁重讀影片）**
+  - `web/src/store.ts` 的 `setTab` 於切換分頁時自動收起抽屜（`isInspectorOpen: false`），`web/src/App.tsx` 支援在 `storyboard` 與 `film` 分頁顯示 `<SceneInspector />`。
+  - `web/src/components/FilmViewer.tsx` 移除每次切進成片頁都刷新 `Date.now()` 的行為，改以 `JobProgress.film_mtime` 與手動重載計數作為影片 URL 版本鍵；切離成片頁時僅自動暫停播放、保留觀看秒數，點擊下方時間軸時留在成片頁跳轉秒數並直接在右側滑出該鏡精修抽屜。
+  - 測試驗證：`tests/test_scenes_and_takes.py::test_film_stale_detection`、`tests/test_studio_frontend_contracts.py::test_frontend_sse_dedup_and_inspector_tab_visibility`。
+- [x] **6. 儲存口白選「僅更新口白」時，不重寫全片英文生圖 Prompt**
+  - `web/src/components/ScriptEditor.tsx` 的 `handleSaveExisting` 在選「僅更新口白」時，僅於剛重新分析過視覺錨點（`anchorsReanalyzed === true`）才呼叫 `syncScenePrompts`，單純改口白絕不重刷全片英文 Prompt。
+  - 測試驗證：`tests/test_studio_frontend_contracts.py::test_frontend_sse_dedup_and_inspector_tab_visibility`。
+
+### ✅ 第二批（Batch 2）：防止資料靜默覆蓋與設定遺失（已完成並通過 49 項後端測試 + 前端 `tsc && vite build`）
+
+- [x] **1. 建立專案時檢查同日同名資料夾是否已存在 (`resolve_unique_job_id`)**
+  - 於 `aivideo/naming.py` 新增 `resolve_unique_job_id(jobs_dir, base_job_id)`，當 `20261024_story` 已存在時自動遞增為 `20261024_story_2`、`_3`，並在 `aivideo/api/routes/jobs.py` 的 `create_job` 啟用，徹底防止新台詞與舊專案鏡頭/圖音混在同一個資料夾。
+  - 測試驗證：`tests/test_naming_and_spoken.py::test_resolve_unique_job_id_auto_suffix`。
+- [x] **2. 右側抽屜「考據小卡大小 (`scale`) 與位置 (`position`)」調整後立即存檔**
+  - `web/src/components/SceneInspector.tsx` 的 `handleQuickUpdatePip` 支援 `overrides?: { scale?: number; position?: string }`，切換「卡片大小比例」或「疊加位置」選單時立即呼叫 `patchScene` 寫入 `scene.yaml`。
+  - 測試驗證：`tests/test_studio_frontend_contracts.py::test_frontend_pip_persistence_and_pacing_sync`。
+- [x] **3. 規劃大綱與擴寫連動腳本頁的「目標字數滑桿 (`wordCount`)」**
+  - `GenerateOutlineRequest` 新增 `word_count` 欄位；`aivideo/story_generator.py` 新增 `build_outline_target_spec(word_count)` 依字數除以 220 動態換算預估分鐘數與幕數，不再寫死 4000 字／12~15 分鐘；前端 `ScriptEditor.tsx` 呼叫 `api.generateOutline` 時帶入滑桿的 `wordCount`。
+  - 測試驗證：`tests/test_job_and_script.py::test_generate_outline_accepts_word_count`。
+- [x] **4. 建立專案時 `script.md` 直接寫入純口白，並保存 `visual_pacing`（切鏡節奏）至 `job.yaml`**
+  - `create_job_bundle` 直接將純口白寫入 `script.md`（移除原本先寫入含 `畫面：／旁白：` 導演筆記再二次覆寫的過程）；`job_files.py` 的 `JOB_YAML_KEYS` 納入 `visual_pacing`，並在建立、更新、重切分鏡與前端載入專案時完整讀寫 `visual_pacing`，重新整理網頁不再跳回「標準」。
+  - 測試驗證：`tests/test_job_and_script.py::test_create_job_bundle_writes_pure_script_and_visual_pacing`。
+
+### ✅ 第三批（Batch 3）：介面狀態同步、片長算法與命名收斂（已完成並通過 49 項後端測試 + 前端 `tsc && vite build`）
+
+- [x] **1. 燒錄字幕 (`burnSubtitles`) 寫入 `job.yaml`、視覺定裝彈窗 (`isContinuityOpen`) 與錨點更新 (`anchorsRevision`) 收進 `useStudioStore`**
+  - 全面移除 `Topbar.tsx`、`StoryboardGrid.tsx`、`ScriptEditor.tsx`、`VisualContinuityModal.tsx` 中的 `window.dispatchEvent(new CustomEvent("aivideo:..."))` 廣播，改由 `useStudioStore` 單一狀態同步。
+  - 後端 `JobSummary` 與 `UpdateJobRequest` 新增 `burn_subtitles`，勾選時直接寫回專案 `job.yaml`（`subtitle.mode: "hard" | "none"`），切換專案或重新整理自動還原。
+  - 測試驗證：`tests/test_job_and_script.py::test_default_style_and_burn_subtitles_persistence`、`tests/test_studio_frontend_contracts.py::test_frontend_shared_store_and_duration_estimator`。
+- [x] **2. 統一全站預估片長計算函式 (`estimateJobDuration`) + 修正建立專案預設畫風**
+  - 於 `web/src/studioActions.ts` 新增 `estimateJobDuration` 與 `formatDurationClock`，由 `Topbar.tsx` 與 `StoryboardGrid.tsx` 共用，消除重複公式。
+  - 將 `CreateJobRequest.style_id` 預設值由不存在的 `future_workplace` 修正為 `otomo_katsuhiro`。
+  - 測試驗證：`tests/test_job_and_script.py::test_default_style_and_burn_subtitles_persistence`、`tests/test_studio_frontend_contracts.py::test_frontend_shared_store_and_duration_estimator`。
+- [x] **3. 右側抽屜與外部生成進度即時同步 + 補齊考據影片 (`broll`) 模式選項**
+  - `SceneInspector.tsx` 的 `useEffect` 加入 `liveImageUrl` 與 `livePipUrl` 監聽，外部卡片出圖或考據完成時抽屜自動刷新；「呈現方式」選單補齊 `<option value="broll">🎬 全螢幕考據影片 (B-Roll · 動態主畫面)</option>`。
+  - 測試驗證：`tests/test_studio_frontend_contracts.py::test_frontend_shared_store_and_duration_estimator`。
+- [x] **4. 頂列 `⋯` 下載選單未合成防呆**
+  - 當 `!hasFilm` 時，頂列選單標示 `(未合成)` 並在點擊時攔截顯示提示 Toast，避免跳轉至 404 頁面。
+
+### ✅ 第四批（Batch 4）：大型檔案拆分、結構精簡與測試分類語意化（已完成並通過 49 項後端測試 + 前端 `tsc && vite build`）
+
+- [x] **1. 從 `web/src/App.tsx` 抽出「專案總覽」、「系統設定」與「全域確認對話框」為獨立元件**
+  - 新增 `web/src/components/OverviewPanel.tsx`、`web/src/components/SettingsPanel.tsx` 與 `web/src/components/StudioConfirmModal.tsx`，將 `App.tsx` 由 800 餘行精簡至約 185 行（僅保留主版面導航、SSE 進度訂閱與 Toast 容器）。
+  - `ConnectionLights.tsx` 新增 `noPoll` 模式供設定頁內嵌使用，避免與頂列同時啟動兩個 8 秒輪詢計時器；並將 Gemini 燈號說明精確標示為「憑證已設定／未設定」。
+  - `store.ts` 的 `requestConfirm` / `requestPrompt` 於開啟新對話框前自動結算前一個未關閉的 Promise，並移除用說明文字關鍵字猜測危險按鈕的隱晦規則（僅依明確 `variant: "danger"` 判定）。
+  - 測試驗證：`tests/test_studio_frontend_contracts.py::test_app_component_split_into_focused_panels`。
+- [x] **2. 將畫風庫管理職責從 `aivideo/story_generator.py` 拆入 `aivideo/style_prompt.py`**
+  - `DEFAULT_STYLE_PRESETS`、`load_style_presets`、`save_all_style_presets`、`save_style_preset`、`delete_style_preset`、`resolve_style`、`style_lock_instructions` 移入 `aivideo/style_prompt.py`，並於 `story_generator.py` 保留相容匯出。
+  - 測試驗證：`tests/test_job_and_script.py::test_style_presets_extracted_to_style_prompt_module`。
+- [x] **3. 清理 `aivideo/__pycache__/` 舊版殘檔與移除 CLI 未實作空殼指令**
+  - 刪除殘留的 `aivideo/__pycache__/webui.cpython-37.pyc`。
+  - 從 `aivideo/cli.py` 移除標註「尚未實作」的 `parse`、`run`、`regen` 空殼子命令。
+  - 測試驗證：`tests/test_pipeline_and_cli.py::test_cli_has_lock_unlock_select_gc_and_no_unimplemented_stubs`。
+- [x] **4. 測試檔案依功能領域語意化分類（移除 `test_p0.py`～`test_p3.py` 階段代號）**
+  - 拆分為 `tests/test_naming_and_spoken.py`、`tests/test_job_and_script.py`、`tests/test_scenes_and_takes.py`、`tests/test_pipeline_and_cli.py`、`tests/test_studio_frontend_contracts.py` 共 5 個具明確領域名稱之測試檔。
+
+### ✅ 第五批（Batch 5）：全面複查與遺留細節收尾（已完成並通過 56 項後端測試 + 前端 `tsc && vite build`）
+
+- [x] **1. 移除未使用的 `metaphor_style` 與 `lines_per_scene` 遺留欄位**
+  - 從 `aivideo/api/schemas.py`（`JobSummary`、`CreateJobRequest`、`UpdateJobRequest`、`RecutJobRequest`）、`aivideo/api/routes/jobs.py`、`aivideo/story_generator.py`（`parse_script_lines_to_scenes`、`create_job_bundle`）、`web/src/types.ts`、`web/src/api.ts` 全面移除從未於介面與生圖邏輯中實際使用的 `metaphor_style` 與 `lines_per_scene`，切鏡統一只保留 `visual_pacing`（快／標準／慢）。
+  - 測試驗證：`tests/test_job_and_script.py::test_removed_unused_fields_and_slimmed_job_yaml`。
+- [x] **2. 瘦身 `job.yaml` 重複欄位（移除 `image.model_final`、`style_prefix`、`style_negative`）與統一後端生圖模型預設回退值**
+  - `aivideo/job_files.py` 的 `JOB_YAML_KEYS` 與 `slim_job_yaml` 移除重複的 `style_prefix`、`style_negative` 與 `image.model_final`，建案與更新時只寫入 `image.model` 與 `image.style`。
+  - `aivideo/gemini_image.py` 的 `MODEL_CANDIDATES` 首選、`generate_image()` 預設回退與 `create_job_bundle` 預設生圖模型統一對齊為 `DEFAULT_IMAGE_MODEL`（`gemini-3.1-flash-image`）。
+  - 測試驗證：`tests/test_job_and_script.py::test_removed_unused_fields_and_slimmed_job_yaml`。
+- [x] **3. 對齊備用畫風清單 `DEFAULT_STYLE_PRESETS` 與 `assets/styles.yaml`，並隱藏腳本頁畫風名稱旁的內部代號**
+  - `aivideo/style_prompt.py` 的 `DEFAULT_STYLE_PRESETS` 改與 `assets/styles.yaml` 收錄的畫風完全對齊（`otomo_katsuhiro`、`japanese_anime`、`studio_ghibli`、`kyoto_animation`、`ufotable`）。
+  - `web/src/components/ScriptEditor.tsx` 移除畫風名稱旁多餘的 `({currentStyleObj.id})` 內部代號顯示。
+  - 測試驗證：`tests/test_job_and_script.py::test_style_presets_extracted_to_style_prompt_module`、`tests/test_studio_frontend_contracts.py::test_shared_delete_job_and_backend_hygiene`。
+- [x] **4. 統一腳本生成 API 大綱參數名為 `outline`、配音檔名只認 `speech.wav`、收斂 `deleteJob` 重複邏輯、修正單幕考據重複觸發與 CORS 設定**
+  - `GenerateScriptRequest`、`generate_story_script` 與 `web/src/api.ts` 統一使用 `outline` 傳遞故事大綱（後端保留 `notes` 向下相容）。
+  - `aivideo/naming.py`、`aivideo/api/routes/jobs.py`、`aivideo/api/routes/scenes.py` 移除殘留的 `audio.wav`，全站統一只認 `speech.wav`。
+  - `web/src/store.ts` 新增共用的 `deleteJob(jobId, jobTitle)` 方法，消除 `Topbar.tsx` 與 `OverviewPanel.tsx` 的重複刪除邏輯。
+  - `aivideo/pipeline_runner.py` 在 `mode == "all"` 加入 `pip_attempted` 與 `pip.mp4` 判斷，避免同一幕於前置考據階段嘗試後又在後置小卡階段重複檢索。
+  - `assets/voices/tw_female01/voice.yaml` 與 `hk_male01/voice.yaml` 補上中文顯示名稱（`台灣女聲 01`、`香港男聲 01`），並將 `aivideo/api/app.py` 的 `CORSMiddleware` 修正為 `allow_credentials=False`。
+  - 測試驗證：`tests/test_studio_frontend_contracts.py::test_shared_delete_job_and_backend_hygiene`、`tests/test_pipeline_and_cli.py::test_all_mode_respects_scene_pip_switch`。
+
+### 📋 後續可選進階拆分（視需要再分批進行）
+
+- [ ] 進一步細分 `web/src/components/ScriptEditor.tsx`、`SceneInspector.tsx`、`AssetsView.tsx` 子區塊元件。
+
+---
 
 先講結論：很多地方不是「壞掉不能用」，而是**同一個事實有兩份算法、兩個名字**。畫面說一套，實際跑起來是另一套。先把這幾件對齊，再來精簡文字和拆大檔。
 
@@ -32,7 +135,7 @@
 - 從腳本頁按下去建立的新專案，**一定是開的**。
 - 分鏡那顆勾選旁邊的說明寫「預設關閉」。
 - 專案檔裡如果根本沒寫這個開關，列表把它當成**關**，一鍵全流程卻把它當成**開**。
-- 測試檔 `tests/test_p1.py` 要求預設必須是**關**。照現在的程式，這幾條測試對不上。
+- 測試檔 `tests/test_pipeline_and_cli.py`（原 `tests/test_p1.py`）已對齊為預設**開**。
 
 所以你會遇到這種情況：畫面上沒勾，按「一鍵全流程」卻開始抓考據；或是新專案一打開就是勾著的，和說明文字相反。
 

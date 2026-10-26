@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261024T131008",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 21.39,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "但在冷血的資本算盤眼裡傳統泡泡紙有一個致命的硬傷",
+      "text_cn": "但在冷血的资本算盘眼里传统泡泡纸有一个致命的硬伤",
+      "start_sec": 0.0,
+      "end_sec": 4.96,
+      "duration_sec": 4.96
+    },
+    {
+      "index": 2,
+      "text": "那就是它實在太佔據寶貴的倉儲與貨運空間了",
+      "text_cn": "那就是它实在太占据宝贵的仓储与货运空间了",
+      "start_sec": 5.21,
+      "end_sec": 9.37,
+      "duration_sec": 4.16
+    },
+    {
+      "index": 3,
+      "text": "你運送一整卷直徑一公尺的傳統泡泡紙裡面百分之九十九都是空氣",
+      "text_cn": "你运送一整卷直径一米的传统泡泡纸里面百分之九十九都是空气",
+      "start_sec": 9.62,
+      "end_sec": 15.38,
+      "duration_sec": 5.76
+    },
+    {
+      "index": 4,
+      "text": "這意味著物流巨頭每時每刻都在花費昂貴的燃油運送虛無的空氣",
+      "text_cn": "这意味着物流巨头每时每刻都在花费昂贵的燃油运送虚无的空气",
+      "start_sec": 15.63,
+      "end_sec": 21.39,
+      "duration_sec": 5.76
+    }
+  ],
+  "created_at": "2026-10-24T13:10:08.982195+00:00"
+}

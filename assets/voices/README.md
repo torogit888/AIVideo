@@ -2,7 +2,7 @@
 
 此資料夾存放所有可在專案中復用的**發音人角色與音色庫**。
 
-每一個角色擁有一個獨立資料夾，資料夾名稱即為該音色的唯一識別碼（`voice_id`，例如 `narrator_zh_tw`、`narrator_male`）。在任何 Job 的 `job.yaml` 中，只要指定 `voice_id`，整部影片就會自動載入並使用該角色的專屬聲音！
+每一個角色擁有一個獨立資料夾，資料夾名稱即為該音色的唯一識別碼（`voice_id`，例如 `tw_female01`、`hk_male01`）。在任何 Job 的 `job.yaml` 中，只要指定 `voice_id`，整部影片就會自動載入並使用該角色的專屬聲音！缺少 `voice.yaml` 的資料夾不會出現在網頁聲線清單。
 
 ---
 
@@ -35,7 +35,7 @@ assets/voices/{voice_id}/
 ## 三、`voice.yaml` 設定範例
 
 ```yaml
-id: narrator_male
+id: tw_female01
 display_name: 旁白・沉穩男聲
 engine: omnivoice
 model: OmniVoice-bf16
@@ -57,7 +57,7 @@ instruct: ""            # 克隆模式留空，保留原汁原味自然口音
 打開你要製作的 Job 設定檔（例如 `jobs/20260916_roman_telescope/job.yaml`），指定：
 
 ```yaml
-voice_id: narrator_male
+voice_id: tw_female01
 ```
 
 接著執行 `aivideo tts`，整部影片的所有台詞就會立刻切換為該角色的音色！

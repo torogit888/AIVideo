@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261024T132004",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 17.66,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "但故事講到這裡我們也必須無比冷酷地面對另一面殘酷真相",
+      "text_cn": "但故事讲到这里我们也必须无比冷酷地面对另一面残酷真相",
+      "start_sec": 0.0,
+      "end_sec": 5.36,
+      "duration_sec": 5.36
+    },
+    {
+      "index": 2,
+      "text": "[dissatisfaction-hnn]這層帶給我們無數安全感的塑膠如今每年有數百萬噸流入海洋",
+      "text_cn": "[dissatisfaction-hnn]这层带给我们无数安全感的塑胶如今每年有数百万吨流入海洋",
+      "start_sec": 5.61,
+      "end_sec": 12.45,
+      "duration_sec": 6.84
+    },
+    {
+      "index": 3,
+      "text": "成為地球地質年代中幾百年都無法自然消解的白色傷痕",
+      "text_cn": "成为地球地直年代中几百年都无法自然消解的白色伤痕",
+      "start_sec": 12.7,
+      "end_sec": 17.66,
+      "duration_sec": 4.96
+    }
+  ],
+  "created_at": "2026-10-24T13:20:04.103308+00:00"
+}

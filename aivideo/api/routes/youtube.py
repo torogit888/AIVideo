@@ -37,49 +37,76 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 JOBS_DIR = REPO_ROOT / "jobs"
 
 
-class YouTubeUploadTracker:
-    def __init__(self):
-        self._lock = threading.Lock()
+class _JobUploadState:
+    def __init__(self) -> None:
         self.is_uploading = False
         self.progress = 0.0
         self.message = ""
         self.error: Optional[str] = None
         self.result: Optional[Dict[str, Any]] = None
 
-    def start(self):
-        with self._lock:
-            self.is_uploading = True
-            self.progress = 0.01
-            self.message = "正在初始化 YouTube 上傳連線..."
-            self.error = None
-            self.result = None
 
-    def update(self, progress: float, message: str):
-        with self._lock:
-            self.progress = progress
-            self.message = message
+class YouTubeUploadTracker:
+    """每部片各記一份上傳進度，後一部不會蓋掉前一部的結果。同時仍只允許一部在傳。"""
 
-    def finish(self, result: Dict[str, Any]):
-        with self._lock:
-            self.is_uploading = False
-            self.progress = 1.0
-            self.message = "發布完成！"
-            self.result = result
+    def __init__(self) -> None:
+        self._lock = threading.Lock()
+        self._by_job: Dict[str, _JobUploadState] = {}
 
-    def fail(self, error: str):
-        with self._lock:
-            self.is_uploading = False
-            self.error = error
-            self.message = f"上傳失敗：{error}"
+    def _slot(self, job_id: str) -> _JobUploadState:
+        slot = self._by_job.get(job_id)
+        if slot is None:
+            slot = _JobUploadState()
+            self._by_job[job_id] = slot
+        return slot
 
-    def get_status(self) -> YouTubeUploadStatusResponse:
+    def any_uploading(self) -> bool:
         with self._lock:
+            return any(slot.is_uploading for slot in self._by_job.values())
+
+    def start(self, job_id: str) -> None:
+        with self._lock:
+            slot = self._slot(job_id)
+            slot.is_uploading = True
+            slot.progress = 0.01
+            slot.message = "正在初始化 YouTube 上傳連線..."
+            slot.error = None
+            slot.result = None
+
+    def update(self, job_id: str, progress: float, message: str) -> None:
+        with self._lock:
+            slot = self._slot(job_id)
+            slot.progress = progress
+            slot.message = message
+
+    def finish(self, job_id: str, result: Dict[str, Any]) -> None:
+        with self._lock:
+            slot = self._slot(job_id)
+            slot.is_uploading = False
+            slot.progress = 1.0
+            slot.message = "發布完成！"
+            slot.result = result
+            slot.error = None
+
+    def fail(self, job_id: str, error: str) -> None:
+        with self._lock:
+            slot = self._slot(job_id)
+            slot.is_uploading = False
+            slot.error = error
+            slot.message = f"上傳失敗：{error}"
+
+    def get_status(self, job_id: Optional[str]) -> YouTubeUploadStatusResponse:
+        with self._lock:
+            if not job_id or job_id not in self._by_job:
+                return YouTubeUploadStatusResponse(is_uploading=False, job_id=job_id)
+            slot = self._by_job[job_id]
             return YouTubeUploadStatusResponse(
-                is_uploading=self.is_uploading,
-                progress=self.progress,
-                message=self.message,
-                error=self.error,
-                result=self.result,
+                is_uploading=slot.is_uploading,
+                job_id=job_id,
+                progress=slot.progress,
+                message=slot.message,
+                error=slot.error,
+                result=slot.result,
             )
 
 
@@ -419,11 +446,11 @@ def _background_upload_task(req: YouTubeUploadRequest):
             upload_thumbnail=req.upload_thumbnail,
             old_video_id=req.old_video_id,
             old_video_action=req.old_video_action,
-            progress_callback=tracker.update,
+            progress_callback=lambda progress, message: tracker.update(req.job_id, progress, message),
         )
-        tracker.finish(result)
+        tracker.finish(req.job_id, result)
     except Exception as e:
-        tracker.fail(str(e))
+        tracker.fail(req.job_id, str(e))
 
 
 @router.post("/upload")
@@ -441,16 +468,16 @@ def upload_video(req: YouTubeUploadRequest, background_tasks: BackgroundTasks):
     if not auth.get("is_authenticated"):
         raise HTTPException(status_code=401, detail="尚未授權 Google 帳號，請先完成 YouTube 登入驗證")
 
-    if tracker.is_uploading:
+    if tracker.any_uploading():
         raise HTTPException(status_code=409, detail="目前已有其他影片正在上傳中，請稍候")
 
-    tracker.start()
+    tracker.start(req.job_id)
     background_tasks.add_task(_background_upload_task, req)
 
     return {"status": "started", "job_id": req.job_id, "message": "已開始背景上傳至 YouTube"}
 
 
 @router.get("/upload/status", response_model=YouTubeUploadStatusResponse)
-def get_upload_status():
-    """查詢當前 YouTube 影片上傳任務進度。"""
-    return tracker.get_status()
+def get_upload_status(job_id: Optional[str] = None):
+    """查詢指定專案的 YouTube 上傳進度。未帶 job_id 時不回傳其他專案的結果。"""
+    return tracker.get_status(job_id)

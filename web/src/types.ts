@@ -3,6 +3,8 @@ export interface JobProgress {
   images_ready: number;
   audio_ready: number;
   film_ready: boolean;
+  film_stale?: boolean;
+  film_mtime?: number;
   youtube_published?: boolean;
   youtube_video_id?: string | null;
   youtube_video_url?: string | null;
@@ -19,9 +21,11 @@ export interface JobSummary {
   style_id?: string;
   image_model?: string;
   use_pip?: boolean;
-  metaphor_style?: string;
+  burn_subtitles?: boolean;
+  visual_pacing?: "fast" | "balanced" | "slow" | string;
   progress: JobProgress;
   updated_at?: string;
+  load_error?: string | null;
 }
 
 export interface JobDetail {
@@ -319,6 +323,7 @@ export interface YouTubeUploadPayload {
 
 export interface YouTubeUploadStatus {
   is_uploading: boolean;
+  job_id?: string | null;
   progress: number;
   message: string;
   error?: string | null;

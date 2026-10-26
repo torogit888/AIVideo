@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261024T130738",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 75400404,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background\nVibrant contrasting color palettes, crisp details throughout, expressive chibi faces, rich background props., Wide celebratory shot in Q-version 2D cartoon illustration style, depicting a late 1990s festive living room celebration with confetti falling, where people of all ages joyfully stomp and squeeze bubble wrap packaging sheet, while a vintage CRT television in the corner plays a Hollywood action movie parody, 16:9 widescreen composition., 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-24T13:07:38.305479+00:00"
+}

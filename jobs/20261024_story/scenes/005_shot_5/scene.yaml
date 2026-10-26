@@ -1,0 +1,33 @@
+id: 005_shot_5
+index: 5
+title: 但與此同時美國國內的戰後嬰兒潮正
+narration: 但與此同時美國國內的戰後嬰兒潮正在瘋狂擴張，成千上萬的中產階級搬進了整齊劃一的郊區獨棟木屋，當時的年輕人看膩了老一輩沉悶死板的碎花牆紙，
+image_prompt: Wide shot in Q-version 2D cartoon illustration style, showcasing a sunny
+  1950s American suburb filled with identical pastel-painted wooden tract houses,
+  while in the foreground a young retro couple inside their home looks dismayed at
+  peeling, suffocating dark floral wallpaper, bold contour lines, warm mustard and
+  mint tones, 16:9 widescreen composition.
+character_ids: []
+image_negative: ''
+act_index: 1
+act_title: 時髦客廳的荒誕殘局：從前衛壁紙跌落的塑膠氣泡
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T124043
+  image_take: image_20261024T124032
+pip:
+  enabled: true
+  media_type: image
+  image: pip.png
+  video: null
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Levittown New York 1950s suburban housing
+  source_title: Levittown
+  source_url: https://upload.wikimedia.org/wikipedia/commons/6/64/LevittownPA.jpg
+  verified: true
+  review_reason: 影像呈現戰後典型整齊劃一的郊區住宅區，完全契合旁白主旨。

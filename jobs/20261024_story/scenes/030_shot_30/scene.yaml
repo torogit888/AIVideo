@@ -1,0 +1,20 @@
+id: 030_shot_30
+index: 30
+title: 當管理層沉醉在令人眩目的財務報表
+narration: 當管理層沉醉在令人眩目的財務報表裡時一件意想不到的事發生了，這項發明開始徹底失控脫離了原本冷冰冰的工業物流屬性，它宛如某種神秘的精神病毒演變成席捲全人類的集體成癮狂歡，
+image_prompt: Wide comical shot in Q-version 2D cartoon illustration style, contrasting
+  stern warehouse managers poring over financial ledger books in the background, while
+  in the foreground multiple factory workers and delivery drivers sit hypnotized,
+  compulsively popping sheets of bubble wrap packaging sheet with ecstatic cartoon
+  grins, 16:9 widescreen composition.
+character_ids:
+- classic_bubble_wrap
+image_negative: ''
+act_index: 5
+act_title: 大腦深處的按壓鴉片：集體強迫症與治癒狂歡
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T130312
+  image_take: image_20261024T130235

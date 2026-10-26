@@ -1,0 +1,22 @@
+id: 009_shot_9
+index: 9
+title: 一般人在經歷這種毀滅性打擊後大概
+narration: 一般人在經歷這種毀滅性打擊後大概早就乖乖回工廠上班了，但這兩位發明家的固執程度堪比輸光底褲卻堅信能翻盤的賭徒，[dissatisfaction-hnn]他們盯著堆滿倉庫的塑膠氣泡大腦開始進行二次合理化，
+image_prompt: Medium shot in Q-version 2D cartoon illustration style, Alfred Fielding
+  and Marc Chavannes sitting back-to-back on wooden stools in a dim garage filled
+  to the ceiling with towering unsold rolls of bubble wrap packaging sheet, both wearing
+  stubbornly determined chibi expressions with comic lightbulb epiphany sparks above
+  their heads, rich cel-shaded shadows, 16:9 widescreen composition.
+character_ids:
+- alfred_fielding
+- marc_chavannes
+- classic_bubble_wrap
+image_negative: ''
+act_index: 2
+act_title: 悶熱溫室裡的二次窒息：保溫棉騙局與物理法則的暴擊
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T124407
+  image_take: image_20261024T124353

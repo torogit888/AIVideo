@@ -70,6 +70,8 @@ class JobProgress(BaseModel):
     images_ready: int = 0
     audio_ready: int = 0
     film_ready: bool = False
+    film_stale: bool = False
+    film_mtime: int = 0
     youtube_published: bool = False
     youtube_video_id: Optional[str] = None
     youtube_video_url: Optional[str] = None
@@ -85,10 +87,12 @@ class JobSummary(BaseModel):
     voice_id: str = "tw_female01"
     style_id: Optional[str] = None
     image_model: Optional[str] = None
-    use_pip: bool = False
-    metaphor_style: Optional[str] = "fantasy"
+    use_pip: bool = True
+    burn_subtitles: bool = False
+    visual_pacing: Optional[str] = "balanced"
     progress: JobProgress
     updated_at: Optional[str] = None
+    load_error: Optional[str] = None
 
 
 class JobDetail(BaseModel):
@@ -118,17 +122,15 @@ class CreateJobRequest(BaseModel):
     script: str
     tone_id: Optional[str] = None
     voice_id: str = "tw_female01"
-    style_id: str = "future_workplace"
+    style_id: str = "otomo_katsuhiro"
     image_model: Optional[str] = Field(default="gemini-3.1-flash-image", description="生圖模型")
     visual_pacing: str = Field(default="balanced", description="視覺換鏡節奏: fast, balanced, slow")
-    lines_per_scene: Optional[int] = Field(default=None, ge=1, le=5)
     subject_anchor: Optional[str] = Field(default=None, description="主體外觀特徵錨點（多人時為彙總字串）")
     environment_anchor: Optional[str] = Field(default=None, description="環境與光影基調錨點")
     characters: Optional[List[CharacterAnchorInput]] = Field(default=None, description="每人獨立外觀錨點")
     custom_prompt: Optional[str] = Field(default=None, description="故事要求／必寫看點")
     outline: Optional[str] = Field(default=None, description="6 幕故事大綱")
     use_pip: bool = Field(default=True, description="Job 級考據 PiP 開關，預設開")
-    metaphor_style: str = Field(default="fantasy", description="視覺轉譯風格: fantasy | vintage_realistic | symbolic")
 
 
 class UpdateJobRequest(BaseModel):
@@ -137,22 +139,21 @@ class UpdateJobRequest(BaseModel):
     style_id: Optional[str] = None
     image_model: Optional[str] = None
     tone_id: Optional[str] = None
+    visual_pacing: Optional[str] = None
     custom_prompt: Optional[str] = None
     outline: Optional[str] = None
     script: Optional[str] = None
     use_pip: Optional[bool] = None
+    burn_subtitles: Optional[bool] = None
     subject_anchor: Optional[str] = None
     environment_anchor: Optional[str] = None
     characters: Optional[List[CharacterAnchorInput]] = None
     clear_hero_images: Optional[bool] = None
-    metaphor_style: Optional[str] = None
 
 
 class RecutJobRequest(BaseModel):
     script: Optional[str] = None
     visual_pacing: str = Field(default="balanced", description="視覺換鏡節奏: fast, balanced, slow")
-    lines_per_scene: Optional[int] = Field(default=None, ge=1, le=5)
-    metaphor_style: Optional[str] = None
 
 
 # ==========================================
@@ -245,6 +246,7 @@ class YouTubeUploadRequest(BaseModel):
 
 class YouTubeUploadStatusResponse(BaseModel):
     is_uploading: bool
+    job_id: Optional[str] = None
     progress: float = 0.0
     message: str = ""
     error: Optional[str] = None
@@ -461,6 +463,7 @@ class PipCandidatesResponse(BaseModel):
 class GenerateOutlineRequest(BaseModel):
     topic: str
     tone_id: str = "michelin_curious"
+    word_count: int = Field(default=3500, ge=300, le=5000, description="目標字數（與腳本滑桿同步）")
     model: Optional[str] = Field("gemini-3.8-flash", description="指定 Vertex AI 文本生成模型")
     user_prompt: Optional[str] = Field(default=None, description="使用者先輸入的基本提示詞或靈感要求")
 
@@ -475,7 +478,8 @@ class GenerateScriptRequest(BaseModel):
     word_count: int = Field(default=1500, ge=300, le=5000)
     internet_search: bool = True
     model: Optional[str] = Field("gemini-3.8-flash", description="指定 Vertex AI 文本生成模型")
-    notes: Optional[str] = Field(default=None, description="故事核心看點或大綱備忘")
+    outline: Optional[str] = Field(default=None, description="故事核心大綱")
+    notes: Optional[str] = Field(default=None, description="向下相容舊參數名（等同 outline）")
     user_prompt: Optional[str] = Field(default=None, description="使用者獨立的指定 Prompt / 核心要求")
 
 

@@ -1,0 +1,20 @@
+id: 046_shot_46
+index: 46
+title: 正是因為一連串徹頭徹尾的慘烈失敗
+narration: 正是因為一連串徹頭徹尾的慘烈失敗才逼迫這項微小發明一次次扭轉方向，最終成為托起整個現代資訊革命與全球物流網絡不可或缺的微小骨架，
+image_prompt: Wide cinematic shot in Q-version 2D cartoon illustration style, a stylized
+  globe of planet Earth gently cradled and wrapped in a radiant, glowing sheet of
+  bubble wrap packaging sheet, with illuminated shipping lanes, cargo aircraft, and
+  data cables crisscrossing the continents, epic retro-modern aesthetic, 16:9 widescreen
+  composition.
+character_ids:
+- classic_bubble_wrap
+image_negative: ''
+act_index: 7
+act_title: 空氣的代價與歷史餘韻：從荒唐失敗到文明容器
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T131907
+  image_take: image_20261024T131831

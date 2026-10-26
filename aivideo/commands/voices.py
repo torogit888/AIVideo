@@ -37,6 +37,10 @@ def run_voices(args: argparse.Namespace) -> int:
             except Exception:
                 pass
 
+        if not yaml_path.is_file():
+            print(f"\n【{v_id}】 · 資料不完整（缺少 voice.yaml，網頁不會列出這條聲線）")
+            continue
+
         name = cfg.get("display_name", v_id)
         mode = cfg.get("mode", "design")
         engine = cfg.get("engine", "omnivoice")
@@ -73,6 +77,6 @@ def run_voices(args: argparse.Namespace) -> int:
             print(f"  逐字稿內容: 「{txt_preview}」")
 
     print("\n" + "=" * 70)
-    print("💡 使用方式：在任何 job.yaml 中指定 voice_id 即可使用該音色（例如 voice_id: narrator_male）")
+    print("💡 使用方式：在任何 job.yaml 中指定 voice_id 即可使用該音色（例如 voice_id: tw_female01）")
     print("=" * 70)
     return 0

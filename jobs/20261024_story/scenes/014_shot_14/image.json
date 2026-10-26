@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261024T124813",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 68018549,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background\nVibrant contrasting color palettes, crisp details throughout, expressive chibi faces, rich background props., Close-up shot in Q-version 2D cartoon illustration style, showing the bubble wrap packaging sheet glued against greenhouse glass turning yellow, brittle, and cracked under an intense blazing summer sun, with individual air bubbles popping into deflated wrinkles, clean graphic linework, harsh comic heat waves, 16:9 widescreen composition., 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-24T12:48:13.394636+00:00"
+}

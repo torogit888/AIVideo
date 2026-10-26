@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261024T124325",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.18,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "然而當他們拿著樣品敲開曼哈頓一間間室內設計公司時",
+      "text_cn": "然而当他们拿着样品敲开曼哈顿一间间室内设计公司时",
+      "start_sec": 0.0,
+      "end_sec": 4.96,
+      "duration_sec": 4.96
+    },
+    {
+      "index": 2,
+      "text": "設計師看著那散發刺鼻臭味又黏糊糊的透明破布臉色鐵青",
+      "text_cn": "设计师看着那散发刺鼻臭味又黏糊糊的透明破布脸色铁青",
+      "start_sec": 5.21,
+      "end_sec": 10.37,
+      "duration_sec": 5.16
+    },
+    {
+      "index": 3,
+      "text": "誰願意把廉價浴室浴簾貼在自家客廳幾個月下來訂單完全是零",
+      "text_cn": "谁愿意把廉价浴室浴帘贴在自家客厅几个月下来订单完全是零",
+      "start_sec": 10.62,
+      "end_sec": 16.18,
+      "duration_sec": 5.56
+    }
+  ],
+  "created_at": "2026-10-24T12:43:25.592164+00:00"
+}

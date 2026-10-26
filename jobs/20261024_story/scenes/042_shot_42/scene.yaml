@@ -1,0 +1,27 @@
+id: 042_shot_42
+index: 42
+title: 主流媒體甚至在頭條文章中嚴厲拷問
+narration: 主流媒體甚至在頭條文章中嚴厲拷問這家跨國巨頭，一家靠著帶給人類快樂發家的企業怎麼能把靈魂從產品裡硬生生抽走，
+image_prompt: Medium shot in Q-version 2D cartoon illustration style, showing giant
+  retro television news broadcast monitors and printed morning newspapers displaying
+  satirical cartoons of corporate executives stealing childhood joy, bold graphic
+  layouts, crisp mid-century print aesthetic, 16:9 widescreen composition.
+character_ids: []
+image_negative: ''
+act_index: 6
+act_title: 捏不破的致命背叛：一場引發全球公憤的綠色清洗
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T131508
+  image_take: image_20261024T131449
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Wall Street Journal Bubble Wrap losing its pop article 2015
+  fetch_error: 'AI 審核未通過（與口白不符）：AI 判定不吻合: 畫面僅為普通氣泡布，未呈現旁白提及之主流媒體頭條報導。，已自動切換為純 AI 生成畫面'

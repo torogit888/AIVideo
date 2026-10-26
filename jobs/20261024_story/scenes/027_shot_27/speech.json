@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261024T130011",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.58,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "最普通的聚乙烯高分子結構其實存在著微小的天然孔隙",
+      "text_cn": "最普通的聚乙烯高分子结构其实存在着围小的天然孔隙",
+      "start_sec": 0.0,
+      "end_sec": 4.96,
+      "duration_sec": 4.96
+    },
+    {
+      "index": 2,
+      "text": "在承受重物持續壓力的情況下氣泡裡的氣體會在幾天內慢慢滲漏",
+      "text_cn": "在承受重物持续压力的情况下气泡里的气体会在几天内慢慢渗漏",
+      "start_sec": 5.21,
+      "end_sec": 10.97,
+      "duration_sec": 5.76
+    },
+    {
+      "index": 3,
+      "text": "等到貨物漂洋過海運到港口時原本鼓脹的氣泡早就全癟掉了",
+      "text_cn": "等到货物漂洋过海运到港口时原本鼓胀的气泡早就全瘪掉了",
+      "start_sec": 11.22,
+      "end_sec": 16.58,
+      "duration_sec": 5.36
+    }
+  ],
+  "created_at": "2026-10-24T13:00:11.230315+00:00"
+}

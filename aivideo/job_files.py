@@ -15,15 +15,14 @@ JOB_YAML_KEYS = (
     "voice_id",
     "use_pip",
     "tone_id",
+    "visual_pacing",
     "frame",
     "image",
-    "style_prefix",
-    "style_negative",
     "subtitle",
     "kenburns",
 )
 
-FAT_JOB_KEYS = ("outline", "custom_prompt", "visual_anchors", "youtube")
+FAT_JOB_KEYS = ("outline", "custom_prompt", "visual_anchors", "youtube", "style_prefix", "style_negative", "metaphor_style")
 
 _PROMPT_HEAD = re.compile(r"^##\s*指定 Prompt[^\n]*\n+", re.M)
 _OUTLINE_HEAD = re.compile(r"^##\s*(?:[0-9]+\s*幕)?故事大綱[^\n]*\n+", re.M)
@@ -33,7 +32,11 @@ def slim_job_yaml(cfg: dict[str, Any]) -> dict[str, Any]:
     out: dict[str, Any] = {}
     for key in JOB_YAML_KEYS:
         if key in cfg and cfg[key] is not None:
-            out[key] = cfg[key]
+            if key == "image" and isinstance(cfg[key], dict):
+                img_copy = {k: v for k, v in cfg[key].items() if k != "model_final"}
+                out[key] = img_copy
+            else:
+                out[key] = cfg[key]
     return out
 
 

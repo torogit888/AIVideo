@@ -87,10 +87,10 @@ def _audio_duration_sec(scene_dir: Path, aud_file: Path) -> float:
 
 
 def _get_scene_status(scene_dir: Path, job_id: str) -> SceneStatus:
+    from aivideo.naming import is_scene_visual_ready
+
     img_file = scene_dir / "image.png"
     aud_file = scene_dir / "speech.wav"
-    if not aud_file.is_file():
-        aud_file = scene_dir / "audio.wav"
     pip_file = scene_dir / "pip.png"
     pip_vid_file = scene_dir / "pip.mp4"
 
@@ -98,19 +98,8 @@ def _get_scene_status(scene_dir: Path, job_id: str) -> SceneStatus:
     has_pip_video = pip_vid_file.is_file()
     has_pip = pip_file.is_file() or has_pip_video
 
-    # 檢查是否為考據影片 (B-Roll) 或黑底歷史聚焦 (spotlight)
-    is_spotlight = has_pip_video
-    s_yaml_p = scene_dir / "scene.yaml"
-    if s_yaml_p.is_file():
-        try:
-            sc_data = yaml.safe_load(s_yaml_p.read_text(encoding="utf-8")) or {}
-            p_mode = str(sc_data.get("pip", {}).get("mode", "")).lower()
-            if p_mode in ("spotlight", "focus", "black_bg", "fullscreen", "broll") and has_pip:
-                is_spotlight = True
-        except Exception:
-            pass
-
-    has_img = img_file.is_file() or is_spotlight
+    has_img = is_scene_visual_ready(scene_dir)
+    is_spotlight = has_img and not img_file.is_file()
 
     img_mtime = int(img_file.stat().st_mtime) if img_file.is_file() else 0
     aud_mtime = int(aud_file.stat().st_mtime) if has_aud else 0
@@ -142,6 +131,25 @@ def _get_scene_status(scene_dir: Path, job_id: str) -> SceneStatus:
     )
 
 
+def _scene_error_text(exc: Exception) -> str:
+    detail = getattr(exc, "detail", None)
+    if isinstance(detail, str) and detail.strip():
+        return detail.strip()
+    text = str(exc).strip()
+    return text or "無法讀取"
+
+
+def _failed_scene_summary(scene_dir: Path, exc: Exception) -> SceneSummary:
+    reason = _scene_error_text(exc)
+    return SceneSummary(
+        id=scene_dir.name,
+        index=0,
+        title="讀取失敗",
+        narration=f"{scene_dir.name} 的 scene.yaml 無法讀取：{reason}",
+        status=SceneStatus(),
+    )
+
+
 def _load_scene_yaml(scene_dir: Path) -> dict:
     sc_yaml = scene_dir / "scene.yaml"
     if not sc_yaml.is_file():
@@ -170,22 +178,28 @@ def list_scenes(job_id: str) -> List[SceneSummary]:
         return []
 
     scene_dirs = sorted([d for d in scenes_dir.iterdir() if d.is_dir()])
-    summaries: List[SceneSummary] = []
-    loaded: list[tuple] = []
+    entries: list[tuple[Path, dict | Exception]] = []
     for d in scene_dirs:
         try:
-            loaded.append((d, _load_scene_yaml(d)))
-        except Exception:
-            continue
+            entries.append((d, _load_scene_yaml(d)))
+        except Exception as exc:
+            entries.append((d, exc))
 
     from aivideo.acts import acts_from_job, assign_acts
 
-    need_acts = any(not int(data.get("act_index") or 0) for _d, data in loaded)
-    inferred = []
-    if need_acts:
-        inferred = assign_acts(len(loaded), acts_from_job(job_dir))
+    ok_entries = [(d, data) for d, data in entries if isinstance(data, dict)]
+    need_acts = any(not int(data.get("act_index") or 0) for _d, data in ok_entries)
+    inferred = assign_acts(len(ok_entries), acts_from_job(job_dir)) if need_acts else []
 
-    for i, (d, data) in enumerate(loaded):
+    summaries: List[SceneSummary] = []
+    ok_i = 0
+    for d, data in entries:
+        if isinstance(data, Exception):
+            summaries.append(_failed_scene_summary(d, data))
+            continue
+        if not isinstance(data, dict):
+            summaries.append(_failed_scene_summary(d, ValueError("scene.yaml 格式不正確")))
+            continue
         try:
             status = _get_scene_status(d, job_id)
             pip_data = data.get("pip", {}) if isinstance(data.get("pip"), dict) else {}
@@ -194,8 +208,8 @@ def list_scenes(job_id: str) -> List[SceneSummary]:
             act_index = int(data.get("act_index") or 0)
             act_title = str(data.get("act_title") or "")
             if (not act_index) and inferred:
-                act_index = int(inferred[i]["index"])
-                act_title = str(inferred[i]["title"])
+                act_index = int(inferred[ok_i]["index"])
+                act_title = str(inferred[ok_i]["title"])
             locks = data.get("locks") if isinstance(data.get("locks"), dict) else {}
             summaries.append(
                 SceneSummary(
@@ -216,8 +230,9 @@ def list_scenes(job_id: str) -> List[SceneSummary]:
                     status=status,
                 )
             )
-        except Exception:
-            continue
+        except Exception as exc:
+            summaries.append(_failed_scene_summary(d, exc))
+        ok_i += 1
     return summaries
 
 
@@ -710,7 +725,7 @@ def clear_scene_audio(job_id: str, scene_id: str):
     if not scene_dir.is_dir():
         raise HTTPException(status_code=404, detail="分鏡不存在")
 
-    for fname in ("speech.wav", "speech.json", "audio.wav"):
+    for fname in ("speech.wav", "speech.json"):
         f = scene_dir / fname
         if f.is_file():
             try:

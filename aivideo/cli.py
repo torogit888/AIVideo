@@ -116,20 +116,7 @@ def build_parser() -> argparse.ArgumentParser:
     gc.add_argument("--keep", type=int, default=3)
     gc.set_defaults(func=run_gc)
 
-    for name, help_text in (
-        ("parse", "把 script.md 切成場景（尚未實作）"),
-        ("run", "缺什麼補什麼（尚未實作）"),
-        ("regen", "單場重產（尚未實作）"),
-    ):
-        pending = sub.add_parser(name, help=help_text)
-        pending.set_defaults(func=_not_implemented, pending_name=name)
-
     return parser
-
-
-def _not_implemented(args: argparse.Namespace) -> int:
-    print(f"「{args.pending_name}」還沒做。請先跑：aivideo check --gpu --gemini", file=sys.stderr)
-    return 2
 
 
 def main(argv: list[str] | None = None) -> int:

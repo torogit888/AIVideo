@@ -1,0 +1,32 @@
+id: 007_shot_7
+index: 7
+title: 試圖用改裝過的熱封機將它們壓合在
+narration: 試圖用改裝過的熱封機將它們壓合在一起創造微小氣泡，[laughter]他們興奮地宣稱這將是引領未來的太空前衛立體壁紙，
+image_prompt: Medium shot in Q-version 2D cartoon illustration style, Alfred Fielding
+  vigorously cranking the side handle of the garage heat-sealing contraption while
+  Marc Chavannes carefully feeds shower curtains through the glowing brass compression
+  rollers, producing an early sheet of bubble wrap packaging sheet with puffed air
+  pockets, stylized sparks and excitement lines, 16:9 widescreen composition.
+character_ids:
+- alfred_fielding
+- marc_chavannes
+- classic_bubble_wrap
+- makeshift_heat_sealer
+image_negative: ''
+act_index: 1
+act_title: 時髦客廳的荒誕殘局：從前衛壁紙跌落的塑膠氣泡
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T124244
+  image_take: image_20261024T124226
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: US Patent 3142599 Alfred Fielding Bubble Wrap patent
+  fetch_error: 未找到合適照片或影片

@@ -1,0 +1,31 @@
+id: 012_shot_12
+index: 12
+title: 兩位發明家一拍大腿認定微小氣泡就
+narration: '[surprise-oh]兩位發明家一拍大腿認定微小氣泡就是天然的保溫隔熱磚，他們迅速印製了全新的宣傳手冊包裝成革命性溫室保溫棉，聲稱只要將這層薄膜貼在玻璃內側就能省下兩成供暖燃油，'
+image_prompt: Medium shot in Q-version 2D cartoon illustration style, Alfred Fielding
+  proudly unfurling a pristine roll of bubble wrap packaging sheet while Marc Chavannes
+  enthusiastically displays colorful printed promotional flyers illustrating insulation
+  against winter frost, bright workshop lighting, cheerful cel-shading, 16:9 widescreen
+  composition.
+character_ids:
+- alfred_fielding
+- marc_chavannes
+- classic_bubble_wrap
+image_negative: ''
+act_index: 2
+act_title: 悶熱溫室裡的二次窒息：保溫棉騙局與物理法則的暴擊
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T124708
+  image_take: image_20261024T124639
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Sealed Air Bubble Wrap greenhouse insulation vintage ad
+  fetch_error: 未找到合適照片或影片

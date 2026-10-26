@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Sparkles,
   MoreVertical,
@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import { useStudioStore } from "../store";
 import { api } from "../api";
-import { srtMediaUrl } from "../studioActions";
+import { estimateJobDuration, primaryPipelineAction, srtMediaUrl } from "../studioActions";
 import { ConnectionLights } from "./ConnectionLights";
 
 const formatCompactStatus = (rawMsg: string, cooldownSec: number): string => {
@@ -53,70 +53,65 @@ export const Topbar: React.FC = () => {
     setTab,
     showToast,
     selectJob,
+    deleteJob,
     startNewDraft,
     loadJobs,
     loadScenes,
+    burnSubtitles,
+    setBurnSubtitles,
+    setContinuityOpen,
   } = useStudioStore();
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [burnSubtitles, setBurnSubtitles] = useState(false);
 
   const currentJob = jobs.find((j) => j.id === selectedJobId);
 
-  const totalScenes = scenes.length || currentJob?.progress.scenes_count || 0;
   const readyImages = scenes.filter((s) => s.status.has_image).length;
-  const readyAudio = scenes.filter((s) => s.status.has_audio).length;
   const hasFilm = currentJob?.progress.film_ready ?? false;
+  const isFilmStale = Boolean(currentJob?.progress.film_stale);
 
-  const readyAudioScenes = scenes.filter((s) => s.status.has_audio && (s.status.duration || 0) > 0);
-  const totalAudioSec = readyAudioScenes.reduce((sum, s) => sum + (s.status.duration || 0), 0);
-
-  let estimatedTotalSec = 0;
-  if (readyAudio === totalScenes && totalScenes > 0 && totalAudioSec > 0) {
-    estimatedTotalSec = totalAudioSec;
-  } else if (readyAudioScenes.length > 0 && totalScenes > 0) {
-    const avgSec = totalAudioSec / readyAudioScenes.length;
-    estimatedTotalSec = totalAudioSec + avgSec * (totalScenes - readyAudioScenes.length);
-  } else if (currentJob?.progress.estimated_duration_sec) {
-    estimatedTotalSec = currentJob.progress.estimated_duration_sec;
-  } else if (totalScenes > 0) {
-    estimatedTotalSec = totalScenes * 5.5;
-  }
-
-  const formatDurationText = (sec: number): string => {
-    const total = Math.round(sec);
-    const m = Math.floor(total / 60);
-    const s = total % 60;
-    if (m >= 60) {
-      const h = Math.floor(m / 60);
-      const remM = m % 60;
-      return `${h}:${String(remM).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
-    }
-    return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
-  };
-
-  const isAllAudioDone = readyAudio === totalScenes && totalScenes > 0;
-  const durationTooltip = isAllAudioDone
-    ? `全部分鏡已完成配音，成片總長度預計為 ${formatDurationText(estimatedTotalSec)} (${Math.round(totalAudioSec)} 秒)`
-    : readyAudioScenes.length > 0
-    ? `已完成 ${readyAudio}/${totalScenes} 幕配音 (${formatDurationText(totalAudioSec)})，依平均時長預估全片長度約 ${formatDurationText(estimatedTotalSec)}`
-    : `尚未生成語音，依標準每幕 5.5 秒預估全片長度約 ${formatDurationText(estimatedTotalSec)}`;
+  const {
+    totalScenes,
+    readyAudioCount: readyAudio,
+    isAllAudioDone,
+    formattedDuration,
+    tooltip: durationTooltip,
+  } = estimateJobDuration(
+    scenes,
+    currentJob?.progress.estimated_duration_sec,
+    currentJob?.progress.scenes_count
+  );
 
   const cooldownRemaining =
     pipelineCooldown > 0
       ? pipelineCooldown
       : Number((pipelineMessage || "").match(/冷卻(?:倒數)?\s*(\d+)/)?.[1] || 0);
 
-  useEffect(() => {
-    const onOpenContinuity = () => setIsDropdownOpen(false);
-    window.addEventListener("aivideo:open-continuity", onOpenContinuity);
-    return () => window.removeEventListener("aivideo:open-continuity", onOpenContinuity);
-  }, []);
+  const nextStep = primaryPipelineAction(readyImages, readyAudio, totalScenes, hasFilm);
 
-  const handleRunAllPipeline = async () => {
+  const handlePrimaryAction = async () => {
     if (!selectedJobId) return;
-    setPipelineRunning(true, 5, "正在啟動一鍵全流程 (逐幕出圖 ➔ 配音 ➔ 合成)...");
-    await api.runPipeline(selectedJobId, "all", false, burnSubtitles);
+    if (nextStep.action === "preview") {
+      setTab("film");
+      return;
+    }
+    if (!nextStep.action) {
+      setTab("script");
+      return;
+    }
+    const starting =
+      nextStep.action === "images"
+        ? "正在補齊未完成畫面..."
+        : nextStep.action === "tts"
+        ? "正在生成配音..."
+        : "正在合成 1080p 成片...";
+    setPipelineRunning(true, 5, starting);
+    try {
+      await api.runPipeline(selectedJobId, nextStep.action, false, burnSubtitles);
+    } catch (e: any) {
+      setPipelineRunning(false, 0, "");
+      showToast("啟動流程失敗: " + (e.message || "未知錯誤"), "error");
+    }
   };
 
   const handleStopPipeline = async () => {
@@ -140,28 +135,8 @@ export const Topbar: React.FC = () => {
 
   const handleDeleteJob = async () => {
     if (!selectedJobId) return;
-    const confirmDelete = await requestConfirm({
-      title: "刪除專案確認",
-      message: `確定要徹底刪除專案【${currentJob?.title || selectedJobId}】嗎？\n\n此操作將永久刪除此專案的所有分鏡、生圖、配音與成片，無法復原！`,
-      confirmText: "徹底刪除",
-      variant: "danger",
-    });
-    if (!confirmDelete) return;
-
-    try {
-      await api.deleteJob(selectedJobId);
-      setIsDropdownOpen(false);
-      const remainingJobs = await api.getJobs();
-      useStudioStore.setState({ jobs: remainingJobs });
-      if (remainingJobs.length > 0) {
-        selectJob(remainingJobs[0].id);
-      } else {
-        useStudioStore.setState({ selectedJobId: null, scenes: [], activeSceneId: null });
-      }
-      showToast("專案已成功刪除！", "success");
-    } catch (e: any) {
-      showToast("刪除專案失敗: " + (e.message || "未知錯誤"), "error");
-    }
+    setIsDropdownOpen(false);
+    await deleteJob(selectedJobId, currentJob?.title);
   };
 
   const runOverflow = async (fn: () => Promise<void>) => {
@@ -172,7 +147,12 @@ export const Topbar: React.FC = () => {
   const handleBatchPip = async () => {
     if (!selectedJobId) return;
     setPipelineRunning(true, 10, "正在跨來源檢索真實考據照片 (PiP)...");
-    await api.runPipeline(selectedJobId, "pip");
+    try {
+      await api.runPipeline(selectedJobId, "pip");
+    } catch (e: any) {
+      setPipelineRunning(false, 0, "");
+      showToast("啟動考據失敗: " + (e.message || "未知錯誤"), "error");
+    }
   };
 
   const handleForceImages = async () => {
@@ -185,7 +165,12 @@ export const Topbar: React.FC = () => {
     });
     if (!ok) return;
     setPipelineRunning(true, 10, "正在強制覆蓋出圖...");
-    await api.runPipeline(selectedJobId, "images", true);
+    try {
+      await api.runPipeline(selectedJobId, "images", true);
+    } catch (e: any) {
+      setPipelineRunning(false, 0, "");
+      showToast("啟動出圖失敗: " + (e.message || "未知錯誤"), "error");
+    }
   };
 
   const handleClearImagesOnly = async () => {
@@ -262,8 +247,12 @@ export const Topbar: React.FC = () => {
           >
             <option value="">新專案草稿</option>
             {jobs.map((j) => {
-              const tag = j.progress.film_ready
-                ? "已成片"
+              const tag = j.load_error
+                ? "讀取失敗"
+                : j.progress.film_ready
+                ? j.progress.film_stale
+                  ? "已成片(過期)"
+                  : "已成片"
                 : j.progress.images_ready > 0
                 ? `製作中 ${j.progress.scenes_count} 鏡`
                 : "草稿";
@@ -324,7 +313,7 @@ export const Topbar: React.FC = () => {
                 <Clock className="w-3 h-3 mr-1 text-amber-cta/80" />
                 <span className="font-mono font-semibold text-cinema-text">
                   {isAllAudioDone ? "" : "~"}
-                  {formatDurationText(estimatedTotalSec)}
+                  {formattedDuration}
                 </span>
               </span>
             </div>
@@ -383,25 +372,39 @@ export const Topbar: React.FC = () => {
             </button>
           </div>
         ) : currentTab === "storyboard" && selectedJobId ? (
-          hasFilm ? (
-            <button
-              onClick={() => setTab("film")}
-              className="flex items-center h-8 px-3.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-cinema-bg font-semibold text-xs tracking-wide transition-all shadow-sm active:scale-95 shrink-0"
-              title="成片已就緒，點擊前往預覽成片"
-            >
+          <button
+            onClick={handlePrimaryAction}
+            className={`flex items-center h-8 px-3.5 rounded-lg font-semibold text-xs tracking-wide transition-all shadow-sm active:scale-95 shrink-0 ${
+              nextStep.action === "preview"
+                ? "bg-emerald-500 hover:bg-emerald-400 text-cinema-bg"
+                : "bg-amber-cta hover:bg-amber-ctaHover text-cinema-bg glow-amber"
+            }`}
+            title={
+              nextStep.action === "preview"
+                ? isFilmStale
+                  ? "成片已過期（自上次合成後曾修改過口白或素材，建議重新合成），點擊仍可預覽目前成片"
+                  : "成片已就緒，點擊前往預覽成片"
+                : nextStep.action === "images"
+                ? "還有鏡頭沒有畫面，先補齊這些畫面"
+                : nextStep.action === "tts"
+                ? "畫面已齊，接著產生還沒有的配音"
+                : nextStep.action === "compose"
+                ? "圖和聲音都齊了，合成 1080p 成片"
+                : "還沒有分鏡，先回到腳本"
+            }
+          >
+            {nextStep.action === "preview" ? (
               <Play className="w-3.5 h-3.5 mr-1.5 fill-current" />
-              <span>預覽成片</span>
-            </button>
-          ) : (
-            <button
-              onClick={handleRunAllPipeline}
-              className="flex items-center h-8 px-3.5 rounded-lg bg-amber-cta hover:bg-amber-ctaHover text-cinema-bg font-semibold text-xs tracking-wide transition-all shadow-sm glow-amber active:scale-95 shrink-0"
-              title="一鍵全自動：每幕先出圖 ➔ 再配音 ➔ 自動合成 1080p 影片"
-            >
+            ) : (
               <Sparkles className="w-3.5 h-3.5 mr-1.5" />
-              <span>🚀 一鍵全流程</span>
-            </button>
-          )
+            )}
+            <span>{nextStep.label}</span>
+            {nextStep.action === "preview" && isFilmStale && (
+              <span className="ml-1.5 px-1.5 py-0.5 rounded bg-amber-950/90 text-amber-300 border border-amber-500/60 text-[10px] font-bold leading-none">
+                已過期
+              </span>
+            )}
+          </button>
         ) : null}
 
         <div className="relative shrink-0">
@@ -422,7 +425,7 @@ export const Topbar: React.FC = () => {
                     className="w-full text-left px-3 py-1.5 hover:bg-cinema-cardHover hover:text-amber-cta"
                     onClick={() => {
                       setIsDropdownOpen(false);
-                      window.dispatchEvent(new CustomEvent("aivideo:open-continuity"));
+                      setContinuityOpen(true);
                     }}
                   >
                     視覺定裝
@@ -445,11 +448,17 @@ export const Topbar: React.FC = () => {
                     <input
                       type="checkbox"
                       checked={burnSubtitles}
-                      onChange={(e) => {
-                        setBurnSubtitles(e.target.checked);
-                        window.dispatchEvent(
-                          new CustomEvent("aivideo:burn-subtitles", { detail: e.target.checked })
-                        );
+                      onChange={async (e) => {
+                        const nextVal = e.target.checked;
+                        setBurnSubtitles(nextVal);
+                        if (selectedJobId) {
+                          try {
+                            await api.updateJob(selectedJobId, { burn_subtitles: nextVal });
+                            await loadJobs();
+                          } catch {
+                            /* 保留前端 store 狀態 */
+                          }
+                        }
                       }}
                       className="rounded border-cinema-border bg-cinema-darker text-amber-cta w-3.5 h-3.5"
                     />
@@ -478,26 +487,53 @@ export const Topbar: React.FC = () => {
                 </>
               )}
               <a
-                href={selectedJobId ? `/media/jobs/${encodeURIComponent(selectedJobId)}/compose/film.mp4` : "#"}
-                download
-                className="block px-3 py-1.5 hover:bg-cinema-cardHover hover:text-amber-cta"
+                href={selectedJobId && hasFilm ? `/media/jobs/${encodeURIComponent(selectedJobId)}/compose/film.mp4` : "#"}
+                download={hasFilm ? true : undefined}
+                onClick={(e) => {
+                  if (!selectedJobId || !hasFilm) {
+                    e.preventDefault();
+                    setIsDropdownOpen(false);
+                    showToast("成片尚未合成，請先執行「合成」或「一鍵全流程」", "info");
+                  }
+                }}
+                className={`block px-3 py-1.5 hover:bg-cinema-cardHover ${
+                  hasFilm ? "hover:text-amber-cta" : "text-cinema-muted/60"
+                }`}
               >
-                下載 1080p MP4
+                下載 1080p MP4{!hasFilm ? " (未合成)" : ""}
               </a>
               <a
-                href={selectedJobId ? srtMediaUrl(selectedJobId) : "#"}
-                download
-                className="block px-3 py-1.5 hover:bg-cinema-cardHover hover:text-amber-cta"
+                href={selectedJobId && hasFilm ? srtMediaUrl(selectedJobId) : "#"}
+                download={hasFilm ? true : undefined}
+                onClick={(e) => {
+                  if (!selectedJobId || !hasFilm) {
+                    e.preventDefault();
+                    setIsDropdownOpen(false);
+                    showToast("字幕檔於合成時產出，請先執行「合成」", "info");
+                  }
+                }}
+                className={`block px-3 py-1.5 hover:bg-cinema-cardHover ${
+                  hasFilm ? "hover:text-amber-cta" : "text-cinema-muted/60"
+                }`}
               >
-                下載 SRT 字幕
+                下載 SRT 字幕{!hasFilm ? " (未合成)" : ""}
               </a>
               <a
-                href={selectedJobId ? `/media/jobs/${encodeURIComponent(selectedJobId)}/preview.html` : "#"}
-                target="_blank"
+                href={selectedJobId && hasFilm ? `/media/jobs/${encodeURIComponent(selectedJobId)}/preview.html` : "#"}
+                target={hasFilm ? "_blank" : undefined}
                 rel="noreferrer"
-                className="block px-3 py-1.5 hover:bg-cinema-cardHover hover:text-amber-cta"
+                onClick={(e) => {
+                  if (!selectedJobId || !hasFilm) {
+                    e.preventDefault();
+                    setIsDropdownOpen(false);
+                    showToast("HTML 故事板於合成完成後產出", "info");
+                  }
+                }}
+                className={`block px-3 py-1.5 hover:bg-cinema-cardHover ${
+                  hasFilm ? "hover:text-amber-cta" : "text-cinema-muted/60"
+                }`}
               >
-                開啟 HTML 故事板
+                開啟 HTML 故事板{!hasFilm ? " (未合成)" : ""}
               </a>
               <div className="my-1 border-t border-cinema-border" />
               <button

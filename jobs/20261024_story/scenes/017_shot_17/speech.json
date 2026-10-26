@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261024T125119",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.76,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "時間來到一九六零年菲爾丁和沙瓦納咬牙成立了希悅爾公司",
+      "text_cn": "时间来到一九六零年菲尔丁和沙瓦纳咬牙成立了希悦尔公司",
+      "start_sec": 0.0,
+      "end_sec": 5.36,
+      "duration_sec": 5.36
+    },
+    {
+      "index": 2,
+      "text": "英文原意就是密封空氣但當時帳戶裡除了一堆借條什麼都沒有",
+      "text_cn": "英文原意就是密封空气但当时账户里除了一堆借条什么都没有",
+      "start_sec": 5.61,
+      "end_sec": 11.17,
+      "duration_sec": 5.56
+    },
+    {
+      "index": 3,
+      "text": "就在這個時候行銷奇才佛雷德里克鮑爾斯加入了這家空殼公司",
+      "text_cn": "就在这个时候行销奇才佛雷德里克鲍尔斯加入了这家空壳公司",
+      "start_sec": 11.42,
+      "end_sec": 16.76,
+      "duration_sec": 5.34
+    }
+  ],
+  "created_at": "2026-10-24T12:51:19.432522+00:00"
+}

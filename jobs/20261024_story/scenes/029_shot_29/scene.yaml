@@ -1,0 +1,20 @@
+id: 029_shot_29
+index: 29
+title: 希悅爾憑藉這項阻隔氣泡專利技術在
+narration: 希悅爾憑藉這項阻隔氣泡專利技術在整個行業築起了鋼鐵長城，到了一九七零年代全世界所有脆弱的工業明珠全部被氣泡所包裹，他們成功把隨處可見的空氣包裝成了跨國物流中最昂貴的保險單，
+image_prompt: Wide shot in Q-version 2D cartoon illustration style, set in the 1970s
+  at a busy international shipping harbor, where giant rolls of bubble wrap packaging
+  sheet encase precision industrial machinery, cameras, and optics loaded onto massive
+  container ships, vibrant retro cel-shaded colors, crisp contour lines, 16:9 widescreen
+  composition.
+character_ids:
+- classic_bubble_wrap
+image_negative: ''
+act_index: 4
+act_title: 減震封印下的暴利帝國：希悅爾的專利防禦網
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T130207
+  image_take: image_20261024T130153

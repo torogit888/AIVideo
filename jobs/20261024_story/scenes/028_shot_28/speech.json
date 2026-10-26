@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261024T130115",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 22.59,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "面對這場殘酷的惡性競爭兩位創始人展現了真正的硬核工程天賦",
+      "text_cn": "面对这场残酷的恶性竞争两位创始人展现了真正的硬核工程天赋",
+      "start_sec": 0.0,
+      "end_sec": 5.76,
+      "duration_sec": 5.76
+    },
+    {
+      "index": 2,
+      "text": "他們研發出極其複雜的多層共擠技術強行夾入一層阻隔聚合物",
+      "text_cn": "他们研发出极其复杂的多层共挤技术强行夹入一层阻隔聚合物",
+      "start_sec": 6.01,
+      "end_sec": 11.57,
+      "duration_sec": 5.56
+    },
+    {
+      "index": 3,
+      "text": "這就像是在漏風的木板牆中間澆築了一層密不透風的鋼筋水泥",
+      "text_cn": "这就像是在漏风的木板墙中间浇筑了一层密不透风的钢筋水泥",
+      "start_sec": 11.82,
+      "end_sec": 17.38,
+      "duration_sec": 5.56
+    },
+    {
+      "index": 4,
+      "text": "把空氣分子的自然滲透率壓低到了微乎其微的物理極限",
+      "text_cn": "把空气分子的自然渗透率压低到了围乎其围的物理极限",
+      "start_sec": 17.63,
+      "end_sec": 22.59,
+      "duration_sec": 4.96
+    }
+  ],
+  "created_at": "2026-10-24T13:01:15.214951+00:00"
+}

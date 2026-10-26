@@ -1,0 +1,19 @@
+id: 041_shot_41
+index: 41
+title: 再也沒有清脆的啪嗒聲再也沒有釋放
+narration: 再也沒有清脆的啪嗒聲再也沒有釋放生活壓力的暢快感，全球社交網路上迅速掀起了一個拯救泡泡紙的抗議浪潮，成千上萬的網民在官方帳號下痛罵指責他們親手殺死了童年樂趣，
+image_prompt: Wide dynamic shot in Q-version 2D cartoon illustration style, depicting
+  an energetic global social media protest, with chibi internet users holding tablets
+  and smartphones showing protest hashtags, marching alongside cute banners demanding
+  the return of poppable bubbles, vibrant saturated color scheme, 16:9 widescreen
+  composition.
+character_ids: []
+image_negative: ''
+act_index: 6
+act_title: 捏不破的致命背叛：一場引發全球公憤的綠色清洗
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T131404
+  image_take: image_20261024T131328

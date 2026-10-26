@@ -1,0 +1,20 @@
+id: 014_shot_14
+index: 14
+title: 然而嚴酷的物理法則是從來不講任何
+narration: '[sigh]然而嚴酷的物理法則是從來不講任何人情世故的，早期的聚乙烯塑膠薄膜根本沒有添加抗紫外線的穩定劑，在夏天強烈日光直射下高分子鏈迅速斷裂薄膜發黃變脆，'
+image_prompt: Close-up shot in Q-version 2D cartoon illustration style, showing the
+  bubble wrap packaging sheet glued against greenhouse glass turning yellow, brittle,
+  and cracked under an intense blazing summer sun, with individual air bubbles popping
+  into deflated wrinkles, clean graphic linework, harsh comic heat waves, 16:9 widescreen
+  composition.
+character_ids:
+- classic_bubble_wrap
+image_negative: ''
+act_index: 2
+act_title: 悶熱溫室裡的二次窒息：保溫棉騙局與物理法則的暴擊
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T124827
+  image_take: image_20261024T124813

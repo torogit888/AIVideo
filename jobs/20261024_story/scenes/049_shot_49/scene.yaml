@@ -1,0 +1,20 @@
+id: 049_shot_49
+index: 49
+title: 表面上看起來充滿了抵禦外界衝擊的
+narration: 表面上看起來充滿了抵禦外界衝擊的安全感，但只要輕輕一擠裡面包裹的其實除了一小團虛無的空氣之外什麼也沒有，如果你也喜歡這段荒謬又真實的歷史別忘了點個喜歡訂閱頻道並開啟小鈴鐺，我們下次見!
+image_prompt: Close-up philosophical concluding shot in Q-version 2D cartoon illustration
+  style, a single translucent hemispherical pocket on a bubble wrap packaging sheet
+  being gently squeezed until it deflates, releasing a whimsical stylized puff of
+  swirling air and tiny floating stars into warm nostalgic ambient light, clean line
+  art, peaceful atmosphere, 16:9 widescreen composition.
+character_ids:
+- classic_bubble_wrap
+image_negative: ''
+act_index: 7
+act_title: 空氣的代價與歷史餘韻：從荒唐失敗到文明容器
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T132223
+  image_take: image_20261024T132122

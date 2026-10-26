@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261024T124827",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.1,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[sigh]然而嚴酷的物理法則是從來不講任何人情世故的",
+      "text_cn": "[sigh]然而严酷的物理法则是从来不讲任何人情世故的",
+      "start_sec": 0.0,
+      "end_sec": 4.68,
+      "duration_sec": 4.68
+    },
+    {
+      "index": 2,
+      "text": "早期的聚乙烯塑膠薄膜根本沒有添加抗紫外線的穩定劑",
+      "text_cn": "早棋的聚乙烯塑胶薄膜根本没有添加抗紫外线的稳定剂",
+      "start_sec": 4.93,
+      "end_sec": 9.89,
+      "duration_sec": 4.96
+    },
+    {
+      "index": 3,
+      "text": "在夏天強烈日光直射下高分子鏈迅速斷裂薄膜發黃變脆",
+      "text_cn": "在夏天强烈日光直射下高分子链迅速断裂薄膜发黄变脆",
+      "start_sec": 10.14,
+      "end_sec": 15.1,
+      "duration_sec": 4.96
+    }
+  ],
+  "created_at": "2026-10-24T12:48:27.532110+00:00"
+}

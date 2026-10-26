@@ -137,7 +137,10 @@ def _generate_one_character_sheet(job_dir: Path, cfg: dict, character: dict[str,
         environment=str(environment),
         entity_type=character.get("entity_type", "character"),
     )
-    img_model = cfg.get("image", {}).get("model", "gemini-3-pro-image")
+    from aivideo.naming import DEFAULT_IMAGE_MODEL
+
+    image_cfg = cfg.get("image") if isinstance(cfg.get("image"), dict) else {}
+    img_model = str(image_cfg.get("model") or "").strip() or DEFAULT_IMAGE_MODEL
     generate_image(
         prompt=prompt,
         dest=dest,
@@ -149,17 +152,20 @@ def _generate_one_character_sheet(job_dir: Path, cfg: dict, character: dict[str,
 
 
 def _calculate_job_progress(job_dir: Path) -> JobProgress:
+    from aivideo.naming import is_film_stale, is_scene_visual_ready
+
     scenes_dir = job_dir / "scenes"
     if not scenes_dir.is_dir():
         return JobProgress()
 
     scene_dirs = sorted([d for d in scenes_dir.iterdir() if d.is_dir()])
     total_scenes = len(scene_dirs)
-    images_ready = sum(
-        1 for d in scene_dirs if (d / "image.png").is_file() or (d / "pip.mp4").is_file()
-    )
-    audio_ready = sum(1 for d in scene_dirs if (d / "speech.wav").is_file() or (d / "audio.wav").is_file())
-    film_ready = (job_dir / "compose" / "film.mp4").is_file()
+    images_ready = sum(1 for d in scene_dirs if is_scene_visual_ready(d))
+    audio_ready = sum(1 for d in scene_dirs if (d / "speech.wav").is_file())
+    film_file = job_dir / "compose" / "film.mp4"
+    film_ready = film_file.is_file()
+    film_mtime = int(film_file.stat().st_mtime) if film_ready else 0
+    film_stale = is_film_stale(job_dir) if film_ready else False
 
     # 計算已生成語音時長與全片預估成片總時長
     total_audio_sec = 0.0
@@ -212,6 +218,8 @@ def _calculate_job_progress(job_dir: Path) -> JobProgress:
         images_ready=images_ready,
         audio_ready=audio_ready,
         film_ready=film_ready,
+        film_stale=film_stale,
+        film_mtime=film_mtime,
         youtube_published=yt_published,
         youtube_video_id=yt_id,
         youtube_video_url=yt_url,
@@ -222,10 +230,14 @@ def _calculate_job_progress(job_dir: Path) -> JobProgress:
 
 
 def _to_job_summary(job_dir: Path, data: dict | None = None) -> JobSummary:
+    from aivideo.naming import job_use_pip
+
     if data is None:
         path = _job_yaml_path(job_dir)
         data = yaml.safe_load(path.read_text(encoding="utf-8")) or {} if path.is_file() else {}
     img = data.get("image") if isinstance(data.get("image"), dict) else {}
+    sub = data.get("subtitle") if isinstance(data.get("subtitle"), dict) else {}
+    burn_sub = str(sub.get("mode", "none")).strip().lower() == "hard"
     mtime = datetime.fromtimestamp(job_dir.stat().st_mtime, tz=timezone.utc).isoformat()
     return JobSummary(
         id=job_dir.name,
@@ -234,8 +246,9 @@ def _to_job_summary(job_dir: Path, data: dict | None = None) -> JobSummary:
         voice_id=data.get("voice_id", "tw_female01"),
         style_id=img.get("style"),
         image_model=img.get("model"),
-        use_pip=bool(data.get("use_pip", False)),
-        metaphor_style=str(data.get("metaphor_style") or "fantasy"),
+        use_pip=job_use_pip(data),
+        burn_subtitles=burn_sub,
+        visual_pacing=str(data.get("visual_pacing") or "balanced"),
         progress=_calculate_job_progress(job_dir),
         updated_at=mtime,
     )
@@ -255,8 +268,17 @@ def list_jobs() -> List[JobSummary]:
     for jdir in job_dirs:
         try:
             results.append(_to_job_summary(jdir))
-        except Exception:
-            continue
+        except Exception as exc:
+            detail = getattr(exc, "detail", None)
+            message = detail.strip() if isinstance(detail, str) and detail.strip() else (str(exc).strip() or "讀取失敗")
+            results.append(
+                JobSummary(
+                    id=jdir.name,
+                    title=jdir.name,
+                    progress=JobProgress(),
+                    load_error=message,
+                )
+            )
     return results
 
 
@@ -307,9 +329,10 @@ def get_job_detail(job_id: str) -> JobDetail:
 
 @router.post("", response_model=JobSummary)
 def create_job(req: CreateJobRequest) -> JobSummary:
-    from aivideo.naming import build_job_id
+    from aivideo.naming import build_job_id, resolve_unique_job_id
 
-    job_id = build_job_id(req.topic, req.slug)
+    JOBS_DIR.mkdir(parents=True, exist_ok=True)
+    job_id = resolve_unique_job_id(JOBS_DIR, build_job_id(req.topic, req.slug))
     job_dir = JOBS_DIR / job_id
 
     # 決定視覺錨點：前端已確認的角色／環境優先，否則自動分析
@@ -339,18 +362,16 @@ def create_job(req: CreateJobRequest) -> JobSummary:
             characters = provided_characters
             subject_anchor = compose_subject_anchor(characters) or subject_anchor
 
-    # 拆解分鏡（依據選定之視覺轉譯風格產生各幕英文 Prompt）
+    # 拆解分鏡（依據選定之視覺風格產生各幕英文 Prompt）
     scenes_data = parse_script_lines_to_scenes(
         script_lines_text=req.script,
         visual_pacing=req.visual_pacing,
-        sentences_per_scene=req.lines_per_scene,
         style_key=req.style_id,
         subject_anchor=subject_anchor,
         environment_anchor=env_anchor,
         topic=req.topic,
         characters=characters,
         outline=req.outline,
-        metaphor_style=req.metaphor_style or "fantasy",
     )
 
     created_dir = create_job_bundle(
@@ -367,11 +388,10 @@ def create_job(req: CreateJobRequest) -> JobSummary:
         outline=req.outline,
         tone_id=req.tone_id,
         use_pip=req.use_pip,
-        metaphor_style=req.metaphor_style or "fantasy",
+        script_text=req.script,
+        visual_pacing=req.visual_pacing,
     )
 
-    # 同步寫入 script.md
-    (created_dir / "script.md").write_text(req.script, encoding="utf-8")
     return _to_job_summary(created_dir)
 
 
@@ -714,20 +734,14 @@ def update_job(job_id: str, req: UpdateJobRequest) -> JobSummary:
         if "image" not in data or not isinstance(data["image"], dict):
             data["image"] = {}
         data["image"]["model"] = req.image_model
-        data["image"]["model_final"] = req.image_model
     if req.style_id is not None:
         if "image" not in data or not isinstance(data["image"], dict):
             data["image"] = {}
         data["image"]["style"] = req.style_id
-        style_info = load_style_presets().get(req.style_id) or {}
-        if style_info.get("prefix"):
-            data["style_prefix"] = style_info["prefix"]
-        if style_info.get("negative"):
-            data["style_negative"] = style_info["negative"]
     if req.tone_id is not None:
         data["tone_id"] = req.tone_id
-    if req.metaphor_style is not None:
-        data["metaphor_style"] = req.metaphor_style
+    if req.visual_pacing is not None:
+        data["visual_pacing"] = req.visual_pacing
     if req.custom_prompt is not None:
         data["custom_prompt"] = req.custom_prompt
     if req.outline is not None:
@@ -736,10 +750,14 @@ def update_job(job_id: str, req: UpdateJobRequest) -> JobSummary:
     if req.script is not None:
         try:
             (job_dir / "script.md").write_text(req.script, encoding="utf-8")
-        except Exception:
-            pass
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"寫入 script.md 失敗: {str(e)}")
     if req.use_pip is not None:
         data["use_pip"] = bool(req.use_pip)
+    if req.burn_subtitles is not None:
+        if "subtitle" not in data or not isinstance(data["subtitle"], dict):
+            data["subtitle"] = {"font_size": 48}
+        data["subtitle"]["mode"] = "hard" if req.burn_subtitles else "none"
 
     # 視覺錨點與角色定裝更新
     if (
@@ -816,20 +834,20 @@ def recut_job(job_id: str, req: RecutJobRequest) -> JobSummary:
     style_key = (cfg.get("image") or {}).get("style") or "otomo_katsuhiro"
     title = cfg.get("title") or job_id
 
-    metaphor = req.metaphor_style or str(cfg.get("metaphor_style") or "fantasy")
     scenes_data = parse_script_lines_to_scenes(
         script_lines_text=script,
         visual_pacing=req.visual_pacing,
-        sentences_per_scene=req.lines_per_scene,
         style_key=style_key,
         subject_anchor=subject,
         environment_anchor=environment,
         topic=title,
         characters=characters,
         outline=str(cfg.get("outline") or ""),
-        metaphor_style=metaphor,
     )
     apply_scene_cut(job_dir, scenes_data)
+    if req.visual_pacing:
+        cfg["visual_pacing"] = req.visual_pacing
+        _save_job_cfg(job_dir, cfg)
     return _to_job_summary(job_dir, cfg)
 
 
@@ -837,7 +855,7 @@ def recut_job(job_id: str, req: RecutJobRequest) -> JobSummary:
 def clear_job_media(job_id: str):
     """
     全部清除/清空已生成素材：
-    刪除所有分鏡的已生成圖片 (image.png, image.json, takes/)、語音 (speech.wav, speech.json, audio.wav)、
+    刪除所有分鏡的已生成圖片 (image.png, image.json, takes/)、語音 (speech.wav, speech.json)、
     考據圖 (pip.png) 與合成目錄 (compose/)，重置 current 狀態，將專案恢復為未出圖未配音的初始分鏡狀態。
     """
     job_dir = JOBS_DIR / job_id
@@ -852,7 +870,7 @@ def clear_job_media(job_id: str):
             if not s_dir.is_dir():
                 continue
             # 刪除已生成的圖、音、考據圖與 takes
-            for fname in ("image.png", "image.json", "speech.wav", "speech.json", "audio.wav", "pip.png", "pip.mp4"):
+            for fname in ("image.png", "image.json", "speech.wav", "speech.json", "pip.png", "pip.mp4"):
                 f = s_dir / fname
                 if f.is_file():
                     try:
@@ -969,7 +987,7 @@ def clear_job_images(job_id: str):
 def clear_job_audio(job_id: str):
     """
     僅清空所有分鏡已生成的配音：
-    刪除各分鏡目錄下的 speech.wav, speech.json, audio.wav 以及 takes/ 目錄下的音訊 take (*.wav 及 speech_*.json)，
+    刪除各分鏡目錄下的 speech.wav, speech.json 以及 takes/ 目錄下的音訊 take (*.wav 及 speech_*.json)，
     將 scene.yaml 內的 current.speech_take 重置為 None，並清空 compose/ 成片目錄。
     完整保留畫面 (image.png)、考據圖 (pip.png) 與分鏡台詞腳本。
     """
@@ -986,7 +1004,7 @@ def clear_job_audio(job_id: str):
                 continue
 
             # 刪除根層級語音與中繼資料
-            for fname in ("speech.wav", "speech.json", "audio.wav"):
+            for fname in ("speech.wav", "speech.json"):
                 f = s_dir / fname
                 if f.is_file():
                     try:

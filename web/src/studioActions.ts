@@ -21,6 +21,7 @@ export function primaryPipelineAction(
   return { label: "預覽成片", action: "preview" };
 }
 
+export const DEFAULT_IMAGE_MODEL = "gemini-3.1-flash-image";
 export const DEFAULT_VOICE_ID = "tw_female01";
 export const DEFAULT_USE_PIP = true;
 export const DEFAULT_CHANNEL_NAME = "白兔";
@@ -80,3 +81,65 @@ export function scriptWorkspaceMode(jobId: string | null | undefined): "new" | "
 export function shouldPromptRecut(scriptChanged: boolean, hasScenes: boolean): boolean {
   return Boolean(scriptChanged && hasScenes);
 }
+
+export function formatDurationClock(sec: number): string {
+  const total = Math.max(0, Math.round(sec || 0));
+  const m = Math.floor(total / 60);
+  const s = total % 60;
+  if (m >= 60) {
+    const h = Math.floor(m / 60);
+    const remM = m % 60;
+    return `${h}:${String(remM).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+  }
+  return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+}
+
+export function estimateJobDuration(
+  scenes: { status: { has_audio: boolean; duration?: number } }[],
+  fallbackEstimatedSec?: number,
+  fallbackTotalScenes?: number
+): {
+  totalScenes: number;
+  readyAudioCount: number;
+  totalAudioSec: number;
+  estimatedTotalSec: number;
+  isAllAudioDone: boolean;
+  formattedDuration: string;
+  tooltip: string;
+} {
+  const totalScenes = scenes.length || fallbackTotalScenes || 0;
+  const readyAudioScenes = scenes.filter((s) => s.status.has_audio && (s.status.duration || 0) > 0);
+  const readyAudioCount = scenes.filter((s) => s.status.has_audio).length;
+  const totalAudioSec = readyAudioScenes.reduce((sum, s) => sum + (s.status.duration || 0), 0);
+
+  let estimatedTotalSec = 0;
+  if (readyAudioScenes.length === totalScenes && totalScenes > 0 && totalAudioSec > 0) {
+    estimatedTotalSec = totalAudioSec;
+  } else if (readyAudioScenes.length > 0 && totalScenes > 0) {
+    const avgSec = totalAudioSec / readyAudioScenes.length;
+    estimatedTotalSec = totalAudioSec + avgSec * (totalScenes - readyAudioScenes.length);
+  } else if (fallbackEstimatedSec && fallbackEstimatedSec > 0) {
+    estimatedTotalSec = fallbackEstimatedSec;
+  } else if (totalScenes > 0) {
+    estimatedTotalSec = totalScenes * 5.5;
+  }
+
+  const isAllAudioDone = readyAudioCount === totalScenes && totalScenes > 0;
+  const formattedDuration = formatDurationClock(estimatedTotalSec);
+  const tooltip = isAllAudioDone
+    ? `全部分鏡已完成配音，成片總長度預計為 ${formattedDuration} (${Math.round(totalAudioSec)} 秒)`
+    : readyAudioScenes.length > 0
+    ? `已完成 ${readyAudioCount}/${totalScenes} 幕配音 (${formatDurationClock(totalAudioSec)})，依平均時長預估全片長度約 ${formattedDuration}`
+    : `尚未生成語音，依標準每幕 5.5 秒預估全片長度約 ${formattedDuration}`;
+
+  return {
+    totalScenes,
+    readyAudioCount,
+    totalAudioSec,
+    estimatedTotalSec,
+    isAllAudioDone,
+    formattedDuration,
+    tooltip,
+  };
+}
+

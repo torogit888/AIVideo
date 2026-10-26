@@ -1,0 +1,19 @@
+id: 021_shot_21
+index: 21
+title: 當時全美物流業使用的包裝材料居然
+narration: 當時全美物流業使用的包裝材料居然是稻草舊報紙與乾燥木屑，你完全無法想像代表人類科技頂峰的電腦出廠時用爛稻草裹著，卡車稍微經過顛簸路段運到客戶手裡時玻璃元件早就被震得粉碎，
+image_prompt: Wide shot in Q-version 2D cartoon illustration style, inside the vibrating
+  cargo bay of a 1960s transport truck bouncing along a rutted road, showing a rough
+  wooden crate stuffed with messy yellow straw and old crumpled newspapers, out of
+  which shattered glass vacuum tubes and cracked electronics spill, comic vibration
+  lines, 16:9 widescreen composition.
+character_ids: []
+image_negative: ''
+act_index: 3
+act_title: 巨獸降臨的救贖時刻：藍色巨人與脆弱的大腦
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T125502
+  image_take: image_20261024T125426

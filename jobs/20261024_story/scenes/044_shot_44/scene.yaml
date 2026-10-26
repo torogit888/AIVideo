@@ -1,0 +1,30 @@
+id: 044_shot_44
+index: 44
+title: 一九九三年發明人菲爾丁與沙瓦納雙
+narration: 一九九三年發明人菲爾丁與沙瓦納雙雙入選了國家發明家名人堂 [3]，享受與愛迪生還有特斯拉等科學巨匠平起平坐的崇高歷史榮耀，
+image_prompt: Medium shot in Q-version 2D cartoon illustration style, set in 1993
+  inside the prestigious National Inventors Hall of Fame, where elderly Alfred Fielding
+  in a tuxedo and Marc Chavannes in an elegant suit proudly stand beneath grand framed
+  wall portraits of historic inventors, warm golden museum lighting, 16:9 widescreen
+  composition.
+character_ids:
+- alfred_fielding
+- marc_chavannes
+image_negative: ''
+act_index: 7
+act_title: 空氣的代價與歷史餘韻：從荒唐失敗到文明容器
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261024T131702
+  image_take: image_20261024T131624
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: National Inventors Hall of Fame Alfred Fielding Marc Chavannes 1993
+  fetch_error: 未找到合適照片或影片
