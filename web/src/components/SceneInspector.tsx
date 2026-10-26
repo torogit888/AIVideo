@@ -770,74 +770,79 @@ export const SceneInspector: React.FC = () => {
               )}
             </div>
 
-            {/* 歷史 takes */}
+            {/* 歷史版本 (可收合) */}
             {(detail?.takes?.images?.length || detail?.takes?.speeches?.length) ? (
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <div className="text-[11px] text-cinema-muted">
-                    本場 {detail.takes.images.length} 張圖 · {detail.takes.speeches.length} 段聲
-                  </div>
+              <details className="rounded bg-cinema-darker/70 border border-cinema-border/80 px-2.5 py-2 text-xs">
+                <summary className="cursor-pointer flex items-center justify-between text-[11px] text-cinema-muted hover:text-cinema-text select-none">
+                  <span>
+                    歷史版本（{detail.takes.images.length} 圖 · {detail.takes.speeches.length} 聲）
+                  </span>
                   <button
                     type="button"
-                    onClick={handleGcTakes}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleGcTakes();
+                    }}
                     disabled={gcing}
-                    className="h-7 px-2 rounded text-[10px] text-cinema-muted hover:text-amber-cta border border-cinema-border"
+                    className="h-6 px-2 rounded text-[10px] text-cinema-muted hover:text-amber-cta border border-cinema-border"
                   >
-                    {gcing ? "清理中..." : "gc 舊 takes"}
+                    {gcing ? "清理中..." : "清理舊版"}
                   </button>
+                </summary>
+                <div className="space-y-2 pt-2 mt-2 border-t border-cinema-border/50">
+                  {detail.takes.images.length > 0 && (
+                    <div>
+                      <div className="text-[11px] font-medium text-cinema-muted mb-1">畫面版本</div>
+                      <div className="flex gap-1.5 overflow-x-auto pb-1">
+                        {detail.takes.images.map((t) => (
+                          <button
+                            key={t.take_id}
+                            onClick={() => handleSelectTake(t)}
+                            disabled={selectingTake === t.take_id}
+                            title={t.take_id}
+                            className={`relative w-20 h-12 shrink-0 rounded overflow-hidden border ${
+                              t.is_current ? "border-amber-cta ring-1 ring-amber-cta/40" : "border-cinema-border"
+                            }`}
+                          >
+                            {t.url ? (
+                              <img src={t.url} alt={t.take_id} className="w-full h-full object-cover" />
+                            ) : (
+                              <span className="text-[9px]">{t.take_id}</span>
+                            )}
+                            {t.is_current && (
+                              <span className="absolute bottom-0 inset-x-0 bg-black/75 text-[8px] text-amber-cta text-center">
+                                使用中
+                              </span>
+                            )}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {detail.takes.speeches.length > 0 && (
+                    <div>
+                      <div className="text-[11px] font-medium text-cinema-muted mb-1">配音版本</div>
+                      <div className="space-y-1">
+                        {detail.takes.speeches.map((t) => (
+                          <button
+                            key={t.take_id}
+                            onClick={() => handleSelectTake(t)}
+                            disabled={selectingTake === t.take_id}
+                            className={`w-full flex items-center justify-between h-7 px-2 rounded text-[10px] font-mono border ${
+                              t.is_current
+                                ? "border-amber-cta text-amber-cta bg-amber-cta/10"
+                                : "border-cinema-border text-cinema-muted hover:text-cinema-text"
+                            }`}
+                          >
+                            <span className="truncate">{t.take_id}</span>
+                            <span>{t.is_current ? "使用中" : "套用"}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
-                {detail.takes.images.length > 0 && (
-                  <div>
-                    <div className="text-[11px] font-medium text-cinema-muted mb-1.5">畫面 takes</div>
-                    <div className="flex gap-1.5 overflow-x-auto pb-1">
-                      {detail.takes.images.map((t) => (
-                        <button
-                          key={t.take_id}
-                          onClick={() => handleSelectTake(t)}
-                          disabled={selectingTake === t.take_id}
-                          title={`設為 current：${t.take_id}`}
-                          className={`relative w-20 h-12 shrink-0 rounded overflow-hidden border ${
-                            t.is_current ? "border-amber-cta ring-1 ring-amber-cta/40" : "border-cinema-border"
-                          }`}
-                        >
-                          {t.url ? (
-                            <img src={t.url} alt={t.take_id} className="w-full h-full object-cover" />
-                          ) : (
-                            <span className="text-[9px]">{t.take_id}</span>
-                          )}
-                          {t.is_current && (
-                            <span className="absolute bottom-0 inset-x-0 bg-black/70 text-[8px] text-amber-cta text-center">
-                              current
-                            </span>
-                          )}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
-                {detail.takes.speeches.length > 0 && (
-                  <div>
-                    <div className="text-[11px] font-medium text-cinema-muted mb-1.5">配音 takes</div>
-                    <div className="space-y-1">
-                      {detail.takes.speeches.map((t) => (
-                        <button
-                          key={t.take_id}
-                          onClick={() => handleSelectTake(t)}
-                          disabled={selectingTake === t.take_id}
-                          className={`w-full flex items-center justify-between h-7 px-2 rounded text-[10px] font-mono border ${
-                            t.is_current
-                              ? "border-amber-cta text-amber-cta bg-amber-cta/10"
-                              : "border-cinema-border text-cinema-muted hover:text-cinema-text"
-                          }`}
-                        >
-                          <span className="truncate">{t.take_id}</span>
-                          <span>{t.is_current ? "current" : "設為 current"}</span>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
+              </details>
             ) : null}
 
             {/* 2.5 語音試聽播放器 */}
@@ -911,20 +916,17 @@ export const SceneInspector: React.FC = () => {
                 className="w-full p-2.5 rounded bg-cinema-darker border border-cinema-border font-mono text-[11px] text-zinc-300 focus:outline-none focus:border-amber-cta leading-relaxed resize-none"
                 placeholder="Cinematic 16:9 composition prompt..."
               />
-              <div className="text-[10px] text-cinema-muted/80 flex items-center justify-between">
-                <span>出圖時將自動拼接所選風格前綴並過濾文字浮水印</span>
-              </div>
             </div>
 
-            {/* 5. PiP 圖中圖設定 (支援貼網址、本機上傳、全網真圖候選挑選) */}
+            {/* 5. 考據素材設定 */}
             <div className="p-3 rounded bg-cinema-darker border border-cinema-border space-y-2.5">
               <div className="flex items-center justify-between text-xs">
                 <div className="flex items-center space-x-1.5">
                   <Camera className="w-3.5 h-3.5 text-amber-cta" />
-                  <span className="font-medium text-cinema-text">真實考據照片 (PiP)</span>
+                  <span className="font-medium text-cinema-text">考據素材</span>
                 </div>
                 <label className="flex items-center space-x-1.5 cursor-pointer">
-                  <span className="text-[11px] text-cinema-muted">啟用本幕考據</span>
+                  <span className="text-[11px] text-cinema-muted">啟用</span>
                   <input
                     type="checkbox"
                     checked={pipEnabled}
@@ -976,12 +978,11 @@ export const SceneInspector: React.FC = () => {
 
               {/* 來源 1: 貼圖片網址 */}
               {pipSourceTab === "url" && (
-                <div className="p-2.5 rounded bg-cinema-card border border-cinema-border/70 space-y-2 text-[11px]">
-                  <div className="text-cinema-muted">貼上任何網路上的真實照片 URL，一鍵下載套用：</div>
+                <div className="p-2 rounded bg-cinema-card border border-cinema-border/70 text-[11px]">
                   <div className="flex space-x-1.5">
                     <input
                       type="url"
-                      placeholder="https://example.com/real_photo.jpg"
+                      placeholder="https://example.com/photo.jpg"
                       value={customImageUrl}
                       onChange={(e) => setCustomImageUrl(e.target.value)}
                       className="flex-1 h-7 px-2 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text font-mono focus:outline-none focus:border-amber-cta"
@@ -1179,8 +1180,8 @@ export const SceneInspector: React.FC = () => {
                 </div>
               )}
 
-              {/* 呈現方式：無論是否勾選啟用，都讓創作者一眼看清並能隨時切換 */}
-              <div className="pt-1 text-xs space-y-2.5">
+              {/* 呈現方式 */}
+              <div className="pt-1 text-xs space-y-2">
                 <div className="flex items-center justify-between">
                   <span className="text-cinema-muted">呈現方式</span>
                   <select
@@ -1193,16 +1194,16 @@ export const SceneInspector: React.FC = () => {
                     }
                     className="h-7 px-2 rounded bg-cinema-card border border-cinema-border text-cinema-text text-[11px] font-medium"
                   >
-                    <option value="pip">📌 畫中畫小卡 (PiP · 角落小卡)</option>
-                    <option value="spotlight">🏛️ 黑底歷史聚焦 (慢推浮現 · 主角)</option>
-                    <option value="broll">🎬 全螢幕考據影片 (B-Roll · 動態主畫面)</option>
+                    <option value="pip">角落小卡</option>
+                    <option value="spotlight">黑底全螢幕（照片）</option>
+                    <option value="broll">全螢幕影片</option>
                   </select>
                 </div>
 
                 {pipEnabled && pipMode === "pip" && (
                   <>
                     <div className="flex items-center justify-between">
-                      <span className="text-cinema-muted">卡片大小比例</span>
+                      <span className="text-cinema-muted">卡片大小</span>
                       <select
                         value={pipScale}
                         onChange={(e) => {
@@ -1213,9 +1214,9 @@ export const SceneInspector: React.FC = () => {
                         }}
                         className="h-7 px-2 rounded bg-cinema-card border border-cinema-border text-cinema-text text-[11px]"
                       >
-                        <option value="0.20">精巧微縮 (20%)</option>
-                        <option value="0.24">標準考據 (24%・推薦)</option>
-                        <option value="0.30">清晰放大 (30%)</option>
+                        <option value="0.20">小 (20%)</option>
+                        <option value="0.24">中 (24%)</option>
+                        <option value="0.30">大 (30%)</option>
                       </select>
                     </div>
                     <div className="flex items-center justify-between">
@@ -1230,7 +1231,7 @@ export const SceneInspector: React.FC = () => {
                         }}
                         className="h-7 px-2 rounded bg-cinema-card border border-cinema-border text-cinema-text text-[11px]"
                       >
-                        <option value="right-center">右半部置中 (推薦)</option>
+                        <option value="right-center">右半部置中</option>
                         <option value="top-right">右上角</option>
                         <option value="top-left">左上角</option>
                         <option value="bottom-right">右下角</option>
@@ -1239,11 +1240,6 @@ export const SceneInspector: React.FC = () => {
                       </select>
                     </div>
                   </>
-                )}
-                {pipEnabled && pipMode === "spotlight" && (
-                  <div className="text-[11px] text-amber-cta/90 bg-amber-500/10 p-2 rounded border border-amber-500/20 leading-relaxed">
-                    🏛️ 本幕將以深邃黑底為背景，真實考據照片在中央緩慢推鏡淡入，營造紀錄片大片沉浸感。
-                  </div>
                 )}
               </div>
             </div>

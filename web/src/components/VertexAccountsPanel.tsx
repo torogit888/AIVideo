@@ -204,18 +204,13 @@ export const VertexAccountsPanel: React.FC<VertexAccountsPanelProps> = ({ onAcco
   };
 
   return (
-    <div className="p-5 rounded-lg bg-cinema-card border border-cinema-border space-y-4 text-xs">
+    <div className="p-4 rounded-lg bg-cinema-card border border-cinema-border space-y-3 text-xs">
       {/* 標題與動作 */}
-      <div className="flex items-center justify-between border-b border-cinema-border/60 pb-3">
-        <div>
-          <h3 className="text-sm font-semibold text-cinema-text flex items-center">
-            <KeyRound className="w-4 h-4 text-amber-cta mr-2" />
-            Vertex AI 憑證與帳戶管理
-          </h3>
-          <p className="text-xs text-cinema-muted mt-0.5">
-            配置並切換多個 Google Cloud 專案、Service Account 金鑰或 API Key，免重啟即時生效。
-          </p>
-        </div>
+      <div className="flex items-center justify-between border-b border-cinema-border/60 pb-2.5">
+        <h3 className="text-sm font-semibold text-cinema-text flex items-center">
+          <KeyRound className="w-4 h-4 text-amber-cta mr-2" />
+          Vertex AI 憑證與帳戶
+        </h3>
         <div className="flex items-center space-x-2">
           <button
             type="button"
@@ -230,19 +225,19 @@ export const VertexAccountsPanel: React.FC<VertexAccountsPanelProps> = ({ onAcco
             type="button"
             onClick={handleSyncGcloud}
             disabled={syncingGcloud || loading}
-            className="flex items-center h-8 px-2.5 rounded-lg border border-cinema-border bg-cinema-darker hover:bg-cinema-cardHover text-cinema-text text-xs transition-colors"
-            title="直接從本機 gcloud auth application-default login 自動載入全域憑證"
+            className="flex items-center h-7 px-2.5 rounded-lg border border-cinema-border bg-cinema-darker hover:bg-cinema-cardHover text-cinema-text text-xs transition-colors"
+            title="從本機 gcloud 自動載入憑證"
           >
-            <Terminal className={`w-3.5 h-3.5 mr-1.5 text-amber-cta ${syncingGcloud ? "animate-spin" : ""}`} />
-            <span>{syncingGcloud ? "載入中..." : "載入本機 gcloud 憑證"}</span>
+            <Terminal className={`w-3.5 h-3.5 mr-1 text-amber-cta ${syncingGcloud ? "animate-spin" : ""}`} />
+            <span>{syncingGcloud ? "載入中..." : "載入 gcloud 憑證"}</span>
           </button>
           <button
             type="button"
             onClick={() => setIsModalOpen(true)}
-            className="flex items-center h-8 px-3 rounded-lg bg-amber-cta hover:bg-amber-ctaHover text-cinema-bg font-semibold transition-colors"
+            className="flex items-center h-7 px-2.5 rounded-lg bg-amber-cta hover:bg-amber-ctaHover text-cinema-bg font-semibold transition-colors"
           >
             <Plus className="w-3.5 h-3.5 mr-1" />
-            <span>新增帳戶 / 憑證</span>
+            <span>新增帳戶</span>
           </button>
         </div>
       </div>

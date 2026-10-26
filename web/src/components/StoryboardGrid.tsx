@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Image as ImageIcon, Volume2, CheckCircle2, AlertCircle, Camera, Search, Play, Sparkles, Clock, Lock, Loader2 } from "lucide-react";
+import { Image as ImageIcon, Volume2, CheckCircle2, AlertCircle, Camera, Search, Play, Sparkles, Lock, Loader2 } from "lucide-react";
 import { useStudioStore } from "../store";
 import { SceneSummary } from "../types";
 import { api } from "../api";
@@ -57,12 +57,7 @@ export const StoryboardGrid: React.FC = () => {
 
   const currentJob = jobs.find((j) => j.id === selectedJobId);
 
-  const {
-    totalScenes,
-    isAllAudioDone,
-    formattedDuration,
-    tooltip: durationTooltip,
-  } = estimateJobDuration(
+  const { totalScenes } = estimateJobDuration(
     scenes,
     currentJob?.progress.estimated_duration_sec,
     currentJob?.progress.scenes_count
@@ -221,30 +216,30 @@ export const StoryboardGrid: React.FC = () => {
               <Play className="w-3 h-3 mr-1 fill-current text-amber-cta" />
               <span>合成</span>
             </button>
-            <div className="w-[1px] h-3.5 bg-cinema-border/70 my-auto mx-0.5" />
-            <button
-              onClick={handleSyncAllPrompts}
-              disabled={isSyncingPrompts || totalScenes === 0}
-              className="flex items-center h-6 px-2.5 rounded text-cinema-muted hover:text-amber-cta hover:bg-cinema-card transition-colors whitespace-nowrap text-[11px] font-medium disabled:opacity-40"
-              title="依最新專案全域視覺風格與定裝錨點，一鍵批次重寫全片所有分鏡的英文 Prompt"
-            >
-              {isSyncingPrompts ? (
-                <>
-                  <Loader2 className="w-3 h-3 mr-1 animate-spin text-amber-cta" />
-                  <span>重構 Prompt 中...</span>
-                </>
-              ) : (
-                <>
-                  <Sparkles className="w-3 h-3 mr-1 text-amber-cta" />
-                  <span>重構全片 Prompt</span>
-                </>
-              )}
-            </button>
           </div>
+
+          <button
+            onClick={handleSyncAllPrompts}
+            disabled={isSyncingPrompts || totalScenes === 0}
+            className="flex items-center h-7 px-2.5 rounded-md bg-cinema-card/70 border border-cinema-border/70 text-cinema-muted hover:text-amber-cta hover:bg-cinema-card transition-colors whitespace-nowrap text-[11px] font-medium disabled:opacity-40"
+            title="依目前畫風與角色設定，重寫全片所有鏡頭的英文提示詞"
+          >
+            {isSyncingPrompts ? (
+              <>
+                <Loader2 className="w-3 h-3 mr-1 animate-spin text-amber-cta" />
+                <span>重寫提示詞中...</span>
+              </>
+            ) : (
+              <>
+                <Sparkles className="w-3 h-3 mr-1 text-amber-cta" />
+                <span>重寫全片提示詞</span>
+              </>
+            )}
+          </button>
 
           <label
             className="flex items-center space-x-1.5 cursor-pointer text-cinema-muted hover:text-cinema-text text-[11px] select-none px-1.5 shrink-0"
-            title="Job 級考據開關。預設開啟；打開後一鍵 all 會自動檢索考據素材"
+            title="一鍵全流程時自動檢索真實歷史照片或影片"
           >
             <input
               type="checkbox"
@@ -254,27 +249,13 @@ export const StoryboardGrid: React.FC = () => {
             />
             <span>考據 PiP</span>
           </label>
-
-          {totalScenes > 0 && (
-            <div className="hidden sm:flex items-center h-7 px-2.5 rounded-md text-[11px] text-cinema-muted shrink-0">
-              大綱 {actCount || "—"} 幕 · 鏡頭 {totalScenes} 張
-            </div>
-          )}
-
-          {totalScenes > 0 && (
-            <div
-              className="flex items-center h-7 px-2.5 rounded-md bg-cinema-card/70 border border-cinema-border/70 text-cinema-muted space-x-1.5 shrink-0 select-none"
-              title={durationTooltip}
-            >
-              <Clock className="w-3.5 h-3.5 text-amber-cta" />
-              <span className="text-[11px]">預估片長</span>
-              <span className="font-mono font-semibold text-cinema-text text-[11px]">
-                {isAllAudioDone ? "" : "~"}
-                {formattedDuration}
-              </span>
-            </div>
-          )}
         </div>
+
+        {totalScenes > 0 && (
+          <div className="hidden sm:flex items-center h-7 px-2.5 rounded-md text-[11px] text-cinema-muted shrink-0">
+            大綱 {actCount || "—"} 幕 · 鏡頭 {totalScenes} 張
+          </div>
+        )}
       </div>
 
       {/* 16:9 卡片網格主畫布 */}
@@ -466,24 +447,19 @@ export const StoryboardGrid: React.FC = () => {
                     )}
                   </div>
 
-                  {/* 卡片底部短標題與幕次 */}
-                  <div className="p-3">
-                    <div className="flex items-baseline space-x-2">
-                      <span className="font-mono text-xs text-amber-cta font-medium">
-                        {String(scene.index).padStart(2, "0")}
-                      </span>
-                      <h4 className="text-xs font-medium text-cinema-text truncate" title={scene.title}>
-                        {scene.title}
-                      </h4>
-                      {(scene.locks?.image || scene.locks?.speech) && (
-                        <span title="已鎖定">
-                          <Lock className="w-3 h-3 text-amber-cta shrink-0" />
-                        </span>
-                      )}
-                    </div>
-                    <p className="mt-1 text-[11px] text-cinema-muted line-clamp-2 leading-relaxed">
+                  {/* 卡片底部編號與口白（不重複印斷句標題） */}
+                  <div className="p-2.5 flex items-start gap-2">
+                    <span className="font-mono text-[11px] text-amber-cta font-semibold shrink-0 mt-0.5">
+                      #{String(scene.index).padStart(2, "0")}
+                    </span>
+                    <p className="flex-1 text-xs text-cinema-text line-clamp-2 leading-relaxed">
                       {scene.narration}
                     </p>
+                    {(scene.locks?.image || scene.locks?.speech) && (
+                      <span title="已鎖定" className="shrink-0 mt-0.5">
+                        <Lock className="w-3 h-3 text-amber-cta" />
+                      </span>
+                    )}
                   </div>
                 </div>
               );

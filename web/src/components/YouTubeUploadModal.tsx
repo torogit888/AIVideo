@@ -341,17 +341,12 @@ export const YouTubeUploadModal: React.FC<Props> = ({ jobId, isOpen, onClose }) 
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm">
       <div className="relative w-full max-w-2xl max-h-[92vh] bg-cinema-card border border-cinema-border rounded-xl shadow-2xl flex flex-col overflow-hidden">
         {/* 頂部標題 */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-cinema-border bg-cinema-darker/60">
-          <div className="flex items-center space-x-2.5">
+        <div className="flex items-center justify-between px-6 py-3.5 border-b border-cinema-border bg-cinema-darker/60">
+          <div className="flex items-center space-x-2">
             <div className="p-1.5 rounded-lg bg-red-600/20 text-red-500 border border-red-500/30">
-              <Youtube className="w-5 h-5" />
+              <Youtube className="w-4 h-4" />
             </div>
-            <div>
-              <h3 className="text-base font-semibold text-cinema-text">發布成片至 YouTube</h3>
-              <p className="text-xs text-cinema-muted">
-                演算法高 CTR 最佳化 · 自動生成標題/標籤/章節/同風格 16:9 封面縮圖
-              </p>
-            </div>
+            <h3 className="text-sm font-semibold text-cinema-text">發布至 YouTube</h3>
           </div>
           <button
             onClick={onClose}
@@ -362,109 +357,63 @@ export const YouTubeUploadModal: React.FC<Props> = ({ jobId, isOpen, onClose }) 
         </div>
 
         {/* 內容區塊 */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-5">
+        <div className="flex-1 overflow-y-auto p-5 space-y-4">
           {/* 錯誤通知 */}
           {(authError || uploadError) && (
-            <div className="p-3.5 rounded-lg bg-red-950/40 border border-red-800/60 flex items-start space-x-2.5 text-xs text-red-300">
+            <div className="p-3 rounded-lg bg-red-950/40 border border-red-800/60 flex items-start space-x-2.5 text-xs text-red-300">
               <AlertCircle className="w-4 h-4 shrink-0 text-red-400 mt-0.5" />
               <div className="flex-1 leading-relaxed">{authError || uploadError}</div>
             </div>
           )}
 
-          {/* AI 演算法一鍵最佳化橫幅按鈕 */}
-          <div className="p-3 rounded-lg bg-gradient-to-r from-amber-cta/15 via-red-600/10 to-transparent border border-amber-cta/30 flex items-center justify-between">
-            <div>
-              <div className="text-xs font-semibold text-amber-cta flex items-center gap-1.5">
-                <Sparkles className="w-4 h-4" />
-                <span>YouTube 演算法一鍵最佳化</span>
-              </div>
-              <p className="text-[11px] text-cinema-muted mt-0.5">
-                由 AI 解析故事高潮與反差懸念，生成高點擊率標題、章節時間軸與高搜尋標籤
-              </p>
-            </div>
-            <button
-              type="button"
-              onClick={handleOptimizeMetadata}
-              disabled={optimizing || loading}
-              className="shrink-0 px-3 py-1.5 rounded bg-amber-cta hover:bg-amber-cta/90 text-black text-xs font-medium inline-flex items-center transition-all disabled:opacity-50"
-            >
-              {optimizing ? (
-                <>
-                  <RefreshCw className="w-3.5 h-3.5 mr-1.5 animate-spin" />
-                  <span>分析演算中...</span>
-                </>
-              ) : (
-                <>
-                  <Sparkles className="w-3.5 h-3.5 mr-1.5" />
-                  <span>一鍵生成優化</span>
-                </>
-              )}
-            </button>
-          </div>
-
-          {/* 1. 授權狀態卡片 */}
-          <div className="p-4 rounded-lg bg-cinema-darker border border-cinema-border space-y-3">
+          {/* 1. 授權狀態卡片（精簡單行） */}
+          <div className="p-3 rounded-lg bg-cinema-darker border border-cinema-border space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-medium text-cinema-muted flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-cinema-accent" />
-                Google 帳號授權狀態
-              </span>
-              {authStatus?.is_authenticated ? (
-                <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
-                  <CheckCircle2 className="w-3 h-3 mr-1" /> 已綁定頻道
-                </span>
-              ) : (
-                <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-amber-500/15 text-amber-400 border border-amber-500/30">
-                  尚未授權
-                </span>
-              )}
-            </div>
-
-            {authStatus?.is_authenticated && authStatus.channel ? (
-              <div className="flex items-center justify-between pt-1">
-                <div className="flex items-center space-x-3">
-                  {authStatus.channel.thumbnail ? (
-                    <img
-                      src={authStatus.channel.thumbnail}
-                      alt={authStatus.channel.title || "Channel"}
-                      className="w-8 h-8 rounded-full border border-cinema-border"
-                    />
-                  ) : (
-                    <div className="w-8 h-8 rounded-full bg-red-600/20 text-red-400 flex items-center justify-center font-bold text-xs">
-                      YT
-                    </div>
-                  )}
-                  <div>
-                    <div className="text-xs font-semibold text-cinema-text">
+              <div className="flex items-center space-x-2.5 min-w-0">
+                <ShieldCheck className="w-4 h-4 text-cinema-accent shrink-0" />
+                {authStatus?.is_authenticated && authStatus.channel ? (
+                  <div className="flex items-center space-x-2 min-w-0">
+                    {authStatus.channel.thumbnail ? (
+                      <img
+                        src={authStatus.channel.thumbnail}
+                        alt={authStatus.channel.title || "Channel"}
+                        className="w-6 h-6 rounded-full border border-cinema-border shrink-0"
+                      />
+                    ) : null}
+                    <span className="text-xs font-semibold text-cinema-text truncate">
                       {authStatus.channel.title}
-                    </div>
-                    <div className="text-[11px] text-cinema-muted">
-                      {authStatus.channel.custom_url || authStatus.channel.id}
-                    </div>
+                    </span>
+                    <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 shrink-0">
+                      已綁定
+                    </span>
                   </div>
-                </div>
+                ) : (
+                  <span className="text-xs font-medium text-cinema-muted">Google 帳號尚未授權</span>
+                )}
+              </div>
+
+              {authStatus?.is_authenticated ? (
                 <button
                   type="button"
                   onClick={handleStartOAuth}
-                  className="text-xs text-cinema-muted hover:text-amber-cta underline"
+                  className="text-xs text-cinema-muted hover:text-amber-cta underline shrink-0"
                 >
                   切換帳號
                 </button>
-              </div>
-            ) : (
-              <div className="space-y-3 pt-1">
+              ) : null}
+            </div>
+
+            {!authStatus?.is_authenticated && (
+              <div className="space-y-2 pt-1">
                 {!authStatus?.has_client_secret ? (
                   <div className="space-y-2">
-                    <p className="text-xs text-cinema-muted leading-relaxed">
-                      請先備妥 Google Cloud 專案的 OAuth 2.0 Client Secret（已啟用 YouTube Data API v3）。
-                    </p>
                     {showSecretInput ? (
                       <div className="space-y-2">
                         <textarea
-                          rows={4}
+                          rows={3}
                           value={secretJsonText}
                           onChange={(e) => setSecretJsonText(e.target.value)}
-                          placeholder="貼上 client_secret.json 完整內容..."
+                          placeholder="貼上 client_secret.json 內容..."
                           className="w-full text-xs font-mono p-2 rounded bg-black/40 border border-cinema-border text-cinema-text focus:outline-none focus:border-amber-cta"
                         />
                         <div className="flex gap-2">
@@ -491,26 +440,21 @@ export const YouTubeUploadModal: React.FC<Props> = ({ jobId, isOpen, onClose }) 
                         className="inline-flex items-center text-xs text-amber-cta hover:underline"
                       >
                         <Key className="w-3.5 h-3.5 mr-1" />
-                        匯入 client_secret.json 內容
+                        匯入 client_secret.json
                       </button>
                     )}
                   </div>
                 ) : (
-                  <div className="space-y-2.5">
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="text-cinema-muted">憑證已就緒，點擊按鈕登入 Google 帳號授權：</span>
-                      <button
-                        type="button"
-                        onClick={handleStartOAuth}
-                        className="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white rounded text-xs font-medium inline-flex items-center shadow transition-colors"
-                      >
-                        <ExternalLink className="w-3.5 h-3.5 mr-1.5" />
-                        開啟 Google 登入視窗
-                      </button>
-                    </div>
-                    <p className="text-[11px] text-cinema-muted/80">
-                      💡 提示：點擊按鈕後將在新分頁開啟 Google 授權，完成授權後視窗會自動關閉並在此處完成綁定。
-                    </p>
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-cinema-muted">憑證已就緒</span>
+                    <button
+                      type="button"
+                      onClick={handleStartOAuth}
+                      className="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white rounded text-xs font-medium inline-flex items-center shadow transition-colors"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5 mr-1.5" />
+                      Google 登入授權
+                    </button>
                   </div>
                 )}
               </div>
@@ -638,19 +582,16 @@ export const YouTubeUploadModal: React.FC<Props> = ({ jobId, isOpen, onClose }) 
                 </div>
 
                 {/* 舊影片處理方式 */}
-                <div className="p-3 rounded-lg bg-cinema-darker/60 border border-cinema-border space-y-1.5">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="font-medium text-cinema-text">若選擇重新發布新成片，如何處理舊版影片？</span>
-                    <span className="text-[10px] text-cinema-muted">ID: {prepareData.existing_youtube.video_id}</span>
-                  </div>
+                <div className="flex items-center justify-between gap-3 p-2.5 rounded-lg bg-cinema-darker/60 border border-cinema-border text-xs">
+                  <span className="font-medium text-cinema-muted shrink-0">重發時舊版處理</span>
                   <select
                     value={oldVideoAction}
                     onChange={(e: any) => setOldVideoAction(e.target.value)}
-                    className="w-full text-xs px-2.5 py-1.5 rounded bg-black/40 border border-cinema-border text-cinema-text focus:outline-none focus:border-amber-cta"
+                    className="flex-1 text-xs px-2.5 py-1 rounded bg-black/40 border border-cinema-border text-cinema-text focus:outline-none focus:border-amber-cta"
                   >
-                    <option value="private">自動將上一版舊影片設為私人下架（推薦・避免前台重複影片，保留後台備份）</option>
-                    <option value="delete">直接從 YouTube 徹底刪除舊影片（完全清除）</option>
-                    <option value="keep">保留舊影片（新舊兩部共存）</option>
+                    <option value="private">將舊版設為私人</option>
+                    <option value="delete">刪除舊版</option>
+                    <option value="keep">保留舊版</option>
                   </select>
                 </div>
               </>
@@ -659,16 +600,30 @@ export const YouTubeUploadModal: React.FC<Props> = ({ jobId, isOpen, onClose }) 
             <div>
               <div className="flex items-center justify-between mb-1.5">
                 <div className="flex items-center gap-2">
-                  <label className="text-xs font-medium text-cinema-muted">
-                    影片標題 (Title)
-                  </label>
+                  <label className="text-xs font-medium text-cinema-muted">影片標題</label>
                   <span className={`text-[10px] ${isSaved ? "text-emerald-400/80" : "text-amber-cta animate-pulse"}`}>
-                    {isSaved ? "✓ 草稿已儲存" : "✎ 儲存中..."}
+                    {isSaved ? "✓ 已儲存" : "儲存中..."}
                   </span>
+                  <span className="text-[10px] text-cinema-muted font-mono">({title.length}/100)</span>
                 </div>
-                <div className="text-[10px] text-cinema-muted">
-                  {title.length}/100
-                </div>
+                <button
+                  type="button"
+                  onClick={handleOptimizeMetadata}
+                  disabled={optimizing || loading}
+                  className="px-2.5 py-1 rounded bg-amber-cta/15 hover:bg-amber-cta/25 border border-amber-cta/40 text-amber-cta text-xs font-medium inline-flex items-center transition-all disabled:opacity-50"
+                >
+                  {optimizing ? (
+                    <>
+                      <RefreshCw className="w-3 h-3 mr-1 animate-spin" />
+                      <span>生成中...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Sparkles className="w-3 h-3 mr-1" />
+                      <span>AI 生成標題與標籤</span>
+                    </>
+                  )}
+                </button>
               </div>
               <input
                 type="text"
@@ -687,7 +642,7 @@ export const YouTubeUploadModal: React.FC<Props> = ({ jobId, isOpen, onClose }) 
               {/* 候選標題快捷按鈕 */}
               {candidateTitles.length > 0 && (
                 <div className="mt-2 space-y-1">
-                  <div className="text-[10px] text-cinema-muted">✨ 演算法高 CTR 候選標題（點擊套用）：</div>
+                  <div className="text-[10px] text-cinema-muted">候選標題：</div>
                   <div className="flex flex-col gap-1">
                     {candidateTitles.map((t, idx) => (
                       <button
@@ -713,9 +668,7 @@ export const YouTubeUploadModal: React.FC<Props> = ({ jobId, isOpen, onClose }) 
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-medium text-cinema-muted mb-1.5">
-                  發布隱私權限
-                </label>
+                <label className="block text-xs font-medium text-cinema-muted mb-1">隱私權限</label>
                 <select
                   value={privacy}
                   onChange={(e: any) => {
@@ -725,16 +678,14 @@ export const YouTubeUploadModal: React.FC<Props> = ({ jobId, isOpen, onClose }) 
                   }}
                   className="w-full text-xs px-3 py-2 rounded-lg bg-cinema-darker border border-cinema-border text-cinema-text focus:outline-none focus:border-amber-cta"
                 >
-                  <option value="unlisted">不公開 (Unlisted) - 推薦先複查</option>
-                  <option value="private">私人 (Private) - 僅自己可見</option>
-                  <option value="public">公開 (Public) - 立即全網發布</option>
+                  <option value="unlisted">不公開 (Unlisted)</option>
+                  <option value="private">私人 (Private)</option>
+                  <option value="public">公開 (Public)</option>
                 </select>
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-cinema-muted mb-1.5">
-                  影片標籤 (Tags，以逗號分隔)
-                </label>
+                <label className="block text-xs font-medium text-cinema-muted mb-1">影片標籤（逗號分隔）</label>
                 <input
                   type="text"
                   value={tagsText}
@@ -750,13 +701,9 @@ export const YouTubeUploadModal: React.FC<Props> = ({ jobId, isOpen, onClose }) 
             </div>
 
             <div>
-              <div className="flex items-center justify-between mb-1.5">
-                <label className="text-xs font-medium text-cinema-muted">
-                  說明欄內容 (Description)
-                </label>
-              </div>
+              <label className="block text-xs font-medium text-cinema-muted mb-1">說明欄</label>
               <textarea
-                rows={6}
+                rows={5}
                 maxLength={5000}
                 value={description}
                 onChange={(e) => {
@@ -764,34 +711,33 @@ export const YouTubeUploadModal: React.FC<Props> = ({ jobId, isOpen, onClose }) 
                   setDescription(newVal);
                   triggerSaveDraft(title, newVal, tagsText, privacy, candidateTitles);
                 }}
-                placeholder="輸入影片介紹、延伸閱讀、參考資料..."
-                className="w-full text-xs font-mono p-3 rounded-lg bg-cinema-darker border border-cinema-border text-cinema-text focus:outline-none focus:border-amber-cta leading-relaxed"
+                placeholder="輸入影片介紹與時間軸..."
+                className="w-full text-xs font-mono p-2.5 rounded-lg bg-cinema-darker border border-cinema-border text-cinema-text focus:outline-none focus:border-amber-cta leading-relaxed"
               />
             </div>
 
             {/* 封面縮圖預覽與 AI 生成 */}
-            <div className="p-3.5 rounded-lg bg-cinema-darker/60 border border-cinema-border space-y-3">
+            <div className="p-3 rounded-lg bg-cinema-darker/60 border border-cinema-border space-y-2.5">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-medium text-cinema-muted flex items-center gap-1.5">
                   <ImageIcon className="w-3.5 h-3.5 text-amber-cta" />
-                  <span>YouTube 16:9 封面縮圖 (黃白立體標題)</span>
+                  <span>16:9 封面縮圖</span>
                 </span>
                 <button
                   type="button"
                   onClick={handleGenerateThumbnail}
                   disabled={generatingThumb || loading}
                   className="px-2.5 py-1 rounded bg-amber-cta/15 hover:bg-amber-cta/25 border border-amber-cta/40 text-amber-cta text-xs font-medium inline-flex items-center transition-colors disabled:opacity-50"
-                  title="由 Gemini 3.1 Flash 採用相同畫風，直接在畫面上生成選定標題的黃白配色醒目立體字"
                 >
                   {generatingThumb ? (
                     <>
                       <RefreshCw className="w-3 h-3 mr-1 animate-spin" />
-                      <span>3.1 Flash 出圖中...</span>
+                      <span>出圖中...</span>
                     </>
                   ) : (
                     <>
                       <Wand2 className="w-3 h-3 mr-1" />
-                      <span>✨ AI 生成黃白標題封面縮圖</span>
+                      <span>AI 生成縮圖</span>
                     </>
                   )}
                 </button>

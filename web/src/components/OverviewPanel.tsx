@@ -27,20 +27,10 @@ export const OverviewPanel: React.FC = () => {
   };
 
   return (
-    <div className="flex-1 p-8 space-y-6 max-w-5xl mx-auto overflow-y-auto">
-      <div className="flex justify-between items-end border-b border-cinema-border pb-4">
-        <div>
-          <h2 className="text-xl font-bold text-cinema-text">專案總覽與管理</h2>
-          <p className="text-xs text-cinema-muted mt-1">
-            快速檢視所有影片專案製作進度、切換工作階段或清理已完成專案。
-          </p>
-        </div>
-        <button
-          onClick={() => startNewDraft()}
-          className="px-3.5 py-1.5 rounded bg-amber-cta hover:bg-amber-ctaHover text-cinema-bg font-semibold text-xs transition-colors shadow"
-        >
-          + 新建專案
-        </button>
+    <div className="flex-1 p-6 space-y-5 max-w-5xl mx-auto overflow-y-auto">
+      <div className="flex justify-between items-center border-b border-cinema-border pb-3">
+        <h2 className="text-base font-bold text-cinema-text">專案總覽</h2>
+        <span className="text-xs font-mono text-cinema-muted">{jobs.length} 個專案</span>
       </div>
 
       {jobs.length === 0 ? (

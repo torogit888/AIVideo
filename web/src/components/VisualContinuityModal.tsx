@@ -7,7 +7,6 @@ import {
   Trash2,
   Image as ImageIcon,
   Loader2,
-  Info,
   Sliders,
   Plus,
 } from "lucide-react";
@@ -269,22 +268,10 @@ export const VisualContinuityModal: React.FC<Props> = ({ isOpen, onClose }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-4 animate-in fade-in duration-200">
       <div className="relative w-full max-w-5xl rounded-xl bg-cinema-darker border border-cinema-border shadow-2xl flex flex-col max-h-[90vh] overflow-hidden">
-        <div className="flex items-center justify-between px-6 py-4 border-b border-cinema-border/60 bg-cinema-card/50">
-          <div className="flex items-center space-x-2.5">
-            <div className="p-2 rounded-lg bg-amber-cta/15 text-amber-cta">
-              <Sparkles className="w-5 h-5" />
-            </div>
-            <div>
-              <h3 className="text-base font-semibold text-cinema-text flex items-center gap-2">
-                專案視覺一致性與角色定裝中心
-                <span className="text-xs font-mono font-normal px-2 py-0.5 rounded bg-cinema-border/50 text-cinema-muted">
-                  Visual Continuity
-                </span>
-              </h3>
-              <p className="text-xs text-cinema-muted mt-0.5">
-                每位角色一張定裝圖，文字錨點與出圖 prompt 都會套用目前專案選擇的生圖風格。
-              </p>
-            </div>
+        <div className="flex items-center justify-between px-6 py-3.5 border-b border-cinema-border/60 bg-cinema-card/50">
+          <div className="flex items-center space-x-2">
+            <Sparkles className="w-4 h-4 text-amber-cta" />
+            <h3 className="text-sm font-semibold text-cinema-text">角色與環境定裝</h3>
           </div>
           <button
             onClick={onClose}
@@ -294,51 +281,43 @@ export const VisualContinuityModal: React.FC<Props> = ({ isOpen, onClose }) => {
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto p-6 space-y-6">
+        <div className="flex-1 overflow-y-auto p-5 space-y-5">
           {loading ? (
             <div className="flex flex-col items-center justify-center py-20 text-cinema-muted">
               <Loader2 className="w-8 h-8 animate-spin text-amber-cta mb-2" />
-              <span className="text-xs">正在讀取專案視覺特徵設定...</span>
+              <span className="text-xs">讀取中...</span>
             </div>
           ) : (
             <>
-              <div className="space-y-3">
+              <div className="space-y-2.5">
                 <div className="flex items-center justify-between">
                   <label className="text-xs font-semibold text-cinema-text flex items-center gap-1.5">
-                    <Sliders className="w-4 h-4 text-amber-cta" />
-                    環境與光影基調（全片共用）
+                    <Sliders className="w-3.5 h-3.5 text-amber-cta" />
+                    環境與光影基調
                   </label>
-                  <span className="text-[11px] text-cinema-muted">依專案生圖風格書寫</span>
+                  <label className="flex items-center gap-2 cursor-pointer text-xs text-cinema-muted hover:text-cinema-text">
+                    <input
+                      type="checkbox"
+                      checked={useImageRef}
+                      onChange={(e) => setUseImageRef(e.target.checked)}
+                      className="rounded border-cinema-border text-amber-cta focus:ring-amber-cta/30 bg-cinema-darker accent-amber-cta cursor-pointer"
+                    />
+                    <span>出圖時套用角色定裝圖參考</span>
+                  </label>
                 </div>
                 <textarea
-                  rows={3}
+                  rows={2}
                   value={environment}
                   onChange={(e) => setEnvironment(e.target.value)}
                   placeholder="此風格下的空間、色盤、光影與材質..."
-                  className="w-full p-3 rounded-lg bg-cinema-card border border-cinema-border text-xs text-cinema-text font-mono leading-relaxed focus:outline-none focus:border-amber-cta resize-none"
+                  className="w-full p-2.5 rounded-lg bg-cinema-card border border-cinema-border text-xs text-cinema-text font-mono leading-relaxed focus:outline-none focus:border-amber-cta resize-none"
                 />
-                <label className="flex items-start gap-2.5 cursor-pointer p-3 rounded-lg bg-cinema-card/70 border border-cinema-border/60">
-                  <input
-                    type="checkbox"
-                    checked={useImageRef}
-                    onChange={(e) => setUseImageRef(e.target.checked)}
-                    className="mt-0.5 rounded border-cinema-border text-amber-cta focus:ring-amber-cta/30 bg-cinema-darker accent-amber-cta cursor-pointer"
-                  />
-                  <div className="flex-1">
-                    <span className="text-xs font-medium text-cinema-text block">
-                      出圖時將各角色定裝圖作為視覺參考 (Image Reference)
-                    </span>
-                    <p className="text-[11px] text-cinema-muted leading-relaxed mt-0.5">
-                      啟用後，Gemini 會同時讀取每位已有定裝圖的角色，鎖定五官、服裝與配色。
-                    </p>
-                  </div>
-                </label>
               </div>
 
               <div className="flex items-center justify-between">
                 <label className="text-xs font-semibold text-cinema-text flex items-center gap-1.5">
-                  <ImageIcon className="w-4 h-4 text-amber-cta" />
-                  角色定裝圖（每人一張）
+                  <ImageIcon className="w-3.5 h-3.5 text-amber-cta" />
+                  角色定裝圖（{characters.length}）
                 </label>
                 <div className="flex flex-wrap gap-2">
                   <button
@@ -346,14 +325,13 @@ export const VisualContinuityModal: React.FC<Props> = ({ isOpen, onClose }) => {
                     onClick={handleReanalyzeFromScript}
                     disabled={busy}
                     className="flex items-center px-2.5 py-1.5 rounded bg-cinema-card hover:bg-cinema-cardHover text-amber-cta text-[11px] border border-amber-cta/40 disabled:opacity-50"
-                    title="讀取目前專案腳本重新提煉角色外觀，並自動清空舊定裝圖"
                   >
                     {reanalyzing ? (
                       <Loader2 className="w-3.5 h-3.5 mr-1 animate-spin" />
                     ) : (
                       <RefreshCw className="w-3.5 h-3.5 mr-1" />
                     )}
-                    重分析腳本並清空舊定裝
+                    重新分析角色
                   </button>
                   <button
                     type="button"
@@ -374,7 +352,7 @@ export const VisualContinuityModal: React.FC<Props> = ({ isOpen, onClose }) => {
                     ) : (
                       <Sparkles className="w-3.5 h-3.5 mr-1.5" />
                     )}
-                    依風格生成全部定裝圖
+                    生成全部定裝圖
                   </button>
                 </div>
               </div>
@@ -507,42 +485,35 @@ export const VisualContinuityModal: React.FC<Props> = ({ isOpen, onClose }) => {
                   </div>
                 ))}
               </div>
-
-              <div className="flex flex-col sm:flex-row gap-2 justify-end pt-2">
-                <button
-                  onClick={() => handleSave(true)}
-                  disabled={saving}
-                  className="px-4 py-2 rounded-lg bg-cinema-card hover:bg-cinema-cardHover text-cinema-text text-xs font-medium border border-cinema-border transition-colors disabled:opacity-50"
-                >
-                  {saving ? "儲存中..." : "💾 儲存錨點設定"}
-                </button>
-                <button
-                  onClick={handleSyncPrompts}
-                  disabled={syncingPrompts}
-                  className="flex items-center justify-center px-4 py-2 rounded-lg bg-amber-cta/15 hover:bg-amber-cta/25 text-amber-cta border border-amber-cta/40 text-xs font-medium transition-colors disabled:opacity-50"
-                >
-                  {syncingPrompts ? (
-                    <Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" />
-                  ) : (
-                    <RefreshCw className="w-3.5 h-3.5 mr-1.5" />
-                  )}
-                  <span>🔄 依風格與錨點重產分鏡 Prompt</span>
-                </button>
-              </div>
             </>
           )}
         </div>
 
-        <div className="px-6 py-3 border-t border-cinema-border/60 bg-cinema-card/30 flex items-center justify-between text-xs text-cinema-muted">
-          <div className="flex items-center gap-1.5">
-            <Info className="w-3.5 h-3.5 text-amber-cta" />
-            <span>出圖時會把風格 prefix、角色定裝圖與文字錨點一起送進 Gemini。</span>
-          </div>
+        <div className="px-6 py-3 border-t border-cinema-border/60 bg-cinema-card/30 flex items-center justify-end gap-2.5 text-xs">
+          <button
+            onClick={() => handleSave(true)}
+            disabled={saving}
+            className="px-3.5 py-1.5 rounded-lg bg-cinema-card hover:bg-cinema-cardHover text-cinema-text text-xs font-medium border border-cinema-border transition-colors disabled:opacity-50"
+          >
+            {saving ? "儲存中..." : "儲存設定"}
+          </button>
+          <button
+            onClick={handleSyncPrompts}
+            disabled={syncingPrompts}
+            className="flex items-center justify-center px-3.5 py-1.5 rounded-lg bg-amber-cta/15 hover:bg-amber-cta/25 text-amber-cta border border-amber-cta/40 text-xs font-medium transition-colors disabled:opacity-50"
+          >
+            {syncingPrompts ? (
+              <Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" />
+            ) : (
+              <RefreshCw className="w-3.5 h-3.5 mr-1.5" />
+            )}
+            <span>重寫全片提示詞</span>
+          </button>
           <button
             onClick={onClose}
-            className="px-4 py-1.5 rounded bg-cinema-card hover:bg-cinema-cardHover text-cinema-text text-xs border border-cinema-border transition-colors"
+            className="px-4 py-1.5 rounded-lg bg-amber-cta hover:bg-amber-ctaHover text-cinema-bg font-semibold text-xs transition-colors"
           >
-            完成並關閉
+            完成
           </button>
         </div>
       </div>

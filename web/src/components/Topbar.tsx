@@ -245,7 +245,7 @@ export const Topbar: React.FC = () => {
             }}
             className="w-full h-8 pl-2.5 pr-7 rounded-lg bg-cinema-card border border-cinema-border/70 hover:border-cinema-muted text-xs text-cinema-text focus:outline-none focus:border-amber-cta appearance-none cursor-pointer font-medium truncate"
           >
-            <option value="">新專案草稿</option>
+            {!selectedJobId && <option value="">新專案草稿 (編輯中)</option>}
             {jobs.map((j) => {
               const tag = j.load_error
                 ? "讀取失敗"
@@ -517,23 +517,6 @@ export const Topbar: React.FC = () => {
                 }`}
               >
                 下載 SRT 字幕{!hasFilm ? " (未合成)" : ""}
-              </a>
-              <a
-                href={selectedJobId && hasFilm ? `/media/jobs/${encodeURIComponent(selectedJobId)}/preview.html` : "#"}
-                target={hasFilm ? "_blank" : undefined}
-                rel="noreferrer"
-                onClick={(e) => {
-                  if (!selectedJobId || !hasFilm) {
-                    e.preventDefault();
-                    setIsDropdownOpen(false);
-                    showToast("HTML 故事板於合成完成後產出", "info");
-                  }
-                }}
-                className={`block px-3 py-1.5 hover:bg-cinema-cardHover ${
-                  hasFilm ? "hover:text-amber-cta" : "text-cinema-muted/60"
-                }`}
-              >
-                開啟 HTML 故事板{!hasFilm ? " (未合成)" : ""}
               </a>
               <div className="my-1 border-t border-cinema-border" />
               <button

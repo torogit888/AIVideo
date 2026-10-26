@@ -13,7 +13,6 @@ import {
   X,
   Search,
   Film,
-  Info,
   Plus,
   Trash2,
   FileText,
@@ -88,7 +87,7 @@ export const ScriptEditor: React.FC = () => {
   const [topic, setTopic] = useState("");
   const [channelPresets, setChannelPresets] = useState<string[]>(getInitialChannelPresets);
   const [customPrompt, setCustomPrompt] = useState(getActiveChannelDefaultPrompt);
-  const [showCustomPrompt, setShowCustomPrompt] = useState(true);
+  const [showCustomPrompt, setShowCustomPrompt] = useState(false);
   const [outlineNotes, setOutlineNotes] = useState("");
   const [showOutlineBox, setShowOutlineBox] = useState(false);
   const [isGeneratingOutline, setIsGeneratingOutline] = useState(false);
@@ -96,6 +95,7 @@ export const ScriptEditor: React.FC = () => {
 
   const [scriptText, setScriptText] = useState("");
   const [savedScript, setSavedScript] = useState("");
+  const [showScriptBox, setShowScriptBox] = useState(true);
   const [isRecutting, setIsRecutting] = useState(false);
   const [wordCount, setWordCount] = useState<number>(() => {
     if (typeof window !== "undefined") {
@@ -191,7 +191,7 @@ export const ScriptEditor: React.FC = () => {
       setSavedScript("");
       setJobSlug("");
       setSlugTouched(false);
-      setShowCustomPrompt(true);
+      setShowCustomPrompt(false);
       setShowOutlineBox(false);
       setShowAnchors(false);
       setSubjectAnchor("");
@@ -248,7 +248,7 @@ export const ScriptEditor: React.FC = () => {
         const savedPrompt =
           detail.custom_prompt || detail.config?.custom_prompt || getActiveChannelDefaultPrompt();
         setCustomPrompt(savedPrompt);
-        setShowCustomPrompt(true);
+        setShowCustomPrompt(false);
         const savedOutline = detail.outline || detail.config?.outline || "";
         setOutlineNotes(savedOutline);
         setShowOutlineBox(Boolean(savedOutline.trim()));
@@ -688,35 +688,35 @@ export const ScriptEditor: React.FC = () => {
   return (
     <div
       ref={containerRef}
-      className="flex-1 flex flex-col h-full overflow-y-auto p-6 pb-20 max-w-5xl mx-auto space-y-5"
+      className="flex-1 flex flex-col h-full overflow-y-auto p-5 pb-16 max-w-5xl mx-auto space-y-3.5"
     >
       <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-lg font-semibold text-cinema-text">
-            {isEditMode ? "編輯此專案口白" : "新專案草稿"}
+        <div className="flex items-baseline gap-2.5">
+          <h2 className="text-base font-semibold text-cinema-text">
+            {isEditMode ? "編輯專案腳本" : "新專案草稿"}
           </h2>
-          <p className="text-xs text-cinema-muted">
-            {isEditMode
-              ? `寫回 ${selectedJobId}。改口白後可選擇是否重切分鏡。`
-              : "空白草稿。可貼上已有口白，或填主題後生成。"}
-          </p>
+          {isEditMode && selectedJobId && (
+            <span className="text-xs font-mono text-cinema-muted">{selectedJobId}</span>
+          )}
         </div>
-        <button
-          type="button"
-          onClick={() => {
-            startNewDraft();
-            showToast("已開啟全新專案草稿", "info");
-          }}
-          className="h-8 px-3 rounded border border-cinema-border text-xs text-cinema-muted hover:text-amber-cta"
-        >
-          {isEditMode ? "開始新草稿" : "重置空白草稿"}
-        </button>
+        {!isEditMode && (topic.trim() || scriptText.trim() || outlineNotes.trim()) && (
+          <button
+            type="button"
+            onClick={() => {
+              startNewDraft();
+              showToast("已清空草稿內容", "info");
+            }}
+            className="h-7 px-2.5 rounded border border-cinema-border text-xs text-cinema-muted hover:text-amber-cta"
+          >
+            清空草稿
+          </button>
+        )}
       </div>
 
-      {/* 故事主題與字數規模 */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="md:col-span-2">
-          <label className="block text-xs font-medium text-cinema-muted mb-1.5">腳本主題</label>
+      {/* 第一排：主題、字數、資料夾代號（新專案） */}
+      <div className={`grid grid-cols-1 ${!isEditMode ? "md:grid-cols-12" : "md:grid-cols-3"} gap-3`}>
+        <div className={!isEditMode ? "md:col-span-6" : "md:col-span-2"}>
+          <label className="block text-xs font-medium text-cinema-muted mb-1">腳本主題</label>
           <input
             type="text"
             value={topic}
@@ -725,14 +725,31 @@ export const ScriptEditor: React.FC = () => {
               setTopic(v);
               if (!slugTouched) setJobSlug(asciiSlug(v));
             }}
-            className="w-full h-10 px-3 rounded-md bg-cinema-card border border-cinema-border text-sm text-cinema-text focus:outline-none focus:border-amber-cta"
-            placeholder="例如：光刻機霸主艾司摩爾的崛起傳奇、旅行者號金唱片的孤獨旅程"
+            className="w-full h-9 px-3 rounded-md bg-cinema-card border border-cinema-border text-sm text-cinema-text focus:outline-none focus:border-amber-cta"
+            placeholder="輸入故事主題..."
           />
         </div>
-        <div>
-          <div className="flex justify-between items-center mb-1.5">
-            <label className="text-xs font-medium text-cinema-muted">目標字數規模</label>
-            <span className="text-xs font-mono text-amber-cta">{wordCount} 字 (約 {Math.round(wordCount / 220)} 分鐘)</span>
+        {!isEditMode && (
+          <div className="md:col-span-3">
+            <label className="block text-xs font-medium text-cinema-muted mb-1">資料夾英文名</label>
+            <input
+              type="text"
+              value={jobSlug}
+              onChange={(e) => {
+                setSlugTouched(true);
+                setJobSlug(asciiSlug(e.target.value, ""));
+              }}
+              placeholder={asciiSlug(topic)}
+              className="w-full h-9 px-2.5 rounded-md bg-cinema-card border border-cinema-border text-xs font-mono text-cinema-text focus:outline-none focus:border-amber-cta"
+            />
+          </div>
+        )}
+        <div className={!isEditMode ? "md:col-span-3" : "md:col-span-1"}>
+          <div className="flex justify-between items-center mb-1">
+            <label className="text-xs font-medium text-cinema-muted">目標字數</label>
+            <span className="text-xs font-mono text-amber-cta">
+              {wordCount} 字 (~{Math.max(1, Math.round(wordCount / 220))}分)
+            </span>
           </div>
           <input
             type="range"
@@ -747,300 +764,15 @@ export const ScriptEditor: React.FC = () => {
                 localStorage.setItem("aivideo_target_word_count", String(val));
               }
             }}
-            className="w-full accent-amber-cta cursor-pointer h-10"
+            className="w-full accent-amber-cta cursor-pointer h-9"
           />
         </div>
       </div>
 
-      {!isEditMode && (
+      {/* 第二排：口吻、發音人、視覺風格 */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         <div>
-          <label className="block text-xs font-medium text-cinema-muted mb-1.5">資料夾英文名（slug）</label>
-          <input
-            type="text"
-            value={jobSlug}
-            onChange={(e) => {
-              setSlugTouched(true);
-              setJobSlug(asciiSlug(e.target.value, ""));
-            }}
-            placeholder={asciiSlug(topic)}
-            className="w-full h-10 px-3 rounded-md bg-cinema-card border border-cinema-border text-sm font-mono text-cinema-text focus:outline-none focus:border-amber-cta"
-          />
-          <p className="text-[10px] text-cinema-muted mt-1">
-            建案資料夾：jobs/日期_{jobSlug.trim() || asciiSlug(topic)}（僅 ASCII）
-          </p>
-        </div>
-      )}
-
-      {/* 區塊一：自訂故事要求與指定 Prompt（獨立永久保存，不被大綱生成覆蓋） */}
-      <div className="p-3.5 rounded-lg bg-cinema-card/90 border border-cinema-border space-y-2.5">
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <div className="flex items-center space-x-2">
-            <span className="text-amber-cta text-sm">🎯</span>
-            <span className="text-xs font-semibold text-cinema-text">
-              故事要求／必寫看點（選填）
-            </span>
-            {customPrompt.trim() && (
-              <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-cta/15 text-amber-cta border border-amber-cta/30 font-mono">
-                {customPrompt.trim().length} 字 Prompt
-              </span>
-            )}
-          </div>
-          <div className="flex items-center space-x-2">
-            {customPrompt.trim() && (
-              <>
-                <button
-                  type="button"
-                  onClick={() => persistPromptAndOutline(customPrompt, outlineNotes, false)}
-                  disabled={isSavingOutlinePrompt}
-                  className="flex items-center text-[11px] text-amber-cta hover:text-amber-300 transition-colors mr-1 cursor-pointer"
-                  title="儲存指定 Prompt 與特定要求"
-                >
-                  <Save className="w-3 h-3 mr-1" />
-                  <span>儲存</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setCustomPrompt("");
-                    persistPromptAndOutline("", outlineNotes, true);
-                  }}
-                  className="text-[11px] text-cinema-muted/60 hover:text-red-400 transition-colors mr-1 cursor-pointer"
-                >
-                  清空 Prompt
-                </button>
-              </>
-            )}
-            <button
-              type="button"
-              onClick={() => setShowCustomPrompt(!showCustomPrompt)}
-              className="p-1 rounded text-cinema-muted hover:text-cinema-text border border-cinema-border/60 hover:border-cinema-border cursor-pointer"
-              title={showCustomPrompt ? "收起 Prompt 輸入框" : "展開 Prompt 輸入框"}
-            >
-              {showCustomPrompt ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
-            </button>
-          </div>
-        </div>
-
-        {/* 頻道主／YTR 自稱快捷切換列 */}
-        <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
-          <span className="text-[11px] text-cinema-muted mr-1">🎙️ 頻道主自稱快捷切換：</span>
-          {channelPresets.map((ch) => {
-            const isActive = detectedChannel === ch;
-            return (
-              <button
-                key={ch}
-                type="button"
-                onClick={() => handleSelectChannelPersona(ch)}
-                className={`group flex items-center h-6 px-2.5 rounded-full text-[11px] font-medium border transition-colors cursor-pointer ${
-                  isActive
-                    ? "bg-amber-cta text-cinema-bg border-amber-cta font-semibold"
-                    : "bg-cinema-darker text-cinema-text border-cinema-border hover:border-amber-cta/60"
-                }`}
-                title={`將開頭設為：大家好~我是${ch}!（保留下方選定的口吻靈魂）`}
-              >
-                <span>我是{ch}</span>
-                {ch !== DEFAULT_CHANNEL_NAME && (
-                  <span
-                    onClick={(e) => handleRemoveChannelPreset(ch, e)}
-                    className={`ml-1.5 text-[10px] hover:text-red-400 ${
-                      isActive ? "text-cinema-bg/70 hover:text-red-900" : "text-cinema-muted"
-                    }`}
-                    title="移除此快捷頻道名"
-                  >
-                    ×
-                  </span>
-                )}
-              </button>
-            );
-          })}
-          <button
-            type="button"
-            onClick={() => handleSelectChannelPersona("無自稱")}
-            className={`flex items-center h-6 px-2.5 rounded-full text-[11px] border transition-colors cursor-pointer ${
-              detectedChannel === "無自稱"
-                ? "bg-amber-cta text-cinema-bg border-amber-cta font-semibold"
-                : "bg-cinema-darker text-cinema-muted border-cinema-border hover:text-cinema-text hover:border-amber-cta/60"
-            }`}
-            title="不加固定頻道名打招呼，直接以口吻的反差提問破題"
-          >
-            無自稱（直接破題）
-          </button>
-          <button
-            type="button"
-            onClick={handleAddChannelPreset}
-            className="flex items-center h-6 px-2 rounded-full text-[11px] bg-cinema-darker hover:bg-cinema-card text-amber-cta border border-dashed border-amber-cta/40 hover:border-amber-cta transition-colors cursor-pointer"
-            title="新增常用頻道／YTR 自稱並自動記憶"
-          >
-            <Plus className="w-3 h-3 mr-0.5" />
-            <span>新增頻道名</span>
-          </button>
-        </div>
-
-        {showCustomPrompt || customPrompt.trim() ? (
-          <div className="space-y-1">
-            <textarea
-              rows={3}
-              value={customPrompt}
-              onChange={(e) => {
-                const val = e.target.value;
-                setCustomPrompt(val);
-                if (!selectedJobId) {
-                  localStorage.setItem("aivideo_draft_custom_prompt", val);
-                }
-              }}
-              onBlur={() => {
-                if (selectedJobId) {
-                  persistPromptAndOutline(customPrompt, outlineNotes, true);
-                }
-              }}
-              placeholder="在此輸入您個人的指定 Prompt、特定劇情限制或核心看點...例如：
-- 希望視角聚焦在台積電林本堅如何說服張忠謀賭上浸潤式微影
-- 必須描繪阿斯麥與德國蔡司鏡頭千錘百鍊的同盟生死戰
-- 開場要製造強烈好奇心懸念，切勿冗長客套
-（此處輸入的內容永久獨立保存，點擊下方「規劃 6 幕大綱」時不會被覆蓋，且生成腳本時會一併約束 AI）"
-              className="w-full p-2.5 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text font-mono leading-relaxed focus:outline-none focus:border-amber-cta resize-y"
-            />
-            <div className="text-[10px] text-cinema-muted flex items-center justify-between">
-              <span>💡 提示：輸入完畢後自動保存；點擊下方「⚡ 依上方 Prompt 規劃 6 幕大綱」即可展開骨架；生成腳本時亦會深度遵循此處要求。</span>
-            </div>
-          </div>
-        ) : (
-          <div className="text-[11px] text-cinema-muted flex items-center justify-between py-0.5">
-            <span>有特定想講的衝突、名場面或指定劇情？可先在此輸入，內容獨立保留不被大綱覆蓋。</span>
-            <button
-              type="button"
-              onClick={() => setShowCustomPrompt(true)}
-              className="text-amber-cta text-[11px] hover:underline ml-2 shrink-0 cursor-pointer"
-            >
-              輸入故事要求
-            </button>
-          </div>
-        )}
-      </div>
-
-      {/* 區塊二：6 幕故事大綱（依上方 Prompt 智慧規劃或手動微調） */}
-      <div className="p-3.5 rounded-lg bg-cinema-card/90 border border-cinema-border space-y-2.5">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <FileText className="w-4 h-4 text-amber-cta" />
-            <span className="text-xs font-semibold text-cinema-text">
-              📑 6 幕故事大綱（長篇 3500+ 字必備骨架）
-            </span>
-            {outlineNotes.trim() && (
-              <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono">
-                大綱已就緒
-              </span>
-            )}
-          </div>
-          <div className="flex items-center space-x-2">
-            {outlineNotes.trim() && (
-              <button
-                type="button"
-                onClick={() => persistPromptAndOutline(customPrompt, outlineNotes, false)}
-                disabled={isSavingOutlinePrompt}
-                className="flex items-center h-7 px-2 rounded bg-cinema-darker hover:bg-cinema-card border border-cinema-border hover:border-amber-cta text-amber-cta text-[11px] font-medium transition-colors cursor-pointer mr-0.5"
-                title="儲存 6 幕故事大綱"
-              >
-                <Save className="w-3 h-3 mr-1" />
-                <span>儲存大綱</span>
-              </button>
-            )}
-            <button
-              type="button"
-              onClick={handleGenerateOutline}
-              disabled={isGeneratingOutline || !topic.trim()}
-              className="flex items-center h-7 px-2.5 rounded bg-amber-cta/15 hover:bg-amber-cta/25 text-amber-cta border border-amber-cta/40 text-[11px] font-medium transition-colors disabled:opacity-40 cursor-pointer"
-              title={
-                customPrompt.trim()
-                  ? "依據上方指定的 Prompt 要求，聯網規劃出 6~8 幕深度大綱"
-                  : "由 AI 聯網檢索該主題並規劃 6~8 幕核心情節大綱"
-              }
-            >
-              {isGeneratingOutline ? (
-                <>
-                  <Loader2 className="w-3 h-3 mr-1 animate-spin" />
-                  <span>規劃大綱中...</span>
-                </>
-              ) : (
-                <>
-                  <Sparkles className="w-3 h-3 mr-1" />
-                  <span>
-                    {customPrompt.trim()
-                      ? "⚡ 依上方 Prompt 規劃 6 幕大綱"
-                      : outlineNotes.trim()
-                      ? "重新規劃 6 幕大綱"
-                      : "⚡ AI 智慧規劃 6 幕大綱"}
-                  </span>
-                </>
-              )}
-            </button>
-            <button
-              type="button"
-              onClick={() => setShowOutlineBox(!showOutlineBox)}
-              className="p-1 rounded text-cinema-muted hover:text-cinema-text border border-cinema-border/60 hover:border-cinema-border cursor-pointer"
-              title={showOutlineBox ? "收起大綱輸入框" : "展開大綱輸入框"}
-            >
-              {showOutlineBox ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
-            </button>
-          </div>
-        </div>
-
-        {/* 大綱文字編輯區 */}
-        {showOutlineBox || outlineNotes.trim() ? (
-          <div className="space-y-1.5">
-            <textarea
-              rows={4}
-              value={outlineNotes}
-              onChange={(e) => {
-                const val = e.target.value;
-                setOutlineNotes(val);
-                if (!selectedJobId) {
-                  localStorage.setItem("aivideo_draft_outline", val);
-                }
-              }}
-              onBlur={() => {
-                if (selectedJobId) {
-                  persistPromptAndOutline(customPrompt, outlineNotes, true);
-                }
-              }}
-              placeholder="點擊右上角「⚡ 規劃 6 幕大綱」後，生成的大綱會出現在此處，不會覆蓋上方的指定 Prompt；您亦可直接手動條列大綱..."
-              className="w-full p-2.5 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text font-mono leading-relaxed focus:outline-none focus:border-amber-cta resize-y"
-            />
-            <div className="flex items-center justify-between text-[10px] text-cinema-muted">
-              <span>💡 提示：大綱規劃產出在此並已自動保存，可自由微調；上方指定 Prompt 依然被完整保留。</span>
-              {outlineNotes.trim() && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setOutlineNotes("");
-                    persistPromptAndOutline(customPrompt, "", true);
-                  }}
-                  className="text-cinema-muted/60 hover:text-red-400 cursor-pointer"
-                >
-                  清空大綱
-                </button>
-              )}
-            </div>
-          </div>
-        ) : (
-          <div className="text-[11px] text-cinema-muted flex items-center justify-between py-0.5">
-            <span>點擊右側按鈕即可一鍵規劃 6 幕大綱（若上方有指定 Prompt 將自動融合）。</span>
-            <button
-              type="button"
-              onClick={() => setShowOutlineBox(true)}
-              className="text-amber-cta text-[11px] hover:underline ml-2 shrink-0 cursor-pointer"
-            >
-              手動輸入大綱 / 展開
-            </button>
-          </div>
-        )}
-      </div>
-
-      {/* 說書人口吻、發音人與 AI 核心模型 (三欄) */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {/* 口吻選擇 */}
-        <div>
-          <label className="block text-xs font-medium text-cinema-muted mb-1.5">說書人口吻風格</label>
+          <label className="block text-xs font-medium text-cinema-muted mb-1">口吻風格</label>
           <select
             value={selectedTone}
             onChange={(e) => setSelectedTone(e.target.value)}
@@ -1054,14 +786,8 @@ export const ScriptEditor: React.FC = () => {
           </select>
         </div>
 
-        {/* 發音人選擇 */}
         <div>
-          <div className="flex justify-between items-center mb-1.5">
-            <label className="text-xs font-medium text-cinema-muted">專案發音人 (OmniVoice)</label>
-            {selectedJobId && (
-              <span className="text-[10px] text-amber-cta/80 font-mono">已同步</span>
-            )}
-          </div>
+          <label className="block text-xs font-medium text-cinema-muted mb-1">發音人</label>
           <select
             value={selectedVoice}
             onChange={(e) => handleVoiceChange(e.target.value)}
@@ -1076,7 +802,7 @@ export const ScriptEditor: React.FC = () => {
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-cinema-muted mb-1.5">視覺風格</label>
+          <label className="block text-xs font-medium text-cinema-muted mb-1">視覺風格</label>
           <button
             type="button"
             onClick={() => setIsGalleryOpen(true)}
@@ -1088,20 +814,228 @@ export const ScriptEditor: React.FC = () => {
         </div>
       </div>
 
-      {/* 腳本內容即時預覽與編輯器（含 AI 生成腳本主按鈕） */}
+      {/* 第三排（緊湊收合）：故事要求／頻道自稱 ＆ 故事大綱 */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        {/* 左：故事要求與頻道自稱 */}
+        <div className="p-2.5 rounded-lg bg-cinema-card/90 border border-cinema-border space-y-2">
+          <div className="flex flex-wrap items-center justify-between gap-1.5">
+            <div className="flex items-center flex-wrap gap-1.5">
+              <span className="text-xs font-semibold text-cinema-text mr-1">故事要求</span>
+              {channelPresets.map((ch) => {
+                const isActive = detectedChannel === ch;
+                return (
+                  <button
+                    key={ch}
+                    type="button"
+                    onClick={() => handleSelectChannelPersona(ch)}
+                    className={`group flex items-center h-6 px-2 rounded-full text-[11px] font-medium border transition-colors cursor-pointer ${
+                      isActive
+                        ? "bg-amber-cta text-cinema-bg border-amber-cta font-semibold"
+                        : "bg-cinema-darker text-cinema-text border-cinema-border hover:border-amber-cta/60"
+                    }`}
+                  >
+                    <span>我是{ch}</span>
+                    {ch !== DEFAULT_CHANNEL_NAME && (
+                      <span
+                        onClick={(e) => handleRemoveChannelPreset(ch, e)}
+                        className={`ml-1 text-[10px] hover:text-red-400 ${
+                          isActive ? "text-cinema-bg/70 hover:text-red-900" : "text-cinema-muted"
+                        }`}
+                        title="移除"
+                      >
+                        ×
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
+              <button
+                type="button"
+                onClick={() => handleSelectChannelPersona("無自稱")}
+                className={`flex items-center h-6 px-2 rounded-full text-[11px] border transition-colors cursor-pointer ${
+                  detectedChannel === "無自稱"
+                    ? "bg-amber-cta text-cinema-bg border-amber-cta font-semibold"
+                    : "bg-cinema-darker text-cinema-muted border-cinema-border hover:text-cinema-text"
+                }`}
+              >
+                無自稱
+              </button>
+              <button
+                type="button"
+                onClick={handleAddChannelPreset}
+                className="flex items-center h-6 px-1.5 rounded-full text-[11px] bg-cinema-darker hover:bg-cinema-card text-amber-cta border border-dashed border-amber-cta/40 cursor-pointer"
+                title="新增頻道名"
+              >
+                <Plus className="w-3 h-3" />
+              </button>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setShowCustomPrompt(!showCustomPrompt)}
+              className="flex items-center text-[11px] text-cinema-muted hover:text-cinema-text px-1.5 py-0.5 rounded border border-cinema-border/60 cursor-pointer"
+            >
+              <span className="mr-1">{showCustomPrompt ? "收起" : "展開"}</span>
+              {showCustomPrompt ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+            </button>
+          </div>
+
+          {showCustomPrompt && (
+            <div className="space-y-1.5 pt-1">
+              <textarea
+                rows={3}
+                value={customPrompt}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  setCustomPrompt(val);
+                  if (!selectedJobId) {
+                    localStorage.setItem("aivideo_draft_custom_prompt", val);
+                  }
+                }}
+                onBlur={() => {
+                  if (selectedJobId) {
+                    persistPromptAndOutline(customPrompt, outlineNotes, true);
+                  }
+                }}
+                placeholder="輸入特定劇情看點或指定要求（選填）..."
+                className="w-full p-2 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text font-mono leading-relaxed focus:outline-none focus:border-amber-cta resize-y"
+              />
+              {customPrompt.trim() && (
+                <div className="flex justify-end gap-2">
+                  <button
+                    type="button"
+                    onClick={() => persistPromptAndOutline(customPrompt, outlineNotes, false)}
+                    disabled={isSavingOutlinePrompt}
+                    className="flex items-center text-[11px] text-amber-cta hover:text-amber-300 cursor-pointer"
+                  >
+                    <Save className="w-3 h-3 mr-1" />
+                    儲存
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setCustomPrompt("");
+                      persistPromptAndOutline("", outlineNotes, true);
+                    }}
+                    className="text-[11px] text-cinema-muted hover:text-red-400 cursor-pointer"
+                  >
+                    清空
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* 右：故事大綱 */}
+        <div className="p-2.5 rounded-lg bg-cinema-card/90 border border-cinema-border space-y-2">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center space-x-2">
+              <FileText className="w-3.5 h-3.5 text-amber-cta" />
+              <span className="text-xs font-semibold text-cinema-text">故事大綱</span>
+              {outlineNotes.trim() && (
+                <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono">
+                  已就緒
+                </span>
+              )}
+            </div>
+            <div className="flex items-center space-x-1.5">
+              <button
+                type="button"
+                onClick={handleGenerateOutline}
+                disabled={isGeneratingOutline || !topic.trim()}
+                className="flex items-center h-6 px-2.5 rounded bg-amber-cta/15 hover:bg-amber-cta/25 text-amber-cta border border-amber-cta/40 text-[11px] font-medium transition-colors disabled:opacity-40 cursor-pointer"
+              >
+                {isGeneratingOutline ? (
+                  <>
+                    <Loader2 className="w-3 h-3 mr-1 animate-spin" />
+                    <span>規劃中...</span>
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="w-3 h-3 mr-1" />
+                    <span>{outlineNotes.trim() ? "重新規劃" : "規劃大綱"}</span>
+                  </>
+                )}
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowOutlineBox(!showOutlineBox)}
+                className="flex items-center text-[11px] text-cinema-muted hover:text-cinema-text px-1.5 py-0.5 rounded border border-cinema-border/60 cursor-pointer"
+              >
+                <span className="mr-1">{showOutlineBox ? "收起" : "展開"}</span>
+                {showOutlineBox ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+              </button>
+            </div>
+          </div>
+
+          {showOutlineBox && (
+            <div className="space-y-1.5 pt-1">
+              <textarea
+                rows={4}
+                value={outlineNotes}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  setOutlineNotes(val);
+                  if (!selectedJobId) {
+                    localStorage.setItem("aivideo_draft_outline", val);
+                  }
+                }}
+                onBlur={() => {
+                  if (selectedJobId) {
+                    persistPromptAndOutline(customPrompt, outlineNotes, true);
+                  }
+                }}
+                placeholder="點擊「規劃大綱」自動生成，或在此手動輸入各幕大綱..."
+                className="w-full p-2 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text font-mono leading-relaxed focus:outline-none focus:border-amber-cta resize-y"
+              />
+              {outlineNotes.trim() && (
+                <div className="flex justify-end gap-2">
+                  <button
+                    type="button"
+                    onClick={() => persistPromptAndOutline(customPrompt, outlineNotes, false)}
+                    disabled={isSavingOutlinePrompt}
+                    className="flex items-center text-[11px] text-amber-cta hover:text-amber-300 cursor-pointer"
+                  >
+                    <Save className="w-3 h-3 mr-1" />
+                    儲存
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setOutlineNotes("");
+                      persistPromptAndOutline(customPrompt, "", true);
+                    }}
+                    className="text-[11px] text-cinema-muted hover:text-red-400 cursor-pointer"
+                  >
+                    清空
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* 主畫面：口白編輯器（支援收起/展開） */}
       <div
         ref={scriptBoxRef}
-        className="flex flex-col min-h-[380px] shrink-0 rounded-lg bg-cinema-card border border-cinema-border overflow-hidden transition-all shadow-md"
+        className={`flex flex-col shrink-0 rounded-lg bg-cinema-card border border-cinema-border overflow-hidden transition-all shadow-md ${
+          showScriptBox ? "min-h-[380px]" : ""
+        }`}
       >
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between px-4 py-2.5 border-b border-cinema-border/60 text-xs bg-cinema-darker/60 gap-2">
+        <div
+          className={`flex flex-col sm:flex-row sm:items-center justify-between px-4 py-2 text-xs bg-cinema-darker/60 gap-2 ${
+            showScriptBox ? "border-b border-cinema-border/60" : ""
+          }`}
+        >
           <div className="flex items-center space-x-2">
-            <span className="font-semibold text-cinema-text">📖 故事腳本即時預覽與編輯區</span>
-            <span className="text-[10px] text-cinema-muted">（每行一句話，可直接編輯）</span>
-          </div>
-          <div className="flex items-center space-x-2.5 text-cinema-muted text-xs">
-            <span className="font-mono text-amber-cta font-medium hidden sm:inline">
-              {scriptLines.filter((l) => l.trim()).length} 句口白 · 共 {totalChars} 字
+            <span className="font-semibold text-cinema-text">口白內容</span>
+            <span className="font-mono text-amber-cta font-medium">
+              {scriptLines.filter((l) => l.trim()).length} 句 · {totalChars} 字
             </span>
+          </div>
+          <div className="flex items-center space-x-2 text-cinema-muted text-xs">
             <button
               onClick={() => {
                 navigator.clipboard.writeText(scriptText);
@@ -1114,77 +1048,83 @@ export const ScriptEditor: React.FC = () => {
               <span>複製</span>
             </button>
 
-            {/* 智慧斷句分行按鈕 */}
             <button
               type="button"
               onClick={handleAutoFormatScript}
               disabled={generating || !scriptText.trim()}
               className="flex items-center hover:text-amber-cta transition-colors text-xs text-cinema-muted px-2 py-1 rounded bg-cinema-card border border-cinema-border cursor-pointer"
-              title="將長段落或長句自動按標點拆分為標準的一句一行（每行約 15~25 字）"
+              title="將長句按標點自動拆為一句一行"
             >
               <Wand2 className="w-3.5 h-3.5 mr-1 text-amber-cta" />
-              <span>智慧分行</span>
+              <span>自動分行</span>
             </button>
 
-            {/* 深度擴寫情節按鈕 */}
             <button
               type="button"
               onClick={handleExpandScript}
               disabled={isExpandingScript || generating || !scriptText.trim()}
-              className="flex items-center h-8 px-3 rounded bg-cinema-card hover:bg-cinema-cardHover text-amber-cta border border-amber-cta/50 hover:border-amber-cta text-xs font-medium transition-colors whitespace-nowrap disabled:opacity-40 cursor-pointer shadow-sm active:scale-95"
-              title={!scriptText.trim() ? "請先生成或填寫腳本口白後再進行擴寫" : "針對目前情節對白、衝突與歷史數據深入展開，大幅增加篇幅與字數"}
+              className="flex items-center h-7 px-2.5 rounded bg-cinema-card hover:bg-cinema-cardHover text-amber-cta border border-amber-cta/50 hover:border-amber-cta text-xs font-medium transition-colors whitespace-nowrap disabled:opacity-40 cursor-pointer"
             >
               {isExpandingScript ? (
                 <>
-                  <Loader2 className="w-3.5 h-3.5 animate-spin mr-1.5" />
-                  <span>AI 深度擴寫中...</span>
+                  <Loader2 className="w-3.5 h-3.5 animate-spin mr-1" />
+                  <span>擴寫中...</span>
                 </>
               ) : (
                 <>
                   <Sparkles className="w-3.5 h-3.5 mr-1" />
-                  <span>🔍 深度擴寫情節</span>
+                  <span>擴寫</span>
                 </>
               )}
             </button>
 
-            {/* 生成腳本主按鈕 */}
             <button
               onClick={handleGenerateScript}
               disabled={generating || !topic.trim()}
-              className="flex items-center h-8 px-3.5 rounded bg-amber-cta hover:bg-amber-ctaHover text-cinema-bg font-semibold text-xs tracking-wide transition-all shadow glow-amber active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
-              title={!topic.trim() ? "請先填寫腳本主題" : "由 AI 聯網生成逐句口白腳本並於下方編輯區顯示"}
+              className="flex items-center h-7 px-3 rounded bg-amber-cta hover:bg-amber-ctaHover text-cinema-bg font-semibold text-xs tracking-wide transition-all shadow glow-amber active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
             >
               {generating ? (
                 <>
                   <Loader2 className="w-3.5 h-3.5 animate-spin mr-1.5" />
-                  <span>AI 生成中 (15~30s)...</span>
+                  <span>生成中...</span>
                 </>
               ) : (
                 <>
-                  <Sparkles className="w-3.5 h-3.5 mr-1.5" />
-                  <span>{scriptText.trim() ? "重新生成腳本" : "✨ 生成逐句腳本"}</span>
+                  <Sparkles className="w-3.5 h-3.5 mr-1" />
+                  <span>{scriptText.trim() ? "重新生成" : "生成腳本"}</span>
                 </>
               )}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setShowScriptBox(!showScriptBox)}
+              className="flex items-center text-[11px] text-cinema-muted hover:text-cinema-text px-2 py-1 rounded bg-cinema-card border border-cinema-border/60 cursor-pointer"
+            >
+              <span className="mr-1">{showScriptBox ? "收起" : "展開"}</span>
+              {showScriptBox ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
             </button>
           </div>
         </div>
 
         {/* 編輯器容器 */}
-        <div className="flex flex-1 min-h-[320px] p-2 bg-cinema-darker overflow-hidden">
-          {/* 行號欄 */}
-          <div className="w-8 py-1 text-right pr-2 text-cinema-muted/40 font-mono text-xs select-none leading-relaxed">
-            {scriptLines.map((_, i) => (
-              <div key={i}>{i + 1}</div>
-            ))}
+        {showScriptBox && (
+          <div className="flex flex-1 min-h-[320px] p-2 bg-cinema-darker overflow-hidden">
+            {/* 行號欄 */}
+            <div className="w-8 py-1 text-right pr-2 text-cinema-muted/40 font-mono text-xs select-none leading-relaxed">
+              {scriptLines.map((_, i) => (
+                <div key={i}>{i + 1}</div>
+              ))}
+            </div>
+            {/* 文字編輯區 */}
+            <textarea
+              value={scriptText}
+              onChange={(e) => setScriptText(e.target.value)}
+              className="flex-1 p-1 bg-transparent text-cinema-text text-xs font-sans leading-relaxed focus:outline-none resize-none"
+              placeholder="點擊右上角「生成腳本」或直接在此貼上/撰寫逐句口白..."
+            />
           </div>
-          {/* 文字編輯區 */}
-          <textarea
-            value={scriptText}
-            onChange={(e) => setScriptText(e.target.value)}
-            className="flex-1 p-1 bg-transparent text-cinema-text text-xs font-sans leading-relaxed focus:outline-none resize-none"
-            placeholder="點擊右上角「生成逐句腳本」或直接在此貼上/撰寫逐句口白..."
-          />
-        </div>
+        )}
       </div>
 
       {/* 風格大海報牆改由 modal「更換」開啟 */}
@@ -1302,124 +1242,97 @@ export const ScriptEditor: React.FC = () => {
         )}
       </div>
 
-      <div className="shrink-0 space-y-2 p-3.5 rounded-lg bg-cinema-card border border-cinema-border">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <Film className="w-4 h-4 text-amber-cta" />
-            <label className="text-xs font-semibold text-cinema-text">切鏡節奏（進階）</label>
-          </div>
-          <span className="text-[11px] text-cinema-muted">
-            由 AI 依據情節單元與視覺轉折自動決定段落合併，並參考此節奏
-          </span>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5">
-          {[
-            {
-              id: "fast" as const,
-              icon: "🚀",
-              title: "緊湊快節奏",
-              badge: "約 1~2 句 / 圖",
-              desc: "頻繁變換特寫與視角，適合緊張懸念、動作衝突或名場面反轉",
-            },
-            {
-              id: "balanced" as const,
-              icon: "🎬",
-              title: "標準電影感",
-              badge: "約 2~4 句 / 圖（推薦）",
-              desc: "依情節單元與時空變換自然切鏡，兼顧視覺舒適度與觀看沉浸感",
-            },
-            {
-              id: "slow" as const,
-              icon: "☕",
-              title: "沉浸長鏡頭",
-              badge: "約 3~5 句 / 圖",
-              desc: "宏觀大遠景與慢速推拉，適合歷史紀錄、深空宇宙或深沉思考",
-            },
-          ].map((p) => {
-            const isSelected = visualPacing === p.id;
-            return (
-              <div
-                key={p.id}
-                onClick={() => setVisualPacing(p.id)}
-                className={`p-2.5 rounded-md border cursor-pointer transition-all duration-200 ${
-                  isSelected
-                    ? "bg-amber-cta/10 border-amber-cta text-cinema-text shadow-sm"
-                    : "bg-cinema-darker/60 border-cinema-border/70 text-cinema-muted hover:border-cinema-muted hover:text-cinema-text"
-                }`}
-              >
-                <div className="flex items-center justify-between mb-1">
-                  <div className="flex items-center space-x-1.5 font-medium text-xs">
-                    <span>{p.icon}</span>
-                    <span className={isSelected ? "text-amber-cta font-semibold" : ""}>{p.title}</span>
-                  </div>
-                  <span
-                    className={`text-[10px] px-1.5 py-0.5 rounded font-mono ${
+      {/* 底部設定與建案列（切鏡節奏 + 角色設定 + 建立/儲存主按鈕） */}
+      <div className="shrink-0 rounded-lg bg-cinema-card border border-cinema-border overflow-hidden shadow-md">
+        <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 bg-cinema-darker/50">
+          {/* 左：切鏡節奏三段式切換 */}
+          <div className="flex items-center gap-2">
+            <Film className="w-3.5 h-3.5 text-amber-cta shrink-0" />
+            <span className="text-xs font-medium text-cinema-muted">切鏡節奏</span>
+            <div className="flex rounded-md bg-cinema-card p-0.5 border border-cinema-border/80 text-xs">
+              {[
+                { id: "fast" as const, label: "快 (1~2句)" },
+                { id: "balanced" as const, label: "標準 (2~4句)" },
+                { id: "slow" as const, label: "慢 (3~5句)" },
+              ].map((p) => {
+                const isSelected = visualPacing === p.id;
+                return (
+                  <button
+                    key={p.id}
+                    type="button"
+                    onClick={() => setVisualPacing(p.id)}
+                    className={`px-2.5 py-1 rounded text-[11px] transition-colors cursor-pointer ${
                       isSelected
-                        ? "bg-amber-cta text-cinema-bg font-bold"
-                        : "bg-cinema-card border border-cinema-border text-cinema-muted"
+                        ? "bg-amber-cta text-cinema-bg font-semibold"
+                        : "text-cinema-muted hover:text-cinema-text"
                     }`}
                   >
-                    {p.badge}
-                  </span>
-                </div>
-                <div className="text-[11px] leading-relaxed opacity-80">{p.desc}</div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* 視覺一致性特徵分析與進入分鏡工作台（整合一體化前製面板） */}
-      <div className="shrink-0 rounded-lg bg-cinema-card border border-cinema-border overflow-hidden shadow-md">
-        {/* 卡片頂部 Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 border-b border-cinema-border/60 bg-cinema-darker/40">
-          <div className="flex items-center space-x-2.5">
-            <Sparkles className="w-4 h-4 text-amber-cta shrink-0" />
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-semibold text-cinema-text">
-                  🎭 視覺一致性特徵分析與前製設定 (Character & Entity Bible)
-                </span>
-                {(characters.length > 0 || subjectAnchor) && (
-                  <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono">
-                    已建立 {characters.length} 個角色錨點
-                  </span>
-                )}
-              </div>
-              <p className="text-[11px] text-cinema-muted mt-0.5">
-                依選定的生圖風格掃描腳本，提煉每位角色的外觀錨點與世界觀光影，確保全片分鏡畫風連貫。
-              </p>
+                    {p.label}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
+          {/* 中：角色與世界觀設定開關 */}
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={handleAnalyzeAnchors}
+              disabled={isAnalyzingAnchors || !scriptText.trim()}
+              className="flex items-center h-7 px-2.5 rounded bg-amber-cta/15 hover:bg-amber-cta/25 text-amber-cta border border-amber-cta/40 text-[11px] font-medium transition-colors disabled:opacity-40 cursor-pointer"
+            >
+              {isAnalyzingAnchors ? (
+                <>
+                  <Loader2 className="w-3 h-3 mr-1 animate-spin" />
+                  <span>分析角色中...</span>
+                </>
+              ) : (
+                <>
+                  <Sparkles className="w-3 h-3 mr-1" />
+                  <span>{characters.length || subjectAnchor ? "重分析角色" : "AI 分析角色"}</span>
+                </>
+              )}
+            </button>
+            <button
+              type="button"
+              onClick={() => setShowAnchors(!showAnchors)}
+              className="flex items-center h-7 px-2.5 rounded bg-cinema-card hover:bg-cinema-cardHover border border-cinema-border text-[11px] text-cinema-muted hover:text-cinema-text cursor-pointer"
+            >
+              <span>角色設定 ({characters.length})</span>
+              {showAnchors ? <ChevronUp className="w-3 h-3 ml-1" /> : <ChevronDown className="w-3 h-3 ml-1" />}
+            </button>
+          </div>
+
+          {/* 右：建立或儲存專案主按鈕 */}
           <button
-            onClick={handleAnalyzeAnchors}
-            disabled={isAnalyzingAnchors || !scriptText.trim()}
-            className="flex items-center justify-center h-8 px-3 rounded bg-amber-cta/15 hover:bg-amber-cta/25 text-amber-cta border border-amber-cta/40 text-xs font-medium transition-colors whitespace-nowrap disabled:opacity-40 cursor-pointer shrink-0"
-            title={!scriptText.trim() ? "請先生成或填寫腳本內容後再進行分析" : "依據目前腳本與風格提煉角色特徵"}
+            onClick={isEditMode ? handleSaveExisting : handleCreateProject}
+            disabled={creatingProject || generating || isRecutting || !scriptText.trim()}
+            className={`flex items-center h-8 px-4 rounded font-semibold text-xs tracking-wide transition-all ${
+              !scriptText.trim()
+                ? "bg-cinema-darker border border-cinema-border/70 text-cinema-muted/40 cursor-not-allowed opacity-40"
+                : "bg-amber-cta hover:bg-amber-ctaHover text-cinema-bg shadow glow-amber active:scale-95 disabled:opacity-50 cursor-pointer"
+            }`}
           >
-            {isAnalyzingAnchors ? (
+            {creatingProject || isRecutting ? (
               <>
-                <Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" />
-                <span>分析腳本主體中...</span>
+                <Loader2 className="w-3.5 h-3.5 animate-spin mr-1.5" />
+                <span>{isRecutting ? "重切分鏡中..." : isEditMode ? "寫回中..." : "建立中..."}</span>
               </>
             ) : (
               <>
-                <Sparkles className="w-3.5 h-3.5 mr-1.5" />
-                <span>{characters.length || subjectAnchor ? "重新分析主體與風格" : "✨ AI 分析腳本主體與世界觀"}</span>
+                <span>{isEditMode ? "寫回此專案" : "建立專案並進入分鏡"}</span>
+                <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
               </>
             )}
           </button>
         </div>
 
-        {/* 展開之錨點編輯區：每人一段外觀 + 共用環境 */}
-        {showAnchors || subjectAnchor || characters.length > 0 ? (
-          <div className="p-4 space-y-3 bg-cinema-card/50">
+        {/* 展開之角色與環境編輯區（按需展開） */}
+        {showAnchors && (
+          <div className="p-4 space-y-3 border-t border-cinema-border/60 bg-cinema-card/50">
             <div className="flex items-center justify-between">
-              <label className="text-xs font-medium text-cinema-muted">
-                角色外觀錨點（每人獨立，建案後可各出一張定裝圖）
-              </label>
+              <label className="text-xs font-medium text-cinema-muted">角色外觀設定</label>
               <button
                 type="button"
                 onClick={() =>
@@ -1428,14 +1341,14 @@ export const ScriptEditor: React.FC = () => {
                     { id: `char_${prev.length + 1}`, name: "", appearance: "", entity_type: "character" },
                   ])
                 }
-                className="flex items-center h-7 px-2.5 rounded bg-cinema-darker hover:bg-cinema-card text-cinema-muted hover:text-amber-cta text-[11px] border border-cinema-border transition-colors cursor-pointer"
+                className="flex items-center h-6 px-2 rounded bg-cinema-darker hover:bg-cinema-card text-cinema-muted hover:text-amber-cta text-[11px] border border-cinema-border cursor-pointer"
               >
                 <Plus className="w-3 h-3 mr-1" />
                 新增角色
               </button>
             </div>
             {characters.length === 0 && (
-              <p className="text-[11px] text-cinema-muted">尚無角色。可點「新增角色」或重新分析腳本。</p>
+              <p className="text-[11px] text-cinema-muted">尚無角色，可點「AI 分析角色」或「新增角色」。</p>
             )}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {characters.map((ch, idx) => (
@@ -1479,10 +1392,9 @@ export const ScriptEditor: React.FC = () => {
                         }
                       }}
                       className="h-7 px-1.5 rounded bg-cinema-card border border-cinema-border text-[11px] text-amber-cta font-medium focus:outline-none focus:border-amber-cta cursor-pointer"
-                      title="選擇實體類型（由 LLM 智慧標記，亦可手動切換）"
                     >
-                      <option value="character">👤 人物立繪</option>
-                      <option value="object">📦 道具/載具</option>
+                      <option value="character">👤 人物</option>
+                      <option value="object">📦 物件</option>
                     </select>
                     <button
                       type="button"
@@ -1494,81 +1406,31 @@ export const ScriptEditor: React.FC = () => {
                     </button>
                   </div>
                   <textarea
-                    rows={3}
+                    rows={2}
                     value={ch.appearance}
                     onChange={(e) =>
                       setCharacters((prev) =>
                         prev.map((x, i) => (i === idx ? { ...x, appearance: e.target.value } : x))
                       )
                     }
-                    placeholder="此角色在目前生圖風格下的臉、髮、體型、服裝配色..."
+                    placeholder="外觀特徵描述..."
                     className="w-full p-2 rounded bg-cinema-card border border-cinema-border text-xs text-cinema-text font-mono leading-relaxed focus:outline-none focus:border-amber-cta resize-none"
                   />
                 </div>
               ))}
             </div>
             <div>
-              <label className="block text-xs font-medium text-cinema-muted mb-1">
-                環境與光影基調錨點（全片共用，依生圖風格書寫）
-              </label>
+              <label className="block text-xs font-medium text-cinema-muted mb-1">環境與光影基調</label>
               <textarea
-                rows={3}
+                rows={2}
                 value={environmentAnchor}
                 onChange={(e) => setEnvironmentAnchor(e.target.value)}
-                placeholder="此風格下的時代氛圍、空間構造、光影與材質..."
-                className="w-full p-2.5 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text font-mono leading-relaxed focus:outline-none focus:border-amber-cta resize-none"
+                placeholder="時代氛圍、空間構造、光影與材質..."
+                className="w-full p-2 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text font-mono leading-relaxed focus:outline-none focus:border-amber-cta resize-none"
               />
             </div>
           </div>
-        ) : (
-          <div className="p-4 bg-cinema-card/30 text-[11px] text-cinema-muted/80 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Info className="w-4 h-4 text-amber-cta/80 shrink-0" />
-              <span>點擊上方「✨ AI 分析」可預先檢視並微調主體特徵；若直接建立專案，系統亦會在後台自動進行分析約束。</span>
-            </div>
-            <button
-              type="button"
-              onClick={() => setShowAnchors(true)}
-              className="text-amber-cta hover:underline shrink-0 text-xs ml-2 cursor-pointer"
-            >
-              手動自訂錨點
-            </button>
-          </div>
         )}
-
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 border-t border-cinema-border/70 bg-cinema-darker/70 gap-3">
-          <div className="text-[11px] text-cinema-muted">
-            {isEditMode
-              ? "寫回此專案後，若口白有改會再問是否重切分鏡。"
-              : scriptText.trim()
-              ? "可貼上已有口白或從主題生成，滿意後建立專案。"
-              : "請貼入口白，或先填主題再生成腳本。"}
-          </div>
-
-          <div className="flex items-center space-x-3 shrink-0">
-            <button
-              onClick={isEditMode ? handleSaveExisting : handleCreateProject}
-              disabled={creatingProject || generating || isRecutting || !scriptText.trim()}
-              className={`flex items-center h-9 px-5 rounded font-semibold text-xs tracking-wide transition-all ${
-                !scriptText.trim()
-                  ? "bg-cinema-darker border border-cinema-border/70 text-cinema-muted/40 cursor-not-allowed opacity-40 shadow-none"
-                  : "bg-amber-cta hover:bg-amber-ctaHover text-cinema-bg shadow glow-amber active:scale-95 disabled:opacity-50 cursor-pointer"
-              }`}
-            >
-              {creatingProject || isRecutting ? (
-                <>
-                  <Loader2 className="w-3.5 h-3.5 animate-spin mr-1.5" />
-                  <span>{isRecutting ? "重切分鏡中..." : isEditMode ? "寫回中..." : "解析分鏡中..."}</span>
-                </>
-              ) : (
-                <>
-                  <span>{isEditMode ? "寫回此專案" : "建立專案並進入分鏡"}</span>
-                  <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
-                </>
-              )}
-            </button>
-          </div>
-        </div>
       </div>
 
       {/* 全螢幕視覺風格畫廊彈窗 */}
@@ -1576,15 +1438,10 @@ export const ScriptEditor: React.FC = () => {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm animate-in fade-in duration-200">
           <div className="w-full max-w-5xl h-[85vh] flex flex-col rounded-xl bg-cinema-darker border border-cinema-border shadow-2xl overflow-hidden">
             {/* Modal 頂部 Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-cinema-border bg-cinema-card">
-              <div className="flex items-center space-x-2.5">
-                <Palette className="w-5 h-5 text-amber-cta" />
-                <div>
-                  <h3 className="text-sm font-semibold text-cinema-text">視覺分鏡風格畫廊</h3>
-                  <p className="text-[11px] text-cinema-muted">
-                    點選任一風格卡片即可立即套用（目前共收錄 {styles.length} 款大師級視覺美學）
-                  </p>
-                </div>
+            <div className="flex items-center justify-between px-6 py-3.5 border-b border-cinema-border bg-cinema-card">
+              <div className="flex items-center space-x-2">
+                <Palette className="w-4 h-4 text-amber-cta" />
+                <h3 className="text-sm font-semibold text-cinema-text">選擇視覺風格 ({styles.length})</h3>
               </div>
               <button
                 onClick={() => setIsGalleryOpen(false)}

@@ -237,13 +237,8 @@ export const SettingsPanel: React.FC = () => {
   };
 
   return (
-    <div className="flex-1 p-8 space-y-6 max-w-3xl mx-auto overflow-y-auto">
-      <div>
-        <h2 className="text-xl font-bold text-cinema-text">Studio 設定</h2>
-        <p className="text-xs text-cinema-muted mt-1">
-          管理 Vertex AI 憑證帳戶、模型可用性授權、環境端點與渲染管線配置。
-        </p>
-      </div>
+    <div className="flex-1 p-6 space-y-5 max-w-3xl mx-auto overflow-y-auto">
+      <h2 className="text-base font-bold text-cinema-text">系統設定</h2>
 
       {/* 1. Vertex AI 憑證與多帳號管理 */}
       <VertexAccountsPanel
@@ -252,47 +247,46 @@ export const SettingsPanel: React.FC = () => {
         }}
       />
 
-      {/* 2. AI 文本大模型設定卡片 */}
-      <div className="p-5 rounded-lg bg-cinema-card border border-cinema-border space-y-4">
-        <div className="flex items-center justify-between border-b border-cinema-border/60 pb-3">
-          <div>
-            <h3 className="text-sm font-semibold text-cinema-text flex items-center">
-              <span className="text-amber-cta mr-2">⚡</span>
-              Google Cloud Vertex AI 核心大模型
-            </h3>
-            <p className="text-xs text-cinema-muted mt-0.5">
-              驅動故事發想長篇寫作、說書人口吻特徵萃取、AI 分鏡切鏡與英文電影提示詞生成。
-            </p>
+      {/* 2. 文字模型與生圖模型 */}
+      <div className="p-4 rounded-lg bg-cinema-card border border-cinema-border space-y-4">
+        <div className="flex items-center justify-between border-b border-cinema-border/60 pb-2.5">
+          <div className="flex items-center gap-2">
+            <h3 className="text-sm font-semibold text-cinema-text">AI 模型選擇</h3>
+            {modelsReport?.checked_at && (
+              <span className="text-[10px] text-cinema-muted font-mono">
+                ({modelsReport.checked_at})
+              </span>
+            )}
           </div>
           <button
             type="button"
             onClick={() => fetchModelsStatus(true)}
             disabled={isCheckingModels}
             className="flex items-center h-7 px-2.5 rounded-lg border border-amber-cta/40 bg-amber-cta/10 hover:bg-amber-cta/20 text-amber-cta text-[11px] font-medium transition-colors disabled:opacity-50 shrink-0"
-            title="立即探測當前帳戶所有模型的可用性與配額狀態"
           >
             <RefreshCw className={`w-3 h-3 mr-1.5 ${isCheckingModels ? "animate-spin" : ""}`} />
-            <span>{isCheckingModels ? "正在檢測中..." : "⚡ 檢測模型可用性"}</span>
+            <span>{isCheckingModels ? "檢測中..." : "檢測模型可用性"}</span>
           </button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
-          {AI_TEXT_MODELS.map((m) => {
-            const isSelected = selectedAiModel === m.id;
-            return (
-              <div
-                key={m.id}
-                onClick={() => {
-                  setSelectedAiModel(m.id);
-                  showToast(`已切換全域核心 AI 模型為 ${m.name}`, "success");
-                }}
-                className={`p-3 rounded-lg border cursor-pointer transition-all ${
-                  isSelected
-                    ? "border-amber-cta bg-amber-cta/10 ring-1 ring-amber-cta/30"
-                    : "border-cinema-border bg-cinema-darker/60 hover:border-cinema-muted"
-                }`}
-              >
-                <div className="flex items-center justify-between mb-1">
+        <div className="space-y-2">
+          <div className="text-xs font-medium text-cinema-muted">文字模型</div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+            {AI_TEXT_MODELS.map((m) => {
+              const isSelected = selectedAiModel === m.id;
+              return (
+                <div
+                  key={m.id}
+                  onClick={() => {
+                    setSelectedAiModel(m.id);
+                    showToast(`已切換文字模型為 ${m.name}`, "success");
+                  }}
+                  className={`flex items-center justify-between px-3 py-2 rounded-lg border cursor-pointer transition-all ${
+                    isSelected
+                      ? "border-amber-cta bg-amber-cta/10 ring-1 ring-amber-cta/30"
+                      : "border-cinema-border bg-cinema-darker/60 hover:border-cinema-muted"
+                  }`}
+                >
                   <span
                     className={`text-xs font-semibold ${
                       isSelected ? "text-amber-cta" : "text-cinema-text"
@@ -300,66 +294,39 @@ export const SettingsPanel: React.FC = () => {
                   >
                     {m.name}
                   </span>
-                  <span
-                    className={`text-[10px] px-1.5 py-0.5 rounded font-mono ${
-                      isSelected
-                        ? "bg-amber-cta text-cinema-bg font-bold"
-                        : "bg-cinema-card text-cinema-muted"
-                    }`}
-                  >
-                    {m.badge}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between mt-2 pt-1.5 border-t border-cinema-border/50">
-                  <span className="text-[11px] text-cinema-muted truncate mr-1">{m.tag}</span>
                   <div className="shrink-0">{renderModelStatusBadge(m.id)}</div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* 3. 生圖模型設定卡片 */}
-      <div className="p-5 rounded-lg bg-cinema-card border border-cinema-border space-y-4">
-        <div className="flex items-center justify-between border-b border-cinema-border/60 pb-3">
-          <div>
-            <h3 className="text-sm font-semibold text-cinema-text">生圖模型</h3>
-            <p className="text-xs text-cinema-muted mt-0.5">
-              分鏡出圖使用的 Gemini／Imagen 影像模型。
-            </p>
+              );
+            })}
           </div>
-          {modelsReport?.checked_at && (
-            <span className="text-[10px] text-cinema-muted font-mono">
-              最近檢測: {modelsReport.checked_at}
-            </span>
-          )}
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {AI_IMAGE_MODELS.map((m) => {
-            const isSelected = selectedImageModel === m.id;
-            return (
-              <div
-                key={m.id}
-                onClick={async () => {
-                  setSelectedImageModel(m.id);
-                  if (selectedJobId) {
-                    try {
-                      await api.updateJob(selectedJobId, { image_model: m.id });
-                      await loadJobs();
-                    } catch {
-                      /* 預設仍寫入本機 */
+
+        <div className="space-y-2 pt-1">
+          <div className="text-xs font-medium text-cinema-muted">生圖模型</div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+            {AI_IMAGE_MODELS.map((m) => {
+              const isSelected = selectedImageModel === m.id;
+              return (
+                <div
+                  key={m.id}
+                  onClick={async () => {
+                    setSelectedImageModel(m.id);
+                    if (selectedJobId) {
+                      try {
+                        await api.updateJob(selectedJobId, { image_model: m.id });
+                        await loadJobs();
+                      } catch {
+                        /* 預設仍寫入本機 */
+                      }
                     }
-                  }
-                  showToast(`已切換生圖模型為 ${m.name}`, "success");
-                }}
-                className={`p-3 rounded-lg border cursor-pointer transition-all ${
-                  isSelected
-                    ? "border-amber-cta bg-amber-cta/10 ring-1 ring-amber-cta/30"
-                    : "border-cinema-border bg-cinema-darker/60 hover:border-cinema-muted"
-                }`}
-              >
-                <div className="flex items-center justify-between mb-1">
+                    showToast(`已切換生圖模型為 ${m.name}`, "success");
+                  }}
+                  className={`flex items-center justify-between px-3 py-2 rounded-lg border cursor-pointer transition-all ${
+                    isSelected
+                      ? "border-amber-cta bg-amber-cta/10 ring-1 ring-amber-cta/30"
+                      : "border-cinema-border bg-cinema-darker/60 hover:border-cinema-muted"
+                  }`}
+                >
                   <span
                     className={`text-xs font-semibold ${
                       isSelected ? "text-amber-cta" : "text-cinema-text"
@@ -367,27 +334,15 @@ export const SettingsPanel: React.FC = () => {
                   >
                     {m.name}
                   </span>
-                  <span
-                    className={`text-[10px] px-1.5 py-0.5 rounded font-mono ${
-                      isSelected
-                        ? "bg-amber-cta text-cinema-bg font-bold"
-                        : "bg-cinema-card text-cinema-muted"
-                    }`}
-                  >
-                    {m.badge}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between mt-2 pt-1.5 border-t border-cinema-border/50">
-                  <span className="text-[11px] text-cinema-muted truncate mr-1">{m.tag}</span>
                   <div className="shrink-0">{renderModelStatusBadge(m.id)}</div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
 
-      {/* 4. 連線檢測與預設配置 */}
+      {/* 3. 連線檢測與預設配置 */}
       <SettingsHealthPanel />
     </div>
   );

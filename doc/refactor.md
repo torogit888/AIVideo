@@ -102,6 +102,11 @@
   - `web/src/components/YouTubeUploadModal.tsx` 於上傳完成、更新現有影片完成時立即呼叫 `useStudioStore` 的 `loadJobs()` 與 `showToast`，且背景上傳中關閉彈窗不中斷輪詢；`OverviewPanel.tsx` 掛載時亦同步呼叫 `loadJobs()`，確保總覽卡片上的「YouTube 已發布 / 已上架」狀態即時更新。
   - 將 `YouTubeUploadModal.tsx` 中的上傳進度條與上傳錯誤提示由彈窗頂端移至底部「關閉 / 立即發布至 YouTube」按鈕列正上方，點擊發布時視線正前方即可直接查看進度百分比。
   - 測試驗證：`tests/test_studio_frontend_contracts.py::test_youtube_modal_refreshes_overview_and_places_progress_above_submit`。
+- [x] **6. 全站 UI 配置重整、消除重複資訊與精簡文字說明**
+  - **腳本頁 (`ScriptEditor.tsx`)**：頂部設定濃縮為兩排（主題＋資料夾名＋字數、口吻＋發音人＋畫風），「故事要求」、「故事大綱」與「口白內容」皆支援單行收起／展開；移除長篇教學 placeholder 與重複的 `💡 提示`；底部將「切鏡節奏」改為單行三段切換（`快 1~2句 / 標準 2~4句 / 慢 3~5句`）並與「角色設定 (N)」、「建立專案／寫回此專案」整合為單一操作列。
+  - **分鏡頁與頂列 (`StoryboardGrid.tsx`、`Topbar.tsx`)**：移除分鏡工具列重複的第二顆「預估片長」，分鏡卡片移除與口白開頭重複的 16 字斷句標題（改為 `#編號` 直接配口白正文），頂列選單移除除錯用的 `開啟 HTML 故事板`。
+  - **右側抽屜 (`SceneInspector.tsx`)**：歷史版本改為可收合 `<details>`，將 `gc 舊 takes`、`設為 current` 改為中文 `清理舊版`、`使用中 / 套用`；考據呈現方式縮短為 `角落小卡 / 黑底全螢幕（照片） / 全螢幕影片`，卡片大小縮短為 `小 (20%) / 中 (24%) / 大 (30%)`。
+  - **設定頁、總覽與彈窗 (`SettingsPanel.tsx`、`VertexAccountsPanel.tsx`、`OverviewPanel.tsx`、`YouTubeUploadModal.tsx`、`VisualContinuityModal.tsx`)**：移除各頁多餘的宣傳副標題與模型行銷標語（改為緊湊單行選擇列）；YouTube 彈窗將授權區濃縮為單行、將 `AI 生成標題與標籤` 整合至標題列右上角，並精簡各下拉選單文字；定裝彈窗整合底部「儲存設定 / 重寫全片提示詞 / 完成」為單一按鈕列。
 
 ### 📋 後續可選進階拆分（視需要再分批進行）
 
