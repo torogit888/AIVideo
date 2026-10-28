@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261028T105051",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 64609397,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background\nVibrant contrasting color palettes, crisp details throughout, expressive chibi faces, rich background props., medium wide shot, chibi 2D anime style, 3-head-tall proportions, clean line art, flat cell shading, cute mobile game UI art. Outside an artistic salon gallery in Greenwich Village, Rose Mattus, adorned in her lavish fluffy beige fur coat and pearl necklace, beams with a dazzling, persuasive smile as she holds an open luxury ice cream pint with rich deep burgundy packaging and gold trim. With a tiny silver spoon, she offers a creamy tasting sample to a crowd of cultured New York intellectuals—including a chibi university professor with round spectacles and a tweed jacket, and an avant-garde artist in a black beret—whose eyes sparkle in sheer blissful euphoria as they savor the rich frozen treat. Beautiful brick gallery facade, warm sunny ambiance, vibrant colors, single coherent scene, 16:9 widescreen composition., 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-28T10:50:51.116118+00:00"
+}

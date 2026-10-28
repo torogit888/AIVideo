@@ -1,0 +1,39 @@
+id: 008_shot_8
+index: 8
+title: 時間來到第二次世界大戰結束後的一
+narration: 時間來到第二次世界大戰結束後的一九五零年代，冷戰初期的美國迎來了郊區化浪潮與大型連鎖超市的爆發式增長，食品巨頭們為了瘋狂壓低成本，打響了極其惡劣的價格廝殺，
+image_prompt: (masterpiece, best quality:1.2), 2D cartoon illustration, anime art
+  style, chibi characters, clean line art, cell shading, flat colors, cute mobile
+  game UI art, visual novel style, crisp details, vibrant and cheerful color palette,
+  single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent
+  view, one main environment, highly detailed and intricate background. Wide-angle
+  shot of a booming, vibrant 1950s American suburban mega-supermarket, pastel teal
+  and butter-yellow checkered floor tiles, endless parallel rows of gleaming chrome
+  freezer units filled with generic commercial food cartons, suburban chibi shoppers
+  pushing metal shopping carts under fluorescent grid lighting, towering discount
+  price banners hanging from the ceiling, retro mid-century corporate retail aesthetic,
+  crisp lines and vibrant pop colors, 16:9 widescreen composition.
+character_ids: []
+image_negative: ''
+act_index: 1
+act_title: 金色皇冠下的地圖騙局與布朗克斯的馬車伕
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261028T102730
+  image_take: null
+pip:
+  enabled: true
+  media_type: video
+  image: pip.png
+  video: pip.mp4
+  position: right-center
+  mode: broll
+  scale: 0.24
+  border: 5
+  query: American supermarket 1950s
+  source_title: How Americans Shopped for Groceries in 1958 — Before the Barcode Beep
+  source_url: https://www.youtube.com/watch?v=a_nNHNwG5cc
+  verified: true
+  review_reason: 真實呈現1950年代美國連鎖超市外觀與內部運作，符合旁白背景。

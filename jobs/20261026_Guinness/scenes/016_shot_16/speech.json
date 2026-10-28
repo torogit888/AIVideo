@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261027T115837",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 21.95,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "查塔威向休比弗引薦了一對在倫敦體壇以狂熱收集數據著稱的雙胞胎",
+      "text_cn": "查塔威向休比弗引荐了一对在伦敦体坛以狂热收集数据著称的双胞胎",
+      "start_sec": 0.0,
+      "end_sec": 6.16,
+      "duration_sec": 6.16
+    },
+    {
+      "index": 2,
+      "text": "哥哥諾里斯麥克沃特與弟弟羅斯麥克沃特",
+      "text_cn": "哥哥诺里斯麦克沃特与弟弟罗斯麦克沃特",
+      "start_sec": 6.41,
+      "end_sec": 10.17,
+      "duration_sec": 3.76
+    },
+    {
+      "index": 3,
+      "text": "這對孿生兄弟在倫敦弗利特街經營著一家名為事實與數據的微型機構",
+      "text_cn": "这对孪生兄弟在伦敦弗利特街经营著一家名为事实与数据的围型机构",
+      "start_sec": 10.42,
+      "end_sec": 16.58,
+      "duration_sec": 6.16
+    },
+    {
+      "index": 4,
+      "text": "他們的大腦簡直就是冷戰時期活生生的人肉谷歌 [surprise-wa]",
+      "text_cn": "他们的大脑简直就是冷战时棋活生生的人肉谷歌 [surprise-wa]",
+      "start_sec": 16.83,
+      "end_sec": 21.95,
+      "duration_sec": 5.12
+    }
+  ],
+  "created_at": "2026-10-27T11:58:37.601408+00:00"
+}

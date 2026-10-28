@@ -1,0 +1,27 @@
+id: 029_shot_29
+index: 29
+title: 穿著貴婦皮草的蘿絲拿著精緻的銀質
+narration: 穿著貴婦皮草的蘿絲拿著精緻的銀質小勺子，在文藝沙龍門口熱情地分發免費試吃，那些自詡品味超群的紐約菁英們吃下一口，立刻被濃郁至極的天然乳脂徹底征服，
+image_prompt: medium wide shot, chibi 2D anime style, 3-head-tall proportions, clean
+  line art, flat cell shading, cute mobile game UI art. Outside an artistic salon
+  gallery in Greenwich Village, Rose Mattus, adorned in her lavish fluffy beige fur
+  coat and pearl necklace, beams with a dazzling, persuasive smile as she holds an
+  open luxury ice cream pint with rich deep burgundy packaging and gold trim. With
+  a tiny silver spoon, she offers a creamy tasting sample to a crowd of cultured New
+  York intellectuals—including a chibi university professor with round spectacles
+  and a tweed jacket, and an avant-garde artist in a black beret—whose eyes sparkle
+  in sheer blissful euphoria as they savor the rich frozen treat. Beautiful brick
+  gallery facade, warm sunny ambiance, vibrant colors, single coherent scene, 16:9
+  widescreen composition.
+character_ids:
+- rose_mattus
+- luxury_ice_cream_pint
+image_negative: ''
+act_index: 4
+act_title: 皮草貴婦與嬉皮沙龍：顛覆渠道的特洛伊木馬
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261028T105106
+  image_take: image_20261028T105051

@@ -1,0 +1,24 @@
+id: 021_shot_21
+index: 21
+title: 這對雙胞胎兄弟每週在高壓環境下工
+narration: 這對雙胞胎兄弟每週在高壓環境下工作長達整整九十個小時，在浩如煙海的回信當中仔細甄別誇大其詞的吹牛者與徹頭徹尾的騙徒，更不可思議的是他們特意請教了多位頂級鳥類學家，終於解開了最初引發休比弗爵士打偏獵槍的那場世紀謎案，
+image_prompt: medium shot in 2D cartoon illustration style, anime chibi art with clean
+  line art and cell shading. Norris and Ross McWhirter, identical 2.5-head-tall chibi
+  twins with slicked-back dark hair and round wireframe spectacles, wearing tailored
+  1950s charcoal-grey suits, work tirelessly inside a cramped 1950s London office.
+  Enormous towering stacks of open correspondence, envelopes, and encyclopedias surround
+  their wooden desks. One twin inspects a letter with a magnifying glass while the
+  other cross-references an ornithological book, both showing intense, hyper-focused
+  comical expressions. Vintage green desk lamps cast warm light over scattered notes
+  and fountain pens, 16:9 widescreen composition.
+character_ids:
+- mcwhirter_twins
+act_index: 4
+act_title: 倫敦閣樓的瘋狂搜查
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261027T121545
+  image_take: image_20261027T121531

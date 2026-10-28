@@ -1,0 +1,23 @@
+id: 023_shot_23
+index: 23
+title: 原來休比弗爵士和那些爭吵不休的酒
+narration: 原來休比弗爵士和那些爭吵不休的酒客從一開始就全都說錯了，正是這種抽絲剝繭的瘋狂勁頭徹底奠定了這本書不可撼動的公信力，這本初衷只是放在吧台防止酒鬼鬥毆的小冊子終於付印，
+image_prompt: bustling wide shot in 2D cartoon illustration style, anime art with
+  crisp ink outlines and flat cel colors. Inside a vintage mid-century industrial
+  printing press workshop, large vintage mechanical printing presses clatter and turn,
+  rolling out fresh printed pages. Stacks of freshly collated book signatures are
+  inspected. On a central wooden inspection bench rests a completed sample of the
+  1955 First Edition Guinness Book of Records, featuring its distinct emerald forest-green
+  buckram cover with embossed gold lettering. Bright workshop lighting, ink tins,
+  paper reels, and busy printers working in background, 16:9 widescreen composition.
+character_ids:
+- guinness_record_book_1955
+act_index: 4
+act_title: 倫敦閣樓的瘋狂搜查
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261027T121943
+  image_take: image_20261027T121930

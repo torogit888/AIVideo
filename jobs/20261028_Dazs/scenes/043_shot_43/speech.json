@@ -1,0 +1,26 @@
+{
+  "take_id": "speech_20261028T111402",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 6.4,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "門市永遠開在租金最昂貴的頂級精品街區，裝潢奢華得宛如高檔珠寶展廳",
+      "text_cn": "门市永远开在租金最昂贵的顶级精品街区，装潢奢华得宛如高档珠宝展厅",
+      "start_sec": 0.0,
+      "end_sec": 6.4,
+      "duration_sec": 6.4
+    }
+  ],
+  "created_at": "2026-10-28T11:14:02.735366+00:00"
+}

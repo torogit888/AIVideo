@@ -1,0 +1,40 @@
+id: 018_shot_18
+index: 18
+title: 正式簽訂合約之後兄弟倆只有不到一
+narration: 正式簽訂合約之後兄弟倆只有不到一年的編纂時間，在傳真機和個人電腦都尚未普及的艱困歲月裡，倫敦弗利特街一百零七號那間狹窄的頂樓辦公室裡，上演了一場真正意義上的手工作業情報極限戰，
+image_prompt: medium wide shot, (masterpiece, best quality:1.2), 2D cartoon illustration,
+  anime art style, chibi characters, clean line art, cell shading, flat colors, cute
+  mobile game UI art, visual novel style, crisp details, vibrant and cheerful color
+  palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle
+  coherent view, one main environment, highly detailed and intricate background. In
+  a cramped 1950s attic office on Fleet Street with slanted ceilings and rain beating
+  softly on the skylight, the chibi McWhirter twins work frantically amidst a mountain
+  of organized paper files. Both twins, clad in matching grey suits with rolled-up
+  cuffs, work furiously with comical multi-arm motion blur, one typing rapidly on
+  a heavy mechanical typewriter while the other checks cards against wooden filing
+  cabinets, warm cozy desk lamps illuminating the bustling room, 16:9 widescreen composition.
+character_ids:
+- mcwhirter_twins
+act_index: 3
+act_title: 四分鐘英里的引路人
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261027T121159
+  image_take: null
+pip:
+  enabled: true
+  media_type: image
+  image: pip.png
+  video: null
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: 107 Fleet Street London 1950s
+  source_title: File:Building at the end of Fleet St - geograph.org.uk - 3776893.jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/8/87/Building_at_the_end_of_Fleet_St_-_geograph.org.uk_-_3776893.jpg
+  verified: true
+  review_reason: 影像確實為旁白所述倫敦弗利特街107號建築外觀。

@@ -4,14 +4,6 @@ import {
   Copy,
   ArrowRight,
   Loader2,
-  Image as ImageIcon,
-  Palette,
-  ChevronLeft,
-  ChevronRight,
-  Grid,
-  CheckCircle2,
-  X,
-  Search,
   Film,
   Plus,
   Trash2,
@@ -24,6 +16,7 @@ import {
 import { useStudioStore } from "../store";
 import { api } from "../api";
 import { AssetStyle, AssetTone, AssetVoice } from "../types";
+import { StyleGalleryModal } from "./StyleGalleryModal";
 import {
   applyChannelPersonaToPrompt,
   asciiSlug,
@@ -72,7 +65,6 @@ export const ScriptEditor: React.FC = () => {
     draftResetKey,
     jobs,
     showToast,
-    requestConfirm,
     requestPrompt,
     selectedAiModel,
     startNewDraft,
@@ -118,12 +110,9 @@ export const ScriptEditor: React.FC = () => {
   const [selectedStyle, setSelectedStyle] = useState("otomo_katsuhiro");
   const [visualPacing, setVisualPacing] = useState<"fast" | "balanced" | "slow">("balanced");
 
-  // 視覺風格選取增強狀態
+  // 視覺風格選取狀態
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
-  const [galleryFilter, setGalleryFilter] = useState("all");
-  const [gallerySearch, setGallerySearch] = useState("");
   const containerRef = useRef<HTMLDivElement>(null);
-  const styleScrollRef = useRef<HTMLDivElement>(null);
   const scriptBoxRef = useRef<HTMLDivElement>(null);
 
   const [generating, setGenerating] = useState(false);
@@ -309,38 +298,6 @@ export const ScriptEditor: React.FC = () => {
   };
 
   const currentStyleObj = styles.find((s) => s.id === selectedStyle) || styles[0];
-
-  const handleScrollStyles = (direction: "left" | "right") => {
-    if (styleScrollRef.current) {
-      const offset = direction === "left" ? -340 : 340;
-      styleScrollRef.current.scrollBy({ left: offset, behavior: "smooth" });
-    }
-  };
-
-  // 畫廊篩選
-  const filteredStyles = styles.filter((s) => {
-    const matchSearch =
-      !gallerySearch.trim() ||
-      s.name.toLowerCase().includes(gallerySearch.toLowerCase()) ||
-      s.description.toLowerCase().includes(gallerySearch.toLowerCase()) ||
-      s.id.toLowerCase().includes(gallerySearch.toLowerCase());
-
-    if (!matchSearch) return false;
-
-    if (galleryFilter === "anime") {
-      return /動漫|卡通|熱血|鳥山|尾田|TRIGGER|ufotable/i.test(s.name + s.description);
-    }
-    if (galleryFilter === "aesthetic") {
-      return /新海誠|吉卜力|京都動畫|CLAMP|高橋/i.test(s.name + s.description);
-    }
-    if (galleryFilter === "scifi") {
-      return /大友克洋|士郎正宗|弐瓶勉|科幻|龐克|三浦/i.test(s.name + s.description);
-    }
-    if (galleryFilter === "art") {
-      return /手塚|井上雄彥|天野喜孝|松本大洋|水彩|墨繪/i.test(s.name + s.description);
-    }
-    return true;
-  });
 
   const handleGenerateOutline = async () => {
     if (!topic.trim()) {
@@ -589,45 +546,16 @@ export const ScriptEditor: React.FC = () => {
         clear_hero_images: anchorsReanalyzed ? true : undefined,
       });
       setSavedScript(scriptText);
+      setAnchorsReanalyzed(false);
+      setIsRecutting(true);
+      showToast("正在清空舊分鏡並依目前腳本重新切鏡與產生英文 Prompt...", "info");
+      await api.recutJob(selectedJobId, { script: scriptText, visual_pacing: visualPacing });
+      useStudioStore.getState().setScriptDirty(false);
       await loadJobs();
       bumpAnchorsRevision();
-      const hasScenes = (currentJob?.progress.scenes_count || 0) > 0;
-      const recut =
-        hasScenes &&
-        scriptText !== savedScript &&
-        (await requestConfirm({
-          title: "是否依新口白重切分鏡？",
-          message: "口白已寫回此專案。要依新口白重切分鏡嗎？既有 takes 會依同鏡頭 id 保留。",
-          confirmText: "重切分鏡",
-          cancelText: "僅更新口白",
-          variant: "primary",
-        }));
-      if (recut) {
-        setAnchorsReanalyzed(false);
-        setIsRecutting(true);
-        await api.recutJob(selectedJobId, { script: scriptText, visual_pacing: visualPacing });
-        await loadJobs();
-        await loadScenes(selectedJobId);
-        showToast("已儲存並重切分鏡", "success");
-        setTab("storyboard");
-      } else {
-        // 選「僅更新口白」時，除非剛重新分析過視覺錨點（anchorsReanalyzed），否則絕不重刷全片英文生圖 Prompt
-        if (hasScenes && anchorsReanalyzed) {
-          setAnchorsReanalyzed(false);
-          try {
-            await api.syncScenePrompts(selectedJobId);
-            await loadScenes(selectedJobId);
-            showToast("已寫回此專案，並依新定裝同步更新全片分鏡出圖 Prompt！", "success");
-          } catch (e: any) {
-            await loadScenes(selectedJobId);
-            showToast("口白已寫回，但英文出圖句子沒有全部更新: " + (e.message || "未知錯誤"), "error");
-          }
-        } else {
-          setAnchorsReanalyzed(false);
-          await loadScenes(selectedJobId);
-          showToast("已寫回此專案（僅更新口白，保留原分鏡與英文 Prompt）", "success");
-        }
-      }
+      await loadScenes(selectedJobId);
+      showToast("已清空舊分鏡並依目前腳本重新切鏡！", "success");
+      setTab("storyboard");
     } catch (e: any) {
       showToast("儲存失敗: " + e.message, "error");
     } finally {
@@ -1127,121 +1055,6 @@ export const ScriptEditor: React.FC = () => {
         )}
       </div>
 
-      {/* 風格大海報牆改由 modal「更換」開啟 */}
-      <div className="hidden space-y-2.5">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <Palette className="w-4 h-4 text-amber-cta" />
-            <label className="text-xs font-semibold text-cinema-text">視覺分鏡風格</label>
-            <span className="text-[11px] text-amber-cta font-medium bg-amber-cta/10 px-2 py-0.5 rounded border border-amber-cta/20">
-              {currentStyleObj?.name || "尚未選擇"}
-            </span>
-          </div>
-
-          <div className="flex items-center space-x-2">
-            <button
-              onClick={() => setIsGalleryOpen(true)}
-              className="flex items-center text-xs text-cinema-muted hover:text-amber-cta transition-colors px-2.5 py-1 rounded bg-cinema-card border border-cinema-border hover:border-cinema-muted"
-            >
-              <Grid className="w-3.5 h-3.5 mr-1.5" />
-              <span>瀏覽風格畫廊 ({styles.length})</span>
-            </button>
-            <div className="flex items-center space-x-1">
-              <button
-                onClick={() => handleScrollStyles("left")}
-                className="p-1 rounded bg-cinema-card border border-cinema-border text-cinema-muted hover:text-cinema-text transition-colors"
-                title="向左滑動"
-              >
-                <ChevronLeft className="w-3.5 h-3.5" />
-              </button>
-              <button
-                onClick={() => handleScrollStyles("right")}
-                className="p-1 rounded bg-cinema-card border border-cinema-border text-cinema-muted hover:text-cinema-text transition-colors"
-                title="向右滑動"
-              >
-                <ChevronRight className="w-3.5 h-3.5" />
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* 橫向風格卡片滑動列 */}
-        <div
-          ref={styleScrollRef}
-          className="flex space-x-3 overflow-x-auto pb-2 pt-1 scroll-smooth"
-        >
-          {styles.map((s) => {
-            const isSelected = selectedStyle === s.id;
-            return (
-              <div
-                key={s.id}
-                onClick={() => setSelectedStyle(s.id)}
-                className={`group w-44 shrink-0 rounded-lg bg-cinema-card border overflow-hidden cursor-pointer transition-all duration-200 ${
-                  isSelected
-                    ? "border-amber-cta ring-2 ring-amber-cta/40 shadow-lg glow-amber scale-[1.02]"
-                    : "border-cinema-border hover:border-cinema-muted hover:-translate-y-0.5"
-                }`}
-              >
-                {/* 16:9 圖片縮圖 */}
-                <div className="relative aspect-video w-full bg-black/60 overflow-hidden">
-                  {s.preview_url ? (
-                    <img
-                      src={s.preview_url}
-                      alt={s.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-cinema-muted/40">
-                      <ImageIcon className="w-6 h-6" />
-                    </div>
-                  )}
-
-                  {isSelected && (
-                    <div className="absolute top-1.5 right-1.5 p-0.5 rounded-full bg-black/80 text-amber-cta">
-                      <CheckCircle2 className="w-4 h-4 fill-amber-cta text-black" />
-                    </div>
-                  )}
-
-                  {s.tags && s.tags[0] && (
-                    <div className="absolute bottom-1 left-1.5 px-1.5 py-0.5 rounded bg-black/75 text-[9px] text-zinc-300">
-                      {s.tags[0]}
-                    </div>
-                  )}
-                </div>
-
-                <div className="p-2.5">
-                  <h4 className="text-xs font-semibold text-cinema-text truncate" title={s.name}>
-                    {s.name}
-                  </h4>
-                  <p className="mt-0.5 text-[10px] text-cinema-muted line-clamp-1" title={s.description}>
-                    {s.description}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* 選中風格詳細解構卡 */}
-        {currentStyleObj && (
-          <div className="p-3 rounded-lg bg-cinema-card border border-cinema-border/70 flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs">
-            <div className="space-y-1 min-w-0">
-              <div className="flex items-center space-x-2">
-                <span className="font-semibold text-amber-cta">{currentStyleObj.name}</span>
-              </div>
-              <p className="text-[11px] text-cinema-muted leading-relaxed line-clamp-2">
-                {currentStyleObj.description}
-              </p>
-            </div>
-            <div className="text-[10px] font-mono bg-cinema-darker p-2 rounded border border-cinema-border/60 text-zinc-400 max-w-sm truncate shrink-0">
-              <span className="text-amber-cta/80 font-sans mr-1">風格關鍵詞:</span>
-              {currentStyleObj.prefix}
-            </div>
-          </div>
-        )}
-      </div>
-
       {/* 底部設定與建案列（切鏡節奏 + 角色設定 + 建立/儲存主按鈕） */}
       <div className="shrink-0 rounded-lg bg-cinema-card border border-cinema-border overflow-hidden shadow-md">
         <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 bg-cinema-darker/50">
@@ -1434,122 +1247,13 @@ export const ScriptEditor: React.FC = () => {
       </div>
 
       {/* 全螢幕視覺風格畫廊彈窗 */}
-      {isGalleryOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="w-full max-w-5xl h-[85vh] flex flex-col rounded-xl bg-cinema-darker border border-cinema-border shadow-2xl overflow-hidden">
-            {/* Modal 頂部 Header */}
-            <div className="flex items-center justify-between px-6 py-3.5 border-b border-cinema-border bg-cinema-card">
-              <div className="flex items-center space-x-2">
-                <Palette className="w-4 h-4 text-amber-cta" />
-                <h3 className="text-sm font-semibold text-cinema-text">選擇視覺風格 ({styles.length})</h3>
-              </div>
-              <button
-                onClick={() => setIsGalleryOpen(false)}
-                className="p-1.5 rounded-lg hover:bg-cinema-cardHover text-cinema-muted hover:text-cinema-text transition-colors"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            {/* 篩選與搜尋工具列 */}
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 px-6 py-3 border-b border-cinema-border/70 bg-cinema-bg">
-              {/* 分類標籤 */}
-              <div className="flex items-center space-x-1.5 text-xs overflow-x-auto w-full sm:w-auto">
-                {[
-                  { id: "all", label: "全部風格" },
-                  { id: "anime", label: "動漫熱血" },
-                  { id: "aesthetic", label: "唯美日系" },
-                  { id: "scifi", label: "硬核科幻" },
-                  { id: "art", label: "藝術手繪" },
-                ].map((f) => (
-                  <button
-                    key={f.id}
-                    onClick={() => setGalleryFilter(f.id)}
-                    className={`px-3 py-1 rounded-md transition-colors shrink-0 ${
-                      galleryFilter === f.id
-                        ? "bg-amber-cta text-cinema-bg font-semibold"
-                        : "bg-cinema-card text-cinema-muted hover:text-cinema-text"
-                    }`}
-                  >
-                    {f.label}
-                  </button>
-                ))}
-              </div>
-
-              {/* 搜尋框 */}
-              <div className="relative w-full sm:w-64">
-                <Search className="w-3.5 h-3.5 text-cinema-muted absolute left-2.5 top-1/2 -translate-y-1/2" />
-                <input
-                  type="text"
-                  placeholder="搜尋風格名稱或關鍵字..."
-                  value={gallerySearch}
-                  onChange={(e) => setGallerySearch(e.target.value)}
-                  className="w-full h-8 pl-8 pr-3 rounded bg-cinema-card border border-cinema-border text-xs text-cinema-text focus:outline-none focus:border-amber-cta"
-                />
-              </div>
-            </div>
-
-            {/* 網格展示區 */}
-            <div className="flex-1 overflow-y-auto p-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {filteredStyles.map((s) => {
-                  const isSelected = selectedStyle === s.id;
-                  return (
-                    <div
-                      key={s.id}
-                      onClick={() => {
-                        setSelectedStyle(s.id);
-                        setIsGalleryOpen(false);
-                      }}
-                      className={`group rounded-lg bg-cinema-card border overflow-hidden cursor-pointer transition-all duration-200 ${
-                        isSelected
-                          ? "border-amber-cta ring-2 ring-amber-cta/50 shadow-lg glow-amber"
-                          : "border-cinema-border hover:border-cinema-muted hover:-translate-y-1"
-                      }`}
-                    >
-                      <div className="relative aspect-video w-full bg-black/60 overflow-hidden">
-                        {s.preview_url ? (
-                          <img
-                            src={s.preview_url}
-                            alt={s.name}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                            loading="lazy"
-                          />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center text-cinema-muted/40">
-                            <ImageIcon className="w-8 h-8" />
-                          </div>
-                        )}
-
-                        {isSelected && (
-                          <div className="absolute top-2 right-2 p-1 rounded-full bg-black/80 text-amber-cta">
-                            <CheckCircle2 className="w-5 h-5 fill-amber-cta text-black" />
-                          </div>
-                        )}
-
-                        <div className="absolute bottom-2 left-2 flex space-x-1">
-                          {s.tags?.map((t, idx) => (
-                            <span key={idx} className="px-1.5 py-0.5 rounded bg-black/80 text-[10px] text-zinc-300">
-                              {t}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div className="p-3">
-                        <h4 className="text-xs font-semibold text-cinema-text truncate">{s.name}</h4>
-                        <p className="mt-1 text-[11px] text-cinema-muted line-clamp-2 leading-relaxed">
-                          {s.description}
-                        </p>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      <StyleGalleryModal
+        isOpen={isGalleryOpen}
+        styles={styles}
+        selectedStyle={selectedStyle}
+        onSelectStyle={(id) => setSelectedStyle(id)}
+        onClose={() => setIsGalleryOpen(false)}
+      />
     </div>
   );
 };

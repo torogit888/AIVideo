@@ -1,0 +1,41 @@
+id: 036_shot_36
+index: 36
+title: 回過頭看這場持續了半個多世紀的全
+narration: 回過頭看這場持續了半個多世紀的全球文化奇蹟，最初的歷史起點竟然只是一位英國老紳士在泥地裡打偏的一槍，那隻在愛爾蘭灰色天空下振翅逃生的野鳥，陰差陽錯地撞開了人類文明對極限認知的潘朵拉魔盒，
+image_prompt: wide scenic landscape shot of the rolling, muddy Irish countryside under
+  a soft overcast grey sky in (masterpiece, best quality:1.2), 2D cartoon illustration,
+  anime art style, chibi characters, clean line art, cell shading, flat colors, cute
+  mobile game UI art, visual novel style, crisp details, vibrant and cheerful color
+  palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle
+  coherent view, one main environment, highly detailed and intricate background. Sir
+  Hugh Beaver, a chibi 2.5-head-tall British gentleman with a silver handlebar mustache,
+  dressed in a checked tweed flat cap, forest-green hunting blazer with brown leather
+  shoulder patches, and beige trousers, stands knee-deep in green-brown peat bog holding
+  a double-barreled shotgun with a small puff of cartoon smoke drifting from the muzzle.
+  He looks up in comical bewildered dismay with arched eyebrows as a golden plover
+  gamebird swiftly flutters away into the misty sky, 16:9 widescreen composition
+character_ids:
+- sir_hugh_beaver
+act_index: 6
+act_title: 商業帝國與荒誕異化
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261027T130841
+  image_take: image_20261027T130314
+pip:
+  enabled: true
+  media_type: image
+  image: pip.png
+  video: null
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Castlebridge County Wexford Ireland estate 1950s
+  source_title: File:Castlebridge House, Co. Wexford, Ireland.jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/8/8d/Castlebridge_House%2C_Co._Wexford%2C_Ireland.jpg
+  verified: true
+  review_reason: 此為金氏紀錄起源地愛爾蘭威克斯福德郡卡斯爾布里奇莊園真實遺址。

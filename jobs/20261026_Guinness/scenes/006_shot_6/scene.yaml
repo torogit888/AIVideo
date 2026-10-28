@@ -1,0 +1,36 @@
+id: 006_shot_6
+index: 6
+title: 到了當天晚上的莊園聚餐為了給自己
+narration: 到了當天晚上的莊園聚餐為了給自己挽回顏面，爵士堅稱剛才飛過去的是全歐洲速度最快的金鴴，但同行身邊的獵友立刻放下酒杯反唇相譏，嘲笑並堅稱紅松雞的飛行速度遠在金鴴之上，
+image_prompt: medium wide shot of an elegant manor dining hall dinner in 2D cartoon
+  illustration, anime art style, chibi characters, clean line art, cel shading, flat
+  colors. Inside a grand oak-paneled room lit by sparkling chandeliers, Sir Hugh Beaver
+  stands up at the long mahogany banquet table passionately gesturing with both hands
+  to insist on his bird claim, while fellow chibi hunting companions in dinner suits
+  smirk, laugh, and gesture dismissively across plates of roast dinner and porcelain
+  tableware, 16:9 widescreen composition
+character_ids:
+- sir_hugh_beaver
+act_index: 1
+act_title: 荒野脫靶與致命爭辯
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261027T114423
+  image_take: image_20261027T114354
+pip:
+  enabled: true
+  media_type: image
+  image: pip.png
+  video: null
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Red grouse Lagopus lagopus scotica vintage ornithology illustration
+  source_title: File:Lagopus lagopus scotica (red grouse).jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/2/29/Lagopus_lagopus_scotica_%28red_grouse%29.jpg
+  verified: true
+  review_reason: 影像清晰展示飛行中的紅松雞，切合旁白爭論其飛行速度之主題。

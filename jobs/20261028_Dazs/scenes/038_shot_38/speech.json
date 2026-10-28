@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261028T110253",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.22,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "面對巨頭的窒息絞殺，班傑利的創始人發動了一場名垂商業史的反擊戰",
+      "text_cn": "面对巨头的窒息绞杀，班杰利的创始人发动了一场名垂商业史的反集战",
+      "start_sec": 0.0,
+      "end_sec": 6.2,
+      "duration_sec": 6.2
+    },
+    {
+      "index": 2,
+      "text": "他們在公車廣告與報紙頭版上刊登了一句靈魂拷問",
+      "text_cn": "他们在公车广告与报纸头版上刊登了一句灵魂拷问",
+      "start_sec": 6.45,
+      "end_sec": 11.01,
+      "duration_sec": 4.56
+    },
+    {
+      "index": 3,
+      "text": "皮爾斯伯里的生麵團吉祥物究竟在害怕什麼",
+      "text_cn": "皮尔斯伯里的生面团吉祥物旧竟在害怕什么",
+      "start_sec": 11.26,
+      "end_sec": 15.22,
+      "duration_sec": 3.96
+    }
+  ],
+  "created_at": "2026-10-28T11:02:53.270630+00:00"
+}

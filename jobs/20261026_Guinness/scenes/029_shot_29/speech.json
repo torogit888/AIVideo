@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261027T124950",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.78,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "爭吵的核心瞬間有了白紙黑字且不可撼動的權威標準",
+      "text_cn": "争吵的核心瞬间有了白纸黑字且不可撼动的权威标准",
+      "start_sec": 0.0,
+      "end_sec": 4.76,
+      "duration_sec": 4.76
+    },
+    {
+      "index": 2,
+      "text": "原本一場注定要見血的流血群毆在翻開書頁的剎那煙消雲散",
+      "text_cn": "原本一场注定要见血的流血群殴在翻开书页的刹那烟消云散",
+      "start_sec": 5.01,
+      "end_sec": 10.37,
+      "duration_sec": 5.36
+    },
+    {
+      "index": 3,
+      "text": "這本降維打擊的權威手冊徹底改寫了英國酒館的社交文化",
+      "text_cn": "这本降维打集的权威手册彻底改写了英国酒馆的社交文化",
+      "start_sec": 10.62,
+      "end_sec": 15.78,
+      "duration_sec": 5.16
+    }
+  ],
+  "created_at": "2026-10-27T12:49:50.515459+00:00"
+}

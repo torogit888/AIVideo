@@ -1,0 +1,28 @@
+id: 011_shot_11
+index: 11
+title: 只要有人拍響桌子爭論金鴴和紅松雞
+narration: 只要有人拍響桌子爭論金鴴和紅松雞誰飛得更快，不出五分鐘這場口角就會升級成飛椅砸頭的肢體肉搏，[surprise-wa]，碎裂的黑啤酒瓶和滿地鮮血成了酒館打烊時的常態景象，
+image_prompt: dynamic medium wide shot, (masterpiece, best quality:1.2), 2D cartoon
+  illustration, anime art style, chibi characters, clean line art, cell shading, flat
+  colors, cute mobile game UI art, visual novel style, crisp details, vibrant and
+  cheerful color palette, single coherent scene, non-split screen, unified single
+  viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate
+  background. Inside a chaotic 1950s British pub with dark oak counters and amber
+  stained-glass lamps, multiple chibi British Pub Patrons with stocky builds, rolled-up
+  work shirts, flat caps, and wool suspenders are engaged in a comedic bar brawl,
+  shouting with exaggerated angry chibi faces. Wooden tavern chairs fly comically
+  through the air, shattered dark glass bottles and splashing dark stout with creamy
+  foam scatter across the wooden tavern floor, creating an energetic tavern commotion,
+  16:9 widescreen composition.
+character_ids:
+- british_pub_patron
+- vintage_guinness_pint_bottle
+act_index: 2
+act_title: 血濺吧台與無解之爭
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261027T115034
+  image_take: image_20261027T115022

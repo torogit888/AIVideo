@@ -7,7 +7,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
-from aivideo.api.routes import assets, jobs, pipeline, scenes, system, youtube
+from aivideo.api.routes import anchors, assets, jobs, pipeline, scenes, system, youtube
 from aivideo.commands.check import _load_dotenv
 from aivideo.media import media_mounts, spa_dist_dir
 from aivideo.pipeline_runner import cleanup_stale_run_states, stop_all_pipeline_runners
@@ -46,6 +46,7 @@ app.add_middleware(
 api_v1_prefix = "/api/v1"
 app.include_router(system.router, prefix=api_v1_prefix)
 app.include_router(jobs.router, prefix=api_v1_prefix)
+app.include_router(anchors.router, prefix=api_v1_prefix)
 app.include_router(scenes.router, prefix=api_v1_prefix)
 app.include_router(pipeline.router, prefix=api_v1_prefix)
 app.include_router(assets.router, prefix=api_v1_prefix)

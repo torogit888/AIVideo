@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261027T131953",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 47931113,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background\nVibrant contrasting color palettes, crisp details throughout, expressive chibi faces, rich background props., imaginative wide shot of a cosmic astronomical observation deck blending into deep ocean cartography in (masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background. The identical chibi Norris & Ross McWhirter twins stand side by side in their charcoal-grey tailored suits, round wireframe spectacles, and slicked-back dark hair. Each holds a wooden clipboard and vintage fountain pen, diligently charting glowing constellations, celestial orbits, and deep-sea bathymetric lines projected into the air like luminous clockwork gears, their faces filled with studious determination, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-27T13:19:53.049711+00:00"
+}

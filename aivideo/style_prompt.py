@@ -132,13 +132,31 @@ def resolve_style(style_key: str | None = None) -> dict[str, str]:
 
 def style_lock_instructions(style_key: str | None = None) -> str:
     style = resolve_style(style_key)
-    desc = style["description"] or style["prefix"]
+    prefix = style["prefix"]
+    desc = style["description"]
+    visual_spec = f"{prefix} ({desc})" if (prefix and desc) else (prefix or desc or style["name"])
     return f"""ART STYLE LOCK (mandatory — this is the project's selected image style):
-- Style name: {style["name"]}
-- Visual language: {desc}
-- Write faces, bodies, clothing, materials, lighting and atmosphere IN THIS MEDIUM.
-- Do NOT add photoreal photography, 35mm film grain, live-action cinematography, or volumetric cinematic lighting unless this style is itself realistic / cinematic.
+- Style ID: {style["key"]} ({style["name"]})
+- English Style Keywords: {prefix or style["name"]}
+- Visual Language: {visual_spec}
+- Write faces, bodies, clothing, materials, lighting and atmosphere STRICTLY IN THIS MEDIUM in 100% ENGLISH (NEVER include Chinese characters or Chinese style names inside `image_prompt`).
+- Do NOT add photoreal photography, 35mm film grain, live-action cinematography, or dark "dramatic lighting" unless this style is itself realistic / cinematic.
 - Do not contradict the style with a different art movement."""
+
+
+def is_generic_fallback_prompt(prompt: str | None) -> bool:
+    """偵測分鏡 image_prompt 是否為空或落入了無劇情內容的保底罐頭句。"""
+    text = (prompt or "").strip()
+    if not text:
+        return True
+    lower = text.lower()
+    if lower.endswith("cinematic wide angle shot, dramatic lighting, 16:9 widescreen composition"):
+        prefix_part = lower[: -len("cinematic wide angle shot, dramatic lighting, 16:9 widescreen composition")].strip(" ,，")
+        # 若扣掉罐頭結尾後只剩風格名稱或少於 4 個英文單詞，代表完全沒有該幕劇情描述
+        en_words = [w for w in prefix_part.replace(",", " ").split() if w.isascii() and w.isalpha()]
+        if len(en_words) <= 5:
+            return True
+    return False
 
 
 def compose_styled_prompt(style_prefix: str, prompt: str) -> str:
@@ -153,6 +171,12 @@ def compose_styled_prompt(style_prefix: str, prompt: str) -> str:
     head = body[: max(len(prefix) + 12, 96)]
     if prefix in head:
         return body
-    # 若為英文提示詞，使用英文逗號連接，避免中文標點觸發模型渲染中文字
-    sep = ", " if not any("\u4e00" <= c <= "\u9fff" for c in prefix + body) else "，"
+    # 若 prefix 為多行長句，檢查首段前 40 字元是否已出現在 body 開頭，避免重複疊加兩次畫風前綴
+    first_line_head = prefix.splitlines()[0].strip()[:40]
+    if len(first_line_head) >= 16 and first_line_head.lower() in body[:80].lower():
+        return body
+    # 只要 style_prefix 本身是英文，一律使用英文逗號 ", " 拼接，避免全形逗號影響影像模型
+    prefix_has_cjk = any("\u4e00" <= c <= "\u9fff" for c in prefix)
+    body_has_cjk = any("\u4e00" <= c <= "\u9fff" for c in body)
+    sep = "，" if (prefix_has_cjk and body_has_cjk) else ", "
     return f"{prefix}{sep}{body}".strip("，, ")

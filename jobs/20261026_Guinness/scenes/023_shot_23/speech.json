@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261027T121943",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.83,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "原來休比弗爵士和那些爭吵不休的酒客從一開始就全都說錯了",
+      "text_cn": "原来休比弗爵士和那些争吵不休的酒客从一开始就全都说错了",
+      "start_sec": 0.0,
+      "end_sec": 5.56,
+      "duration_sec": 5.56
+    },
+    {
+      "index": 2,
+      "text": "正是這種抽絲剝繭的瘋狂勁頭徹底奠定了這本書不可撼動的公信力",
+      "text_cn": "正是这种抽丝剥茧的疯狂劲头彻底奠定了这本书不可撼动的公信力",
+      "start_sec": 5.81,
+      "end_sec": 11.62,
+      "duration_sec": 5.81
+    },
+    {
+      "index": 3,
+      "text": "這本初衷只是放在吧台防止酒鬼鬥毆的小冊子終於付印",
+      "text_cn": "这本初衷只是放在吧台防止酒鬼斗殴的小册子终于付印",
+      "start_sec": 11.87,
+      "end_sec": 16.83,
+      "duration_sec": 4.96
+    }
+  ],
+  "created_at": "2026-10-27T12:19:43.150622+00:00"
+}

@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261028T102730",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.82,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "時間來到第二次世界大戰結束後的一九五零年代",
+      "text_cn": "时间来到第二次世界大战结束后的一九五零年代",
+      "start_sec": 0.0,
+      "end_sec": 4.36,
+      "duration_sec": 4.36
+    },
+    {
+      "index": 2,
+      "text": "冷戰初期的美國迎來了郊區化浪潮與大型連鎖超市的爆發式增長",
+      "text_cn": "冷战初棋的美国迎来了郊区化浪潮与大型连锁超市的爆发式增长",
+      "start_sec": 4.61,
+      "end_sec": 10.37,
+      "duration_sec": 5.76
+    },
+    {
+      "index": 3,
+      "text": "食品巨頭們為了瘋狂壓低成本，打響了極其惡劣的價格廝殺",
+      "text_cn": "食品巨头们为了疯狂压低成本，打响了极其恶劣的价格厮杀",
+      "start_sec": 10.62,
+      "end_sec": 15.82,
+      "duration_sec": 5.2
+    }
+  ],
+  "created_at": "2026-10-28T10:27:30.685552+00:00"
+}

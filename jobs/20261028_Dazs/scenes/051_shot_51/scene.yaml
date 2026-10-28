@@ -1,0 +1,28 @@
+id: 051_shot_51
+index: 51
+title: 只是在那個荒誕的消費主義年代
+narration: 只是在那個荒誕的消費主義年代，哪怕你把產品做得再好，如果沒有那層虛偽的貴族包裝，大眾就絕不買單，
+image_prompt: wide establishing shot of a bustling upscale 1960s gourmet food hall
+  under glittering brass chandeliers, in (masterpiece, best quality:1.2), 2D cartoon
+  illustration, anime art style, chibi characters, clean line art, cell shading, flat
+  colors, cute mobile game UI art, visual novel style, crisp details, vibrant and
+  cheerful color palette, single coherent scene, non-split screen, unified single
+  viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate
+  background. At the center display on an elevated crimson velvet pedestal shines
+  a single luxury ice cream pint with rich deep burgundy and maroon cylindrical paperboard
+  body adorned with intricate gold filigree borders and an antique golden map of Scandinavia.
+  A crowd of fashionable chibi mid-century shoppers in colorful wool coats, pearl
+  necklaces, and fedoras clamor enthusiastically around the gilded counter with sparkling
+  eyes and wallets raised, completely ignoring plain unadorned dairy cartons sitting
+  neglected on a lower dusty wooden shelf, 16:9 widescreen composition
+character_ids:
+- luxury_ice_cream_pint
+image_negative: ''
+act_index: 7
+act_title: 神話瓦解後的時代餘韻：我們究竟在為甚麼買單？
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261028T112525
+  image_take: image_20261028T112448

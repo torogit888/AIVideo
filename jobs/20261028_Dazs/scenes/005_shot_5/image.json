@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261028T102031",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 87989145,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background. Street level wide shot of a crowded, muddy 1920s New York Bronx street corner, depicting a nine-year-old Polish Jewish orphan boy in 3-head-tall chibi proportions wearing an oversized newsboy cap, frayed woolen vest, and patched knee-length trousers, holding hands with his weary mother dressed in a dark shawl and long skirts, walking past dilapidated brownstone tenements, horse-drawn carts kicking up dust, street vendors, and tangled overhead telegraph wires, muted vintage warm tones with crisp cell shading, 16:9 widescreen composition., 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-28T10:20:31.066452+00:00"
+}

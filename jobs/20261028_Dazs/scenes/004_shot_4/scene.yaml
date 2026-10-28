@@ -1,0 +1,39 @@
+id: 004_shot_4
+index: 4
+title: 回到當時的大環境來看
+narration: 回到當時的大環境來看，那是一九二一年，數百萬東歐難民擠在陰暗潮濕的輪船底艙，漂洋過海湧向紐約的艾利斯島，
+image_prompt: (masterpiece, best quality:1.2), 2D cartoon illustration, anime art
+  style, chibi characters, clean line art, cell shading, flat colors, cute mobile
+  game UI art, visual novel style, crisp details, vibrant and cheerful color palette,
+  single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent
+  view, one main environment, highly detailed and intricate background. Interior wide
+  shot of the dimly lit steerage hold of a 1921 ocean liner arriving near Ellis Island,
+  chibi eastern European immigrant passengers huddled together wearing vintage woolen
+  flat caps, patched trench coats, and patterned headscarves, clutching worn leather
+  suitcases and cloth bundles, wooden bunk beds, heavy riveted iron bulkheads, shafts
+  of soft morning sunlight beaming through circular brass portholes, evocative historical
+  storytelling atmosphere, 16:9 widescreen composition.
+character_ids: []
+image_negative: ''
+act_index: 1
+act_title: 金色皇冠下的地圖騙局與布朗克斯的馬車伕
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261028T102018
+  image_take: null
+pip:
+  enabled: true
+  media_type: video
+  image: pip.png
+  video: pip.mp4
+  position: right-center
+  mode: broll
+  scale: 0.24
+  border: 5
+  query: Ellis Island immigrants 1920s
+  source_title: File:Arrival of immigrants, Ellis Island.webm
+  source_url: https://upload.wikimedia.org/wikipedia/commons/3/3f/Arrival_of_immigrants%2C_Ellis_Island.webm?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original
+  verified: true
+  review_reason: 真實呈現移民抵達艾利斯島之歷史影像，符合旁白主題。

@@ -1,0 +1,24 @@
+id: 050_shot_50
+index: 50
+title: 但客觀來說
+narration: 但客觀來說，魯本當年對低膨脹率與頂級乳脂的苛刻堅持，確實推動了整個行業的技術變革，
+image_prompt: wide shot of a vintage artisanal creamery workshop in warm amber lighting,
+  in vibrant 2D chibi anime style with rich cell shading and clean vector lines. Young
+  chibi reuben_mattus, with his neat dark slicked-back hair with slight silver streaks,
+  sharp determined eyebrows, vintage mustache, white collared shirt with rolled-up
+  sleeves, and heavy brown canvas artisan apron, stands beside a gleaming industrial
+  copper churning vat. He inspects a spoonful of ultra-dense, velvety, slow-melting
+  cream with intense dedication and pride. Surrounding him are stainless steel churners,
+  glass milk bottles, and fresh vanilla pods on a wooden workbench. Inspiring culinary
+  workshop scene, crisp details, 16:9 widescreen composition.
+character_ids:
+- reuben_mattus
+image_negative: ''
+act_index: 7
+act_title: 神話瓦解後的時代餘韻：我們究竟在為甚麼買單？
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261028T112427
+  image_take: image_20261028T112408

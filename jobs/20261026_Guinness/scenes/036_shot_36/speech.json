@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261027T130841",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 19.19,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "回過頭看這場持續了半個多世紀的全球文化奇蹟",
+      "text_cn": "回过头看这场持续了半个多世纪的全球文化奇迹",
+      "start_sec": 0.0,
+      "end_sec": 4.36,
+      "duration_sec": 4.36
+    },
+    {
+      "index": 2,
+      "text": "最初的歷史起點竟然只是一位英國老紳士在泥地裡打偏的一槍",
+      "text_cn": "最初的历史起点竟然只是一位英国老绅士在泥地里打偏的一枪",
+      "start_sec": 4.61,
+      "end_sec": 10.17,
+      "duration_sec": 5.56
+    },
+    {
+      "index": 3,
+      "text": "那隻在愛爾蘭灰色天空下振翅逃生的野鳥",
+      "text_cn": "那只在爱尔兰灰色天空下振翅逃生的野鸟",
+      "start_sec": 10.42,
+      "end_sec": 14.18,
+      "duration_sec": 3.76
+    },
+    {
+      "index": 4,
+      "text": "陰差陽錯地撞開了人類文明對極限認知的潘朵拉魔盒",
+      "text_cn": "阴差阳错地撞开了人类文明对极限认知的潘朵拉魔盒",
+      "start_sec": 14.43,
+      "end_sec": 19.19,
+      "duration_sec": 4.76
+    }
+  ],
+  "created_at": "2026-10-27T13:08:41.788119+00:00"
+}

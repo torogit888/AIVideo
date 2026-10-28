@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261027T125018",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 19583750,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background\nVibrant contrasting color palettes, crisp details throughout, expressive chibi faces, rich background props., wide whimsical conceptual scene in 2D cartoon illustration style, anime chibi art with crisp clean contours and a vibrant cheerful palette. At the center of an artistic illustrated world map, a grand copy of the iconic green record book rests open, with dozens of colorful international editions, translation ribbons, and playful chibi characters from around the globe marveling at wacky world records. Stylized globes, measuring tapes, stopwatches, and hot air balloons float in a dynamic swirl around the book, celebrating international fame, colorful and clean visual novel background, 16:9 widescreen composition., 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-27T12:50:18.967918+00:00"
+}

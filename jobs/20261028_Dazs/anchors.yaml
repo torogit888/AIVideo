@@ -1,0 +1,67 @@
+subject: 'Reuben Mattus: Chibi 2D anime style, 3-head-tall proportions, middle-aged
+  man with sharp expressive eyes, determined thick eyebrows, neat slicked-back dark
+  brown hair with silver streaks at the temples, and a neat vintage mustache. Wears
+  a mid-century rolled-up white collared shirt beneath a heavy brown canvas artisan
+  kitchen apron, dark trousers, and sturdy leather work shoes. Rendered in clean vector
+  linework, flat cell shading, and a spirited, obstinate expression. | Rose Mattus:
+  Chibi 2D anime style, 3-head-tall proportions, sophisticated and shrewd middle-aged
+  woman with glamorous 1960s bouffant styled dark hair, glossy eyelashes, and bright
+  confident eyes. Dressed in an oversized luxurious fluffy beige fur coat over a teal
+  pencil dress, adorned with a sparkling pearl necklace and matching earrings. Rendered
+  with clean line art, bold cell shading, and a radiant, persuasive smile. | Luxury
+  Ice Cream Pint: An authentic inanimate cylindrical paperboard ice cream container,
+  rich deep burgundy and maroon body adorned with intricate gold filigree borders,
+  featuring an antique golden map of Scandinavia stamped on the cylindrical side and
+  lid with mock-Nordic stylized serif lettering. Completely inanimate cylindrical
+  packaging with crisp clean linework, flat vector shading, and metallic gold accents,
+  strictly without any facial features or limbs. | Vintage Refrigerated Van: An authentic
+  mid-century compact boxy delivery truck, rounded retro 1950s front cab painted in
+  faded cream and pale teal enamel, metallic chrome front bumper and circular headlights,
+  rectangular rear cargo refrigeration box with chrome latches, rubber tires with
+  silver hubcaps. Clean 2D cartoon mechanical illustration with crisp outlines and
+  flat cell shading, completely devoid of eyes, mouth, or anthropomorphic elements.'
+environment: Mid-century American vintage cityscape and culinary workshop world, featuring
+  a blend of warm brick Bronx artisanal kitchen interiors and colorful 1960s Greenwich
+  Village cobblestone streets lined with quaint delis, art galleries, and gilded boutique
+  dessert parlors. Bright and cheerful color palette filled with warm copper, amber
+  incandescent workshop lamps, rich burgundy tones, cream whites, and pastel townhouse
+  facades, executed in crisp 2D anime cell-shading with bold clean line art, flat
+  colors, and highly detailed visual novel background scenery.
+use_image_reference: true
+characters:
+- id: reuben_mattus
+  name: Reuben Mattus
+  appearance: Chibi 2D anime style, 3-head-tall proportions, middle-aged man with
+    sharp expressive eyes, determined thick eyebrows, neat slicked-back dark brown
+    hair with silver streaks at the temples, and a neat vintage mustache. Wears a
+    mid-century rolled-up white collared shirt beneath a heavy brown canvas artisan
+    kitchen apron, dark trousers, and sturdy leather work shoes. Rendered in clean
+    vector linework, flat cell shading, and a spirited, obstinate expression.
+  entity_type: character
+- id: rose_mattus
+  name: Rose Mattus
+  appearance: Chibi 2D anime style, 3-head-tall proportions, sophisticated and shrewd
+    middle-aged woman with glamorous 1960s bouffant styled dark hair, glossy eyelashes,
+    and bright confident eyes. Dressed in an oversized luxurious fluffy beige fur
+    coat over a teal pencil dress, adorned with a sparkling pearl necklace and matching
+    earrings. Rendered with clean line art, bold cell shading, and a radiant, persuasive
+    smile.
+  entity_type: character
+- id: luxury_ice_cream_pint
+  name: Luxury Ice Cream Pint
+  appearance: An authentic inanimate cylindrical paperboard ice cream container, rich
+    deep burgundy and maroon body adorned with intricate gold filigree borders, featuring
+    an antique golden map of Scandinavia stamped on the cylindrical side and lid with
+    mock-Nordic stylized serif lettering. Completely inanimate cylindrical packaging
+    with crisp clean linework, flat vector shading, and metallic gold accents, strictly
+    without any facial features or limbs.
+  entity_type: object
+- id: vintage_refrigerated_van
+  name: Vintage Refrigerated Van
+  appearance: An authentic mid-century compact boxy delivery truck, rounded retro
+    1950s front cab painted in faded cream and pale teal enamel, metallic chrome front
+    bumper and circular headlights, rectangular rear cargo refrigeration box with
+    chrome latches, rubber tires with silver hubcaps. Clean 2D cartoon mechanical
+    illustration with crisp outlines and flat cell shading, completely devoid of eyes,
+    mouth, or anthropomorphic elements.
+  entity_type: object

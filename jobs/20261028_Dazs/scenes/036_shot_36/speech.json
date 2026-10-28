@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261028T110052",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.9,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[dissatisfaction-hnn]感受到威脅的皮爾斯伯里集團立刻撕下了偽善的面具",
+      "text_cn": "[dissatisfaction-hnn]感受到威胁的皮尔斯伯里集团立刻撕下了伪善的面具",
+      "start_sec": 0.0,
+      "end_sec": 6.04,
+      "duration_sec": 6.04
+    },
+    {
+      "index": 2,
+      "text": "他們向全美各大分銷渠道下達了最後通牒",
+      "text_cn": "他们向全美各大分销渠道下达了最后通牒",
+      "start_sec": 6.29,
+      "end_sec": 10.05,
+      "duration_sec": 3.76
+    },
+    {
+      "index": 3,
+      "text": "只要哪家經銷商敢代理班傑利，就立刻斷供哈根達斯",
+      "text_cn": "只要哪家经销商敢代理班杰利，就立刻断供哈根达斯",
+      "start_sec": 10.3,
+      "end_sec": 14.9,
+      "duration_sec": 4.6
+    }
+  ],
+  "created_at": "2026-10-28T11:00:52.700782+00:00"
+}

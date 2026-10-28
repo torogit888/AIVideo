@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261027T124854",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 50389067,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background\nVibrant contrasting color palettes, crisp details throughout, expressive chibi faces, rich background props., dynamic medium shot in 2D cartoon illustration style, anime chibi art with expressive comic flair and bold cell shading. A frantic 1950s British pub patron in a rolled-up work shirt and newsboy cap leans over the bar counter with an exaggerated shouting face, gripping a vintage stout beer bottle in mid-argument. A friendly chibi bartender dramatically slams down the chained emerald green record book onto the center of the dark oak counter, flipping open its fact-filled white pages. Stunned tavern patrons freeze in comical wide-eyed silence. Pints of dark ruby stout with creamy foam sit nearby, warm amber tavern lighting, 16:9 widescreen composition., 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-27T12:48:54.098046+00:00"
+}

@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261028T104139",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 48500592,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background\nVibrant contrasting color palettes, crisp details throughout, expressive chibi faces, rich background props., medium shot, chibi 2D anime style, 3-head-tall proportions, clean line art, flat cell shading, cute mobile game UI art. Reuben Mattus, a middle-aged chibi man with sharp expressive eyes, neat slicked-back dark brown hair with silver temples, and a neat vintage mustache, sits slumped on a retro floral-patterned sofa in a cozy mid-century living room. He comically slaps his own forehead with one hand while tossing crumpled sheets of paper into the air with the other, his face wearing an exaggerated, goofy brainstorming expression. Surrounding the vintage living room are glowing amber floor lamps, a mid-century wooden coffee table strewn with scribbled notepads and empty coffee mugs, vibrant and cheerful color palette, crisp details, single coherent scene, 16:9 widescreen composition., 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-28T10:41:39.107063+00:00"
+}

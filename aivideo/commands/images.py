@@ -15,8 +15,9 @@ from aivideo.visual_anchors import collect_scene_character_ref_images
 from aivideo.job_files import load_job_config
 from aivideo.naming import DEFAULT_IMAGE_MODEL
 from aivideo.takes import prune_scene_takes_after_adopt
-from aivideo.story_generator import resolve_style
-from aivideo.style_prompt import compose_styled_prompt
+from aivideo.story_generator import resolve_style, translate_single_scene_prompt
+from aivideo.style_prompt import compose_styled_prompt, is_generic_fallback_prompt
+from aivideo.visual_anchors import ensure_characters
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
@@ -144,6 +145,30 @@ def run_images(args: Any = None, progress_callback=None, **kwargs) -> int:
                 continue
 
         prompt = str(scene_cfg.get("image_prompt", "")).strip()
+        narration_text = str(scene_cfg.get("narration", "")).strip()
+        if is_generic_fallback_prompt(prompt) and narration_text:
+            print(f"[info] {s_id}: 偵測到空白或通用保底 Prompt，正在依本幕口白與角色定裝自動重構英文 image_prompt...")
+            try:
+                v_dict = visual_anchors if isinstance(visual_anchors, dict) else {}
+                chars = ensure_characters(v_dict)
+                repaired = translate_single_scene_prompt(
+                    narration=narration_text,
+                    style_key=style_key,
+                    subject_anchor=str(v_dict.get("subject") or ""),
+                    environment_anchor=str(v_dict.get("environment") or ""),
+                    characters=chars,
+                )
+                new_p = str(repaired.get("image_prompt") or "").strip()
+                if new_p and not is_generic_fallback_prompt(new_p):
+                    prompt = new_p
+                    scene_cfg["image_prompt"] = new_p
+                    if isinstance(repaired.get("character_ids"), list):
+                        scene_cfg["character_ids"] = list(repaired["character_ids"])
+                    with open(scene_yaml_path, "w", encoding="utf-8") as wf:
+                        yaml.safe_dump(scene_cfg, wf, allow_unicode=True, sort_keys=False)
+            except Exception as rep_err:
+                print(f"[warn] {s_id}: 自動修復 image_prompt 失敗: {rep_err}")
+
         if not prompt:
             print(f"[skip] {s_id}: 未提供 image_prompt")
             continue

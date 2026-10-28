@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261027T115022",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 65702613,
+  "prompt": "dynamic medium wide shot, (masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background. Inside a chaotic 1950s British pub with dark oak counters and amber stained-glass lamps, multiple chibi British Pub Patrons with stocky builds, rolled-up work shirts, flat caps, and wool suspenders are engaged in a comedic bar brawl, shouting with exaggerated angry chibi faces. Wooden tavern chairs fly comically through the air, shattered dark glass bottles and splashing dark stout with creamy foam scatter across the wooden tavern floor, creating an energetic tavern commotion, 16:9 widescreen composition., 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-27T11:50:22.015942+00:00"
+}

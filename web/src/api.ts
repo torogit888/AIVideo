@@ -181,10 +181,18 @@ export const api = {
       method: "POST",
       body: JSON.stringify({ query, media_type: mediaType || "auto" }),
     }),
-  applyScenePipUrl: (jobId: string, sceneId: string, url: string, title?: string, query?: string, mediaType?: string) =>
+  applyScenePipUrl: (
+    jobId: string,
+    sceneId: string,
+    url: string,
+    title?: string,
+    query?: string,
+    mediaType?: string,
+    force = false
+  ) =>
     request<SceneDetail>(`/jobs/${jobId}/scenes/${sceneId}/pip/url`, {
       method: "POST",
-      body: JSON.stringify({ url, title, query, media_type: mediaType || "auto" }),
+      body: JSON.stringify({ url, title, query, media_type: mediaType || "auto", force }),
     }),
   uploadScenePipFile: async (jobId: string, sceneId: string, file: File) => {
     const formData = new FormData();

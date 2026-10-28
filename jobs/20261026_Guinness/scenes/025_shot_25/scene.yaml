@@ -1,0 +1,58 @@
+id: 025_shot_25
+index: 25
+title: 沒想到樣書在倫敦各大書店曝光之後
+narration: 沒想到樣書在倫敦各大書店曝光之後引發了空前轟動，[surprise-wa]，全英國的購書訂單如同雪片一般瘋狂飛向健力士總部，
+image_prompt: wide exterior street view in 2D cartoon illustration style, anime chibi
+  aesthetic with bold linework and bright cel shading. Outside a charming 1950s London
+  brick bookstore on a cobblestone street, an eager crowd of diverse chibi London
+  citizens in trench coats, newsboy caps, and wool scarves clamor and line up outside
+  the shop display window. Inside the glass display, pyramids of green hardcover books
+  are showcased under warm shop lights. A mail carrier bike is parked nearby, its
+  carrier bags overflowing with bundles of mail orders, lively daytime atmosphere,
+  16:9 widescreen composition.
+character_ids: []
+act_index: 4
+act_title: 倫敦閣樓的瘋狂搜查
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261027T123908
+  image_take: image_20261027T122527
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Foyles bookshop London 1950s queue
+  fetch_error: 有抓到圖但 AI 判定不符：此為現代書店書架近照，非1950年代樣書轟動的歷史檔案場景。（候選：File:Café Royal Books
+    publications in Foyles bookshop, Charing Cross Road, London.jpg）
+  rejected_candidates:
+  - title: File:Café Royal Books publications in Foyles bookshop, Charing Cross Road,
+      London.jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/1/1d/Caf%C3%A9_Royal_Books_publications_in_Foyles_bookshop%2C_Charing_Cross_Road%2C_London.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/1/1d/Caf%C3%A9_Royal_Books_publications_in_Foyles_bookshop%2C_Charing_Cross_Road%2C_London.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 此為現代書店書架近照，非1950年代樣書轟動的歷史檔案場景。
+  - title: File:Foyles, Charing Cross Road (April 2015).jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/0/06/Foyles%2C_Charing_Cross_Road_%28April_2015%29.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/0/06/Foyles%2C_Charing_Cross_Road_%28April_2015%29.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 此為2015年現代街景照片，與1950年代樣書引發轟動的歷史場景不符。
+  - title: File:Foyles, Charing Cross Road (April 2015) (cropped).jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/d/d8/Foyles%2C_Charing_Cross_Road_%28April_2015%29_%28cropped%29.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/d/d8/Foyles%2C_Charing_Cross_Road_%28April_2015%29_%28cropped%29.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 此為2015年現代街景照片，不符1950年代歷史背景。
+  - title: File:Foyles, Soho, WC2 (3229195889).jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/3/3b/Foyles%2C_Soho%2C_WC2_%283229195889%29.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/3/3b/Foyles%2C_Soho%2C_WC2_%283229195889%29.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: AI 審核連線異常，安全拒絕未驗證素材

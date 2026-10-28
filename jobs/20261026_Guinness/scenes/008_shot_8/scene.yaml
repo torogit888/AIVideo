@@ -1,0 +1,22 @@
+id: 008_shot_8
+index: 8
+title: 但這可不僅僅是上流社會貴族老爺們
+narration: 但這可不僅僅是上流社會貴族老爺們的面子問題，在那個極度缺乏即時通訊工具的保守年代，一個在餐桌上懸而未決的微小疑問，很快就會如同野火般蔓延成全英國數萬家酒館裡的流血衝突，
+image_prompt: dynamic medium wide shot of a 1950s British tavern interior in 2D cartoon
+  illustration, anime art style, chibi characters, clean line art, cel shading, flat
+  colors. Several British pub patron characters with stocky builds, newsboy flat caps,
+  suspenders, and rolled-up cotton work shirts are engaged in an animated dispute
+  across a wooden pub booth, slamming flat hands on the table and pointing fingers
+  in exaggerated disagreement, warm amber tavern glow, detailed chalkboard backdrop,
+  16:9 widescreen composition
+character_ids:
+- british_pub_patron
+act_index: 2
+act_title: 血濺吧台與無解之爭
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261027T114539
+  image_take: image_20261027T114527

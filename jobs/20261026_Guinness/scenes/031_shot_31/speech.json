@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261027T125927",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.92,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "這份巨大的商業成功背後也伴隨著殘酷的血腥陰影 [sigh]",
+      "text_cn": "这份巨大的商业成功背后也伴随着残酷的血腥阴影 [sigh]",
+      "start_sec": 0.0,
+      "end_sec": 4.92,
+      "duration_sec": 4.92
+    },
+    {
+      "index": 2,
+      "text": "一九七五年聯合創始人羅斯麥克沃特在自家門口遭到暗殺身亡",
+      "text_cn": "一九七五年联合创始人罗斯麦克沃特在自家门口遭到暗杀身亡",
+      "start_sec": 5.17,
+      "end_sec": 10.31,
+      "duration_sec": 5.14
+    },
+    {
+      "index": 3,
+      "text": "給這項原本純粹的求真事業蒙上了冷戰時期的政治暴力陰影",
+      "text_cn": "给这项原本纯粹的求真事业蒙上了冷战时棋的政治暴力阴影",
+      "start_sec": 10.56,
+      "end_sec": 15.92,
+      "duration_sec": 5.36
+    }
+  ],
+  "created_at": "2026-10-27T12:59:27.517624+00:00"
+}

@@ -1,0 +1,27 @@
+id: 007_shot_7
+index: 7
+title: 寒冬臘月裡
+narration: 寒冬臘月裡，他的雙手長年被粗糙的冰塊凍得乾裂流血，[sigh]誰能想到這個連高中都沒畢業的街頭窮小子，在幾十年後竟然用一個憑空捏造出來的歐洲童話，騙過了全世界的富人，
+image_prompt: (masterpiece, best quality:1.2), 2D cartoon illustration, anime art
+  style, chibi characters, clean line art, cell shading, flat colors, cute mobile
+  game UI art, visual novel style, crisp details, vibrant and cheerful color palette,
+  single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent
+  view, one main environment, highly detailed and intricate background. Dramatic medium
+  shot in an icy winter workshop setting, featuring Reuben Mattus as a chibi adult
+  craftsman with determined sharp eyes, slicked-back dark hair with silver streaks,
+  neat vintage mustache, rolled-up white sleeves, and a heavy brown canvas apron,
+  holding a metal ice pick beside massive dripping clear ice blocks, frosty breath
+  visible in the air, glowing incandescent hanging workshop lamps illuminating ice
+  crystals, proud and obstinate expression, clean cel-shaded highlights, 16:9 widescreen
+  composition.
+character_ids:
+- reuben_mattus
+image_negative: ''
+act_index: 1
+act_title: 金色皇冠下的地圖騙局與布朗克斯的馬車伕
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261028T102603
+  image_take: image_20261028T102550

@@ -1,0 +1,25 @@
+id: 028_shot_28
+index: 28
+title: 每當吧台邊有人為了荒謬的數字爭得
+narration: 每當吧台邊有人為了荒謬的數字爭得面紅耳赤要拔酒瓶時，調酒師只需要重重把這本綠皮書拍在吧台正中央翻開裁決，喧鬧嘈雜的酒館瞬間就會陷入一片啞口無言的死寂，[confirmation-en]，
+image_prompt: dynamic medium shot in 2D cartoon illustration style, anime chibi art
+  with expressive comic flair and bold cell shading. A frantic 1950s British pub patron
+  in a rolled-up work shirt and newsboy cap leans over the bar counter with an exaggerated
+  shouting face, gripping a vintage stout beer bottle in mid-argument. A friendly
+  chibi bartender dramatically slams down the chained emerald green record book onto
+  the center of the dark oak counter, flipping open its fact-filled white pages. Stunned
+  tavern patrons freeze in comical wide-eyed silence. Pints of dark ruby stout with
+  creamy foam sit nearby, warm amber tavern lighting, 16:9 widescreen composition.
+character_ids:
+- british_pub_patron
+- guinness_record_book_1955
+- vintage_guinness_pint_bottle
+act_index: 5
+act_title: 平息群毆的酒館小冊
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261027T124909
+  image_take: image_20261027T124854

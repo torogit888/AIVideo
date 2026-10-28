@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261027T105611",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 49000788,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background\nVibrant contrasting color palettes, crisp details throughout, expressive chibi faces, rich background props., wide establishing shot of a charming vintage European tavern interior in 2D cartoon illustration, anime art style, chibi proportions, clean line art, cel shading, flat colors, cute visual novel style. On a polished rustic oak table under warm amber lantern light rests the physical 1955 first edition Guinness record book with its emerald forest-green cloth binding, gold-leaf lettering, and sturdy steel corner chain. Outside the leaded glass tavern window, a tiny golden game bird streaks across an overcast twilight sky leaving comedic wind trails, crisp details, vibrant and cheerful color palette, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-27T10:56:11.042049+00:00"
+}

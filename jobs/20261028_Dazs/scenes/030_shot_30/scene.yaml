@@ -1,0 +1,60 @@
+id: 030_shot_30
+index: 30
+title: 再低頭看看包裝盒上充滿異域風情的
+narration: 再低頭看看包裝盒上充滿異域風情的丹麥地圖與看不懂的神秘外文，瞬間覺得自己的階級品味在這一刻得到了昇華，
+image_prompt: close-up shot, chibi 2D anime style, clean line art, cell shading, flat
+  colors. An elegant pair of gloved hands holds a luxury ice cream pint at chest level,
+  tilted slightly to admire the packaging. The cylindrical paperboard pint glows with
+  rich deep burgundy tones, decorated with an intricate antique golden map of Scandinavia
+  and elaborate Nordic-style serif lettering. Golden sparkles and little comic-style
+  admiration twinkles float around the container, while in the soft-focus background,
+  the cozy interior of an art salon filled with abstract paintings and warm chandelier
+  glow is gently blurred, creating an aura of aristocratic elegance, 16:9 widescreen
+  composition.
+character_ids:
+- luxury_ice_cream_pint
+image_negative: ''
+act_index: 4
+act_title: 皮草貴婦與嬉皮沙龍：顛覆渠道的特洛伊木馬
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261028T105221
+  image_take: image_20261028T105139
+pip:
+  enabled: false
+  media_type: image
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Haagen Dazs retro container
+  fetch_error: 有抓到圖但 AI 判定不符：畫面為中東街頭門市外觀，並非旁白描述的復古冰淇淋包裝盒與地圖。（候選：File:Haagen-Dazs -
+    panoramio.jpg）
+  rejected_candidates:
+  - title: File:Haagen-Dazs - panoramio.jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/0/0d/Haagen-Dazs_-_panoramio.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/0/0d/Haagen-Dazs_-_panoramio.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 畫面為中東街頭門市外觀，並非旁白描述的復古冰淇淋包裝盒與地圖。
+  - title: File:Haagen-dazs-crispy-sandwich-caramel-classic.jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/f/f2/Haagen-dazs-crispy-sandwich-caramel-classic.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/f/f2/Haagen-dazs-crispy-sandwich-caramel-classic.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 畫面為現代雪糕三明治，非旁白提及印有丹麥地圖之復古包裝盒。
+  - title: File:Haagen-dazs-crunchy-crunch.jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/0/08/Haagen-dazs-crunchy-crunch.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/0/08/Haagen-dazs-crunchy-crunch.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 僅展示雪糕實體，缺乏旁白所提印有丹麥地圖的復古包裝盒。
+  - title: File:Haagen-Dasz.jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/7/7f/Haagen-Dasz.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/7/7f/Haagen-Dasz.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 此為現代杯裝，未呈現旁白提及之復古丹麥地圖包裝特徵。

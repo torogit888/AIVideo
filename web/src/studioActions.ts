@@ -12,12 +12,13 @@ export function primaryPipelineAction(
   imagesReady: number,
   audioReady: number,
   total: number,
-  hasFilm: boolean
-): { label: string; action: "images" | "tts" | "compose" | "preview" | null } {
+  hasFilm: boolean,
+  filmStale = false
+): { label: string; action: "all" | "images" | "tts" | "compose" | "preview" | null } {
   if (total <= 0) return { label: "生成腳本", action: null };
-  if (imagesReady < total) return { label: "生成未完成畫面", action: "images" };
-  if (audioReady < total) return { label: "生成配音", action: "tts" };
-  if (!hasFilm) return { label: "合成 1080p", action: "compose" };
+  if (imagesReady < total || audioReady < total || !hasFilm || filmStale) {
+    return { label: "一鍵全流程", action: "all" };
+  }
   return { label: "預覽成片", action: "preview" };
 }
 

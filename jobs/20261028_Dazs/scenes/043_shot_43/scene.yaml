@@ -1,0 +1,61 @@
+id: 043_shot_43
+index: 43
+title: 門市永遠開在租金最昂貴的頂級精品
+narration: 門市永遠開在租金最昂貴的頂級精品街區，裝潢奢華得宛如高檔珠寶展廳，
+image_prompt: interior wide shot of an ultra-luxurious, gleaming dessert boutique
+  designed like a high-end jewelry salon, rendered in vibrant 2D chibi anime style
+  with clean outlines and flat cell shading. Polished white marble floors reflect
+  gleaming chandeliers with crystal prisms, while curved brass and mahogany display
+  cases glow with warm incandescent spotlights. Chibi shop attendants in crisp black-and-gold
+  uniforms and white gloves stand elegantly behind glass counters. Polished mirrored
+  walls and plush velvet banquettes create an opulent upscale atmosphere. Immaculate
+  linework, radiant pastel highlights, 16:9 widescreen composition.
+character_ids: []
+image_negative: ''
+act_index: 6
+act_title: 全球化收割機：一場價值百億的符號拜物教
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261028T111402
+  image_take: image_20261028T111152
+pip:
+  enabled: false
+  media_type: image
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Haagen Dazs boutique interior
+  fetch_error: 有抓到圖但 AI 判定不符：畫面為電影院內簡易專櫃，與奢華精品門市描述嚴重不符。（候選：File:Boutique Häagen-Dazs
+    au cinéma du Carré de Soie (Vaulx-en-Velin) en mai 2023.JPG）
+  rejected_candidates:
+  - title: File:Boutique Häagen-Dazs au cinéma du Carré de Soie (Vaulx-en-Velin) en
+      mai 2023.JPG
+    url: https://upload.wikimedia.org/wikipedia/commons/5/51/Boutique_H%C3%A4agen-Dazs_au_cin%C3%A9ma_du_Carr%C3%A9_de_Soie_%28Vaulx-en-Velin%29_en_mai_2023.JPG
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/5/51/Boutique_H%C3%A4agen-Dazs_au_cin%C3%A9ma_du_Carr%C3%A9_de_Soie_%28Vaulx-en-Velin%29_en_mai_2023.JPG
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 畫面為電影院內簡易專櫃，與奢華精品門市描述嚴重不符。
+  - title: File:Boutique Häagen-Dazs à Lyon en 2015.jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/9/97/Boutique_H%C3%A4agen-Dazs_%C3%A0_Lyon_en_2015.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/9/97/Boutique_H%C3%A4agen-Dazs_%C3%A0_Lyon_en_2015.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 畫面為普通街景外觀，未呈現如珠寶展廳般奢華的室內裝潢。
+  - title: File:Carte d'implantation des boutiques et des sites de production Häagen-Dazs
+      en 2018.png
+    url: https://upload.wikimedia.org/wikipedia/commons/0/04/Carte_d%27implantation_des_boutiques_et_des_sites_de_production_H%C3%A4agen-Dazs_en_2018.png
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/0/04/Carte_d%27implantation_des_boutiques_et_des_sites_de_production_H%C3%A4agen-Dazs_en_2018.png
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 此圖為門市全球分佈地圖，並非旁白所述之奢華門市裝潢實景。
+  - title: File:HK YTM 九龍西 Kowloon West 圓方 Elements shopping mall shop directory sign
+      March 2023 Px3 04.jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/2/24/HK_YTM_%E4%B9%9D%E9%BE%8D%E8%A5%BF_Kowloon_West_%E5%9C%93%E6%96%B9_Elements_shopping_mall_shop_directory_sign_March_2023_Px3_04.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/2/24/HK_YTM_%E4%B9%9D%E9%BE%8D%E8%A5%BF_Kowloon_West_%E5%9C%93%E6%96%B9_Elements_shopping_mall_shop_directory_sign_March_2023_Px3_04.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 圖片僅為商場水牌目錄，非精品門市奢華裝潢實景。

@@ -1,0 +1,41 @@
+id: 016_shot_16
+index: 16
+title: 查塔威向休比弗引薦了一對在倫敦體
+narration: 查塔威向休比弗引薦了一對在倫敦體壇以狂熱收集數據著稱的雙胞胎，哥哥諾里斯麥克沃特與弟弟羅斯麥克沃特，這對孿生兄弟在倫敦弗利特街經營著一家名為事實與數據的微型機構，他們的大腦簡直就是冷戰時期活生生的人肉谷歌，[surprise-wa]，
+image_prompt: medium shot, (masterpiece, best quality:1.2), 2D cartoon illustration,
+  anime art style, chibi characters, clean line art, cell shading, flat colors, cute
+  mobile game UI art, visual novel style, crisp details, vibrant and cheerful color
+  palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle
+  coherent view, one main environment, highly detailed and intricate background. Inside
+  a cozy, paper-stuffed small office on Fleet Street, Norris and Ross McWhirter, the
+  identical chibi 2.5-head twin fact-compilers with slicked-back dark hair and round
+  wireframe spectacles, sit side by side in matching charcoal-grey tailored suits
+  and narrow ties. They hold thick wooden clipboards filled with indexed cards and
+  vintage fountain pens, displaying hyper-focused, confident scholarly smiles, surrounded
+  by towering stacks of vintage almanacs, dictionaries, and filing drawers, 16:9 widescreen
+  composition.
+character_ids:
+- mcwhirter_twins
+act_index: 3
+act_title: 四分鐘英里的引路人
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261027T115837
+  image_take: null
+pip:
+  enabled: true
+  media_type: image
+  image: pip.png
+  video: null
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Norris and Ross McWhirter twins 1950s
+  source_title: Norris McWhirter
+  source_url: https://upload.wikimedia.org/wikipedia/commons/d/d2/Norris_McWhirter_%281977%29.jpg
+  verified: true
+  review_reason: 圖像確實為旁白提及的《金氏紀錄》共同創辦人諾里斯麥克沃特。

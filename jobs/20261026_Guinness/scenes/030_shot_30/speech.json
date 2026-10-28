@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261027T125312",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 17.38,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "隨著這本書被翻譯成數十種語言銷往全世界各個角落",
+      "text_cn": "随着这本书被翻译成数十种语言销往全世界各个脚落",
+      "start_sec": 0.0,
+      "end_sec": 4.76,
+      "duration_sec": 4.76
+    },
+    {
+      "index": 2,
+      "text": "它從一家啤酒廠的公關項目蛻變成了名震全球的龐大商業帝國",
+      "text_cn": "它从一家啤酒厂的公关项目蜕变成了名震全球的庞大商业帝国",
+      "start_sec": 5.01,
+      "end_sec": 10.57,
+      "duration_sec": 5.56
+    },
+    {
+      "index": 3,
+      "text": "然而原本嚴肅客觀的地理生物與科學極限很快被人類無休止的虛榮心稀釋",
+      "text_cn": "然而原本严肃客观的地理生物与科学极限很快被人类无休止的虚荣心稀释",
+      "start_sec": 10.82,
+      "end_sec": 17.38,
+      "duration_sec": 6.56
+    }
+  ],
+  "created_at": "2026-10-27T12:53:12.042110+00:00"
+}

@@ -1,0 +1,57 @@
+id: 026_shot_26
+index: 26
+title: 短短四個月時間內這本綠皮小手冊連
+narration: 短短四個月時間內這本綠皮小手冊連續加印了五萬冊，隨即在當年聖誕節前夕一口氣售出了十八萬七千多冊，直接強勢空降英國暢銷書排行榜榜首擊敗了無數文學名著，
+image_prompt: festive low-angle shot in 2D cartoon illustration style, anime chibi
+  art with crisp clean lines and vibrant cell shading. Inside a festive 1950s London
+  bookshop decorated with holly and Christmas tinsel, towering stacks of the green
+  1955 First Edition Guinness Book of Records proudly occupy the top spot of a wooden
+  'Bestseller' display pyramid. Happy chibi shoppers in holiday winter coats eagerly
+  hold copies, while thick classic literary volumes sit dwarfed beside the emerald
+  record books. Sparkling warm holiday shop lighting, 16:9 widescreen composition.
+character_ids:
+- guinness_record_book_1955
+act_index: 5
+act_title: 平息群毆的酒館小冊
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261027T124537
+  image_take: image_20261027T123931
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: 1955 British bestseller list Guinness Book of Records
+  fetch_error: 有抓到圖但 AI 判定不符：圖片為現代作家個人照，與1955年金氏世界紀錄發行無關。（候選：File:Graeme Macrae Burnet
+    at The British Library.jpg）
+  rejected_candidates:
+  - title: File:Graeme Macrae Burnet at The British Library.jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/d/d1/Graeme_Macrae_Burnet_at_The_British_Library.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/d/d1/Graeme_Macrae_Burnet_at_The_British_Library.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 圖片為現代作家個人照，與1955年金氏世界紀錄發行無關。
+  - title: File:Amelia Gentleman at the British Library.jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/e/ec/Amelia_Gentleman_at_the_British_Library.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/e/ec/Amelia_Gentleman_at_the_British_Library.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 圖片為記者艾蜜莉亞·紳士，與金氏世界紀錄創刊出版無關。
+  - title: File:Bee Rowlatt at The British Library.jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/7/71/Bee_Rowlatt_at_The_British_Library.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/7/71/Bee_Rowlatt_at_The_British_Library.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 圖片為現代人物肖像，與1955年金氏世界紀錄手冊無關。
+  - title: File:Hallie Rubenhold at The British Library.jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/7/75/Hallie_Rubenhold_at_The_British_Library.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/7/75/Hallie_Rubenhold_at_The_British_Library.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 圖片為現代歷史學家個人照，與1955年金氏紀錄手冊無關。

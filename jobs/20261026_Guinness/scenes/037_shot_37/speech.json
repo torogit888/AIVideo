@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261027T131831",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.94,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "如今這本書每年在全球超過一百個國家翻譯出版",
+      "text_cn": "如今这本书每年在全球超过一百个国家翻译出版",
+      "start_sec": 0.0,
+      "end_sec": 4.36,
+      "duration_sec": 4.36
+    },
+    {
+      "index": 2,
+      "text": "累計發行量早已堂堂突破一億五千萬冊的驚人門檻",
+      "text_cn": "累计发行量早已堂堂图破一亿五千万册的惊人门槛",
+      "start_sec": 4.61,
+      "end_sec": 9.17,
+      "duration_sec": 4.56
+    },
+    {
+      "index": 3,
+      "text": "它甚至把自己也寫進了世界出版史上最暢銷版權圖書的紀錄當中 [surprise-wa]",
+      "text_cn": "它甚至把自己也写进了世界出版史上最畅销版权图书的纪录当中 [surprise-wa]",
+      "start_sec": 9.42,
+      "end_sec": 15.94,
+      "duration_sec": 6.52
+    }
+  ],
+  "created_at": "2026-10-27T13:18:31.291532+00:00"
+}

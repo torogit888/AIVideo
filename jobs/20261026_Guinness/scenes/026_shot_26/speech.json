@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261027T124537",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.18,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "短短四個月時間內這本綠皮小手冊連續加印了五萬冊",
+      "text_cn": "短短四个月时间内这本绿皮小手册连续加印了五万册",
+      "start_sec": 0.0,
+      "end_sec": 4.76,
+      "duration_sec": 4.76
+    },
+    {
+      "index": 2,
+      "text": "隨即在當年聖誕節前夕一口氣售出了十八萬七千多冊",
+      "text_cn": "随即在当年圣诞节前夕一口气售出了十八万七千多册",
+      "start_sec": 5.01,
+      "end_sec": 9.77,
+      "duration_sec": 4.76
+    },
+    {
+      "index": 3,
+      "text": "直接強勢空降英國暢銷書排行榜榜首擊敗了無數文學名著",
+      "text_cn": "直接强势空降英国畅销书排行榜榜首集败了无数文学名著",
+      "start_sec": 10.02,
+      "end_sec": 15.18,
+      "duration_sec": 5.16
+    }
+  ],
+  "created_at": "2026-10-27T12:45:37.715984+00:00"
+}

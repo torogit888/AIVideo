@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261028T105139",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 65126206,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background\nVibrant contrasting color palettes, crisp details throughout, expressive chibi faces, rich background props., close-up shot, chibi 2D anime style, clean line art, cell shading, flat colors. An elegant pair of gloved hands holds a luxury ice cream pint at chest level, tilted slightly to admire the packaging. The cylindrical paperboard pint glows with rich deep burgundy tones, decorated with an intricate antique golden map of Scandinavia and elaborate Nordic-style serif lettering. Golden sparkles and little comic-style admiration twinkles float around the container, while in the soft-focus background, the cozy interior of an art salon filled with abstract paintings and warm chandelier glow is gently blurred, creating an aura of aristocratic elegance, 16:9 widescreen composition., 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-28T10:51:39.825170+00:00"
+}

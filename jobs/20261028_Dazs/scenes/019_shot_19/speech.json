@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261028T103843",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 19.09,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "一九六零年的某個深夜，魯本與妻子蘿絲坐在客廳沙發上",
+      "text_cn": "一九六零年的某个深夜，鲁本与妻子萝丝坐在客厅沙发上",
+      "start_sec": 0.0,
+      "end_sec": 5.0,
+      "duration_sec": 5.0
+    },
+    {
+      "index": 2,
+      "text": "拿著紙筆苦思冥想，因為二戰期間丹麥是唯一全力庇護猶太人的歐洲國家",
+      "text_cn": "拿着纸笔苦思冥想，因为二战棋间丹麦是唯一全力庇护犹太人的欧洲国家",
+      "start_sec": 5.25,
+      "end_sec": 11.65,
+      "duration_sec": 6.4
+    },
+    {
+      "index": 3,
+      "text": "再加上丹麥乳製品在美國人心中擁有天然純淨的童話濾鏡，他當場拍板鎖定丹麥風格",
+      "text_cn": "再加上丹麦乳制品在美国人心中拥有天然纯净的童话滤镜，他当场拍板锁定丹麦风格",
+      "start_sec": 11.9,
+      "end_sec": 19.09,
+      "duration_sec": 7.19
+    }
+  ],
+  "created_at": "2026-10-28T10:38:43.978949+00:00"
+}

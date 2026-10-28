@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261027T132347",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 66346575,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background. Wide celebratory shot set inside a cozy, amber-lit 1950s British pub. At the center of the dark oak bar counter, chibi Sir Hugh Beaver in his tweed flat cap and forest-green hunting blazer raises a vintage stout pint glass with deep ruby-black beverage and creamy froth in a proud toast, his silver handlebar mustache twitching with a triumphant smile. Standing alongside him are the identical chibi McWhirter twins in matching charcoal-grey suits and round spectacles, smiling cheerfully while clutching their thick research clipboards. Placed prominently on the glossy counter between them rests the 1955 first edition hardcover reference book with its emerald-green cloth cover and gold-leaf details, securely fastened with a chunky steel chain next to a vintage amber stout bottle. Warm glowing pendant lamps, carved timber walls, and stained-glass pub partitions fill the background with celebratory warmth, 16:9 widescreen composition., 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-27T13:23:47.918345+00:00"
+}

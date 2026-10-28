@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261028T104644",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 17.7,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "當這款偽丹麥神話走進市場時，現實卻給了他們當頭一棒",
+      "text_cn": "当这款伪丹麦神话走进市场时，现实却给了他们当头一棒",
+      "start_sec": 0.0,
+      "end_sec": 5.0,
+      "duration_sec": 5.0
+    },
+    {
+      "index": 2,
+      "text": "一九六一年，各大主流超市的採購經理看到這盒定價貴得離譜的怪名字冰淇淋",
+      "text_cn": "一九六一年，各大主流超市的采购经理看到这盒定价贵得离谱的怪名字冰淇淋",
+      "start_sec": 5.25,
+      "end_sec": 12.05,
+      "duration_sec": 6.8
+    },
+    {
+      "index": 3,
+      "text": "紛紛嘲笑魯本是個異想天開的瘋子，毫不留情地將它拒之門外",
+      "text_cn": "纷纷嘲笑鲁本是个异想天开的疯子，毫不留情地将它拒之门外",
+      "start_sec": 12.3,
+      "end_sec": 17.7,
+      "duration_sec": 5.4
+    }
+  ],
+  "created_at": "2026-10-28T10:46:44.040647+00:00"
+}

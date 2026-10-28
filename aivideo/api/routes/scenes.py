@@ -13,6 +13,7 @@ from aivideo.api.schemas import (
     GcTakesRequest,
     PipCandidateItem,
     PipCandidatesResponse,
+    PipRejectedItem,
     SceneDetail,
     ScenePatchRequest,
     ScenePipConfig,
@@ -93,6 +94,7 @@ def _get_scene_status(scene_dir: Path, job_id: str) -> SceneStatus:
     aud_file = scene_dir / "speech.wav"
     pip_file = scene_dir / "pip.png"
     pip_vid_file = scene_dir / "pip.mp4"
+    pip_rej_file = scene_dir / "pip_rejected.png"
 
     has_aud = aud_file.is_file()
     has_pip_video = pip_vid_file.is_file()
@@ -105,6 +107,7 @@ def _get_scene_status(scene_dir: Path, job_id: str) -> SceneStatus:
     aud_mtime = int(aud_file.stat().st_mtime) if has_aud else 0
     pip_mtime = int(pip_file.stat().st_mtime) if pip_file.is_file() else 0
     pip_vid_mtime = int(pip_vid_file.stat().st_mtime) if has_pip_video else 0
+    pip_rej_mtime = int(pip_rej_file.stat().st_mtime) if pip_rej_file.is_file() else 0
 
     import urllib.parse
     job_id_encoded = urllib.parse.quote(job_id)
@@ -115,6 +118,7 @@ def _get_scene_status(scene_dir: Path, job_id: str) -> SceneStatus:
     aud_url = f"/media/jobs/{job_id_encoded}/scenes/{scene_dir.name}/{aud_file.name}?t={aud_mtime}" if has_aud else None
     pip_url = f"/media/jobs/{job_id_encoded}/scenes/{scene_dir.name}/pip.png?t={pip_mtime}" if pip_file.is_file() else None
     pip_video_url = f"/media/jobs/{job_id_encoded}/scenes/{scene_dir.name}/pip.mp4?t={pip_vid_mtime}" if has_pip_video else None
+    pip_rejected_url = f"/media/jobs/{job_id_encoded}/scenes/{scene_dir.name}/pip_rejected.png?t={pip_rej_mtime}" if (not has_pip and pip_rej_file.is_file()) else None
 
     duration = _audio_duration_sec(scene_dir, aud_file) if has_aud else 0.0
 
@@ -127,6 +131,7 @@ def _get_scene_status(scene_dir: Path, job_id: str) -> SceneStatus:
         audio_url=aud_url,
         pip_url=pip_url,
         pip_video_url=pip_video_url,
+        pip_rejected_url=pip_rejected_url,
         duration=duration,
     )
 
@@ -205,6 +210,19 @@ def list_scenes(job_id: str) -> List[SceneSummary]:
             pip_data = data.get("pip", {}) if isinstance(data.get("pip"), dict) else {}
             pip_query = pip_data.get("query")
             pip_error = str(pip_data.get("fetch_error") or "").strip() or None
+            raw_rejected = pip_data.get("rejected_candidates") if isinstance(pip_data.get("rejected_candidates"), list) else []
+            pip_rejected = [
+                PipRejectedItem(
+                    title=str(item.get("title") or pip_query or "考據候選"),
+                    url=str(item.get("url") or ""),
+                    thumbnail_url=str(item.get("thumbnail_url") or "") or status.pip_rejected_url,
+                    source=str(item.get("source") or ""),
+                    media_type=str(item.get("media_type") or "image"),
+                    reason=str(item.get("reason") or "") or None,
+                )
+                for item in raw_rejected
+                if isinstance(item, dict) and item.get("url")
+            ]
             act_index = int(data.get("act_index") or 0)
             act_title = str(data.get("act_title") or "")
             if (not act_index) and inferred:
@@ -226,6 +244,7 @@ def list_scenes(job_id: str) -> List[SceneSummary]:
                     pip_enabled=bool(pip_data.get("enabled", False)),
                     pip_mode="broll" if status.has_pip_video else pip_data.get("mode", "pip"),
                     pip_error=None if status.has_pip else pip_error,
+                    pip_rejected=[] if status.has_pip else pip_rejected,
                     locks={"image": bool(locks.get("image", False)), "speech": bool(locks.get("speech", False))},
                     status=status,
                 )
@@ -246,6 +265,19 @@ def get_scene_detail(job_id: str, scene_id: str) -> SceneDetail:
     status = _get_scene_status(scene_dir, job_id)
 
     pip_data = data.get("pip", {}) or {}
+    raw_rejected = pip_data.get("rejected_candidates") if isinstance(pip_data.get("rejected_candidates"), list) else []
+    rejected_list = [
+        PipRejectedItem(
+            title=str(item.get("title") or pip_data.get("query") or "考據候選"),
+            url=str(item.get("url") or ""),
+            thumbnail_url=str(item.get("thumbnail_url") or "") or status.pip_rejected_url,
+            source=str(item.get("source") or ""),
+            media_type=str(item.get("media_type") or "image"),
+            reason=str(item.get("reason") or "") or None,
+        )
+        for item in raw_rejected
+        if isinstance(item, dict) and item.get("url")
+    ]
     pip_cfg = ScenePipConfig(
         enabled=pip_data.get("enabled", False),
         media_type="video" if status.has_pip_video else (pip_data.get("media_type") or "image"),
@@ -261,6 +293,7 @@ def get_scene_detail(job_id: str, scene_id: str) -> SceneDetail:
         fetch_error=None if status.has_pip else (str(pip_data.get("fetch_error") or "").strip() or None),
         verified=bool(pip_data.get("verified", False)),
         review_reason=pip_data.get("review_reason"),
+        rejected_candidates=[] if status.has_pip else rejected_list,
     )
 
     return SceneDetail(
@@ -486,15 +519,19 @@ def apply_scene_pip_url(job_id: str, scene_id: str, req: ApplyPipUrlRequest):
             frames = _extract_video_clip_and_frames(url, tmp_mp4, tmp_png)
             if not frames or not tmp_mp4.is_file():
                 raise HTTPException(status_code=400, detail="無法自該網址擷取有效影片片段")
-            review = verify_pip_match_with_ai(
-                narration=narration,
-                query=str(q),
-                candidate_title=str(req.title or q),
-                frame_bytes_list=frames,
-                media_type="video",
-            )
-            if not review["passed"]:
-                raise HTTPException(status_code=400, detail=f"AI 審核判定影片與本幕口白不符：{review['reason']}")
+            if not req.force:
+                review = verify_pip_match_with_ai(
+                    narration=narration,
+                    query=str(q),
+                    candidate_title=str(req.title or q),
+                    frame_bytes_list=frames,
+                    media_type="video",
+                )
+                if not review["passed"]:
+                    raise HTTPException(status_code=400, detail=f"AI 審核判定影片與本幕口白不符：{review['reason']}")
+                review_reason = review["reason"]
+            else:
+                review_reason = "手動強制採用考據影片"
             shutil.move(str(tmp_mp4), str(scene_dir / "pip.mp4"))
             if tmp_png.is_file():
                 shutil.move(str(tmp_png), str(scene_dir / "pip.png"))
@@ -503,7 +540,7 @@ def apply_scene_pip_url(job_id: str, scene_id: str, req: ApplyPipUrlRequest):
                 "url": url,
                 "media_type": "video",
                 "verified": True,
-                "review_reason": review["reason"],
+                "review_reason": review_reason,
             }
             _write_pip_yaml(scene_dir, scfg, str(q), result, enabled=True)
             return get_scene_detail(job_id, scene_id)
@@ -519,15 +556,19 @@ def apply_scene_pip_url(job_id: str, scene_id: str, req: ApplyPipUrlRequest):
     if not content:
         raise HTTPException(status_code=400, detail="無法自該網址下載圖片，請檢查網址有效性或防盜鏈設定")
 
-    review = verify_pip_match_with_ai(
-        narration=narration,
-        query=str(q),
-        candidate_title=str(req.title or q),
-        image_bytes=content,
-        media_type="image",
-    )
-    if not review["passed"]:
-        raise HTTPException(status_code=400, detail=f"AI 審核判定照片與本幕口白不符：{review['reason']}")
+    if not req.force:
+        review = verify_pip_match_with_ai(
+            narration=narration,
+            query=str(q),
+            candidate_title=str(req.title or q),
+            image_bytes=content,
+            media_type="image",
+        )
+        if not review["passed"]:
+            raise HTTPException(status_code=400, detail=f"AI 審核判定照片與本幕口白不符：{review['reason']}")
+        review_reason = review["reason"]
+    else:
+        review_reason = "手動強制採用考據照片"
 
     try:
         old_mp4 = scene_dir / "pip.mp4"
@@ -544,7 +585,7 @@ def apply_scene_pip_url(job_id: str, scene_id: str, req: ApplyPipUrlRequest):
         "url": url,
         "media_type": "image",
         "verified": True,
-        "review_reason": review["reason"],
+        "review_reason": review_reason,
     }
     _write_pip_yaml(scene_dir, scfg, str(q), result, enabled=True)
     return get_scene_detail(job_id, scene_id)
@@ -784,7 +825,7 @@ def clear_scene_pip(job_id: str, scene_id: str):
     if not scene_dir.is_dir():
         raise HTTPException(status_code=404, detail="分鏡不存在")
 
-    for fname in ("pip.png", "pip.mp4"):
+    for fname in ("pip.png", "pip.mp4", "pip_rejected.png"):
         pip_file = scene_dir / fname
         if pip_file.is_file():
             try:
@@ -806,6 +847,7 @@ def clear_scene_pip(job_id: str, scene_id: str):
             pip_dict["source_title"] = None
             pip_dict["source_url"] = None
             pip_dict["fetch_error"] = None
+            pip_dict.pop("rejected_candidates", None)
             scfg["pip"] = pip_dict
             s_yaml.write_text(yaml.safe_dump(scfg, allow_unicode=True, sort_keys=False), encoding="utf-8")
         except Exception:

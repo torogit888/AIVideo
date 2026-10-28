@@ -1,0 +1,39 @@
+id: 009_shot_9
+index: 9
+title: 他們利用工業乳化劑
+narration: 他們利用工業乳化劑，化學香精和巨型攪拌泵，將大量空氣強行打入原料漿液裡，在食品工業中，這項技術指標被稱作膨脹率，
+image_prompt: (masterpiece, best quality:1.2), 2D cartoon illustration, anime art
+  style, chibi characters, clean line art, cell shading, flat colors, cute mobile
+  game UI art, visual novel style, crisp details, vibrant and cheerful color palette,
+  single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent
+  view, one main environment, highly detailed and intricate background. Industrial
+  food factory interior shot, massive stainless steel industrial mixing vats, swirling
+  churners, and overhead pressurized air pump pipes violently aerating thick synthetic
+  pale cream mixture, transparent inspection tubes displaying air bubbles injected
+  into liquid food base, laboratory beakers labeled with chemical formulas and emulsifiers
+  on side benches, cool blue and sterile steel palette with crisp cell shading, mechanical
+  diagram vibe, 16:9 widescreen composition.
+character_ids: []
+image_negative: ''
+act_index: 2
+act_title: 廚房裡的叛逆公式：反膨脹率與16%乳脂的硬核豪賭
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261028T102837
+  image_take: null
+pip:
+  enabled: true
+  media_type: video
+  image: pip.png
+  video: pip.mp4
+  position: right-center
+  mode: broll
+  scale: 0.24
+  border: 5
+  query: commercial ice cream factory 1950s
+  source_title: 1950s Ice Cream Movie Commercials / Adverts
+  source_url: https://www.youtube.com/watch?v=0WVJoICPjbY
+  verified: true
+  review_reason: 畫面展現1950年代霜淇淋機充氣擠出過程，符合旁白所述工藝。

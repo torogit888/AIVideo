@@ -1,0 +1,43 @@
+id: 031_shot_31
+index: 31
+title: 在那個反叛傳統的嬉皮士年代
+narration: 在那個反叛傳統的嬉皮士年代，去超市買大桶裝美國冰淇淋被視為平庸庸俗的象徵，而手裡拿著一盒價格昂貴且名字拗口的哈根達斯，就等於向同溫層宣告自己的特立獨行，
+image_prompt: (masterpiece, best quality:1.2), 2D cartoon illustration, anime art
+  style, chibi characters, clean line art, cell shading, flat colors, cute mobile
+  game UI art, visual novel style, crisp details, vibrant and cheerful color palette,
+  single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent
+  view, one main environment, highly detailed and intricate background, 16:9 widescreen
+  composition. Wide shot of a trendy 1960s Greenwich Village street corner in autumn.
+  In the foreground, a stylish chibi youth with rounded sunglasses and a fringed denim
+  jacket proudly holds up a luxury ice cream pint with rich burgundy cardboard packaging
+  and gold filigree borders, while turning away dismissively from an oversized generic
+  supermarket wire cart filled with plain white bulk ice cream tubs. Behind them,
+  bohemian brownstone facades are decorated with peace signs, vintage record shop
+  windows, and vibrant autumn foliage under clear daylight.
+character_ids:
+- luxury_ice_cream_pint
+image_negative: ''
+act_index: 4
+act_title: 皮草貴婦與嬉皮沙龍：顛覆渠道的特洛伊木馬
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261028T105606
+  image_take: null
+pip:
+  enabled: true
+  media_type: image
+  image: pip.png
+  video: null
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: 1960s American youth counterculture
+  source_title: Counterculture
+  source_url: https://upload.wikimedia.org/wikipedia/commons/9/9f/A_female_demonstrator_offers_a_flower_to_military_police_on_guard_at_the_Pentagon_during_an_anti-Vietnam_demonstration._Arlington%2C_Virginia%2C_USA.jpg
+  fetch_error: null
+  verified: true
+  review_reason: 真實呈現1960年代反戰與嬉皮反叛浪潮，符合旁白時代背景。
+  rejected_candidates: []

@@ -1,0 +1,42 @@
+id: 033_shot_33
+index: 33
+title: 到了七十年代末期
+narration: 到了七十年代末期，這家曾經由馬車伕建立的小作坊，年銷售額已經突破數千萬美元，但商業世界的殘酷法則從未改變，屠龍的少年往往最先被金錢馴化，
+image_prompt: (masterpiece, best quality:1.2), 2D cartoon illustration, anime art
+  style, chibi characters, clean line art, cell shading, flat colors, cute mobile
+  game UI art, visual novel style, crisp details, vibrant and cheerful color palette,
+  single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent
+  view, one main environment, highly detailed and intricate background, 16:9 widescreen
+  composition. Medium wide shot inside an expanded brick ice cream workshop office.
+  Reuben Mattus, depicted in chibi 2D anime style with 3-head-tall proportions, neat
+  slicked-back dark brown hair with silver streaks, neat mustache, rolled-up white
+  collared shirt, and heavy brown canvas apron, stands by a polished oak desk piled
+  high with ledger books, glowing gold coin stacks, and a sales graph showing soaring
+  profits. Warm amber lighting illuminates copper equipment in the adjoining factory
+  visible through an interior glass partition, while Reuben looks at commercial contracts
+  with a determined yet contemplative expression.
+character_ids:
+- reuben_mattus
+image_negative: ''
+act_index: 5
+act_title: 巨頭的絞殺與絕地反擊：大衛對抗歌利亞的背水一戰
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261028T105736
+  image_take: null
+pip:
+  enabled: true
+  media_type: image
+  image: pip.png
+  video: null
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: first Haagen Dazs shop Brooklyn 1976
+  source_title: File:Häagen-Dazs' first shop.jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/1/1d/H%C3%A4agen-Dazs%27_first_shop.jpg
+  verified: true
+  review_reason: 影像為哈根達斯1976年首家門市，符合旁白敘述之品牌發展背景。

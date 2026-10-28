@@ -149,13 +149,10 @@ def primary_pipeline_action(
     audio_ready: int,
     total: int,
     has_film: bool,
+    film_stale: bool = False,
 ) -> dict[str, str | None]:
     if total <= 0:
         return {"label": "生成腳本", "action": None}
-    if images_ready < total:
-        return {"label": "生成未完成畫面", "action": "images"}
-    if audio_ready < total:
-        return {"label": "生成配音", "action": "tts"}
-    if not has_film:
-        return {"label": "合成 1080p", "action": "compose"}
+    if images_ready < total or audio_ready < total or not has_film or film_stale:
+        return {"label": "一鍵全流程", "action": "all"}
     return {"label": "預覽成片", "action": "preview"}

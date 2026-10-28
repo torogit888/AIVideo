@@ -12,21 +12,15 @@ import {
   Loader2,
   Volume2,
   Camera,
-  CheckCircle2,
-  Search,
-  Trash2,
   Lock,
   Unlock,
   Sparkles,
   RefreshCw,
-  Link as LinkIcon,
-  Upload,
-  Check,
-  ShieldCheck,
 } from "lucide-react";
 import { useStudioStore } from "../store";
 import { api } from "../api";
 import { SceneDetail, SceneTake, PipCandidateItem } from "../types";
+import { ScenePipSection } from "./ScenePipSection";
 
 export const SceneInspector: React.FC = () => {
   const {
@@ -71,7 +65,12 @@ export const SceneInspector: React.FC = () => {
   const [isSearchingCandidates, setIsSearchingCandidates] = useState(false);
   const [applyingCandidateUrl, setApplyingCandidateUrl] = useState<string | null>(null);
 
-  const handleApplyPipUrl = async (targetUrl: string, targetTitle?: string, mediaType: string = "auto") => {
+  const handleApplyPipUrl = async (
+    targetUrl: string,
+    targetTitle?: string,
+    mediaType: string = "auto",
+    force: boolean = false
+  ) => {
     if (!selectedJobId || !activeSceneId) return;
     const cleanUrl = targetUrl.trim();
     if (!cleanUrl || (!cleanUrl.startsWith("http://") && !cleanUrl.startsWith("https://"))) {
@@ -86,7 +85,8 @@ export const SceneInspector: React.FC = () => {
         cleanUrl,
         targetTitle || "自訂考據網址",
         pipQuery.trim() || undefined,
-        mediaType
+        mediaType,
+        force
       );
       setDetail(fresh);
       setPipEnabled(true);
@@ -919,330 +919,32 @@ export const SceneInspector: React.FC = () => {
             </div>
 
             {/* 5. 考據素材設定 */}
-            <div className="p-3 rounded bg-cinema-darker border border-cinema-border space-y-2.5">
-              <div className="flex items-center justify-between text-xs">
-                <div className="flex items-center space-x-1.5">
-                  <Camera className="w-3.5 h-3.5 text-amber-cta" />
-                  <span className="font-medium text-cinema-text">考據素材</span>
-                </div>
-                <label className="flex items-center space-x-1.5 cursor-pointer">
-                  <span className="text-[11px] text-cinema-muted">啟用</span>
-                  <input
-                    type="checkbox"
-                    checked={pipEnabled}
-                    onChange={(e) => handleQuickUpdatePip(e.target.checked, pipMode)}
-                    className="rounded bg-cinema-card border-cinema-border text-amber-cta focus:ring-0 cursor-pointer"
-                  />
-                </label>
-              </div>
-
-              {/* 三大來源模式切換標籤 */}
-              <div className="flex rounded-lg bg-cinema-card p-0.5 border border-cinema-border/70 text-[11px]">
-                <button
-                  type="button"
-                  onClick={() => setPipSourceTab("url")}
-                  className={`flex-1 py-1 rounded flex items-center justify-center transition-colors ${
-                    pipSourceTab === "url"
-                      ? "bg-amber-cta text-cinema-bg font-semibold shadow"
-                      : "text-cinema-muted hover:text-cinema-text"
-                  }`}
-                >
-                  <LinkIcon className="w-3 h-3 mr-1" />
-                  <span>貼網址</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setPipSourceTab("upload")}
-                  className={`flex-1 py-1 rounded flex items-center justify-center transition-colors ${
-                    pipSourceTab === "upload"
-                      ? "bg-amber-cta text-cinema-bg font-semibold shadow"
-                      : "text-cinema-muted hover:text-cinema-text"
-                  }`}
-                >
-                  <Upload className="w-3 h-3 mr-1" />
-                  <span>本機上傳</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setPipSourceTab("search")}
-                  className={`flex-1 py-1 rounded flex items-center justify-center transition-colors ${
-                    pipSourceTab === "search"
-                      ? "bg-amber-cta text-cinema-bg font-semibold shadow"
-                      : "text-cinema-muted hover:text-cinema-text"
-                  }`}
-                >
-                  <Search className="w-3 h-3 mr-1" />
-                  <span>全網搜尋</span>
-                </button>
-              </div>
-
-              {/* 來源 1: 貼圖片網址 */}
-              {pipSourceTab === "url" && (
-                <div className="p-2 rounded bg-cinema-card border border-cinema-border/70 text-[11px]">
-                  <div className="flex space-x-1.5">
-                    <input
-                      type="url"
-                      placeholder="https://example.com/photo.jpg"
-                      value={customImageUrl}
-                      onChange={(e) => setCustomImageUrl(e.target.value)}
-                      className="flex-1 h-7 px-2 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text font-mono focus:outline-none focus:border-amber-cta"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => handleApplyPipUrl(customImageUrl)}
-                      disabled={isApplyingUrl || !customImageUrl.trim()}
-                      className="flex items-center px-2.5 h-7 rounded bg-amber-cta hover:bg-amber-ctaHover text-cinema-bg font-semibold text-xs transition-colors disabled:opacity-40 cursor-pointer"
-                    >
-                      {isApplyingUrl ? <Loader2 className="w-3 h-3 animate-spin" /> : <span>下載套用</span>}
-                    </button>
-                  </div>
-                  <div className="text-[10px] text-cinema-muted/80">支援各大新聞機構、歷史百科、社群直鏈圖片。</div>
-                </div>
-              )}
-
-              {/* 來源 2: 本機照片上傳 */}
-              {pipSourceTab === "upload" && (
-                <div className="p-2.5 rounded bg-cinema-card border border-cinema-border/70 text-[11px] space-y-2">
-                  <label className="flex flex-col items-center justify-center p-3 rounded-lg border-2 border-dashed border-cinema-border hover:border-amber-cta cursor-pointer bg-cinema-darker transition-colors">
-                    {isUploadingFile ? (
-                      <Loader2 className="w-5 h-5 animate-spin text-amber-cta mb-1" />
-                    ) : (
-                      <Upload className="w-5 h-5 text-amber-cta mb-1" />
-                    )}
-                    <span className="text-cinema-text font-medium text-xs">
-                      {isUploadingFile ? "正在上傳..." : "選擇本機照片 / 歷史檔案圖片"}
-                    </span>
-                    <span className="text-[10px] text-cinema-muted mt-0.5">點擊選擇本機 JPG, PNG, WEBP</span>
-                    <input
-                      type="file"
-                      accept="image/*,video/*"
-                      onChange={handleUploadPipFile}
-                      disabled={isUploadingFile}
-                      className="hidden"
-                    />
-                  </label>
-                </div>
-              )}
-
-              {/* 來源 3: 全網多候選檢索 (不限授權・契合口白) */}
-              {pipSourceTab === "search" && (
-                <div className="p-2.5 rounded bg-cinema-card border border-cinema-border/70 space-y-2 text-[11px]">
-                  <div className="flex items-center justify-between text-cinema-muted">
-                    <span className="font-medium text-cinema-text">全網搜尋考據影片 / 照片:</span>
-                    <button
-                      type="button"
-                      onClick={handleSearchCandidates}
-                      disabled={isSearchingCandidates || (!pipQuery.trim() && !narration.trim())}
-                      className="flex items-center px-2 py-0.5 rounded bg-amber-cta/15 hover:bg-amber-cta/25 text-amber-cta border border-amber-cta/30 text-[10px] font-medium transition-colors disabled:opacity-40 cursor-pointer"
-                    >
-                      {isSearchingCandidates ? (
-                        <>
-                          <Loader2 className="w-3 h-3 mr-1 animate-spin" />
-                          <span>全網檢索中...</span>
-                        </>
-                      ) : (
-                        <>
-                          <Search className="w-3 h-3 mr-1" />
-                          <span>搜尋影片/真圖</span>
-                        </>
-                      )}
-                    </button>
-                  </div>
-
-                  <input
-                    type="text"
-                    value={pipQuery}
-                    onChange={(e) => setPipQuery(e.target.value)}
-                    onBlur={async () => {
-                      const trimmed = pipQuery.trim();
-                      if (trimmed !== (detail?.pip?.query || "")) {
-                        await handleQuickUpdatePip(pipEnabled, pipMode, "已儲存考據檢索詞");
-                      }
-                    }}
-                    placeholder="輸入實體或場景 (例如：莫斯科街頭 1989、百事可樂蘇聯協議)"
-                    className="w-full h-7 px-2 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text font-mono focus:outline-none focus:border-amber-cta"
-                  />
-
-                  {/* 候選縮圖挑選格 */}
-                  {pipCandidates.length > 0 && (
-                    <div className="pt-2 border-t border-cinema-border/60 space-y-1.5">
-                      <div className="flex items-center justify-between text-[10px] text-cinema-muted">
-                        <span className="text-amber-cta font-medium">✨ 點選候選（將經 AI 審查符合口白）：</span>
-                        <span>{pipCandidates.length} 個候選</span>
-                      </div>
-                      <div className="grid grid-cols-2 gap-1.5 max-h-48 overflow-y-auto pr-0.5">
-                        {pipCandidates.map((c, i) => (
-                          <div
-                            key={i}
-                            onClick={() => handleApplyCandidate(c)}
-                            className="relative group p-1 rounded bg-cinema-darker border border-cinema-border hover:border-amber-cta cursor-pointer transition-all flex flex-col items-center"
-                          >
-                            <div className="relative w-full h-16 rounded overflow-hidden bg-black flex items-center justify-center">
-                              <img
-                                src={c.thumbnail_url || c.url}
-                                alt={c.title}
-                                className="w-full h-full object-cover group-hover:scale-105 transition-transform"
-                              />
-                              <span
-                                className={`absolute top-1 left-1 px-1 py-0.2 rounded text-[8px] font-bold ${
-                                  c.media_type === "video"
-                                    ? "bg-emerald-500/95 text-black"
-                                    : "bg-purple-600/90 text-white"
-                                }`}
-                              >
-                                {c.media_type === "video" ? "🎬 影片 B-Roll" : "📷 照片"}
-                              </span>
-                              {applyingCandidateUrl === c.url && (
-                                <div className="absolute inset-0 bg-black/70 flex items-center justify-center">
-                                  <Loader2 className="w-4 h-4 text-amber-cta animate-spin" />
-                                </div>
-                              )}
-                            </div>
-                            <span className="text-[9px] text-cinema-muted truncate w-full mt-1 text-center" title={c.title}>
-                              {c.title}
-                            </span>
-                            <span className="text-[8px] text-zinc-500 font-mono truncate w-full text-center">
-                              {c.source}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* 目前已就緒之考據照片預覽卡片 */}
-              {detail?.status?.has_pip && detail?.status?.pip_url && (
-                <div className="p-2.5 rounded bg-cinema-card border border-cinema-border/70 space-y-1.5">
-                  <div className="text-[10px] text-emerald-400 flex items-center justify-between">
-                    <span className="flex items-center font-medium">
-                      <CheckCircle2 className="w-3 h-3 mr-1 shrink-0" /> 已就緒考據照片
-                    </span>
-                    <button
-                      onClick={handleClearPip}
-                      disabled={isClearingPip}
-                      className="flex items-center px-1.5 py-0.5 rounded bg-red-950/50 hover:bg-red-900/70 border border-red-800 text-[10px] text-red-300 transition-colors cursor-pointer disabled:opacity-40"
-                      title="徹底刪除此考據圖檔案，完全回歸 AI 純繪圖畫面"
-                    >
-                      {isClearingPip ? (
-                        <Loader2 className="w-2.5 h-2.5 animate-spin mr-0.5" />
-                      ) : (
-                        <Trash2 className="w-2.5 h-2.5 mr-0.5" />
-                      )}
-                      <span>清除圖檔</span>
-                    </button>
-                  </div>
-
-                  <div className="text-[10px] space-y-0.5 bg-cinema-darker/70 p-1.5 rounded border border-cinema-border/60 font-mono">
-                    <div className="flex items-center text-cinema-muted truncate">
-                      <span className="text-zinc-500 mr-1.5 shrink-0">命中實體:</span>
-                      <span className="text-amber-cta/90 truncate font-semibold" title={detail.pip?.query || pipQuery}>
-                        {detail.pip?.query || pipQuery || "未指定"}
-                      </span>
-                    </div>
-                    {detail.pip?.source_title && (
-                      <div className="flex items-center text-cinema-muted truncate">
-                        <span className="text-zinc-500 mr-1.5 shrink-0">圖檔出處:</span>
-                        <span className="text-zinc-300 truncate" title={detail.pip.source_title}>
-                          {detail.pip.source_title}
-                        </span>
-                      </div>
-                    )}
-                    {detail.pip?.verified && detail.pip?.review_reason && (
-                      <div className="flex items-center text-[10px] text-emerald-400 font-mono bg-emerald-950/40 p-1 rounded border border-emerald-800/50 mt-1">
-                        <Check className="w-3 h-3 mr-1 shrink-0" />
-                        <span className="truncate" title={detail.pip.review_reason}>
-                          AI 審核通過：{detail.pip.review_reason}
-                        </span>
-                      </div>
-                    )}
-                  </div>
-
-                  <div className={`relative max-w-[170px] max-h-[120px] p-1 rounded overflow-hidden border ${
-                    pipMode === "spotlight" ? "border-cinema-border bg-black" : "border-white/80 bg-white shadow-md"
-                  } flex items-center justify-center mx-auto mt-1`}>
-                    <img src={detail.status.pip_url} alt="PiP Preview" className="max-w-full max-h-[110px] object-contain rounded-sm" />
-                  </div>
-                </div>
-              )}
-
-              {/* 若未通過審核而自動降級為純 AI 生圖 */}
-              {!detail?.status?.has_pip && detail?.pip?.fetch_error && detail.pip.fetch_error.includes("AI 審核未通過") && (
-                <div className="p-2 rounded bg-amber-950/30 border border-amber-800/50 text-[10px] text-amber-300 space-y-1">
-                  <div className="flex items-center font-medium">
-                    <ShieldCheck className="w-3.5 h-3.5 mr-1 text-amber-400 shrink-0" />
-                    <span>已自動降級為純 AI 生成畫面</span>
-                  </div>
-                  <div className="text-cinema-muted leading-tight font-mono text-[9px]">
-                    {detail.pip.fetch_error}
-                  </div>
-                </div>
-              )}
-
-              {/* 呈現方式 */}
-              <div className="pt-1 text-xs space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-cinema-muted">呈現方式</span>
-                  <select
-                    value={pipMode}
-                    onChange={(e) =>
-                      handleQuickUpdatePip(
-                        pipEnabled,
-                        e.target.value as "pip" | "spotlight" | "broll"
-                      )
-                    }
-                    className="h-7 px-2 rounded bg-cinema-card border border-cinema-border text-cinema-text text-[11px] font-medium"
-                  >
-                    <option value="pip">角落小卡</option>
-                    <option value="spotlight">黑底全螢幕（照片）</option>
-                    <option value="broll">全螢幕影片</option>
-                  </select>
-                </div>
-
-                {pipEnabled && pipMode === "pip" && (
-                  <>
-                    <div className="flex items-center justify-between">
-                      <span className="text-cinema-muted">卡片大小</span>
-                      <select
-                        value={pipScale}
-                        onChange={(e) => {
-                          const nextScale = parseFloat(e.target.value);
-                          handleQuickUpdatePip(pipEnabled, pipMode, "已更新考據卡片大小", {
-                            scale: nextScale,
-                          });
-                        }}
-                        className="h-7 px-2 rounded bg-cinema-card border border-cinema-border text-cinema-text text-[11px]"
-                      >
-                        <option value="0.20">小 (20%)</option>
-                        <option value="0.24">中 (24%)</option>
-                        <option value="0.30">大 (30%)</option>
-                      </select>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-cinema-muted">疊加位置</span>
-                      <select
-                        value={pipPos}
-                        onChange={(e) => {
-                          const nextPos = e.target.value;
-                          handleQuickUpdatePip(pipEnabled, pipMode, "已更新考據疊加位置", {
-                            position: nextPos,
-                          });
-                        }}
-                        className="h-7 px-2 rounded bg-cinema-card border border-cinema-border text-cinema-text text-[11px]"
-                      >
-                        <option value="right-center">右半部置中</option>
-                        <option value="top-right">右上角</option>
-                        <option value="top-left">左上角</option>
-                        <option value="bottom-right">右下角</option>
-                        <option value="bottom-left">左下角</option>
-                        <option value="center">正中央</option>
-                      </select>
-                    </div>
-                  </>
-                )}
-              </div>
-            </div>
+            <ScenePipSection
+              detail={detail}
+              narration={narration}
+              pipEnabled={pipEnabled}
+              pipMode={pipMode}
+              pipScale={pipScale}
+              pipPos={pipPos}
+              pipQuery={pipQuery}
+              setPipQuery={setPipQuery}
+              pipSourceTab={pipSourceTab}
+              setPipSourceTab={setPipSourceTab}
+              customImageUrl={customImageUrl}
+              setCustomImageUrl={setCustomImageUrl}
+              isApplyingUrl={isApplyingUrl}
+              isUploadingFile={isUploadingFile}
+              isSearchingCandidates={isSearchingCandidates}
+              isClearingPip={isClearingPip}
+              pipCandidates={pipCandidates}
+              applyingCandidateUrl={applyingCandidateUrl}
+              handleQuickUpdatePip={handleQuickUpdatePip}
+              handleApplyPipUrl={handleApplyPipUrl}
+              handleUploadPipFile={handleUploadPipFile}
+              handleSearchCandidates={handleSearchCandidates}
+              handleApplyCandidate={handleApplyCandidate}
+              handleClearPip={handleClearPip}
+            />
 
             {/* 6. 儲存變更按鈕 */}
             <button

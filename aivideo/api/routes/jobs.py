@@ -395,323 +395,21 @@ def create_job(req: CreateJobRequest) -> JobSummary:
     return _to_job_summary(created_dir)
 
 
-@router.post("/analyze-anchors", response_model=AnalyzeAnchorsResponse)
-def analyze_script_anchors(req: AnalyzeAnchorsRequest) -> AnalyzeAnchorsResponse:
-    """在建立專案前，依據腳本與主題預先深度分析提煉主角/核心物件特徵與環境世界觀基調。"""
-    if not req.script.strip():
-        raise HTTPException(status_code=400, detail="腳本內容不能為空")
-    topic = req.topic.strip() or "故事主體"
-    data = extract_story_visual_anchors(
-        topic=topic, script_text=req.script, style_key=req.style_id or ""
-    )
-    characters = normalize_characters(data.get("characters"))
-    return AnalyzeAnchorsResponse(
-        subject_anchor=str(data.get("subject_anchor", "") or compose_subject_anchor(characters)),
-        environment_anchor=str(data.get("environment_anchor", "")),
-        characters=[
-            CharacterAnchorDraft(
-                id=ch["id"],
-                name=ch["name"],
-                appearance=ch.get("appearance", ""),
-                entity_type=ch.get("entity_type", "character"),
-            )
-            for ch in characters
-        ],
-    )
-
-
-@router.get("/{job_id}/anchors", response_model=JobVisualAnchorsResponse)
-def get_job_anchors(job_id: str) -> JobVisualAnchorsResponse:
-    """取得特定專案的視覺一致性錨點設定與定裝基準圖狀態。"""
-    job_dir = JOBS_DIR / job_id
-    if not job_dir.is_dir():
-        raise HTTPException(status_code=404, detail="專案不存在")
-    return _anchors_response(job_id, job_dir)
-
-
-@router.patch("/{job_id}/anchors", response_model=JobVisualAnchorsResponse)
-def update_job_anchors(job_id: str, req: UpdateVisualAnchorsRequest) -> JobVisualAnchorsResponse:
-    """更新專案的角色外觀錨點、環境光影錨點或切換定裝圖多模態參考開關。"""
-    job_dir = JOBS_DIR / job_id
-    if not job_dir.is_dir():
-        raise HTTPException(status_code=404, detail="專案不存在")
-
-    cfg = _load_job_cfg(job_dir)
-    v_anchors = _ensure_visual_anchors(cfg)
-
-    if req.environment is not None:
-        v_anchors["environment"] = req.environment.strip()
-    if req.use_image_reference is not None:
-        v_anchors["use_image_reference"] = req.use_image_reference
-    if req.characters is not None:
-        old_chars = ensure_characters(v_anchors)
-        characters = normalize_characters(
-            [c.model_dump() if hasattr(c, "model_dump") else c.dict() for c in req.characters]
-        )
-        persist_characters_on_anchors(v_anchors, characters)
-        if req.clear_hero_images:
-            clear_all_character_images(job_dir)
-        else:
-            invalidate_changed_character_images(job_dir, old_chars, characters)
-    elif req.subject is not None:
-        old_chars = ensure_characters(v_anchors)
-        v_anchors["subject"] = req.subject.strip()
-        if not v_anchors.get("characters"):
-            new_chars = normalize_characters(
-                [{"id": "main", "name": "Main Subject", "appearance": req.subject.strip()}]
-            )
-            persist_characters_on_anchors(v_anchors, new_chars)
-            if req.clear_hero_images:
-                clear_all_character_images(job_dir)
-            else:
-                invalidate_changed_character_images(job_dir, old_chars, new_chars)
-    elif req.clear_hero_images:
-        clear_all_character_images(job_dir)
-
-    _save_job_cfg(job_dir, cfg)
-    return _anchors_response(job_id, job_dir, cfg)
-
-
-def _find_character(characters: list[dict[str, str]], char_id: str) -> dict[str, str]:
-    for ch in characters:
-        if ch["id"] == char_id:
-            return ch
-    raise HTTPException(status_code=404, detail="找不到此角色")
-
-
-@router.post("/{job_id}/anchors/hero", response_model=GenerateHeroAnchorResponse)
-def generate_hero_anchor(job_id: str) -> GenerateHeroAnchorResponse:
-    """依專案生圖風格，為每位角色各生成一張 16:9 定裝圖。"""
-    job_dir = JOBS_DIR / job_id
-    if not job_dir.is_dir():
-        raise HTTPException(status_code=404, detail="專案不存在")
-
-    cfg = _load_job_cfg(job_dir)
-    v_anchors = _ensure_visual_anchors(cfg)
-    characters = ensure_characters(v_anchors)
-    if not characters:
-        raise HTTPException(status_code=400, detail="尚未設定任何角色外觀錨點，請先分析腳本或手動新增角色")
-
-    # 清除舊版單張 hero_anchor.png，避免舊圖干擾新角色定裝
-    legacy_hero = legacy_hero_path(job_dir)
-    if legacy_hero.is_file():
-        legacy_hero.unlink(missing_ok=True)
-
-    persist_characters_on_anchors(v_anchors, characters)
-    v_anchors["use_image_reference"] = True
-
-    generated = 0
-    last_error = None
-    for ch in characters:
-        try:
-            _generate_one_character_sheet(job_dir, cfg, ch)
-            generated += 1
-        except Exception as e:
-            last_error = e
-
-    _save_job_cfg(job_dir, cfg)
-    has_hero, hero_url = first_hero_url(job_id, job_dir, characters)
-    if generated == 0:
-        raise HTTPException(status_code=500, detail=f"Gemini 定裝圖生成失敗: {last_error}")
-    msg = f"已依專案風格生成 {generated} 張角色定裝圖"
-    if last_error and generated < len(characters):
-        msg += f"（部分失敗：{last_error}）"
-    return GenerateHeroAnchorResponse(
-        success=True,
-        message=msg,
-        hero_image_url=hero_url or "",
-        generated_count=generated,
-    )
-
-
-@router.post("/{job_id}/anchors/hero/upload")
-async def upload_hero_anchor(job_id: str, file: UploadFile = File(...)):
-    """上傳參考圖：若已有角色列表則寫入第一位角色，否則作為舊版單張 hero。"""
-    job_dir = JOBS_DIR / job_id
-    if not job_dir.is_dir():
-        raise HTTPException(status_code=404, detail="專案不存在")
-
-    content = await file.read()
-    cfg = _load_job_cfg(job_dir)
-    v_anchors = _ensure_visual_anchors(cfg)
-    characters = ensure_characters(v_anchors)
-    if characters:
-        dest = character_image_path(job_dir, characters[0]["id"])
-        dest.parent.mkdir(parents=True, exist_ok=True)
-        dest.write_bytes(content)
-        persist_characters_on_anchors(v_anchors, characters)
-    else:
-        (job_dir / "hero_anchor.png").write_bytes(content)
-
-    v_anchors["use_image_reference"] = True
-    _save_job_cfg(job_dir, cfg)
-    resp = _anchors_response(job_id, job_dir, cfg)
-    return {
-        "success": True,
-        "message": "定裝參考圖上傳成功",
-        "hero_image_url": resp.hero_image_url,
-    }
-
-
-@router.delete("/{job_id}/anchors/hero")
-def delete_hero_anchor(job_id: str):
-    """移除全部角色定裝圖與舊版單張 hero。"""
-    job_dir = JOBS_DIR / job_id
-    if not job_dir.is_dir():
-        raise HTTPException(status_code=404, detail="專案不存在")
-
-    hero_dest = job_dir / "hero_anchor.png"
-    if hero_dest.is_file():
-        hero_dest.unlink(missing_ok=True)
-    chars_dir = job_dir / "characters"
-    if chars_dir.is_dir():
-        for path in chars_dir.glob("*.png"):
-            path.unlink(missing_ok=True)
-    return {"success": True, "message": "已移除所有角色定裝圖"}
-
-
-@router.post("/{job_id}/anchors/characters", response_model=JobVisualAnchorsResponse)
-def add_character_anchor(job_id: str, req: AddCharacterRequest) -> JobVisualAnchorsResponse:
-    job_dir = JOBS_DIR / job_id
-    if not job_dir.is_dir():
-        raise HTTPException(status_code=404, detail="專案不存在")
-    cfg = _load_job_cfg(job_dir)
-    v_anchors = _ensure_visual_anchors(cfg)
-    characters = ensure_characters(v_anchors)
-    extra = normalize_characters(
-        [{"name": req.name, "appearance": req.appearance, "entity_type": req.entity_type}]
-    )
-    if not extra:
-        raise HTTPException(status_code=400, detail="角色名稱不能為空")
-    # 避免與既有 id 碰撞
-    existing = {ch["id"] for ch in characters}
-    for ch in extra:
-        if ch["id"] in existing:
-            ch["id"] = f"{ch['id']}_{len(characters) + 1}"
-        characters.append(ch)
-    persist_characters_on_anchors(v_anchors, characters)
-    _save_job_cfg(job_dir, cfg)
-    return _anchors_response(job_id, job_dir, cfg)
-
-
-@router.patch("/{job_id}/anchors/characters/{char_id}", response_model=JobVisualAnchorsResponse)
-def patch_character_anchor(job_id: str, char_id: str, req: PatchCharacterRequest) -> JobVisualAnchorsResponse:
-    job_dir = JOBS_DIR / job_id
-    if not job_dir.is_dir():
-        raise HTTPException(status_code=404, detail="專案不存在")
-    cfg = _load_job_cfg(job_dir)
-    v_anchors = _ensure_visual_anchors(cfg)
-    characters = ensure_characters(v_anchors)
-    ch = _find_character(characters, char_id)
-    old_name = ch.get("name", "")
-    old_app = ch.get("appearance", "")
-    old_type = ch.get("entity_type", "character")
-    if req.name is not None:
-        ch["name"] = req.name.strip() or ch["name"]
-    if req.appearance is not None:
-        ch["appearance"] = req.appearance.strip()
-    if req.entity_type is not None:
-        ch["entity_type"] = req.entity_type.strip().lower()
-    if ch.get("name", "") != old_name or ch.get("appearance", "") != old_app or ch.get("entity_type", "character") != old_type:
-        img = character_image_path(job_dir, char_id)
-        if img.is_file():
-            img.unlink(missing_ok=True)
-        legacy_hero = legacy_hero_path(job_dir)
-        if legacy_hero.is_file():
-            legacy_hero.unlink(missing_ok=True)
-    persist_characters_on_anchors(v_anchors, characters)
-    _save_job_cfg(job_dir, cfg)
-    return _anchors_response(job_id, job_dir, cfg)
-
-
-@router.delete("/{job_id}/anchors/characters/{char_id}", response_model=JobVisualAnchorsResponse)
-def delete_character_anchor(job_id: str, char_id: str) -> JobVisualAnchorsResponse:
-    job_dir = JOBS_DIR / job_id
-    if not job_dir.is_dir():
-        raise HTTPException(status_code=404, detail="專案不存在")
-    cfg = _load_job_cfg(job_dir)
-    v_anchors = _ensure_visual_anchors(cfg)
-    characters = [ch for ch in ensure_characters(v_anchors) if ch["id"] != char_id]
-    img = character_image_path(job_dir, char_id)
-    if img.is_file():
-        img.unlink(missing_ok=True)
-    persist_characters_on_anchors(v_anchors, characters)
-    _save_job_cfg(job_dir, cfg)
-    return _anchors_response(job_id, job_dir, cfg)
-
-
-@router.post("/{job_id}/anchors/characters/{char_id}/hero", response_model=JobVisualAnchorsResponse)
-def generate_character_hero(job_id: str, char_id: str) -> JobVisualAnchorsResponse:
-    job_dir = JOBS_DIR / job_id
-    if not job_dir.is_dir():
-        raise HTTPException(status_code=404, detail="專案不存在")
-    cfg = _load_job_cfg(job_dir)
-    v_anchors = _ensure_visual_anchors(cfg)
-    characters = ensure_characters(v_anchors)
-    ch = _find_character(characters, char_id)
-    try:
-        _generate_one_character_sheet(job_dir, cfg, ch)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Gemini 定裝圖生成失敗: {str(e)}")
-    persist_characters_on_anchors(v_anchors, characters)
-    v_anchors["use_image_reference"] = True
-    _save_job_cfg(job_dir, cfg)
-    return _anchors_response(job_id, job_dir, cfg)
-
-
-@router.post("/{job_id}/anchors/characters/{char_id}/hero/upload")
-async def upload_character_hero(job_id: str, char_id: str, file: UploadFile = File(...)):
-    job_dir = JOBS_DIR / job_id
-    if not job_dir.is_dir():
-        raise HTTPException(status_code=404, detail="專案不存在")
-    cfg = _load_job_cfg(job_dir)
-    v_anchors = _ensure_visual_anchors(cfg)
-    characters = ensure_characters(v_anchors)
-    _find_character(characters, char_id)
-    dest = character_image_path(job_dir, char_id)
-    dest.parent.mkdir(parents=True, exist_ok=True)
-    dest.write_bytes(await file.read())
-    persist_characters_on_anchors(v_anchors, characters)
-    v_anchors["use_image_reference"] = True
-    _save_job_cfg(job_dir, cfg)
-    return _anchors_response(job_id, job_dir, cfg)
-
-
-@router.delete("/{job_id}/anchors/characters/{char_id}/hero", response_model=JobVisualAnchorsResponse)
-def delete_character_hero(job_id: str, char_id: str) -> JobVisualAnchorsResponse:
-    job_dir = JOBS_DIR / job_id
-    if not job_dir.is_dir():
-        raise HTTPException(status_code=404, detail="專案不存在")
-    img = character_image_path(job_dir, char_id)
-    if img.is_file():
-        img.unlink(missing_ok=True)
-    return _anchors_response(job_id, job_dir)
-
-
-@router.post("/{job_id}/anchors/sync-prompts")
-def sync_job_prompts(job_id: str):
-    """依據最新角色／環境錨點與專案生圖風格，重新批次產生全片分鏡英文出圖提示詞。"""
-    job_dir = JOBS_DIR / job_id
-    if not job_dir.is_dir():
-        raise HTTPException(status_code=404, detail="專案不存在")
-
-    cfg = _load_job_cfg(job_dir)
-    v_anchors = cfg.get("visual_anchors", {}) if isinstance(cfg.get("visual_anchors"), dict) else {}
-    characters = ensure_characters(v_anchors)
-    sub = v_anchors.get("subject", "") or compose_subject_anchor(characters)
-    env = v_anchors.get("environment", "")
-
-    updated_count = regenerate_job_scene_prompts(
-        job_dir=job_dir,
-        subject_anchor=sub,
-        environment_anchor=env,
-        characters=characters,
-    )
-    return {
-        "success": True,
-        "message": f"已依專案風格與最新視覺錨點同步更新全片 {updated_count} 場分鏡之英文提示詞",
-        "updated_count": updated_count,
-    }
+from aivideo.api.routes.anchors import (
+    add_character_anchor,
+    analyze_script_anchors,
+    delete_character_anchor,
+    delete_character_hero,
+    delete_hero_anchor,
+    generate_character_hero,
+    generate_hero_anchor,
+    get_job_anchors,
+    patch_character_anchor,
+    sync_job_prompts,
+    update_job_anchors,
+    upload_character_hero,
+    upload_hero_anchor,
+)
 
 
 @router.patch("/{job_id}", response_model=JobSummary)
@@ -808,7 +506,7 @@ def update_job(job_id: str, req: UpdateJobRequest) -> JobSummary:
 
 @router.post("/{job_id}/recut", response_model=JobSummary)
 def recut_job(job_id: str, req: RecutJobRequest) -> JobSummary:
-    """依目前（或傳入）口白重切分鏡。同 id 保留 takes；多餘鏡頭資料夾刪除。"""
+    """依目前（或傳入）口白清空舊分鏡與舊成片，重新切分鏡並寫入全新 scene.yaml。"""
     from aivideo.scene_cut import apply_scene_cut
     from aivideo.visual_anchors import compose_subject_anchor, ensure_characters
 
@@ -825,6 +523,15 @@ def recut_job(job_id: str, req: RecutJobRequest) -> JobSummary:
         raise HTTPException(status_code=400, detail="沒有可切鏡的口白")
 
     (job_dir / "script.md").write_text(script, encoding="utf-8")
+
+    # 第一時間先清空舊 scenes 與舊 compose 成片，確保不殘留任何舊圖、舊音或舊分鏡
+    scenes_dir = job_dir / "scenes"
+    if scenes_dir.is_dir():
+        shutil.rmtree(scenes_dir, ignore_errors=True)
+    scenes_dir.mkdir(parents=True, exist_ok=True)
+    compose_dir = job_dir / "compose"
+    if compose_dir.is_dir():
+        shutil.rmtree(compose_dir, ignore_errors=True)
 
     cfg = _load_job_cfg(job_dir)
     v_anchors = cfg.get("visual_anchors", {}) if isinstance(cfg.get("visual_anchors"), dict) else {}
@@ -844,7 +551,7 @@ def recut_job(job_id: str, req: RecutJobRequest) -> JobSummary:
         characters=characters,
         outline=str(cfg.get("outline") or ""),
     )
-    apply_scene_cut(job_dir, scenes_data)
+    apply_scene_cut(job_dir, scenes_data, clear_existing=True)
     if req.visual_pacing:
         cfg["visual_pacing"] = req.visual_pacing
         _save_job_cfg(job_dir, cfg)

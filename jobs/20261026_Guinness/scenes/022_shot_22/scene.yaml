@@ -1,0 +1,37 @@
+id: 022_shot_22
+index: 22
+title: 金鴴在全速飛行時的最高時速大約是
+narration: 金鴴在全速飛行時的最高時速大約是每小時九十六公里，在整個歐洲的常規獵鳥當中確實算得上是快如閃電，而紅松雞在順風俯衝條件下的極限速度也確實不遑多讓，但最關鍵的是真正的歐洲最快野鳥其實是赤胸沙鴨等水鳥，[surprise-oh]，
+image_prompt: 'dynamic wide-angle tracking shot in 2D cartoon illustration style,
+  anime chibi aesthetic with bold clean outlines and vivid cell shading. A dramatic
+  sky-level race between European wild birds: a golden plover with mottled gold and
+  brown feathers flying with rapid wingbeats across overcast skies, a red grouse diving
+  at breakneck speed over Scottish heather moorlands, and a sleek red-breasted merganser
+  duck with spiked crest zooming ahead across a sparkling blue river. Stylized anime-style
+  wind speed lines and motion trails emphasize their supersonic bird race, vibrant
+  outdoor color palette, 16:9 widescreen composition.'
+character_ids: []
+act_index: 4
+act_title: 倫敦閣樓的瘋狂搜查
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261027T121856
+  image_take: image_20261027T121616
+pip:
+  enabled: true
+  media_type: image
+  image: pip.png
+  video: null
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Red-breasted merganser Mergus serrator ornithology illustration
+  source_title: File:Red-breasted Merganser female (Mergus serrator), Barnegat Inlet,
+    New Jersey, USA.jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/3/3b/Red-breasted_Merganser_female_%28Mergus_serrator%29%2C_Barnegat_Inlet%2C_New_Jersey%2C_USA.jpg
+  verified: true
+  review_reason: 清晰呈現飛行中的赤胸秋沙鴨，符合旁白提及的最快野鳥物種。

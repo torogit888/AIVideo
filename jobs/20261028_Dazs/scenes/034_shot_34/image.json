@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261028T105756",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 44043138,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background, 16:9 widescreen composition. Wide establishing shot inside a sleek 1980s corporate skyscraper boardroom with panoramic floor-to-ceiling windows overlooking the Manhattan skyline. Reuben Mattus, in chibi 2D anime style with 3-head-tall proportions, slicked-back hair with silver temples, and a neat vintage mustache, wears a tailored charcoal business suit and holds a large acquisition check, sharing a polite handshake with a chibi corporate executive in a navy pinstripe suit. On the center of the gleaming mahogany conference table rests a single luxury ice cream pint with gold filigree and deep burgundy packaging, displayed proudly beneath crystal chandeliers., 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-28T10:57:56.256943+00:00"
+}

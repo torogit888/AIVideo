@@ -1,0 +1,58 @@
+{
+  "take_id": "speech_20261028T102903",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 19.4,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "市面上普通冰淇淋的膨脹率普遍高達百分之五十甚至百分之百",
+      "text_cn": "市面上普通冰淇淋的膨胀率普遍高达百分之五十甚至百分之百",
+      "start_sec": 0.0,
+      "end_sec": 5.56,
+      "duration_sec": 5.56
+    },
+    {
+      "index": 2,
+      "text": "這意味著消費者買到的一整盒冰淇淋裡",
+      "text_cn": "这意味着消费者买到的一整盒冰淇淋里",
+      "start_sec": 5.81,
+      "end_sec": 9.37,
+      "duration_sec": 3.56
+    },
+    {
+      "index": 3,
+      "text": "有一半以上純粹是昂貴的壓縮空氣",
+      "text_cn": "有一半以上纯粹是昂贵的压缩空气",
+      "start_sec": 9.62,
+      "end_sec": 12.78,
+      "duration_sec": 3.16
+    },
+    {
+      "index": 4,
+      "text": "說白了你花錢買的根本不是奶製品",
+      "text_cn": "说白了你花钱买的根本不是奶制品",
+      "start_sec": 13.03,
+      "end_sec": 16.19,
+      "duration_sec": 3.16
+    },
+    {
+      "index": 5,
+      "text": "而是被急凍起來的甜味化學泡沫",
+      "text_cn": "而是被急冻起来的甜味化学泡沫",
+      "start_sec": 16.44,
+      "end_sec": 19.4,
+      "duration_sec": 2.96
+    }
+  ],
+  "created_at": "2026-10-28T10:29:03.287492+00:00"
+}

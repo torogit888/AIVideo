@@ -1,0 +1,21 @@
+id: 003_shot_3
+index: 3
+title: 那時候既沒有網際網路也沒有隨手可
+narration: 那時候既沒有網際網路也沒有隨手可查的電腦資料庫，整個社會處於極度封閉且資訊匱乏的舊時代傳媒環境，
+image_prompt: medium wide shot of an old municipal archive and newspaper library in
+  2D cartoon illustration, anime art style, chibi proportions, clean line art, cel
+  shading, flat colors. An anonymous studious clerk scratching his head amidst towering
+  wooden card-catalogue drawers, enormous stacks of printed vintage broadsheets, and
+  floor-to-ceiling rows of dusty brown reference volumes under a brass desk lamp,
+  capturing a pre-digital era devoid of computers, crisp details, warm parchment tones,
+  16:9 widescreen composition
+character_ids: []
+act_index: 1
+act_title: 荒野脫靶與致命爭辯
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261027T105752
+  image_take: image_20261027T105739

@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261027T115111",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 20.98,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "休比弗爵士敏銳地嗅到了一個極其詭異的商業痛點",
+      "text_cn": "休比弗爵士敏锐地嗅到了一个极其诡异的商业痛点",
+      "start_sec": 0.0,
+      "end_sec": 4.55,
+      "duration_sec": 4.55
+    },
+    {
+      "index": 2,
+      "text": "全英國每週都有數以千計的酒客因為無謂的爭論受傷被拘留",
+      "text_cn": "全英国每周都有数以千计的酒客因为无谓的争论受伤被拘留",
+      "start_sec": 4.8,
+      "end_sec": 10.16,
+      "duration_sec": 5.36
+    },
+    {
+      "index": 3,
+      "text": "各大酒館的桌椅和營業秩序更是蒙受了嚴重的實質損失",
+      "text_cn": "各大酒馆的桌椅和营业秩序更是蒙受了严重的实直损失",
+      "start_sec": 10.41,
+      "end_sec": 15.37,
+      "duration_sec": 4.96
+    },
+    {
+      "index": 4,
+      "text": "所有暴力衝突的底層邏輯竟然全卡在事實查無可考的死穴上",
+      "text_cn": "所有暴力冲图的底层逻辑竟然全卡在事实查无可考的死穴上",
+      "start_sec": 15.62,
+      "end_sec": 20.98,
+      "duration_sec": 5.36
+    }
+  ],
+  "created_at": "2026-10-27T11:51:11.298326+00:00"
+}

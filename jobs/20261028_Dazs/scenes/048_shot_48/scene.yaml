@@ -1,0 +1,23 @@
+id: 048_shot_48
+index: 48
+title: 今天
+narration: '[confirmation-en]今天，當所有的資訊壁壘都被行動網路無情戳破之後，哈根達斯終於走下了神壇，'
+image_prompt: medium close-up shot of a modern casual chibi teenager sitting at a
+  brightly lit contemporary cafe table, in crisp 2D anime cell-shading style. The
+  teen glances thoughtfully at a glowing smartphone screen displaying colorful informational
+  charts and social media feeds, dispelling mystique. On the wooden table beside a
+  regular cup of iced coffee sits a standard inanimate luxury_ice_cream_pint container,
+  looking like an ordinary everyday dessert. Soft natural daylight streaming through
+  floor-to-ceiling glass windows, clean minimal cafe interior, balanced vibrant colors,
+  16:9 widescreen composition.
+character_ids:
+- luxury_ice_cream_pint
+image_negative: ''
+act_index: 7
+act_title: 神話瓦解後的時代餘韻：我們究竟在為甚麼買單？
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261028T112308
+  image_take: image_20261028T112257

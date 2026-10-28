@@ -1,0 +1,36 @@
+id: 002_shot_2
+index: 2
+title: 回到當時那個風雲變幻的大環境來看
+narration: 回到當時那個風雲變幻的大環境來看，一九五一年第二次世界大戰剛結束沒幾年，整個歐洲大陸還深深籠罩在冷戰初期的陰影之下，大英帝國甚至還處在物資配給尚未完全解除的蕭條期，
+image_prompt: wide establishing shot of a 1951 post-war British street scene in 2D
+  cartoon illustration, anime art style, chibi characters, clean line art, cel shading,
+  flat colors, cute mobile game UI art. Red brick Victorian terraced houses and a
+  modest grocery store under a soft slate-grey overcast sky, a polite queue of anonymous
+  chibi Londoners wearing 1950s trench coats, knitted mufflers, and flat caps holding
+  ration books, distant industrial chimneys puffing stylized smoke puffs, single coherent
+  scene, rich vintage slate and brick-red palette, 16:9 widescreen composition
+character_ids: []
+act_index: 1
+act_title: 荒野脫靶與致命爭辯
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261027T105704
+  image_take: image_20261027T105654
+pip:
+  enabled: true
+  media_type: image
+  image: pip.png
+  video: null
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Post-war British food rationing queue 1951
+  source_title: File:Britain Queues For Food- Rationing and Food Shortages in Wartime,
+    London, England, UK, 1945 D24983.jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/d/db/Britain_Queues_For_Food-_Rationing_and_Food_Shortages_in_Wartime%2C_London%2C_England%2C_UK%2C_1945_D24983.jpg
+  verified: true
+  review_reason: 影像真實記錄英國排隊領取配給物資，符合旁白歷史情境。

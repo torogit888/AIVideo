@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261028T112525",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 9.45,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "只是在那個荒誕的消費主義年代，哪怕你把產品做得再好",
+      "text_cn": "只是在那个荒诞的消费主义年代，哪怕你把产品做得再好",
+      "start_sec": 0.0,
+      "end_sec": 5.0,
+      "duration_sec": 5.0
+    },
+    {
+      "index": 2,
+      "text": "如果沒有那層虛偽的貴族包裝，大眾就絕不買單",
+      "text_cn": "如果没有那层虚伪的贵族包装，大众就绝不买单",
+      "start_sec": 5.25,
+      "end_sec": 9.45,
+      "duration_sec": 4.2
+    }
+  ],
+  "created_at": "2026-10-28T11:25:25.038294+00:00"
+}

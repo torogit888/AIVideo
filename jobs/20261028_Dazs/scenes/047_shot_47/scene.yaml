@@ -1,0 +1,35 @@
+id: 047_shot_47
+index: 47
+title: 一九九四年
+narration: 一九九四年，八十一歲的魯本在佛羅里達州因心臟病平靜離世，從布朗克斯街頭雙手凍裂的波蘭遺腹子，到坐擁億萬財富的商業傳奇，直到臨終之前，他都對自己當年坐在沙發上捏造丹麥外文單詞的惡作劇津津樂道，
+image_prompt: medium warm shot inside a cozy Florida sunroom filled with potted palms
+  and golden afternoon light, in 2D chibi anime illustration style with cell shading.
+  Elderly chibi reuben_mattus, an 81-year-old man with silver-white slicked-back hair,
+  neat vintage mustache, and kind expressive wrinkles, relaxes comfortably in a plush
+  armchair wearing a soft pale linen collared shirt and cozy trousers. He chuckles
+  warmly with a playful, mischievous glint in his eyes, holding an antique notepad
+  and pen while gazing out the large arched window toward lush green tropical palm
+  fronds. Gentle golden hour lighting, peaceful and nostalgic mood, crisp outlines,
+  16:9 widescreen composition.
+character_ids:
+- reuben_mattus
+image_negative: ''
+act_index: 7
+act_title: 神話瓦解後的時代餘韻：我們究竟在為甚麼買單？
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261028T112222
+  image_take: image_20261028T112211
+pip:
+  enabled: false
+  media_type: image
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Reuben Mattus
+  fetch_error: 沒抓到圖/影片：搜尋「Reuben Mattus」無相符結果
+  rejected_candidates: []

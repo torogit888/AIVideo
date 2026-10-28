@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261028T103424",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 42434088,
+  "prompt": "wide establishing shot in (masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background. Outside an ornate French-style luxury restaurant on a bustling 1960s New York street, chibi Reuben Mattus stands observing in a vintage trench coat with a sharp, calculating gaze. Sophisticated middle-class chibi patrons in elegant suits and dresses crowd around velvet ropes to pay exorbitant prices for European imported cuisine, passing right by a nearby cheap American fast food neon sign, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-28T10:34:24.419675+00:00"
+}

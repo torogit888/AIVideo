@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261027T114423",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.99,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "到了當天晚上的莊園聚餐為了給自己挽回顏面",
+      "text_cn": "到了当天晚上的庄园聚餐为了给自己挽回颜面",
+      "start_sec": 0.0,
+      "end_sec": 4.16,
+      "duration_sec": 4.16
+    },
+    {
+      "index": 2,
+      "text": "爵士堅稱剛才飛過去的是全歐洲速度最快的金鴴",
+      "text_cn": "爵士坚称刚才飞过去的是全欧洲速度最快的金鸻",
+      "start_sec": 4.41,
+      "end_sec": 8.77,
+      "duration_sec": 4.36
+    },
+    {
+      "index": 3,
+      "text": "但同行身邊的獵友立刻放下酒杯反唇相譏",
+      "text_cn": "但同行身边的猎友立刻放下酒杯反唇相讥",
+      "start_sec": 9.02,
+      "end_sec": 12.78,
+      "duration_sec": 3.76
+    },
+    {
+      "index": 4,
+      "text": "嘲笑並堅稱紅松雞的飛行速度遠在金鴴之上",
+      "text_cn": "嘲笑并坚称红松鸡的飞行速度远在金鸻之上",
+      "start_sec": 13.03,
+      "end_sec": 16.99,
+      "duration_sec": 3.96
+    }
+  ],
+  "created_at": "2026-10-27T11:44:23.558497+00:00"
+}

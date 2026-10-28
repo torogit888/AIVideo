@@ -1,0 +1,25 @@
+id: 029_shot_29
+index: 29
+title: 爭吵的核心瞬間有了白紙黑字且不可
+narration: 爭吵的核心瞬間有了白紙黑字且不可撼動的權威標準，原本一場注定要見血的流血群毆在翻開書頁的剎那煙消雲散，這本降維打擊的權威手冊徹底改寫了英國酒館的社交文化，
+image_prompt: wide shot in 2D cartoon illustration style, anime chibi aesthetic with
+  clean line art and warm cel shading. Inside a cozy, crowded 1950s British neighborhood
+  pub, comical chibi pub patrons in suspenders and flat caps gather around the dark
+  oak bar counter, completely transfixed as they lean in together to read the open
+  pages of the chained green record book. Their former angry scowls have turned into
+  comical sheepish grins and scratching of heads. Pints of stout and half-empty glasses
+  rest safely on the bar, cozy amber lamps, patterned pub wallpaper, 16:9 widescreen
+  composition.
+character_ids:
+- british_pub_patron
+- guinness_record_book_1955
+- vintage_guinness_pint_bottle
+act_index: 5
+act_title: 平息群毆的酒館小冊
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261027T124950
+  image_take: image_20261027T124939

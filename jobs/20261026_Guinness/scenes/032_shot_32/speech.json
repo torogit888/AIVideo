@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261027T130000",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 21.59,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "隨著麥克沃特兄弟獨創的人肉記憶圖書館時代逐漸終結",
+      "text_cn": "随着麦克沃特兄弟独创的人肉记忆图书馆时代逐渐终结",
+      "start_sec": 0.0,
+      "end_sec": 4.96,
+      "duration_sec": 4.96
+    },
+    {
+      "index": 2,
+      "text": "事情的發展開始徹底朝著匪夷所思的畸形方向一路狂奔",
+      "text_cn": "事情的发展开始彻底朝着匪夷所思的畸形方向一路狂奔",
+      "start_sec": 5.21,
+      "end_sec": 10.17,
+      "duration_sec": 4.96
+    },
+    {
+      "index": 3,
+      "text": "當人們發現只要自己的名字印在上面就能一夜成名獲取暴利",
+      "text_cn": "当人们发现只要自己的名字印在上面就能一夜成名获取暴利",
+      "start_sec": 10.42,
+      "end_sec": 15.78,
+      "duration_sec": 5.36
+    },
+    {
+      "index": 4,
+      "text": "世界上最嚴謹的求真精神迅速異化成了一場荒誕的馬戲團狂歡",
+      "text_cn": "世界上最严谨的求真精神迅速异化成了一场荒诞的马戏团狂欢",
+      "start_sec": 16.03,
+      "end_sec": 21.59,
+      "duration_sec": 5.56
+    }
+  ],
+  "created_at": "2026-10-27T13:00:00.531058+00:00"
+}

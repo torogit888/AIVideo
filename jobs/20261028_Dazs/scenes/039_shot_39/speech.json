@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261028T110709",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.42,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "這場大衛對抗歌利亞的公關戰迅速點燃全美怒火",
+      "text_cn": "这场大卫对抗歌利雅的公关战迅速点燃全美怒火",
+      "start_sec": 0.0,
+      "end_sec": 4.36,
+      "duration_sec": 4.36
+    },
+    {
+      "index": 2,
+      "text": "消費者紛紛打爆巨頭總部電話抗議",
+      "text_cn": "消费者纷纷打爆巨头总部电话抗议",
+      "start_sec": 4.61,
+      "end_sec": 7.77,
+      "duration_sec": 3.16
+    },
+    {
+      "index": 3,
+      "text": "在聯邦反壟斷調查的重壓之下，皮爾斯伯里最終狼狽不堪地撤銷了封殺令",
+      "text_cn": "在联邦反垄断调查的重压之下，皮尔斯伯里最终狼狈不堪地撤销了封杀令",
+      "start_sec": 8.02,
+      "end_sec": 14.42,
+      "duration_sec": 6.4
+    }
+  ],
+  "created_at": "2026-10-28T11:07:09.501549+00:00"
+}

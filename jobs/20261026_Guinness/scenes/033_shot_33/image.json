@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261027T130039",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 13793526,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background\nVibrant contrasting color palettes, crisp details throughout, expressive chibi faces, rich background props., wide panoramic view of a humorous chibi indoor competition arena filled with extreme challenge demonstrations in (masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background. In one corner, a comically exhausted chibi man with spiral eyes is surrounded by ticking alarm clocks; in the center, an eccentric chibi stuntman comically nibbles on the chrome handlebar of an intact metal bicycle while a crowd gasps; on the right, an overly rotund chibi feaster sits before towering stacks of giant cartoon pancakes, all rendered with bold outlines, dynamic comic sweat drops, and vibrant cel-shaded colors, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-27T13:00:39.363635+00:00"
+}

@@ -87,7 +87,7 @@ export const Topbar: React.FC = () => {
       ? pipelineCooldown
       : Number((pipelineMessage || "").match(/冷卻(?:倒數)?\s*(\d+)/)?.[1] || 0);
 
-  const nextStep = primaryPipelineAction(readyImages, readyAudio, totalScenes, hasFilm);
+  const nextStep = primaryPipelineAction(readyImages, readyAudio, totalScenes, hasFilm, isFilmStale);
 
   const handlePrimaryAction = async () => {
     if (!selectedJobId) return;
@@ -100,7 +100,9 @@ export const Topbar: React.FC = () => {
       return;
     }
     const starting =
-      nextStep.action === "images"
+      nextStep.action === "all"
+        ? "正在啟動一鍵全流程（出圖+考據 ➔ 配音 ➔ 合成成片）..."
+        : nextStep.action === "images"
         ? "正在補齊未完成畫面..."
         : nextStep.action === "tts"
         ? "正在生成配音..."
@@ -111,6 +113,17 @@ export const Topbar: React.FC = () => {
     } catch (e: any) {
       setPipelineRunning(false, 0, "");
       showToast("啟動流程失敗: " + (e.message || "未知錯誤"), "error");
+    }
+  };
+
+  const handleRunFullPipeline = async () => {
+    if (!selectedJobId) return;
+    setPipelineRunning(true, 5, "正在啟動一鍵全流程（出圖+考據 ➔ 配音 ➔ 合成成片）...");
+    try {
+      await api.runPipeline(selectedJobId, "all", false, burnSubtitles);
+    } catch (e: any) {
+      setPipelineRunning(false, 0, "");
+      showToast("啟動一鍵全流程失敗: " + (e.message || "未知錯誤"), "error");
     }
   };
 
@@ -381,15 +394,11 @@ export const Topbar: React.FC = () => {
             }`}
             title={
               nextStep.action === "preview"
+                ? "成片已就緒，點擊前往預覽成片"
+                : nextStep.action === "all"
                 ? isFilmStale
-                  ? "成片已過期（自上次合成後曾修改過口白或素材，建議重新合成），點擊仍可預覽目前成片"
-                  : "成片已就緒，點擊前往預覽成片"
-                : nextStep.action === "images"
-                ? "還有鏡頭沒有畫面，先補齊這些畫面"
-                : nextStep.action === "tts"
-                ? "畫面已齊，接著產生還沒有的配音"
-                : nextStep.action === "compose"
-                ? "圖和聲音都齊了，合成 1080p 成片"
+                  ? "素材或口白已更新，點擊一鍵補齊缺漏並重新合成 1080p 成片"
+                  : "一鍵自動執行：出圖（含考據 PiP / 考據影片）➔ 配音出聲 ➔ 合成 1080p 成片"
                 : "還沒有分鏡，先回到腳本"
             }
           >
@@ -399,9 +408,9 @@ export const Topbar: React.FC = () => {
               <Sparkles className="w-3.5 h-3.5 mr-1.5" />
             )}
             <span>{nextStep.label}</span>
-            {nextStep.action === "preview" && isFilmStale && (
+            {isFilmStale && (
               <span className="ml-1.5 px-1.5 py-0.5 rounded bg-amber-950/90 text-amber-300 border border-amber-500/60 text-[10px] font-bold leading-none">
-                已過期
+                待重合成
               </span>
             )}
           </button>
@@ -421,6 +430,13 @@ export const Topbar: React.FC = () => {
             >
               {currentTab === "storyboard" && selectedJobId && (
                 <>
+                  <button
+                    className="w-full text-left flex items-center px-3 py-1.5 hover:bg-cinema-cardHover hover:text-amber-cta"
+                    onClick={() => runOverflow(handleRunFullPipeline)}
+                  >
+                    <Sparkles className="w-3.5 h-3.5 mr-2 text-amber-cta" />
+                    一鍵全流程 (圖/考據/聲/片)
+                  </button>
                   <button
                     className="w-full text-left px-3 py-1.5 hover:bg-cinema-cardHover hover:text-amber-cta"
                     onClick={() => {

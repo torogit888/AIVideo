@@ -1,0 +1,41 @@
+id: 031_shot_31
+index: 31
+title: 這份巨大的商業成功背後也伴隨著殘
+narration: 這份巨大的商業成功背後也伴隨著殘酷的血腥陰影， [sigh]，一九七五年聯合創始人羅斯麥克沃特在自家門口遭到暗殺身亡，給這項原本純粹的求真事業蒙上了冷戰時期的政治暴力陰影，
+image_prompt: wide establishing shot of a cold, misty 1970s suburban London townhouse
+  doorway at twilight in (masterpiece, best quality:1.2), 2D cartoon illustration,
+  anime art style, chibi characters, clean line art, cell shading, flat colors, cute
+  mobile game UI art, visual novel style, crisp details, vibrant and cheerful color
+  palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle
+  coherent view, one main environment, highly detailed and intricate background. One
+  of the chibi 2.5-head-tall Norris & Ross McWhirter twins stands by the brick entrance
+  in his tailored charcoal-grey 1950s office suit and round wireframe spectacles,
+  holding a vintage leather briefcase, turning with an alert, startled chibi expression.
+  The London street behind him features glowing vintage streetlamps, foggy blue-grey
+  twilight, and dramatic noir-style cartoon shadow silhouetting a vintage getaway
+  car turning a distant foggy corner, clean graphic outlines, 16:9 widescreen composition
+character_ids:
+- mcwhirter_twins
+act_index: 5
+act_title: 平息群毆的酒館小冊
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261027T125927
+  image_take: null
+pip:
+  enabled: true
+  media_type: image
+  image: pip.png
+  video: null
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Ross McWhirter assassination newspaper front page 1975
+  source_title: Ross McWhirter
+  source_url: https://upload.wikimedia.org/wikipedia/en/f/f8/Ross_McWhirter.jpg
+  verified: true
+  review_reason: 圖片為旁白提及之聯合創始人羅斯麥克沃特本人肖像。

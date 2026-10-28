@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261028T112324",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 84504908,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background\nVibrant contrasting color palettes, crisp details throughout, expressive chibi faces, rich background props., wide angle street view of a modern downtown city avenue under an overcast afternoon sky, in 2D cartoon anime illustration with clean line art. A once-glamorous corner flagship store now displays clear windows, dismantled interior fittings, and a quiet moving crew loading simple brown cardboard boxes into a standard truck. Nearby, a cozy, modest neighborhood dessert counter operates normally with casual customers grabbing simple cones and cups. Balanced and peaceful transition of urban life, detailed building facades, soft muted cell-shaded colors, 16:9 widescreen composition., 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-28T11:23:24.640062+00:00"
+}

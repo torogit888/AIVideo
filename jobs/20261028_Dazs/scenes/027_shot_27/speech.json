@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261028T104942",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.21,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "蘿絲每天特意穿上雍容華貴的高級皮草大衣",
+      "text_cn": "萝丝每天特意穿上雍容华贵的高级皮草大衣",
+      "start_sec": 0.0,
+      "end_sec": 3.96,
+      "duration_sec": 3.96
+    },
+    {
+      "index": 2,
+      "text": "戴著閃閃發光的珠寶首飾，親自駕駛一輛破舊且沒有空調的二手冷藏小貨車，避開了所有的常規超級市場",
+      "text_cn": "戴着闪闪发光的珠宝首饰，亲自驾驶一辆破旧且没有空调的二手冷藏小货车，避开了所有的常规超级市场",
+      "start_sec": 4.21,
+      "end_sec": 13.21,
+      "duration_sec": 9.0
+    }
+  ],
+  "created_at": "2026-10-28T10:49:42.200218+00:00"
+}

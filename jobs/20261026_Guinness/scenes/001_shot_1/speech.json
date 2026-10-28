@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261027T105622",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.06,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "大家好，我是白兔！你去歐洲那些歷史悠久的酒館喝酒時",
+      "text_cn": "大家好，我是白兔！你去欧洲那些历史悠久的酒馆喝酒时",
+      "start_sec": 0.0,
+      "end_sec": 4.84,
+      "duration_sec": 4.84
+    },
+    {
+      "index": 2,
+      "text": "有沒有想過世界上最權威的那本紀錄大全",
+      "text_cn": "有没有想过世界上最权威的那本纪录大全",
+      "start_sec": 5.09,
+      "end_sec": 8.85,
+      "duration_sec": 3.76
+    },
+    {
+      "index": 3,
+      "text": "最初竟然源於一隻飛得太快而沒被打中的野鳥？[question-ei]",
+      "text_cn": "最初竟然源于一只飞得太快而没被打中的野鸟？[question-ei]",
+      "start_sec": 9.1,
+      "end_sec": 14.06,
+      "duration_sec": 4.96
+    }
+  ],
+  "created_at": "2026-10-27T10:56:22.472013+00:00"
+}

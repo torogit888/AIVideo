@@ -42,6 +42,15 @@ export interface JobDetail {
   outline?: string | null;
 }
 
+export interface PipRejectedItem {
+  title: string;
+  url: string;
+  thumbnail_url?: string | null;
+  source?: string;
+  media_type?: "image" | "video" | string;
+  reason?: string | null;
+}
+
 export interface SceneStatus {
   has_image: boolean;
   has_audio: boolean;
@@ -51,6 +60,7 @@ export interface SceneStatus {
   audio_url: string | null;
   pip_url?: string | null;
   pip_video_url?: string | null;
+  pip_rejected_url?: string | null;
   duration: number;
 }
 
@@ -69,6 +79,7 @@ export interface ScenePipConfig {
   fetch_error?: string | null;
   verified?: boolean;
   review_reason?: string | null;
+  rejected_candidates?: PipRejectedItem[];
 }
 
 export interface SceneSummary {
@@ -85,6 +96,7 @@ export interface SceneSummary {
   pip_enabled?: boolean;
   pip_mode?: "pip" | "spotlight" | "broll";
   pip_error?: string | null;
+  pip_rejected?: PipRejectedItem[];
   locks?: { speech: boolean; image: boolean };
   status: SceneStatus;
 }

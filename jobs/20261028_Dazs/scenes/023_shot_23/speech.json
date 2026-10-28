@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261028T104525",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 12.37,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "但魯本完全不在乎語言學的真偽，他堂而皇之地在包裝盒頂端印上一整張丹麥地圖",
+      "text_cn": "但鲁本完全不在乎语言学的真伪，他堂而皇之地在包装盒顶端印上一整张丹麦地图",
+      "start_sec": 0.0,
+      "end_sec": 7.16,
+      "duration_sec": 7.16
+    },
+    {
+      "index": 2,
+      "text": "甚至還厚顏無恥地印上哥本哈根古法傳統配方的宣傳語",
+      "text_cn": "甚至还厚颜无耻地印上哥本哈根古法传统配方的宣传语",
+      "start_sec": 7.41,
+      "end_sec": 12.37,
+      "duration_sec": 4.96
+    }
+  ],
+  "created_at": "2026-10-28T10:45:25.499068+00:00"
+}

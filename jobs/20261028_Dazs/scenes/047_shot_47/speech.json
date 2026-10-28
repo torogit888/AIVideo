@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261028T112222",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 19.27,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "一九九四年，八十一歲的魯本在佛羅里達州因心臟病平靜離世",
+      "text_cn": "一九九四年，八十一岁的鲁本在佛罗里达州因心脏病平静离世",
+      "start_sec": 0.0,
+      "end_sec": 5.4,
+      "duration_sec": 5.4
+    },
+    {
+      "index": 2,
+      "text": "從布朗克斯街頭雙手凍裂的波蘭遺腹子",
+      "text_cn": "从布朗克斯街头双手冻裂的波兰遗腹子",
+      "start_sec": 5.65,
+      "end_sec": 9.21,
+      "duration_sec": 3.56
+    },
+    {
+      "index": 3,
+      "text": "到坐擁億萬財富的商業傳奇，直到臨終之前",
+      "text_cn": "到坐拥亿万财富的商业传奇，直到临终之前",
+      "start_sec": 9.46,
+      "end_sec": 13.26,
+      "duration_sec": 3.8
+    },
+    {
+      "index": 4,
+      "text": "他都對自己當年坐在沙發上捏造丹麥外文單詞的惡作劇津津樂道",
+      "text_cn": "他都对自己当年坐在沙发上捏造丹麦外文单词的恶作剧津津乐道",
+      "start_sec": 13.51,
+      "end_sec": 19.27,
+      "duration_sec": 5.76
+    }
+  ],
+  "created_at": "2026-10-28T11:22:22.408339+00:00"
+}

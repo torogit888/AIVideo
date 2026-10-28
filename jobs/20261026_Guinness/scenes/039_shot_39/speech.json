@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261027T132247",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.82,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "正是這份看似滑稽可笑的較真推動著人類去丈量深海探索星空",
+      "text_cn": "正是这份看似滑稽可笑的较真推动着人类去丈量深海探索星空",
+      "start_sec": 0.0,
+      "end_sec": 5.56,
+      "duration_sec": 5.56
+    },
+    {
+      "index": 2,
+      "text": "[confirmation-en]，麥克沃特兄弟用精確的數字給混沌的世界畫上了清晰刻度",
+      "text_cn": "[confirmation-en]，麦克沃特兄弟用精确的数字给混沌的世界画上了清晰刻度",
+      "start_sec": 5.81,
+      "end_sec": 12.01,
+      "duration_sec": 6.2
+    },
+    {
+      "index": 3,
+      "text": "但人類卻永遠在打破這些刻度的偏執當中步履不停",
+      "text_cn": "但人类却永远在打破这些刻度的偏执当中步履不停",
+      "start_sec": 12.26,
+      "end_sec": 16.82,
+      "duration_sec": 4.56
+    }
+  ],
+  "created_at": "2026-10-27T13:22:47.421493+00:00"
+}

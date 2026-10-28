@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261028T104548",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 38718330,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background\nVibrant contrasting color palettes, crisp details throughout, expressive chibi faces, rich background props., hero low-angle shot, chibi 2D anime style, clean line art, bold cell shading, cute game UI illustration. A luxury ice cream pint container sits regally atop a polished marble pedestal draped in royal crimson velvet, surrounded by sparkling gold stars and decorative Nordic scrollwork banners. The cylindrical deep burgundy paperboard container features an intricate gold filigree border and an antique golden map of Scandinavia. The background humorously transitions from a rustic, weathered red-brick Bronx alleyway on the far edge to an opulent fairytale royal palace ballroom with glittering crystal chandeliers in the center, rendered in flat vibrant colors and crisp vector lines, completely inanimate object with no face, 16:9 widescreen composition., 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-28T10:45:48.494096+00:00"
+}

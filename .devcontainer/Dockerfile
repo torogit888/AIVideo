@@ -25,6 +25,7 @@ RUN pip install --no-cache-dir \
     "uvicorn[standard]>=0.28.0", \
     "google-api-python-client>=2.120.0", \
     "google-auth-oauthlib>=1.2.0", \
-    "google-auth-httplib2>=0.2.0"
+    "google-auth-httplib2>=0.2.0", \
+    "yt-dlp>=2024.8.6"
 
 WORKDIR /workspace

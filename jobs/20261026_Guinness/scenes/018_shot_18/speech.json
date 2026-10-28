@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261027T121159",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 18.19,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "正式簽訂合約之後兄弟倆只有不到一年的編纂時間",
+      "text_cn": "正式签订合约之后兄弟俩只有不到一年的编纂时间",
+      "start_sec": 0.0,
+      "end_sec": 4.56,
+      "duration_sec": 4.56
+    },
+    {
+      "index": 2,
+      "text": "在傳真機和個人電腦都尚未普及的艱困歲月裡",
+      "text_cn": "在传真机和个人电脑都尚未普及的艰困岁月里",
+      "start_sec": 4.81,
+      "end_sec": 8.97,
+      "duration_sec": 4.16
+    },
+    {
+      "index": 3,
+      "text": "倫敦弗利特街一百零七號那間狹窄的頂樓辦公室裡",
+      "text_cn": "伦敦弗利特街一百零七号那间狭窄的顶楼办公室里",
+      "start_sec": 9.22,
+      "end_sec": 13.78,
+      "duration_sec": 4.56
+    },
+    {
+      "index": 4,
+      "text": "上演了一場真正意義上的手工作業情報極限戰",
+      "text_cn": "上演了一场真正意义上的手工作业情报极限战",
+      "start_sec": 14.03,
+      "end_sec": 18.19,
+      "duration_sec": 4.16
+    }
+  ],
+  "created_at": "2026-10-27T12:11:59.793984+00:00"
+}

@@ -1,0 +1,37 @@
+id: 044_shot_44
+index: 44
+title: 你一定聽過那句精準綁架年輕男女的
+narration: '[question-ei]你一定聽過那句精準綁架年輕男女的廣告詞，愛她就帶她去吃哈根達斯，動輒上千元一盒的冰淇淋月餅，華麗浮誇的情人節巧克力火鍋，利潤率被推向了難以想像的頂峰，'
+image_prompt: eye-level medium shot of an extravagant dessert banquet table inside
+  an opulent boutique cafe, in 2D chibi anime art style with vibrant cell shading.
+  In the center, a decorative ceramic fondue pot holds shimmering melted dark chocolate
+  surrounded by artistically arranged skewers of strawberries, marshmallows, and colorful
+  fruit. Beside it rests an ornate, gilded lacquer gift box displaying luxurious ice
+  cream mooncakes embossed with golden patterns. A charming young chibi couple sits
+  at the marble table; a boy with blushing cheeks feeds a fresh berry to an ecstatic
+  girl with sparkling eyes and a soft pink sweater. Rich romantic ambiance, warm amber
+  glow, clean vector outlines, 16:9 widescreen composition.
+character_ids: []
+image_negative: ''
+act_index: 6
+act_title: 全球化收割機：一場價值百億的符號拜物教
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261028T111431
+  image_take: null
+pip:
+  enabled: true
+  media_type: image
+  image: pip.png
+  video: null
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Haagen Dazs ice cream mooncake
+  source_title: File:HK Sheung Wan Haagen Dazs crocolate Ice-cream mooncakes 4-Sept-2012.JPG
+  source_url: https://upload.wikimedia.org/wikipedia/commons/d/d1/HK_Sheung_Wan_Haagen_Dazs_crocolate_Ice-cream_mooncakes_4-Sept-2012.JPG
+  verified: true
+  review_reason: 影像確實為哈根達斯冰淇淋月餅，符合旁白所述產品。

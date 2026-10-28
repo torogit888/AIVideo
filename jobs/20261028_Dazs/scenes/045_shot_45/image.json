@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261028T111859",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 62669404,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background\nVibrant contrasting color palettes, crisp details throughout, expressive chibi faces, rich background props., wide establishing shot outside a glowing luxury flagship store at night, in vibrant 2D cartoon chibi style with bold clean lines and cheerful colors. A lively serpentine queue of chic chibi youths in trendy jackets, berets, and scarves stretches down the polished metropolitan sidewalk. In the foreground, an excited chibi girl poses delightedly holding up an inanimate luxury_ice_cream_pint container, while her friend snaps a photo with a vintage flip phone. Golden fairy lights frame the entrance, illuminated brass signage reflects on wet pavement, cheerful and bustling festive atmosphere, detailed urban background, 16:9 widescreen composition., 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-28T11:18:59.968750+00:00"
+}

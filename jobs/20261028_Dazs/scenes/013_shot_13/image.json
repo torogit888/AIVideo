@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261028T103120",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 57795736,
+  "prompt": "wide shot in (masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background. Chibi Reuben Mattus operating a heavy mechanical vintage ice cream churner with gleaming brass gears in his artisanal workshop. A dense, ultra-thick, velvety golden-white cream mixture churns slowly inside the open stainless steel vat with zero frothy air bubbles, while Reuben carefully monitors pressure valves and glass temperature gauges with laser-focused determined eyes, surrounded by crates of fresh whole milk bottles, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-28T10:31:20.202710+00:00"
+}

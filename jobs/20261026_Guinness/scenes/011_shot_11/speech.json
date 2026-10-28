@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261027T115034",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.34,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "只要有人拍響桌子爭論金鴴和紅松雞誰飛得更快",
+      "text_cn": "只要有人拍响桌子争论金鸻和红松鸡谁飞得更快",
+      "start_sec": 0.0,
+      "end_sec": 4.36,
+      "duration_sec": 4.36
+    },
+    {
+      "index": 2,
+      "text": "不出五分鐘這場口角就會升級成飛椅砸頭的肢體肉搏 [surprise-wa]",
+      "text_cn": "不出五分钟这场口脚就会升级成飞椅砸头的肢体肉搏 [surprise-wa]",
+      "start_sec": 4.61,
+      "end_sec": 10.13,
+      "duration_sec": 5.52
+    },
+    {
+      "index": 3,
+      "text": "碎裂的黑啤酒瓶和滿地鮮血成了酒館打烊時的常態景象",
+      "text_cn": "碎裂的黑啤酒瓶和满地鲜血成了酒馆打烊时的常态景象",
+      "start_sec": 10.38,
+      "end_sec": 15.34,
+      "duration_sec": 4.96
+    }
+  ],
+  "created_at": "2026-10-27T11:50:34.025884+00:00"
+}

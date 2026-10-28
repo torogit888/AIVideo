@@ -1,0 +1,66 @@
+id: 034_shot_34
+index: 34
+title: 一九八三年
+narration: 一九八三年，跨國食品巨頭皮爾斯伯里斥資近七千萬美元的天價，全盤收購了哈根達斯，魯本套現離場安享晚年，而這款標榜匠人精神的品牌正式被吞併進巨型資本的版圖，
+image_prompt: (masterpiece, best quality:1.2), 2D cartoon illustration, anime art
+  style, chibi characters, clean line art, cell shading, flat colors, cute mobile
+  game UI art, visual novel style, crisp details, vibrant and cheerful color palette,
+  single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent
+  view, one main environment, highly detailed and intricate background, 16:9 widescreen
+  composition. Wide establishing shot inside a sleek 1980s corporate skyscraper boardroom
+  with panoramic floor-to-ceiling windows overlooking the Manhattan skyline. Reuben
+  Mattus, in chibi 2D anime style with 3-head-tall proportions, slicked-back hair
+  with silver temples, and a neat vintage mustache, wears a tailored charcoal business
+  suit and holds a large acquisition check, sharing a polite handshake with a chibi
+  corporate executive in a navy pinstripe suit. On the center of the gleaming mahogany
+  conference table rests a single luxury ice cream pint with gold filigree and deep
+  burgundy packaging, displayed proudly beneath crystal chandeliers.
+character_ids:
+- reuben_mattus
+- luxury_ice_cream_pint
+image_negative: ''
+act_index: 5
+act_title: 巨頭的絞殺與絕地反擊：大衛對抗歌利亞的背水一戰
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261028T105908
+  image_take: image_20261028T105756
+pip:
+  enabled: false
+  media_type: image
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Pillsbury Doughboy vintage
+  fetch_error: 有抓到圖但 AI 判定不符：此為新石器時代考古文物，僅標題開玩笑，非真正的皮爾斯伯里形象。（候選：File:Oriental Institute
+    Museum. The Pillsbury Doughboy was well-known in the Late Neolithic period (5948089445).jpg）
+  rejected_candidates:
+  - title: File:Oriental Institute Museum. The Pillsbury Doughboy was well-known in
+      the Late Neolithic period (5948089445).jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/a/ad/Oriental_Institute_Museum._The_Pillsbury_Doughboy_was_well-known_in_the_Late_Neolithic_period_%285948089445%29.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/a/ad/Oriental_Institute_Museum._The_Pillsbury_Doughboy_was_well-known_in_the_Late_Neolithic_period_%285948089445%29.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 此為新石器時代考古文物，僅標題開玩笑，非真正的皮爾斯伯里形象。
+  - title: File:Pillsbury doughboy.jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/6/69/Pillsbury_doughboy.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/6/69/Pillsbury_doughboy.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 此為吉祥物電腦渲染圖，非收購事件相關之真實歷史檔案照片。
+  - title: File:Cartoon-glbt-95-Gender Rolls.jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/f/f0/Cartoon-glbt-95-Gender_Rolls.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/f/f0/Cartoon-glbt-95-Gender_Rolls.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 此為性別諷刺漫畫，非皮爾斯伯里歷史檔案或合適紀錄片素材。
+  - title: File:Macys Thanksgiving Day Parade by Dan Depew 2.png
+    url: https://upload.wikimedia.org/wikipedia/commons/f/fd/Macys_Thanksgiving_Day_Parade_by_Dan_Depew_2.png
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/f/fd/Macys_Thanksgiving_Day_Parade_by_Dan_Depew_2.png
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 僅為遊行氣球映在建築上的陰影，與皮爾斯伯里收購哈根達斯無關。

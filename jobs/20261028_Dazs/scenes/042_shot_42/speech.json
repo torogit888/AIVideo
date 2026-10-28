@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261028T111124",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.02,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "然而當這台資本收割機轉向東亞與新興市場時",
+      "text_cn": "然而当这台资本收割机转向东雅与新兴市场时",
+      "start_sec": 0.0,
+      "end_sec": 4.16,
+      "duration_sec": 4.16
+    },
+    {
+      "index": 2,
+      "text": "卻引發了一場近乎宗教式的狂歡，在九十年代的亞洲",
+      "text_cn": "却引发了一场近乎宗教式的狂欢，在九十年代的雅洲",
+      "start_sec": 4.41,
+      "end_sec": 9.01,
+      "duration_sec": 4.6
+    },
+    {
+      "index": 3,
+      "text": "它被包裝成了媲美頂級奢侈品的社交貨幣",
+      "text_cn": "它被包装成了媲美顶级奢侈品的社交货币",
+      "start_sec": 9.26,
+      "end_sec": 13.02,
+      "duration_sec": 3.76
+    }
+  ],
+  "created_at": "2026-10-28T11:11:24.519443+00:00"
+}

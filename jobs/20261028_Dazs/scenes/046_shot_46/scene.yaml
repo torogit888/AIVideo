@@ -1,0 +1,38 @@
+id: 046_shot_46
+index: 46
+title: 但殘酷的真相是
+narration: 但殘酷的真相是，在歐美的普通大型超市裡，它只是隨意堆放在冰櫃底層的日常快消品，遇到打折促銷的時候，普通家庭只要花幾塊美金就能隨手帶走好幾大桶，這背後本質上是一場利用跨國資訊差精心編織的符號拜物教，
+image_prompt: wide shot of a bright, mundane American suburban supermarket freezer
+  aisle, in 2D chibi anime style with crisp flat colors and clean linework. Fluorescent
+  strip lights illuminate long rows of commercial chest freezers. Inside a frosted
+  glass bunker freezer, stacks of inanimate luxury_ice_cream_pint containers are casually
+  piled high with bright yellow discount tags placed above them. A casual chibi mother
+  in a fleece vest pushes a metal grocery shopping cart filled with cereal boxes and
+  laundry detergent, nonchalantly tossing two pint containers into the cart. Humorous
+  contrast of everyday mundane convenience store atmosphere, clean vector lines, 16:9
+  widescreen composition.
+character_ids:
+- luxury_ice_cream_pint
+image_negative: ''
+act_index: 7
+act_title: 神話瓦解後的時代餘韻：我們究竟在為甚麼買單？
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261028T112142
+  image_take: null
+pip:
+  enabled: true
+  media_type: video
+  image: pip.png
+  video: pip.mp4
+  position: right-center
+  mode: broll
+  scale: 0.24
+  border: 5
+  query: supermarket ice cream freezer
+  source_title: Every UK Supermarket Ice Cream Ranked — Only One Is Worth Buying
+  source_url: https://www.youtube.com/watch?v=4kxgjWCCeFI
+  verified: true
+  review_reason: 畫面呈現冰淇淋與超市冷凍櫃場景，符合旁白敘述情境。

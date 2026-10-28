@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261027T131924",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.58,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "人類本質上就是一種無法忍受生活在不確定與無知當中的生物",
+      "text_cn": "人类本直上就是一种无法忍受生活在不确定与无知当中的生物",
+      "start_sec": 0.0,
+      "end_sec": 5.56,
+      "duration_sec": 5.56
+    },
+    {
+      "index": 2,
+      "text": "哪怕是在最底層醉醺醺且滿是煙草氣味的吧台角落裡",
+      "text_cn": "哪怕是在最底层醉醺醺且满是烟草气味的吧台脚落里",
+      "start_sec": 5.81,
+      "end_sec": 10.57,
+      "duration_sec": 4.76
+    },
+    {
+      "index": 3,
+      "text": "我們也拼了命想確認究竟誰才是世界上最強大的存在",
+      "text_cn": "我们也拼了命想确认旧竟谁才是世界上最强大的存在",
+      "start_sec": 10.82,
+      "end_sec": 15.58,
+      "duration_sec": 4.76
+    }
+  ],
+  "created_at": "2026-10-27T13:19:24.770009+00:00"
+}

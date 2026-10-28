@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261027T114300",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 37073317,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background\nVibrant contrasting color palettes, crisp details throughout, expressive chibi faces, rich background props., dynamic medium shot in 2D cartoon illustration, anime art style, chibi characters, clean line art, cel shading, flat colors. Sir Hugh Beaver shows a comically exaggerated flustered expression with wide round eyes as a puff of white cartoon smoke drifts from his twin shotgun barrels, having completely missed his target; above his head, a sleek golden plover bird zips untouched through the overcast sky with playful motion lines into dense green woodland, vibrant contrasting colors, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-27T11:43:00.431663+00:00"
+}

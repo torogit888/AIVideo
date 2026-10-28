@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261027T115402",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 21.19,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "時間來到了一九五四年破局的轉機終於悄然出現",
+      "text_cn": "时间来到了一九五四年破局的转机终于悄然出现",
+      "start_sec": 0.0,
+      "end_sec": 4.36,
+      "duration_sec": 4.36
+    },
+    {
+      "index": 2,
+      "text": "健力士啤酒公司內部有一名青年員工克里斯多福查塔威",
+      "text_cn": "健力士啤酒公司内部有一名青年员工克里斯多福查塔威",
+      "start_sec": 4.61,
+      "end_sec": 9.57,
+      "duration_sec": 4.96
+    },
+    {
+      "index": 3,
+      "text": "他不僅是酒廠職員更是當時名滿大英帝國的傳奇田徑國手",
+      "text_cn": "他不仅是酒厂职员更是当时名满大英帝国的传奇田径国手",
+      "start_sec": 9.82,
+      "end_sec": 14.98,
+      "duration_sec": 5.16
+    },
+    {
+      "index": 4,
+      "text": "剛在同年作為領跑員協助隊友打破了人類四分鐘跑完一英里的極限",
+      "text_cn": "刚在同年作为领跑员协助队友打破了人类四分钟跑完一英里的极限",
+      "start_sec": 15.23,
+      "end_sec": 21.19,
+      "duration_sec": 5.96
+    }
+  ],
+  "created_at": "2026-10-27T11:54:02.994735+00:00"
+}

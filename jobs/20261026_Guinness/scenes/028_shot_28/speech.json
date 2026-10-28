@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261027T124909",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.42,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "每當吧台邊有人為了荒謬的數字爭得面紅耳赤要拔酒瓶時",
+      "text_cn": "每当吧台边有人为了荒谬的数字争得面红耳赤要拔酒瓶时",
+      "start_sec": 0.0,
+      "end_sec": 5.16,
+      "duration_sec": 5.16
+    },
+    {
+      "index": 2,
+      "text": "調酒師只需要重重把這本綠皮書拍在吧台正中央翻開裁決",
+      "text_cn": "调酒师只需要重重把这本绿皮书拍在吧台正中央翻开裁决",
+      "start_sec": 5.41,
+      "end_sec": 10.57,
+      "duration_sec": 5.16
+    },
+    {
+      "index": 3,
+      "text": "喧鬧嘈雜的酒館瞬間就會陷入一片啞口無言的死寂 [confirmation-en]",
+      "text_cn": "喧闹嘈杂的酒馆瞬间就会陷入一片哑口无言的死寂 [confirmation-en]",
+      "start_sec": 10.82,
+      "end_sec": 16.42,
+      "duration_sec": 5.6
+    }
+  ],
+  "created_at": "2026-10-27T12:49:09.935414+00:00"
+}

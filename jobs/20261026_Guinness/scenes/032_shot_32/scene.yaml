@@ -1,0 +1,25 @@
+id: 032_shot_32
+index: 32
+title: 隨著麥克沃特兄弟獨創的人肉記憶圖
+narration: 隨著麥克沃特兄弟獨創的人肉記憶圖書館時代逐漸終結，事情的發展開始徹底朝著匪夷所思的畸形方向一路狂奔，當人們發現只要自己的名字印在上面就能一夜成名獲取暴利，世界上最嚴謹的求真精神迅速異化成了一場荒誕的馬戲團狂歡，
+image_prompt: wide shot of a bustling, eccentric vintage carnival street festival
+  full of absurd record-breaking spectacles in (masterpiece, best quality:1.2), 2D
+  cartoon illustration, anime art style, chibi characters, clean line art, cell shading,
+  flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant
+  and cheerful color palette, single coherent scene, non-split screen, unified single
+  viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate
+  background. Diverse anonymous chibi challengers in colorful retro costumes perform
+  theatrical stunts beneath striped circus tents and festival banners. Flashbulbs
+  from vintage press cameras pop in stylized starbursts as crowds cheer and reporters
+  jot notes on notepads, under bright festive daylight with confetti floating in the
+  air, 16:9 widescreen composition
+character_ids: []
+act_index: 6
+act_title: 商業帝國與荒誕異化
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261027T130000
+  image_take: image_20261027T125949

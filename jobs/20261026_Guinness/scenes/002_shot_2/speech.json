@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261027T105704",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.99,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "回到當時那個風雲變幻的大環境來看",
+      "text_cn": "回到当时那个风云变幻的大环境来看",
+      "start_sec": 0.0,
+      "end_sec": 3.36,
+      "duration_sec": 3.36
+    },
+    {
+      "index": 2,
+      "text": "一九五一年第二次世界大戰剛結束沒幾年",
+      "text_cn": "一九五一年第二次世界大战刚结束没几年",
+      "start_sec": 3.61,
+      "end_sec": 7.37,
+      "duration_sec": 3.76
+    },
+    {
+      "index": 3,
+      "text": "整個歐洲大陸還深深籠罩在冷戰初期的陰影之下",
+      "text_cn": "整个欧洲大陆还深深笼罩在冷战初棋的阴影之下",
+      "start_sec": 7.62,
+      "end_sec": 11.98,
+      "duration_sec": 4.36
+    },
+    {
+      "index": 4,
+      "text": "大英帝國甚至還處在物資配給尚未完全解除的蕭條期",
+      "text_cn": "大英帝国甚至还处在物资配给尚未完全解除的萧条棋",
+      "start_sec": 12.23,
+      "end_sec": 16.99,
+      "duration_sec": 4.76
+    }
+  ],
+  "created_at": "2026-10-27T10:57:04.595632+00:00"
+}

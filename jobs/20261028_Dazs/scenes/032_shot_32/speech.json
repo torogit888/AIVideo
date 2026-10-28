@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261028T105639",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.62,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "這種精準收割階級虛榮心的游擊戰術迅速奏效",
+      "text_cn": "这种精准收割阶级虚荣心的游集战术迅速奏效",
+      "start_sec": 0.0,
+      "end_sec": 4.16,
+      "duration_sec": 4.16
+    },
+    {
+      "index": 2,
+      "text": "狂熱的口碑從格林威治村燒向紐約各所大學",
+      "text_cn": "狂热的口碑从格林威治村烧向纽约各所大学",
+      "start_sec": 4.41,
+      "end_sec": 8.37,
+      "duration_sec": 3.96
+    },
+    {
+      "index": 3,
+      "text": "哈根達斯完全沒花一分錢電視廣告費，直接在曼哈頓菁英圈一炮而紅",
+      "text_cn": "哈根达斯完全没花一分钱电视广告费，直接在曼哈顿菁英圈一炮而红",
+      "start_sec": 8.62,
+      "end_sec": 14.62,
+      "duration_sec": 6.0
+    }
+  ],
+  "created_at": "2026-10-28T10:56:39.941692+00:00"
+}

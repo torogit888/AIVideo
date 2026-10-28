@@ -118,3 +118,39 @@ def test_parse_scene_cues_from_job_dir(tmp_path: Path):
     assert cues[0]["end_sec"] == 2.0
     assert cues[1]["start_sec"] == 2.0
     assert cues[1]["end_sec"] == 5.5
+
+
+def test_spoken_sanitization_and_cta_merge_extracted():
+    import aivideo.scene_cut as sc
+    import aivideo.spoken as sp
+    import aivideo.story_generator as sg
+
+    for fn_name in (
+        "extract_outline_leak_phrases",
+        "is_non_spoken_script_line",
+        "extract_tone_spoken_sample",
+        "split_long_narration_line",
+        "sanitize_script_punctuation",
+        "resolve_host_persona_name",
+        "deidentify_and_bind_tone",
+    ):
+        assert hasattr(sp, fn_name)
+        assert getattr(sg, fn_name) is getattr(sp, fn_name)
+
+    for fn_name in ("is_cta_line", "merge_trailing_cta_chunks"):
+        assert hasattr(sc, fn_name)
+        assert getattr(sg, fn_name) is getattr(sc, fn_name)
+
+    cleaned = sp.sanitize_script_punctuation("第一幕：開場\n旁白：你敢相信「這件事」嗎？今天我們來聊聊。")
+    assert "第一幕" not in cleaned
+    assert "旁白：" not in cleaned
+    assert "「" not in cleaned
+    assert "你敢相信這件事嗎？" in cleaned
+
+    assert sp.resolve_host_persona_name("開頭: 大家好~我是白兔!") == "白兔"
+    assert sp.resolve_host_persona_name("開頭: 無自稱（直接破題）") == ""
+
+    merged = sc.merge_trailing_cta_chunks([["故事最後一句，"], ["別忘了點讚訂閱開啟小鈴鐺，"]])
+    assert len(merged) == 1
+    assert len(merged[0]) == 2
+

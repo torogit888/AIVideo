@@ -1,0 +1,37 @@
+id: 005_shot_5
+index: 5
+title: 那一年
+narration: 那一年，一個叫魯本馬圖斯的九歲波蘭猶太孤兒跟著寡母逃難到了美國，等待他們的不是黃金遍地的美夢，而是由破敗公寓與馬糞味交織而成的殘酷世界，
+image_prompt: (masterpiece, best quality:1.2), 2D cartoon illustration, anime art
+  style, chibi characters, clean line art, cell shading, flat colors, cute mobile
+  game UI art, visual novel style, crisp details, vibrant and cheerful color palette,
+  single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent
+  view, one main environment, highly detailed and intricate background. Street level
+  wide shot of a crowded, muddy 1920s New York Bronx street corner, depicting a nine-year-old
+  Polish Jewish orphan boy in 3-head-tall chibi proportions wearing an oversized newsboy
+  cap, frayed woolen vest, and patched knee-length trousers, holding hands with his
+  weary mother dressed in a dark shawl and long skirts, walking past dilapidated brownstone
+  tenements, horse-drawn carts kicking up dust, street vendors, and tangled overhead
+  telegraph wires, muted vintage warm tones with crisp cell shading, 16:9 widescreen
+  composition.
+character_ids: []
+image_negative: ''
+act_index: 1
+act_title: 金色皇冠下的地圖騙局與布朗克斯的馬車伕
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261028T102049
+  image_take: image_20261028T102031
+pip:
+  enabled: false
+  media_type: image
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Reuben Mattus
+  fetch_error: 沒抓到圖/影片：搜尋「Reuben Mattus」無相符結果
+  rejected_candidates: []

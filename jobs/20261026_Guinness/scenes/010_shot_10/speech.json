@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261027T114957",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.18,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "每一天晚上各大酒吧都要消耗掉數百萬品脫的健力士黑啤酒",
+      "text_cn": "每一天晚上各大酒吧都要消耗掉数百万品脱的健力士黑啤酒",
+      "start_sec": 0.0,
+      "end_sec": 5.36,
+      "duration_sec": 5.36
+    },
+    {
+      "index": 2,
+      "text": "在酒精的猛烈刺激下吧台邊每天爆發數千起賭局與無休止爭執",
+      "text_cn": "在酒精的猛烈刺激下吧台边每天爆发数千起赌局与无休止争执",
+      "start_sec": 5.61,
+      "end_sec": 11.17,
+      "duration_sec": 5.56
+    },
+    {
+      "index": 3,
+      "text": "從哪位拳手出拳最重到哪條河流全長最長",
+      "text_cn": "从哪位拳手出拳最重到哪条河流全长最长",
+      "start_sec": 11.42,
+      "end_sec": 15.18,
+      "duration_sec": 3.76
+    }
+  ],
+  "created_at": "2026-10-27T11:49:57.449731+00:00"
+}

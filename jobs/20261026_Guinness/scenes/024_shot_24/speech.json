@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261027T122453",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 20.19,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "一九五五年八月二十七日第一版正式印行面世",
+      "text_cn": "一九五五年八月二十七日第一版正式印行面世",
+      "start_sec": 0.0,
+      "end_sec": 4.16,
+      "duration_sec": 4.16
+    },
+    {
+      "index": 2,
+      "text": "那是一本綠色封皮厚度僅有一百九十八頁的精裝書籍",
+      "text_cn": "那是一本绿色封皮厚度仅有一百九十八页的精装书籍",
+      "start_sec": 4.41,
+      "end_sec": 9.17,
+      "duration_sec": 4.76
+    },
+    {
+      "index": 3,
+      "text": "健力士最初只打算免費印製幾千冊分發給各大酒吧當作促銷贈品",
+      "text_cn": "健力士最初只打算免费印制几千册分发给各大酒吧当作促销赠品",
+      "start_sec": 9.42,
+      "end_sec": 15.18,
+      "duration_sec": 5.76
+    },
+    {
+      "index": 4,
+      "text": "權當作是一次自掏腰包回饋酒館客戶的公關宣傳活動",
+      "text_cn": "权当作是一次自掏腰包回馈酒馆客户的公关宣传活动",
+      "start_sec": 15.43,
+      "end_sec": 20.19,
+      "duration_sec": 4.76
+    }
+  ],
+  "created_at": "2026-10-27T12:24:53.093825+00:00"
+}

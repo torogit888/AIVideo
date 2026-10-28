@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261028T104224",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 19.19,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "更荒謬的是，丹麥語的字母體系裡根本不存在雙元音上面的兩個小點",
+      "text_cn": "更荒谬的是，丹麦语的字母体系里根本不存在双元音上面的两个小点",
+      "start_sec": 0.0,
+      "end_sec": 5.92,
+      "duration_sec": 5.92
+    },
+    {
+      "index": 2,
+      "text": "而且在傳統丹麥語文法裡，也完全沒有把字母連在一起的拼寫規則",
+      "text_cn": "而且在传统丹麦语文法里，也完全没有把字母连在一起的拼写规则",
+      "start_sec": 6.17,
+      "end_sec": 11.97,
+      "duration_sec": 5.8
+    },
+    {
+      "index": 3,
+      "text": "任何一個土生土長的丹麥人看到這串字母",
+      "text_cn": "任何一个土生土长的丹麦人看到这串字母",
+      "start_sec": 12.22,
+      "end_sec": 15.98,
+      "duration_sec": 3.76
+    },
+    {
+      "index": 4,
+      "text": "只會覺得這是外國人在胡亂塗鴉",
+      "text_cn": "只会觉得这是外国人在胡乱涂鸦",
+      "start_sec": 16.23,
+      "end_sec": 19.19,
+      "duration_sec": 2.96
+    }
+  ],
+  "created_at": "2026-10-28T10:42:24.426339+00:00"
+}

@@ -1,0 +1,36 @@
+id: 004_shot_4
+index: 4
+title: 在愛爾蘭斯萊尼河畔的一處傳統貴族
+narration: 在愛爾蘭斯萊尼河畔的一處傳統貴族莊園裡，健力士啤酒公司的董事總經理休比弗爵士，正端著雙管獵槍興致勃勃地參加一場野禽狩獵，
+image_prompt: wide outdoor shot of an aristocratic hunting expedition by the River
+  Slaney in Ireland in 2D cartoon illustration, anime art style, chibi characters,
+  clean line art, cel shading, flat colors. Sir Hugh Beaver, rendered as a 2.5-head-tall
+  British gentleman with a silver-grey handlebar mustache, checked tweed flat cap,
+  forest-green hunting blazer with brown leather patches, and beige trousers, stands
+  energetically holding a double-barrel shotgun ready, surrounded by misty autumn
+  reed beds, weeping willows, and rolling emerald hills, 16:9 widescreen composition
+character_ids:
+- sir_hugh_beaver
+act_index: 1
+act_title: 荒野脫靶與致命爭辯
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261027T114235
+  image_take: image_20261027T113905
+pip:
+  enabled: true
+  media_type: image
+  image: pip.png
+  video: null
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Sir Hugh Beaver Guinness managing director portrait
+  source_title: Hugh Beaver
+  source_url: https://upload.wikimedia.org/wikipedia/en/e/e7/Sir_Hugh_Eyre_Campbell_Beaver.jpg
+  verified: true
+  review_reason: 確為休比弗爵士本人的歷史肖像照，符合旁白人物身份。

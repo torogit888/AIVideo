@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261027T132400",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.66,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "如果你喜歡這種深挖歷史背面荒誕真相的故事",
+      "text_cn": "如果你喜欢这种深挖历史背面荒诞真相的故事",
+      "start_sec": 0.0,
+      "end_sec": 4.16,
+      "duration_sec": 4.16
+    },
+    {
+      "index": 2,
+      "text": "請記得訂閱我們的頻道並打開小鈴鐺給予支持",
+      "text_cn": "请记得订阅我们的频道并打开小铃铛给予支持",
+      "start_sec": 4.41,
+      "end_sec": 8.57,
+      "duration_sec": 4.16
+    },
+    {
+      "index": 3,
+      "text": "這對我們持續產出硬核深度內容至關重要，我們下次見！",
+      "text_cn": "这对我们持续产出硬核深度内容至关重要，我们下次见！",
+      "start_sec": 8.82,
+      "end_sec": 13.66,
+      "duration_sec": 4.84
+    }
+  ],
+  "created_at": "2026-10-27T13:24:00.151349+00:00"
+}

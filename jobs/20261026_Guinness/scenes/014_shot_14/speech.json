@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261027T115238",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 14.38,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "但問題是在冷戰時期想建立一個無所不知的事實法庭",
+      "text_cn": "但问题是在冷战时棋想建立一个无所不知的事实法庭",
+      "start_sec": 0.0,
+      "end_sec": 4.76,
+      "duration_sec": 4.76
+    },
+    {
+      "index": 2,
+      "text": "難度無異於在茫茫資訊荒原上徒手建造一座金字塔",
+      "text_cn": "难度无异于在茫茫资讯荒原上徒手建造一座金字塔",
+      "start_sec": 5.01,
+      "end_sec": 9.57,
+      "duration_sec": 4.56
+    },
+    {
+      "index": 3,
+      "text": "究竟該去哪裡尋找能收集全世界瘋狂數據的怪人呢",
+      "text_cn": "旧竟该去哪里寻找能收集全世界疯狂数据的怪人呢",
+      "start_sec": 9.82,
+      "end_sec": 14.38,
+      "duration_sec": 4.56
+    }
+  ],
+  "created_at": "2026-10-27T11:52:38.580216+00:00"
+}

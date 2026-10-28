@@ -1,0 +1,60 @@
+id: 045_shot_45
+index: 45
+title: 無數年輕人在門市前排起長龍拍照打
+narration: 無數年輕人在門市前排起長龍拍照打卡，彷彿手裡捧著的不是甜點，而是一張通往上流社會的門票，
+image_prompt: wide establishing shot outside a glowing luxury flagship store at night,
+  in vibrant 2D cartoon chibi style with bold clean lines and cheerful colors. A lively
+  serpentine queue of chic chibi youths in trendy jackets, berets, and scarves stretches
+  down the polished metropolitan sidewalk. In the foreground, an excited chibi girl
+  poses delightedly holding up an inanimate luxury_ice_cream_pint container, while
+  her friend snaps a photo with a vintage flip phone. Golden fairy lights frame the
+  entrance, illuminated brass signage reflects on wet pavement, cheerful and bustling
+  festive atmosphere, detailed urban background, 16:9 widescreen composition.
+character_ids:
+- luxury_ice_cream_pint
+image_negative: ''
+act_index: 6
+act_title: 全球化收割機：一場價值百億的符號拜物教
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261028T111912
+  image_take: image_20261028T111859
+pip:
+  enabled: false
+  media_type: video
+  image: pip.png
+  position: right-center
+  mode: broll
+  scale: 0.24
+  border: 5
+  query: crowd queuing outside store
+  fetch_error: 有抓到影片但 AI 判定不符：畫面為巴黎愛樂廳活動入場排隊，非旁白所述之甜點門市排隊人潮。（候選：File:Attendees queuing
+    outside the Philharmonie de Paris for the Wikimania 2026 opening party.webm）
+  rejected_candidates:
+  - title: File:Attendees queuing outside the Philharmonie de Paris for the Wikimania
+      2026 opening party.webm
+    url: https://upload.wikimedia.org/wikipedia/commons/f/f6/Attendees_queuing_outside_the_Philharmonie_de_Paris_for_the_Wikimania_2026_opening_party.webm?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original
+    thumbnail_url: https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f6/Attendees_queuing_outside_the_Philharmonie_de_Paris_for_the_Wikimania_2026_opening_party.webm/960px--Attendees_queuing_outside_the_Philharmonie_de_Paris_for_the_Wikimania_2026_opening_party.webm.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo
+    source: 維基共享影片 (Wikimedia Video)
+    media_type: video
+    reason: 畫面為巴黎愛樂廳活動入場排隊，非旁白所述之甜點門市排隊人潮。
+  - title: The queue outside Apple Store for the sale of iPhone 8
+    url: https://www.youtube.com/watch?v=l4tBB3TKNKM
+    thumbnail_url: https://i.ytimg.com/vi/l4tBB3TKNKM/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBuR7-8dGsnaXwsel6h7n-qzxRpMA
+    source: YouTube 影音庫
+    media_type: video
+    reason: 畫面為蘋果門市排隊購買手機，與旁白所述甜點店排隊主題不符。
+  - title: File:Anaheim Officer Shoots Suspect Charging With a Shovel.webm
+    url: https://upload.wikimedia.org/wikipedia/commons/3/3b/Anaheim_Officer_Shoots_Suspect_Charging_With_a_Shovel.webm?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original
+    thumbnail_url: https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3b/Anaheim_Officer_Shoots_Suspect_Charging_With_a_Shovel.webm/960px--Anaheim_Officer_Shoots_Suspect_Charging_With_a_Shovel.webm.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo
+    source: 維基共享影片 (Wikimedia Video)
+    media_type: video
+    reason: 畫面為警車行車紀錄器影像，與排隊打卡買甜點主題完全無關。
+  - title: File:032 Humpback whale lobtailing in slow motion Video by Giles Laurent.webm
+    url: https://upload.wikimedia.org/wikipedia/commons/f/fe/032_Humpback_whale_lobtailing_in_slow_motion_Video_by_Giles_Laurent.webm?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original
+    thumbnail_url: https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fe/032_Humpback_whale_lobtailing_in_slow_motion_Video_by_Giles_Laurent.webm/960px--032_Humpback_whale_lobtailing_in_slow_motion_Video_by_Giles_Laurent.webm.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo
+    source: 維基共享影片 (Wikimedia Video)
+    media_type: video
+    reason: 畫面為座頭鯨拍尾，與旁白所述排隊買甜點的人潮毫無關聯。

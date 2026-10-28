@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261028T103030",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-lite-image",
+  "seed": 16693864,
+  "prompt": "medium shot in (masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background. Chibi Reuben Mattus working intensely inside his cramped retro kitchen, rolling up his white shirt sleeves under his sturdy brown canvas apron. He pours rich, thick cream into a vintage metal mixing vat while defiantly shoving aside generic jars labeled with cross marks representing synthetic chemical stabilizers, his chibi face displaying an obstinate, fiery grin of rebellion under warm amber workshop lighting, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-28T10:30:30.406532+00:00"
+}

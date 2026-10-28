@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261028T112142",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 19.87,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "但殘酷的真相是，在歐美的普通大型超市裡",
+      "text_cn": "但残酷的真相是，在欧美的普通大型超市里",
+      "start_sec": 0.0,
+      "end_sec": 3.8,
+      "duration_sec": 3.8
+    },
+    {
+      "index": 2,
+      "text": "它只是隨意堆放在冰櫃底層的日常快消品",
+      "text_cn": "它只是随意堆放在冰柜底层的日常快消品",
+      "start_sec": 4.05,
+      "end_sec": 7.81,
+      "duration_sec": 3.76
+    },
+    {
+      "index": 3,
+      "text": "遇到打折促銷的時候，普通家庭只要花幾塊美金就能隨手帶走好幾大桶",
+      "text_cn": "遇到打折促销的时候，普通家庭只要花几块美金就能随手带走好几大桶",
+      "start_sec": 8.06,
+      "end_sec": 14.26,
+      "duration_sec": 6.2
+    },
+    {
+      "index": 4,
+      "text": "這背後本質上是一場利用跨國資訊差精心編織的符號拜物教",
+      "text_cn": "这背后本直上是一场利用跨国资讯差精心编织的符号拜物教",
+      "start_sec": 14.51,
+      "end_sec": 19.87,
+      "duration_sec": 5.36
+    }
+  ],
+  "created_at": "2026-10-28T11:21:42.461598+00:00"
+}

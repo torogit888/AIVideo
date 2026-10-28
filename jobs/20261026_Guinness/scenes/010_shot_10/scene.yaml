@@ -1,0 +1,37 @@
+id: 010_shot_10
+index: 10
+title: 每一天晚上各大酒吧都要消耗掉數百
+narration: 每一天晚上各大酒吧都要消耗掉數百萬品脫的健力士黑啤酒，在酒精的猛烈刺激下吧台邊每天爆發數千起賭局與無休止爭執，從哪位拳手出拳最重到哪條河流全長最長，
+image_prompt: close-up to medium shot at an oak tavern bar counter in 2D cartoon illustration,
+  anime art style, chibi characters, clean line art, cel shading, flat colors. In
+  the foreground rests a vintage Guinness stout pint tumbler filled with ruby-black
+  stout and creamy-beige foam next to an amber glass bottle with a vintage harp label.
+  In the lively background, multiple British pub patron figures in suspenders and
+  flat caps argue comically, throwing playful boxing gestures and measuring arm-spans
+  over sports trivia, vibrant tavern atmosphere, 16:9 widescreen composition
+character_ids:
+- british_pub_patron
+- vintage_guinness_pint_bottle
+act_index: 2
+act_title: 血濺吧台與無解之爭
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261027T114957
+  image_take: image_20261027T114905
+pip:
+  enabled: true
+  media_type: image
+  image: pip.png
+  video: null
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: 1950s Guinness Extra Stout vintage pub bottle advertisement
+  source_title: File:Balbriggan - Guinness Extra Stout (5060785519).jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/c/c5/Balbriggan_-_Guinness_Extra_Stout_%285060785519%29.jpg
+  verified: true
+  review_reason: 圖像為健力士黑啤酒傳統酒標標誌，契合旁白提及之啤酒主題。

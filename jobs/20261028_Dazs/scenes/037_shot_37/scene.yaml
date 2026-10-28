@@ -1,0 +1,26 @@
+id: 037_shot_37
+index: 37
+title: 當年那個在廚房裡咬牙反抗行業霸凌
+narration: 當年那個在廚房裡咬牙反抗行業霸凌的小作坊，如今徹底變成了用壟斷鐵拳砸碎後輩的惡霸，
+image_prompt: (masterpiece, best quality:1.2), 2D cartoon illustration, anime art
+  style, chibi characters, clean line art, cell shading, flat colors, cute mobile
+  game UI art, visual novel style, crisp details, vibrant and cheerful color palette,
+  single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent
+  view, one main environment, highly detailed and intricate background, 16:9 widescreen
+  composition. Wide low-angle shot inside a cavernous industrial cold-storage warehouse
+  representing corporate monopoly. Immense refrigerated steel shelving units and towering
+  stacks of corporate shipping crates loom overhead, casting long dramatic shadows
+  across the polished concrete floor. In the center, a small humble wooden churn stands
+  dwarfed and overshadowed by colossal automated conveyor belts and heavy industrial
+  refrigeration machinery, illuminated by cool overhead fluorescent lights and crisp
+  cell-shaded lines.
+character_ids: []
+image_negative: ''
+act_index: 5
+act_title: 巨頭的絞殺與絕地反擊：大衛對抗歌利亞的背水一戰
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261028T110133
+  image_take: image_20261028T110120

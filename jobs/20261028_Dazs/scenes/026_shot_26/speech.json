@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261028T104745",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 12.41,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "常規渠道被徹底封死，換作普通人早就認輸倒閉了",
+      "text_cn": "常规渠道被彻底封死，换作普通人早就认输倒闭了",
+      "start_sec": 0.0,
+      "end_sec": 4.4,
+      "duration_sec": 4.4
+    },
+    {
+      "index": 2,
+      "text": "但魯本的妻子蘿絲展現出了驚人的商業嗅覺",
+      "text_cn": "但鲁本的妻子萝丝展现出了惊人的商业嗅觉",
+      "start_sec": 4.65,
+      "end_sec": 8.6,
+      "duration_sec": 3.95
+    },
+    {
+      "index": 3,
+      "text": "她策劃了一場特洛伊木馬式的降維打擊",
+      "text_cn": "她策划了一场特洛伊木马式的降维打集",
+      "start_sec": 8.85,
+      "end_sec": 12.41,
+      "duration_sec": 3.56
+    }
+  ],
+  "created_at": "2026-10-28T10:47:45.640478+00:00"
+}

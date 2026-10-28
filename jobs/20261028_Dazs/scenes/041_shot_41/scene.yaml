@@ -1,0 +1,61 @@
+id: 041_shot_41
+index: 41
+title: 在丹麥本土
+narration: 在丹麥本土，這款打著丹麥旗號的美國甜品遭遇了前所未有的冷遇，丹麥消費者對這個文法錯誤百出且口感過於甜膩的舶來品毫無興趣，首家門市只能慘淡歇業，
+image_prompt: wide establishing shot of a quiet Copenhagen cobblestone street in 2D
+  cartoon anime illustration, clean line art and crisp cell shading. On the quaint
+  European street corner sits an empty, shuttered boutique dessert shop with closed
+  wooden blinds and a forlorn padlocked glass door. In the shop window, a lonely inanimate
+  luxury_ice_cream_pint—a deep burgundy and maroon cylindrical paperboard container
+  with intricate gold filigree borders and an antique Scandinavian map—sits neglected
+  on a dusty display plinth. Chibi Danish passersby in vintage trench coats walk past
+  without glancing, looking unimpressed with furrowed brows. Soft muted daylight,
+  clean flat colors, detailed architecture with painted gables and bicycle racks,
+  16:9 widescreen composition.
+character_ids:
+- luxury_ice_cream_pint
+image_negative: ''
+act_index: 6
+act_title: 全球化收割機：一場價值百億的符號拜物教
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261028T111014
+  image_take: image_20261028T110802
+pip:
+  enabled: false
+  media_type: image
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Copenhagen street 1980s
+  fetch_error: 有抓到圖但 AI 判定不符：雖為1980年代哥本哈根街景，但與甜品品牌及門市歇業主題無關。（候選：File:Copenhagen 1987.
+    Street photography.jpg）
+  rejected_candidates:
+  - title: File:Copenhagen 1987. Street photography.jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/3/3e/Copenhagen_1987._Street_photography.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/3/3e/Copenhagen_1987._Street_photography.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 雖為1980年代哥本哈根街景，但與甜品品牌及門市歇業主題無關。
+  - title: File:CBS building at Dalgas Have, Frederiksberg.jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/7/77/CBS_building_at_Dalgas_Have%2C_Frederiksberg.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/7/77/CBS_building_at_Dalgas_Have%2C_Frederiksberg.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 圖片為哥本哈根商學院現代校舍入口，與1980年代甜品店倒閉無關且方向旋轉。
+  - title: File:Busudstillingshallen - HT 428.jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/1/17/Busudstillingshallen_-_HT_428.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/1/17/Busudstillingshallen_-_HT_428.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 圖片為室內展覽館的巴士展品，非1980年代街景且與甜品主題無關。
+  - title: File:Cph Toy Fair in Ballerup Hallen.jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/c/c3/Cph_Toy_Fair_in_Ballerup_Hallen.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/c/c3/Cph_Toy_Fair_in_Ballerup_Hallen.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 圖片為現代室內玩具展覽，非1980年代丹麥街景或甜品店相關場景。

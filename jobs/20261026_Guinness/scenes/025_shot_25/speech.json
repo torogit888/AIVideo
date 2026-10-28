@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261027T123908",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 10.53,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "沒想到樣書在倫敦各大書店曝光之後引發了空前轟動 [surprise-wa]",
+      "text_cn": "没想到样书在伦敦各大书店曝光之后引发了空前轰动 [surprise-wa]",
+      "start_sec": 0.0,
+      "end_sec": 5.52,
+      "duration_sec": 5.52
+    },
+    {
+      "index": 2,
+      "text": "全英國的購書訂單如同雪片一般瘋狂飛向健力士總部",
+      "text_cn": "全英国的购书订单如同雪片一般疯狂飞向健力士总部",
+      "start_sec": 5.77,
+      "end_sec": 10.53,
+      "duration_sec": 4.76
+    }
+  ],
+  "created_at": "2026-10-27T12:39:08.157493+00:00"
+}

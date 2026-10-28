@@ -1,0 +1,40 @@
+id: 003_shot_3
+index: 3
+title: 但如果我告訴你
+narration: 但如果我告訴你，這個品牌跟丹麥沒有半毛錢關係，它的原產地根本不是什麼北歐童話森林，而是二十世紀紐約最混亂骯髒的布朗克斯貧民窟，[surprise-wa]這究竟是怎麼回事呢，
+image_prompt: (masterpiece, best quality:1.2), 2D cartoon illustration, anime art
+  style, chibi characters, clean line art, cell shading, flat colors, cute mobile
+  game UI art, visual novel style, crisp details, vibrant and cheerful color palette,
+  single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent
+  view, one main environment, highly detailed and intricate background. Wide panoramic
+  establishing shot contrasting a whimsical fantasy Nordic fairytale pine forest under
+  aurora borealis in the far background blending into the gritty early 20th-century
+  urban Bronx tenements, crowded brick facades with crisscrossing metal fire escapes,
+  vintage clotheslines hanging between dilapidated buildings, cobblestone street with
+  steam rising from sewer grates, atmospheric retro city illustration, cell-shaded
+  linework, 16:9 widescreen composition.
+character_ids: []
+image_negative: ''
+act_index: 1
+act_title: 金色皇冠下的地圖騙局與布朗克斯的馬車伕
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261028T101921
+  image_take: image_20261028T101843
+pip:
+  enabled: true
+  media_type: image
+  image: pip.png
+  video: null
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Bronx tenements 1920s
+  source_title: File:INCINERATOR OF THIS SOUTH BRONX TENEMENT IS GOING FULL BLAST
+    - NARA - 548329.jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/c/c0/INCINERATOR_OF_THIS_SOUTH_BRONX_TENEMENT_IS_GOING_FULL_BLAST_-_NARA_-_548329.jpg
+  verified: true
+  review_reason: 真實呈現20世紀南布朗克斯公寓建築與髒亂排煙景況，契合旁白。

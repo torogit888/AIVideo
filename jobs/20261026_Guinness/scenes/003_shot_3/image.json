@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261027T105739",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 55731036,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background\nVibrant contrasting color palettes, crisp details throughout, expressive chibi faces, rich background props., medium wide shot of an old municipal archive and newspaper library in 2D cartoon illustration, anime art style, chibi proportions, clean line art, cel shading, flat colors. An anonymous studious clerk scratching his head amidst towering wooden card-catalogue drawers, enormous stacks of printed vintage broadsheets, and floor-to-ceiling rows of dusty brown reference volumes under a brass desk lamp, capturing a pre-digital era devoid of computers, crisp details, warm parchment tones, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-27T10:57:39.521059+00:00"
+}

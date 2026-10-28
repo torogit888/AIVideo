@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261028T103133",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 18.59,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "他利用極端工藝將空氣膨脹率死死壓制在極罕見的百分之二十以內",
+      "text_cn": "他利用极端工艺将空气膨胀率死死压制在极罕见的百分之二十以内",
+      "start_sec": 0.0,
+      "end_sec": 5.96,
+      "duration_sec": 5.96
+    },
+    {
+      "index": 2,
+      "text": "同時把牛奶脂肪含量暴力拉高到令人咋舌的百分之十六",
+      "text_cn": "同时把牛奶脂肪含量暴力拉高到令人咋舌的百分之十六",
+      "start_sec": 6.21,
+      "end_sec": 11.17,
+      "duration_sec": 4.96
+    },
+    {
+      "index": 3,
+      "text": "要知道當時普通工業冰淇淋的乳脂含量",
+      "text_cn": "要知道当时普通工业冰淇淋的乳脂含量",
+      "start_sec": 11.42,
+      "end_sec": 14.98,
+      "duration_sec": 3.56
+    },
+    {
+      "index": 4,
+      "text": "僅僅勉強維持在法定底線的百分之十",
+      "text_cn": "仅仅勉强维持在法定底线的百分之十",
+      "start_sec": 15.23,
+      "end_sec": 18.59,
+      "duration_sec": 3.36
+    }
+  ],
+  "created_at": "2026-10-28T10:31:33.428576+00:00"
+}

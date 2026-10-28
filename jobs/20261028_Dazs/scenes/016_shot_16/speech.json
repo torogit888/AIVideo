@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261028T103355",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 18.26,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[sigh]更殘酷的現實擺在眼前，在那個勞工階級只求便宜吃飽的年代",
+      "text_cn": "[sigh]更残酷的现实摆在眼前，在那个劳工阶级只求便宜吃饱的年代",
+      "start_sec": 0.0,
+      "end_sec": 5.72,
+      "duration_sec": 5.72
+    },
+    {
+      "index": 2,
+      "text": "一盒普通冰淇淋只要兩三毛錢，魯本的高濃度冰淇淋成本卻要翻上好幾倍",
+      "text_cn": "一盒普通冰淇淋只要两三毛钱，鲁本的高浓度冰淇淋成本却要翻上好几倍",
+      "start_sec": 5.97,
+      "end_sec": 12.37,
+      "duration_sec": 6.4
+    },
+    {
+      "index": 3,
+      "text": "誰會願意自掏腰包，為這種賣相笨重又貴得離譜的硬疙瘩買單呢？",
+      "text_cn": "谁会愿意自掏腰包，为这种卖相笨重又贵得离谱的硬疙瘩买单呢？",
+      "start_sec": 12.62,
+      "end_sec": 18.26,
+      "duration_sec": 5.64
+    }
+  ],
+  "created_at": "2026-10-28T10:33:55.092945+00:00"
+}

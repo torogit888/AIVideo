@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261028T110041",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 72824031,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background, 16:9 widescreen composition. Medium shot inside a cluttered regional wholesale distribution office. A stern chibi corporate supervisor in a dark suit stands aggressively, pointing a finger at a strict exclusivity distribution contract on a metal desk. Sitting across from him, an anxious chibi grocery distributor with sweat drops wipes his brow with a handkerchief. Set squarely between them as leverage is a prominent luxury ice cream pint with burgundy packaging and gold Scandinavian filigree. Clipboard manifests and stacked refrigerated inventory boxes fill the background., 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-28T11:00:41.877881+00:00"
+}

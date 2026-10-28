@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261027T122011",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 19153776,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background\nVibrant contrasting color palettes, crisp details throughout, expressive chibi faces, rich background props., charming medium shot in 2D cartoon illustration style, anime chibi aesthetic with crisp cell shading and rich colors. In a 1950s post-war British delivery depot, wooden crates branded for pub distribution are being packed. At the center, a pristine 1955 First Edition Guinness Book of Records, a 198-page hardcover with rich emerald forest-green textured cloth and gleaming gold foil title lettering, sits atop stacked cardboard cartons next to vintage promotional leaflets. Soft ambient light from a warehouse window, vibrant emerald greens, warm cardboard tans, and clean flat vector-like outlines, 16:9 widescreen composition., 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-27T12:20:11.213721+00:00"
+}

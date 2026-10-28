@@ -1,0 +1,59 @@
+id: 042_shot_42
+index: 42
+title: 然而當這台資本收割機轉向東亞與新
+narration: 然而當這台資本收割機轉向東亞與新興市場時，卻引發了一場近乎宗教式的狂歡，在九十年代的亞洲，它被包裝成了媲美頂級奢侈品的社交貨幣，
+image_prompt: wide dynamic angle of a bustling, futuristic 1990s East Asian metropolis
+  street at twilight, in crisp 2D cartoon illustration with cute mobile game art aesthetics
+  and bright cell shading. Flashing neon signs in vibrant pinks, teals, and golds
+  illuminate a sleek boutique entrance. On an elevated velvet pedestal under a glowing
+  golden spotlight, a grand inanimate luxury_ice_cream_pint container sits like a
+  priceless museum jewel, sparkling with clean golden accents. Eager chibi Asian consumers
+  dressed in stylish 1990s urban fashion surround the velvet stanchions with glowing,
+  reverent starry eyes, holding up retro cameras, creating an aura of luxury and prestige.
+  Highly detailed street scene, rich anime cell shading, 16:9 widescreen composition.
+character_ids:
+- luxury_ice_cream_pint
+image_negative: ''
+act_index: 6
+act_title: 全球化收割機：一場價值百億的符號拜物教
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261028T111124
+  image_take: image_20261028T111036
+pip:
+  enabled: false
+  media_type: image
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Haagen Dazs luxury store Asia
+  fetch_error: 有抓到圖但 AI 判定不符：畫面為中東阿拉伯風格門市，非旁白所述之東亞地區。（候選：File:Haagen-Dazs - panoramio.jpg）
+  rejected_candidates:
+  - title: File:Haagen-Dazs - panoramio.jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/0/0d/Haagen-Dazs_-_panoramio.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/0/0d/Haagen-Dazs_-_panoramio.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 畫面為中東阿拉伯風格門市，非旁白所述之東亞地區。
+  - title: File:Haagen-dazs-crispy-sandwich-caramel-classic.jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/f/f2/Haagen-dazs-crispy-sandwich-caramel-classic.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/f/f2/Haagen-dazs-crispy-sandwich-caramel-classic.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 僅為手持冰淇淋餅乾特寫，非90年代亞洲奢華門市或社交場景。
+  - title: File:Haagen-dazs-crunchy-crunch.jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/0/08/Haagen-dazs-crunchy-crunch.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/0/08/Haagen-dazs-crunchy-crunch.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 僅為個人手持冰棒特寫，未能呈現奢華門市或社交貨幣意象。
+  - title: File:Haagen-Dasz.jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/7/7f/Haagen-Dasz.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/7/7f/Haagen-Dasz.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 僅為現代日常手持冰淇淋杯特寫，未呈現九十年代亞洲奢華社交場景。

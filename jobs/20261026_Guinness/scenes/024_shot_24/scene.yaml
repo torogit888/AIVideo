@@ -1,0 +1,59 @@
+id: 024_shot_24
+index: 24
+title: 一九五五年八月二十七日第一版正式
+narration: 一九五五年八月二十七日第一版正式印行面世，那是一本綠色封皮厚度僅有一百九十八頁的精裝書籍，健力士最初只打算免費印製幾千冊分發給各大酒吧當作促銷贈品，權當作是一次自掏腰包回饋酒館客戶的公關宣傳活動，
+image_prompt: charming medium shot in 2D cartoon illustration style, anime chibi aesthetic
+  with crisp cell shading and rich colors. In a 1950s post-war British delivery depot,
+  wooden crates branded for pub distribution are being packed. At the center, a pristine
+  1955 First Edition Guinness Book of Records, a 198-page hardcover with rich emerald
+  forest-green textured cloth and gleaming gold foil title lettering, sits atop stacked
+  cardboard cartons next to vintage promotional leaflets. Soft ambient light from
+  a warehouse window, vibrant emerald greens, warm cardboard tans, and clean flat
+  vector-like outlines, 16:9 widescreen composition.
+character_ids:
+- guinness_record_book_1955
+act_index: 4
+act_title: 倫敦閣樓的瘋狂搜查
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261027T122453
+  image_take: image_20261027T122011
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: The Guinness Book of Records 1955 first edition green cover
+  fetch_error: 有抓到圖但 AI 判定不符：圖像為現代彈跳球破紀錄活動，非1955年首版書籍。（候選：File:1,500 People Space
+    Hop Into The Guinness Book Of World Records.jpg）
+  rejected_candidates:
+  - title: File:1,500 People Space Hop Into The Guinness Book Of World Records.jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/a/a4/1%2C500_People_Space_Hop_Into_The_Guinness_Book_Of_World_Records.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/a/a4/1%2C500_People_Space_Hop_Into_The_Guinness_Book_Of_World_Records.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 圖像為現代彈跳球破紀錄活動，非1955年首版書籍。
+  - title: File:1,500 People Space Hop Into The Guinness Book Of World Records (2).jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/a/a2/1%2C500_People_Space_Hop_Into_The_Guinness_Book_Of_World_Records_%282%29.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/a/a2/1%2C500_People_Space_Hop_Into_The_Guinness_Book_Of_World_Records_%282%29.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 畫面為現代民眾坐充氣彈跳球，非1955年首版綠皮書。
+  - title: File:1,500 People Space Hop Into The Guinness Book Of World Records (3).jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/1/1b/1%2C500_People_Space_Hop_Into_The_Guinness_Book_Of_World_Records_%283%29.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/1/1b/1%2C500_People_Space_Hop_Into_The_Guinness_Book_Of_World_Records_%283%29.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 畫面為挑戰世界紀錄的活動現場，並非1955年首版綠皮書籍。
+  - title: File:Ali Asgari Lemjiri was selected as the best records of the Middle
+      East 2023 in the Guinness Book of World Records.jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/1/1c/Ali_Asgari_Lemjiri_was_selected_as_the_best_records_of_the_Middle_East_2023_in_the_Guinness_Book_of_World_Records.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/1/1c/Ali_Asgari_Lemjiri_was_selected_as_the_best_records_of_the_Middle_East_2023_in_the_Guinness_Book_of_World_Records.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 圖片為現代紀錄保持人拼貼，非1955年綠色首版書籍。

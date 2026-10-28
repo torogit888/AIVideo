@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261027T121856",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 21.02,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "金鴴在全速飛行時的最高時速大約是每小時九十六公里",
+      "text_cn": "金鸻在全速飞行时的最高时速大约是每小时九十六公里",
+      "start_sec": 0.0,
+      "end_sec": 4.96,
+      "duration_sec": 4.96
+    },
+    {
+      "index": 2,
+      "text": "在整個歐洲的常規獵鳥當中確實算得上是快如閃電",
+      "text_cn": "在整个欧洲的常规猎鸟当中确实算得上是快如闪电",
+      "start_sec": 5.21,
+      "end_sec": 9.75,
+      "duration_sec": 4.54
+    },
+    {
+      "index": 3,
+      "text": "而紅松雞在順風俯衝條件下的極限速度也確實不遑多讓",
+      "text_cn": "而红松鸡在顺风俯冲条件下的极限速度也确实不遑多让",
+      "start_sec": 10.0,
+      "end_sec": 14.96,
+      "duration_sec": 4.96
+    },
+    {
+      "index": 4,
+      "text": "但最關鍵的是真正的歐洲最快野鳥其實是赤胸沙鴨等水鳥 [surprise-oh]",
+      "text_cn": "但最关键的是真正的欧洲最快野鸟其实是赤胸沙鸭等水鸟 [surprise-oh]",
+      "start_sec": 15.21,
+      "end_sec": 21.02,
+      "duration_sec": 5.81
+    }
+  ],
+  "created_at": "2026-10-27T12:18:56.183523+00:00"
+}

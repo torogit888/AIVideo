@@ -1,0 +1,59 @@
+id: 030_shot_30
+index: 30
+title: 隨著這本書被翻譯成數十種語言銷往
+narration: 隨著這本書被翻譯成數十種語言銷往全世界各個角落，它從一家啤酒廠的公關項目蛻變成了名震全球的龐大商業帝國，然而原本嚴肅客觀的地理生物與科學極限很快被人類無休止的虛榮心稀釋，
+image_prompt: wide whimsical conceptual scene in 2D cartoon illustration style, anime
+  chibi art with crisp clean contours and a vibrant cheerful palette. At the center
+  of an artistic illustrated world map, a grand copy of the iconic green record book
+  rests open, with dozens of colorful international editions, translation ribbons,
+  and playful chibi characters from around the globe marveling at wacky world records.
+  Stylized globes, measuring tapes, stopwatches, and hot air balloons float in a dynamic
+  swirl around the book, celebrating international fame, colorful and clean visual
+  novel background, 16:9 widescreen composition.
+character_ids:
+- guinness_record_book_1955
+act_index: 5
+act_title: 平息群毆的酒館小冊
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261027T125312
+  image_take: image_20261027T125018
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Guinness Book of World Records vintage foreign editions display
+  fetch_error: 有抓到圖但 AI 判定不符：畫面為群眾彈跳球挑戰活動，非旁白所述之書籍多國語言版本展示。（候選：File:1,500 People Space
+    Hop Into The Guinness Book Of World Records.jpg）
+  rejected_candidates:
+  - title: File:1,500 People Space Hop Into The Guinness Book Of World Records.jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/a/a4/1%2C500_People_Space_Hop_Into_The_Guinness_Book_Of_World_Records.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/a/a4/1%2C500_People_Space_Hop_Into_The_Guinness_Book_Of_World_Records.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 畫面為群眾彈跳球挑戰活動，非旁白所述之書籍多國語言版本展示。
+  - title: File:1,500 People Space Hop Into The Guinness Book Of World Records (2).jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/a/a2/1%2C500_People_Space_Hop_Into_The_Guinness_Book_Of_World_Records_%282%29.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/a/a2/1%2C500_People_Space_Hop_Into_The_Guinness_Book_Of_World_Records_%282%29.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 畫面為坐在彈力球上的民眾，並非各國版本金氏世界紀錄書籍展示。
+  - title: File:1,500 People Space Hop Into The Guinness Book Of World Records (3).jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/1/1b/1%2C500_People_Space_Hop_Into_The_Guinness_Book_Of_World_Records_%283%29.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/1/1b/1%2C500_People_Space_Hop_Into_The_Guinness_Book_Of_World_Records_%283%29.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 畫面為彈跳球破紀錄活動，與旁白所述書籍多語言出版內容不符。
+  - title: File:Ali Asgari Lemjiri was selected as the best records of the Middle
+      East 2023 in the Guinness Book of World Records.jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/1/1c/Ali_Asgari_Lemjiri_was_selected_as_the_best_records_of_the_Middle_East_2023_in_the_Guinness_Book_of_World_Records.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/1/1c/Ali_Asgari_Lemjiri_was_selected_as_the_best_records_of_the_Middle_East_2023_in_the_Guinness_Book_of_World_Records.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 非歷史多國語言書籍展示，為2023年個人紀錄宣傳拼貼圖。

@@ -1,0 +1,25 @@
+id: 025_shot_25
+index: 25
+title: 當這款偽丹麥神話走進市場時
+narration: 當這款偽丹麥神話走進市場時，現實卻給了他們當頭一棒，一九六一年，各大主流超市的採購經理看到這盒定價貴得離譜的怪名字冰淇淋，紛紛嘲笑魯本是個異想天開的瘋子，毫不留情地將它拒之門外，
+image_prompt: wide shot, chibi 2D anime style, 3-head-tall proportions, clean line
+  art, flat cell shading. Inside a bright 1961 retro supermarket manager's office,
+  a chubby supermarket procurement manager in a gray mid-century suit and tie sits
+  behind a cluttered wooden desk, belly-laughing heartily while waving an dismissive
+  hand at Reuben Mattus. Reuben, wearing his white shirt and brown artisan apron,
+  stands on the opposite side clutching a luxury ice cream pint, looking utterly flabbergasted
+  and irritated with an anime sweatdrop on his temple. Shelves behind the desk are
+  lined with generic retro cardboard cereal boxes and canned goods, bright fluorescent
+  lighting, rich props, single coherent scene, 16:9 widescreen composition.
+character_ids:
+- reuben_mattus
+- luxury_ice_cream_pint
+image_negative: ''
+act_index: 4
+act_title: 皮草貴婦與嬉皮沙龍：顛覆渠道的特洛伊木馬
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261028T104644
+  image_take: image_20261028T104626

@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261028T102523",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.82,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "在那個連家用冰箱都還沒發明的年代",
+      "text_cn": "在那个连家用冰箱都还没发明的年代",
+      "start_sec": 0.0,
+      "end_sec": 3.36,
+      "duration_sec": 3.36
+    },
+    {
+      "index": 2,
+      "text": "底層移民只能靠出賣體力在街頭苟活",
+      "text_cn": "底层移民只能靠出卖体力在街头苟活",
+      "start_sec": 3.61,
+      "end_sec": 6.97,
+      "duration_sec": 3.36
+    },
+    {
+      "index": 3,
+      "text": "魯本每天清晨四點就要爬起來，幫舅舅趕著笨重的馬車在街頭叫賣檸檬刨冰",
+      "text_cn": "鲁本每天清晨四点就要爬起来，帮舅舅赶着笨重的马车在街头叫卖柠檬刨冰",
+      "start_sec": 7.22,
+      "end_sec": 13.82,
+      "duration_sec": 6.6
+    }
+  ],
+  "created_at": "2026-10-28T10:25:23.743405+00:00"
+}

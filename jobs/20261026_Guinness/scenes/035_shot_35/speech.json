@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261027T130242",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.6,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "我只能說人類為了在世界上留下哪怕一個微不足道的奇葩名字",
+      "text_cn": "我只能说人类为了在世界上留下哪怕一个围不足道的奇葩名字",
+      "start_sec": 0.0,
+      "end_sec": 4.98,
+      "duration_sec": 4.98
+    },
+    {
+      "index": 2,
+      "text": "所能爆發出的自虐狂熱往往比酒精催生的拳腳衝突更為致命",
+      "text_cn": "所能爆发出的自虐狂热往往比酒精催生的拳脚冲图更为致命",
+      "start_sec": 5.23,
+      "end_sec": 10.59,
+      "duration_sec": 5.36
+    },
+    {
+      "index": 3,
+      "text": "這本當初用來平息暴力的工具書反過來照出了人性最荒唐的執念",
+      "text_cn": "这本当初用来平息暴力的工具书反过来照出了人性最荒唐的执念",
+      "start_sec": 10.84,
+      "end_sec": 16.6,
+      "duration_sec": 5.76
+    }
+  ],
+  "created_at": "2026-10-27T13:02:42.541999+00:00"
+}

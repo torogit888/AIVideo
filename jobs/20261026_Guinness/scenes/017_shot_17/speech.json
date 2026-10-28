@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261027T120259",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 21.39,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "休比弗爵士在倫敦總部高級辦公室裡親自面試了這對兄弟",
+      "text_cn": "休比弗爵士在伦敦总部高级办公室里亲自面试了这对兄弟",
+      "start_sec": 0.0,
+      "end_sec": 5.16,
+      "duration_sec": 5.16
+    },
+    {
+      "index": 2,
+      "text": "爵士拋出了一連串冷門刁鑽到近乎不可思議的極限考題",
+      "text_cn": "爵士抛出了一连串冷门刁钻到近乎不可思议的极限考题",
+      "start_sec": 5.41,
+      "end_sec": 10.37,
+      "duration_sec": 4.96
+    },
+    {
+      "index": 3,
+      "text": "兄弟倆卻神態自若地連續背出各項精確到小數點的奇葩數據",
+      "text_cn": "兄弟俩却神态自若地连续背出各项精确到小数点的奇葩数据",
+      "start_sec": 10.62,
+      "end_sec": 15.98,
+      "duration_sec": 5.36
+    },
+    {
+      "index": 4,
+      "text": "休比弗當場拍板委託他們把全世界的所有極限翻個底朝天",
+      "text_cn": "休比弗当场拍板委托他们把全世界的所有极限翻个底朝天",
+      "start_sec": 16.23,
+      "end_sec": 21.39,
+      "duration_sec": 5.16
+    }
+  ],
+  "created_at": "2026-10-27T12:02:59.956208+00:00"
+}

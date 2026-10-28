@@ -1,0 +1,58 @@
+id: 009_shot_9
+index: 9
+title: 你必須理解當時英國基層酒館那種粗
+narration: 你必須理解當時英國基層酒館那種粗暴又壓抑的社會氛圍，一九五零年代初期全英國擁有超過七萬家社區酒吧，無數剛打完二戰的退伍老兵與勞工滿肚子創傷與戾氣無處宣洩，酒吧成了他們交換新聞釋放生活壓力的核心社交場所，
+image_prompt: wide establishing shot of a bustling 1950s British neighborhood public
+  house in 2D cartoon illustration, anime art style, chibi characters, clean line
+  art, cel shading, flat colors. A dense, vibrant gathering of British pub patron
+  working-class men and post-war veterans in newsboy caps and tweed waistcoats unwinding
+  along the dark mahogany bar counter, talking loudly, leaning against brass rails,
+  under stained-glass pub partitions and etched mirrors, rich warm amber lighting,
+  16:9 widescreen composition
+character_ids:
+- british_pub_patron
+act_index: 2
+act_title: 血濺吧台與無解之爭
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261027T114835
+  image_take: image_20261027T114610
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: 1950s British pub interior working class patrons
+  fetch_error: 有抓到圖但 AI 判定不符：AI 審核連線異常，安全拒絕未驗證素材（候選：File:A new roof for Roberttown
+    Working Men's Club, Liversedge - geograph.org.uk - 8034970.jpg）
+  rejected_candidates:
+  - title: File:A new roof for Roberttown Working Men's Club, Liversedge - geograph.org.uk
+      - 8034970.jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/0/08/A_new_roof_for_Roberttown_Working_Men%27s_Club%2C_Liversedge_-_geograph.org.uk_-_8034970.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/0/08/A_new_roof_for_Roberttown_Working_Men%27s_Club%2C_Liversedge_-_geograph.org.uk_-_8034970.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: AI 審核連線異常，安全拒絕未驗證素材
+  - title: File:Deighton Working Men's Club, Deighton Road - geograph.org.uk - 6376944.jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/9/9e/Deighton_Working_Men%27s_Club%2C_Deighton_Road_-_geograph.org.uk_-_6376944.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/9/9e/Deighton_Working_Men%27s_Club%2C_Deighton_Road_-_geograph.org.uk_-_6376944.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 畫面為現代俱樂部建築外觀，非1950年代酒吧內部歷史場景。
+  - title: File:Converted Pub Market Street, Shawforth. - geograph.org.uk - 518116.jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/9/9a/Converted_Pub_Market_Street%2C_Shawforth._-_geograph.org.uk_-_518116.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/9/9a/Converted_Pub_Market_Street%2C_Shawforth._-_geograph.org.uk_-_518116.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 此為現代改建建築外觀，非1950年代酒吧內部與勞工社交場景。
+  - title: File:Farsley Working Men's Club - geograph.org.uk - 1234089.jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/a/a7/Farsley_Working_Men%27s_Club_-_geograph.org.uk_-_1234089.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/a/a7/Farsley_Working_Men%27s_Club_-_geograph.org.uk_-_1234089.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 此為現代俱樂部外觀建築照片，非1950年代酒吧內部歷史影像。

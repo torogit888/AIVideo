@@ -1,0 +1,80 @@
+subject: 'Sir Hugh Beaver: Chibi 2.5-head-tall British aristocrat and managing director
+  in 2D cartoon style. Round, dignified face with expressive arched eyebrows and a
+  neat silver-grey handlebar mustache. Dressed in 1950s country gentleman hunting
+  attire: a checked tweed flat cap, forest-green hunting blazer with brown leather
+  elbow/shoulder patches, knitted wool tie, and beige trousers. Clear bold linework,
+  smooth cel shading, and highly comedic, exaggerated facial expressions. | Norris
+  & Ross McWhirter (Twins): Identical twin fact-compilers rendered as 2.5-head chibi
+  characters in 2D cartoon illustration. Perfectly matching slicked-back dark hair,
+  round wireframe spectacles, and hyper-focused, studious expressions. Wearing identical
+  1950s tailored charcoal-grey office suits, crisp white collared shirts, narrow dark
+  ties, and carrying thick clipboards loaded with indexed fact cards and vintage fountain
+  pens. Crisp clean outlines and flat cel-shaded palette. | British Pub Patron: 1950s
+  post-war British working-class bar-goer in chibi cartoon style. Broad comical stocky
+  build, stubbled jawline, and exaggerated flustered or shouting expressions during
+  pub arguments. Wearing a grey newsboy flat cap, rolled-up off-white cotton work
+  shirt, dark wool suspenders, and brown trousers. Clean graphic outlines, vibrant
+  cel-shaded color blocks. | 1955 First Edition Guinness Book of Records: Authentic
+  physical prop in clean 2D cartoon vector style. A sturdy, 198-page vintage hardcover
+  reference book with an emerald forest-green textured buckram cloth binding. Embellished
+  with elegant gold-leaf typography and embossed border lines on the cover. A chunky,
+  stylized metallic steel security chain is bolted firmly through its spine corner.
+  No anthropomorphic traits or living facial elements. | Vintage Stout Pint and Beer
+  Bottle: Authentic 1950s beverage prop set in 2D cel-shaded cartoon style. A classic
+  straight-sided heavy glass pub tumbler filled with deep ruby-black stout topped
+  with a thick, dense layer of creamy-beige foam, paired with a dark amber glass bottle
+  bearing a vintage beige oval label with a golden harp emblem. Crisp geometric silhouettes,
+  stylized clean specular glass highlights, strictly inanimate.'
+environment: 1950s post-war British and Irish atmosphere rendered in a vibrant 2D
+  Chibi Cartoon Illustration style with bold, clean ink contours and refined cel-shading.
+  The visual world balances the cozy, amber-lit warmth of traditional British neighborhood
+  pubs—featuring dark oak wood counters, chalkboard signage, patterned wallpaper,
+  and stained-glass partitions—with the misty, overcast rolling hills of the Irish
+  countryside and rain-kissed Fleet Street brick offices. Rich warm color palette
+  dominated by tavern ambers, deep stout mahogany, vintage forest green, muted cold-war
+  slate greys, and parchment tones.
+use_image_reference: true
+characters:
+- id: sir_hugh_beaver
+  name: Sir Hugh Beaver
+  appearance: 'Chibi 2.5-head-tall British aristocrat and managing director in 2D
+    cartoon style. Round, dignified face with expressive arched eyebrows and a neat
+    silver-grey handlebar mustache. Dressed in 1950s country gentleman hunting attire:
+    a checked tweed flat cap, forest-green hunting blazer with brown leather elbow/shoulder
+    patches, knitted wool tie, and beige trousers. Clear bold linework, smooth cel
+    shading, and highly comedic, exaggerated facial expressions.'
+  entity_type: character
+- id: mcwhirter_twins
+  name: Norris & Ross McWhirter (Twins)
+  appearance: Identical twin fact-compilers rendered as 2.5-head chibi characters
+    in 2D cartoon illustration. Perfectly matching slicked-back dark hair, round wireframe
+    spectacles, and hyper-focused, studious expressions. Wearing identical 1950s tailored
+    charcoal-grey office suits, crisp white collared shirts, narrow dark ties, and
+    carrying thick clipboards loaded with indexed fact cards and vintage fountain
+    pens. Crisp clean outlines and flat cel-shaded palette.
+  entity_type: character
+- id: british_pub_patron
+  name: British Pub Patron
+  appearance: 1950s post-war British working-class bar-goer in chibi cartoon style.
+    Broad comical stocky build, stubbled jawline, and exaggerated flustered or shouting
+    expressions during pub arguments. Wearing a grey newsboy flat cap, rolled-up off-white
+    cotton work shirt, dark wool suspenders, and brown trousers. Clean graphic outlines,
+    vibrant cel-shaded color blocks.
+  entity_type: character
+- id: guinness_record_book_1955
+  name: 1955 First Edition Guinness Book of Records
+  appearance: Authentic physical prop in clean 2D cartoon vector style. A sturdy,
+    198-page vintage hardcover reference book with an emerald forest-green textured
+    buckram cloth binding. Embellished with elegant gold-leaf typography and embossed
+    border lines on the cover. A chunky, stylized metallic steel security chain is
+    bolted firmly through its spine corner. No anthropomorphic traits or living facial
+    elements.
+  entity_type: object
+- id: vintage_guinness_pint_bottle
+  name: Vintage Stout Pint and Beer Bottle
+  appearance: Authentic 1950s beverage prop set in 2D cel-shaded cartoon style. A
+    classic straight-sided heavy glass pub tumbler filled with deep ruby-black stout
+    topped with a thick, dense layer of creamy-beige foam, paired with a dark amber
+    glass bottle bearing a vintage beige oval label with a golden harp emblem. Crisp
+    geometric silhouettes, stylized clean specular glass highlights, strictly inanimate.
+  entity_type: object

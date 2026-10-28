@@ -1,0 +1,36 @@
+id: 049_shot_49
+index: 49
+title: 曾經門庭若市的奢華獨立旗艦店紛紛
+narration: 曾經門庭若市的奢華獨立旗艦店紛紛縮編關閉，它重新回歸到普通甜品的真實身位，
+image_prompt: wide angle street view of a modern downtown city avenue under an overcast
+  afternoon sky, in 2D cartoon anime illustration with clean line art. A once-glamorous
+  corner flagship store now displays clear windows, dismantled interior fittings,
+  and a quiet moving crew loading simple brown cardboard boxes into a standard truck.
+  Nearby, a cozy, modest neighborhood dessert counter operates normally with casual
+  customers grabbing simple cones and cups. Balanced and peaceful transition of urban
+  life, detailed building facades, soft muted cell-shaded colors, 16:9 widescreen
+  composition.
+character_ids: []
+image_negative: ''
+act_index: 7
+act_title: 神話瓦解後的時代餘韻：我們究竟在為甚麼買單？
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261028T112347
+  image_take: image_20261028T112324
+pip:
+  enabled: true
+  media_type: image
+  image: pip.png
+  video: null
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Haagen Dazs modern shopfront
+  source_title: File:Haagen-Dazs - panoramio.jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/0/0d/Haagen-Dazs_-_panoramio.jpg
+  verified: true
+  review_reason: 影像呈現哈根達斯大型獨立門市外觀，符合旁白提及品牌奢華店面的主題。

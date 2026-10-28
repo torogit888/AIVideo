@@ -15,7 +15,18 @@ from aivideo.naming import (
     scene_folder_id,
     scene_title_from_narration,
 )
-from aivideo.spoken import OMNIVOICE_TAG_RE as _OMNIVOICE_TAG_RE
+from aivideo.spoken import (
+    OMNIVOICE_TAG_RE as _OMNIVOICE_TAG_RE,
+    _deidentify_extracted_narrator_name,
+    deidentify_and_bind_tone,
+    extract_outline_leak_phrases,
+    extract_tone_spoken_sample,
+    is_non_spoken_script_line,
+    resolve_host_persona_name,
+    sanitize_script_punctuation,
+    split_long_narration_line,
+)
+from aivideo.scene_cut import is_cta_line, merge_trailing_cta_chunks
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
@@ -47,6 +58,7 @@ from aivideo.style_prompt import (
     DEFAULT_STYLE_PRESETS,
     STYLES_FILE,
     delete_style_preset,
+    is_generic_fallback_prompt,
     load_style_presets,
     resolve_style,
     save_all_style_presets,
@@ -104,225 +116,6 @@ def load_tone_info(tone_id: str) -> dict[str, Any]:
         "spoken_sample": spoken_sample,
         "full_text": raw,
     }
-
-
-_SCENE_HEADER_RE = re.compile(
-    r"^\s*([【\[\(（#*]*\s*第[一二三四五六七八九十\d]+[幕章節集場次]|幕[一二三四五六七八九十\d]+[：:]|Act\s*\d+|Chapter\s*\d+|Scene\s*\d+)",
-    re.IGNORECASE,
-)
-_OUTLINE_LABEL_RE = re.compile(
-    r"(幕次標題|核心矛盾衝突|關鍵真實歷史|此幕要帶給觀眾|情節大綱|關鍵看點)"
-)
-_META_DIRECTION_RE = re.compile(
-    r"(讓觀眾(思考|理解|迫切|知道)|帶給觀眾|要帶給觀眾|"
-    r"我們深入探討了|這也讓我們探討|讓我們探討|"
-    r"根據您的(核心)?指示|我將根據您的|以下為您(規劃|生成)|"
-    r"鋪陳出.{0,24}(潛力|艱難|背景)|"
-    r"展現了.{0,24}(遠見|手腕|能力))"
-)
-_VISUAL_DIRECTION_RE = re.compile(r"^(畫面|分鏡|鏡頭|場景提示)\s*[：:]")
-_NARRATION_PREFIX_RE = re.compile(r"^(旁白|解說|口白)\s*[：:]\s*")
-_OUTLINE_TITLE_FIELD_RE = re.compile(
-    r"(?:幕次標題[^\n：:]*|核心矛盾衝突)[：:]\s*(.+)"
-)
-_OUTLINE_MOOD_FIELD_RE = re.compile(r"此幕要帶給觀眾[^\n：:]*[：:]\s*(.+)")
-
-
-def _spoken_text_for_compare(line: str) -> str:
-    text = _OMNIVOICE_TAG_RE.sub("", line or "")
-    return re.sub(r"[^\u4e00-\u9fffA-Za-z0-9]", "", text)
-
-
-def _strip_md_phrase(text: str) -> str:
-    return re.sub(r"\*+", "", text or "").strip()
-
-
-def extract_outline_leak_phrases(notes: str | None) -> list[str]:
-    """從大綱場記抽出不該被唸出口白的標題與短情緒標註（不含整段筆記正文）。"""
-    if not notes:
-        return []
-    phrases: list[str] = []
-    for raw_line in notes.splitlines():
-        line = _strip_md_phrase(raw_line).lstrip("-# ").strip()
-        if not line:
-            continue
-        title_match = _OUTLINE_TITLE_FIELD_RE.search(line)
-        if title_match:
-            phrases.append(_strip_md_phrase(title_match.group(1)))
-        mood_match = _OUTLINE_MOOD_FIELD_RE.search(line)
-        if mood_match:
-            rest = _strip_md_phrase(mood_match.group(1))
-            first_clause = re.split(r"[，。？！、；：:]", rest, maxsplit=1)[0].strip()
-            if first_clause:
-                phrases.append(first_clause)
-            # 只收短場記，避免長段情緒說明把正常口白子句一起濾掉
-            if rest and len(_spoken_text_for_compare(rest)) <= 24:
-                phrases.append(rest)
-    return phrases
-
-
-def _line_copies_outline_note(line: str, phrases: list[str]) -> bool:
-    spoken = _spoken_text_for_compare(line)
-    if len(spoken) < 6 or not phrases:
-        return False
-    for phrase in phrases:
-        target = _spoken_text_for_compare(phrase)
-        if len(target) < 6:
-            continue
-        if spoken == target:
-            return True
-        # 短標題／情緒頭：口白幾乎就是那句場記，或只多了「這是／這一幕」之類前綴
-        if target in spoken and len(spoken) <= len(target) + 8:
-            return True
-        if spoken in target and len(spoken) <= 18 and len(target) <= 24:
-            return True
-        if len(spoken) >= 10 and len(target) >= 10:
-            if SequenceMatcher(None, spoken, target).ratio() >= 0.82:
-                return True
-    return False
-
-
-def is_non_spoken_script_line(line: str, outline_phrases: list[str] | None = None) -> bool:
-    """判斷一行是否為場記、幕次標題、情緒標註或後設說明，而非可朗讀口白。"""
-    raw = (line or "").strip()
-    if not raw:
-        return True
-    if _SCENE_HEADER_RE.match(raw) or _VISUAL_DIRECTION_RE.match(raw):
-        return True
-    if _OUTLINE_LABEL_RE.search(raw) or _META_DIRECTION_RE.search(raw):
-        return True
-    spoken = _spoken_text_for_compare(raw)
-    if 4 <= len(spoken) <= 16 and not re.search(r"[你我他她您咱這那是否嗎呢吧]", spoken):
-        if re.search(r"(感|好奇心|張力|震撼|無奈|荒誕|荒謬|情緒)", spoken):
-            return True
-    if outline_phrases and _line_copies_outline_note(raw, outline_phrases):
-        return True
-    return False
-
-
-def extract_tone_spoken_sample(tone_md: str) -> str:
-    """只取出語氣範本中的口白範例，避免結構公式被模型當台詞輸出。"""
-    if not tone_md:
-        return ""
-    match = re.search(
-        r"##\s*(核心口白範例[^\n]*|參考口白[^\n]*)\n+(.*?)(?=\n##\s+|\Z)",
-        tone_md,
-        re.S,
-    )
-    if match:
-        return match.group(2).strip()
-    return tone_md.strip()
-
-
-def split_long_narration_line(line: str, max_chars: int = 30) -> list[str]:
-    """若單行口白包含多個逗號子句且過長，在適當的逗號停頓處拆分為多行獨立口白（每行約 15~25 字）。"""
-    line = line.strip()
-    line = re.sub(r"^[，,]+", "", line).strip()
-    if not line:
-        return []
-    if len(line) <= max_chars or "，" not in line:
-        return [line]
-
-    parts = [p.strip() for p in line.split("，") if p.strip()]
-    if len(parts) <= 1:
-        return [line]
-
-    result = []
-    current_chunk = ""
-    for part in parts:
-        if not current_chunk:
-            current_chunk = part
-        elif len(current_chunk) + len(part) + 1 <= max_chars:
-            current_chunk += "，" + part
-        else:
-            result.append(current_chunk + "，")
-            current_chunk = part
-    if current_chunk:
-        result.append(current_chunk)
-    return result
-
-
-def sanitize_script_punctuation(text: str, outline_notes: str | None = None) -> str:
-    """自動清理並嚴格規範口白標點符號：
-    1. 僅允許使用全形逗號「，」、問號「？」、感嘆號「！」
-    2. 句號「。」、分號「；」自動切分為獨立換行
-    3. 頓號「、」、冒號「：」一律替換為全形逗號「，」
-    4. 移除各類引號「」『』""''“”‘’、括號、書名號
-    5. 若單行過長（>30字）且包含逗號，自動在停頓處智慧分行，維持「一句一行」
-    6. 壓縮過多重複標點，保留 OmniVoice [tag]
-    7. 過濾章節／幕次標題、畫面提示、大綱場記、情緒標註與「讓觀眾思考」等後設說明，確保純口白
-    """
-    # 句號與分號視為句子結束，優先轉換為斷行
-    text = re.sub(r"[。；]", "\n", text)
-    outline_phrases = extract_outline_leak_phrases(outline_notes)
-
-    cleaned_lines = []
-    for raw_line in text.splitlines():
-        line = raw_line.strip()
-        if not line:
-            continue
-        if is_non_spoken_script_line(line, outline_phrases):
-            continue
-        line = _NARRATION_PREFIX_RE.sub("", line).strip()
-        # 移除引號、書名號、圓括號（保留中括號供 OmniVoice [tag] 使用）
-        line = re.sub(r"[「」『』\"'“”‘’《》〈〉（）()]", "", line)
-        # 頓號、冒號轉為逗號
-        line = re.sub(r"[、：:]", "，", line)
-        # 破折號、省略號轉為逗號
-        line = re.sub(r"[—…]+", "，", line)
-        # 壓縮重複標點
-        line = re.sub(r"！+", "！", line)
-        line = re.sub(r"？+", "？", line)
-        line = re.sub(r"，+", "，", line)
-        # 去除行首逗號
-        line = re.sub(r"^[，,]+", "", line).strip()
-        if not line or is_non_spoken_script_line(line, outline_phrases):
-            continue
-
-        # 過長單行智慧切分，保證一行一句（約 15~25 字）
-        sub_lines = split_long_narration_line(line, max_chars=30)
-        for sl in sub_lines:
-            sl = re.sub(r"^[，,]+", "", sl).strip()
-            if sl and not is_non_spoken_script_line(sl, outline_phrases):
-                cleaned_lines.append(sl)
-
-    return "\n".join(cleaned_lines)
-
-
-def resolve_host_persona_name(user_prompt: str | None, default_name: str = "白兔") -> str:
-    """從『故事要求 (user_prompt)』中解析頻道主自稱（例如從『開頭: 大家好~我是白兔!』提取『白兔』）。
-    若明確寫『無自稱／不自稱』則回傳空字串；若未特別指定則預設回傳 default_name。
-    """
-    if not user_prompt or not user_prompt.strip():
-        return default_name
-    text = user_prompt.strip()
-    if re.search(r"(無自稱|不自稱|免自稱|直接破題)", text):
-        return ""
-    m = re.search(r"我是\s*([^\s，,。！!？?~～\n「」『』\"'（）()]{1,15})", text)
-    if m:
-        return m.group(1).strip()
-    m2 = re.search(r"(?:自稱|頻道(?:主|名|名稱)?)\s*[：:]\s*([^\s，,。！!？?~～\n]{1,15})", text)
-    if m2:
-        return m2.group(1).strip()
-    return default_name
-
-
-def deidentify_and_bind_tone(tone_text: str, host_name: str = "白兔") -> str:
-    """將口吻範本中的特定 YouTuber 名字去識別化，並動態套入當前頻道主自稱（如『白兔』），
-    同時 100% 保留該口吻原有的開場節奏、句型頓挫、吐槽口頭禪與敘事公式。
-    """
-    if not tone_text:
-        return ""
-    out = tone_text
-    # 移除 YAML frontmatter 中的特定 YTR 標籤名（避免 AI 看到 name: 叉雞風 就忽略使用者設定）
-    out = re.sub(r"(?m)^name:\s*.*$", "name: 專屬深度說書口吻", out)
-    if host_name:
-        out = re.sub(r"\{\s*(?:頻道主|說書人|主持人|YTR)\s*\}", host_name, out)
-        out = re.sub(r"我是叉雞", f"我是{host_name}", out)
-    else:
-        out = re.sub(r"大家好[，,~\s]*我是\s*(?:\{\s*(?:頻道主|說書人|主持人|YTR)\s*\}|叉雞)[，,！!\s]*", "", out)
-        out = re.sub(r"\{\s*(?:頻道主|說書人|主持人|YTR)\s*\}", "", out)
-    return out
 
 
 def _strip_outline_preamble(text: str) -> str:
@@ -402,8 +195,8 @@ def generate_story_outline(
    - 此幕要帶給觀眾的懸念或情緒高潮
 2. 【第一幕強制要求·時代坐標與歷史舞台鋪陳】：
    第一幕在拋出認知反差 Hook 之後，必須清楚交代故事發生的「時空背景與歷史舞台」（包括具體年代年份、當時的世界地緣格局、社會大環境與時代封閉性），為全篇故事打下紮實的沉浸式世界觀，切忌毫無前情背景直接跳入細節。
-3. 【最後一幕強制要求·歷史餘韻與訂閱謝幕】：
-   最後一幕交代事件的長遠歷史沉澱與深刻哲思，並在結尾為說書人留出自然、真誠的頻道互動與訂閱引導。
+3. 【最後一幕要求·歷史餘韻與口吻收尾】：
+   最後一幕交代事件的長遠歷史沉澱、深刻反思與餘韻，並依循所選口吻範本的收尾方式自然作結（除非使用者於自訂 Prompt 另有指定，否則切勿硬塞罐頭訂閱推銷詞）。
 4. 避免空泛概述，請給出具體人物姓名、時間點、關鍵事件與技術關鍵詞。
 5. 排版請簡潔有力，條列式輸出（例如「### 第一幕：...」、「### 第二幕：...」）。
 6. 「幕次標題」與「此幕要帶給觀眾的懸念或情緒高潮」是給下一階段編劇看的場記，不是口白。請用內部筆記語氣書寫，後續腳本必須改寫成聽眾聽得懂的台詞，不得把這些欄位原句唸出來。
@@ -518,8 +311,9 @@ def generate_story_script(
 - 說書人口語自然與通順度（極重要）：
   * 語言必須極度自然、通俗口語、生動流暢，有如一位老練的說書人在聽眾耳邊娓娓道來。
   * 句子之間聲氣貫通、語氣自然銜接（善用「但問題是，」、「更不可思議的是，」、「回到當時的大環境來看，」、「你可能很難想像，」等自然口語過渡詞），避免生硬乾癟的公文報告腔或零碎條列感。
-- 片尾自然收尾與頻道訂閱引導（必須包含）：
-  * 在全篇故事歷史昇華與哲思總結後，全篇最後 1～2 句必須以沉穩、真誠、自然的說書人口吻加上點讚與訂閱引導（例如：「如果你也喜歡這段荒謬又真實的歷史，別忘了點個喜歡，訂閱頻道，我們下一期故事，繼續見證歷史的魔幻與真實」）。
+- 片尾自然收尾規範（嚴禁罐頭推銷）：
+  * 全篇結尾請嚴格依循上方【指定口吻風格示範文本與敘事公式】的結尾方式自然收束（例如歷史餘韻、開放式提問、精闢洞察或簡短道別）。
+  * 除非使用者在【使用者核心指示與指定 Prompt】中明確要求加入訂閱詞，否則【嚴禁】在結尾硬塞「請記得訂閱我們的頻道並打開小鈴鐺」、「給予支持」、「對我們持續產出內容至關重要」等生硬的罐頭行銷口白！
 - 人設與開場規範（極為關鍵）：
   * 若上方【使用者核心指示與指定 Prompt】中有指定開頭台詞或自稱（例如「開頭: 大家好~我是白兔!」），全篇第一句口白必須 100% 嚴格採用該指定開頭（並符合標點規範，如「大家好，我是白兔！」）！
   * 【絕對嚴格禁止】自稱「說書人」、「小編」，亦【絕對嚴格禁止】照抄口吻風格範本中的原作者名或特定稱謂（如「叉雞」等）！口吻範本僅供學習句型節奏與敘事結構。
@@ -764,6 +558,166 @@ Output JSON with exact keys:
     }
 
 
+def _extract_json_list_from_response(raw_text: str) -> list[Any] | None:
+    """從 LLM 回應中寬容提取 JSON 陣列（支援 markdown code fence 與外層 dict 包裝）。"""
+    text = (raw_text or "").strip()
+    if not text:
+        return None
+    if text.startswith("```"):
+        text = re.sub(r"^```(?:json)?\s*", "", text, flags=re.IGNORECASE)
+        text = re.sub(r"\s*```$", "", text)
+        text = text.strip()
+    try:
+        parsed = json.loads(text)
+    except Exception:
+        m = re.search(r"\[[\s\S]*\]", text)
+        if not m:
+            return None
+        try:
+            parsed = json.loads(m.group(0))
+        except Exception:
+            return None
+
+    if isinstance(parsed, list):
+        return parsed
+    if isinstance(parsed, dict):
+        for k in ("scenes", "plans", "items", "data", "results"):
+            if isinstance(parsed.get(k), list):
+                return parsed[k]
+        for v in parsed.values():
+            if isinstance(v, list):
+                return v
+    return None
+
+
+def _normalize_single_visual_plan(
+    item: Any,
+    valid_char_ids: set[str],
+) -> dict[str, object] | None:
+    if isinstance(item, dict):
+        p_text = str(item.get("image_prompt") or item.get("prompt") or "").strip()
+        raw_ids = item.get("character_ids")
+        c_ids = (
+            [str(cid).strip() for cid in raw_ids if str(cid).strip() in valid_char_ids]
+            if isinstance(raw_ids, list)
+            else []
+        )
+    elif isinstance(item, str):
+        p_text = item.strip()
+        c_ids = []
+    else:
+        return None
+
+    # 移除不小心混入的中文風格名稱或教學詞彙
+    p_text = re.sub(
+        r"\b(?:educational storyboard|educational panels)\b",
+        "2D cartoon illustration",
+        p_text,
+        flags=re.IGNORECASE,
+    )
+    p_text = re.sub(r"[\u4e00-\u9fff]+", "", p_text).strip(" ,，")
+    if not p_text or is_generic_fallback_prompt(p_text):
+        return None
+    return {
+        "image_prompt": p_text,
+        "character_ids": c_ids,
+    }
+
+
+def _generate_visual_plans_chunk(
+    batch_narrations: list[str],
+    *,
+    anchor_rules: str,
+    style: dict[str, str],
+    style_lock: str,
+    valid_char_ids: set[str],
+    is_final_chunk: bool = False,
+) -> list[dict[str, object] | None]:
+    """針對單一小批次（最多 10 幕）呼叫 Gemini 產生英文 image_prompt 與 character_ids。"""
+    from aivideo.commands.check import _load_dotenv
+    _load_dotenv()
+    from google import genai
+    from google.genai import types
+
+    tag_pattern = re.compile(r"\[[a-zA-Z0-9_\-]+\]")
+    items_text = "\n".join([f"[{i+1}] {tag_pattern.sub('', n).strip()}" for i, n in enumerate(batch_narrations)])
+    style_en_medium = style.get("prefix") or "2D cartoon illustration, clean line art, cel shading"
+
+    cta_rule = (
+        "7. If the final scene contains ending channel subscription or call-to-action lines (e.g. 'like and subscribe', 'see you next time', '點個喜歡', '訂閱頻道'), strictly IGNORE the subscription wording and focus the visual prompt completely on the grand narrative conclusion, final historical scene, or character climax.\n"
+        if is_final_chunk
+        else ""
+    )
+
+    prompt = f"""You are a master storyboard visual director and concept artist.
+Analyze the following {len(batch_narrations)} sequential scene narrations from a video documentary.
+For each scene, first determine which recurring entities (`character_ids`) from the Character & Entity Bible actually appear in that scene, and then write a detailed, vivid visual text-to-image prompt strictly in 100% ENGLISH (`image_prompt`).
+
+{style_lock}
+{anchor_rules}
+
+CRITICAL PROMPT CRAFTING REQUIREMENTS:
+1. Every `image_prompt` MUST be written completely in 100% ENGLISH (ABSOLUTELY NO Chinese characters).
+2. Formulate the visual prompt strictly in the locked project art medium ({style_en_medium}). Do NOT contradict it with photorealistic 3D or live-action styles.
+3. Translate each scene narration into a CONCRETE, VISUALLY SPECIFIC SCENE matching EXACTLY what that narration describes: specific characters/people, era-accurate setting/location, dynamic action or posture, tangible props, lighting mood, and camera framing (wide establishing shot, medium shot, close-up, low angle) in 16:9 widescreen composition.
+4. ONLY include visual descriptions of catalog entities whose `id` you placed in that scene's `character_ids`. If `character_ids` is `[]`, depict the historical environment, architecture, anonymous figures, or objects mentioned in that scene's narration WITHOUT inserting any catalog protagonist or prop.
+5. Keep inanimate objects strictly physical (never give objects cartoon human eyes, limbs, or faces).
+6. NEVER include any dialogue, speech bubbles, quotes, text, subtitles, words, letters, logos, or watermarks.
+{cta_rule}8. Output EXACTLY a JSON array of {len(batch_narrations)} objects in the exact same order as the input scenes (1 to {len(batch_narrations)}):
+[
+  {{
+    "index": 1,
+    "character_ids": ["entity_id_1"],
+    "image_prompt": "wide establishing shot of [specific subject, setting, and action from scene 1 in {style_en_medium[:60]}], 16:9 widescreen composition"
+  }}
+]
+
+Scenes:
+{items_text}
+"""
+    results: list[dict[str, object] | None] = [None] * len(batch_narrations)
+    for model_name in get_candidate_text_models():
+        try:
+            client = genai.Client(**get_gemini_client_kwargs(model=model_name))
+            resp = client.models.generate_content(
+                model=model_name,
+                contents=prompt,
+                config=types.GenerateContentConfig(
+                    temperature=0.35,
+                    response_mime_type="application/json",
+                ),
+            )
+            if not resp.text:
+                continue
+            parsed_list = _extract_json_list_from_response(resp.text)
+            if not parsed_list:
+                continue
+
+            # 若回傳陣列長度與批次相同，直接依序對應；若長度略有差異則優先看 item["index"] 再依序填入
+            if len(parsed_list) == len(batch_narrations):
+                for idx, item in enumerate(parsed_list):
+                    results[idx] = _normalize_single_visual_plan(item, valid_char_ids)
+            else:
+                for pos, item in enumerate(parsed_list):
+                    target_idx = None
+                    if isinstance(item, dict) and str(item.get("index") or "").isdigit():
+                        cand_idx = int(item["index"]) - 1
+                        if 0 <= cand_idx < len(batch_narrations):
+                            target_idx = cand_idx
+                    if target_idx is None and pos < len(batch_narrations) and results[pos] is None:
+                        target_idx = pos
+                    if target_idx is not None:
+                        results[target_idx] = _normalize_single_visual_plan(item, valid_char_ids)
+
+            if any(r is not None for r in results):
+                break
+        except Exception as exc:
+            print(f"[warn] 分鏡 Prompt 批次生成呼叫 {model_name} 失敗: {exc}")
+            continue
+
+    return results
+
+
 def batch_generate_scene_visual_plans(
     narrations: list[str],
     subject_anchor: str = "",
@@ -773,6 +727,7 @@ def batch_generate_scene_visual_plans(
 ) -> list[dict[str, object]]:
     """呼叫 Gemini 依據專案全域視覺風格與視覺錨點，為每一幕先判定實際登場的定裝 ID (character_ids)，
     再將中文旁白轉換為只包含登場主體的專業英文畫面提示詞 (image_prompt)。
+    採每批最多 10 幕分段請求，並對個別漏幕自動單獨補跑，防止長腳本一次請求失敗退回空白罐頭句。
     回傳格式: [{"image_prompt": str, "character_ids": list[str]}, ...]
     """
     if not narrations:
@@ -784,131 +739,85 @@ def batch_generate_scene_visual_plans(
     valid_char_ids = {str(ch.get("id") or "").strip() for ch in char_list if ch.get("id")}
     bible = character_bible_for_prompts(char_list)
 
-    try:
-        from google import genai
-        from google.genai import types
+    clean_bible = bible.replace("educational storyboard", "2D animation").replace("educational panels", "clean 2D panels") if bible else ""
+    clean_sub_anchor = subject_anchor.replace("educational storyboard", "2D animation").replace("educational panels", "clean 2D panels")
+    clean_env_anchor = environment_anchor.replace("educational storyboard", "2D animation").replace("educational panels", "clean 2D panels")
 
-        tag_pattern = re.compile(r"\[[a-zA-Z0-9_\-]+\]")
-        items_text = "\n".join([f"[{i+1}] {tag_pattern.sub('', n).strip()}" for i, n in enumerate(narrations)])
-
-        clean_bible = bible.replace("educational storyboard", "2D animation").replace("educational panels", "clean 2D panels") if bible else ""
-        clean_sub_anchor = subject_anchor.replace("educational storyboard", "2D animation").replace("educational panels", "clean 2D panels")
-        clean_env_anchor = environment_anchor.replace("educational storyboard", "2D animation").replace("educational panels", "clean 2D panels")
-
-        anchor_rules = ""
-        if clean_bible or clean_sub_anchor or clean_env_anchor:
-            if clean_bible:
-                subject_rule = (
-                    "AVAILABLE CHARACTER & ENTITY BIBLE (Reference Catalog):\n"
-                    f"{clean_bible}\n"
-                    "- STRICT SCENE CASTING RULE: For each scene, first decide `character_ids` — the exact list of `id`s from the catalog above that ACTUALLY appear in that specific scene's narration (including clear pronoun references like 'he', 'this scientist', 'the glue' resolved from adjacent scenes).\n"
-                    "- WHEN TO USE EMPTY `character_ids: []`: If a scene narration describes general history, corporate background, macroeconomic context, anonymous crowds/colleagues/executives, pure landscapes, or conceptual transitions where NO catalog entity is physically present, `character_ids` MUST be `[]`.\n"
-                    "- STRICT ZERO-HALLUCINATION RULE: If an entity's `id` is NOT in that scene's `character_ids`, you are STRICTLY FORBIDDEN from mentioning its name or visual traits in that scene's `image_prompt`! Never force unused protagonists or props into the frame (NO superimposed faces/eyes, NO tiny protagonist standing in the background, NO floating phantom props).\n"
-                    "- STRICT NO-ANTHROPOMORPHISM: Never give inanimate objects/ships/bottles human eyes, faces, arms, or legs."
-                )
-            else:
-                subject_rule = (
-                    f'- MAIN SUBJECT ANCHOR: ONLY when the main protagonist/object is actually present in the scene narration, incorporate these details: "{clean_sub_anchor}". If the scene is a general setting or transition without the main subject, do NOT include it.'
-                )
-            env_rule = ""
-            if clean_env_anchor:
-                env_rule = (
-                    f'\n- LIGHTING & PALETTE ANCHOR: Use the general lighting mood, line quality, and color palette from "{clean_env_anchor}", '
-                    "but ALWAYS set the actual location/room/building strictly according to each scene's narration (never force a specific lab, basement, or object from the environment description into unrelated scenes)."
-                )
-            anchor_rules = f"""
+    anchor_rules = ""
+    if clean_bible or clean_sub_anchor or clean_env_anchor:
+        if clean_bible:
+            subject_rule = (
+                "AVAILABLE CHARACTER & ENTITY BIBLE (Reference Catalog):\n"
+                f"{clean_bible}\n"
+                "- STRICT SCENE CASTING RULE: For each scene, first decide `character_ids` — the exact list of `id`s from the catalog above that ACTUALLY appear in that specific scene's narration (including clear pronoun references like 'he', 'this scientist', 'the glue' resolved from adjacent scenes).\n"
+                "- WHEN TO USE EMPTY `character_ids: []`: If a scene narration describes general history, corporate background, macroeconomic context, anonymous crowds/colleagues/executives, pure landscapes, or conceptual transitions where NO catalog entity is physically present, `character_ids` MUST be `[]`.\n"
+                "- STRICT ZERO-HALLUCINATION RULE: If an entity's `id` is NOT in that scene's `character_ids`, you are STRICTLY FORBIDDEN from mentioning its name or visual traits in that scene's `image_prompt`! Never force unused protagonists or props into the frame (NO superimposed faces/eyes, NO tiny protagonist standing in the background, NO floating phantom props).\n"
+                "- STRICT NO-ANTHROPOMORPHISM: Never give inanimate objects/ships/bottles human eyes, faces, arms, or legs."
+            )
+        else:
+            subject_rule = (
+                f'- MAIN SUBJECT ANCHOR: ONLY when the main protagonist/object is actually present in the scene narration, incorporate these details: "{clean_sub_anchor}". If the scene is a general setting or transition without the main subject, do NOT include it.'
+            )
+        env_rule = ""
+        if clean_env_anchor:
+            env_rule = (
+                f'\n- LIGHTING & PALETTE ANCHOR: Use the general lighting mood, line quality, and color palette from "{clean_env_anchor}", '
+                "but ALWAYS set the actual location/room/building strictly according to each scene's narration (never force a specific lab, basement, or object from the environment description into unrelated scenes)."
+            )
+        anchor_rules = f"""
 VISUAL CONTINUITY & SCENE CASTING RULES:
 {subject_rule}{env_rule}
 """
 
-        style = resolve_style(style_key)
-        style_lock = style_lock_instructions(style_key)
-        prompt = f"""You are a master storyboard visual director and concept artist.
-Analyze the following sequential scene narrations from a video documentary.
-For each scene, first determine which recurring entities (`character_ids`) from the Character & Entity Bible actually appear in that scene, and then write a compelling, evocative visual text-to-image prompt strictly in ENGLISH (`image_prompt`).
-
-{style_lock}
-{anchor_rules}
-
-CRITICAL PROMPT CRAFTING REQUIREMENTS:
-1. Every `image_prompt` MUST be written completely in ENGLISH.
-2. Formulate the visual prompt strictly in the locked project art medium: {style["name"]}. Do NOT contradict it with unrelated art styles.
-3. Translate each scene narration into a CONCRETE, VISUALLY STRIKING PHYSICAL SCENE matching ONLY what that narration describes: subjects, dynamic action or posture, tangible props, lighting, atmosphere, and camera framing (wide establishing shot, medium close-up, dramatic low angle) in 16:9 widescreen composition.
-4. ONLY include visual descriptions of catalog entities whose `id` you placed in that scene's `character_ids`. If `character_ids` is `[]`, depict the environment, architecture, anonymous figures, or objects mentioned in that scene's narration WITHOUT inserting any catalog protagonist or prop.
-5. Keep inanimate objects strictly physical (never give objects cartoon human eyes, limbs, or faces).
-6. NEVER include any dialogue, speech bubbles, quotes, text, subtitles, words, letters, logos, or watermarks.
-7. If the final scene contains ending channel subscription or call-to-action lines (e.g. 'like and subscribe', 'see you next time', '點個喜歡', '訂閱頻道'), strictly IGNORE the subscription wording and focus the visual prompt completely on the grand narrative conclusion, final historical scene, or character climax.
-8. Output EXACTLY a JSON array of {len(narrations)} objects in the exact same order as the input scenes:
-[
-  {{
-    "character_ids": ["entity_id_1"],
-    "image_prompt": "wide establishing shot of [subject and action description], [lighting], [environment], 16:9 widescreen composition"
-  }},
-  {{
-    "character_ids": [],
-    "image_prompt": "wide establishing shot of [environment or scene without catalog characters], [lighting], 16:9 widescreen composition"
-  }}
-]
-
-Scenes:
-{items_text}
-"""
-        for model_name in get_candidate_text_models():
-            try:
-                client = genai.Client(**get_gemini_client_kwargs(model=model_name))
-                resp = client.models.generate_content(
-                    model=model_name,
-                    contents=prompt,
-                    config=types.GenerateContentConfig(
-                        temperature=0.35,
-                        response_mime_type="application/json",
-                    ),
-                )
-                if resp.text:
-                    parsed = json.loads(resp.text)
-                    if isinstance(parsed, list) and len(parsed) == len(narrations):
-                        plans: list[dict[str, object]] = []
-                        for item in parsed:
-                            if isinstance(item, dict):
-                                p_text = str(item.get("image_prompt") or item.get("prompt") or "").strip()
-                                raw_ids = item.get("character_ids")
-                                c_ids = (
-                                    [
-                                        str(cid).strip()
-                                        for cid in raw_ids
-                                        if str(cid).strip() in valid_char_ids
-                                    ]
-                                    if isinstance(raw_ids, list)
-                                    else []
-                                )
-                            else:
-                                p_text = str(item).strip()
-                                c_ids = []
-
-                            p_text = re.sub(
-                                r"\b(?:educational storyboard|educational panels)\b",
-                                "2D cartoon illustration",
-                                p_text,
-                                flags=re.IGNORECASE,
-                            )
-                            plans.append({
-                                "image_prompt": p_text,
-                                "character_ids": c_ids,
-                            })
-                        return plans
-            except Exception:
-                continue
-    except Exception:
-        pass
-
     style = resolve_style(style_key)
-    return [
-        {
-            "image_prompt": f"{style['name']} cinematic wide angle shot, dramatic lighting, 16:9 widescreen composition",
-            "character_ids": [],
-        }
-        for _ in narrations
-    ]
+    style_lock = style_lock_instructions(style_key)
+
+    BATCH_SIZE = 10
+    all_plans: list[dict[str, object] | None] = []
+    total = len(narrations)
+
+    for start_idx in range(0, total, BATCH_SIZE):
+        batch = narrations[start_idx : start_idx + BATCH_SIZE]
+        is_last = (start_idx + BATCH_SIZE) >= total
+        chunk_plans = _generate_visual_plans_chunk(
+            batch,
+            anchor_rules=anchor_rules,
+            style=style,
+            style_lock=style_lock,
+            valid_char_ids=valid_char_ids,
+            is_final_chunk=is_last,
+        )
+        all_plans.extend(chunk_plans)
+
+    # 若有少數單幕因對齊問題仍為 None，針對該單幕獨立重試一次
+    for idx, plan in enumerate(all_plans):
+        if plan is None and narrations[idx].strip():
+            retry_res = _generate_visual_plans_chunk(
+                [narrations[idx]],
+                anchor_rules=anchor_rules,
+                style=style,
+                style_lock=style_lock,
+                valid_char_ids=valid_char_ids,
+                is_final_chunk=(idx == total - 1),
+            )
+            if retry_res and retry_res[0] is not None:
+                all_plans[idx] = retry_res[0]
+
+    # 保底：使用純英文風格 prefix 與環境基調，絕不混入中文風格名或寫實戲劇光字眼
+    fallback_prefix = style.get("prefix") or "2D cartoon illustration, clean line art, cel shading"
+    env_fallback = f", {clean_env_anchor[:160]}" if clean_env_anchor else ""
+    final_plans: list[dict[str, object]] = []
+    for plan in all_plans:
+        if isinstance(plan, dict) and plan.get("image_prompt"):
+            final_plans.append(plan)
+        else:
+            final_plans.append(
+                {
+                    "image_prompt": f"Wide establishing shot{env_fallback}, {fallback_prefix[:140]}, 16:9 widescreen composition",
+                    "character_ids": [],
+                }
+            )
+    return final_plans
 
 
 def translate_single_scene_prompt(
@@ -929,12 +838,41 @@ def translate_single_scene_prompt(
     return plans[0] if plans else {"image_prompt": "", "character_ids": []}
 
 
-def batch_detect_pip_queries(
+def _normalize_pip_plan_item(item: Any) -> dict[str, str] | None:
+    """將 AI 回傳的單幕考據決策正規化為 {"query": str, "media_type": "video"|"image", "mode": "broll"|"spotlight"|"pip"}。"""
+    if not item:
+        return None
+    if isinstance(item, str):
+        q = item.strip()
+        if not q or q.lower() == "null":
+            return None
+        return {"query": q, "media_type": "image", "mode": "pip"}
+    if isinstance(item, dict):
+        raw_q = item.get("query")
+        if not raw_q or str(raw_q).strip().lower() in ("", "null", "none"):
+            return None
+        q = str(raw_q).strip()
+        m_type = str(item.get("media_type") or "").strip().lower()
+        mode = str(item.get("mode") or "").strip().lower()
+        if mode == "broll" or m_type == "video":
+            return {"query": q, "media_type": "video", "mode": "broll"}
+        if mode in ("spotlight", "focus", "black_bg", "fullscreen"):
+            return {"query": q, "media_type": "image", "mode": "spotlight"}
+        return {"query": q, "media_type": "image", "mode": "pip"}
+    return None
+
+
+def batch_detect_pip_plans(
     narrations: list[str],
     topic: str = "",
     subject_anchor: str = "",
-) -> list[str | None]:
-    """呼叫 Gemini 批次分析各場景分鏡台詞，結合紀錄片主題與核心錨點，判定哪些場景適合搭配真實考據照片 (PiP)，輸出精準檢索詞或 None。"""
+) -> list[dict[str, str] | None]:
+    """
+    呼叫 Gemini AI 批次分析各場景分鏡台詞，全權由 AI 決定：
+    1. 哪幾幕需要真實考據素材（不需要則為 None）
+    2. 每一幕適合抓「動態考據影片 (video / broll)」、「黑底全螢幕原照 (image / spotlight)」還是「角落畫中畫小卡 (image / pip)」
+    3. 精簡準確的英文搜尋關鍵字 (query)
+    """
     if not narrations:
         return []
 
@@ -952,33 +890,37 @@ def batch_detect_pip_queries(
         context_lines.append(f"- Core Subject Anchor & Era: {subject_anchor}")
     context_block = f"\nDOCUMENTARY CONTEXT:\n" + "\n".join(context_lines) + "\n" if context_lines else ""
 
-    prompt = f"""You are a master archival visual researcher and senior documentary film archivist.
-Analyze the following scene narrations for a documentary video.{context_block}
-Your mission is to identify scenes that describe a SPECIFIC, CONCRETE, REAL-WORLD ENTITY where showing a REAL archival photograph, authentic blueprint, genuine historical document/contract, or news clipping (as a Picture-in-Picture card) will dramatically boost audience immersion and documentary credibility.
+    prompt = f"""You are a master archival visual researcher and senior documentary film director.
+Analyze the following {len(narrations)} scene narrations for a documentary video.{context_block}
+For EACH scene, decide:
+1. Whether displaying authentic archival visual evidence (a real historical/documentary video clip or real photograph) will boost audience immersion and documentary credibility.
+2. If YES, decide the best `media_type` ("video" or "image") and presentation `mode` ("broll", "spotlight", or "pip"):
+   - `media_type: "video", mode: "broll"` (Fullscreen Archival Video / YouTube Footage):
+     Choose this when the scene describes a DYNAMIC real-world action, historical newsreel event, crowd/street activity, sports/record-breaking feat, factory/production line, flight/sailing/launch, scientific experiment in motion, or era footage where real moving footage exists on YouTube / archives (approx. 15%~30% of archival scenes).
+   - `media_type: "image", mode: "spotlight"` (Fullscreen Black-Background Archival Photo):
+     Choose this when the scene describes a pivotal historical turning point, famous historical photograph, signed treaty/contract/book cover close-up, historical map, or dramatic reveal where the real photo should take center stage on a pure black background.
+   - `media_type: "image", mode: "pip"` (Corner Picture-in-Picture Photo Card over AI Illustration):
+     Choose this when the scene mentions a specific historical person/portrait, company/institution, building/location, or specific object/vehicle while the main background remains the story's AI illustration.
+3. If the scene is generic opening/closing greeting, pure emotional transition, or dialogue without a concrete real-world entity, output `null`.
+
+CRITICAL QUERY GUIDELINES:
+- Aim for 45%~70% of scenes overall to have archival evidence (`pip`, `spotlight`, or `broll`).
+- KEEP `query` CONCISE (2 to 4 core English nouns MAX, e.g. "British food rationing", "Sir Hugh Beaver", "Guinness Book of Records 1955", "Roger Bannister mile 1954"). Do NOT pad queries with 7-word descriptions.
 
 Scenes:
 {json.dumps(scene_items, ensure_ascii=False, indent=2)}
 
-CRITICAL QUERY GUIDELINES (STRICT SPECIFICITY, NO ABSTRACT TERMS):
-1. ABSOLUTELY FORBIDDEN TERMS:
-   - Do NOT output abstract concepts, emotions, or generic topics (e.g. "Cold War diplomacy", "naval power", "military tension", "secret trade", "space mystery", "ancient history"). Image archives and web engines return useless maps, random flags, or modern stock logos for these.
-2. PRIORITY ENTITY TYPES (FOCUS ON AUTHENTIC ARCHIVAL EVIDENCE):
-   - Priority 1: Genuine Historical Documents / Contracts / Blueprints / News Clippings (e.g., "Pepsi USSR barter trade agreement 1989", "Apollo 11 flight plan NASA", "Perkin-Elmer mirror polish blueprint").
-   - Priority 2: Key Historical Figures / Decision Makers: Full official name with title or era (e.g., "Donald Kendall Pepsi CEO", "Mikhail Gorbachev portrait", "Burn-Jeng Lin TSMC", "Nancy Grace Roman astronomer").
-   - Priority 3: Specific Vehicles / Ships / Spacecraft / Weapons: Exact official model, class, or NATO reporting name (e.g., "Project 613 Whiskey-class submarine", "KH-11 KENNEN reconnaissance satellite", "Soyuz TMA spacecraft", "Lockheed U-2 spy plane").
-   - Priority 4: Specific Instruments / Technology / Facilities: Concrete device or facility (e.g., "ASML Twinscan immersion lithography", "Hubble primary mirror polishing Perkin-Elmer", "James Webb Space Telescope gold mirror").
-   - Chinese-specific figures, organizations or locations: Provide English name or well-known Chinese keyword (e.g., "林本堅 浸潤式微影", "張忠謀 台積電", "ASML 光刻機").
-3. WHEN TO RETURN NULL:
-   - If the scene narration is generic commentary, transition, philosophical thought, or purely conceptual without a tangible real-world entity, return null.
-4. SELECTIVITY:
-   - Only 25%~45% of scenes deserve an authentic archival PiP card. Quality, credibility, and relevance over quantity.
-
 OUTPUT FORMAT:
-Return a JSON array of strings or nulls, with EXACTLY {len(narrations)} items corresponding to the scenes in order:
-["Hubble primary mirror", null, "Donald Kendall Pepsi CEO", null]
+Return a JSON array with EXACTLY {len(narrations)} items corresponding to the scenes in order. Each item must be either `null` or an object `{{"query": "...", "media_type": "video"|"image", "mode": "broll"|"spotlight"|"pip"}}`:
+[
+  null,
+  {{"query": "British food rationing", "media_type": "video", "mode": "broll"}},
+  {{"query": "Sir Hugh Beaver", "media_type": "image", "mode": "pip"}},
+  {{"query": "Guinness Book of Records 1955", "media_type": "image", "mode": "spotlight"}}
+]
 """
 
-    for model_name in TEXT_MODELS:
+    for model_name in get_candidate_text_models():
         try:
             client = genai.Client(**get_gemini_client_kwargs(model=model_name))
             resp = client.models.generate_content(
@@ -990,14 +932,9 @@ Return a JSON array of strings or nulls, with EXACTLY {len(narrations)} items co
                 ),
             )
             if resp.text:
-                parsed = json.loads(resp.text)
+                parsed = _extract_json_list_from_response(resp.text)
                 if isinstance(parsed, list):
-                    result = []
-                    for item in parsed:
-                        if item and str(item).strip().lower() != "null":
-                            result.append(str(item).strip())
-                        else:
-                            result.append(None)
+                    result = [_normalize_pip_plan_item(item) for item in parsed]
                     while len(result) < len(narrations):
                         result.append(None)
                     return result[: len(narrations)]
@@ -1005,6 +942,16 @@ Return a JSON array of strings or nulls, with EXACTLY {len(narrations)} items co
             continue
 
     return [None] * len(narrations)
+
+
+def batch_detect_pip_queries(
+    narrations: list[str],
+    topic: str = "",
+    subject_anchor: str = "",
+) -> list[str | None]:
+    """向下相容介面：回傳每幕的考據檢索詞字串或 None。"""
+    plans = batch_detect_pip_plans(narrations, topic=topic, subject_anchor=subject_anchor)
+    return [p["query"] if isinstance(p, dict) and p.get("query") else None for p in plans]
 
 
 PACING_CONFIGS = {
@@ -1138,41 +1085,6 @@ Return ONLY a valid JSON 2D array of integers, like:
     return fallback_chunks
 
 
-_CTA_KEYWORDS = (
-    "訂閱", "订阅", "按讚", "按赞", "點個喜歡", "点个赞", "點讚", "点赞",
-    "小鈴鐺", "小铃铛", "開啟小鈴鐺", "開啟鈴鐺", "开启小铃铛",
-    "分享", "留言", "追蹤", "关注", "下期見", "下一期", "下期再見",
-    "下集", "下回", "敬請期待", "subscribe", "like and subscribe",
-)
-
-
-def is_cta_line(line: str) -> bool:
-    """判斷一行台詞是否為頻道訂閱、按讚等片尾收尾宣傳詞。"""
-    l = line.lower()
-    return any(k in l for k in _CTA_KEYWORDS)
-
-
-def merge_trailing_cta_chunks(chunks: list[list[str]]) -> list[list[str]]:
-    """
-    若腳本末尾最後一幕主要為頻道訂閱、按讚、開啟小鈴鐺等呼籲語 (CTA)，
-    自動將其合併吸收到故事最後一幕，避免為訂閱詞多生成一個孤立無意義的新分鏡。
-    """
-    if len(chunks) <= 1:
-        return chunks
-
-    while len(chunks) > 1:
-        last_chunk = chunks[-1]
-        cta_count = sum(1 for line in last_chunk if is_cta_line(line))
-        # 若最後一幕包含 CTA 詞彙且句數偏短 (<= 3 句)，直接合併吸收到前一幕
-        if cta_count > 0 and (cta_count == len(last_chunk) or len(last_chunk) <= 3):
-            chunks[-2].extend(last_chunk)
-            chunks.pop()
-        else:
-            break
-
-    return chunks
-
-
 def parse_script_lines_to_scenes(
     script_lines_text: str,
     visual_pacing: str = "balanced",
@@ -1226,7 +1138,7 @@ def parse_script_lines_to_scenes(
         characters=characters,
         style_key=style_key,
     )
-    pip_queries = batch_detect_pip_queries(
+    pip_plans = batch_detect_pip_plans(
         narrations,
         topic=topic,
         subject_anchor=subject_anchor,
@@ -1245,7 +1157,10 @@ def parse_script_lines_to_scenes(
             if isinstance(plan, dict) and isinstance(plan.get("character_ids"), list)
             else []
         )
-        q = pip_queries[idx - 1] if idx - 1 < len(pip_queries) else None
+        pip_plan = pip_plans[idx - 1] if idx - 1 < len(pip_plans) else None
+        q = pip_plan.get("query") if isinstance(pip_plan, dict) else None
+        pip_mtype = pip_plan.get("media_type") if isinstance(pip_plan, dict) else None
+        pip_mode = pip_plan.get("mode") if isinstance(pip_plan, dict) else None
 
         scenes.append({
             "id": scene_folder_id(idx),
@@ -1256,26 +1171,14 @@ def parse_script_lines_to_scenes(
             "image_prompt": img_prompt,
             "character_ids": char_ids,
             "pip_query": q,
+            "pip_media_type": pip_mtype,
+            "pip_mode": pip_mode,
         })
 
     from aivideo.acts import apply_acts_to_scenes, parse_outline_acts
 
     apply_acts_to_scenes(scenes, parse_outline_acts(outline or ""))
     return scenes
-
-
-def _deidentify_extracted_narrator_name(text: str) -> str:
-    """在萃取逐字稿口吻範本時，將開頭自稱（如『大家好，我是叉雞，』）自動正規化為『大家好，我是{頻道主}，』，
-    同時 100% 保留後續所有口頭禪、吐槽句型與敘事內容。
-    """
-    if not text:
-        return ""
-    out = re.sub(
-        r"(大家好[，,~\s]*我是)\s*(?!\{\s*頻道主\s*\})([^\s，,。！!？?~～\n「」『』\"'（）()]{1,12})(?=[，,！!\s]|$)",
-        r"\1{頻道主}",
-        text,
-    )
-    return out
 
 
 def extract_and_create_tone_preset(
@@ -1538,9 +1441,16 @@ def create_job_bundle(
         if s.get("pip_query"):
             q = s["pip_query"]
             from aivideo.auto_pip import infer_pip_mode
-            auto_mode = infer_pip_mode(q, str(s.get("narration", "")))
+            ai_mode = str(s.get("pip_mode") or "").strip().lower()
+            ai_mtype = str(s.get("pip_media_type") or "").strip().lower()
+            if ai_mode in ("pip", "spotlight", "broll"):
+                auto_mode = ai_mode
+            else:
+                auto_mode = infer_pip_mode(q, str(s.get("narration", "")))
+            chosen_mtype = "video" if (ai_mtype == "video" or auto_mode == "broll") else "image"
             scfg["pip"] = {
                 "enabled": True,  # 預設啟用考據，出圖或一鍵全流程時自動下載生效
+                "media_type": chosen_mtype,
                 "image": "pip.png",
                 "position": "right-center",
                 "mode": auto_mode,

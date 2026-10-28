@@ -1,0 +1,65 @@
+id: 020_shot_20
+index: 20
+title: 夫妻倆在沙發上整整坐了好幾個星期
+narration: 夫妻倆在沙發上整整坐了好幾個星期，嘴裡不斷嘟囔著各種古怪的舌根發音，最後魯本在紙上寫下了哈根達斯這幾個字，聽起來是不是充滿了古老的北歐宮廷韻味，而且高級感十足，
+image_prompt: medium shot in (masterpiece, best quality:1.2), 2D cartoon illustration,
+  anime art style, chibi characters, clean line art, cell shading, flat colors, cute
+  mobile game UI art, visual novel style, crisp details, vibrant and cheerful color
+  palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle
+  coherent view, one main environment, highly detailed and intricate background. Chibi
+  Reuben Mattus and chibi Rose Mattus celebrate with joyful beaming expressions in
+  their cozy living room, triumphantly holding up a finished packaging design sketch.
+  Resting proudly on the polished wooden coffee table between them is the physical
+  luxury ice cream pint, an elegant inanimate cylindrical burgundy paperboard container
+  adorned with intricate gold filigree borders, a gilded map of Scandinavia, and mock-Nordic
+  stylized serif lettering, glowing with an aura of regal European luxury, 16:9 widescreen
+  composition
+character_ids:
+- reuben_mattus
+- rose_mattus
+- luxury_ice_cream_pint
+image_negative: ''
+act_index: 3
+act_title: 語言學詐欺術：客廳沙發上誕生的「偽丹麥神話」
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261028T104103
+  image_take: image_20261028T104048
+pip:
+  enabled: false
+  media_type: image
+  image: pip.png
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Haagen Dazs original logo
+  fetch_error: 有抓到圖但 AI 判定不符：此為2023年現代商場門市，非歷史檔案或創始標誌，不符文意（候選：File:20230519 Haagen-Dazs
+    at 360 Plaza, Guomao.jpg）
+  rejected_candidates:
+  - title: File:20230519 Haagen-Dazs at 360 Plaza, Guomao.jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/4/44/20230519_Haagen-Dazs_at_360_Plaza%2C_Guomao.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/4/44/20230519_Haagen-Dazs_at_360_Plaza%2C_Guomao.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 此為2023年現代商場門市，非歷史檔案或創始標誌，不符文意
+  - title: File:Haagen-Dazs Marseille.jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/4/43/Haagen-Dazs_Marseille.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/4/43/Haagen-Dazs_Marseille.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 此為現代馬賽門市街景，非原始標誌或創立歷史檔案。
+  - title: File:Haagen-Dazs SG.JPG
+    url: https://upload.wikimedia.org/wikipedia/commons/b/ba/Haagen-Dazs_SG.JPG
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/b/ba/Haagen-Dazs_SG.JPG
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 此為現代新加坡商場門市照片，非創辦人命名歷史或原始標誌。
+  - title: File:Haagen-Dazs in Hong Kong.JPG
+    url: https://upload.wikimedia.org/wikipedia/commons/7/71/Haagen-Dazs_in_Hong_Kong.JPG
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/7/71/Haagen-Dazs_in_Hong_Kong.JPG
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 此為現代香港門市照片，並非創立歷史原稿或早期標誌。

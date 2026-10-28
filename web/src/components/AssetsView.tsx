@@ -1,129 +1,11 @@
 import React, { useEffect, useState } from "react";
-import {
-  Sparkles,
-  Image as ImageIcon,
-  Volume2,
-  BookOpen,
-  X,
-  Save,
-  Plus,
-  Trash2,
-  Upload,
-  Loader2,
-  FileText,
-} from "lucide-react";
+import { Sparkles, Volume2, BookOpen, Plus } from "lucide-react";
 import { api } from "../api";
 import { useStudioStore } from "../store";
 import { AssetStyle, AssetTone, AssetVoice, AI_TEXT_MODELS } from "../types";
-
-// 輔助函式：檔案轉 base64
-const fileToBase64 = (file: File): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
-};
-
-const OMNIVOICE_CATEGORIES = [
-  {
-    category: "gender",
-    label: "性別 (Gender)",
-    options: [
-      { label: "女 (女性)", value: "女" },
-      { label: "男 (男性)", value: "男" },
-    ],
-  },
-  {
-    category: "age",
-    label: "年齡層 (Age)",
-    options: [
-      { label: "兒童", value: "儿童" },
-      { label: "少年", value: "少年" },
-      { label: "青年", value: "青年" },
-      { label: "中年", value: "中年" },
-      { label: "老年", value: "老年" },
-    ],
-  },
-  {
-    category: "pitch",
-    label: "音高 (Pitch)",
-    options: [
-      { label: "極低音", value: "极低音调" },
-      { label: "低音", value: "低音调" },
-      { label: "中音", value: "中音调" },
-      { label: "高音", value: "高音调" },
-      { label: "極高音", value: "极高音调" },
-    ],
-  },
-  {
-    category: "dialect",
-    label: "中文方言 / 口音 (Chinese Dialect)",
-    options: [
-      { label: "標準普通話", value: "" },
-      { label: "東北話", value: "东北话" },
-      { label: "四川話", value: "四川话" },
-      { label: "陝西話", value: "陕西话" },
-      { label: "河南話", value: "河南话" },
-      { label: "貴州話", value: "贵州话" },
-      { label: "雲南話", value: "云南话" },
-      { label: "桂林話", value: "桂林话" },
-      { label: "青島話", value: "青岛话" },
-      { label: "濟南話", value: "济南话" },
-      { label: "甘肅話", value: "甘肃话" },
-      { label: "寧夏話", value: "宁夏话" },
-      { label: "石家莊話", value: "石家庄话" },
-    ],
-  },
-  {
-    category: "style",
-    label: "風格 / 氣音 (Style)",
-    options: [
-      { label: "一般講述", value: "" },
-      { label: "耳語 / 氣音 (whisper)", value: "耳语" },
-    ],
-  },
-];
-
-const OMNIVOICE_PRESETS = [
-  { label: "沉穩說書男聲", instruct: "男，中年，低音调" },
-  { label: "專業知性女聲", instruct: "女，青年，中音调" },
-  { label: "懸疑氣音旁白", instruct: "男，青年，低音调，耳语" },
-  { label: "慈祥長者說書", instruct: "男，老年，低音调" },
-  { label: "活潑少女講述", instruct: "女，少年，高音调" },
-  { label: "四川風情口吻", instruct: "男，中年，中音调，四川话" },
-  { label: "東北喜劇評書", instruct: "男，中年，高音调，东北话" },
-];
-
-const ORDER_MAP: Record<string, number> = {
-  女: 1, 男: 1, female: 1, male: 1,
-  儿童: 2, 少年: 2, 青年: 2, 中年: 2, 老年: 2, child: 2, teenager: 2, "young adult": 2, "middle-aged": 2, elderly: 2,
-  极低音调: 3, 低音调: 3, 中音调: 3, 高音调: 3, 极高音调: 3, "very low pitch": 3, "low pitch": 3, "moderate pitch": 3, "high pitch": 3, "very high pitch": 3,
-  河南话: 4, 陕西话: 4, 四川话: 4, 贵州话: 4, 云南话: 4, 桂林话: 4, 济南话: 4, 石家庄话: 4, 甘肃话: 4, 宁夏话: 4, 青岛话: 4, 东北话: 4,
-  耳语: 5, whisper: 5,
-};
-
-const updateVoiceInstructTag = (
-  current: string,
-  categoryOptions: { label: string; value: string }[],
-  selectedValue: string
-): string => {
-  let parts = current
-    .split(/[,，]/)
-    .map((s) => s.trim())
-    .filter(Boolean);
-
-  const allCategoryVals = new Set(categoryOptions.map((o) => o.value).filter(Boolean));
-  parts = parts.filter((p) => !allCategoryVals.has(p));
-
-  if (selectedValue) {
-    parts.push(selectedValue);
-  }
-
-  parts.sort((a, b) => (ORDER_MAP[a] || 99) - (ORDER_MAP[b] || 99));
-  return parts.join("，");
-};
+import { AssetsStylesSection } from "./AssetsStylesSection";
+import { AssetsTonesSection } from "./AssetsTonesSection";
+import { AssetsVoicesSection } from "./AssetsVoicesSection";
 
 export const AssetsView: React.FC = () => {
   const { showToast, requestConfirm, selectedAiModel, setSelectedAiModel } = useStudioStore();
@@ -652,10 +534,7 @@ export const AssetsView: React.FC = () => {
       {/* 左主內容 */}
       <div className="flex-1 flex flex-col h-full overflow-y-auto p-6 space-y-5">
         <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-lg font-semibold text-cinema-text">素材庫與風格資源</h2>
-            <p className="text-xs text-cinema-muted">管理 AI 影片創作所需的視覺風格、說書人口吻與發音人音色。</p>
-          </div>
+          <h2 className="text-base font-bold text-cinema-text">素材庫</h2>
           <div>
             {tab === "styles" && (
               <button
@@ -681,7 +560,7 @@ export const AssetsView: React.FC = () => {
                 className="flex items-center h-8 px-3.5 rounded bg-amber-cta hover:bg-amber-ctaHover text-cinema-bg font-semibold text-xs tracking-wide transition-colors shadow"
               >
                 <Plus className="w-3.5 h-3.5 mr-1" />
-                <span>建立發音人音色</span>
+                <span>建立發音人</span>
               </button>
             )}
           </div>
@@ -730,1372 +609,163 @@ export const AssetsView: React.FC = () => {
           </button>
         </div>
 
-        {/* 視覺風格卡片網格 */}
+        {/* 視覺風格子元件 */}
         {tab === "styles" && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {styles.map((s) => (
-              <div
-                key={s.id}
-                onClick={() => handleSelectStyle(s)}
-                className={`group rounded-lg bg-cinema-card border overflow-hidden cursor-pointer transition-all ${
-                  selectedStyle?.id === s.id ? "border-amber-cta ring-2 ring-amber-cta/30" : "border-cinema-border hover:border-cinema-muted"
-                }`}
-              >
-                <div className="aspect-video w-full bg-black/50 overflow-hidden relative">
-                  {s.preview_url ? (
-                    <img src={s.preview_url} alt={s.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
-                  ) : (
-                    <ImageIcon className="w-8 h-8 m-auto text-cinema-muted/40" />
-                  )}
-                  <div className="absolute top-2 left-2 flex space-x-1">
-                    {s.tags.map((t, i) => (
-                      <span key={i} className="px-1.5 py-0.5 rounded bg-black/70 text-[10px] text-zinc-300">
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div className="p-3">
-                  <h4 className="text-xs font-semibold text-cinema-text truncate">{s.name}</h4>
-                  <p className="mt-1 text-[11px] text-cinema-muted line-clamp-2 leading-relaxed">{s.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+          <AssetsStylesSection
+            styles={styles}
+            selectedStyle={selectedStyle}
+            onSelectStyle={handleSelectStyle}
+            onCloseDrawer={() => setSelectedStyle(null)}
+            editStyleName={editStyleName}
+            setEditStyleName={setEditStyleName}
+            editStyleDesc={editStyleDesc}
+            setEditStyleDesc={setEditStyleDesc}
+            editStylePrompt={editStylePrompt}
+            setEditStylePrompt={setEditStylePrompt}
+            editStyleNegative={editStyleNegative}
+            setEditStyleNegative={setEditStyleNegative}
+            editStylePreviewDisplay={editStylePreviewDisplay}
+            setEditStylePreviewDisplay={setEditStylePreviewDisplay}
+            setEditStylePreviewBase64={setEditStylePreviewBase64}
+            saving={saving}
+            onSaveStyle={handleSaveStyle}
+            onDeleteStyle={handleDeleteStyle}
+            isCreateStyleOpen={isCreateStyleOpen}
+            setIsCreateStyleOpen={setIsCreateStyleOpen}
+            newStyleId={newStyleId}
+            setNewStyleId={setNewStyleId}
+            newStyleName={newStyleName}
+            setNewStyleName={setNewStyleName}
+            newStyleDesc={newStyleDesc}
+            setNewStyleDesc={setNewStyleDesc}
+            newStylePrompt={newStylePrompt}
+            setNewStylePrompt={setNewStylePrompt}
+            newStyleNegative={newStyleNegative}
+            setNewStyleNegative={setNewStyleNegative}
+            newStylePreviewBase64={newStylePreviewBase64}
+            setNewStylePreviewBase64={setNewStylePreviewBase64}
+            onCreateStyle={handleCreateStyle}
+          />
         )}
 
-        {/* 口吻列表 */}
-        {tab === "tones" && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {tones.map((t) => (
-              <div
-                key={t.id}
-                onClick={() => handleSelectTone(t)}
-                className={`p-4 rounded-lg bg-cinema-card border cursor-pointer transition-all space-y-2.5 ${
-                  selectedTone?.id === t.id
-                    ? "border-amber-cta ring-2 ring-amber-cta/30"
-                    : "border-cinema-border hover:border-cinema-muted"
-                }`}
-              >
-                <div className="flex items-start justify-between gap-2">
-                  <h4 className="text-xs font-semibold text-amber-cta leading-snug">{t.title}</h4>
-                  <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-cinema-darker text-cinema-muted border border-cinema-border shrink-0">
-                    {t.id}
-                  </span>
-                </div>
-
-                {t.tags && t.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-1">
-                    {t.tags.map((tag, i) => (
-                      <span key={i} className="px-1.5 py-0.5 rounded bg-amber-cta/10 text-amber-cta/80 text-[10px]">
-                        #{tag}
-                      </span>
-                    ))}
-                  </div>
-                )}
-
-                <p className="text-xs text-cinema-muted leading-relaxed line-clamp-3">{t.summary}</p>
-
-                {t.recommended_voice_instruct && (
-                  <div className="text-[11px] text-zinc-400 bg-cinema-darker/60 px-2 py-1 rounded border border-cinema-border/50 flex items-center space-x-1.5">
-                    <span className="text-amber-cta/80 font-medium shrink-0">建議音色：</span>
-                    <span className="truncate">{t.recommended_voice_instruct}</span>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* 音色列表 */}
+        {/* 發音人音色子元件 */}
         {tab === "voices" && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {voices.map((v) => (
-              <div
-                key={v.id}
-                onClick={() => handleSelectVoice(v)}
-                className={`p-4 rounded-lg bg-cinema-card border cursor-pointer transition-all space-y-2.5 ${
-                  selectedVoice?.id === v.id
-                    ? "border-amber-cta ring-2 ring-amber-cta/30"
-                    : "border-cinema-border hover:border-cinema-muted"
-                }`}
-              >
-                <div className="flex justify-between items-center">
-                  <h4 className="text-xs font-semibold text-cinema-text">{v.name}</h4>
-                  <div className="flex items-center space-x-1.5">
-                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-cinema-darker text-cinema-muted border border-cinema-border">
-                      {v.id}
-                    </span>
-                    <span className={`text-[10px] px-2 py-0.5 rounded border ${
-                      v.mode === "design"
-                        ? "bg-purple-950/60 text-purple-300 border-purple-800"
-                        : "bg-cinema-darker text-amber-cta border-cinema-border"
-                    }`}>
-                      {v.mode === "design" ? "語氣設計 (Design)" : "克隆 (Clone)"}
-                    </span>
-                    <span className="text-[10px] px-2 py-0.5 rounded bg-cinema-darker text-amber-cta border border-cinema-border">
-                      {v.gender}
-                    </span>
-                  </div>
-                </div>
-                {v.mode === "design" && v.voice_instruct && (
-                  <div className="text-[11px] text-purple-300 font-mono bg-purple-950/30 px-2 py-1 rounded border border-purple-900/40 flex items-center space-x-1.5">
-                    <span className="text-purple-400 font-medium shrink-0">特徵：</span>
-                    <span className="truncate">{v.voice_instruct}</span>
-                  </div>
-                )}
-                {v.reference_text && v.mode !== "design" && (
-                  <p className="text-[11px] text-cinema-muted italic line-clamp-2">「{v.reference_text}」</p>
-                )}
-                {v.audio_sample_url && (
-                  <audio
-                    controls
-                    src={v.audio_sample_url}
-                    className="w-full h-8 mt-2"
-                    onClick={(e) => e.stopPropagation()}
-                  />
-                )}
-                <div className="text-[10px] text-cinema-muted/60 text-right pt-1">點擊開啟音色設定與管理 ▾</div>
-              </div>
-            ))}
-          </div>
+          <AssetsVoicesSection
+            voices={voices}
+            selectedVoice={selectedVoice}
+            onSelectVoice={handleSelectVoice}
+            onCloseDrawer={() => setSelectedVoice(null)}
+            editVoiceName={editVoiceName}
+            setEditVoiceName={setEditVoiceName}
+            editVoiceGender={editVoiceGender}
+            setEditVoiceGender={setEditVoiceGender}
+            editVoiceMode={editVoiceMode}
+            setEditVoiceMode={setEditVoiceMode}
+            editVoiceSpeed={editVoiceSpeed}
+            setEditVoiceSpeed={setEditVoiceSpeed}
+            editVoiceTemp={editVoiceTemp}
+            setEditVoiceTemp={setEditVoiceTemp}
+            editVoiceInstruct={editVoiceInstruct}
+            setEditVoiceInstruct={setEditVoiceInstruct}
+            editVoiceRefText={editVoiceRefText}
+            setEditVoiceRefText={setEditVoiceRefText}
+            setEditVoiceAudioBase64={setEditVoiceAudioBase64}
+            localAudioPreviewUrl={localAudioPreviewUrl}
+            setLocalAudioPreviewUrl={setLocalAudioPreviewUrl}
+            testAudioUrl={testAudioUrl}
+            testingVoice={testingVoice}
+            testSentence={testSentence}
+            setTestSentence={setTestSentence}
+            saving={saving}
+            onTestVoice={handleTestVoice}
+            onSaveVoice={handleSaveVoice}
+            onDeleteVoice={handleDeleteVoice}
+            isCreateVoiceOpen={isCreateVoiceOpen}
+            setIsCreateVoiceOpen={setIsCreateVoiceOpen}
+            newVoiceId={newVoiceId}
+            setNewVoiceId={setNewVoiceId}
+            newVoiceName={newVoiceName}
+            setNewVoiceName={setNewVoiceName}
+            newVoiceGender={newVoiceGender}
+            setNewVoiceGender={setNewVoiceGender}
+            newVoiceMode={newVoiceMode}
+            setNewVoiceMode={setNewVoiceMode}
+            newVoiceSpeed={newVoiceSpeed}
+            setNewVoiceSpeed={setNewVoiceSpeed}
+            newVoiceTemp={newVoiceTemp}
+            setNewVoiceTemp={setNewVoiceTemp}
+            newVoiceInstruct={newVoiceInstruct}
+            setNewVoiceInstruct={setNewVoiceInstruct}
+            newVoiceRefText={newVoiceRefText}
+            setNewVoiceRefText={setNewVoiceRefText}
+            newVoiceAudioBase64={newVoiceAudioBase64}
+            setNewVoiceAudioBase64={setNewVoiceAudioBase64}
+            onCreateVoice={handleCreateVoice}
+          />
+        )}
+
+        {/* 口吻範本子元件 */}
+        {tab === "tones" && (
+          <AssetsTonesSection
+            tones={tones}
+            selectedTone={selectedTone}
+            onSelectTone={handleSelectTone}
+            onCloseDrawer={() => setSelectedTone(null)}
+            editToneTitle={editToneTitle}
+            setEditToneTitle={setEditToneTitle}
+            editToneSummary={editToneSummary}
+            setEditToneSummary={setEditToneSummary}
+            editToneTags={editToneTags}
+            setEditToneTags={setEditToneTags}
+            editToneVoice={editToneVoice}
+            setEditToneVoice={setEditToneVoice}
+            editToneContent={editToneContent}
+            setEditToneContent={setEditToneContent}
+            editToneTab={editToneTab}
+            setEditToneTab={setEditToneTab}
+            reExtractText={reExtractText}
+            setReExtractText={setReExtractText}
+            reExtractKeepTitle={reExtractKeepTitle}
+            setReExtractKeepTitle={setReExtractKeepTitle}
+            reExtracting={reExtracting}
+            reExtractMsg={reExtractMsg}
+            onReExtractFileUpload={handleReExtractFileUpload}
+            onReExtractTone={handleReExtractTone}
+            saving={saving}
+            onSaveTone={handleSaveTone}
+            onDeleteTone={handleDeleteTone}
+            selectedAiModel={selectedAiModel}
+            setSelectedAiModel={setSelectedAiModel}
+            isCreateToneOpen={isCreateToneOpen}
+            setIsCreateToneOpen={setIsCreateToneOpen}
+            createToneMode={createToneMode}
+            setCreateToneMode={setCreateToneMode}
+            extractText={extractText}
+            setExtractText={setExtractText}
+            extractToneId={extractToneId}
+            setExtractToneId={setExtractToneId}
+            extractToneTitle={extractToneTitle}
+            setExtractToneTitle={setExtractToneTitle}
+            extracting={extracting}
+            extractMsg={extractMsg}
+            onToneFileUpload={handleToneFileUpload}
+            onExtractTone={handleExtractTone}
+            newToneId={newToneId}
+            setNewToneId={setNewToneId}
+            newToneTitle={newToneTitle}
+            setNewToneTitle={setNewToneTitle}
+            newToneSummary={newToneSummary}
+            setNewToneSummary={setNewToneSummary}
+            newToneTags={newToneTags}
+            setNewToneTags={setNewToneTags}
+            newToneVoice={newToneVoice}
+            setNewToneVoice={setNewToneVoice}
+            newToneContent={newToneContent}
+            setNewToneContent={setNewToneContent}
+            onCreateTone={handleCreateTone}
+          />
         )}
       </div>
-
-      {/* 右側編輯風格抽屜 */}
-      {selectedStyle && tab === "styles" && (
-        <aside className="w-[380px] h-full flex flex-col border-l border-cinema-border bg-cinema-card p-4 space-y-4 overflow-y-auto">
-          <div className="flex justify-between items-center border-b border-cinema-border pb-3">
-            <div>
-              <span className="text-xs font-semibold text-cinema-text">編輯視覺風格</span>
-              <div className="text-[10px] font-mono text-cinema-muted">ID: {selectedStyle.id}</div>
-            </div>
-            <button onClick={() => setSelectedStyle(null)} className="text-cinema-muted hover:text-cinema-text">
-              <X className="w-4 h-4" />
-            </button>
-          </div>
-
-          <div className="space-y-1.5">
-            <label className="block text-[11px] text-cinema-muted">風格示範預覽圖</label>
-            <div className="aspect-video w-full rounded bg-black/60 overflow-hidden border border-cinema-border relative group">
-              {editStylePreviewDisplay ? (
-                <img src={editStylePreviewDisplay} alt="" className="w-full h-full object-cover" />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center text-cinema-muted/40">
-                  <ImageIcon className="w-8 h-8" />
-                </div>
-              )}
-              <label className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center text-xs text-white cursor-pointer transition-opacity">
-                <Upload className="w-5 h-5 mb-1 text-amber-cta" />
-                <span>點擊更換示範圖片</span>
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={async (e) => {
-                    const file = e.target.files?.[0];
-                    if (file) {
-                      const b64 = await fileToBase64(file);
-                      setEditStylePreviewBase64(b64);
-                      setEditStylePreviewDisplay(b64);
-                    }
-                  }}
-                />
-              </label>
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-[11px] text-cinema-muted mb-1">風格顯示名稱</label>
-            <input
-              type="text"
-              value={editStyleName}
-              onChange={(e) => setEditStyleName(e.target.value)}
-              className="w-full h-8 px-2.5 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text focus:outline-none focus:border-amber-cta"
-            />
-          </div>
-
-          <div>
-            <label className="block text-[11px] text-cinema-muted mb-1">風格特色描述</label>
-            <textarea
-              value={editStyleDesc}
-              onChange={(e) => setEditStyleDesc(e.target.value)}
-              rows={2}
-              className="w-full p-2 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text resize-none focus:outline-none focus:border-amber-cta"
-            />
-          </div>
-
-          <div>
-            <label className="block text-[11px] text-cinema-muted mb-1">正向提示詞前綴 (Style Prefix)</label>
-            <textarea
-              value={editStylePrompt}
-              onChange={(e) => setEditStylePrompt(e.target.value)}
-              rows={4}
-              className="w-full p-2 rounded bg-cinema-darker border border-cinema-border font-mono text-[11px] text-zinc-300 resize-none focus:outline-none focus:border-amber-cta"
-            />
-          </div>
-
-          <div>
-            <label className="block text-[11px] text-cinema-muted mb-1">負向過濾詞 (Negative Prompt)</label>
-            <textarea
-              value={editStyleNegative}
-              onChange={(e) => setEditStyleNegative(e.target.value)}
-              rows={2}
-              className="w-full p-2 rounded bg-cinema-darker border border-cinema-border font-mono text-[11px] text-zinc-300 resize-none focus:outline-none focus:border-amber-cta"
-            />
-          </div>
-
-          <div className="flex items-center space-x-2 pt-2">
-            <button
-              onClick={() => handleDeleteStyle(selectedStyle.id, selectedStyle.name)}
-              className="flex items-center justify-center h-9 px-3 rounded bg-red-950/60 hover:bg-red-900 border border-red-800 text-red-300 text-xs transition-colors"
-              title="刪除此風格"
-            >
-              <Trash2 className="w-3.5 h-3.5 mr-1" />
-              <span>刪除</span>
-            </button>
-            <button
-              onClick={handleSaveStyle}
-              disabled={saving}
-              className="flex-1 flex items-center justify-center h-9 rounded bg-amber-cta hover:bg-amber-ctaHover text-cinema-bg font-semibold text-xs tracking-wide transition-all shadow"
-            >
-              <Save className="w-3.5 h-3.5 mr-1.5" />
-              <span>{saving ? "儲存中..." : "儲存變更"}</span>
-            </button>
-          </div>
-        </aside>
-      )}
-
-      {/* 右側編輯口吻範本抽屜 */}
-      {selectedTone && tab === "tones" && (
-        <aside className="w-[440px] h-full flex flex-col border-l border-cinema-border bg-cinema-card p-4 space-y-3.5 overflow-y-auto">
-          <div className="flex justify-between items-center border-b border-cinema-border pb-3">
-            <div className="flex items-center space-x-2">
-              <BookOpen className="w-4 h-4 text-amber-cta" />
-              <div>
-                <span className="text-xs font-semibold text-cinema-text">編輯說書人口吻</span>
-                <div className="text-[10px] font-mono text-cinema-muted">ID: {selectedTone.id}</div>
-              </div>
-            </div>
-            <button onClick={() => setSelectedTone(null)} className="text-cinema-muted hover:text-cinema-text">
-              <X className="w-4 h-4" />
-            </button>
-          </div>
-
-          {/* 模式切換 Tabs */}
-          <div className="flex border-b border-cinema-border">
-            <button
-              type="button"
-              onClick={() => setEditToneTab("manual")}
-              className={`flex items-center px-3 py-1.5 text-xs font-medium border-b-2 transition-all ${
-                editToneTab === "manual"
-                  ? "border-amber-cta text-amber-cta font-semibold"
-                  : "border-transparent text-cinema-muted hover:text-cinema-text"
-              }`}
-            >
-              <FileText className="w-3.5 h-3.5 mr-1" />
-              <span>手動修改設定</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => setEditToneTab("re-extract")}
-              className={`flex items-center px-3 py-1.5 text-xs font-medium border-b-2 transition-all ${
-                editToneTab === "re-extract"
-                  ? "border-amber-cta text-amber-cta font-semibold"
-                  : "border-transparent text-cinema-muted hover:text-cinema-text"
-              }`}
-            >
-              <Sparkles className="w-3.5 h-3.5 mr-1 text-amber-cta" />
-              <span>✨ 逐字稿 AI 重新分析更新</span>
-            </button>
-          </div>
-
-          {editToneTab === "manual" ? (
-            /* 手動修改表單 */
-            <>
-              <div>
-                <label className="block text-[11px] text-cinema-muted mb-1">口吻中文名稱</label>
-                <input
-                  type="text"
-                  value={editToneTitle}
-                  onChange={(e) => setEditToneTitle(e.target.value)}
-                  className="w-full h-8 px-2.5 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text focus:outline-none focus:border-amber-cta"
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-2">
-                <div>
-                  <label className="block text-[11px] text-cinema-muted mb-1">標籤 (逗號分隔)</label>
-                  <input
-                    type="text"
-                    value={editToneTags}
-                    onChange={(e) => setEditToneTags(e.target.value)}
-                    placeholder="科普, 懸念, 幽默"
-                    className="w-full h-8 px-2.5 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text focus:outline-none focus:border-amber-cta"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[11px] text-cinema-muted mb-1">建議發音人指示</label>
-                  <input
-                    type="text"
-                    value={editToneVoice}
-                    onChange={(e) => setEditToneVoice(e.target.value)}
-                    placeholder="女，青年，中音调"
-                    className="w-full h-8 px-2.5 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text focus:outline-none focus:border-amber-cta"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-[11px] text-cinema-muted mb-1">簡要描述與特徵</label>
-                <textarea
-                  value={editToneSummary}
-                  onChange={(e) => setEditToneSummary(e.target.value)}
-                  rows={2}
-                  className="w-full p-2 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text resize-none focus:outline-none focus:border-amber-cta"
-                />
-              </div>
-
-              <div className="flex-1 flex flex-col min-h-[220px] space-y-1">
-                <label className="text-[11px] text-cinema-muted font-medium">口白範本與結構規範 (Markdown)</label>
-                <textarea
-                  value={editToneContent}
-                  onChange={(e) => setEditToneContent(e.target.value)}
-                  className="flex-1 p-2.5 rounded bg-cinema-darker border border-cinema-border text-xs text-zinc-300 font-mono resize-none focus:outline-none focus:border-amber-cta leading-relaxed"
-                />
-              </div>
-
-              <div className="flex items-center space-x-2 pt-2">
-                <button
-                  onClick={() => handleDeleteTone(selectedTone.id, selectedTone.title)}
-                  className="flex items-center justify-center h-9 px-3 rounded bg-red-950/60 hover:bg-red-900 border border-red-800 text-red-300 text-xs transition-colors"
-                  title="刪除此口吻"
-                >
-                  <Trash2 className="w-3.5 h-3.5 mr-1" />
-                  <span>刪除</span>
-                </button>
-                <button
-                  onClick={handleSaveTone}
-                  disabled={saving}
-                  className="flex-1 flex items-center justify-center h-9 rounded bg-amber-cta hover:bg-amber-ctaHover text-cinema-bg font-semibold text-xs tracking-wide transition-all shadow"
-                >
-                  <Save className="w-3.5 h-3.5 mr-1.5" />
-                  <span>{saving ? "儲存中..." : "儲存口吻變更"}</span>
-                </button>
-              </div>
-            </>
-          ) : (
-            /* AI 逐字稿重新分析覆蓋面板 */
-            <div className="flex-1 flex flex-col space-y-3.5">
-              <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 text-xs text-amber-200/90 leading-relaxed">
-                <div className="flex items-center space-x-1.5 font-semibold text-amber-300 mb-1">
-                  <Sparkles className="w-3.5 h-3.5" />
-                  <span>覆蓋更新專案檔案</span>
-                </div>
-                在此貼上新的說書逐字稿，Vertex AI 會重新分析結構特徵與台詞規範，並<strong>直接覆蓋寫入專案原檔案（assets/tones/{selectedTone.id}.md）</strong>。
-              </div>
-
-              <div className="flex items-center justify-between">
-                <label className="text-[11px] text-cinema-muted font-medium">新參考逐字稿 / 文本</label>
-                <label className="cursor-pointer inline-flex items-center px-2 py-0.5 rounded bg-cinema-darker hover:bg-zinc-800 border border-cinema-border text-[10px] text-zinc-300 hover:text-white transition-colors">
-                  <Upload className="w-3 h-3 mr-1 text-amber-cta" />
-                  <span>載入文字檔 (.txt / .md)</span>
-                  <input
-                    type="file"
-                    accept=".txt,.md"
-                    onChange={handleReExtractFileUpload}
-                    className="hidden"
-                  />
-                </label>
-              </div>
-
-              <textarea
-                value={reExtractText}
-                onChange={(e) => setReExtractText(e.target.value)}
-                rows={9}
-                disabled={reExtracting}
-                placeholder="貼上新的影片逐字稿或示範文稿，AI 將重新提煉 7 步成片法、發音人建議與示範台詞..."
-                className="flex-1 min-h-[180px] p-2.5 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text resize-none focus:outline-none focus:border-amber-cta leading-relaxed"
-              />
-
-              <div className="grid grid-cols-2 gap-2">
-                <div className="flex items-center space-x-2 pt-2">
-                  <input
-                    type="checkbox"
-                    id="keep_title_chk"
-                    checked={reExtractKeepTitle}
-                    onChange={(e) => setReExtractKeepTitle(e.target.checked)}
-                    className="rounded bg-cinema-darker border-cinema-border text-amber-cta focus:ring-0 cursor-pointer"
-                  />
-                  <label htmlFor="keep_title_chk" className="text-[11px] text-cinema-muted cursor-pointer select-none">
-                    保留原名稱 ({editToneTitle})
-                  </label>
-                </div>
-                <div>
-                  <select
-                    value={selectedAiModel}
-                    onChange={(e) => setSelectedAiModel(e.target.value)}
-                    disabled={reExtracting}
-                    className="w-full h-8 px-2 rounded bg-cinema-darker border border-cinema-border text-xs text-amber-cta font-medium focus:outline-none focus:border-amber-cta cursor-pointer"
-                  >
-                    {AI_TEXT_MODELS.map((m) => (
-                      <option key={m.id} value={m.id} className="bg-cinema-card text-cinema-text">
-                        {m.badge} ({m.name})
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-
-              {reExtracting && (
-                <div className="p-3 rounded-lg bg-cinema-darker border border-amber-cta/30 flex items-center space-x-2.5 text-xs text-amber-cta animate-pulse">
-                  <Loader2 className="w-4 h-4 animate-spin shrink-0" />
-                  <span>{reExtractMsg || "Vertex AI 正在深度重新分析並覆蓋專案..."}</span>
-                </div>
-              )}
-
-              <div className="flex justify-end space-x-2 pt-2 border-t border-cinema-border">
-                <button
-                  onClick={() => setEditToneTab("manual")}
-                  disabled={reExtracting}
-                  className="px-3.5 py-1.5 rounded hover:bg-cinema-darker text-xs text-cinema-muted hover:text-cinema-text"
-                >
-                  返回手動修改
-                </button>
-                <button
-                  onClick={handleReExtractTone}
-                  disabled={reExtracting || !reExtractText.trim()}
-                  className="flex items-center px-4 py-1.5 rounded bg-amber-cta hover:bg-amber-ctaHover text-cinema-bg font-semibold text-xs tracking-wide shadow disabled:opacity-50 transition-all"
-                >
-                  {reExtracting ? (
-                    <>
-                      <Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" />
-                      <span>重新分析中...</span>
-                    </>
-                  ) : (
-                    <>
-                      <Sparkles className="w-3.5 h-3.5 mr-1.5" />
-                      <span>由 Vertex AI 重新分析並覆蓋更新專案</span>
-                    </>
-                  )}
-                </button>
-              </div>
-            </div>
-          )}
-        </aside>
-      )}
-
-      {/* 右側編輯發音人音色抽屜 */}
-      {selectedVoice && tab === "voices" && (
-        <aside className="w-[380px] h-full flex flex-col border-l border-cinema-border bg-cinema-card p-4 space-y-3.5 overflow-y-auto">
-          <div className="flex justify-between items-center border-b border-cinema-border pb-3">
-            <div className="flex items-center space-x-2">
-              <Volume2 className="w-4 h-4 text-amber-cta" />
-              <div>
-                <span className="text-xs font-semibold text-cinema-text">編輯發音人音色</span>
-                <div className="text-[10px] font-mono text-cinema-muted">ID: {selectedVoice.id}</div>
-              </div>
-            </div>
-            <button onClick={() => setSelectedVoice(null)} className="text-cinema-muted hover:text-cinema-text">
-              <X className="w-4 h-4" />
-            </button>
-          </div>
-
-          <div>
-            <label className="block text-[11px] text-cinema-muted mb-1">角色顯示名稱</label>
-            <input
-              type="text"
-              value={editVoiceName}
-              onChange={(e) => setEditVoiceName(e.target.value)}
-              className="w-full h-8 px-2.5 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text focus:outline-none focus:border-amber-cta"
-            />
-          </div>
-
-          <div className="grid grid-cols-2 gap-2">
-            <div>
-              <label className="block text-[11px] text-cinema-muted mb-1">性別標籤</label>
-              <select
-                value={editVoiceGender}
-                onChange={(e) => setEditVoiceGender(e.target.value)}
-                className="w-full h-8 px-2 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text focus:outline-none focus:border-amber-cta"
-              >
-                <option value="女性">女性</option>
-                <option value="男性">男性</option>
-                <option value="中性">中性</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-[11px] text-cinema-muted mb-1">合成模式</label>
-              <select
-                value={editVoiceMode}
-                onChange={(e) => setEditVoiceMode(e.target.value)}
-                className="w-full h-8 px-2 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text focus:outline-none focus:border-amber-cta"
-              >
-                <option value="clone">聲音克隆 (Clone)</option>
-                <option value="design">語氣設計 (Design)</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-2">
-            <div>
-              <div className="flex justify-between text-[11px] text-cinema-muted mb-1">
-                <span>預設語速</span>
-                <span className="font-mono text-amber-cta">{editVoiceSpeed}x</span>
-              </div>
-              <input
-                type="range"
-                min={0.5}
-                max={2.0}
-                step={0.05}
-                value={editVoiceSpeed}
-                onChange={(e) => setEditVoiceSpeed(Number(e.target.value))}
-                className="w-full accent-amber-cta cursor-pointer h-6"
-              />
-            </div>
-            <div>
-              <div className="flex justify-between text-[11px] text-cinema-muted mb-1">
-                <span>位置溫度</span>
-                <span className="font-mono text-amber-cta">{editVoiceTemp}</span>
-              </div>
-              <input
-                type="range"
-                min={0.0}
-                max={1.0}
-                step={0.05}
-                value={editVoiceTemp}
-                onChange={(e) => setEditVoiceTemp(Number(e.target.value))}
-                className="w-full accent-amber-cta cursor-pointer h-6"
-              />
-            </div>
-          </div>
-
-          {editVoiceMode === "design" ? (
-            <div className="p-3 rounded-lg bg-cinema-darker border border-cinema-border space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-semibold text-cinema-text flex items-center">
-                  <Sparkles className="w-3.5 h-3.5 mr-1 text-amber-cta" />
-                  <span>語氣設計工坊 (Voice Design)</span>
-                </span>
-                <span className="text-[10px] text-emerald-400 font-medium">免參考音・零樣本生成</span>
-              </div>
-
-              {/* 快速推薦預設 */}
-              <div>
-                <label className="block text-[11px] text-cinema-muted mb-1.5">推薦音色範本</label>
-                <div className="flex flex-wrap gap-1">
-                  {OMNIVOICE_PRESETS.map((p) => (
-                    <button
-                      key={p.label}
-                      type="button"
-                      onClick={() => {
-                        setEditVoiceInstruct(p.instruct);
-                        if (p.instruct.includes("男")) setEditVoiceGender("男性");
-                        if (p.instruct.includes("女")) setEditVoiceGender("女性");
-                      }}
-                      className={`px-2 py-0.5 rounded text-[10px] transition-colors border ${
-                        editVoiceInstruct === p.instruct
-                          ? "bg-amber-cta text-cinema-bg font-semibold border-amber-cta"
-                          : "bg-cinema-card hover:bg-cinema-cardHover text-cinema-text border-cinema-border"
-                      }`}
-                    >
-                      {p.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* 維度特徵選取器 */}
-              {OMNIVOICE_CATEGORIES.map((cat) => (
-                <div key={cat.category} className="space-y-1">
-                  <label className="block text-[10px] text-cinema-muted">{cat.label}</label>
-                  <div className="flex flex-wrap gap-1">
-                    {cat.options.map((opt) => {
-                      const currentTags = editVoiceInstruct.split(/[,，]/).map((s) => s.trim());
-                      const isSelected = opt.value === ""
-                        ? !cat.options.some((o) => o.value && currentTags.includes(o.value))
-                        : currentTags.includes(opt.value);
-                      return (
-                        <button
-                          key={opt.label}
-                          type="button"
-                          onClick={() => {
-                            const updated = updateVoiceInstructTag(editVoiceInstruct, cat.options, opt.value);
-                            setEditVoiceInstruct(updated);
-                            if (opt.value === "男") setEditVoiceGender("男性");
-                            if (opt.value === "女") setEditVoiceGender("女性");
-                          }}
-                          className={`px-2 py-1 rounded text-[11px] transition-all border ${
-                            isSelected
-                              ? "bg-amber-cta/20 text-amber-cta font-medium border-amber-cta/60"
-                              : "bg-cinema-card hover:bg-cinema-cardHover text-cinema-muted hover:text-cinema-text border-cinema-border"
-                          }`}
-                        >
-                          {opt.label}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              ))}
-
-              {/* 提示詞輸入框 */}
-              <div>
-                <div className="flex justify-between items-center text-[11px] text-cinema-muted mb-1">
-                  <span>組合提示詞 (voice_instruct)</span>
-                  <button
-                    type="button"
-                    onClick={() => setEditVoiceInstruct("女，青年，中音调")}
-                    className="text-[10px] text-amber-cta hover:underline"
-                  >
-                    重設預設
-                  </button>
-                </div>
-                <textarea
-                  value={editVoiceInstruct}
-                  onChange={(e) => setEditVoiceInstruct(e.target.value)}
-                  rows={2}
-                  placeholder="例如：女，青年，中音调 或 male, young adult, low pitch..."
-                  className="w-full p-2 rounded bg-cinema-card border border-cinema-border text-xs text-cinema-text font-mono resize-none focus:outline-none focus:border-amber-cta"
-                />
-                <div className="text-[10px] text-cinema-muted mt-0.5">
-                  * 屬性間以「，」隔開，同維度只選一項，跨維度任意組合。
-                </div>
-              </div>
-            </div>
-          ) : (
-            <>
-              <div>
-                <label className="block text-[11px] text-cinema-muted mb-1">
-                  參考音逐字稿 (reference.txt - 克隆模式必備)
-                </label>
-                <textarea
-                  value={editVoiceRefText}
-                  onChange={(e) => setEditVoiceRefText(e.target.value)}
-                  rows={3}
-                  placeholder="輸入與參考音訊 100% 吻合的中文文字..."
-                  className="w-full p-2 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text resize-none focus:outline-none focus:border-amber-cta"
-                />
-              </div>
-
-              <div className="space-y-1.5">
-                <div className="flex justify-between items-center text-[11px] text-cinema-muted">
-                  <span>參考音訊試聽與替換</span>
-                  {localAudioPreviewUrl && (
-                    <span className="text-amber-cta font-mono text-[10px]">● 已載入本機新音訊</span>
-                  )}
-                </div>
-                {(localAudioPreviewUrl || selectedVoice.audio_sample_url) && (
-                  <audio
-                    controls
-                    src={localAudioPreviewUrl || selectedVoice.audio_sample_url}
-                    key={localAudioPreviewUrl || selectedVoice.audio_sample_url}
-                    className="w-full h-8"
-                  />
-                )}
-                <label className="flex items-center justify-center h-8 rounded border border-cinema-border bg-cinema-darker hover:bg-cinema-cardHover text-xs text-cinema-text cursor-pointer transition-colors">
-                  <Upload className="w-3.5 h-3.5 mr-1.5 text-amber-cta" />
-                  <span>{localAudioPreviewUrl ? "已載入新音訊（可立即在上方試聽）" : "上傳替換參考音訊 (WAV/MP3)"}</span>
-                  <input
-                    type="file"
-                    accept="audio/*"
-                    className="hidden"
-                    onChange={async (e) => {
-                      const file = e.target.files?.[0];
-                      if (file) {
-                        const objectUrl = URL.createObjectURL(file);
-                        setLocalAudioPreviewUrl(objectUrl);
-                        const b64 = await fileToBase64(file);
-                        setEditVoiceAudioBase64(b64);
-                      }
-                    }}
-                  />
-                </label>
-              </div>
-            </>
-          )}
-
-          {/* 即時合成試聽區塊 */}
-          <div className="p-3 rounded-lg bg-cinema-darker border border-cinema-border space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-cinema-text flex items-center">
-                <Sparkles className="w-3.5 h-3.5 mr-1 text-amber-cta" />
-                <span>合成試聽 (Audition)</span>
-              </span>
-              <span className="text-[10px] text-cinema-muted">依目前位置溫度即時合成</span>
-            </div>
-
-            <div>
-              <label className="block text-[11px] text-cinema-muted mb-1">測試朗讀台詞</label>
-              <textarea
-                value={testSentence}
-                onChange={(e) => setTestSentence(e.target.value)}
-                rows={2}
-                className="w-full p-2 rounded bg-cinema-card border border-cinema-border text-xs text-cinema-text resize-none focus:outline-none focus:border-amber-cta"
-                placeholder="輸入測試語句..."
-              />
-            </div>
-
-            <button
-              onClick={handleTestVoice}
-              disabled={testingVoice || saving}
-              className="w-full flex items-center justify-center h-8 rounded bg-cinema-card hover:bg-cinema-cardHover border border-amber-cta/40 hover:border-amber-cta text-xs text-amber-cta font-medium transition-all shadow-sm active:scale-98 disabled:opacity-50"
-            >
-              {testingVoice ? (
-                <>
-                  <Loader2 className="w-3.5 h-3.5 animate-spin mr-1.5" />
-                  <span>ComfyUI 合成中 (約 5~10 秒)...</span>
-                </>
-              ) : (
-                <>
-                  <Volume2 className="w-3.5 h-3.5 mr-1.5" />
-                  <span>生成新參數試聽效果</span>
-                </>
-              )}
-            </button>
-
-            {testAudioUrl && (
-              <div className="pt-1.5 space-y-1">
-                <div className="flex justify-between items-center text-[10px] text-cinema-muted">
-                  <span className="text-emerald-400 font-medium">🟢 最新合成試聽結果：</span>
-                </div>
-                <audio controls src={testAudioUrl} key={testAudioUrl} className="w-full h-8" />
-              </div>
-            )}
-          </div>
-
-          <div className="flex items-center space-x-2 pt-2">
-            <button
-              onClick={() => handleDeleteVoice(selectedVoice.id, selectedVoice.name)}
-              className="flex items-center justify-center h-9 px-3 rounded bg-red-950/60 hover:bg-red-900 border border-red-800 text-red-300 text-xs transition-colors"
-              title="刪除此發音人角色"
-            >
-              <Trash2 className="w-3.5 h-3.5 mr-1" />
-              <span>刪除</span>
-            </button>
-            <button
-              onClick={handleSaveVoice}
-              disabled={saving}
-              className="flex-1 flex items-center justify-center h-9 rounded bg-amber-cta hover:bg-amber-ctaHover text-cinema-bg font-semibold text-xs tracking-wide transition-all shadow"
-            >
-              <Save className="w-3.5 h-3.5 mr-1.5" />
-              <span>{saving ? "儲存中..." : "儲存音色設定"}</span>
-            </button>
-          </div>
-        </aside>
-      )}
-
-      {/* -------------------------
-          新增視覺風格 Modal
-         ------------------------- */}
-      {isCreateStyleOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-lg rounded-xl bg-cinema-card border border-cinema-border shadow-2xl p-6 space-y-4">
-            <div className="flex justify-between items-center border-b border-cinema-border pb-3">
-              <div className="flex items-center space-x-2">
-                <Sparkles className="w-4 h-4 text-amber-cta" />
-                <h3 className="text-sm font-semibold text-cinema-text">新增畫面視覺風格 (Style)</h3>
-              </div>
-              <button onClick={() => setIsCreateStyleOpen(false)} className="text-cinema-muted hover:text-cinema-text">
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="block text-[11px] text-cinema-muted mb-1">英文 ID (如: makoto_watercolor)</label>
-                <input
-                  type="text"
-                  value={newStyleId}
-                  onChange={(e) => setNewStyleId(e.target.value)}
-                  placeholder="英數與底線"
-                  className="w-full h-8 px-2.5 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text focus:outline-none focus:border-amber-cta font-mono"
-                />
-              </div>
-              <div>
-                <label className="block text-[11px] text-cinema-muted mb-1">風格顯示名稱</label>
-                <input
-                  type="text"
-                  value={newStyleName}
-                  onChange={(e) => setNewStyleName(e.target.value)}
-                  placeholder="例如：新海誠水彩唯美風"
-                  className="w-full h-8 px-2.5 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text focus:outline-none focus:border-amber-cta"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-[11px] text-cinema-muted mb-1">風格特徵描述</label>
-              <textarea
-                value={newStyleDesc}
-                onChange={(e) => setNewStyleDesc(e.target.value)}
-                rows={2}
-                placeholder="簡述畫風特色（如：光影、鏡頭氛圍、適用題材等）"
-                className="w-full p-2 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text resize-none focus:outline-none focus:border-amber-cta"
-              />
-            </div>
-
-            <div>
-              <label className="block text-[11px] text-cinema-muted mb-1">正向前綴提示詞 (Style Prefix)</label>
-              <textarea
-                value={newStylePrompt}
-                onChange={(e) => setNewStylePrompt(e.target.value)}
-                rows={3}
-                className="w-full p-2 rounded bg-cinema-darker border border-cinema-border font-mono text-[11px] text-zinc-300 resize-none focus:outline-none focus:border-amber-cta"
-              />
-            </div>
-
-            <div>
-              <label className="block text-[11px] text-cinema-muted mb-1">負向過濾詞 (Negative Prompt)</label>
-              <textarea
-                value={newStyleNegative}
-                onChange={(e) => setNewStyleNegative(e.target.value)}
-                rows={2}
-                className="w-full p-2 rounded bg-cinema-darker border border-cinema-border font-mono text-[11px] text-zinc-300 resize-none focus:outline-none focus:border-amber-cta"
-              />
-            </div>
-
-            <div>
-              <label className="block text-[11px] text-cinema-muted mb-1">上傳風格示範預覽圖 (可選，JPG/PNG)</label>
-              <label className="flex items-center justify-center h-9 rounded border border-cinema-border bg-cinema-darker hover:bg-cinema-cardHover text-xs text-cinema-text cursor-pointer transition-colors">
-                <Upload className="w-3.5 h-3.5 mr-1.5 text-amber-cta" />
-                <span>{newStylePreviewBase64 ? "已選取預覽圖片" : "選取本機示範圖片"}</span>
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={async (e) => {
-                    const file = e.target.files?.[0];
-                    if (file) {
-                      const b64 = await fileToBase64(file);
-                      setNewStylePreviewBase64(b64);
-                    }
-                  }}
-                />
-              </label>
-            </div>
-
-            <div className="flex justify-end space-x-2 pt-2 border-t border-cinema-border">
-              <button
-                onClick={() => setIsCreateStyleOpen(false)}
-                className="px-3.5 py-1.5 rounded hover:bg-cinema-darker text-xs text-cinema-muted hover:text-cinema-text"
-              >
-                取消
-              </button>
-              <button
-                onClick={handleCreateStyle}
-                disabled={saving}
-                className="px-4 py-1.5 rounded bg-amber-cta hover:bg-amber-ctaHover text-cinema-bg font-semibold text-xs tracking-wide shadow"
-              >
-                {saving ? "建立中..." : "確認建立風格"}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* -------------------------
-          新增口吻範本 Modal
-         ------------------------- */}
-      {isCreateToneOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-xl rounded-xl bg-cinema-card border border-cinema-border shadow-2xl p-6 space-y-4">
-            <div className="flex justify-between items-center border-b border-cinema-border pb-3">
-              <div className="flex items-center space-x-2">
-                <BookOpen className="w-4 h-4 text-amber-cta" />
-                <h3 className="text-sm font-semibold text-cinema-text">新增說書人口吻範本 (Tone)</h3>
-              </div>
-              <button
-                onClick={() => {
-                  if (!extracting) setIsCreateToneOpen(false);
-                }}
-                className="text-cinema-muted hover:text-cinema-text"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            {/* 模式切換 Tabs */}
-            <div className="flex border-b border-cinema-border">
-              <button
-                type="button"
-                onClick={() => setCreateToneMode("vertex")}
-                className={`flex items-center px-4 py-2 text-xs font-medium border-b-2 transition-all ${
-                  createToneMode === "vertex"
-                    ? "border-amber-cta text-amber-cta font-semibold"
-                    : "border-transparent text-cinema-muted hover:text-cinema-text"
-                }`}
-              >
-                <Sparkles className="w-3.5 h-3.5 mr-1.5" />
-                <span>✨ Vertex AI 智慧萃取直接寫入 (推薦)</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setCreateToneMode("manual")}
-                className={`flex items-center px-4 py-2 text-xs font-medium border-b-2 transition-all ${
-                  createToneMode === "manual"
-                    ? "border-amber-cta text-amber-cta font-semibold"
-                    : "border-transparent text-cinema-muted hover:text-cinema-text"
-                }`}
-              >
-                <FileText className="w-3.5 h-3.5 mr-1.5" />
-                <span>手動填寫欄位</span>
-              </button>
-            </div>
-
-            {createToneMode === "vertex" ? (
-              /* Vertex AI 智慧萃取面板 */
-              <div className="space-y-3.5 pt-1">
-                <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 text-xs text-amber-200/90 leading-relaxed">
-                  <div className="flex items-center space-x-1.5 font-semibold text-amber-300 mb-1">
-                    <Sparkles className="w-3.5 h-3.5" />
-                    <span>Vertex AI (Gemini Flash) 100% 深度模仿口吻 ＋ 人名去識別化</span>
-                  </div>
-                  貼上任何 YouTuber 的逐字稿，AI 會 <strong>100% 原汁原味提煉其說話口氣、吐槽句式與敘事公式</strong>，並自動將原頻道主自稱去識別化為 <code>{"{頻道主}"}</code>，生成腳本時再自動套入您的頻道名稱（如：白兔）。
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <label className="text-[11px] text-cinema-muted font-medium">參考文本 / 說書逐字稿</label>
-                  <label className="cursor-pointer inline-flex items-center px-2.5 py-1 rounded bg-cinema-darker hover:bg-zinc-800 border border-cinema-border text-[11px] text-zinc-300 hover:text-white transition-colors">
-                    <Upload className="w-3 h-3 mr-1 text-amber-cta" />
-                    <span>上傳文字檔 (.txt / .md)</span>
-                    <input
-                      type="file"
-                      accept=".txt,.md"
-                      onChange={handleToneFileUpload}
-                      className="hidden"
-                    />
-                  </label>
-                </div>
-
-                <textarea
-                  value={extractText}
-                  onChange={(e) => setExtractText(e.target.value)}
-                  rows={8}
-                  disabled={extracting}
-                  placeholder="在此直接貼上您喜愛的說書影片逐字稿、範例故事或文稿段落（或點擊上方按鈕載入文字檔）..."
-                  className="w-full p-2.5 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text resize-none focus:outline-none focus:border-amber-cta leading-relaxed"
-                />
-
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  <div>
-                    <label className="block text-[11px] text-cinema-muted mb-1">
-                      口吻顯示名稱 (選填，留空通用命名)
-                    </label>
-                    <input
-                      type="text"
-                      value={extractToneTitle}
-                      onChange={(e) => setExtractToneTitle(e.target.value)}
-                      disabled={extracting}
-                      placeholder="例如: 叉雞風 / 懸疑揭秘風"
-                      className="w-full h-8 px-2.5 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text focus:outline-none focus:border-amber-cta"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-[11px] text-cinema-muted mb-1">
-                      指定英文 ID (選填，留空自動命名)
-                    </label>
-                    <input
-                      type="text"
-                      value={extractToneId}
-                      onChange={(e) => setExtractToneId(e.target.value)}
-                      disabled={extracting}
-                      placeholder="例如: tech_deepdive"
-                      className="w-full h-8 px-2.5 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text focus:outline-none focus:border-amber-cta font-mono"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-[11px] text-cinema-muted mb-1">
-                      Vertex AI 模型 (Gemini Flash)
-                    </label>
-                    <select
-                      value={selectedAiModel}
-                      onChange={(e) => setSelectedAiModel(e.target.value)}
-                      disabled={extracting}
-                      className="w-full h-8 px-2.5 rounded bg-cinema-darker border border-amber-cta/40 hover:border-amber-cta text-xs text-amber-cta font-medium focus:outline-none focus:border-amber-cta cursor-pointer"
-                    >
-                      {AI_TEXT_MODELS.map((m) => (
-                        <option key={m.id} value={m.id} className="bg-cinema-card text-cinema-text">
-                          {m.name} ({m.badge})
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-
-                {extracting && (
-                  <div className="p-3 rounded-lg bg-cinema-darker border border-amber-cta/30 flex items-center space-x-2.5 text-xs text-amber-cta animate-pulse">
-                    <Loader2 className="w-4 h-4 animate-spin shrink-0" />
-                    <span>{extractMsg || "Vertex AI Gemini Flash 正在深度分析並寫入專案..."}</span>
-                  </div>
-                )}
-
-                <div className="flex justify-end space-x-2 pt-2 border-t border-cinema-border">
-                  <button
-                    onClick={() => setIsCreateToneOpen(false)}
-                    disabled={extracting}
-                    className="px-3.5 py-1.5 rounded hover:bg-cinema-darker text-xs text-cinema-muted hover:text-cinema-text"
-                  >
-                    取消
-                  </button>
-                  <button
-                    onClick={handleExtractTone}
-                    disabled={extracting || !extractText.trim()}
-                    className="flex items-center px-4 py-1.5 rounded bg-amber-cta hover:bg-amber-ctaHover text-cinema-bg font-semibold text-xs tracking-wide shadow disabled:opacity-50 transition-all"
-                  >
-                    {extracting ? (
-                      <>
-                        <Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" />
-                        <span>萃取寫入中...</span>
-                      </>
-                    ) : (
-                      <>
-                        <Sparkles className="w-3.5 h-3.5 mr-1.5" />
-                        <span>由 Vertex AI Gemini Flash 萃取並直接寫入專案</span>
-                      </>
-                    )}
-                  </button>
-                </div>
-              </div>
-            ) : (
-              /* 手動填寫面板 */
-              <div className="space-y-3.5 pt-1">
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="block text-[11px] text-cinema-muted mb-1">口吻英文 ID (如: tech_future)</label>
-                    <input
-                      type="text"
-                      value={newToneId}
-                      onChange={(e) => setNewToneId(e.target.value)}
-                      placeholder="英數與底線"
-                      className="w-full h-8 px-2.5 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text focus:outline-none focus:border-amber-cta font-mono"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-[11px] text-cinema-muted mb-1">口吻中文名稱</label>
-                    <input
-                      type="text"
-                      value={newToneTitle}
-                      onChange={(e) => setNewToneTitle(e.target.value)}
-                      placeholder="例如：硬核商業傳奇風"
-                      className="w-full h-8 px-2.5 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text focus:outline-none focus:border-amber-cta"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="block text-[11px] text-cinema-muted mb-1">標籤 (逗號分隔)</label>
-                    <input
-                      type="text"
-                      value={newToneTags}
-                      onChange={(e) => setNewToneTags(e.target.value)}
-                      placeholder="商業, 傳奇, 說書"
-                      className="w-full h-8 px-2.5 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text focus:outline-none focus:border-amber-cta"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-[11px] text-cinema-muted mb-1">建議發音人指示</label>
-                    <input
-                      type="text"
-                      value={newToneVoice}
-                      onChange={(e) => setNewToneVoice(e.target.value)}
-                      placeholder="女，青年，中音调"
-                      className="w-full h-8 px-2.5 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text focus:outline-none focus:border-amber-cta"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-[11px] text-cinema-muted mb-1">口吻簡短描述</label>
-                  <textarea
-                    value={newToneSummary}
-                    onChange={(e) => setNewToneSummary(e.target.value)}
-                    rows={2}
-                    placeholder="描述此口吻的破題節奏、語言特色與適用故事題材"
-                    className="w-full p-2 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text resize-none focus:outline-none focus:border-amber-cta"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-[11px] text-cinema-muted mb-1">口白範本與句式結構 (Markdown)</label>
-                  <textarea
-                    value={newToneContent}
-                    onChange={(e) => setNewToneContent(e.target.value)}
-                    rows={5}
-                    className="w-full p-2.5 rounded bg-cinema-darker border border-cinema-border font-mono text-[11px] text-zinc-300 resize-none focus:outline-none focus:border-amber-cta leading-relaxed"
-                  />
-                </div>
-
-                <div className="flex justify-end space-x-2 pt-2 border-t border-cinema-border">
-                  <button
-                    onClick={() => setIsCreateToneOpen(false)}
-                    className="px-3.5 py-1.5 rounded hover:bg-cinema-darker text-xs text-cinema-muted hover:text-cinema-text"
-                  >
-                    取消
-                  </button>
-                  <button
-                    onClick={handleCreateTone}
-                    disabled={saving}
-                    className="px-4 py-1.5 rounded bg-amber-cta hover:bg-amber-ctaHover text-cinema-bg font-semibold text-xs tracking-wide shadow"
-                  >
-                    {saving ? "建立中..." : "確認建立口吻"}
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* -------------------------
-          新增發音人音色 Modal
-         ------------------------- */}
-      {isCreateVoiceOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-lg rounded-xl bg-cinema-card border border-cinema-border shadow-2xl p-6 space-y-4">
-            <div className="flex justify-between items-center border-b border-cinema-border pb-3">
-              <div className="flex items-center space-x-2">
-                <Volume2 className="w-4 h-4 text-amber-cta" />
-                <h3 className="text-sm font-semibold text-cinema-text">建立新發音人角色庫 (OmniVoice)</h3>
-              </div>
-              <button onClick={() => setIsCreateVoiceOpen(false)} className="text-cinema-muted hover:text-cinema-text">
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="block text-[11px] text-cinema-muted mb-1">音色英文 ID (如: host_tw_male)</label>
-                <input
-                  type="text"
-                  value={newVoiceId}
-                  onChange={(e) => setNewVoiceId(e.target.value)}
-                  placeholder="英數與底線"
-                  className="w-full h-8 px-2.5 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text focus:outline-none focus:border-amber-cta font-mono"
-                />
-              </div>
-              <div>
-                <label className="block text-[11px] text-cinema-muted mb-1">角色顯示名稱</label>
-                <input
-                  type="text"
-                  value={newVoiceName}
-                  onChange={(e) => setNewVoiceName(e.target.value)}
-                  placeholder="例如：旁白・台灣中年男聲"
-                  className="w-full h-8 px-2.5 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text focus:outline-none focus:border-amber-cta"
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="block text-[11px] text-cinema-muted mb-1">性別標籤</label>
-                <select
-                  value={newVoiceGender}
-                  onChange={(e) => setNewVoiceGender(e.target.value)}
-                  className="w-full h-8 px-2 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text focus:outline-none focus:border-amber-cta"
-                >
-                  <option value="女性">女性</option>
-                  <option value="男性">男性</option>
-                  <option value="中性">中性</option>
-                </select>
-              </div>
-              <div>
-                <label className="block text-[11px] text-cinema-muted mb-1">合成模式</label>
-                <select
-                  value={newVoiceMode}
-                  onChange={(e) => setNewVoiceMode(e.target.value)}
-                  className="w-full h-8 px-2 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text focus:outline-none focus:border-amber-cta"
-                >
-                  <option value="clone">聲音克隆 (Voice Clone - 推薦)</option>
-                  <option value="design">語氣設計 (Voice Design)</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <div className="flex justify-between text-[11px] text-cinema-muted mb-1">
-                  <span>預設語速</span>
-                  <span className="font-mono text-amber-cta">{newVoiceSpeed}x</span>
-                </div>
-                <input
-                  type="range"
-                  min={0.5}
-                  max={2.0}
-                  step={0.05}
-                  value={newVoiceSpeed}
-                  onChange={(e) => setNewVoiceSpeed(Number(e.target.value))}
-                  className="w-full accent-amber-cta cursor-pointer h-6"
-                />
-              </div>
-              <div>
-                <div className="flex justify-between text-[11px] text-cinema-muted mb-1">
-                  <span>位置溫度</span>
-                  <span className="font-mono text-amber-cta">{newVoiceTemp}</span>
-                </div>
-                <input
-                  type="range"
-                  min={0.0}
-                  max={1.0}
-                  step={0.05}
-                  value={newVoiceTemp}
-                  onChange={(e) => setNewVoiceTemp(Number(e.target.value))}
-                  className="w-full accent-amber-cta cursor-pointer h-6"
-                />
-              </div>
-            </div>
-
-            {newVoiceMode === "design" ? (
-              <div className="p-3.5 rounded-lg bg-cinema-darker border border-cinema-border space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-semibold text-cinema-text flex items-center">
-                    <Sparkles className="w-3.5 h-3.5 mr-1 text-amber-cta" />
-                    <span>語氣設計工坊 (Voice Design)</span>
-                  </span>
-                  <span className="text-[10px] text-emerald-400 font-medium">免參考音・零樣本生成</span>
-                </div>
-
-                {/* 快速推薦預設 */}
-                <div>
-                  <label className="block text-[11px] text-cinema-muted mb-1.5">推薦音色範本</label>
-                  <div className="flex flex-wrap gap-1">
-                    {OMNIVOICE_PRESETS.map((p) => (
-                      <button
-                        key={p.label}
-                        type="button"
-                        onClick={() => {
-                          setNewVoiceInstruct(p.instruct);
-                          if (p.instruct.includes("男")) setNewVoiceGender("男性");
-                          if (p.instruct.includes("女")) setNewVoiceGender("女性");
-                        }}
-                        className={`px-2 py-0.5 rounded text-[10px] transition-colors border ${
-                          newVoiceInstruct === p.instruct
-                            ? "bg-amber-cta text-cinema-bg font-semibold border-amber-cta"
-                            : "bg-cinema-card hover:bg-cinema-cardHover text-cinema-text border-cinema-border"
-                        }`}
-                      >
-                        {p.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* 維度特徵選取器 */}
-                {OMNIVOICE_CATEGORIES.map((cat) => (
-                  <div key={cat.category} className="space-y-1">
-                    <label className="block text-[10px] text-cinema-muted">{cat.label}</label>
-                    <div className="flex flex-wrap gap-1">
-                      {cat.options.map((opt) => {
-                        const currentTags = newVoiceInstruct.split(/[,，]/).map((s) => s.trim());
-                        const isSelected = opt.value === ""
-                          ? !cat.options.some((o) => o.value && currentTags.includes(o.value))
-                          : currentTags.includes(opt.value);
-                        return (
-                          <button
-                            key={opt.label}
-                            type="button"
-                            onClick={() => {
-                              const updated = updateVoiceInstructTag(newVoiceInstruct, cat.options, opt.value);
-                              setNewVoiceInstruct(updated);
-                              if (opt.value === "男") setNewVoiceGender("男性");
-                              if (opt.value === "女") setNewVoiceGender("女性");
-                            }}
-                            className={`px-2 py-1 rounded text-[11px] transition-all border ${
-                              isSelected
-                                ? "bg-amber-cta/20 text-amber-cta font-medium border-amber-cta/60"
-                                : "bg-cinema-card hover:bg-cinema-cardHover text-cinema-muted hover:text-cinema-text border-cinema-border"
-                            }`}
-                          >
-                            {opt.label}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                ))}
-
-                {/* 提示詞輸入框 */}
-                <div>
-                  <div className="flex justify-between items-center text-[11px] text-cinema-muted mb-1">
-                    <span>組合提示詞 (voice_instruct)</span>
-                    <button
-                      type="button"
-                      onClick={() => setNewVoiceInstruct("女，青年，中音调")}
-                      className="text-[10px] text-amber-cta hover:underline"
-                    >
-                      重設預設
-                    </button>
-                  </div>
-                  <textarea
-                    value={newVoiceInstruct}
-                    onChange={(e) => setNewVoiceInstruct(e.target.value)}
-                    rows={2}
-                    placeholder="例如：女，青年，中音调 或 male, young adult, low pitch..."
-                    className="w-full p-2 rounded bg-cinema-card border border-cinema-border text-xs text-cinema-text font-mono resize-none focus:outline-none focus:border-amber-cta"
-                  />
-                  <div className="text-[10px] text-cinema-muted mt-0.5">
-                    * 屬性間以逗號「，」隔開，同維度只選一項，跨維度任意組合。
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <>
-                <div>
-                  <label className="block text-[11px] text-cinema-muted mb-1">
-                    上傳 5~15 秒乾淨參考音訊 (WAV/MP3，無背景音樂)
-                  </label>
-                  <label className="flex items-center justify-center h-9 rounded border border-cinema-border bg-cinema-darker hover:bg-cinema-cardHover text-xs text-cinema-text cursor-pointer transition-colors">
-                    <Upload className="w-3.5 h-3.5 mr-1.5 text-amber-cta" />
-                    <span>{newVoiceAudioBase64 ? "已選取參考音訊檔" : "選取音訊檔案 (WAV/MP3)"}</span>
-                    <input
-                      type="file"
-                      accept="audio/*"
-                      className="hidden"
-                      onChange={async (e) => {
-                        const file = e.target.files?.[0];
-                        if (file) {
-                          const b64 = await fileToBase64(file);
-                          setNewVoiceAudioBase64(b64);
-                        }
-                      }}
-                    />
-                  </label>
-                </div>
-
-                <div>
-                  <label className="block text-[11px] text-cinema-muted mb-1">
-                    參考音逐字稿 (字詞需與上傳音訊完全吻合)
-                  </label>
-                  <textarea
-                    value={newVoiceRefText}
-                    onChange={(e) => setNewVoiceRefText(e.target.value)}
-                    rows={2}
-                    placeholder="例如：2012 年，美國國家偵察局突然打電話給 NASA..."
-                    className="w-full p-2 rounded bg-cinema-darker border border-cinema-border text-xs text-cinema-text resize-none focus:outline-none focus:border-amber-cta"
-                  />
-                </div>
-              </>
-            )}
-
-            <div className="flex justify-end space-x-2 pt-2 border-t border-cinema-border">
-              <button
-                onClick={() => setIsCreateVoiceOpen(false)}
-                className="px-3.5 py-1.5 rounded hover:bg-cinema-darker text-xs text-cinema-muted hover:text-cinema-text"
-              >
-                取消
-              </button>
-              <button
-                onClick={handleCreateVoice}
-                disabled={saving}
-                className="px-4 py-1.5 rounded bg-amber-cta hover:bg-amber-ctaHover text-cinema-bg font-semibold text-xs tracking-wide shadow"
-              >
-                {saving ? "建立中..." : "確認建立角色庫"}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

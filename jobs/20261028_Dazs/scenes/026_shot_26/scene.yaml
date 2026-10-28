@@ -1,0 +1,44 @@
+id: 026_shot_26
+index: 26
+title: 常規渠道被徹底封死
+narration: 常規渠道被徹底封死，換作普通人早就認輸倒閉了，但魯本的妻子蘿絲展現出了驚人的商業嗅覺，她策劃了一場特洛伊木馬式的降維打擊，
+image_prompt: medium shot, chibi 2D anime style, 3-head-tall proportions, clean line
+  art, flat cell shading, visual novel style. Inside a dimly lit, cozy brick workshop
+  office, Reuben Mattus sits despondently at a wooden table with his chin resting
+  on his hand in defeat. Standing confidently beside him is Rose Mattus, a sophisticated
+  chibi woman with glamorous 1960s bouffant dark hair, glossy eyelashes, sparkling
+  pearl necklace, and a radiant, shrewd smirk. She rests one hand on her hip and snaps
+  her fingers with the other, a bright cartoon lightbulb of inspiration floating above
+  her head. Warm amber incandescent lighting, shelves of recipe books and copper molds
+  in the background, crisp vector linework, single coherent scene, 16:9 widescreen
+  composition.
+character_ids:
+- reuben_mattus
+- rose_mattus
+image_negative: ''
+act_index: 4
+act_title: 皮草貴婦與嬉皮沙龍：顛覆渠道的特洛伊木馬
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261028T104745
+  image_take: image_20261028T104712
+pip:
+  enabled: false
+  media_type: image
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Rose Mattus
+  fetch_error: 有抓到圖但 AI 判定不符：此為1933年華盛頓州高中畢業合照，非哈根達斯創辦人蘿絲。（候選：File:Senior class, LaCrosse,
+    Washington, 1933 - DPLA - 51d0f1fb2c2a8f055b41b03763308332.jpg）
+  rejected_candidates:
+  - title: File:Senior class, LaCrosse, Washington, 1933 - DPLA - 51d0f1fb2c2a8f055b41b03763308332.jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/5/51/Senior_class%2C_LaCrosse%2C_Washington%2C_1933_-_DPLA_-_51d0f1fb2c2a8f055b41b03763308332.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/5/51/Senior_class%2C_LaCrosse%2C_Washington%2C_1933_-_DPLA_-_51d0f1fb2c2a8f055b41b03763308332.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 此為1933年華盛頓州高中畢業合照，非哈根達斯創辦人蘿絲。

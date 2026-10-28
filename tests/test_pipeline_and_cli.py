@@ -60,11 +60,12 @@ def test_schema_default_use_pip_on():
 
 
 def test_primary_button_follows_missing_assets():
-    assert primary_pipeline_action(0, 0, 10, False)["action"] == "images"
-    assert primary_pipeline_action(0, 0, 10, False)["label"] == "生成未完成畫面"
-    assert primary_pipeline_action(10, 3, 10, False)["action"] == "tts"
-    assert primary_pipeline_action(10, 3, 10, False)["label"] == "生成配音"
-    assert primary_pipeline_action(10, 10, 10, False)["action"] == "compose"
+    assert primary_pipeline_action(0, 0, 10, False)["action"] == "all"
+    assert primary_pipeline_action(0, 0, 10, False)["label"] == "一鍵全流程"
+    assert primary_pipeline_action(10, 3, 10, False)["action"] == "all"
+    assert primary_pipeline_action(10, 3, 10, False)["label"] == "一鍵全流程"
+    assert primary_pipeline_action(10, 10, 10, False)["action"] == "all"
+    assert primary_pipeline_action(10, 10, 10, True, film_stale=True)["action"] == "all"
     assert primary_pipeline_action(10, 10, 10, True)["action"] == "preview"
     assert primary_pipeline_action(10, 10, 10, True)["label"] == "預覽成片"
 
@@ -307,3 +308,203 @@ def test_tones_readme_matches_disk():
         assert f"{name}.md" in readme
     assert "tech_business_deepdive.md" not in readme
     assert "suspense_noir.md" not in readme
+
+
+def test_all_mode_runs_pip_images_tts_and_compose_in_order(tmp_path: Path, monkeypatch):
+    job = tmp_path / "20261027_full_order"
+    _write_pip_scene(job, "001_shot_1", enabled=True, query="Hubble", mode="pip", image=False, speech=False)
+
+    order: list[str] = []
+
+    def fake_images(args, *a, **k):
+        order.append("images")
+        (job / "scenes" / "001_shot_1" / "image.png").write_bytes(b"img")
+        return 0
+
+    def fake_pip(scene_dir: Path, query=None, media_type="auto"):
+        order.append("pip")
+        (scene_dir / "pip.png").write_bytes(b"pip")
+        return True
+
+    def fake_tts(args, *a, **k):
+        order.append("tts")
+        (job / "scenes" / "001_shot_1" / "speech.wav").write_bytes(b"wav")
+        return 0
+
+    def fake_compose(args, *a, **k):
+        order.append("compose")
+        return 0
+
+    monkeypatch.setattr("aivideo.pipeline_runner.run_images", fake_images)
+    monkeypatch.setattr("aivideo.auto_pip.fetch_single_scene_pip", fake_pip)
+    monkeypatch.setattr("aivideo.pipeline_runner.run_tts", fake_tts)
+    monkeypatch.setattr("aivideo.pipeline_runner.run_compose", fake_compose)
+    monkeypatch.setattr("aivideo.pipeline_runner.generate_preview_html", lambda *a, **k: None)
+
+    runner = PipelineRunner(job.name, job)
+    runner._run_worker(mode="all", skip_done=True, auto_pip=True, pause_between_stages=False)
+
+    # 確保單幕順序為「出圖與考據(images+pip) -> 出聲(tts) -> 合成影片(compose)」
+    assert set(order[:2]) == {"images", "pip"}
+    assert order[2:] == ["tts", "compose"]
+
+
+def test_failed_pip_records_rejected_candidates_and_reason(tmp_path: Path, monkeypatch):
+    from io import BytesIO
+    from PIL import Image
+    from aivideo.auto_pip import fetch_single_scene_pip
+    from aivideo.api.routes import scenes as scenes_route
+
+    monkeypatch.setattr(scenes_route, "JOBS_DIR", tmp_path)
+    job = tmp_path / "20261027_pip_reject"
+    s1 = _write_pip_scene(job, "001_shot_1", enabled=True, query="Moscow Expo 1959", mode="pip")
+
+    buf = BytesIO()
+    Image.new("RGB", (400, 300), color=(120, 40, 40)).save(buf, format="JPEG")
+    fake_img_bytes = buf.getvalue()
+
+    monkeypatch.setattr(
+        "aivideo.auto_pip.search_all_source_candidates",
+        lambda q, limit=6: [
+            {
+                "title": "Battle of Moscow 1941 soldiers",
+                "url": "https://example.org/moscow_1941.jpg",
+                "source": "維基共享資源 (Wikimedia)",
+                "width": 800,
+                "height": 600,
+                "media_type": "image",
+            }
+        ],
+    )
+    monkeypatch.setattr("aivideo.auto_pip._download_image_bytes", lambda url: fake_img_bytes)
+    monkeypatch.setattr(
+        "aivideo.auto_pip.verify_pip_match_with_ai",
+        lambda **kw: {
+            "passed": False,
+            "confidence": 0.1,
+            "reason": "畫面為1941年二戰莫斯科戰役士兵，與1959年博覽會無關",
+        },
+    )
+
+    ok = fetch_single_scene_pip(s1, "Moscow Expo 1959", media_type="image")
+    assert ok is False
+    assert (s1 / "pip_rejected.png").is_file()
+
+    summaries = scenes_route.list_scenes(job.name)
+    assert len(summaries) == 1
+    item = summaries[0]
+    assert item.pip_error is not None
+    assert "1941" in item.pip_error
+    assert len(item.pip_rejected) == 1
+    assert item.pip_rejected[0].title == "Battle of Moscow 1941 soldiers"
+    assert "1941" in (item.pip_rejected[0].reason or "")
+    assert item.status.pip_rejected_url is not None
+
+
+def test_progressive_pip_queries_and_wikipedia_relevance():
+    from aivideo.auto_pip import build_progressive_search_queries, is_wikipedia_title_relevant
+
+    q = "Post-war British food rationing queue 1951"
+    variants = build_progressive_search_queries(q)
+    assert q in variants
+    assert any("British food rationing" in v for v in variants)
+    assert is_wikipedia_title_relevant(q, "Rationing in the United Kingdom") is True
+    assert is_wikipedia_title_relevant("Moscow street", "Battle of Moscow") is False
+    assert is_wikipedia_title_relevant("Hugh Beaver", "List of people from London") is False
+
+
+def test_google_image_parser_extracts_candidates(monkeypatch):
+    from aivideo.auto_pip import search_google_image
+
+    fake_html = (
+        'AF_initDataCallback({data:[["https://encrypted-tbn0.gstatic.com/images?q\\u003dtbn:ANd9GcTest",180,240],'
+        '["https://example.org/history/british_rationing_1951.jpg",800,1200],'
+        '"2003":[null,"id1","https://example.org/article","Post-war British food rationing queue 1951"]]});'
+    )
+
+    class _FakeResp:
+        status_code = 200
+        text = fake_html
+
+    monkeypatch.setattr("aivideo.auto_pip.requests.get", lambda *a, **k: _FakeResp())
+    res = search_google_image("Post-war British food rationing queue 1951")
+    assert len(res) == 1
+    assert res[0]["url"] == "https://example.org/history/british_rationing_1951.jpg"
+    assert res[0]["source"] == "Google 圖片 (Google Images)"
+    assert "rationing" in str(res[0]["title"]).lower()
+
+
+def test_ai_pip_plans_and_youtube_video_search(tmp_path: Path, monkeypatch):
+    import json as json_mod
+    from aivideo.auto_pip import fetch_single_scene_pip, search_youtube_video
+    from aivideo.scene_cut import apply_scene_cut
+
+    # 1. 驗證 search_youtube_video 能解析 yt-dlp ytsearch JSON 行並過濾過長影片
+    fake_yt_stdout = "\n".join(
+        [
+            json_mod.dumps(
+                {
+                    "id": "IaTCGAxJ564",
+                    "title": "END OF RATIONING 1954 British Pathe",
+                    "duration": 60,
+                    "thumbnails": [{"url": "https://i.ytimg.com/vi/IaTCGAxJ564/hqdefault.jpg"}],
+                }
+            ),
+            json_mod.dumps(
+                {
+                    "id": "too_long_vid",
+                    "title": "3 Hour Full Stream",
+                    "duration": 10800,
+                }
+            ),
+        ]
+    )
+
+    class _FakeProc:
+        returncode = 0
+        stdout = fake_yt_stdout
+
+    monkeypatch.setattr("aivideo.auto_pip.shutil.which", lambda cmd: "/usr/local/bin/yt-dlp")
+    monkeypatch.setattr("aivideo.auto_pip.subprocess.run", lambda *a, **k: _FakeProc())
+
+    yt_cands = search_youtube_video("British food rationing", limit=3)
+    assert len(yt_cands) == 1
+    assert yt_cands[0]["url"] == "https://www.youtube.com/watch?v=IaTCGAxJ564"
+    assert yt_cands[0]["media_type"] == "video"
+    assert "YouTube" in str(yt_cands[0]["source"])
+
+    # 2. 驗證 AI 判定的 pip_media_type="video" / pip_mode="broll" 會寫入 scene.yaml，且不需命中寫死關鍵字即優先抓影片
+    apply_scene_cut(
+        tmp_path,
+        [
+            {
+                "id": "001_shot_1",
+                "index": 1,
+                "title": "賽跑衝線",
+                "narration": "羅傑班尼斯特衝過終點線打破四分鐘一英里紀錄，",
+                "image_prompt": "runner crossing finish line",
+                "pip_query": "Roger Bannister four minute mile 1954",
+                "pip_media_type": "video",
+                "pip_mode": "broll",
+            }
+        ],
+        clear_existing=True,
+    )
+    s1 = tmp_path / "scenes" / "001_shot_1"
+    cfg = yaml.safe_load((s1 / "scene.yaml").read_text(encoding="utf-8"))
+    assert cfg["pip"]["media_type"] == "video"
+    assert cfg["pip"]["mode"] == "broll"
+
+    video_searched: list[str] = []
+    monkeypatch.setattr(
+        "aivideo.auto_pip.search_all_source_video_candidates",
+        lambda q, limit=5: video_searched.append(q) or [],
+    )
+    monkeypatch.setattr("aivideo.auto_pip.search_all_source_candidates", lambda q, limit=6: [])
+
+    fetch_single_scene_pip(s1)
+    assert video_searched == ["Roger Bannister four minute mile 1954"]
+
+
+
+

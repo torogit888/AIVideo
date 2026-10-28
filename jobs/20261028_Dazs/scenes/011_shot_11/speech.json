@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261028T102955",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 16.62,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "巨頭們靠著販賣空氣賺得盆滿缽滿",
+      "text_cn": "巨头们靠着贩卖空气赚得盆满钵满",
+      "start_sec": 0.0,
+      "end_sec": 3.16,
+      "duration_sec": 3.16
+    },
+    {
+      "index": 2,
+      "text": "市售價格直接被殺到幾毛錢一桶，魯本看著自家簡陋的手工作坊",
+      "text_cn": "市售价格直接被杀到几毛钱一桶，鲁本看着自家简陋的手工作坊",
+      "start_sec": 3.41,
+      "end_sec": 9.01,
+      "duration_sec": 5.6
+    },
+    {
+      "index": 3,
+      "text": "心裡非常清楚，如果跟著大資本打價格戰",
+      "text_cn": "心里非常清楚，如果跟着大资本打价格战",
+      "start_sec": 9.26,
+      "end_sec": 12.86,
+      "duration_sec": 3.6
+    },
+    {
+      "index": 4,
+      "text": "自己這家底層小作坊絕對只有死路一條",
+      "text_cn": "自己这家底层小作坊绝对只有死路一条",
+      "start_sec": 13.11,
+      "end_sec": 16.62,
+      "duration_sec": 3.51
+    }
+  ],
+  "created_at": "2026-10-28T10:29:55.048406+00:00"
+}

@@ -1,0 +1,39 @@
+id: 039_shot_39
+index: 39
+title: 這場大衛對抗歌利亞的公關戰迅速點
+narration: 這場大衛對抗歌利亞的公關戰迅速點燃全美怒火，消費者紛紛打爆巨頭總部電話抗議，在聯邦反壟斷調查的重壓之下，皮爾斯伯里最終狼狽不堪地撤銷了封殺令，
+image_prompt: (masterpiece, best quality:1.2), 2D cartoon illustration, anime art
+  style, chibi characters, clean line art, cell shading, flat colors, cute mobile
+  game UI art, visual novel style, crisp details, vibrant and cheerful color palette,
+  single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent
+  view, one main environment, highly detailed and intricate background, 16:9 widescreen
+  composition. Wide shot of a chaotic corporate conglomerate headquarters office in
+  comedic disarray. Flustered chibi corporate executives with comically panicked expressions
+  scramble as dozens of vintage desk rotary phones continuously ring with vibrating
+  movement lines. Stacks of protest telegrams and legal antitrust folders spill onto
+  the carpeted floor. Outside the office window, peaceful chibi demonstrators holding
+  colorful protest signs are visible on the sunlit plaza below.
+character_ids: []
+image_negative: ''
+act_index: 6
+act_title: 全球化收割機：一場價值百億的符號拜物教
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261028T110709
+  image_take: null
+pip:
+  enabled: true
+  media_type: image
+  image: pip.png
+  video: null
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: Ben Cohen Jerry Greenfield protest
+  source_title: File:Ben Cohen.jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/e/eb/Ben_Cohen.jpg
+  verified: true
+  review_reason: 圖像確為班與傑利創辦人班·柯恩本尊，符合歷史事件核心人物。

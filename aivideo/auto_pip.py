@@ -212,11 +212,75 @@ def search_internet_archive_video(query: str, limit: int = 3) -> list[dict[str, 
         return []
 
 
+def search_youtube_video(query: str, limit: int = 4) -> list[dict[str, object]]:
+    """透過 yt-dlp 內建之 YouTube 搜尋器 (ytsearch) 檢索歷史新聞片、紀錄片與真實動態影片。"""
+    clean_q = re.sub(r'["\'\(\)\[\]]', "", query or "").strip()
+    if not clean_q or not shutil.which("yt-dlp"):
+        return []
+    try:
+        fetch_n = max(4, limit * 2)
+        cmd = [
+            "yt-dlp",
+            "--dump-json",
+            "--flat-playlist",
+            "--no-warnings",
+            f"ytsearch{fetch_n}:{clean_q}",
+        ]
+        proc = subprocess.run(cmd, capture_output=True, text=True, timeout=18)
+        if proc.returncode != 0 or not proc.stdout:
+            return []
+        candidates: list[dict[str, object]] = []
+        for line in proc.stdout.splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                data = json.loads(line)
+            except Exception:
+                continue
+            vid = str(data.get("id") or "").strip()
+            raw_u = str(data.get("url") or "").strip()
+            if not vid and not raw_u:
+                continue
+            video_url = raw_u if raw_u.startswith("http") else f"https://www.youtube.com/watch?v={vid}"
+            dur = float(data.get("duration") or 0)
+            # 過濾過短 (< 4秒) 或超過 20 分鐘的長直播/整部電影，確保擷取迅速且聚焦
+            if dur > 0 and (dur < 4 or dur > 1200):
+                continue
+            thumbs = data.get("thumbnails") if isinstance(data.get("thumbnails"), list) else []
+            thumb_u = ""
+            if thumbs and isinstance(thumbs[-1], dict):
+                thumb_u = str(thumbs[-1].get("url") or "").strip()
+            if not thumb_u and vid:
+                thumb_u = f"https://i.ytimg.com/vi/{vid}/hqdefault.jpg"
+            candidates.append(
+                {
+                    "title": str(data.get("title") or clean_q),
+                    "url": video_url,
+                    "thumbnail_url": thumb_u,
+                    "source": "YouTube 影音庫",
+                    "width": 1920,
+                    "height": 1080,
+                    "mime": "video/mp4",
+                    "media_type": "video",
+                }
+            )
+            if len(candidates) >= limit:
+                break
+        return candidates
+    except Exception:
+        return []
+
+
 def search_duckduckgo_video(query: str, limit: int = 4) -> list[dict[str, object]]:
-    """透過全網影片檢索（DuckDuckGo Videos / 各大影音與新聞平台）搜尋相關影片候選。"""
+    """透過全網影片檢索（優先使用 YouTube 影音搜尋，再輔以 DuckDuckGo Videos）搜尋相關影片候選。"""
+    yt_res = search_youtube_video(query, limit=limit)
+    if len(yt_res) >= limit:
+        return yt_res[:limit]
+
     clean_q = re.sub(r'["\'\(\)\[\]]', '', query).strip()
     if not clean_q:
-        return []
+        return yt_res
     try:
         url = f"https://duckduckgo.com/?q={urllib.parse.quote(clean_q)}&iax=videos&ia=videos"
         headers = {
@@ -345,15 +409,90 @@ def is_wikipedia_title_relevant(query: str, title: str) -> bool:
     if q_zh:
         return (len(q_zh & t_zh) / len(q_zh)) >= 0.80
 
-    stop_en = {"the", "and", "for", "with", "from", "portrait", "photo", "image", "picture", "history", "historical"}
-    q_words = [w for w in re.findall(r"[a-z0-9]{2,}", q) if w not in stop_en]
-    t_words = set(re.findall(r"[a-z0-9]{2,}", t))
-    if not q_words or not t_words:
+    stop_en = {
+        "the", "and", "for", "with", "from", "in", "of", "on", "at", "to", "by", "during", "after",
+        "post", "pre", "early", "late", "old", "new", "vintage", "classic", "authentic", "famous",
+        "portrait", "photo", "photograph", "image", "picture", "history", "historical", "historic",
+        "queue", "line", "scene", "view", "building", "exterior", "interior", "archive", "archival",
+    }
+    raw_q_words = [
+        w for w in re.findall(r"[a-z0-9]{2,}", q)
+        if w not in stop_en and not re.fullmatch(r"\d{4}s?", w)
+    ]
+    raw_t_words = [
+        w for w in re.findall(r"[a-z0-9]{2,}", t)
+        if w not in stop_en and not re.fullmatch(r"\d{4}s?", w)
+    ]
+    if not raw_q_words or not raw_t_words:
         return False
-    # 英文標題的所有核心單詞必須出現在查詢詞中，或查詢詞超過 60% 的核心單詞出現在標題中
-    overlap_q = sum(1 for w in q_words if w in t_words) / len(q_words)
-    overlap_t = sum(1 for w in t_words if w in q_words) / len(t_words)
-    return overlap_q >= 0.60 or (len(t_words) >= 2 and overlap_t >= 0.80)
+
+    # 同義詞正規化（例如 British / Britain / UK <-> United Kingdom）
+    synonym_map = {
+        "british": {"british", "britain", "uk", "united", "kingdom"},
+        "britain": {"british", "britain", "uk", "united", "kingdom"},
+        "uk": {"british", "britain", "uk", "united", "kingdom"},
+        "soviet": {"soviet", "ussr", "union"},
+        "ussr": {"soviet", "ussr", "union"},
+        "american": {"american", "usa", "united", "states"},
+        "usa": {"american", "usa", "united", "states"},
+    }
+    expanded_q: set[str] = set(raw_q_words)
+    for w in list(raw_q_words):
+        if w in synonym_map:
+            expanded_q |= synonym_map[w]
+
+    t_set = set(raw_t_words)
+    overlap_q = sum(1 for w in raw_q_words if w in t_set or bool(synonym_map.get(w, set()) & t_set)) / len(raw_q_words)
+    overlap_t = sum(1 for w in t_set if w in expanded_q) / len(t_set)
+    return overlap_q >= 0.50 or overlap_t >= 0.65 or (len(t_set & expanded_q) >= 2)
+
+
+def build_progressive_search_queries(query: str) -> list[str]:
+    """
+    將過長的考據檢索詞（如 'Post-war British food rationing queue 1951'）
+    拆解為由精確到核心的多層次檢索詞，避免圖庫因嚴格 AND 交集而回傳 0 筆。
+    """
+    clean = re.sub(r'["\'\(\)\[\]]', " ", query or "").strip()
+    clean = re.sub(r"\s+", " ", clean)
+    if not clean:
+        return []
+
+    variants: list[str] = [clean]
+
+    # 第 2 層：移除年份 (1951, 1950s)、時代前綴 (Post-war, Pre-war) 與圖片通用修飾詞
+    stripped = re.sub(
+        r"\b(?:post-war|pre-war|wartime|postwar|prewar|18\d\d|19\d\d|20\d\d|\d{4}s|"
+        r"vintage|historical|historic|authentic|archival|archive|photograph|photo|"
+        r"picture|portrait|image|scene|view|footage|early|late|old|classic|famous)\b",
+        " ",
+        clean,
+        flags=re.IGNORECASE,
+    )
+    stripped = re.sub(r"[-–—]+", " ", stripped)
+    stripped = re.sub(r"\s+", " ", stripped).strip()
+    if stripped and stripped.lower() not in {v.lower() for v in variants}:
+        variants.append(stripped)
+
+    # 第 3 層：若移除修飾詞後仍有 4 個字以上，再移除場景尾綴詞（如 queue, building, street, interior 等）或取前 3 個核心詞
+    words = (stripped or clean).split()
+    tail_scene_words = {"queue", "line", "building", "exterior", "interior", "room", "office", "crowd", "people"}
+    core_words = [w for w in words if w.lower() not in tail_scene_words]
+    if core_words and len(core_words) < len(words):
+        core_q = " ".join(core_words).strip()
+        if core_q and core_q.lower() not in {v.lower() for v in variants}:
+            variants.append(core_q)
+
+    if len(core_words) > 3:
+        short_q = " ".join(core_words[:3]).strip()
+        if short_q and short_q.lower() not in {v.lower() for v in variants}:
+            variants.append(short_q)
+
+    if len(core_words) > 2:
+        two_q = " ".join(core_words[:2]).strip()
+        if two_q and two_q.lower() not in {v.lower() for v in variants}:
+            variants.append(two_q)
+
+    return variants
 
 
 def translate_entity_query_to_en(query: str) -> str | None:
@@ -441,7 +580,8 @@ def search_wikipedia_summary_image(query: str, lang: str = "en") -> dict[str, ob
             data = resp.json()
             orig = data.get("originalimage", {})
             img_url = str(orig.get("source", "")).split("?")[0]
-            if img_url:
+            # 排除 .svg 向量商標或旗幟（例如 Guinness_logo_dark_text.svg.png）
+            if img_url and ".svg" not in img_url.lower():
                 return {
                     "title": data.get("title", target_title),
                     "url": img_url,
@@ -455,48 +595,199 @@ def search_wikipedia_summary_image(query: str, lang: str = "en") -> dict[str, ob
     return None
 
 
-def search_duckduckgo_image(query: str, limit: int = 3) -> list[dict[str, object]]:
-    """透過全網即時圖片檢索真實歷史、科技、新聞與事件照片（超越維基百科限制）。"""
-    clean_q = re.sub(r'["\'\(\)\[\]]', '', query).strip()
+def search_wikipedia_article_images(query: str, lang: str = "en", limit: int = 4) -> list[dict[str, object]]:
+    """
+    檢索與關鍵字相關的維基百科條目中「內嵌的所有真實歷史照片」（突破 summary API 只抓右上角單張 Logo 的限制）。
+    """
+    clean_q = re.sub(r'["\'\(\)\[\]]', "", query or "").strip()
     if not clean_q:
         return []
+
+    search_url = (
+        f"https://{lang}.wikipedia.org/w/api.php?action=query&list=search"
+        f"&srsearch={urllib.parse.quote(clean_q)}&format=json&srlimit=3"
+    )
+    target_titles: list[str] = []
     try:
-        url = f"https://duckduckgo.com/?q={urllib.parse.quote(clean_q)}&iax=images&ia=images"
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        s_resp = requests.get(search_url, headers=WIKIMEDIA_HEADERS, timeout=6)
+        if s_resp.status_code == 200:
+            for it in s_resp.json().get("query", {}).get("search", []):
+                cand_t = str(it.get("title") or "").strip()
+                if cand_t and is_wikipedia_title_relevant(clean_q, cand_t):
+                    target_titles.append(cand_t)
+                    if len(target_titles) >= 2:
+                        break
+    except Exception:
+        pass
+
+    if not target_titles:
+        return []
+
+    results: list[dict[str, object]] = []
+    seen_urls: set[str] = set()
+    skip_words = ("logo", "icon", "flag", "coat_of_arms", "symbol", "map", "commons-logo", "wikimedia", "ambox", "question_book")
+
+    for t_title in target_titles:
+        params = {
+            "action": "query",
+            "titles": t_title,
+            "generator": "images",
+            "gimlimit": 12,
+            "prop": "imageinfo",
+            "iiprop": "url|size|mime",
+            "format": "json",
         }
-        res = requests.get(url, headers=headers, timeout=6)
-        m = re.search(r'vqd=([\"\']?)([\d-]+)\1', res.text)
-        if not m:
-            return []
-        vqd = m.group(2)
-        api_url = f"https://duckduckgo.com/i.js?q={urllib.parse.quote(clean_q)}&o=json&vqd={vqd}&p=1"
-        resp = requests.get(api_url, headers=headers, timeout=6)
-        if resp.status_code != 200:
-            return []
-        results = resp.json().get("results", [])
-        candidates = []
-        for it in results:
-            img_url = it.get("image")
-            if not img_url:
+        api_u = f"https://{lang}.wikipedia.org/w/api.php?{urllib.parse.urlencode(params)}"
+        try:
+            r = requests.get(api_u, headers=WIKIMEDIA_HEADERS, timeout=8)
+            if r.status_code != 200:
                 continue
-            w = it.get("width", 0)
-            h = it.get("height", 0)
-            if w >= 360 and h >= 240:
-                candidates.append({
-                    "title": it.get("title") or clean_q,
-                    "url": img_url,
-                    "source": "全網新聞與歷史照片 (Web)",
+            pages = r.json().get("query", {}).get("pages", {})
+            for _pid, pdata in pages.items():
+                f_title = str(pdata.get("title") or "")
+                imginfo = (pdata.get("imageinfo") or [{}])[0]
+                raw_url = str(imginfo.get("url") or "").split("?")[0]
+                mime = str(imginfo.get("mime") or "").lower()
+                w = int(imginfo.get("width") or 0)
+                h = int(imginfo.get("height") or 0)
+                if not raw_url or raw_url in seen_urls:
+                    continue
+                if ".svg" in raw_url.lower() or "svg" in mime:
+                    continue
+                if any(sw in f_title.lower() or sw in raw_url.lower() for sw in skip_words):
+                    continue
+                if ("image/jpeg" in mime or "image/png" in mime or "image/webp" in mime) and w >= 320 and h >= 220:
+                    seen_urls.add(raw_url)
+                    results.append(
+                        {
+                            "title": f"{t_title} - {f_title.replace('File:', '')}",
+                            "url": raw_url,
+                            "source": f"維基百科內文圖庫 ({lang.upper()})",
+                            "width": w,
+                            "height": h,
+                            "mime": mime,
+                        }
+                    )
+                    if len(results) >= limit:
+                        return results
+        except Exception:
+            continue
+    return results
+
+
+def _unescape_google_url(raw: str) -> str:
+    text = raw or ""
+    text = (
+        text.replace("\\u003d", "=")
+        .replace("\\u0026", "&")
+        .replace("\\u002f", "/")
+        .replace("\\u003a", ":")
+        .replace("\\u003f", "?")
+        .replace("\\/", "/")
+    )
+    try:
+        import html
+        text = html.unescape(text)
+    except Exception:
+        pass
+    return text.strip()
+
+
+def search_google_image(query: str, limit: int = 5) -> list[dict[str, object]]:
+    """直接透過 Google 圖片搜尋 (Google Images) 檢索全網歷史、新聞、人物與事件照片。"""
+    clean_q = re.sub(r'["\'\(\)\[\]]', "", query or "").strip()
+    if not clean_q:
+        return []
+
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+        ),
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9,zh-TW;q=0.8",
+    }
+    url = f"https://www.google.com/search?q={urllib.parse.quote(clean_q)}&tbm=isch&hl=en&gl=us"
+    try:
+        resp = requests.get(url, headers=headers, timeout=8)
+        if resp.status_code != 200 or not resp.text:
+            return []
+        html_text = resp.text
+        candidates: list[dict[str, object]] = []
+        seen: set[str] = set()
+
+        # 解析 Google Images 內嵌的 (縮圖, 原圖, 高, 寬) 結構
+        pair_pattern = re.compile(
+            r'\["(https://encrypted-tbn0\.gstatic\.com/images\?[^"]+)",\d+,\d+\],\s*\["(https?://[^"]+)",(\d+),(\d+)\]'
+        )
+        for m in pair_pattern.finditer(html_text):
+            thumb_u = _unescape_google_url(m.group(1))
+            orig_u = _unescape_google_url(m.group(2))
+            h = int(m.group(3) or 0)
+            w = int(m.group(4) or 0)
+            if not orig_u or orig_u in seen:
+                continue
+            if any(skip in orig_u.lower() for skip in ("gstatic.com", "google.com", "googleapis.com", ".svg")):
+                continue
+            if w < 300 or h < 200:
+                continue
+            # 嘗試從後方文字片段提取圖片標題
+            tail_slice = html_text[m.end() : m.end() + 700]
+            title_m = re.search(r'"2003":\[null,"[^"]*","[^"]*","([^"]+)"', tail_slice)
+            if not title_m:
+                title_m = re.search(r'\["([^"\[\]]{6,120})",\s*"https?://', tail_slice)
+            title = _unescape_google_url(title_m.group(1)) if title_m else clean_q
+            seen.add(orig_u)
+            candidates.append(
+                {
+                    "title": title,
+                    "url": orig_u,
+                    "thumbnail_url": thumb_u,
+                    "source": "Google 圖片 (Google Images)",
                     "width": w,
                     "height": h,
                     "mime": "image/jpeg",
-                })
+                }
+            )
+            if len(candidates) >= limit:
+                return candidates
+
+        # 備援正則：若頁面採用新版 udm=2 結構，直接擷取高解析度圖檔元組
+        fallback_pattern = re.compile(
+            r'\["(https?://[^"\s\\]+?\.(?:jpg|jpeg|png|webp)(?:\?[^"\s\\]*)?)",(\d+),(\d+)\]',
+            flags=re.IGNORECASE,
+        )
+        for m in fallback_pattern.finditer(html_text):
+            orig_u = _unescape_google_url(m.group(1))
+            h = int(m.group(2) or 0)
+            w = int(m.group(3) or 0)
+            if not orig_u or orig_u in seen:
+                continue
+            if any(skip in orig_u.lower() for skip in ("gstatic.com", "google.com", "googleapis.com", "favicon", "logo")):
+                continue
+            if w >= 320 and h >= 220:
+                seen.add(orig_u)
+                candidates.append(
+                    {
+                        "title": clean_q,
+                        "url": orig_u,
+                        "thumbnail_url": orig_u,
+                        "source": "Google 圖片 (Google Images)",
+                        "width": w,
+                        "height": h,
+                        "mime": "image/jpeg",
+                    }
+                )
                 if len(candidates) >= limit:
                     break
         return candidates
     except Exception:
         return []
+
+
+def search_duckduckgo_image(query: str, limit: int = 3) -> list[dict[str, object]]:
+    """透過全網即時圖片檢索真實歷史、科技、新聞與事件照片。"""
+    return search_google_image(query, limit=limit)
 
 
 def search_loc_image(query: str) -> dict[str, object] | None:
@@ -527,18 +818,18 @@ def search_loc_image(query: str) -> dict[str, object] | None:
     return None
 
 
-def search_wikimedia_image(query: str) -> dict[str, object] | None:
-    """呼叫 Wikimedia Commons API 檢索公有領域高解析度真實攝影或檔案照片。"""
+def search_wikimedia_images(query: str, limit: int = 4) -> list[dict[str, object]]:
+    """呼叫 Wikimedia Commons API 檢索公有領域高解析度真實攝影或檔案照片（回傳多筆候選）。"""
     clean_q = re.sub(r'["\'\(\)\[\]]', '', query).strip()
     if not clean_q:
-        return None
+        return []
 
     params = {
         "action": "query",
         "generator": "search",
         "gsrsearch": clean_q,
         "gsrnamespace": 6,  # 檔案命名空間
-        "gsrlimit": 6,
+        "gsrlimit": max(8, limit * 2),
         "prop": "imageinfo",
         "iiprop": "url|size|mime|extmetadata",
         "format": "json",
@@ -547,15 +838,15 @@ def search_wikimedia_image(query: str) -> dict[str, object] | None:
     try:
         resp = requests.get(url, headers=WIKIMEDIA_HEADERS, timeout=12)
         if resp.status_code != 200:
-            return None
+            return []
         data = resp.json()
         pages = data.get("query", {}).get("pages", {})
         if not pages:
-            return None
+            return []
 
         # 優先挑選解析度合適且為常見圖檔格式的圖片
-        candidates = []
-        for pid, pdata in pages.items():
+        candidates: list[dict[str, object]] = []
+        for _pid, pdata in pages.items():
             imginfo = pdata.get("imageinfo", [{}])[0]
             raw_url = str(imginfo.get("url", ""))
             img_url = raw_url.split("?")[0] if raw_url else ""
@@ -575,14 +866,18 @@ def search_wikimedia_image(query: str) -> dict[str, object] | None:
                         "mime": mime,
                         "source": "維基共享資源 (Wikimedia)",
                     })
+                    if len(candidates) >= limit:
+                        break
 
-        if candidates:
-            # 優先回傳第一個最相關的合適候選者
-            return candidates[0]
+        return candidates
     except Exception:
-        pass
+        return []
 
-    return None
+
+def search_wikimedia_image(query: str) -> dict[str, object] | None:
+    """向下相容單筆回傳輔助函式。"""
+    cands = search_wikimedia_images(query, limit=1)
+    return cands[0] if cands else None
 
 
 def score_candidate_image(cand: dict[str, object], query: str, en_query: str | None = None) -> float:
@@ -602,20 +897,26 @@ def score_candidate_image(cand: dict[str, object], query: str, en_query: str | N
         if any(w in title for w in ("dog", "dogs", "cat", "stray", "animal", "pet", "hound", "犬", "狗")):
             score -= 60.0
 
-    # 2. 衝突詞嚴重扣分
-    war_terms = ("battle", "war", "戰役", "战役", "戰爭", "战争", "海戰", "作戰")
-    if not any(w in q for w in ("戰", "战", "war", "battle")):
-        if any(w in title for w in war_terms):
+    # 2. 衝突詞扣分（僅針對完整單詞 battle/war，且排除 post-war / wartime / rationing 等歷史時期詞）
+    if not any(w in q for w in ("戰", "战", "war", "battle", "rationing", "soviet", "cold")):
+        if re.search(r"\b(battle|warfare|combat)\b", title) or any(w in title for w in ("戰役", "战役", "海戰", "作戰")):
             score -= 80.0
 
-    # 3. 來源加權：對於真實攝影圖庫 (Wikimedia Commons / NASA / LOC)，原版真實檔案照片優於純百科詞條
-    if "Wikimedia" in source or "維基共享" in source:
+    # 2b. 標題命中檢索核心單詞加分（確保命中 rationing / queue 的檔案排在最前面）
+    q_tokens = [w for w in re.findall(r"[a-z0-9]{3,}", f"{q} {en_q}") if w not in {"post", "war", "the", "and", "for", "with", "1950s"}]
+    if q_tokens:
+        matched = sum(1 for w in set(q_tokens) if w in title)
+        score += matched * 18.0
+
+    # 3. 來源加權：優先採用 Google 圖片與全網真實照片，Wikimedia / NASA / LOC 次之，純維基百科條目代表圖排最後
+    if "Google 圖片" in source or "全網圖片" in source:
+        score += 32.0
+    elif "Wikimedia" in source or "維基共享" in source:
         score += 20.0
     elif "NASA" in source or "國會圖書館" in source:
         score += 20.0
     elif "維基百科條目" in source:
-        if q not in title and (not en_q or en_q not in title):
-            score -= 25.0
+        score -= 20.0
 
     # 4. 解析度與尺寸加分
     width = int(cand.get("width") or 0)
@@ -635,75 +936,70 @@ def search_all_source_candidates(query: str, limit: int = 6) -> list[dict[str, o
     if not clean_q:
         return []
 
-    # 取得英文考據詞（若輸入為中文），大幅提升全球圖庫命中率
+    # 取得英文考據詞（若輸入為中文），並展開為漸進式搜尋詞（由精確長詞 -> 核心短詞）
     en_q = translate_entity_query_to_en(clean_q)
+    base_en = en_q if (en_q and en_q != clean_q) else clean_q
+    progressive_terms = build_progressive_search_queries(base_en)
+    if clean_q not in progressive_terms:
+        progressive_terms.append(clean_q)
 
-    # 1. 太空、天文、科技詞彙優先呼叫 NASA 官方圖庫
+    # 1. 第一優先：Google 圖片搜尋 (若環境可直連) 與 Wikimedia Commons 原版歷史攝影檔案（依漸進式關鍵字檢索）
+    for term in progressive_terms[:2]:
+        for g_item in search_google_image(term, limit=3):
+            if g_item["url"] not in seen_urls:
+                seen_urls.add(g_item["url"])
+                candidates.append(g_item)
+
+    # 2. 太空、天文、科技詞彙優先呼叫 NASA 官方圖庫
     space_keywords = {"space", "telescope", "nasa", "galaxy", "satellite", "star", "hubble", "roman", "webb", "planet", "orbit", "astronaut", "mars", "moon"}
     q_lower = clean_q.lower()
     if any(k in q_lower for k in space_keywords) or (en_q and any(k in en_q.lower() for k in space_keywords)):
-        search_term = en_q or clean_q
-        for it in search_nasa_image(search_term, limit=3):
-            if it["url"] not in seen_urls:
-                seen_urls.add(it["url"])
-                candidates.append(it)
-
-    # 2. 檢索 Wikimedia Commons（以英文精準命中真實歷史照片與原版檔案）
-    if en_q:
-        w_img_en = search_wikimedia_image(en_q)
-        if w_img_en and w_img_en["url"] not in seen_urls:
-            seen_urls.add(w_img_en["url"])
-            candidates.append(w_img_en)
-
-    w_img = search_wikimedia_image(clean_q)
-    if w_img and w_img["url"] not in seen_urls:
-        seen_urls.add(w_img["url"])
-        candidates.append(w_img)
-
-    # 3. 檢索英文維基百科條目代表圖（若有英文詞或原為英文）
-    wiki_en_term = en_q if (en_q and en_q != clean_q) else clean_q
-    en_img = search_wikipedia_summary_image(wiki_en_term, lang="en")
-    if en_img and en_img["url"] not in seen_urls:
-        seen_urls.add(en_img["url"])
-        candidates.append(en_img)
-
-    # 4. 檢索中文維基百科條目代表圖（具備嚴格標題語意相關度核驗，不匹配者自動略過）
-    zh_img = search_wikipedia_summary_image(clean_q, lang="zh")
-    if zh_img and zh_img["url"] not in seen_urls:
-        seen_urls.add(zh_img["url"])
-        candidates.append(zh_img)
-
-    # 5. 檢索全網即時歷史與新聞真實照片 (Web Image Search)
-    for it in search_duckduckgo_image(clean_q, limit=3):
-        if it["url"] not in seen_urls:
-            seen_urls.add(it["url"])
-            candidates.append(it)
-
-    if en_q and len(candidates) < limit:
-        for it in search_duckduckgo_image(en_q, limit=2):
-            if it["url"] not in seen_urls:
-                seen_urls.add(it["url"])
-                candidates.append(it)
-
-    # 6. 檢索美國國會圖書館歷史檔案 (Library of Congress)
-    loc_term = en_q or clean_q
-    loc_img = search_loc_image(loc_term)
-    if loc_img and loc_img["url"] not in seen_urls:
-        seen_urls.add(loc_img["url"])
-        candidates.append(loc_img)
-
-    # 7. 若候選不足，嘗試簡化詞向全網與 Wikimedia 擴展
-    if len(candidates) < limit:
-        simplified = re.sub(r'\b(diagram|concept|artist concept|illustration|blueprint|image|galaxy image)\b', '', clean_q, flags=re.I).strip()
-        if simplified and simplified != clean_q:
-            for it in search_duckduckgo_image(simplified, limit=2):
+        for term in progressive_terms[:2]:
+            for it in search_nasa_image(term, limit=3):
                 if it["url"] not in seen_urls:
                     seen_urls.add(it["url"])
                     candidates.append(it)
-            sim_img = search_wikimedia_image(simplified)
-            if sim_img and sim_img["url"] not in seen_urls:
-                seen_urls.add(sim_img["url"])
-                candidates.append(sim_img)
+
+    # 3. 檢索 Wikimedia Commons 歷史照片與檔案庫（由完整詞漸進退回核心名詞，一旦找到足夠候選即停止退化，避免退回過廣的 2 字詞）
+    for term in progressive_terms:
+        for w_item in search_wikimedia_images(term, limit=4):
+            if w_item["url"] not in seen_urls:
+                seen_urls.add(w_item["url"])
+                candidates.append(w_item)
+        if len(candidates) >= 3:
+            break
+
+    # 4. 檢索英文與中文維基百科條目內嵌的所有真實歷史照片（排除 .svg 商標與圖示）
+    if len(candidates) < limit:
+        for term in progressive_terms[:3]:
+            for art_img in search_wikipedia_article_images(term, lang="en", limit=3):
+                if art_img["url"] not in seen_urls:
+                    seen_urls.add(art_img["url"])
+                    candidates.append(art_img)
+            if len(candidates) >= limit:
+                break
+
+    # 5. 檢索美國國會圖書館歷史檔案 (Library of Congress)
+    if len(candidates) < limit:
+        for term in progressive_terms[:2]:
+            loc_img = search_loc_image(term)
+            if loc_img and loc_img["url"] not in seen_urls:
+                seen_urls.add(loc_img["url"])
+                candidates.append(loc_img)
+                break
+
+    # 6. 最後備援：維基百科條目首圖（已排除 .svg 商標）
+    if len(candidates) < limit:
+        for term in progressive_terms[:2]:
+            en_img = search_wikipedia_summary_image(term, lang="en")
+            if en_img and en_img["url"] not in seen_urls:
+                seen_urls.add(en_img["url"])
+                candidates.append(en_img)
+                break
+        zh_img = search_wikipedia_summary_image(clean_q, lang="zh")
+        if zh_img and zh_img["url"] not in seen_urls:
+            seen_urls.add(zh_img["url"])
+            candidates.append(zh_img)
 
     # 依契合度打分智能排序，挑選最貼近真實場景與實體的原版照片
     candidates.sort(key=lambda c: score_candidate_image(c, clean_q, en_q), reverse=True)
@@ -720,9 +1016,10 @@ def search_all_source_video_candidates(query: str, limit: int = 6) -> list[dict[
         return []
 
     en_q = translate_entity_query_to_en(clean_q)
-    search_terms = [t for t in [en_q, clean_q] if t]
-    if len(search_terms) == 2 and search_terms[0] == search_terms[1]:
-        search_terms = [clean_q]
+    base_en = en_q if (en_q and en_q != clean_q) else clean_q
+    search_terms = build_progressive_search_queries(base_en)
+    if clean_q not in search_terms:
+        search_terms.append(clean_q)
 
     # 1. 太空、航太、天文詞彙優先呼叫 NASA 官方影片庫
     space_keywords = {"space", "telescope", "nasa", "galaxy", "satellite", "star", "hubble", "roman", "webb", "planet", "orbit", "astronaut", "mars", "moon", "apollo", "rocket", "launch"}
@@ -735,7 +1032,17 @@ def search_all_source_video_candidates(query: str, limit: int = 6) -> list[dict[
                     seen_urls.add(u)
                     candidates.append(it)
 
-    # 2. 檢索 Wikimedia Commons 真實歷史/科學影片
+    # 2. 檢索 YouTube 歷史紀錄片與實拍影片 (yt-dlp ytsearch)
+    for term in search_terms[:2]:
+        for it in search_youtube_video(term, limit=3):
+            u = str(it.get("url") or "")
+            if u and u not in seen_urls:
+                seen_urls.add(u)
+                candidates.append(it)
+        if len(candidates) >= limit:
+            break
+
+    # 3. 檢索 Wikimedia Commons 真實歷史/科學影片
     for term in search_terms:
         for it in search_wikimedia_video(term, limit=3):
             u = str(it.get("url") or "")
@@ -743,21 +1050,11 @@ def search_all_source_video_candidates(query: str, limit: int = 6) -> list[dict[
                 seen_urls.add(u)
                 candidates.append(it)
 
-    # 3. 檢索 Internet Archive (archive.org) 歷史新聞片與紀錄片
+    # 4. 檢索 Internet Archive (archive.org) 歷史新聞片與紀錄片
     for term in search_terms:
         if len(candidates) >= limit + 2:
             break
         for it in search_internet_archive_video(term, limit=2):
-            u = str(it.get("url") or "")
-            if u and u not in seen_urls:
-                seen_urls.add(u)
-                candidates.append(it)
-
-    # 4. 檢索全網影片 (DuckDuckGo Video Search / 各大影音新聞源)
-    for term in search_terms:
-        if len(candidates) >= limit + 2:
-            break
-        for it in search_duckduckgo_video(term, limit=3):
             u = str(it.get("url") or "")
             if u and u not in seen_urls:
                 seen_urls.add(u)
@@ -835,25 +1132,41 @@ def read_scene_pip_query(scene_dir: Path) -> str | None:
     return q or None
 
 
-def _download_image_bytes(img_url: str) -> bytes | None:
-    for attempt in range(1, 4):
-        try:
-            r = requests.get(img_url, headers=WIKIMEDIA_HEADERS, timeout=20)
-            if r.status_code == 429 and attempt < 3:
-                time.sleep(2.0 * attempt)
-                continue
-            if r.status_code == 200 and r.content:
-                return r.content
-            print(f"[warn] 考據圖下載 HTTP {r.status_code}：{img_url}")
-        except Exception as exc:
-            print(f"[warn] 考據圖下載失敗（第 {attempt} 次）：{exc}")
-            if attempt < 3:
-                time.sleep(1.5 * attempt)
+def _download_image_bytes(img_url: str, fallback_url: str | None = None) -> bytes | None:
+    urls_to_try = [u for u in [img_url, fallback_url] if u and str(u).strip()]
+    browser_headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+        ),
+        "Accept": "image/avif,image/webp,image/apng,image/*,*/*;q=0.8",
+    }
+    for target_u in urls_to_try:
+        is_wiki = "wikimedia.org" in target_u.lower() or "wikipedia.org" in target_u.lower()
+        req_headers = WIKIMEDIA_HEADERS if is_wiki else browser_headers
+        for attempt in range(1, 3):
+            try:
+                r = requests.get(target_u, headers=req_headers, timeout=15)
+                if r.status_code == 429 and attempt < 2:
+                    time.sleep(2.0)
+                    continue
+                if r.status_code == 200 and r.content and len(r.content) > 800:
+                    return r.content
+                print(f"[warn] 考據圖下載 HTTP {r.status_code}：{target_u}")
+            except Exception as exc:
+                print(f"[warn] 考據圖下載失敗（第 {attempt} 次）：{exc}")
+                if attempt < 2:
+                    time.sleep(1.0)
     return None
 
 
-def mark_scene_pip_error(scene_dir: Path, message: str, query: str | None = None) -> None:
-    """把考據失敗寫進該幕 scene.yaml，供分鏡卡片 tag 顯示。"""
+def mark_scene_pip_error(
+    scene_dir: Path,
+    message: str,
+    query: str | None = None,
+    rejected_candidates: list[dict[str, object]] | None = None,
+) -> None:
+    """把考據失敗原因與抓到但未通過的候選清單寫進該幕 scene.yaml，供分鏡卡片與抽屜顯示。"""
     s_yaml_p = scene_dir / "scene.yaml"
     if not s_yaml_p.is_file():
         return
@@ -863,12 +1176,15 @@ def mark_scene_pip_error(scene_dir: Path, message: str, query: str | None = None
         return
     prev = _pip_cfg(scfg)
     q = (query or prev.get("query") or "").strip()
-    scfg["pip"] = {
+    next_pip = {
         **prev,
         "enabled": False,
         "query": q or prev.get("query"),
-        "fetch_error": str(message).strip()[:240],
+        "fetch_error": str(message).strip()[:300],
     }
+    if rejected_candidates is not None:
+        next_pip["rejected_candidates"] = rejected_candidates
+    scfg["pip"] = next_pip
     s_yaml_p.write_text(yaml.safe_dump(scfg, allow_unicode=True, sort_keys=False), encoding="utf-8")
 
 
@@ -883,6 +1199,13 @@ def _write_pip_yaml(scene_dir: Path, scfg: dict, query: str, result: dict[str, o
         chosen_mode = prev.get("mode") or infer_pip_mode(query, str(scfg.get("narration", "")))
         if chosen_mode == "broll":
             chosen_mode = infer_pip_mode(query, str(scfg.get("narration", "")))
+
+    rej_png = scene_dir / "pip_rejected.png"
+    if rej_png.is_file():
+        try:
+            rej_png.unlink()
+        except Exception:
+            pass
 
     scfg["pip"] = {
         "enabled": enabled,
@@ -900,6 +1223,7 @@ def _write_pip_yaml(scene_dir: Path, scfg: dict, query: str, result: dict[str, o
         "review_reason": str(result.get("review_reason") or ""),
     }
     scfg["pip"].pop("fetch_error", None)
+    scfg["pip"].pop("rejected_candidates", None)
     s_yaml_p.write_text(yaml.safe_dump(scfg, allow_unicode=True, sort_keys=False), encoding="utf-8")
 
 
@@ -918,24 +1242,32 @@ def ensure_scene_pip_query(scene_dir: Path) -> str | None:
         return None
 
     try:
-        from aivideo.story_generator import batch_detect_pip_queries
+        from aivideo.story_generator import batch_detect_pip_plans
 
-        detected = batch_detect_pip_queries([narration])
-        q = str(detected[0]).strip() if detected and detected[0] else ""
+        detected = batch_detect_pip_plans([narration])
+        plan = detected[0] if detected and isinstance(detected[0], dict) else None
+        q = str(plan.get("query") or "").strip() if plan else ""
+        ai_mode = str(plan.get("mode") or "").strip() if plan else ""
+        ai_mtype = str(plan.get("media_type") or "").strip() if plan else ""
     except Exception as exc:
         print(f"[warn] 【{scene_dir.name}】補判考據詞失敗: {exc}")
         q = ""
+        ai_mode = ""
+        ai_mtype = ""
 
     if not q:
         return None
 
     prev = _pip_cfg(scfg)
+    chosen_mode = prev.get("mode") or ai_mode or infer_pip_mode(q, narration)
+    chosen_mtype = prev.get("media_type") or ai_mtype or ("video" if chosen_mode == "broll" else "image")
     scfg["pip"] = {
         **prev,
         "enabled": bool(prev.get("enabled", False)),
+        "media_type": chosen_mtype,
         "image": prev.get("image", "pip.png"),
         "position": prev.get("position", "right-center"),
-        "mode": prev.get("mode") or infer_pip_mode(q, narration),
+        "mode": chosen_mode,
         "scale": prev.get("scale", 0.24),
         "border": prev.get("border", 5),
         "query": q,
@@ -1045,17 +1377,23 @@ def _extract_video_clip_and_frames(
         downloaded = False
         if not is_direct_media and shutil.which("yt-dlp"):
             try:
+                out_tpl = str(tmp_dir / "raw_input.%(ext)s")
                 cmd_yt = [
                     "yt-dlp",
                     "--no-playlist",
+                    "--no-warnings",
                     "-f", "mp4[height<=1080]/best[height<=1080]/best",
                     "--download-sections", f"*0-{int(max_duration + 4)}",
-                    "-o", str(raw_input),
+                    "-o", out_tpl,
                     clean_u,
                 ]
-                proc = subprocess.run(cmd_yt, capture_output=True, text=True, timeout=35)
-                if proc.returncode == 0 and raw_input.is_file() and raw_input.stat().st_size > 10_000:
-                    downloaded = True
+                proc = subprocess.run(cmd_yt, capture_output=True, text=True, timeout=40)
+                if proc.returncode == 0:
+                    for dl_f in tmp_dir.glob("raw_input.*"):
+                        if dl_f.is_file() and dl_f.stat().st_size > 10_000:
+                            raw_input = dl_f
+                            downloaded = True
+                            break
             except Exception:
                 pass
 
@@ -1263,7 +1601,7 @@ Return ONLY a valid JSON object:
                     conf = float(parsed.get("confidence", 0.0))
                     reason = str(parsed.get("reason", "")).strip()
                     return {
-                        "passed": passed and (conf >= 0.65),
+                        "passed": passed and (conf >= 0.55),
                         "confidence": conf,
                         "reason": reason,
                     }
@@ -1288,7 +1626,7 @@ def fetch_single_scene_pip(
     - media_type="auto"：由 AI 依口白與檢索詞自動判斷是否優先抓影片；若影片無結果或未通過審查，自動退回抓考據照片。
     - media_type="video"：強制檢索考據影片並驗證關鍵影格。
     - media_type="image"：僅檢索考據照片。
-    所有候選皆須通過 Gemini AI 視覺與口白敘述吻合度審查才啟用。
+    所有候選皆須通過 Gemini AI 視覺與口白敘述吻合度審查才啟用；若失敗則保存退件候選與縮圖供介面檢視。
     """
     s_yaml_p = scene_dir / "scene.yaml"
     if not s_yaml_p.is_file():
@@ -1302,11 +1640,26 @@ def fetch_single_scene_pip(
 
     narration = str(scfg.get("narration") or "")
     last_err = None
+    rejected_items: list[dict[str, object]] = []
+    saved_rejected_preview = False
+    rej_png_path = scene_dir / "pip_rejected.png"
 
-    want_video_first = (
-        media_type == "video"
-        or (media_type == "auto" and should_prefer_archival_video(q, narration))
-    )
+    pip_cfg = _pip_cfg(scfg)
+    cfg_mtype = str(pip_cfg.get("media_type") or "").strip().lower()
+    cfg_mode = str(pip_cfg.get("mode") or "").strip().lower()
+
+    # 優先依照 AI 於建案/切鏡時寫入 scene.yaml 的 media_type / mode 決定抓影片或照片；
+    # 若為未標記 media_type 的舊分鏡才退回 should_prefer_archival_video 判斷
+    if media_type == "video":
+        want_video_first = True
+    elif media_type == "image":
+        want_video_first = False
+    elif cfg_mtype == "video" or cfg_mode == "broll":
+        want_video_first = True
+    elif cfg_mtype == "image" and cfg_mode in ("pip", "spotlight"):
+        want_video_first = False
+    else:
+        want_video_first = should_prefer_archival_video(q, narration)
 
     # ==========================================================
     # 階段 A：優先嘗試檢索並驗證「真實考據影片 (pip.mp4)」
@@ -1327,7 +1680,7 @@ def fetch_single_scene_pip(
                     last_err = f"無法擷取影片候選 {i}"
                     continue
 
-                cand_title = str(v_cand.get("title") or "")
+                cand_title = str(v_cand.get("title") or q)
                 review = verify_pip_match_with_ai(
                     narration=narration,
                     query=q,
@@ -1337,8 +1690,25 @@ def fetch_single_scene_pip(
                     media_type="video",
                 )
                 if not review["passed"]:
-                    print(f"[review-reject] 【{scene_dir.name}】影片候選 {i} 未通過 AI 審查: {review['reason']}，改試下一部")
-                    last_err = f"影片 AI 判定不吻合: {review['reason']}"
+                    rej_reason = str(review.get("reason") or "影片內容與本幕口白不符").strip()
+                    print(f"[review-reject] 【{scene_dir.name}】影片候選 {i} 未通過 AI 審查: {rej_reason}，改試下一部")
+                    if not saved_rejected_preview and tmp_png.is_file():
+                        try:
+                            shutil.copyfile(str(tmp_png), str(rej_png_path))
+                            saved_rejected_preview = True
+                        except Exception:
+                            pass
+                    rejected_items.append(
+                        {
+                            "title": cand_title,
+                            "url": v_url,
+                            "thumbnail_url": str(v_cand.get("thumbnail_url") or "") or None,
+                            "source": str(v_cand.get("source") or "全網考據影片"),
+                            "media_type": "video",
+                            "reason": rej_reason,
+                        }
+                    )
+                    last_err = f"有抓到影片但 AI 判定不符：{rej_reason}"
                     continue
 
                 # 通過審查！正式啟用 pip.mp4 與代表縮圖 pip.png
@@ -1367,7 +1737,8 @@ def fetch_single_scene_pip(
                             pass
 
         if media_type == "video":
-            mark_scene_pip_error(scene_dir, f"未找到符合口白的考據影片：{last_err or '無候選影片'}", q)
+            err_msg = str(last_err) if last_err else f"沒抓到影片：搜尋「{q}」無相符影片結果"
+            mark_scene_pip_error(scene_dir, err_msg, q, rejected_candidates=rejected_items[:4])
             return False
         print(f"[info] 【{scene_dir.name}】未找到合適考據影片，自動退回檢索真實考據照片：{q}")
 
@@ -1377,21 +1748,27 @@ def fetch_single_scene_pip(
     candidates = search_all_source_candidates(q, limit=6)
     if not candidates:
         print(f"[skip] 【{scene_dir.name}】未檢索到合適考據照片：{q}")
-        mark_scene_pip_error(scene_dir, "未找到合適照片或影片", q)
+        err_msg = str(last_err) if rejected_items else f"沒抓到圖/影片：搜尋「{q}」無相符結果"
+        mark_scene_pip_error(scene_dir, err_msg, q, rejected_candidates=rejected_items[:4])
         return False
 
+    downloaded_any = False
     for i, result in enumerate(candidates, 1):
-        raw_url = str(result.get("url", ""))
-        img_url = raw_url.split("?")[0] if raw_url else ""
+        raw_url = str(result.get("url", "")).strip()
+        thumb_url = str(result.get("thumbnail_url") or "").strip() or None
+        img_url = raw_url
         if not img_url:
             continue
         try:
             content = _download_image_bytes(img_url)
+            if not content and thumb_url and thumb_url != img_url:
+                content = _download_image_bytes(thumb_url)
             if not content:
-                last_err = f"無法下載候選 {i}"
+                last_err = f"無法下載候選圖片 {i}"
                 continue
+            downloaded_any = True
 
-            cand_title = str(result.get("title") or "")
+            cand_title = str(result.get("title") or q)
             # 關鍵審查關卡：透過 AI 比對口白、檔名與圖片內容是否吻合
             review = verify_pip_match_with_ai(
                 narration=narration,
@@ -1403,8 +1780,27 @@ def fetch_single_scene_pip(
             )
 
             if not review["passed"]:
-                print(f"[review-reject] 【{scene_dir.name}】候選 {i} 未通過 AI 審查: {review['reason']}，改試下一張")
-                last_err = f"AI 判定不吻合: {review['reason']}"
+                rej_reason = str(review.get("reason") or "圖片內容與本幕口白不符").strip()
+                print(f"[review-reject] 【{scene_dir.name}】候選 {i} 未通過 AI 審查: {rej_reason}，改試下一張")
+                if not saved_rejected_preview:
+                    try:
+                        rej_img = Image.open(io.BytesIO(content)).convert("RGBA")
+                        rej_img.thumbnail((800, 800), Image.Resampling.LANCZOS)
+                        rej_img.save(rej_png_path, "PNG")
+                        saved_rejected_preview = True
+                    except Exception:
+                        pass
+                rejected_items.append(
+                    {
+                        "title": cand_title,
+                        "url": img_url,
+                        "thumbnail_url": str(result.get("thumbnail_url") or img_url),
+                        "source": str(result.get("source") or "全網歷史圖庫"),
+                        "media_type": "image",
+                        "reason": rej_reason,
+                    }
+                )
+                last_err = f"有抓到圖但 AI 判定不符：{rej_reason}"
                 continue
 
             # 通過審核！若先前殘留 pip.mp4 則清除，正式縮圖存檔並啟用
@@ -1433,9 +1829,17 @@ def fetch_single_scene_pip(
             print(f"[warn] 【{scene_dir.name}】候選 {i}/{len(candidates)} 失敗: {e}，改試下一張")
             continue
 
-    # 若所有候選皆未通過 AI 吻合度審核，果斷自動降級為純 AI 生成畫面！
-    print(f"[fallback] 【{scene_dir.name}】考據素材未通過 AI 吻合度審核，自動降級為純 AI 生成圖 ({last_err})")
-    mark_scene_pip_error(scene_dir, f"AI 審核未通過（與口白不符）：{last_err}，已自動切換為純 AI 生成畫面", q)
+    # 若所有候選皆未通過 AI 吻合度審核，保存退件紀錄並自動降級為純 AI 生成畫面
+    if rejected_items:
+        first_rej = rejected_items[0]
+        final_err = f"有抓到{'影片' if first_rej.get('media_type') == 'video' else '圖'}但 AI 判定不符：{first_rej.get('reason')}（候選：{first_rej.get('title')}）"
+    elif not downloaded_any:
+        final_err = f"有搜到 {len(candidates)} 筆候選但無法下載圖檔（檢索詞：{q}）"
+    else:
+        final_err = f"考據檢索失敗：{last_err}"
+
+    print(f"[fallback] 【{scene_dir.name}】{final_err}")
+    mark_scene_pip_error(scene_dir, final_err, q, rejected_candidates=rejected_items[:4])
     return False
 
 
@@ -1503,8 +1907,8 @@ INSTRUCTIONS & PRIORITY:
    - Priority 4: Specific Instruments / Technology / Facilities: Concrete device or facility (e.g., "Hubble primary mirror", "ASML Twinscan immersion lithography").
 2. FORBIDDEN ABSTRACT TERMS:
    - Do NOT output abstract emotions, philosophical concepts, or generic topics (e.g., "Cold War diplomacy", "secret trade", "military tension"). Return null for these.
-3. SELECTIVITY:
-   - Be selective: only 20%~45% of scenes usually need real archival reference cards to avoid visual clutter.
+3. COVERAGE & SELECTIVITY:
+   - Aim for 45%~70% of scenes to have real archival reference cards whenever concrete real-world entities, locations, institutions, historical moments, or artifacts are mentioned.
 
 OUTPUT FORMAT:
 Return a JSON object mapping scene_id to the search query string (or null):
@@ -1613,9 +2017,8 @@ def auto_fetch_and_apply_pip(job_dir: Path, progress_callback=None, check_contro
                     progress_callback(idx, total_matched, f"✅ 已為【{s_id}】套用考據圖：{query}", s_dir=s_dir)
                 time.sleep(1.0)
             else:
-                mark_scene_pip_error(s_dir, "未找到合適照片", query)
                 if progress_callback:
-                    progress_callback(idx, total_matched, f"⚠️ 【{s_id}】未找到考據圖，繼續下一幕", s_dir=s_dir)
+                    progress_callback(idx, total_matched, f"⚠️ 【{s_id}】考據未通過或無結果，繼續下一幕", s_dir=s_dir)
         except Exception as exc:
             print(f"[warn] 【{s_id}】考據圖處理失敗: {exc}")
             mark_scene_pip_error(s_dir, str(exc), query)

@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261028T101921",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.42,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "但如果我告訴你，這個品牌跟丹麥沒有半毛錢關係",
+      "text_cn": "但如果我告诉你，这个品牌跟丹麦没有半毛钱关系",
+      "start_sec": 0.0,
+      "end_sec": 4.4,
+      "duration_sec": 4.4
+    },
+    {
+      "index": 2,
+      "text": "它的原產地根本不是什麼北歐童話森林",
+      "text_cn": "它的原产地根本不是什么北欧童话森林",
+      "start_sec": 4.65,
+      "end_sec": 8.21,
+      "duration_sec": 3.56
+    },
+    {
+      "index": 3,
+      "text": "而是二十世紀紐約最混亂骯髒的布朗克斯貧民窟，[surprise-wa]這究竟是怎麼回事呢",
+      "text_cn": "而是二十世纪纽约最混乱肮脏的布朗克斯贫民窟，[surprise-wa]这旧竟是怎么回事呢",
+      "start_sec": 8.46,
+      "end_sec": 15.42,
+      "duration_sec": 6.96
+    }
+  ],
+  "created_at": "2026-10-28T10:19:21.125920+00:00"
+}

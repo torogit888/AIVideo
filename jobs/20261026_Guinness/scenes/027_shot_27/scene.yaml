@@ -1,0 +1,58 @@
+id: 027_shot_27
+index: 27
+title: 更戲劇性的是整個英國的酒吧生態因
+narration: 更戲劇性的是整個英國的酒吧生態因它發生了根本質變，酒吧老闆們紛紛用鐵鍊把這本書死死拴在櫃檯的鐵盒旁，生怕這本能平息幹架的神書被喝醉的客人趁亂偷走，
+image_prompt: close-up shot in 2D cartoon illustration style, anime chibi aesthetic
+  with clean outlines and rich cell-shaded details. On a polished dark oak British
+  pub counter, the 1955 First Edition Guinness Book of Records in its emerald forest-green
+  cloth cover sits secured with a heavy, stylized metallic steel chain firmly bolted
+  to the book's spine corner and padlocked to a sturdy brass bar fitting. In the cozy
+  tavern background, ambient amber light illuminates wooden beer taps, chalkboard
+  menus, and stained-glass pub mirrors, 16:9 widescreen composition.
+character_ids:
+- guinness_record_book_1955
+act_index: 5
+act_title: 平息群毆的酒館小冊
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261027T124825
+  image_take: image_20261027T124607
+pip:
+  enabled: false
+  image: pip.png
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: Guinness Book of Records chained to pub counter 1950s
+  fetch_error: 有抓到圖但 AI 判定不符：畫面為彈跳球破紀錄活動，非酒吧將紀錄大全鎖在櫃檯之歷史場景。（候選：File:1,500 People Space
+    Hop Into The Guinness Book Of World Records.jpg）
+  rejected_candidates:
+  - title: File:1,500 People Space Hop Into The Guinness Book Of World Records.jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/a/a4/1%2C500_People_Space_Hop_Into_The_Guinness_Book_Of_World_Records.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/a/a4/1%2C500_People_Space_Hop_Into_The_Guinness_Book_Of_World_Records.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 畫面為彈跳球破紀錄活動，非酒吧將紀錄大全鎖在櫃檯之歷史場景。
+  - title: File:1,500 People Space Hop Into The Guinness Book Of World Records (2).jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/a/a2/1%2C500_People_Space_Hop_Into_The_Guinness_Book_Of_World_Records_%282%29.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/a/a2/1%2C500_People_Space_Hop_Into_The_Guinness_Book_Of_World_Records_%282%29.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 圖片為現代彈跳球活動參與者，非1950年代酒吧拴紀錄大全的歷史畫面。
+  - title: File:1,500 People Space Hop Into The Guinness Book Of World Records (3).jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/1/1b/1%2C500_People_Space_Hop_Into_The_Guinness_Book_Of_World_Records_%283%29.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/1/1b/1%2C500_People_Space_Hop_Into_The_Guinness_Book_Of_World_Records_%283%29.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 圖為現代彈跳球紀錄挑戰活動，與酒吧鐵鍊拴書之敘述無關。
+  - title: File:Ali Asgari Lemjiri was selected as the best records of the Middle
+      East 2023 in the Guinness Book of World Records.jpg
+    url: https://upload.wikimedia.org/wikipedia/commons/1/1c/Ali_Asgari_Lemjiri_was_selected_as_the_best_records_of_the_Middle_East_2023_in_the_Guinness_Book_of_World_Records.jpg
+    thumbnail_url: https://upload.wikimedia.org/wikipedia/commons/1/1c/Ali_Asgari_Lemjiri_was_selected_as_the_best_records_of_the_Middle_East_2023_in_the_Guinness_Book_of_World_Records.jpg
+    source: 維基共享資源 (Wikimedia)
+    media_type: image
+    reason: 圖片為現代中東紀錄保持者拼貼，非早期英國酒吧鐵鍊拴書歷史場景。

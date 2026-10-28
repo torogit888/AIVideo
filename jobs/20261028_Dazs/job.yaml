@@ -1,0 +1,25 @@
+id: 20261028_Dazs
+title: 哈根達斯的偽丹麥神話：一個波蘭移民在紐約廚房創造的「高級謊言」
+language: zh-Hant
+voice_id: tw_female01
+use_pip: true
+tone_id: warm_narrative
+visual_pacing: balanced
+frame:
+  aspect: '16:9'
+  gen_width: 1920
+  gen_height: 1080
+  deliver_width: 1920
+  deliver_height: 1080
+  fps: 30
+image:
+  backend: gemini
+  model: gemini-3.1-flash-image
+  resolution: 1K
+  aspect_ratio: '16:9'
+  style: 2d_chibi_cell
+subtitle:
+  mode: none
+  font: /usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc
+  font_size: 48
+kenburns: slow_zoom_in

@@ -1,0 +1,38 @@
+id: 028_shot_28
+index: 28
+title: 她專門開進曼哈頓格林威治村一帶的
+narration: 她專門開進曼哈頓格林威治村一帶的獨立高級熟食店與藝廊聚落，[surprise-wa]你要知道，那裡聚集的全是全紐約最有錢的文化菁英，大學教授和先鋒藝術家，
+image_prompt: wide angle shot, chibi 2D anime style, clean line art, flat cell shading,
+  visual novel background. The vintage refrigerated van, painted in retro faded cream
+  and pale teal with shiny round headlights and a boxy rear container, drives smoothly
+  down a picturesque cobblestone street in 1960s Greenwich Village, Manhattan. The
+  street is lined with quaint European-style delis, boutique art galleries with canvas
+  paintings visible through large glass windows, and lush green potted shrubs outside
+  brownstone stoops. Stylish bohemian passersby in turtlenecks, berets, and trench
+  coats walk along the sidewalks under warm afternoon sunlight, rich scenic details,
+  single coherent viewpoint, 16:9 widescreen composition.
+character_ids:
+- vintage_refrigerated_van
+image_negative: ''
+act_index: 4
+act_title: 皮草貴婦與嬉皮沙龍：顛覆渠道的特洛伊木馬
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261028T105037
+  image_take: null
+pip:
+  enabled: true
+  media_type: video
+  image: pip.png
+  video: pip.mp4
+  position: right-center
+  mode: broll
+  scale: 0.24
+  border: 5
+  query: Greenwich Village 1960s
+  source_title: 'A Moment in Time: 1960s Greenwich Village - Decades TV Network'
+  source_url: https://www.youtube.com/watch?v=_Bov8uT2GJs
+  verified: true
+  review_reason: 真實呈現1960年代格林威治村街景與咖啡館，契合旁白情境。

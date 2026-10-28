@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261027T115153",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.38,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "既然自家的黑啤酒每天都在催生這幫喝高了的酒客打架",
+      "text_cn": "既然自家的黑啤酒每天都在催生这帮喝高了的酒客打架",
+      "start_sec": 0.0,
+      "end_sec": 4.96,
+      "duration_sec": 4.96
+    },
+    {
+      "index": 2,
+      "text": "那我為什麼不乾脆編寫一本權威的終極判決之書",
+      "text_cn": "那我为什么不干脆编写一本权威的终极判决之书",
+      "start_sec": 5.21,
+      "end_sec": 9.57,
+      "duration_sec": 4.36
+    },
+    {
+      "index": 3,
+      "text": "直接塞進全英國每家酒吧的吧台下面用來平息紛爭呢？[question-ei]",
+      "text_cn": "直接塞进全英国每家酒吧的吧台下面用来平息纷争呢？[question-ei]",
+      "start_sec": 9.82,
+      "end_sec": 15.38,
+      "duration_sec": 5.56
+    }
+  ],
+  "created_at": "2026-10-27T11:51:53.955806+00:00"
+}

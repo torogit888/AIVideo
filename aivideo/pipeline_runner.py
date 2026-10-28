@@ -250,13 +250,37 @@ class PipelineRunner:
                     self.status_msg = f"🎙️ [配音] ({cur}/{tot}) - {msg}"
 
             # ========================================================
-            # mode == "all": 一鍵全流程（逐幕：出圖 ➔ 配音 ➔ 考據 ➔ 下一幕 ➔ 成片）
+            # mode == "all": 一鍵全流程（逐幕：出圖(含考據PiP/考據影片) ➔ 出聲(配音) ➔ 下一幕 ➔ 合成影片）
             # ========================================================
             if mode == "all":
                 scenes_dir = self.job_path / "scenes"
                 scene_folders = sorted([p for p in scenes_dir.iterdir() if p.is_dir()]) if scenes_dir.is_dir() else []
                 total_scenes = len(scene_folders)
                 self.stage = "🎬 [一鍵全流程]"
+
+                # 若開啟自動考據且全片尚無任何考據檢索詞，先批次補判一次
+                if auto_pip and scene_folders:
+                    has_any_pip_query = False
+                    for s_check in scene_folders:
+                        sy = s_check / "scene.yaml"
+                        if sy.is_file():
+                            try:
+                                d_check = yaml.safe_load(sy.read_text(encoding="utf-8")) or {}
+                                p_check = d_check.get("pip")
+                                if isinstance(p_check, dict) and str(p_check.get("query") or "").strip():
+                                    has_any_pip_query = True
+                                    break
+                            except Exception:
+                                pass
+                    if not has_any_pip_query:
+                        with self._lock:
+                            self.live_phase = "考據"
+                            self.status_msg = "🔍 正在分析全片口白考據關鍵字..."
+                        try:
+                            from aivideo.auto_pip import backfill_missing_pip_queries
+                            backfill_missing_pip_queries(self.job_path)
+                        except Exception as exc:
+                            print(f"[warn] 批次補判考據詞失敗: {exc}")
 
                 for idx, s_dir in enumerate(scene_folders, 1):
                     if self.check_control(phase=f"第 {idx}/{total_scenes} 幕準備", s_dir=s_dir):
@@ -284,10 +308,11 @@ class PipelineRunner:
                             if isinstance(p_cfg, dict):
                                 pip_on = pip_switch_on(p_cfg)
                                 p_mode = str(p_cfg.get("mode", "")).lower()
+                                p_mtype = str(p_cfg.get("media_type", "")).lower()
                                 pip_q = str(p_cfg.get("query", "")).strip()
                                 if p_mode in ("spotlight", "focus", "black_bg", "fullscreen", "broll"):
                                     is_spotlight_mode = True
-                                if pip_on and pip_q and should_prefer_archival_video(pip_q, s_narr):
+                                if pip_on and pip_q and (p_mtype == "video" or p_mode == "broll" or (not p_mtype and should_prefer_archival_video(pip_q, s_narr))):
                                     prefer_video = True
                         except Exception:
                             pass
@@ -323,7 +348,7 @@ class PipelineRunner:
                                 mark_scene_pip_error(s_dir, str(exc), pip_q)
                                 print(f"[warn] 第 {idx} 幕考據檢索失敗（{exc}），自動降級為 AI 生圖")
 
-                    # 若黑底考據真實照片已就緒，該幕成片完全使用黑底考據圖，直接跳過 AI 生圖（省下 API 配額與冷卻）
+                    # 若黑底考據真實照片或全螢幕考據影片已就緒，直接跳過 AI 生圖（省下 API 配額與冷卻）
                     if spotlight_ready:
                         need_img = False
 
@@ -350,7 +375,40 @@ class PipelineRunner:
                         if self.check_control(phase=f"第 {idx}/{total_scenes} 幕出圖完畢", s_dir=s_dir):
                             return
 
-                    # 2. 該幕配音
+                    # 2. 常規考據（畫中畫小卡 / 考據影片）：緊接在出圖階段執行，確保「出圖(含考據) ➔ 出聲 ➔ 影片」順序
+                    if (
+                        auto_pip
+                        and pip_on
+                        and not is_spotlight_mode
+                        and not pip_attempted
+                        and not (s_dir / "pip.png").is_file()
+                        and not (s_dir / "pip.mp4").is_file()
+                    ):
+                        q = pip_q
+                        try:
+                            from aivideo.auto_pip import fetch_single_scene_pip
+
+                            if q:
+                                with self._lock:
+                                    self.live_cur = idx
+                                    self.live_tot = total_scenes
+                                    self.live_phase = "考據"
+                                    self.live_dir = s_dir
+                                    self.status_msg = f"📷 第 {idx}/{total_scenes} 幕：正在檢索考據素材 ({q})..."
+                                if fetch_single_scene_pip(s_dir, q):
+                                    did_work = True
+                                else:
+                                    print(f"[warn] 第 {idx} 幕考據未成功：{q}")
+                        except Exception as exc:
+                            from aivideo.auto_pip import mark_scene_pip_error
+
+                            mark_scene_pip_error(s_dir, str(exc), q)
+                            print(f"[warn] 第 {idx} 幕考據失敗（{exc}）")
+
+                    if self.check_control(phase=f"第 {idx}/{total_scenes} 幕考據完畢", s_dir=s_dir):
+                        return
+
+                    # 3. 該幕配音（出聲）
                     if need_aud:
                         did_work = True
                         with self._lock:
@@ -371,32 +429,6 @@ class PipelineRunner:
 
                         if self.check_control(phase=f"第 {idx}/{total_scenes} 幕配音完畢", s_dir=s_dir):
                             return
-
-                    # 3. 常規考據：非 spotlight 的畫中畫小卡。右邊開關關掉或已於前置階段嘗試過的幕跳過。
-                    if (
-                        auto_pip
-                        and pip_on
-                        and not is_spotlight_mode
-                        and not pip_attempted
-                        and not (s_dir / "pip.png").is_file()
-                        and not (s_dir / "pip.mp4").is_file()
-                    ):
-                        q = pip_q
-                        try:
-                            from aivideo.auto_pip import fetch_single_scene_pip
-
-                            if q:
-                                with self._lock:
-                                    self.status_msg = f"📷 第 {idx}/{total_scenes} 幕：正在檢索考據圖 ({q})..."
-                                if fetch_single_scene_pip(s_dir, q):
-                                    did_work = True
-                                else:
-                                    print(f"[warn] 第 {idx} 幕考據未成功：{q}")
-                        except Exception as exc:
-                            from aivideo.auto_pip import mark_scene_pip_error
-
-                            mark_scene_pip_error(s_dir, str(exc), q)
-                            print(f"[warn] 第 {idx} 幕考據失敗（{exc}）")
 
                     with self._lock:
                         self.progress = round(0.88 * (idx / max(1, total_scenes)), 3)

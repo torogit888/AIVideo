@@ -401,9 +401,9 @@ export const StoryboardGrid: React.FC = () => {
                       {formatDurationClock(scene.status.duration)}
                     </div>
 
-                    {/* 左下角 PiP 考據實體標籤 */}
-                    {scene.pip_enabled && (scene.status.has_pip || scene.pip_query || scene.pip_error) && (
-                      <div className="absolute bottom-1.5 left-1.5 max-w-[62%] z-10">
+                    {/* 左下角 PiP 考據實體標籤（即使考據失敗被自動降級，仍顯示失敗狀態提示） */}
+                    {((scene.pip_enabled && (scene.status.has_pip || scene.pip_query)) || scene.pip_error) && (
+                      <div className="absolute bottom-1.5 left-1.5 max-w-[68%] z-10">
                         {scene.status.has_pip ? (
                           <span
                             className="flex items-center px-1.5 py-0.5 rounded bg-purple-950/90 border border-purple-600/80 text-purple-200 text-[10px] font-mono shadow-sm truncate"
@@ -417,11 +417,15 @@ export const StoryboardGrid: React.FC = () => {
                           </span>
                         ) : scene.pip_error ? (
                           <span
-                            className="flex items-center px-1.5 py-0.5 rounded bg-red-950/90 border border-red-700/80 text-red-300 text-[10px] font-mono shadow-sm truncate"
+                            className="flex items-center px-1.5 py-0.5 rounded bg-red-950/95 border border-red-600/80 text-red-200 text-[10px] font-mono shadow-sm truncate"
                             title={scene.pip_error}
                           >
                             <AlertCircle className="w-3 h-3 mr-1 text-red-400 shrink-0" />
-                            <span className="truncate">考據失敗</span>
+                            <span className="truncate">
+                              {(scene.pip_rejected && scene.pip_rejected.length > 0) || scene.pip_error.includes("不符")
+                                ? `考據不符: ${scene.pip_query || ""}`
+                                : `沒抓到考據: ${scene.pip_query || ""}`}
+                            </span>
                           </span>
                         ) : (
                           <span
@@ -461,6 +465,57 @@ export const StoryboardGrid: React.FC = () => {
                       </span>
                     )}
                   </div>
+
+                  {/* 若本幕考據失敗，於卡片下方直接顯示失敗原因（沒抓到圖/影片，或展示抓到的考據與哪邊不符） */}
+                  {!scene.status.has_pip && scene.pip_error && (
+                    <div className="px-2.5 pb-2.5 pt-0">
+                      <div className="p-2 rounded bg-red-950/35 border border-red-800/50 text-[10px] space-y-1.5">
+                        <div className="flex items-start justify-between gap-1.5 text-red-300 font-medium">
+                          <span className="leading-snug">
+                            {(scene.pip_rejected && scene.pip_rejected.length > 0) || scene.pip_error.includes("不符")
+                              ? `⚠️ 有抓到考據但 AI 判定不符（檢索：${scene.pip_query || "未指定"}）`
+                              : `⚠️ 沒抓到圖/影片（檢索：${scene.pip_query || "未指定"}）`}
+                          </span>
+                        </div>
+                        {scene.pip_rejected && scene.pip_rejected.length > 0 ? (
+                          <div className="flex items-start gap-2 pt-0.5">
+                            {(scene.status.pip_rejected_url || scene.pip_rejected[0].thumbnail_url || scene.pip_rejected[0].url) && (
+                              <a
+                                href={scene.pip_rejected[0].url}
+                                target="_blank"
+                                rel="noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                                className="relative w-14 h-10 rounded overflow-hidden border border-red-700/70 bg-black shrink-0 group/rej"
+                                title="點擊開啟抓到的原始考據圖/影片"
+                              >
+                                <img
+                                  src={scene.status.pip_rejected_url || scene.pip_rejected[0].thumbnail_url || scene.pip_rejected[0].url}
+                                  alt={scene.pip_rejected[0].title}
+                                  className="w-full h-full object-cover"
+                                  loading="lazy"
+                                />
+                                <span className="absolute bottom-0 inset-x-0 bg-black/75 text-[8px] text-center text-amber-300">
+                                  看原圖
+                                </span>
+                              </a>
+                            )}
+                            <div className="flex-1 min-w-0 space-y-0.5 text-[10px]">
+                              <div className="text-zinc-200 truncate font-mono" title={scene.pip_rejected[0].title}>
+                                抓到：{scene.pip_rejected[0].title}
+                              </div>
+                              <div className="text-red-300/95 leading-snug line-clamp-2" title={scene.pip_rejected[0].reason || scene.pip_error}>
+                                不符原因：{scene.pip_rejected[0].reason || scene.pip_error}
+                              </div>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="text-zinc-300/90 leading-snug font-mono text-[10px]">
+                            {scene.pip_error}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
                 </div>
               );
             })}

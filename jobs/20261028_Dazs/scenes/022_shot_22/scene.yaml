@@ -1,0 +1,23 @@
+id: 022_shot_22
+index: 22
+title: 更荒謬的是
+narration: 更荒謬的是，丹麥語的字母體系裡根本不存在雙元音上面的兩個小點，而且在傳統丹麥語文法裡，也完全沒有把字母連在一起的拼寫規則，任何一個土生土長的丹麥人看到這串字母，只會覺得這是外國人在胡亂塗鴉，
+image_prompt: wide angle shot, chibi 2D anime style, clean line art, cell shading,
+  flat colors, visual novel background style. A classic retro Copenhagen street corner
+  in Denmark under bright daylight, where a puzzled local Danish baker in a white
+  chef hat and apron stands beside a wooden newsstand, scratching his head with a
+  comical question mark sweatdrop above his brow. On the wooden counter lies a piece
+  of parchment with nonsensical scribbles and odd accented vowel letters, as the baker
+  points in sheer bewilderment. In the background are picturesque colorful Nordic
+  townhouse facades, cobblestone pavements, and bicycle racks, all rendered in vibrant
+  cheerful hues with crisp outlines, single coherent scene, 16:9 widescreen composition.
+character_ids: []
+image_negative: ''
+act_index: 3
+act_title: 語言學詐欺術：客廳沙發上誕生的「偽丹麥神話」
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261028T104224
+  image_take: image_20261028T104212

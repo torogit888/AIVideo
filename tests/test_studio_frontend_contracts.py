@@ -115,13 +115,19 @@ def test_frontend_sse_dedup_and_inspector_tab_visibility():
     assert "primaryPipelineAction" in topbar_tsx
 
     editor_tsx = (REPO_ROOT / "web" / "src" / "components" / "ScriptEditor.tsx").read_text(encoding="utf-8")
-    assert "hasScenes && anchorsReanalyzed" in editor_tsx
+    assert "await api.recutJob(selectedJobId" in editor_tsx
 
 
 def test_frontend_pip_persistence_and_pacing_sync():
     inspector = (REPO_ROOT / "web" / "src" / "components" / "SceneInspector.tsx").read_text(encoding="utf-8")
-    assert 'handleQuickUpdatePip(pipEnabled, pipMode, "已更新考據卡片大小"' in inspector
-    assert 'handleQuickUpdatePip(pipEnabled, pipMode, "已更新考據疊加位置"' in inspector
+    inspector_pip = (
+        (REPO_ROOT / "web" / "src" / "components" / "ScenePipSection.tsx").read_text(encoding="utf-8")
+        if (REPO_ROOT / "web" / "src" / "components" / "ScenePipSection.tsx").is_file()
+        else ""
+    )
+    inspector_all = inspector + "\n" + inspector_pip
+    assert 'handleQuickUpdatePip(pipEnabled, pipMode, "已更新考據卡片大小"' in inspector_all
+    assert 'handleQuickUpdatePip(pipEnabled, pipMode, "已更新考據疊加位置"' in inspector_all
 
     editor = (REPO_ROOT / "web" / "src" / "components" / "ScriptEditor.tsx").read_text(encoding="utf-8")
     assert "detail.config?.visual_pacing" in editor
@@ -150,8 +156,13 @@ def test_frontend_shared_store_and_duration_estimator():
     assert "estimateJobDuration" in grid
 
     inspector = (REPO_ROOT / "web" / "src" / "components" / "SceneInspector.tsx").read_text(encoding="utf-8")
+    inspector_pip = (
+        (REPO_ROOT / "web" / "src" / "components" / "ScenePipSection.tsx").read_text(encoding="utf-8")
+        if (REPO_ROOT / "web" / "src" / "components" / "ScenePipSection.tsx").is_file()
+        else ""
+    )
     assert "liveImageUrl" in inspector
-    assert 'value="broll"' in inspector
+    assert 'value="broll"' in (inspector + "\n" + inspector_pip)
 
 
 def test_app_component_split_into_focused_panels():
@@ -205,5 +216,37 @@ def test_youtube_modal_refreshes_overview_and_places_progress_above_submit():
     prog_idx = yt_modal.index("正在上傳成片至 YouTube...")
     submit_idx = yt_modal.index("立即發布至 YouTube")
     assert srt_idx < prog_idx < submit_idx
+
+
+def test_large_frontend_components_split_into_focused_modules():
+    comp_dir = REPO_ROOT / "web" / "src" / "components"
+    assert (comp_dir / "StyleGalleryModal.tsx").is_file()
+    assert (comp_dir / "ScenePipSection.tsx").is_file()
+    assert (comp_dir / "AssetsVoiceConfig.ts").is_file()
+    assert (comp_dir / "AssetsStylesSection.tsx").is_file()
+    assert (comp_dir / "AssetsVoicesSection.tsx").is_file()
+
+    script_editor = (comp_dir / "ScriptEditor.tsx").read_text(encoding="utf-8")
+    scene_inspector = (comp_dir / "SceneInspector.tsx").read_text(encoding="utf-8")
+    assets_view = (comp_dir / "AssetsView.tsx").read_text(encoding="utf-8")
+
+    assert "<StyleGalleryModal" in script_editor
+    assert "<ScenePipSection" in scene_inspector
+    assert "<AssetsStylesSection" in assets_view
+    assert "<AssetsVoicesSection" in assets_view
+    assert len(assets_view.splitlines()) < 800
+
+
+def test_storyboard_card_shows_pip_failure_reason_and_rejected_preview():
+    grid = (REPO_ROOT / "web" / "src" / "components" / "StoryboardGrid.tsx").read_text(encoding="utf-8")
+    pip_sec = (REPO_ROOT / "web" / "src" / "components" / "ScenePipSection.tsx").read_text(encoding="utf-8")
+    actions = (REPO_ROOT / "web" / "src" / "studioActions.ts").read_text(encoding="utf-8")
+
+    assert "pip_rejected" in grid
+    assert "pip_error" in grid
+    assert 'label: "一鍵全流程", action: "all"' in actions
+    assert "rejected_candidates" in pip_sec
+
+
 
 

@@ -1,0 +1,37 @@
+id: 005_shot_5
+index: 5
+title: 當一隻野鳥振翅掠過頭頂灰濛濛的天
+narration: 當一隻野鳥振翅掠過頭頂灰濛濛的天空，休比弗果斷扣動扳機卻不幸當場脫靶，[surprise-wa]，那隻飛鳥毫髮無損地一頭鑽進了密林深處，
+image_prompt: dynamic medium shot in 2D cartoon illustration, anime art style, chibi
+  characters, clean line art, cel shading, flat colors. Sir Hugh Beaver shows a comically
+  exaggerated flustered expression with wide round eyes as a puff of white cartoon
+  smoke drifts from his twin shotgun barrels, having completely missed his target;
+  above his head, a sleek golden plover bird zips untouched through the overcast sky
+  with playful motion lines into dense green woodland, vibrant contrasting colors,
+  16:9 widescreen composition
+character_ids:
+- sir_hugh_beaver
+act_index: 1
+act_title: 荒野脫靶與致命爭辯
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261027T114330
+  image_take: image_20261027T114300
+pip:
+  enabled: true
+  media_type: image
+  image: pip.png
+  video: null
+  position: right-center
+  mode: pip
+  scale: 0.24
+  border: 5
+  query: European golden plover Pluvialis apricaria vintage wildlife illustration
+  source_title: File:European golden plover (Pluvialis apricaria) female breeding
+    Keflavik.jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/f/fb/European_golden_plover_%28Pluvialis_apricaria%29_female_breeding_Keflavik.jpg
+  verified: true
+  review_reason: 清晰呈現休比弗打獵事件的主角歐洲金斑鴴，物種吻合。

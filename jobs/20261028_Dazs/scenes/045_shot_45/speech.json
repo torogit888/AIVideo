@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261028T111912",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 8.81,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "無數年輕人在門市前排起長龍拍照打卡",
+      "text_cn": "无数年轻人在门市前排起长龙拍照打卡",
+      "start_sec": 0.0,
+      "end_sec": 3.56,
+      "duration_sec": 3.56
+    },
+    {
+      "index": 2,
+      "text": "彷彿手裡捧著的不是甜點，而是一張通往上流社會的門票",
+      "text_cn": "仿佛手里捧著的不是甜点，而是一张通往上流社会的门票",
+      "start_sec": 3.81,
+      "end_sec": 8.81,
+      "duration_sec": 5.0
+    }
+  ],
+  "created_at": "2026-10-28T11:19:12.551516+00:00"
+}

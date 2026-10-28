@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261028T103518",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 19.87,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "魯本敏銳地觀察著當時的紐約餐飲界",
+      "text_cn": "鲁本敏锐地观察著当时的纽约餐饮界",
+      "start_sec": 0.0,
+      "end_sec": 3.36,
+      "duration_sec": 3.36
+    },
+    {
+      "index": 2,
+      "text": "發現市面上瀰漫著嚴重的崇洋心理，在紐約中產階級眼裡",
+      "text_cn": "发现市面上弥漫着严重的崇洋心理，在纽约中产阶级眼里",
+      "start_sec": 3.61,
+      "end_sec": 8.61,
+      "duration_sec": 5.0
+    },
+    {
+      "index": 3,
+      "text": "美國本土食品幾乎就是廉價快餐與粗鄙流水線的代名詞",
+      "text_cn": "美国本土食品几乎就是廉价快餐与粗鄙流水线的代名词",
+      "start_sec": 8.86,
+      "end_sec": 13.82,
+      "duration_sec": 4.96
+    },
+    {
+      "index": 4,
+      "text": "如果老老實實標註布朗克斯製造，定價一美元根本不可能有人搭理",
+      "text_cn": "如果老老实实标注布朗克斯制造，定价一美元根本不可能有人搭理",
+      "start_sec": 14.07,
+      "end_sec": 19.87,
+      "duration_sec": 5.8
+    }
+  ],
+  "created_at": "2026-10-28T10:35:18.866456+00:00"
+}

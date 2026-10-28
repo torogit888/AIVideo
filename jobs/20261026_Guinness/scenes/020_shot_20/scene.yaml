@@ -1,0 +1,39 @@
+id: 020_shot_20
+index: 20
+title: 哪怕冷戰鐵幕嚴密隔絕了西方社會與
+narration: 哪怕冷戰鐵幕嚴密隔絕了西方社會與蘇聯陣營，他們也硬生生通過外交管道把諮詢信件寄進了莫斯科科學院，[surprise-wa]，
+image_prompt: wide establishing shot, (masterpiece, best quality:1.2), 2D cartoon
+  illustration, anime art style, chibi characters, clean line art, cell shading, flat
+  colors, cute mobile game UI art, visual novel style, crisp details, vibrant and
+  cheerful color palette, single coherent scene, non-split screen, unified single
+  viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate
+  background. Outside the imposing neoclassical facade of the Moscow Academy of Sciences
+  under a chilly winter snowfall, an anonymous 1950s Soviet postal courier in a heavy
+  navy-blue wool winter coat and ushanka cap happily holds an official diplomatic
+  airmail letter stamped with British and Soviet postage seals, with vintage brick
+  buildings and snow-dusted trees in a charming, vibrant Cold War era setting, 16:9
+  widescreen composition.
+character_ids: []
+act_index: 4
+act_title: 倫敦閣樓的瘋狂搜查
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261027T121520
+  image_take: null
+pip:
+  enabled: true
+  media_type: image
+  image: pip.png
+  video: null
+  position: right-center
+  mode: spotlight
+  scale: 0.24
+  border: 5
+  query: USSR Academy of Sciences Moscow 1950s building
+  source_title: File:Academy of Sciences of the USSR.jpg
+  source_url: https://upload.wikimedia.org/wikipedia/commons/2/22/Academy_of_Sciences_of_the_USSR.jpg
+  verified: true
+  review_reason: 影像確實為蘇聯科學院歷史建築，與旁白提及機構相符。

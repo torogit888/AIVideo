@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261027T130155",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 46088092,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background\nVibrant contrasting color palettes, crisp details throughout, expressive chibi faces, rich background props., medium shot inside a dignified 1970s London records committee headquarters in (masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background. Serious chibi record adjudicators in neat navy blazers and horn-rimmed glasses sit behind a massive mahogany conference desk, firmly slamming large red wooden rubber stamps marked with bold prohibition symbols onto stacks of rule documents. A large blackboard in the background displays crossed-out cartoon icons of dangerous stunts, with bright warm office lamp lighting and neat stacks of file folders, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-27T13:01:55.847210+00:00"
+}

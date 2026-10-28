@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261028T111431",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.82,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[question-ei]你一定聽過那句精準綁架年輕男女的廣告詞",
+      "text_cn": "[question-ei]你一定听过那句精准绑架年轻男女的广告词",
+      "start_sec": 0.0,
+      "end_sec": 4.72,
+      "duration_sec": 4.72
+    },
+    {
+      "index": 2,
+      "text": "愛她就帶她去吃哈根達斯，動輒上千元一盒的冰淇淋月餅",
+      "text_cn": "爱她就带她去吃哈根达斯，动辄上千元一盒的冰淇淋月饼",
+      "start_sec": 4.97,
+      "end_sec": 9.97,
+      "duration_sec": 5.0
+    },
+    {
+      "index": 3,
+      "text": "華麗浮誇的情人節巧克力火鍋，利潤率被推向了難以想像的頂峰",
+      "text_cn": "华丽浮夸的情人节巧克力火锅，利润率被推向了难以想像的顶峰",
+      "start_sec": 10.22,
+      "end_sec": 15.82,
+      "duration_sec": 5.6
+    }
+  ],
+  "created_at": "2026-10-28T11:14:31.503751+00:00"
+}

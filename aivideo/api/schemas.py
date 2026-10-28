@@ -350,6 +350,15 @@ class SelectTakeRequest(BaseModel):
     kind: str = Field(..., description="image | speech")
 
 
+class PipRejectedItem(BaseModel):
+    title: str
+    url: str
+    thumbnail_url: Optional[str] = None
+    source: str = ""
+    media_type: str = "image"
+    reason: Optional[str] = None
+
+
 class SceneStatus(BaseModel):
     has_image: bool = False
     has_audio: bool = False
@@ -359,6 +368,7 @@ class SceneStatus(BaseModel):
     audio_url: Optional[str] = None
     pip_url: Optional[str] = None
     pip_video_url: Optional[str] = None
+    pip_rejected_url: Optional[str] = None
     duration: float = 0.0
 
 
@@ -377,6 +387,7 @@ class ScenePipConfig(BaseModel):
     fetch_error: Optional[str] = None
     verified: Optional[bool] = False
     review_reason: Optional[str] = None
+    rejected_candidates: List[PipRejectedItem] = Field(default_factory=list)
 
 
 class SceneSummary(BaseModel):
@@ -393,6 +404,7 @@ class SceneSummary(BaseModel):
     pip_enabled: bool = False
     pip_mode: str = "pip"
     pip_error: Optional[str] = None
+    pip_rejected: List[PipRejectedItem] = Field(default_factory=list)
     locks: Dict[str, bool] = Field(default_factory=lambda: {"speech": False, "image": False})
     status: SceneStatus
 
@@ -440,6 +452,7 @@ class ApplyPipUrlRequest(BaseModel):
     title: Optional[str] = "自訂圖片網址"
     query: Optional[str] = None
     media_type: Optional[str] = "auto"
+    force: bool = False
 
 
 class PipCandidateItem(BaseModel):

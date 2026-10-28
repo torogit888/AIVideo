@@ -1,0 +1,50 @@
+{
+  "take_id": "speech_20261027T121545",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 21.99,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "這對雙胞胎兄弟每週在高壓環境下工作長達整整九十個小時",
+      "text_cn": "这对双胞胎兄弟每周在高压环境下工作长达整整九十个小时",
+      "start_sec": 0.0,
+      "end_sec": 5.36,
+      "duration_sec": 5.36
+    },
+    {
+      "index": 2,
+      "text": "在浩如煙海的回信當中仔細甄別誇大其詞的吹牛者與徹頭徹尾的騙徒",
+      "text_cn": "在浩如烟海的回信当中仔细甄别夸大其词的吹牛者与彻头彻尾的骗徒",
+      "start_sec": 5.61,
+      "end_sec": 11.77,
+      "duration_sec": 6.16
+    },
+    {
+      "index": 3,
+      "text": "更不可思議的是他們特意請教了多位頂級鳥類學家",
+      "text_cn": "更不可思议的是他们特意请教了多位顶级鸟类学家",
+      "start_sec": 12.02,
+      "end_sec": 16.58,
+      "duration_sec": 4.56
+    },
+    {
+      "index": 4,
+      "text": "終於解開了最初引發休比弗爵士打偏獵槍的那場世紀謎案",
+      "text_cn": "终于解开了最初引发休比弗爵士打偏猎枪的那场世纪谜案",
+      "start_sec": 16.83,
+      "end_sec": 21.99,
+      "duration_sec": 5.16
+    }
+  ],
+  "created_at": "2026-10-27T12:15:45.058719+00:00"
+}

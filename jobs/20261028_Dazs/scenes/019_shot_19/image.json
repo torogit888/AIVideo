@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261028T103832",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 66935782,
+  "prompt": "wide shot in (masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background. Late at night in a cozy 1960s apartment living room, chibi Reuben Mattus and his wife chibi Rose Mattus sit together on a plush mustard-yellow mid-century sofa. A coffee table in front of them is scattered with scribbled notepad sheets and an open historical atlas focusing on Denmark. Reuben points enthusiastically at the Danish map while Rose, looking glamorous in her bouffant hair and teal dress, smiles approvingly and leans forward in lively discussion under the glow of a warm floor lamp, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-28T10:38:32.367087+00:00"
+}

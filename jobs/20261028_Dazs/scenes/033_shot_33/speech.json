@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261028T105736",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 13.66,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "到了七十年代末期，這家曾經由馬車伕建立的小作坊",
+      "text_cn": "到了七十年代末棋，这家曾经由马车伕建立的小作坊",
+      "start_sec": 0.0,
+      "end_sec": 4.6,
+      "duration_sec": 4.6
+    },
+    {
+      "index": 2,
+      "text": "年銷售額已經突破數千萬美元，但商業世界的殘酷法則從未改變",
+      "text_cn": "年销售额已经图破数千万美元，但商业世界的残酷法则从未改变",
+      "start_sec": 4.85,
+      "end_sec": 10.45,
+      "duration_sec": 5.6
+    },
+    {
+      "index": 3,
+      "text": "屠龍的少年往往最先被金錢馴化",
+      "text_cn": "屠龙的少年往往最先被金钱驯化",
+      "start_sec": 10.7,
+      "end_sec": 13.66,
+      "duration_sec": 2.96
+    }
+  ],
+  "created_at": "2026-10-28T10:57:36.085585+00:00"
+}

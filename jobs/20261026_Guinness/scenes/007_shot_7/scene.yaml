@@ -1,0 +1,22 @@
+id: 007_shot_7
+index: 7
+title: 這幫有頭有臉的紳士翻遍了豪宅圖書
+narration: 這幫有頭有臉的紳士翻遍了豪宅圖書館裡所有的百科全書，卻震驚地發現人類居然連哪種鳥飛最快都給不出精確數字，[dissatisfaction-hnn]，
+image_prompt: humorous wide shot of a lavish private manor library in 2D cartoon illustration,
+  anime art style, chibi characters, clean line art, cel shading, flat colors. Sir
+  Hugh Beaver and several distinguished chibi aristocrats are surrounded by chaotic
+  heaps of opened leather encyclopedias and wildlife volumes on oriental rugs, frantically
+  flipping pages with comical question marks floating overhead, stunned to find no
+  verified record of bird flight speeds anywhere, crisp details, cozy warm lamp lighting,
+  16:9 widescreen composition
+character_ids:
+- sir_hugh_beaver
+act_index: 1
+act_title: 荒野脫靶與致命爭辯
+image_negative: ''
+locks:
+  speech: false
+  image: false
+current:
+  speech_take: speech_20261027T114505
+  image_take: image_20261027T114453

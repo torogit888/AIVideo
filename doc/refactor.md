@@ -107,10 +107,21 @@
   - **分鏡頁與頂列 (`StoryboardGrid.tsx`、`Topbar.tsx`)**：移除分鏡工具列重複的第二顆「預估片長」，分鏡卡片移除與口白開頭重複的 16 字斷句標題（改為 `#編號` 直接配口白正文），頂列選單移除除錯用的 `開啟 HTML 故事板`。
   - **右側抽屜 (`SceneInspector.tsx`)**：歷史版本改為可收合 `<details>`，將 `gc 舊 takes`、`設為 current` 改為中文 `清理舊版`、`使用中 / 套用`；考據呈現方式縮短為 `角落小卡 / 黑底全螢幕（照片） / 全螢幕影片`，卡片大小縮短為 `小 (20%) / 中 (24%) / 大 (30%)`。
   - **設定頁、總覽與彈窗 (`SettingsPanel.tsx`、`VertexAccountsPanel.tsx`、`OverviewPanel.tsx`、`YouTubeUploadModal.tsx`、`VisualContinuityModal.tsx`)**：移除各頁多餘的宣傳副標題與模型行銷標語（改為緊湊單行選擇列）；YouTube 彈窗將授權區濃縮為單行、將 `AI 生成標題與標籤` 整合至標題列右上角，並精簡各下拉選單文字；定裝彈窗整合底部「儲存設定 / 重寫全片提示詞 / 完成」為單一按鈕列。
+  - **收斂重複的新建入口**：全站統一由頂列左上角 `+ 新建` 按鈕負責開新草稿，移除腳本頁編輯模式與總覽頁右上角重複的「開新草稿 / + 新建專案」按鈕。
 
-### 📋 後續可選進階拆分（視需要再分批進行）
+### ✅ 第六批（Batch 6）：超長檔案結構拆分与測試保護（已完成並通過 60 項後端測試 + 前端 `tsc && vite build`）
 
-- [ ] 進一步細分 `web/src/components/ScriptEditor.tsx`、`SceneInspector.tsx`、`AssetsView.tsx` 子區塊元件。
+- [x] **1. 後端定裝路由從 `aivideo/api/routes/jobs.py` 拆分為 `aivideo/api/routes/anchors.py`**
+  - 將所有視覺一致性與角色定裝端點（`/analyze-anchors`、`/{job_id}/anchors*`）獨立至 `aivideo/api/routes/anchors.py`，並於 `app.py` 掛載及在 `jobs.py` 保留相容匯出，使 `jobs.py` 專注於專案列表、進度、更新、重切與清理。
+  - 測試驗證：`tests/test_job_and_script.py::test_anchors_routes_extracted_and_mounted_on_jobs_router`。
+- [x] **2. 後端 `aivideo/story_generator.py` 拆出「口白標點／場記清洗」至 `aivideo/spoken.py` 與「片尾 CTA 合併」至 `aivideo/scene_cut.py`**
+  - 將 `extract_outline_leak_phrases`、`is_non_spoken_script_line`、`extract_tone_spoken_sample`、`split_long_narration_line`、`sanitize_script_punctuation`、`resolve_host_persona_name`、`deidentify_and_bind_tone`、`_deidentify_extracted_narrator_name` 移入 `aivideo/spoken.py`；將 `is_cta_line`、`merge_trailing_cta_chunks` 移入 `aivideo/scene_cut.py`，並於 `story_generator.py` 保留相容匯出。
+  - 測試驗證：`tests/test_naming_and_spoken.py::test_spoken_sanitization_and_cta_merge_extracted`。
+- [x] **3. 前端腳本頁 (`ScriptEditor.tsx`)、右側抽屜 (`SceneInspector.tsx`) 與素材頁 (`AssetsView.tsx`) 拆分子元件**
+  - 新增 `web/src/components/StyleGalleryModal.tsx`（從 `ScriptEditor.tsx` 拆出視覺風格選擇畫廊彈窗）。
+  - 新增 `web/src/components/ScenePipSection.tsx`（從 `SceneInspector.tsx` 拆出考據素材管理區塊）。
+  - 新增 `web/src/components/AssetsVoiceConfig.ts`、`AssetsStylesSection.tsx`、`AssetsVoicesSection.tsx`、`AssetsTonesSection.tsx`（將原本 2100 行的 `AssetsView.tsx` 按畫風、音色、口吻拆分為獨立子元件，使 `AssetsView.tsx` 精簡至約 530 行，並同步精簡多餘說明文字）。
+  - 測試驗證：`tests/test_studio_frontend_contracts.py::test_large_frontend_components_split_into_focused_modules`。
 
 ---
 

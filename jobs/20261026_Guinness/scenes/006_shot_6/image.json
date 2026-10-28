@@ -1,0 +1,13 @@
+{
+  "take_id": "image_20261027T114354",
+  "kind": "image",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-image",
+  "seed": 28156032,
+  "prompt": "(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, cute mobile game UI art, visual novel style, crisp details, vibrant and cheerful color palette, single coherent scene, non-split screen, unified single viewpoint, wide-angle coherent view, one main environment, highly detailed and intricate background\nVibrant contrasting color palettes, crisp details throughout, expressive chibi faces, rich background props., medium wide shot of an elegant manor dining hall dinner in 2D cartoon illustration, anime art style, chibi characters, clean line art, cel shading, flat colors. Inside a grand oak-paneled room lit by sparkling chandeliers, Sir Hugh Beaver stands up at the long mahogany banquet table passionately gesturing with both hands to insist on his bird claim, while fellow chibi hunting companions in dinner suits smirk, laugh, and gesture dismissively across plates of roast dinner and porcelain tableware, 16:9 widescreen composition, 16:9 widescreen composition, no text, no words, no watermark",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "width": 1920,
+  "height": 1080,
+  "created_at": "2026-10-27T11:43:54.587029+00:00"
+}

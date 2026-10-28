@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261027T114330",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 11.98,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "當一隻野鳥振翅掠過頭頂灰濛濛的天空",
+      "text_cn": "当一只野鸟振翅掠过头顶灰蒙蒙的天空",
+      "start_sec": 0.0,
+      "end_sec": 3.56,
+      "duration_sec": 3.56
+    },
+    {
+      "index": 2,
+      "text": "休比弗果斷扣動扳機卻不幸當場脫靶 [surprise-wa]",
+      "text_cn": "休比弗果断扣动扳机却不幸当场脱靶 [surprise-wa]",
+      "start_sec": 3.81,
+      "end_sec": 7.97,
+      "duration_sec": 4.16
+    },
+    {
+      "index": 3,
+      "text": "那隻飛鳥毫髮無損地一頭鑽進了密林深處",
+      "text_cn": "那只飞鸟毫发无损地一头钻进了密林深处",
+      "start_sec": 8.22,
+      "end_sec": 11.98,
+      "duration_sec": 3.76
+    }
+  ],
+  "created_at": "2026-10-27T11:43:30.285312+00:00"
+}

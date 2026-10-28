@@ -1,0 +1,34 @@
+{
+  "take_id": "speech_20261028T104150",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 11.61,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "[laughter]但信不信由你，這兩個單詞在全世界任何一種語言裡都完全沒有任何意義",
+      "text_cn": "[laughter]但信不信由你，这两个单词在全世界任何一种语言里都完全没有任何意义",
+      "start_sec": 0.0,
+      "end_sec": 7.0,
+      "duration_sec": 7.0
+    },
+    {
+      "index": 2,
+      "text": "它純粹是魯本坐在沙發上拍腦袋瞎編出來的胡話",
+      "text_cn": "它纯粹是鲁本坐在沙发上拍脑袋瞎编出来的胡话",
+      "start_sec": 7.25,
+      "end_sec": 11.61,
+      "duration_sec": 4.36
+    }
+  ],
+  "created_at": "2026-10-28T10:41:50.353141+00:00"
+}

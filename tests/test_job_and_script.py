@@ -275,6 +275,43 @@ def test_apply_scene_cut_keeps_takes_and_drops_extra(tmp_path: Path):
     assert cfg["current"]["image_take"] == "image_20261003T120000"
 
 
+def test_apply_scene_cut_clear_existing_removes_old_media_and_compose(tmp_path: Path):
+    scenes_dir = tmp_path / "scenes"
+    old = scenes_dir / "001_shot_1"
+    old.mkdir(parents=True)
+    (old / "image.png").write_bytes(b"old-img")
+    (old / "speech.wav").write_bytes(b"old-wav")
+    (old / "pip.png").write_bytes(b"old-pip")
+    compose_dir = tmp_path / "compose"
+    compose_dir.mkdir(parents=True)
+    (compose_dir / "film.mp4").write_bytes(b"old-film")
+
+    res = apply_scene_cut(
+        tmp_path,
+        [
+            {
+                "id": "001_shot_1",
+                "index": 1,
+                "title": "全新第一幕",
+                "narration": "全新口白，",
+                "image_prompt": "brand new prompt",
+                "pip_query": "Apollo 11",
+            }
+        ],
+        clear_existing=True,
+    )
+    assert res["written"] == 1
+    assert res["removed"] == 1
+    assert not (old / "image.png").exists()
+    assert not (old / "speech.wav").exists()
+    assert not (old / "pip.png").exists()
+    assert not compose_dir.exists()
+    cfg = yaml.safe_load((old / "scene.yaml").read_text(encoding="utf-8"))
+    assert cfg["narration"] == "全新口白，"
+    assert cfg["pip"]["enabled"] is True
+    assert cfg["pip"]["query"] == "Apollo 11"
+
+
 def test_style_prefix_not_doubled():
     prefix = "歐式古典童話繪本插畫，溫暖水彩厚塗"
     body = f"{prefix}，a girl in a kitchen"
@@ -348,4 +385,68 @@ def test_removed_unused_fields_and_slimmed_job_yaml(tmp_path: Path, monkeypatch)
     assert "metaphor_style" not in cfg
     assert "model_final" not in cfg.get("image", {})
     assert cfg["image"]["model"] == DEFAULT_IMAGE_MODEL
+
+
+def test_anchors_routes_extracted_and_mounted_on_jobs_router():
+    from aivideo.api.app import app
+    from aivideo.api.routes import anchors as anchors_route
+    from aivideo.api.routes import jobs as jobs_route
+
+    anchor_paths = {getattr(r, "path", "") for r in anchors_route.router.routes}
+    assert "/jobs/analyze-anchors" in anchor_paths
+    assert "/jobs/{job_id}/anchors" in anchor_paths
+    assert "/jobs/{job_id}/anchors/hero" in anchor_paths
+    assert "/jobs/{job_id}/anchors/characters" in anchor_paths
+    assert "/jobs/{job_id}/anchors/sync-prompts" in anchor_paths
+
+    openapi_paths = set(app.openapi().get("paths", {}).keys())
+    assert "/api/v1/jobs/analyze-anchors" in openapi_paths
+    assert "/jobs/{job_id}/anchors" in anchor_paths
+    assert hasattr(anchors_route, "get_job_anchors")
+    assert hasattr(jobs_route, "get_job_anchors")
+
+
+def test_batch_generate_scene_visual_plans_chunks_and_handles_dict_wrapper(monkeypatch):
+    import aivideo.story_generator as sg
+    from aivideo.style_prompt import is_generic_fallback_prompt
+
+    assert is_generic_fallback_prompt("Q版 2D 卡通插畫 cinematic wide angle shot, dramatic lighting, 16:9 widescreen composition")
+    assert is_generic_fallback_prompt("cinematic wide angle shot, dramatic lighting, 16:9 widescreen composition")
+    assert not is_generic_fallback_prompt(
+        "Wide establishing shot of Sir Hugh Beaver aiming a double-barrel shotgun by the River Slaney in 1951 Ireland, 2D chibi cartoon illustration, 16:9 widescreen composition"
+    )
+
+    calls: list[int] = []
+
+    def fake_chunk_call(batch_narrations, **kwargs):
+        calls.append(len(batch_narrations))
+        return [
+            {
+                "image_prompt": f"2D chibi illustration of scene {i + 1}: {txt[:10]}, 16:9 widescreen composition",
+                "character_ids": ["sir_hugh_beaver"],
+            }
+            for i, txt in enumerate(batch_narrations)
+        ]
+
+    monkeypatch.setattr(sg, "_generate_visual_plans_chunk", fake_chunk_call)
+    narrs = [f"第 {i} 幕測試口白，" for i in range(1, 26)]
+    plans = sg.batch_generate_scene_visual_plans(
+        narrs,
+        characters=[{"id": "sir_hugh_beaver", "name": "Sir Hugh Beaver", "appearance": "Chibi gentleman"}],
+        style_key="2d_chibi_cell",
+    )
+    assert len(plans) == 25
+    assert calls == [10, 10, 5]
+    assert all(not is_generic_fallback_prompt(str(p["image_prompt"])) for p in plans)
+    assert plans[0]["character_ids"] == ["sir_hugh_beaver"]
+
+
+def test_story_generator_does_not_force_canned_subscription_cta():
+    sg_text = (Path(__file__).resolve().parents[1] / "aivideo" / "story_generator.py").read_text(encoding="utf-8")
+    assert "片尾自然收尾與頻道訂閱引導（必須包含）" not in sg_text
+    assert "別忘了點個喜歡，訂閱頻道，我們下一期故事" not in sg_text
+    assert "嚴禁罐頭推銷" in sg_text
+
+
+
 

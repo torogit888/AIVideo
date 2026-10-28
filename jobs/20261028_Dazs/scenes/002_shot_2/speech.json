@@ -1,0 +1,42 @@
+{
+  "take_id": "speech_20261028T101815",
+  "kind": "speech",
+  "engine": "omnivoice",
+  "model": "OmniVoice-bf16",
+  "mode": "clone",
+  "voice_id": "tw_female01",
+  "voice_instruct": "女，青年，中音调",
+  "steps": 32,
+  "speed": 1.0,
+  "dtype": "fp16",
+  "attention": "eager",
+  "seed": 42,
+  "duration_sec": 15.82,
+  "sentences": [
+    {
+      "index": 1,
+      "text": "深紅色的包裝，燙金的邊框，上面還印著看起來非常高貴的北歐地圖",
+      "text_cn": "深红色的包装，烫金的边框，上面还印着看起来非常高贵的北欧地图",
+      "start_sec": 0.0,
+      "end_sec": 5.8,
+      "duration_sec": 5.8
+    },
+    {
+      "index": 2,
+      "text": "店員會告訴你這代表了丹麥純淨悠久的宮廷工藝",
+      "text_cn": "店员会告诉你这代表了丹麦纯净悠久的宫廷工艺",
+      "start_sec": 6.05,
+      "end_sec": 10.41,
+      "duration_sec": 4.36
+    },
+    {
+      "index": 3,
+      "text": "包括消費者在內的所有人都對這種歐洲貴族血統深信不疑",
+      "text_cn": "包瓜消费者在内的所有人都对这种欧洲贵族血统深信不疑",
+      "start_sec": 10.66,
+      "end_sec": 15.82,
+      "duration_sec": 5.16
+    }
+  ],
+  "created_at": "2026-10-28T10:18:15.880640+00:00"
+}
