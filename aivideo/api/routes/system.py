@@ -8,6 +8,7 @@ from fastapi.responses import HTMLResponse
 import requests
 
 from aivideo.api.schemas import (
+    CheckSingleModelRequest,
     CreateVertexAccountRequest,
     ExpandScriptRequest,
     GenerateOutlineRequest,
@@ -120,6 +121,14 @@ def test_vertex_account(account_id: str):
     try:
         activate_account(account_id)
         res = probe_single_model("gemini-3.8-flash", model_type="text")
+        if res.get("status") == "quota_exceeded":
+            fb = probe_single_model("gemini-2.5-flash", model_type="text")
+            if fb.get("status") == "available":
+                return {
+                    "status": "available",
+                    "message": "連線驗證成功 (3.8 Flash 免費額度暫滿，已可自動路由 2.5 Flash)",
+                    "latency_ms": fb.get("latency_ms"),
+                }
         return res
     except Exception as e:
         return {"status": "error", "message": f"測試失敗: {str(e)}"}
@@ -154,6 +163,13 @@ def check_models_availability():
     """立即重新探測當前帳戶下所有文本與生圖模型的可用性與啟用狀態。"""
     from aivideo.credentials_manager import check_all_models_status
     return check_all_models_status(force_refresh=True)
+
+
+@router.post("/system/models/check-single", response_model=ModelsStatusResponse)
+def check_single_model(req: CheckSingleModelRequest):
+    """僅探測指定之單一模型的可用性與啟用狀態，避免全面檢測造成的耗時。"""
+    from aivideo.credentials_manager import check_single_model_status
+    return check_single_model_status(req.model_id, model_type=req.model_type)
 
 
 @router.post("/system/check")

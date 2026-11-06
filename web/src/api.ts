@@ -348,6 +348,11 @@ export const api = {
   syncGcloudAccount: () => request<VertexAccount>("/system/accounts/sync-gcloud", { method: "POST" }),
   getModelsStatus: () => request<ModelsStatusResponse>("/system/models/status"),
   checkModelsAvailability: () => request<ModelsStatusResponse>("/system/models/check", { method: "POST" }),
+  checkSingleModelAvailability: (modelId: string, modelType: "text" | "image" = "text") =>
+    request<ModelsStatusResponse>("/system/models/check-single", {
+      method: "POST",
+      body: JSON.stringify({ model_id: modelId, model_type: modelType }),
+    }),
   gcSceneTakes: (jobId: string, sceneId: string, keep = 3) =>
     request<{ removed: number; keep: number }>(`/jobs/${jobId}/scenes/${sceneId}/takes/gc`, {
       method: "POST",

@@ -7,6 +7,10 @@ from difflib import SequenceMatcher
 from pathlib import Path
 import yaml
 
+from aivideo.antigravity_sdk import (
+    generate_text_via_antigravity_sdk,
+    is_antigravity_sdk_enabled,
+)
 from aivideo.commands.check import _load_dotenv
 from aivideo.gemini_image import get_gemini_client_kwargs
 from aivideo.naming import (
@@ -33,6 +37,8 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 TEXT_MODELS = (
     "gemini-3.8-flash",
     "gemini-3.7-flash",
+    "gemini-3.6-flash",
+    "gemini-2.5-flash",
 )
 
 
@@ -53,6 +59,63 @@ def get_candidate_text_models(preferred_model: str | None = None) -> list[str]:
         if resolved not in candidates:
             candidates.append(resolved)
     return candidates
+
+
+def _generate_text_content(
+    model_name: str,
+    prompt: str,
+    *,
+    temperature: float = 0.7,
+    search_grounding: bool = False,
+    json_mode: bool = False,
+) -> str:
+    """統一文字生成入口：支援官方 google-antigravity SDK 模式與標準 google-genai。"""
+    if is_antigravity_sdk_enabled(model_name):
+        return generate_text_via_antigravity_sdk(
+            prompt=prompt,
+            model=model_name,
+            search_grounding=search_grounding,
+            json_mode=json_mode,
+        )
+
+    from google import genai
+    from google.genai import types
+
+    config_kwargs: dict[str, object] = {"temperature": temperature}
+    if search_grounding:
+        config_kwargs["tools"] = [{"google_search": {}}]
+    if json_mode:
+        config_kwargs["response_mime_type"] = "application/json"
+
+    client = genai.Client(**get_gemini_client_kwargs(model=model_name))
+    resp = client.models.generate_content(
+        model=model_name,
+        contents=prompt,
+        config=types.GenerateContentConfig(**config_kwargs),
+    )
+    return (resp.text or "").strip()
+
+
+def _parse_json_dict(raw_text: str) -> dict[str, object] | None:
+    """從 LLM 回應中寬容解析 JSON 物件（支援 markdown code fence）。"""
+    text = (raw_text or "").strip()
+    if not text:
+        return None
+    if text.startswith("```"):
+        text = re.sub(r"^```(?:json)?\s*", "", text, flags=re.IGNORECASE)
+        text = re.sub(r"\s*```$", "", text).strip()
+    try:
+        parsed = json.loads(text)
+        return parsed if isinstance(parsed, dict) else None
+    except Exception:
+        m = re.search(r"\{[\s\S]*\}", text)
+        if not m:
+            return None
+        try:
+            parsed = json.loads(m.group(0))
+            return parsed if isinstance(parsed, dict) else None
+        except Exception:
+            return None
 
 from aivideo.style_prompt import (
     DEFAULT_STYLE_PRESETS,
@@ -216,6 +279,13 @@ def generate_story_outline(
     errors = []
     for model_name in models_to_try:
         try:
+            if is_antigravity_sdk_enabled(model_name):
+                raw_out = _generate_text_content(
+                    model_name, prompt, temperature=0.7, search_grounding=True
+                )
+                if raw_out:
+                    return _strip_outline_preamble(raw_out.strip())
+                continue
             client = genai.Client(**get_gemini_client_kwargs(model=model_name))
             resp = client.models.generate_content(
                 model=model_name,
@@ -358,6 +428,16 @@ def generate_story_script(
     errors = []
     for model_name in models_to_try:
         try:
+            if is_antigravity_sdk_enabled(model_name):
+                raw_out = _generate_text_content(
+                    model_name,
+                    prompt,
+                    temperature=0.75,
+                    search_grounding=bool(search_grounding),
+                )
+                if raw_out:
+                    return sanitize_script_punctuation(raw_out.strip(), outline_notes=outline_text)
+                continue
             client = genai.Client(**get_gemini_client_kwargs(model=model_name))
             resp = client.models.generate_content(
                 model=model_name,
@@ -441,6 +521,13 @@ def expand_story_script(
     errors = []
     for model_name in models_to_try:
         try:
+            if is_antigravity_sdk_enabled(model_name):
+                raw_out = _generate_text_content(
+                    model_name, prompt, temperature=0.75, search_grounding=True
+                )
+                if raw_out:
+                    return sanitize_script_punctuation(raw_out.strip())
+                continue
             client = genai.Client(**get_gemini_client_kwargs(model=model_name))
             resp = client.models.generate_content(
                 model=model_name,
@@ -519,30 +606,35 @@ Output JSON with exact keys:
 """
         for model_name in get_candidate_text_models(model):
             try:
-                client = genai.Client(**get_gemini_client_kwargs(model=model_name))
-                resp = client.models.generate_content(
-                    model=model_name,
-                    contents=prompt,
-                    config=types.GenerateContentConfig(
-                        temperature=0.3,
-                        response_mime_type="application/json",
-                    ),
-                )
-                if resp.text:
-                    data = json.loads(resp.text)
-                    if isinstance(data, dict):
-                        characters = normalize_characters(data.get("characters"))
-                        env = str(data.get("environment_anchor", "")).strip()
-                        if not characters:
-                            sub = str(data.get("subject_anchor", "")).strip() or fallback_appearance
-                            characters = normalize_characters(
-                                [{"id": "main", "name": "Main Subject", "appearance": sub}]
-                            )
-                        return {
-                            "characters": characters,
-                            "subject_anchor": compose_subject_anchor(characters) or fallback_appearance,
-                            "environment_anchor": env or fallback_env,
-                        }
+                if is_antigravity_sdk_enabled(model_name):
+                    raw_text = _generate_text_content(
+                        model_name, prompt, temperature=0.3, json_mode=True
+                    )
+                    data = _parse_json_dict(raw_text)
+                else:
+                    client = genai.Client(**get_gemini_client_kwargs(model=model_name))
+                    resp = client.models.generate_content(
+                        model=model_name,
+                        contents=prompt,
+                        config=types.GenerateContentConfig(
+                            temperature=0.3,
+                            response_mime_type="application/json",
+                        ),
+                    )
+                    data = _parse_json_dict(resp.text) if resp.text else None
+                if isinstance(data, dict):
+                    characters = normalize_characters(data.get("characters"))
+                    env = str(data.get("environment_anchor", "")).strip()
+                    if not characters:
+                        sub = str(data.get("subject_anchor", "")).strip() or fallback_appearance
+                        characters = normalize_characters(
+                            [{"id": "main", "name": "Main Subject", "appearance": sub}]
+                        )
+                    return {
+                        "characters": characters,
+                        "subject_anchor": compose_subject_anchor(characters) or fallback_appearance,
+                        "environment_anchor": env or fallback_env,
+                    }
             except Exception:
                 continue
     except Exception:
@@ -678,18 +770,24 @@ Scenes:
     results: list[dict[str, object] | None] = [None] * len(batch_narrations)
     for model_name in get_candidate_text_models():
         try:
-            client = genai.Client(**get_gemini_client_kwargs(model=model_name))
-            resp = client.models.generate_content(
-                model=model_name,
-                contents=prompt,
-                config=types.GenerateContentConfig(
-                    temperature=0.35,
-                    response_mime_type="application/json",
-                ),
-            )
-            if not resp.text:
+            if is_antigravity_sdk_enabled(model_name):
+                raw_text = _generate_text_content(
+                    model_name, prompt, temperature=0.35, json_mode=True
+                )
+            else:
+                client = genai.Client(**get_gemini_client_kwargs(model=model_name))
+                resp = client.models.generate_content(
+                    model=model_name,
+                    contents=prompt,
+                    config=types.GenerateContentConfig(
+                        temperature=0.35,
+                        response_mime_type="application/json",
+                    ),
+                )
+                raw_text = resp.text or ""
+            if not raw_text:
                 continue
-            parsed_list = _extract_json_list_from_response(resp.text)
+            parsed_list = _extract_json_list_from_response(raw_text)
             if not parsed_list:
                 continue
 
@@ -922,17 +1020,23 @@ Return a JSON array with EXACTLY {len(narrations)} items corresponding to the sc
 
     for model_name in get_candidate_text_models():
         try:
-            client = genai.Client(**get_gemini_client_kwargs(model=model_name))
-            resp = client.models.generate_content(
-                model=model_name,
-                contents=prompt,
-                config=types.GenerateContentConfig(
-                    temperature=0.2,
-                    response_mime_type="application/json",
-                ),
-            )
-            if resp.text:
-                parsed = _extract_json_list_from_response(resp.text)
+            if is_antigravity_sdk_enabled(model_name):
+                raw_text = _generate_text_content(
+                    model_name, prompt, temperature=0.2, json_mode=True
+                )
+            else:
+                client = genai.Client(**get_gemini_client_kwargs(model=model_name))
+                resp = client.models.generate_content(
+                    model=model_name,
+                    contents=prompt,
+                    config=types.GenerateContentConfig(
+                        temperature=0.2,
+                        response_mime_type="application/json",
+                    ),
+                )
+                raw_text = resp.text or ""
+            if raw_text:
+                parsed = _extract_json_list_from_response(raw_text)
                 if isinstance(parsed, list):
                     result = [_normalize_pip_plan_item(item) for item in parsed]
                     while len(result) < len(narrations):
@@ -1030,18 +1134,23 @@ Return ONLY a valid JSON 2D array of integers, like:
 
         for model_name in TEXT_MODELS:
             try:
-                client = genai.Client(**get_gemini_client_kwargs(model=model_name))
-                resp = client.models.generate_content(
-                    model=model_name,
-                    contents=prompt,
-                    config=types.GenerateContentConfig(
-                        temperature=0.2,
-                        response_mime_type="application/json",
-                    ),
-                )
-                if resp.text:
-                    parsed = json.loads(resp.text)
-                    if isinstance(parsed, list) and parsed:
+                if is_antigravity_sdk_enabled(model_name):
+                    raw_text = _generate_text_content(
+                        model_name, prompt, temperature=0.2, json_mode=True
+                    )
+                    parsed = _extract_json_list_from_response(raw_text) if raw_text else None
+                else:
+                    client = genai.Client(**get_gemini_client_kwargs(model=model_name))
+                    resp = client.models.generate_content(
+                        model=model_name,
+                        contents=prompt,
+                        config=types.GenerateContentConfig(
+                            temperature=0.2,
+                            response_mime_type="application/json",
+                        ),
+                    )
+                    parsed = json.loads(resp.text) if resp.text else None
+                if isinstance(parsed, list) and parsed:
                         # 驗證與修復結果
                         valid_chunks: list[list[str]] = []
                         last_idx = 0
@@ -1244,20 +1353,25 @@ Return JSON with the exact keys:
     data: dict[str, object] = {}
     for model_name in models_to_try:
         try:
-            client = genai.Client(**get_gemini_client_kwargs(model=model_name))
-            resp = client.models.generate_content(
-                model=model_name,
-                contents=prompt,
-                config=types.GenerateContentConfig(
-                    temperature=0.3,
-                    response_mime_type="application/json",
-                ),
-            )
-            if resp.text:
-                parsed = json.loads(resp.text)
-                if isinstance(parsed, dict) and "title" in parsed:
-                    data = parsed
-                    break
+            if is_antigravity_sdk_enabled(model_name):
+                raw_text = _generate_text_content(
+                    model_name, prompt, temperature=0.3, json_mode=True
+                )
+                parsed = _parse_json_dict(raw_text) if raw_text else None
+            else:
+                client = genai.Client(**get_gemini_client_kwargs(model=model_name))
+                resp = client.models.generate_content(
+                    model=model_name,
+                    contents=prompt,
+                    config=types.GenerateContentConfig(
+                        temperature=0.3,
+                        response_mime_type="application/json",
+                    ),
+                )
+                parsed = _parse_json_dict(resp.text) if resp.text else None
+            if isinstance(parsed, dict) and "title" in parsed:
+                data = parsed
+                break
         except Exception:
             continue
 

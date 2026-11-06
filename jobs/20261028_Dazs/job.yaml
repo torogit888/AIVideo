@@ -14,7 +14,7 @@ frame:
   fps: 30
 image:
   backend: gemini
-  model: gemini-3.1-flash-image
+  model: antigravity-cli:image
   resolution: 1K
   aspect_ratio: '16:9'
   style: 2d_chibi_cell

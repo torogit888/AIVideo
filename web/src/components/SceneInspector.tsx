@@ -33,6 +33,11 @@ export const SceneInspector: React.FC = () => {
     loadJobs,
     showToast,
     requestConfirm,
+    isPipelineRunning,
+    pipelineMessage,
+    pipelineCooldown,
+    runningSceneId,
+    setPipelineRunning,
   } = useStudioStore();
 
   const [detail, setDetail] = useState<SceneDetail | null>(null);
@@ -378,6 +383,7 @@ export const SceneInspector: React.FC = () => {
       const oldImageUrl = detail.status?.image_url || "";
 
       // 2. 觸發重抽畫面
+      setPipelineRunning(true, 10, "正在重新出圖...", 0, 0, false, activeSceneId);
       await api.regenerateImage(selectedJobId, activeSceneId);
       showToast(`第 ${detail.index} 幕已開始重新生圖...`, "info");
 
@@ -395,10 +401,12 @@ export const SceneInspector: React.FC = () => {
             setDetail(fresh);
             await loadScenes(selectedJobId);
             setIsRegeneratingImage(false);
+            setPipelineRunning(false, 100, "");
             showToast(`第 ${detail.index} 幕畫面更新完成！`, "success");
             clearInterval(timer);
           } else if (attempts >= 45) {
             setIsRegeneratingImage(false);
+            setPipelineRunning(false, 0, "");
             showToast(`第 ${detail.index} 幕出圖耗時較長，請稍後檢視`, "info");
             clearInterval(timer);
           }
@@ -408,7 +416,7 @@ export const SceneInspector: React.FC = () => {
             clearInterval(timer);
           }
         }
-      }, 2000);
+      }, 4000);
     } catch (e: any) {
       setIsRegeneratingImage(false);
       showToast("出圖啟動失敗: " + (e.message || "未知錯誤"), "error");
@@ -474,7 +482,7 @@ export const SceneInspector: React.FC = () => {
             clearInterval(timer);
           }
         }
-      }, 2000);
+      }, 4000);
     } catch (e: any) {
       setIsRegeneratingAudio(false);
       showToast("配音重錄失敗: " + (e.message || "未知錯誤"), "error");
@@ -496,7 +504,7 @@ export const SceneInspector: React.FC = () => {
       const fresh = await api.clearSceneImage(selectedJobId, activeSceneId);
       setDetail(fresh);
       await loadScenes(selectedJobId);
-      await loadJobs();
+      void loadJobs();
       showToast(`第 ${detail.index} 幕圖片已清空，回到待出圖狀態`, "success");
     } catch (e: any) {
       showToast("清空圖片失敗: " + (e.message || "未知錯誤"), "error");
@@ -520,7 +528,7 @@ export const SceneInspector: React.FC = () => {
       const fresh = await api.clearSceneAudio(selectedJobId, activeSceneId);
       setDetail(fresh);
       await loadScenes(selectedJobId);
-      await loadJobs();
+      void loadJobs();
       showToast(`第 ${detail.index} 幕語音已清空，回到待配音狀態`, "success");
     } catch (e: any) {
       showToast("清空語音失敗: " + (e.message || "未知錯誤"), "error");
@@ -601,14 +609,40 @@ export const SceneInspector: React.FC = () => {
           <>
             {/* 1. 16:9 大預覽 */}
             <div className="relative aspect-video w-full rounded-md bg-black overflow-hidden border border-cinema-border flex items-center justify-center">
-              {/* 重繪畫面中的浮層 Loading 指示 */}
-              {isRegeneratingImage && (
-                <div className="absolute inset-0 bg-black/70 backdrop-blur-[2px] flex flex-col items-center justify-center z-20 text-amber-cta animate-in fade-in duration-200">
-                  <Loader2 className="w-8 h-8 animate-spin mb-2" />
-                  <span className="text-xs font-semibold tracking-wide">AI 正在重新繪製畫面...</span>
-                  <span className="text-[10px] text-cinema-muted mt-0.5">完成後將立即自動更新預覽</span>
-                </div>
-              )}
+              {/* 重繪畫面中的浮層 Loading 與倒數指示 */}
+              {(() => {
+                const isThisSceneActive = isRegeneratingImage || (isPipelineRunning && (runningSceneId === activeSceneId || !runningSceneId));
+                const parsedCd = Number((pipelineMessage || "").match(/(?:冷卻|重試|剩餘).*?(\d+)\s*秒?/)?.[1] || 0);
+                const effectiveCooldown = (isThisSceneActive && pipelineCooldown > 0) ? pipelineCooldown : (isThisSceneActive ? parsedCd : 0);
+                if (!isThisSceneActive) return null;
+                return (
+                  <div className="absolute inset-0 bg-black/80 backdrop-blur-[2px] flex flex-col items-center justify-center z-30 p-2 text-center select-none animate-in fade-in duration-150">
+                    {effectiveCooldown > 0 ? (
+                      <div className="flex flex-col items-center space-y-1.5 animate-in fade-in zoom-in-95 duration-200">
+                        <div className="flex items-center justify-center w-14 h-14 rounded-full bg-amber-500/20 border-2 border-amber-400 shadow-[0_0_16px_rgba(251,191,36,0.4)] animate-pulse">
+                          <span className="font-mono text-xl font-black text-amber-300">
+                            {effectiveCooldown}s
+                          </span>
+                        </div>
+                        <span className="text-xs font-bold text-amber-300">
+                          {pipelineMessage.includes("重試") ? "遇阻等待重試中" : "分鏡間隔冷卻中"}
+                        </span>
+                        <span className="text-[11px] text-zinc-300 font-mono">
+                          倒數剩餘 {effectiveCooldown} 秒
+                        </span>
+                      </div>
+                    ) : (
+                      <div className="flex flex-col items-center space-y-1.5 animate-in fade-in duration-150">
+                        <Loader2 className="w-8 h-8 text-amber-cta animate-spin mb-1" />
+                        <span className="text-xs font-semibold text-amber-cta">
+                          {pipelineMessage ? pipelineMessage.replace(/\[\d+\/\d+\]\s*/, "") : "AI 正在重新繪製畫面..."}
+                        </span>
+                        <span className="text-[10px] text-cinema-muted">完成後將立即自動更新預覽</span>
+                      </div>
+                    )}
+                  </div>
+                );
+              })()}
 
               {pipEnabled && detail?.status?.has_pip_video && detail?.status?.pip_video_url ? (
                 <div className="relative w-full h-full bg-black flex items-center justify-center">

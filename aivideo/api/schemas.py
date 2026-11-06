@@ -54,6 +54,11 @@ class ModelStatusItem(BaseModel):
     error_detail: Optional[str] = None
 
 
+class CheckSingleModelRequest(BaseModel):
+    model_id: str
+    model_type: str = "text"
+
+
 class ModelsStatusResponse(BaseModel):
     account_id: Optional[str] = None
     account_name: Optional[str] = None

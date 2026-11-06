@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 import shutil
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -229,8 +230,26 @@ def _calculate_job_progress(job_dir: Path) -> JobProgress:
     )
 
 
+_JOB_SUMMARY_CACHE: dict[str, tuple[float, JobSummary]] = {}
+
+
+def invalidate_job_summary_cache(job_id: str | None = None) -> None:
+    """清除專案進度摘要快取。"""
+    if job_id:
+        _JOB_SUMMARY_CACHE.pop(job_id, None)
+    else:
+        _JOB_SUMMARY_CACHE.clear()
+
+
 def _to_job_summary(job_dir: Path, data: dict | None = None) -> JobSummary:
     from aivideo.naming import job_use_pip
+
+    job_id = job_dir.name
+    now = time.time()
+    # 快取 120 秒；未被修改的專案直接回傳快取，避免對數十個專案上千個分鏡進行全量硬碟掃描
+    cached = _JOB_SUMMARY_CACHE.get(job_id)
+    if cached and (now - cached[0] < 120.0) and data is None:
+        return cached[1]
 
     if data is None:
         path = _job_yaml_path(job_dir)
@@ -239,7 +258,7 @@ def _to_job_summary(job_dir: Path, data: dict | None = None) -> JobSummary:
     sub = data.get("subtitle") if isinstance(data.get("subtitle"), dict) else {}
     burn_sub = str(sub.get("mode", "none")).strip().lower() == "hard"
     mtime = datetime.fromtimestamp(job_dir.stat().st_mtime, tz=timezone.utc).isoformat()
-    return JobSummary(
+    summary = JobSummary(
         id=job_dir.name,
         title=data.get("title", job_dir.name),
         language=data.get("language", "zh-Hant"),
@@ -252,6 +271,8 @@ def _to_job_summary(job_dir: Path, data: dict | None = None) -> JobSummary:
         progress=_calculate_job_progress(job_dir),
         updated_at=mtime,
     )
+    _JOB_SUMMARY_CACHE[job_id] = (now, summary)
+    return summary
 
 
 @router.get("", response_model=List[JobSummary])
@@ -612,6 +633,8 @@ def clear_job_media(job_id: str):
         except Exception:
             pass
 
+    invalidate_job_summary_cache(job_id)
+
     return {
         "success": True,
         "message": f"已成功清除專案 {job_id} 的全部已生成素材（共 {cleared_scenes} 幕重置回待出圖狀態）",
@@ -682,6 +705,8 @@ def clear_job_images(job_id: str):
             shutil.rmtree(compose_dir)
         except Exception:
             pass
+
+    invalidate_job_summary_cache(job_id)
 
     return {
         "success": True,
@@ -759,6 +784,8 @@ def clear_job_audio(job_id: str):
             shutil.rmtree(compose_dir)
         except Exception:
             pass
+
+    invalidate_job_summary_cache(job_id)
 
     return {
         "success": True,

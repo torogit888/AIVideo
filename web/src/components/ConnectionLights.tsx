@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useStudioStore } from "../store";
 
 function Dot({
@@ -32,18 +32,35 @@ export const ConnectionLights: React.FC<{ compact?: boolean; noPoll?: boolean }>
   noPoll,
 }) => {
   const { geminiOnline, comfyOnline, apiOnline, refreshConnectionLights } = useStudioStore();
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
+  // 初次載入時僅檢測 1 次，平時 0 輪詢
   useEffect(() => {
     if (noPoll) return;
     refreshConnectionLights();
-    const t = setInterval(refreshConnectionLights, 8000);
-    return () => clearInterval(t);
   }, [refreshConnectionLights, noPoll]);
+
+  const handleManualRefresh = async () => {
+    if (isRefreshing) return;
+    setIsRefreshing(true);
+    try {
+      await refreshConnectionLights();
+    } finally {
+      setIsRefreshing(false);
+    }
+  };
 
   return (
     <div
-      className={`flex items-center ${compact ? "space-x-2" : "space-x-3"} select-none`}
-      title={`API ${apiOnline ? "在線" : "斷線"} · Gemini 憑證${geminiOnline ? "已設定（模型可用性請至設定頁檢測）" : "未設定"} · Comfy ${comfyOnline ? "在線" : "離線"}`}
+      className={`flex items-center ${
+        compact ? "space-x-2" : "space-x-3"
+      } select-none cursor-pointer hover:opacity-80 transition-opacity ${
+        isRefreshing ? "opacity-50 animate-pulse" : ""
+      }`}
+      onClick={handleManualRefresh}
+      title={`點擊手動刷新連線狀態（純按需模式，無背景輪詢）\nAPI: ${apiOnline ? "在線" : "斷線"} · Gemini 憑證: ${
+        geminiOnline ? "已設定" : "未設定"
+      } · Comfy: ${comfyOnline ? "在線" : "離線"}`}
     >
       <Dot ok={geminiOnline} label="Gemini" okText="憑證已設定" failText="憑證未設定" />
       <Dot ok={comfyOnline} label="Comfy" />

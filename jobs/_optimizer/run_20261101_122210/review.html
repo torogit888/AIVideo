@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIVideo: Prompt 最佳化迭代報告</title>
+  <style>
+    :root {
+      --bg: #0f141c;
+      --card-bg: #1a2230;
+      --accent: #3b82f6;
+      --accent-green: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-red: #ef4444;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border: #2e384d;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.5;
+      padding: 24px;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    header {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    h1 { font-size: 1.5rem; font-weight: 700; color: #60a5fa; }
+    .meta-pills { display: flex; gap: 12px; flex-wrap: wrap; }
+    .pill {
+      background: rgba(255,255,255,0.06);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      border: 1px solid var(--border);
+    }
+    .pill strong { color: #93c5fd; }
+
+    /* Comparator Section */
+    .compare-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+    @media (max-width: 768px) {
+      .compare-container { grid-template-columns: 1fr; }
+    }
+    .compare-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+    }
+    .compare-card h3 {
+      margin-bottom: 12px;
+      font-size: 1.1rem;
+      color: #94a3b8;
+    }
+    .compare-card img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+    }
+
+    /* Best Prompt Box */
+    .best-box {
+      background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(16,185,129,0.1));
+      border: 1px solid rgba(59,130,246,0.4);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 28px;
+    }
+    .best-box-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .best-box-title { font-size: 1.15rem; font-weight: 700; color: #34d399; }
+    .copy-btn {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .copy-btn:hover { background: #1d4ed8; }
+
+    /* Iteration Cards */
+    .iteration-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .iter-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+    }
+    .iter-title { font-size: 1.15rem; font-weight: 700; color: #f8fafc; }
+    .score-badge {
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 6px;
+    }
+    .score-high { background: rgba(16,185,129,0.2); color: #34d399; border: 1px solid #059669; }
+    .score-mid  { background: rgba(245,158,11,0.2); color: #fbbf24; border: 1px solid #d97706; }
+    .score-low  { background: rgba(239,68,68,0.2); color: #f87171; border: 1px solid #dc2626; }
+    .score-rollback { background: rgba(239,68,68,0.25); color: #fca5a5; border: 1px solid #ef4444; margin-left: 6px; }
+    .score-best { background: rgba(16,185,129,0.25); color: #6ee7b7; border: 1px solid #10b981; margin-left: 6px; }
+
+    .iter-body {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 880px) {
+      .iter-body { grid-template-columns: 1fr; }
+    }
+    .iter-media img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+    }
+    .critique-box {
+      background: rgba(0,0,0,0.25);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 12px;
+      font-size: 0.9rem;
+    }
+    .critique-box strong { color: #cbd5e1; }
+    .critique-box p { color: #94a3b8; margin-top: 4px; }
+    .adj-list { margin: 8px 0 0 18px; color: #6ee7b7; font-size: 0.85rem; }
+
+    .prompt-label { font-size: 0.75rem; color: #64748b; font-weight: 700; text-transform: uppercase; margin-top: 8px; }
+    .prompt-text {
+      background: #111827;
+      border: 1px solid #374151;
+      border-radius: 6px;
+      padding: 10px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.8rem;
+      color: #e2e8f0;
+      white-space: pre-wrap;
+      word-break: break-all;
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>🎯 AIVideo: Prompt 最佳化迭代成果</h1>
+        <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">目標相似度門檻：99% | 模型：ComfyUI Z-Image Turbo</div>
+      </div>
+      <div class="meta-pills">
+        <div class="pill">迭代輪數: <strong>5</strong></div>
+        <div class="pill">最佳相似度: <strong style="color: #34d399;">75%</strong></div>
+      </div>
+    </header>
+
+    <div class="compare-container">
+      <div class="compare-card">
+        <h3>🎯 目標基準圖 (Target)</h3>
+        <img src="target.png" alt="Target Image" onclick="window.open('target.png')">
+      </div>
+      <div class="compare-card">
+        <h3>✨ 本次最佳成果 (Best Match - 75%)</h3>
+        <img src="iter_004.png" alt="Best Result" onclick="window.open('iter_004.png')">
+      </div>
+    </div>
+
+    <div class="best-box">
+      <div class="best-box-header">
+        <div class="best-box-title">🏆 當前最佳 Prompt (達成 75% 相似度)</div>
+        <button class="copy-btn" onclick="navigator.clipboard.writeText(document.getElementById('best-prompt-code').innerText); alert('已複製最佳 Prompt！');">複製 Prompt</button>
+      </div>
+      <pre id="best-prompt-code" class="prompt-text">(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, Character reference sheet, SINGLE character only, full-body standing pose, clear face, distinct hair, body proportions and signature outfit colors, no other characters, no collage, no extra props, no text, no labels, no watermarks, 安德烈米其林 (André Michelin): A historical figure depicted in Q版 (chibi) style. His face is round and expressive, with a neat, small mustache and a thoughtful or determined expression. He has a sturdy, slightly portly build, reflecting a businessman of the early 20th century, all in chibi proportions. Dressed in era-appropriate European business attire, such as a dark, well-fitted suit, white shirt, and tie. Clothing is simplified with clear, crisp outlines and smooth cel-shading, lacking intricate fabric patterns., clean minimalist neutral background, soft even lighting, 16:9 widescreen composition</pre>
+    </div>
+
+    <h2 style="font-size: 1.25rem; margin-bottom: 16px; color: #cbd5e1;">📋 歷次迭代演化歷史</h2>
+    
+        <div class="iteration-card">
+          <div class="iter-header">
+            <span class="iter-title">Iteration #05</span>
+            <div><span class="score-badge score-low">72% 相似度</span> <span class="score-badge score-rollback">⚠️ 已回退 (Rolled Back)</span></div>
+          </div>
+          <div class="iter-body">
+            <div class="iter-media">
+              <img src="iter_005.png" alt="Iteration 5" onclick="window.open('iter_005.png')" title="點擊檢視原圖">
+            </div>
+            <div class="iter-details">
+              <div class="critique-box">
+                <strong>視覺差異分析與評語：</strong>
+                <p>The generated image successfully captures the 2D chibi cel art style and general character concept. However, the facial expression is too stern compared to the target's thoughtful look, and the mustache style is thicker and less refined. Additionally, the suit color is too dark, and the tie color is incorrect, leading to a moderate similarity score.</p>
+                <ul class="adj-list"><li>Refined facial expression to 'thoughtful, calm, neutral expression' to match the target's demeanor.</li><li>Specified mustache style as 'thin, neatly trimmed mustache with slightly upward-curled ends' for better accuracy.</li><li>Explicitly defined suit color as 'dark grey' and tie color as 'light beige' to correct attire discrepancies.</li><li>Added 'centered composition' to improve character placement within the frame.</li><li>Introduced specific negative prompts ('stern expression', 'angry expression', 'thick mustache', 'black tie') to suppress undesirable features.</li></ul>
+              </div>
+              <div class="prompt-box">
+                <div class="prompt-label">正面提示詞 (Positive Prompt):</div>
+                <pre class="prompt-text">(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, Character reference sheet, SINGLE character only, full-body standing pose, clear face, distinct hair, body proportions and signature outfit colors, no other characters, no collage, no extra props, no text, no labels, no watermarks, 安德烈米其林 (André Michelin): A historical figure depicted in Q版 (chibi) style. His face is round and expressive, with a neat, small mustache and a thoughtful or determined expression. He has a sturdy, slightly portly build, reflecting a businessman of the early 20th century, all in chibi proportions. Dressed in era-appropriate European business attire, such as a dark, well-fitted suit, white shirt, and tie. Clothing is simplified with clear, crisp outlines and smooth cel-shading, lacking intricate fabric patterns., clean minimalist neutral background, soft even lighting, 16:9 widescreen composition</pre>
+                <div class="prompt-label">負面提示詞 (Negative Prompt):</div>
+                <pre class="prompt-text">(worst quality, low quality:1.3), rough lines, messy sketch, blur, deformed, bad anatomy, bad proportions, missing fingers, extra digits, signature, watermark, text, words, Chinese characters, subtitles, logos</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="iteration-card">
+          <div class="iter-header">
+            <span class="iter-title">Iteration #04</span>
+            <div><span class="score-badge score-mid">75% 相似度</span> <span class="score-badge score-best">🏆 歷史最佳</span></div>
+          </div>
+          <div class="iter-body">
+            <div class="iter-media">
+              <img src="iter_004.png" alt="Iteration 4" onclick="window.open('iter_004.png')" title="點擊檢視原圖">
+            </div>
+            <div class="iter-details">
+              <div class="critique-box">
+                <strong>視覺差異分析與評語：</strong>
+                <p>無法連線至 Gemini Vision API 進行語意分析，使用預設修正策略。</p>
+                <ul class="adj-list"><li>維持目前提示詞並調試生成</li></ul>
+              </div>
+              <div class="prompt-box">
+                <div class="prompt-label">正面提示詞 (Positive Prompt):</div>
+                <pre class="prompt-text">(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, Character reference sheet, SINGLE character only, full-body standing pose, clear face, distinct hair, body proportions and signature outfit colors, no other characters, no collage, no extra props, no text, no labels, no watermarks, 安德烈米其林 (André Michelin): A historical figure depicted in Q版 (chibi) style. His face is round and expressive, with a neat, small mustache and a thoughtful or determined expression. He has a sturdy, slightly portly build, reflecting a businessman of the early 20th century, all in chibi proportions. Dressed in era-appropriate European business attire, such as a dark, well-fitted suit, white shirt, and tie. Clothing is simplified with clear, crisp outlines and smooth cel-shading, lacking intricate fabric patterns., clean minimalist neutral background, soft even lighting, 16:9 widescreen composition</pre>
+                <div class="prompt-label">負面提示詞 (Negative Prompt):</div>
+                <pre class="prompt-text">(worst quality, low quality:1.3), rough lines, messy sketch, blur, deformed, bad anatomy, bad proportions, missing fingers, extra digits, signature, watermark, text, words, Chinese characters, subtitles, logos</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="iteration-card">
+          <div class="iter-header">
+            <span class="iter-title">Iteration #03</span>
+            <div><span class="score-badge score-low">68% 相似度</span> <span class="score-badge score-rollback">⚠️ 已回退 (Rolled Back)</span></div>
+          </div>
+          <div class="iter-body">
+            <div class="iter-media">
+              <img src="iter_003.png" alt="Iteration 3" onclick="window.open('iter_003.png')" title="點擊檢視原圖">
+            </div>
+            <div class="iter-details">
+              <div class="critique-box">
+                <strong>視覺差異分析與評語：</strong>
+                <p>The generated image successfully captures the overall chibi art style, clean line art, and cel-shading of the target. However, the character's mustache is significantly thicker and downward-curved compared to the target's neat, slightly upward-curved style. Additionally, the tie color is dark black instead of the target's light beige, and the facial expression is stern rather than thoughtful, leading to a moderate similarity score.</p>
+                <ul class="adj-list"><li>Refined mustache description to 'neat, small, slightly upward-curved mustache' to match the target's style.</li><li>Specified tie color as 'light beige tie' to correct the color discrepancy.</li><li>Adjusted facial expression to 'thoughtful, neutral expression' to align with the target's demeanor.</li><li>Added 'centered composition' to ensure the character is properly framed.</li></ul>
+              </div>
+              <div class="prompt-box">
+                <div class="prompt-label">正面提示詞 (Positive Prompt):</div>
+                <pre class="prompt-text">(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, Character reference sheet, SINGLE character only, full-body standing pose, clear face, distinct hair, body proportions and signature outfit colors, no other characters, no collage, no extra props, no text, no labels, no watermarks, 安德烈米其林 (André Michelin): A historical figure depicted in Q版 (chibi) style. His face is round and expressive, with a neat, small mustache and a thoughtful or determined expression. He has a sturdy, slightly portly build, reflecting a businessman of the early 20th century, all in chibi proportions. Dressed in era-appropriate European business attire, such as a dark, well-fitted suit, white shirt, and tie. Clothing is simplified with clear, crisp outlines and smooth cel-shading, lacking intricate fabric patterns., clean minimalist neutral background, soft even lighting, 16:9 widescreen composition</pre>
+                <div class="prompt-label">負面提示詞 (Negative Prompt):</div>
+                <pre class="prompt-text">(worst quality, low quality:1.3), rough lines, messy sketch, blur, deformed, bad anatomy, bad proportions, missing fingers, extra digits, signature, watermark, text, words, Chinese characters, subtitles, logos</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="iteration-card">
+          <div class="iter-header">
+            <span class="iter-title">Iteration #02</span>
+            <div><span class="score-badge score-low">60% 相似度</span> <span class="score-badge score-rollback">⚠️ 已回退 (Rolled Back)</span></div>
+          </div>
+          <div class="iter-body">
+            <div class="iter-media">
+              <img src="iter_002.png" alt="Iteration 2" onclick="window.open('iter_002.png')" title="點擊檢視原圖">
+            </div>
+            <div class="iter-details">
+              <div class="critique-box">
+                <strong>視覺差異分析與評語：</strong>
+                <p>The generated image successfully captures the 2D chibi cel art style, but significant deviations exist in character specifics. The most prominent issues are the angry facial expression, thick eyebrows, and a thicker, straighter mustache, which contrast sharply with the target's neutral expression, thin eyebrows, and neat, slightly upturned mustache. Additionally, the body proportions are more squat and spherical, and the tie color is bright yellow instead of light cream.</p>
+                <ul class="adj-list"><li>Refined facial expression to "calm, neutral" and added "with trimmed ends" to the mustache description in the positive prompt.</li><li>Adjusted body build description to "moderately portly" and specified "dark charcoal suit" and "light cream tie" for color accuracy in the positive prompt.</li><li>Added "yellow tie", "squat body", and "spherical body" to the negative prompt to prevent incorrect colors and exaggerated proportions.</li></ul>
+              </div>
+              <div class="prompt-box">
+                <div class="prompt-label">正面提示詞 (Positive Prompt):</div>
+                <pre class="prompt-text">(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, Character reference sheet, SINGLE character only, full-body standing pose, clear face, distinct hair, body proportions and signature outfit colors, no other characters, no collage, no extra props, no text, no labels, no watermarks, 安德烈米其林 (André Michelin): A historical figure depicted in Q版 (chibi) style. His face is round and expressive, with a small, neat, slightly upturned mustache and a thoughtful or neutral expression, thin eyebrows. He has a sturdy, slightly portly build, reflecting a businessman of the early 20th century, all in chibi proportions. Dressed in era-appropriate European business attire, such as a dark, well-fitted suit, white shirt, and light cream tie. Clothing is simplified with clear, crisp outlines and smooth cel-shading, lacking intricate fabric patterns., clean minimalist neutral background, soft even lighting, centered composition, 16:9 widescreen composition</pre>
+                <div class="prompt-label">負面提示詞 (Negative Prompt):</div>
+                <pre class="prompt-text">(worst quality, low quality:1.3), rough lines, messy sketch, blur, deformed, bad anatomy, bad proportions, missing fingers, extra digits, signature, watermark, text, words, Chinese characters, subtitles, logos, angry expression, thick eyebrows, black tie</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="iteration-card">
+          <div class="iter-header">
+            <span class="iter-title">Iteration #01</span>
+            <div><span class="score-badge score-low">72% 相似度</span> <span class="score-badge score-best">🏆 歷史最佳</span></div>
+          </div>
+          <div class="iter-body">
+            <div class="iter-media">
+              <img src="iter_001.png" alt="Iteration 1" onclick="window.open('iter_001.png')" title="點擊檢視原圖">
+            </div>
+            <div class="iter-details">
+              <div class="critique-box">
+                <strong>視覺差異分析與評語：</strong>
+                <p>The generated image successfully captures the chibi style, overall build, and general attire of the target. However, the facial expression is too stern due to the thick, angled eyebrows, and the mustache is thicker and more downturned than the target's neat, slightly upturned one. Additionally, the tie color is incorrect, being black instead of the desired light cream.</p>
+                <ul class="adj-list"><li>Refined the mustache description in the positive prompt to emphasize "small, neat, slightly upturned".</li><li>Adjusted the facial expression description to "thoughtful or neutral expression, thin eyebrows" to reduce sternness.</li><li>Specified the tie color as "light cream tie" in the positive prompt.</li><li>Added "angry expression, thick eyebrows, black tie" to the negative prompt to suppress unwanted features.</li><li>Added "centered composition" to the positive prompt for better framing.</li></ul>
+              </div>
+              <div class="prompt-box">
+                <div class="prompt-label">正面提示詞 (Positive Prompt):</div>
+                <pre class="prompt-text">(masterpiece, best quality:1.2), 2D cartoon illustration, anime art style, chibi characters, clean line art, cell shading, flat colors, Character reference sheet, SINGLE character only, full-body standing pose, clear face, distinct hair, body proportions and signature outfit colors, no other characters, no collage, no extra props, no text, no labels, no watermarks, 安德烈米其林 (André Michelin): A historical figure depicted in Q版 (chibi) style. His face is round and expressive, with a neat, small mustache and a thoughtful or determined expression. He has a sturdy, slightly portly build, reflecting a businessman of the early 20th century, all in chibi proportions. Dressed in era-appropriate European business attire, such as a dark, well-fitted suit, white shirt, and tie. Clothing is simplified with clear, crisp outlines and smooth cel-shading, lacking intricate fabric patterns., clean minimalist neutral background, soft even lighting, 16:9 widescreen composition</pre>
+                <div class="prompt-label">負面提示詞 (Negative Prompt):</div>
+                <pre class="prompt-text">(worst quality, low quality:1.3), rough lines, messy sketch, blur, deformed, bad anatomy, bad proportions, missing fingers, extra digits, signature, watermark, text, words, Chinese characters, subtitles, logos</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+  </div>
+</body>
+</html>

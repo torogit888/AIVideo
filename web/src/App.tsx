@@ -52,7 +52,8 @@ export const App: React.FC = () => {
           data.message,
           data.cooldown_remaining || 0,
           data.cooldown_total || 0,
-          Boolean(data.is_paused)
+          Boolean(data.is_paused),
+          data.scene_id || null
         );
         if (data.scene_id) {
           patchSceneCard(data.scene_id, {

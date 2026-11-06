@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import random
+import re
 import threading
 import time
 from pathlib import Path
@@ -223,6 +225,12 @@ class PipelineRunner:
                     self.live_phase = "出圖"
                     if s_dir:
                         self.live_dir = Path(s_dir)
+                    m = re.search(r"剩餘\s*(\d+)\s*秒", msg)
+                    if m:
+                        self.cooldown_remaining = int(m.group(1))
+                        self.live_phase = "冷卻" if "冷卻" in msg else "重試"
+                    else:
+                        self.cooldown_remaining = 0
                     frac = (0.30 * (cur / max(1, tot))) if mode == "all" else (cur / max(1, tot))
                     self.progress = min(1.0, max(0.0, frac))
                     self.status_msg = f"🎨 [出圖] ({cur}/{tot}) - {msg}"
@@ -433,9 +441,9 @@ class PipelineRunner:
                     with self._lock:
                         self.progress = round(0.88 * (idx / max(1, total_scenes)), 3)
 
-                    # 4. 僅在本幕實際呼叫 Gemini 出圖後短暫冷卻；頂列用圓圈數字倒數，不塞長文字
+                    # 4. 一鍵流程分鏡間生圖間隔：隨機 60~180 秒並即時倒數
                     if idx < total_scenes and need_img:
-                        COOLING_SECONDS = 8
+                        COOLING_SECONDS = random.randint(60, 180)
                         with self._lock:
                             self.cooldown_total = COOLING_SECONDS
                             self.live_phase = "冷卻"
@@ -447,7 +455,7 @@ class PipelineRunner:
                                 return
                             with self._lock:
                                 self.cooldown_remaining = rem
-                                self.status_msg = "冷卻"
+                                self.status_msg = f"分鏡間冷卻中：剩餘 {rem} 秒..."
                             time.sleep(1.0)
                         with self._lock:
                             self.cooldown_remaining = 0

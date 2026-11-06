@@ -141,6 +141,25 @@ export const SettingsPanel: React.FC = () => {
 
   const [modelsReport, setModelsReport] = useState<ModelsStatusResponse | null>(null);
   const [isCheckingModels, setIsCheckingModels] = useState(false);
+  const [probingModelId, setProbingModelId] = useState<string | null>(null);
+
+  const probeSingleModel = async (modelId: string, modelType: "text" | "image") => {
+    setProbingModelId(modelId);
+    try {
+      const res = await api.checkSingleModelAvailability(modelId, modelType);
+      setModelsReport(res);
+      const item = res.models?.[modelId];
+      if (item?.status === "available") {
+        showToast(`${item.name} 檢測成功 (${item.latency_ms || 0}ms)`, "success");
+      } else {
+        showToast(`${item?.name || modelId}: ${item?.message || "檢測失敗"}`, "error");
+      }
+    } catch (err: any) {
+      showToast(`檢測錯誤: ${err.message || "未知錯誤"}`, "error");
+    } finally {
+      setProbingModelId(null);
+    }
+  };
 
   const fetchModelsStatus = useCallback(
     async (force = false) => {
@@ -170,69 +189,87 @@ export const SettingsPanel: React.FC = () => {
     }
   }, [modelsReport, fetchModelsStatus]);
 
-  const renderModelStatusBadge = (modelId: string) => {
-    if (isCheckingModels) {
-      return (
+  const renderModelStatusBadge = (modelId: string, modelType: "text" | "image") => {
+    const isProbing = probingModelId === modelId;
+    const item = modelsReport?.models?.[modelId];
+
+    let badge = null;
+    if (isCheckingModels || isProbing) {
+      badge = (
         <span className="flex items-center text-[10px] text-amber-cta font-mono">
           <Loader2 className="w-2.5 h-2.5 animate-spin mr-1" />
           <span>檢測中</span>
         </span>
       );
+    } else if (item) {
+      if (item.status === "available") {
+        badge = (
+          <span
+            className="flex items-center px-1.5 py-0.5 rounded bg-emerald-950/80 border border-emerald-800 text-[10px] text-emerald-400 font-mono"
+            title={`狀態: ${item.message} ${item.latency_ms ? `(延遲 ${item.latency_ms}ms)` : ""}`}
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1 animate-pulse" />
+            <span>可用 {item.latency_ms ? `${item.latency_ms}ms` : ""}</span>
+          </span>
+        );
+      } else if (item.status === "disabled") {
+        badge = (
+          <span
+            className="flex items-center px-1.5 py-0.5 rounded bg-amber-950/80 border border-amber-800 text-[10px] text-amber-300 font-mono"
+            title={item.message}
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mr-1" />
+            <span>{item.message?.includes("SDK") ? "需安裝 SDK" : "需啟用 API"}</span>
+          </span>
+        );
+      } else if (item.status === "quota_exceeded") {
+        badge = (
+          <span
+            className="flex items-center px-1.5 py-0.5 rounded bg-red-950/80 border border-red-800 text-[10px] text-red-300 font-mono"
+            title={item.message}
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-red-400 mr-1" />
+            <span>額度耗盡</span>
+          </span>
+        );
+      } else if (item.status === "permission_denied") {
+        badge = (
+          <span
+            className="flex items-center px-1.5 py-0.5 rounded bg-red-950/80 border border-red-800 text-[10px] text-red-300 font-mono"
+            title={item.message}
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-red-400 mr-1" />
+            <span>權限不足</span>
+          </span>
+        );
+      } else {
+        badge = (
+          <span
+            className="flex items-center px-1.5 py-0.5 rounded bg-zinc-800 border border-zinc-700 text-[10px] text-zinc-400 font-mono"
+            title={item.message}
+          >
+            <span>未開放</span>
+          </span>
+        );
+      }
     }
-    const item = modelsReport?.models?.[modelId];
-    if (!item) return null;
 
-    if (item.status === "available") {
-      return (
-        <span
-          className="flex items-center px-1.5 py-0.5 rounded bg-emerald-950/80 border border-emerald-800 text-[10px] text-emerald-400 font-mono"
-          title={`狀態: ${item.message} ${item.latency_ms ? `(延遲 ${item.latency_ms}ms)` : ""}`}
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1 animate-pulse" />
-          <span>可用 {item.latency_ms ? `${item.latency_ms}ms` : ""}</span>
-        </span>
-      );
-    }
-    if (item.status === "disabled") {
-      return (
-        <span
-          className="flex items-center px-1.5 py-0.5 rounded bg-amber-950/80 border border-amber-800 text-[10px] text-amber-300 font-mono"
-          title={item.message}
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mr-1" />
-          <span>需啟用 API</span>
-        </span>
-      );
-    }
-    if (item.status === "quota_exceeded") {
-      return (
-        <span
-          className="flex items-center px-1.5 py-0.5 rounded bg-red-950/80 border border-red-800 text-[10px] text-red-300 font-mono"
-          title={item.message}
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-red-400 mr-1" />
-          <span>額度耗盡</span>
-        </span>
-      );
-    }
-    if (item.status === "permission_denied") {
-      return (
-        <span
-          className="flex items-center px-1.5 py-0.5 rounded bg-red-950/80 border border-red-800 text-[10px] text-red-300 font-mono"
-          title={item.message}
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-red-400 mr-1" />
-          <span>權限不足</span>
-        </span>
-      );
-    }
     return (
-      <span
-        className="flex items-center px-1.5 py-0.5 rounded bg-zinc-800 border border-zinc-700 text-[10px] text-zinc-400 font-mono"
-        title={item.message}
-      >
-        <span>未開放</span>
-      </span>
+      <div className="flex items-center gap-1.5">
+        {badge}
+        <button
+          type="button"
+          disabled={isCheckingModels || !!probingModelId}
+          onClick={(e) => {
+            e.stopPropagation();
+            probeSingleModel(modelId, modelType);
+          }}
+          title="單獨檢測此模型"
+          className="p-1 rounded text-cinema-muted hover:text-amber-cta hover:bg-white/5 transition-colors disabled:opacity-30"
+        >
+          <RefreshCw className={`w-3 h-3 ${isProbing ? "animate-spin text-amber-cta" : ""}`} />
+        </button>
+      </div>
     );
   };
 
@@ -243,7 +280,7 @@ export const SettingsPanel: React.FC = () => {
       {/* 1. Vertex AI 憑證與多帳號管理 */}
       <VertexAccountsPanel
         onAccountChanged={() => {
-          fetchModelsStatus(true);
+          fetchModelsStatus(false);
         }}
       />
 
@@ -252,21 +289,8 @@ export const SettingsPanel: React.FC = () => {
         <div className="flex items-center justify-between border-b border-cinema-border/60 pb-2.5">
           <div className="flex items-center gap-2">
             <h3 className="text-sm font-semibold text-cinema-text">AI 模型選擇</h3>
-            {modelsReport?.checked_at && (
-              <span className="text-[10px] text-cinema-muted font-mono">
-                ({modelsReport.checked_at})
-              </span>
-            )}
+            <span className="text-[11px] text-cinema-muted">（點擊個別模型右側按鈕可單獨檢測連線）</span>
           </div>
-          <button
-            type="button"
-            onClick={() => fetchModelsStatus(true)}
-            disabled={isCheckingModels}
-            className="flex items-center h-7 px-2.5 rounded-lg border border-amber-cta/40 bg-amber-cta/10 hover:bg-amber-cta/20 text-amber-cta text-[11px] font-medium transition-colors disabled:opacity-50 shrink-0"
-          >
-            <RefreshCw className={`w-3 h-3 mr-1.5 ${isCheckingModels ? "animate-spin" : ""}`} />
-            <span>{isCheckingModels ? "檢測中..." : "檢測模型可用性"}</span>
-          </button>
         </div>
 
         <div className="space-y-2">
@@ -294,7 +318,7 @@ export const SettingsPanel: React.FC = () => {
                   >
                     {m.name}
                   </span>
-                  <div className="shrink-0">{renderModelStatusBadge(m.id)}</div>
+                  <div className="shrink-0">{renderModelStatusBadge(m.id, "text")}</div>
                 </div>
               );
             })}
@@ -334,7 +358,7 @@ export const SettingsPanel: React.FC = () => {
                   >
                     {m.name}
                   </span>
-                  <div className="shrink-0">{renderModelStatusBadge(m.id)}</div>
+                  <div className="shrink-0">{renderModelStatusBadge(m.id, "image")}</div>
                 </div>
               );
             })}

@@ -3,6 +3,11 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
+from aivideo.antigravity_sdk import (
+    generate_image_via_antigravity_sdk,
+    is_antigravity_sdk_enabled,
+)
+
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 _VERTEX_ENV_KEYS = (
@@ -106,7 +111,7 @@ def get_gemini_client_kwargs(timeout_ms: int = 300000, model: str | None = None,
     api_key = os.environ.get("GEMINI_API_KEY", "").strip()
     if api_key:
         os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "false"
-        res = {"api_key": api_key}
+        res = {"vertexai": False, "api_key": api_key}
         if http_opts is not None:
             res["http_options"] = http_opts
         return res
@@ -142,6 +147,11 @@ def generate_smoke_image(dest: Path) -> Path:
     return dest
 
 
+def generate_smoke_image_comfyui(dest: Path) -> Path:
+    dest, _, _ = generate_image(prompt=SMOKE_PROMPT, dest=dest, model="comfyui:z-image-turbo")
+    return dest
+
+
 def _image_part(ref_image: Path | bytes | str, types: object):
     if isinstance(ref_image, (str, Path)):
         p = Path(ref_image)
@@ -155,19 +165,146 @@ def _image_part(ref_image: Path | bytes | str, types: object):
     return None
 
 
-def generate_image(
+def is_antigravity_cli_enabled(model_name: str | None = None) -> bool:
+    """判斷是否指定使用 Antigravity CLI (Pro 免金鑰) 生圖模式。"""
+    m = (model_name or "").strip().lower()
+    return m.startswith("antigravity-cli") or m.startswith("agy:") or m in ("agy", "antigravity-cli")
+
+
+def is_comfyui_image_enabled(model_name: str | None = None) -> bool:
+    """判斷是否指定使用 ComfyUI (如 Z-Image Turbo) 本地生圖模式。"""
+    m = (model_name or "").strip().lower()
+    return m.startswith("comfyui") or "z-image" in m or "z_image" in m
+
+
+def generate_image_via_antigravity_cli(
     prompt: str,
     dest: Path,
     aspect_ratio: str = "16:9",
+    model: str | None = None,
+    seed: int | None = None,
+) -> tuple[Path, str, int | None]:
+    """透過 Windows 主機的 Antigravity CLI (agy) 與 Pro 額度直接生成圖片，無需任何 API 金鑰。"""
+    import json
+    import os
+    import time
+    import re
+    import urllib.error
+    import urllib.request
+
+    # 判斷連線位址：在 Docker 容器內優先使用 host.docker.internal，在 Host 則使用 127.0.0.1
+    in_docker = os.path.exists("/.dockerenv") or os.environ.get("DOCKER_CONTAINER") == "1"
+    candidate_hosts = (
+        ["http://host.docker.internal:8099"]
+        if in_docker
+        else ["http://127.0.0.1:8099", "http://host.docker.internal:8099"]
+    )
+    last_err = None
+
+    # 提取分鏡名稱 (若在 takes 目錄，應往上一層取得分鏡資料夾名稱)
+    if dest.parent.name.lower() == "takes":
+        s_raw = dest.parent.parent.name
+    else:
+        s_raw = dest.parent.name
+    m = re.match(r"^0*(\d+)", s_raw)
+    scene_label = f"第 {int(m.group(1))} 幕 ({s_raw})" if m else s_raw
+
+    payload = {
+        "prompt": prompt,
+        "dest_path": str(dest.resolve()),
+        "aspect_ratio": aspect_ratio,
+        "scene_id": scene_label,
+    }
+    data = json.dumps(payload).encode("utf-8")
+
+    for host in candidate_hosts:
+        url = f"{host}/generate-image"
+        try:
+            req = urllib.request.Request(
+                url,
+                data=data,
+                headers={"Content-Type": "application/json"},
+                method="POST",
+            )
+            with urllib.request.urlopen(req, timeout=360) as resp:
+                res_data = json.loads(resp.read().decode("utf-8"))
+                if res_data.get("success") and dest.is_file():
+                    return dest, "antigravity-cli:image", seed
+                if res_data.get("error"):
+                    raise RuntimeError(res_data["error"])
+        except urllib.error.HTTPError as e:
+            try:
+                err_body = json.loads(e.read().decode("utf-8"))
+                err_msg = err_body.get("error") or str(e)
+            except Exception:
+                err_msg = str(e)
+            raise RuntimeError(err_msg)
+        except urllib.error.URLError as e:
+            last_err = e
+            continue
+        except Exception as e:
+            last_err = e
+            raise
+
+    raise RuntimeError(
+        f"無法連線至 Antigravity CLI Bridge (port 8099)。請確認主機已執行 python scripts/agy_bridge.py。原因: {last_err}"
+    )
+
+
+def generate_image(
+    prompt: str,
+    dest: Path,
+    negative_prompt: str = "",
+    aspect_ratio: str = "16:9",
     image_size: str = "1K",
     model: str | None = None,
+    engine: str = "auto",
     seed: int | None = None,
     ref_image: Path | bytes | None = None,
     ref_images: list[Path | bytes | tuple[Path | bytes, str]] | None = None,
+    denoise: float = 0.75,
+    lora_name: str | None = None,
+    lora_strength: float = 1.0,
 ) -> tuple[Path, str, int | None]:
     from aivideo.naming import DEFAULT_IMAGE_MODEL
 
     preferred = (model or os.environ.get("GEMINI_IMAGE_MODEL", "") or DEFAULT_IMAGE_MODEL).strip()
+    if is_antigravity_cli_enabled(preferred):
+        return generate_image_via_antigravity_cli(
+            prompt=prompt,
+            dest=dest,
+            aspect_ratio=aspect_ratio,
+            model=preferred,
+            seed=seed,
+        )
+    if is_comfyui_image_enabled(preferred) or engine.lower() in ("illustrious", "sdxl"):
+        from aivideo.comfy_image import generate_image_via_comfyui
+
+        return generate_image_via_comfyui(
+            prompt=prompt,
+            dest=dest,
+            negative_prompt=negative_prompt,
+            aspect_ratio=aspect_ratio,
+            model=preferred,
+            engine=engine,
+            seed=seed,
+            denoise=denoise,
+            ref_image=ref_image,
+            ref_images=ref_images,
+            lora_name=lora_name,
+            lora_strength=lora_strength,
+        )
+    if is_antigravity_sdk_enabled(preferred):
+        return generate_image_via_antigravity_sdk(
+            prompt=prompt,
+            dest=dest,
+            aspect_ratio=aspect_ratio,
+            model=preferred,
+            seed=seed,
+            ref_image=ref_image,
+            ref_images=ref_images,
+        )
+
     models = [preferred] if preferred else []
     for name in MODEL_CANDIDATES:
         if name not in models:

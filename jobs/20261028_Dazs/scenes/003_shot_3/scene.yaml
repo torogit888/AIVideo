@@ -22,7 +22,7 @@ locks:
   image: false
 current:
   speech_take: speech_20261028T101921
-  image_take: image_20261028T101843
+  image_take: image_20261029T102845
 pip:
   enabled: true
   media_type: image
@@ -36,5 +36,7 @@ pip:
   source_title: File:INCINERATOR OF THIS SOUTH BRONX TENEMENT IS GOING FULL BLAST
     - NARA - 548329.jpg
   source_url: https://upload.wikimedia.org/wikipedia/commons/c/c0/INCINERATOR_OF_THIS_SOUTH_BRONX_TENEMENT_IS_GOING_FULL_BLAST_-_NARA_-_548329.jpg
+  fetch_error: null
   verified: true
   review_reason: 真實呈現20世紀南布朗克斯公寓建築與髒亂排煙景況，契合旁白。
+  rejected_candidates: []

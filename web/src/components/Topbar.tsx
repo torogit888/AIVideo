@@ -85,7 +85,7 @@ export const Topbar: React.FC = () => {
   const cooldownRemaining =
     pipelineCooldown > 0
       ? pipelineCooldown
-      : Number((pipelineMessage || "").match(/冷卻(?:倒數)?\s*(\d+)/)?.[1] || 0);
+      : Number((pipelineMessage || "").match(/(?:冷卻|重試|剩餘).*?(\d+)\s*秒?/)?.[1] || 0);
 
   const nextStep = primaryPipelineAction(readyImages, readyAudio, totalScenes, hasFilm, isFilmStale);
 
@@ -198,7 +198,7 @@ export const Topbar: React.FC = () => {
     try {
       await api.clearJobImages(selectedJobId);
       await loadScenes(selectedJobId);
-      await loadJobs();
+      void loadJobs();
       showToast("已清空所有分鏡圖片", "success");
     } catch (e: any) {
       showToast("清空圖片失敗: " + (e.message || "未知錯誤"), "error");
@@ -217,7 +217,7 @@ export const Topbar: React.FC = () => {
     try {
       await api.clearJobAudio(selectedJobId);
       await loadScenes(selectedJobId);
-      await loadJobs();
+      void loadJobs();
       showToast("已清空所有分鏡配音", "success");
     } catch (e: any) {
       showToast("清空配音失敗: " + (e.message || "未知錯誤"), "error");
@@ -236,7 +236,7 @@ export const Topbar: React.FC = () => {
     try {
       await api.clearJobMedia(selectedJobId);
       await loadScenes(selectedJobId);
-      await loadJobs();
+      void loadJobs();
       showToast("已清空所有分鏡素材", "success");
     } catch (e: any) {
       showToast("清除失敗: " + (e.message || "未知錯誤"), "error");

@@ -177,14 +177,19 @@ export interface AiModelOption {
 export const AI_TEXT_MODELS: AiModelOption[] = [
   { id: "gemini-3.8-flash", name: "Gemini 3.8 Flash", badge: "3.8 Flash", tag: "極速高擬真・首選推薦" },
   { id: "gemini-3.7-flash", name: "Gemini 3.7 Flash", badge: "3.7 Flash", tag: "高速穩定・次選推薦" },
+  { id: "gemini-2.5-flash", name: "Gemini 2.5 Flash", badge: "2.5 Flash", tag: "高配額穩定備援" },
+  { id: "antigravity-sdk:gemini-3.8-flash", name: "Antigravity SDK (3.8 Flash)", badge: "AGY SDK", tag: "Antigravity 代理模式" },
 ];
 
 export const AI_IMAGE_MODELS: AiModelOption[] = [
+  { id: "antigravity-cli:image", name: "Antigravity CLI (Pro 免金鑰)", badge: "AGY CLI", tag: "Antigravity Pro 訂閱・免 API 金鑰" },
+  { id: "comfyui:z-image-turbo", name: "ComfyUI (Z-Image Turbo)", badge: "ComfyUI", tag: "本機 GPU・8 步極速文生圖" },
   { id: "gemini-3.1-flash-image", name: "Gemini 3.1 Flash Image", badge: "3.1 Flash", tag: "極速生圖・預設推薦" },
   { id: "gemini-3-pro-image", name: "Gemini 3 Pro Image", badge: "3 Pro", tag: "電影級旗艦・頂級畫質" },
   { id: "gemini-3.1-flash-lite-image", name: "Gemini 3.1 Flash Lite Image", badge: "3.1 Lite", tag: "輕量生圖" },
   { id: "gemini-2.5-flash-image", name: "Gemini 2.5 Flash Image", badge: "2.5 Flash", tag: "舊版相容" },
   { id: "imagen-3.0-generate-002", name: "Imagen 3 (002)", badge: "Imagen 3", tag: "專業生圖" },
+  { id: "antigravity-sdk:gemini-3.1-flash-image", name: "Antigravity SDK Image", badge: "AGY SDK", tag: "Antigravity 代理生圖" },
 ];
 
 export interface CharacterAnchor {

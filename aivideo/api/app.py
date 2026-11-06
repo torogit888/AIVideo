@@ -6,6 +6,20 @@ from pathlib import Path
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+import logging
+
+# ??????????????????
+# 過濾高頻輪詢日誌，避免終端機被洗版
+class EndpointFilter(logging.Filter):
+    def filter(self, record: logging.LogRecord) -> bool:
+        msg = record.getMessage()
+        if "/system/status" in msg:
+            return False
+        if "GET /api/v1/jobs/" in msg and "/scenes/" in msg:
+            return False
+        return True
+
+logging.getLogger("uvicorn.access").addFilter(EndpointFilter())
 
 from aivideo.api.routes import anchors, assets, jobs, pipeline, scenes, system, youtube
 from aivideo.commands.check import _load_dotenv

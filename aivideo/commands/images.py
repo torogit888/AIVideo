@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 import random
+import re
 import shutil
 import sys
 from datetime import datetime, timezone
@@ -59,7 +60,7 @@ def run_images(args: Any = None, progress_callback=None, **kwargs) -> int:
     img_cfg = job_cfg.get("image", {}) if isinstance(job_cfg.get("image"), dict) else {}
     style_key = img_cfg.get("style") or job_cfg.get("style") or ""
     style_prefix = resolve_style(style_key)["prefix"] or str(job_cfg.get("style_prefix", "")).strip()
-    model = img_cfg.get("model") or DEFAULT_IMAGE_MODEL
+    model = getattr(args, "model", None) or img_cfg.get("model") or DEFAULT_IMAGE_MODEL
     resolution = img_cfg.get("resolution", "1K")
     aspect_ratio = img_cfg.get("aspect_ratio", "16:9")
 
@@ -216,8 +217,10 @@ def run_images(args: Any = None, progress_callback=None, **kwargs) -> int:
             if check_ctrl and check_ctrl(phase="出圖", s_dir=s_dir):
                 break
 
+            m_s = re.match(r"^0*(\d+)", s_id)
+            s_display = f"第 {int(m_s.group(1))} 幕 ({s_id})" if m_s else s_id
             attempt_str = f" (第 {attempt} 次嘗試)" if attempt > 1 else ""
-            print(f"[gen]  {s_id} 正在呼叫 Gemini ({model}) 出圖...{attempt_str}")
+            print(f"[gen]  {s_display} 正在呼叫 Gemini ({model}) 出圖...{attempt_str}")
 
             try:
                 saved_path, model_used, used_seed = generate_image(
@@ -234,17 +237,22 @@ def run_images(args: Any = None, progress_callback=None, **kwargs) -> int:
             except Exception as exc:
                 last_error = exc
                 if attempt < max_scene_attempts:
-                    retry_wait = attempt * 8  # 8s, 16s 原地等待配額窗口重置
-                    print(f"[warn] {s_id} 出圖暫時失敗 ({exc})，將於 {retry_wait} 秒後在原地自動重試 (第 {attempt}/{max_scene_attempts-1} 次)...")
-                    if callback:
-                        try:
-                            callback(processed, total_targets, f"[{processed}/{total_targets}] {s_id} 遇限制，等待 {retry_wait}s 原地重試...", s_dir=s_dir)
-                        except TypeError:
-                            callback(processed, total_targets, f"[{processed}/{total_targets}] {s_id} 遇限制，等待 {retry_wait}s 原地重試...")
-                    import time
-                    time.sleep(retry_wait)
+                    retry_wait = random.randint(60, 120)
+                    print(f"[warn] {s_display} 出圖暫時失敗 ({exc})，隨機等待 {retry_wait} 秒後在原地自動重試 (第 {attempt}/{max_scene_attempts-1} 次)...")
+                    for remaining in range(retry_wait, 0, -1):
+                        if check_ctrl and check_ctrl(phase="出圖", s_dir=s_dir):
+                            break
+                        if remaining % 15 == 0 or remaining <= 5:
+                            print(f"[wait] {s_display} 重試倒數中: 剩餘 {remaining} 秒...", flush=True)
+                        if callback:
+                            try:
+                                callback(processed, total_targets, f"[{processed}/{total_targets}] {s_display} 遇阻，等待重試：剩餘 {remaining} 秒...", s_dir=s_dir)
+                            except TypeError:
+                                callback(processed, total_targets, f"[{processed}/{total_targets}] {s_display} 遇阻，等待重試：剩餘 {remaining} 秒...")
+                        import time
+                        time.sleep(1.0)
                 else:
-                    print(f"[fail] {s_id} 歷經 {max_scene_attempts} 次嘗試依然失敗: {exc}", file=sys.stderr)
+                    print(f"[fail] {s_display} 歷經 {max_scene_attempts} 次嘗試依然失敗: {exc}", file=sys.stderr)
 
         if not scene_success:
             errors += 1
@@ -280,7 +288,7 @@ def run_images(args: Any = None, progress_callback=None, **kwargs) -> int:
                 yaml.safe_dump(scene_cfg, f, allow_unicode=True, sort_keys=False)
             prune_scene_takes_after_adopt(s_dir)
 
-        print(f"[ok]   {s_id} -> {take_id}.png")
+        print(f"[ok]   {s_display} -> {take_id}.png")
         processed += 1
         if callback:
             try:
@@ -288,8 +296,22 @@ def run_images(args: Any = None, progress_callback=None, **kwargs) -> int:
             except TypeError:
                 callback(processed, total_targets, f"[{processed}/{total_targets}] {s_id} 畫面已產出")
 
-        import time
-        time.sleep(2.0)  # 平滑微冷卻，維持合適請求間距，徹底防範 Google 429 速率限制
+        # 一鍵流程／批次生圖：若後續仍有分鏡待出圖，隨機間隔 60~180 秒並即時倒數
+        if processed < total_targets and not (check_ctrl and check_ctrl(phase="出圖", s_dir=s_dir)):
+            interval_wait = random.randint(60, 180)
+            print(f"[cooldown] {s_display} 完成，隨機等待 {interval_wait} 秒後開始下一幕...")
+            for remaining in range(interval_wait, 0, -1):
+                if check_ctrl and check_ctrl(phase="出圖", s_dir=s_dir):
+                    break
+                if remaining % 15 == 0 or remaining <= 5:
+                    print(f"[wait] 下一幕生成倒數: 剩餘 {remaining} 秒...", flush=True)
+                if callback:
+                    try:
+                        callback(processed, total_targets, f"[{processed}/{total_targets}] {s_display} 完成，冷卻中：剩餘 {remaining} 秒開始下一幕...", s_dir=s_dir)
+                    except TypeError:
+                        callback(processed, total_targets, f"[{processed}/{total_targets}] {s_display} 完成，冷卻中：剩餘 {remaining} 秒開始下一幕...")
+                import time
+                time.sleep(1.0)
 
         if check_ctrl and check_ctrl(phase="出圖", s_dir=s_dir):
             print(f"[stop] 收到中止指令，停止批次出圖")

@@ -112,6 +112,41 @@ def run_check(args: argparse.Namespace) -> int:
         else:
             _skip("GPU", "加上 --gpu 才會拉 CUDA 容器測 nvidia-smi")
 
+    raw_prompt = getattr(args, "prompt", None)
+    if isinstance(raw_prompt, list):
+        prompt_text = " ".join(raw_prompt).strip()
+    elif isinstance(raw_prompt, str):
+        prompt_text = raw_prompt.strip()
+    else:
+        prompt_text = ""
+    # 去除前後可能殘留的引號
+    if prompt_text.startswith(('"', "'")) and prompt_text.endswith(('"', "'")) and len(prompt_text) >= 2:
+        prompt_text = prompt_text[1:-1].strip()
+    custom_prompt = prompt_text or SMOKE_PROMPT
+
+    raw_neg = getattr(args, "negative_prompt", None)
+    if isinstance(raw_neg, list):
+        neg_text = " ".join(raw_neg).strip()
+    elif isinstance(raw_neg, str):
+        neg_text = raw_neg.strip()
+    else:
+        neg_text = ""
+    if neg_text.startswith(('"', "'")) and neg_text.endswith(('"', "'")) and len(neg_text) >= 2:
+        neg_text = neg_text[1:-1].strip()
+    custom_negative = neg_text
+
+    raw_ref = (getattr(args, "ref_image", None) or "").strip()
+    if raw_ref.startswith(('"', "'")) and raw_ref.endswith(('"', "'")) and len(raw_ref) >= 2:
+        raw_ref = raw_ref[1:-1].strip()
+    ref_image_input = raw_ref or None
+    denoise_val = getattr(args, "denoise", 0.75)
+
+    custom_lora = getattr(args, "lora", None)
+    if custom_lora and isinstance(custom_lora, str):
+        custom_lora = custom_lora.strip(' "\'')
+    custom_lora_strength = float(getattr(args, "lora_strength", 1.0) or 1.0)
+    engine_val = getattr(args, "engine", "auto") or "auto"
+
     if not has_gemini_credentials():
         _fail(
             "Gemini 認證",
@@ -121,7 +156,9 @@ def run_check(args: argparse.Namespace) -> int:
     elif args.gemini:
         dest = REPO_ROOT / "jobs" / "_smoke" / "gemini_16x9.png"
         try:
-            saved = generate_smoke_image(dest)
+            from aivideo.gemini_image import generate_image
+
+            saved, _, _ = generate_image(prompt=custom_prompt, dest=dest, ref_image=ref_image_input)
             _ok("Gemini 16:9", str(saved.relative_to(REPO_ROOT)))
         except Exception as exc:  # noqa: BLE001 — 煙霧測試要把 API 錯誤原樣印出
             _fail("Gemini 16:9", str(exc))
@@ -129,13 +166,16 @@ def run_check(args: argparse.Namespace) -> int:
     else:
         _ok("Gemini 認證", "已設定（加上 --gemini 才真的出一張 16:9）")
 
-    comfy_url = os.environ.get("COMFY_URL", "http://127.0.0.1:8188").rstrip("/")
+    from aivideo.comfy_image import get_comfy_url
+    comfy_url = get_comfy_url()
+    comfy_online = False
     try:
         from urllib.request import urlopen
 
-        with urlopen(f"{comfy_url}/system_stats", timeout=3) as resp:
+        with urlopen(f"{comfy_url}/system_stats", timeout=10) as resp:
             if 200 <= resp.status < 300:
                 _ok("ComfyUI", comfy_url)
+                comfy_online = True
             else:
                 _skip("ComfyUI", f"{comfy_url} 回應 {resp.status}")
     except Exception:
@@ -143,6 +183,27 @@ def run_check(args: argparse.Namespace) -> int:
             "ComfyUI",
             "還沒啟動。GPU 通過後再：docker compose --profile comfyui up -d comfyui",
         )
+
+    if getattr(args, "comfy_image", False):
+        dest = REPO_ROOT / "jobs" / "_smoke" / "comfyui_z_image_turbo_16x9.png"
+        try:
+            from aivideo.gemini_image import generate_image
+
+            saved, _, _ = generate_image(
+                prompt=custom_prompt,
+                dest=dest,
+                negative_prompt=custom_negative,
+                model="comfyui:illustrious" if engine_val == "illustrious" else "comfyui:z-image-turbo",
+                engine=engine_val,
+                ref_image=ref_image_input,
+                denoise=denoise_val,
+                lora_name=custom_lora,
+                lora_strength=custom_lora_strength,
+            )
+            _ok("ComfyUI Z-Image Turbo 16:9", str(saved.relative_to(REPO_ROOT)))
+        except Exception as exc:  # noqa: BLE001
+            _fail("ComfyUI Z-Image Turbo 16:9", str(exc))
+            failed += 1
 
     if failed:
         print(f"\n未通過 {failed} 項。見 doc/規劃.md 的 P0。")

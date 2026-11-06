@@ -56,13 +56,15 @@ interface StudioState {
   pipelineMessage: string;
   pipelineCooldown: number;
   pipelineCooldownTotal: number;
+  runningSceneId: string | null;
   setPipelineRunning: (
     running: boolean,
     progress?: number,
     msg?: string,
     cooldown?: number,
     cooldownTotal?: number,
-    paused?: boolean
+    paused?: boolean,
+    runningSceneId?: string | null
   ) => void;
   patchSceneCard: (
     sceneId: string,
@@ -302,15 +304,17 @@ export const useStudioStore = create<StudioState>((set, get) => ({
   pipelineMessage: "",
   pipelineCooldown: 0,
   pipelineCooldownTotal: 0,
-  setPipelineRunning: (running, progress = 0, msg = "", cooldown = 0, cooldownTotal = 0, paused = false) =>
-    set({
+  runningSceneId: null,
+  setPipelineRunning: (running, progress = 0, msg = "", cooldown = 0, cooldownTotal = 0, paused = false, runningSceneId = undefined) =>
+    set((state) => ({
       isPipelineRunning: running,
       isPipelinePaused: Boolean(paused),
       pipelineProgress: progress,
       pipelineMessage: msg,
       pipelineCooldown: cooldown,
       pipelineCooldownTotal: cooldownTotal,
-    }),
+      runningSceneId: running ? (runningSceneId !== undefined ? runningSceneId : state.runningSceneId) : null,
+    })),
   patchSceneCard: (sceneId, patch) =>
     set((state) => {
       const jobId = state.selectedJobId;

@@ -21,6 +21,10 @@ export const StoryboardGrid: React.FC = () => {
     isContinuityOpen,
     setContinuityOpen,
     anchorsRevision,
+    isPipelineRunning,
+    pipelineMessage,
+    pipelineCooldown,
+    runningSceneId,
   } = useStudioStore();
 
   const [dismissSetup, setDismissSetup] = useState(false);
@@ -281,6 +285,9 @@ export const StoryboardGrid: React.FC = () => {
               const hasImg = scene.status.has_image;
               const hasAud = scene.status.has_audio;
               const isFullyDone = hasImg && hasAud;
+              const isThisSceneRunning = isPipelineRunning && (runningSceneId === scene.id || (!runningSceneId && activeSceneId === scene.id));
+              const parsedCd = Number((pipelineMessage || "").match(/(?:冷卻|重試|剩餘).*?(\d+)\s*秒?/)?.[1] || 0);
+              const effectiveCooldown = (isThisSceneRunning && pipelineCooldown > 0) ? pipelineCooldown : (isThisSceneRunning ? parsedCd : 0);
 
               return (
                 <div
@@ -298,6 +305,33 @@ export const StoryboardGrid: React.FC = () => {
                 >
                   {/* 16:9 圖片縮圖區（支援黑底歷史聚焦與右側置中 PiP） */}
                   <div className="relative aspect-video w-full bg-black/40 overflow-hidden">
+                    {/* 即時出圖或冷卻倒數覆蓋層 */}
+                    {isThisSceneRunning && (
+                      <div className="absolute inset-0 bg-black/80 backdrop-blur-[2px] flex flex-col items-center justify-center z-30 p-2 text-center pointer-events-none select-none">
+                        {effectiveCooldown > 0 ? (
+                          <div className="flex flex-col items-center space-y-1.5 animate-in fade-in zoom-in-95 duration-200">
+                            <div className="flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 border-2 border-amber-400 shadow-[0_0_14px_rgba(251,191,36,0.35)] animate-pulse">
+                              <span className="font-mono text-lg font-black text-amber-300">
+                                {effectiveCooldown}s
+                              </span>
+                            </div>
+                            <span className="text-xs font-bold text-amber-300">
+                              {pipelineMessage.includes("重試") ? "遇阻等待重試" : "下一幕間隔冷卻中"}
+                            </span>
+                            <span className="text-[10px] text-zinc-300 font-mono">
+                              倒數剩餘 {effectiveCooldown} 秒
+                            </span>
+                          </div>
+                        ) : (
+                          <div className="flex flex-col items-center space-y-1.5 animate-in fade-in duration-150">
+                            <Loader2 className="w-7 h-7 text-amber-cta animate-spin" />
+                            <span className="text-xs font-semibold text-amber-cta">
+                              {pipelineMessage ? pipelineMessage.replace(/\[\d+\/\d+\]\s*/, "") : "正在出圖中..."}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    )}
                     {/* 右上角黑底歷史聚焦常駐標籤（需同時滿足已啟用考據，無論有無出圖皆可辨識） */}
                     {scene.pip_enabled && scene.pip_mode === "spotlight" && (
                       <div className="absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded bg-amber-500/95 text-black font-semibold text-[9px] z-20 shadow-md flex items-center">

@@ -21,13 +21,18 @@ CACHE_FILE = CREDENTIALS_DIR / "models_cache.json"
 KNOWN_TEXT_MODELS = [
     {"id": "gemini-3.8-flash", "name": "Gemini 3.8 Flash"},
     {"id": "gemini-3.7-flash", "name": "Gemini 3.7 Flash"},
+    {"id": "gemini-2.5-flash", "name": "Gemini 2.5 Flash"},
+    {"id": "antigravity-sdk:gemini-3.8-flash", "name": "Antigravity SDK (3.8 Flash)"},
 ]
 
 KNOWN_IMAGE_MODELS = [
+    {"id": "antigravity-cli:image", "name": "Antigravity CLI (Pro 免金鑰)"},
+    {"id": "comfyui:z-image-turbo", "name": "ComfyUI (Z-Image Turbo)"},
     {"id": "gemini-3.1-flash-image", "name": "Gemini 3.1 Flash Image"},
     {"id": "gemini-3-pro-image", "name": "Gemini 3 Pro Image"},
     {"id": "gemini-2.5-flash-image", "name": "Gemini 2.5 Flash Image"},
     {"id": "imagen-3.0-generate-002", "name": "Imagen 3 (002)"},
+    {"id": "antigravity-sdk:gemini-3.1-flash-image", "name": "Antigravity SDK Image"},
 ]
 
 
@@ -425,32 +430,110 @@ def sync_system_gcloud_adc(account_name: str = "", project_id: str = "") -> Dict
 
 def probe_single_model(model_id: str, model_type: str = "text") -> Dict[str, Any]:
     """極輕量、零延遲探測單一模型在當前憑證下是否啟用與可用。"""
+    from aivideo.antigravity_sdk import (
+        has_antigravity_sdk,
+        is_antigravity_sdk_enabled,
+        unwrap_antigravity_model_name,
+    )
     from aivideo.gemini_image import get_gemini_client_kwargs
     from aivideo.story_generator import resolve_text_model_name
 
     start_time = time.time()
-    resolved_name = resolve_text_model_name(model_id) if model_type == "text" else model_id
+    # 支援 Antigravity CLI 橋接探測
+    if model_id.startswith("antigravity-cli") or model_id.startswith("agy:"):
+        import urllib.request
+        for host in ("http://host.docker.internal:8099", "http://127.0.0.1:8099"):
+            try:
+                with urllib.request.urlopen(f"{host}/health", timeout=2) as r:
+                    if r.status == 200:
+                        return {
+                            "status": "available",
+                            "message": "Antigravity Pro 授權就緒 (免API金鑰)",
+                            "latency_ms": int((time.time() - start_time) * 1000),
+                        }
+            except Exception:
+                pass
+        return {
+            "status": "disabled",
+            "message": "尚未啟動 Antigravity CLI Bridge (port 8099)",
+            "latency_ms": int((time.time() - start_time) * 1000),
+        }
+
+    # 支援 ComfyUI 本地服務探測
+    if model_id.startswith("comfyui") or "z-image" in model_id or "z_image" in model_id:
+        from aivideo.comfy_image import get_comfy_url, is_comfyui_online
+        target_url = get_comfy_url()
+        if is_comfyui_online(target_url):
+            return {
+                "status": "available",
+                "message": f"ComfyUI 在線 ({target_url})",
+                "latency_ms": int((time.time() - start_time) * 1000),
+            }
+        return {
+            "status": "disabled",
+            "message": f"ComfyUI 未啟動 ({target_url})",
+            "latency_ms": int((time.time() - start_time) * 1000),
+        }
+
+    if is_antigravity_sdk_enabled(model_id):
+        if not has_antigravity_sdk():
+            return {
+                "status": "disabled",
+                "message": "尚未安裝 google-antigravity SDK",
+                "latency_ms": int((time.time() - start_time) * 1000),
+            }
+        default_m = "gemini-3.8-flash" if model_type == "text" else "gemini-3.1-flash-image"
+        resolved_name = unwrap_antigravity_model_name(model_id, default_m)
+    else:
+        resolved_name = resolve_text_model_name(model_id) if model_type == "text" else model_id
 
     try:
         from google import genai
         from google.genai import types
 
         client_kwargs = get_gemini_client_kwargs(timeout_ms=10000, model=resolved_name)
+        if hasattr(types, "HttpOptions") and hasattr(types, "HttpRetryOptions"):
+            client_kwargs["http_options"] = types.HttpOptions(
+                timeout=10000,
+                retry_options=types.HttpRetryOptions(attempts=1),
+            )
         client = genai.Client(**client_kwargs)
 
         if model_type == "text":
             # 透過極小探針 (max_output_tokens=1) 驗證是否能正常呼叫
-            resp = client.models.generate_content(
-                model=resolved_name,
-                contents="ping",
-                config=types.GenerateContentConfig(max_output_tokens=1, temperature=0.0),
-            )
-            elapsed_ms = int((time.time() - start_time) * 1000)
-            return {
-                "status": "available",
-                "message": "正常可用",
-                "latency_ms": elapsed_ms,
-            }
+            try:
+                resp = client.models.generate_content(
+                    model=resolved_name,
+                    contents="ping",
+                    config=types.GenerateContentConfig(max_output_tokens=1, temperature=0.0),
+                )
+                elapsed_ms = int((time.time() - start_time) * 1000)
+                return {
+                    "status": "available",
+                    "message": "正常可用",
+                    "latency_ms": elapsed_ms,
+                }
+            except Exception as primary_exc:
+                err_s = str(primary_exc)
+                if is_antigravity_sdk_enabled(model_id) and (
+                    "429" in err_s or "RESOURCE_EXHAUSTED" in err_s or "quota" in err_s.lower()
+                ):
+                    for fb_m in ("gemini-3.6-flash", "gemini-2.5-flash"):
+                        try:
+                            client.models.generate_content(
+                                model=fb_m,
+                                contents="ping",
+                                config=types.GenerateContentConfig(max_output_tokens=1, temperature=0.0),
+                            )
+                            elapsed_ms = int((time.time() - start_time) * 1000)
+                            return {
+                                "status": "available",
+                                "message": f"正常可用 (自動路由 {fb_m})",
+                                "latency_ms": elapsed_ms,
+                            }
+                        except Exception:
+                            continue
+                raise primary_exc
         else:
             # 生圖模型：透過 client.models.get 或元數據檢查存在性與授權
             try:
@@ -520,16 +603,17 @@ def check_all_models_status(force_refresh: bool = False) -> Dict[str, Any]:
     active_acc = get_active_account()
     now_ts = time.time()
 
-    # 快取機制：60 秒內直接回傳快取結果，避免頻繁探測觸發配額
+    # 快取機制：非強制重新整理時直接回傳快取結果，避免切換分頁時觸發全量模型探測
     if not force_refresh and CACHE_FILE.is_file():
         try:
             cached = json.loads(CACHE_FILE.read_text(encoding="utf-8"))
-            if now_ts - cached.get("timestamp", 0) < 60 and cached.get("account_id") == (active_acc.get("id") if active_acc else ""):
+            if cached.get("account_id") == (active_acc.get("id") if active_acc else None):
                 return cached
         except Exception:
             pass
 
     models_report: Dict[str, Any] = {}
+    project_level_block: Optional[Dict[str, Any]] = None
 
     for item in KNOWN_TEXT_MODELS:
         m_id = item["id"]
@@ -539,15 +623,72 @@ def check_all_models_status(force_refresh: bool = False) -> Dict[str, Any]:
             "type": "text",
             **res,
         }
+        err_detail = str(res.get("error_detail") or "")
+        if res.get("status") in ("permission_denied", "disabled") and (
+            "terms of use and policies" in err_detail
+            or "requires billing to be enabled" in err_detail
+            or "API has not been used" in err_detail
+        ):
+            project_level_block = {
+                "status": res["status"],
+                "message": res["message"],
+                "error_detail": err_detail,
+            }
 
     for item in KNOWN_IMAGE_MODELS:
         m_id = item["id"]
         res = probe_single_model(m_id, model_type="image")
+        if project_level_block and res.get("status") == "available":
+            res = {
+                **res,
+                **project_level_block,
+            }
         models_report[m_id] = {
             "name": item["name"],
             "type": "image",
             **res,
         }
+
+    payload = {
+        "account_id": active_acc.get("id") if active_acc else None,
+        "account_name": active_acc.get("name") if active_acc else "未設定帳戶",
+        "timestamp": now_ts,
+        "checked_at": datetime.now().strftime("%H:%M:%S"),
+        "models": models_report,
+    }
+
+    try:
+        CACHE_FILE.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    except Exception:
+        pass
+
+    return payload
+
+
+def check_single_model_status(model_id: str, model_type: str = "text") -> Dict[str, Any]:
+    """僅探測指定之單一模型的可用性，並即時更新至快取中。"""
+    active_acc = get_active_account()
+    now_ts = time.time()
+    res = probe_single_model(model_id, model_type=model_type)
+
+    cached_payload: Dict[str, Any] = {}
+    if CACHE_FILE.is_file():
+        try:
+            cached_payload = json.loads(CACHE_FILE.read_text(encoding="utf-8"))
+        except Exception:
+            cached_payload = {}
+
+    models_report = cached_payload.get("models") or {}
+
+    all_known = KNOWN_TEXT_MODELS + KNOWN_IMAGE_MODELS
+    matched = next((m for m in all_known if m["id"] == model_id), None)
+    m_name = matched["name"] if matched else model_id
+
+    models_report[model_id] = {
+        "name": m_name,
+        "type": model_type,
+        **res,
+    }
 
     payload = {
         "account_id": active_acc.get("id") if active_acc else None,

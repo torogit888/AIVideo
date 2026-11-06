@@ -22,18 +22,23 @@ locks:
   image: false
 current:
   speech_take: speech_20261028T102523
-  image_take: image_20261028T102512
+  image_take: image_20261029T154148
 pip:
   enabled: false
   media_type: video
   image: pip.png
+  video: null
   position: right-center
   mode: broll
   scale: 0.24
   border: 5
   query: New York street vendors 1920s
+  source_title: null
+  source_url: null
   fetch_error: 有抓到影片但 AI 判定不符：影片為2022年水牛城的烏鴉群畫面，與1920年代街頭攤販完全無關。（候選：File:Flock of
     crows over Laurel Street, Buffalo, New York - 20220225.webm）
+  verified: false
+  review_reason: null
   rejected_candidates:
   - title: File:Flock of crows over Laurel Street, Buffalo, New York - 20220225.webm
     url: https://upload.wikimedia.org/wikipedia/commons/c/ce/Flock_of_crows_over_Laurel_Street%2C_Buffalo%2C_New_York_-_20220225.webm?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original

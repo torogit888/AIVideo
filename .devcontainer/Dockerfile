@@ -16,6 +16,7 @@ RUN apt-get update \
 
 RUN pip install --no-cache-dir \
     "google-genai>=1.0.0" \
+    "google-antigravity>=0.1.22" \
     "pyyaml>=6.0" \
     "requests>=2.30.0" \
     "pillow>=10.0.0" \

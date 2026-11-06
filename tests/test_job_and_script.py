@@ -450,3 +450,74 @@ def test_story_generator_does_not_force_canned_subscription_cta():
 
 
 
+
+def test_antigravity_sdk_text_and_image_routing(tmp_path: Path, monkeypatch):
+    import aivideo.antigravity_sdk as ag_sdk
+    import aivideo.gemini_image as gi
+    import aivideo.story_generator as sg
+
+    assert ag_sdk.is_antigravity_sdk_enabled("antigravity-sdk:gemini-3.8-flash")
+    assert ag_sdk.is_antigravity_sdk_enabled("ag-sdk:gemini-3.1-flash-image")
+    assert not ag_sdk.is_antigravity_sdk_enabled("gemini-3.8-flash")
+    assert ag_sdk.unwrap_antigravity_model_name("antigravity-sdk:gemini-3.8-flash", "gemini-3.7-flash") == "gemini-3.8-flash"
+
+    # 測試文字生成走 Antigravity SDK
+    called_text = {}
+
+    def fake_ag_text(prompt: str, model: str | None = None, **kwargs) -> str:
+        called_text["model"] = model
+        called_text["search_grounding"] = kwargs.get("search_grounding")
+        return "### 第一幕：起源\n- 測試內容"
+
+    monkeypatch.setattr(sg, "generate_text_via_antigravity_sdk", fake_ag_text)
+    outline = sg.generate_story_outline(
+        topic="測試主題",
+        model="antigravity-sdk:gemini-3.8-flash",
+    )
+    assert "### 第一幕：起源" in outline
+    assert called_text["model"] == "antigravity-sdk:gemini-3.8-flash"
+    assert called_text["search_grounding"] is True
+
+    # 測試圖片生成走 Antigravity SDK
+    called_img = {}
+
+    def fake_ag_image(prompt: str, dest: Path, **kwargs):
+        called_img["model"] = kwargs.get("model")
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        dest.write_bytes(b"PNG_BYTES")
+        return dest, "antigravity-sdk:gemini-3.1-flash-image", kwargs.get("seed")
+
+    monkeypatch.setattr(gi, "generate_image_via_antigravity_sdk", fake_ag_image)
+    out_img = tmp_path / "out.png"
+    res_path, res_model, _ = gi.generate_image(
+        prompt="A cinematic shot",
+        dest=out_img,
+        model="antigravity-sdk:gemini-3.1-flash-image",
+    )
+    assert res_path == out_img
+    assert out_img.read_bytes() == b"PNG_BYTES"
+    assert res_model == "antigravity-sdk:gemini-3.1-flash-image"
+    assert called_img["model"] == "antigravity-sdk:gemini-3.1-flash-image"
+
+    # 測試圖片生成走 ComfyUI (Z-Image Turbo)
+    called_comfy = {}
+
+    def fake_comfy_image(prompt: str, dest: Path, **kwargs):
+        called_comfy["model"] = kwargs.get("model")
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        dest.write_bytes(b"COMFY_PNG")
+        return dest, "comfyui:z-image-turbo", kwargs.get("seed")
+
+    from aivideo import comfy_image
+
+    monkeypatch.setattr(comfy_image, "generate_image_via_comfyui", fake_comfy_image)
+    out_comfy = tmp_path / "comfy_out.png"
+    res_path, res_model, _ = gi.generate_image(
+        prompt="A futuristic city with rainy neon lights",
+        dest=out_comfy,
+        model="comfyui:z-image-turbo",
+    )
+    assert res_path == out_comfy
+    assert out_comfy.read_bytes() == b"COMFY_PNG"
+    assert res_model == "comfyui:z-image-turbo"
+    assert called_comfy["model"] == "comfyui:z-image-turbo"

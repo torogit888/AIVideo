@@ -439,12 +439,51 @@ def regenerate_scene_image(
 ):
     """單幕出圖/重抽"""
     job_dir = JOBS_DIR / job_id
-    if not (job_dir / "scenes" / scene_id).is_dir():
+    scene_dir = job_dir / "scenes" / scene_id
+    if not scene_dir.is_dir():
         raise HTTPException(status_code=404, detail="分鏡不存在")
 
-    # 在背景非同步執行 run_images
-    cmd_args = CmdArgs(job=job_dir, scene=scene_id, force=force, new_seed=True)
-    background_tasks.add_task(run_images, cmd_args)
+    from aivideo.pipeline_runner import get_pipeline_runner
+    import re
+    runner = get_pipeline_runner(job_id, job_dir)
+
+    def _single_scene_worker():
+        with runner._lock:
+            runner.is_running = True
+            runner.is_done = False
+            runner.live_dir = scene_dir
+            runner.live_phase = "出圖"
+            runner.status_msg = f"正在產出第 {scene_id} 幕畫面..."
+            runner.progress = 0.5
+            runner.cooldown_remaining = 0
+            runner.error_msg = None
+
+        def on_single_prog(cur: int, tot: int, msg: str, s_dir: Path | None = None) -> None:
+            with runner._lock:
+                runner.status_msg = msg
+                m = re.search(r"剩餘\s*(\d+)\s*秒", msg)
+                if m:
+                    runner.cooldown_remaining = int(m.group(1))
+                    runner.live_phase = "重試"
+                else:
+                    runner.cooldown_remaining = 0
+
+        cmd_args = CmdArgs(
+            job=job_dir,
+            scene=scene_id,
+            force=force,
+            new_seed=True,
+            progress_callback=on_single_prog,
+        )
+        try:
+            run_images(cmd_args, progress_callback=on_single_prog)
+        finally:
+            with runner._lock:
+                runner.is_running = False
+                runner.is_done = True
+                runner.cooldown_remaining = 0
+
+    background_tasks.add_task(_single_scene_worker)
     return {"message": f"第 {scene_id} 幕生圖任務已啟動", "job_id": job_id, "scene_id": scene_id}
 
 
@@ -755,6 +794,9 @@ def clear_scene_image(job_id: str, scene_id: str):
         except Exception:
             pass
 
+    from aivideo.api.routes.jobs import invalidate_job_summary_cache
+    invalidate_job_summary_cache(job_id)
+
     return get_scene_detail(job_id, scene_id)
 
 
@@ -813,6 +855,9 @@ def clear_scene_audio(job_id: str, scene_id: str):
             shutil.rmtree(compose_dir)
         except Exception:
             pass
+
+    from aivideo.api.routes.jobs import invalidate_job_summary_cache
+    invalidate_job_summary_cache(job_id)
 
     return get_scene_detail(job_id, scene_id)
 

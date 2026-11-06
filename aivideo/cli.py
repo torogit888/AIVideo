@@ -33,11 +33,63 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="用 Gemini 產出一張 16:9 煙霧測試圖到 jobs/_smoke/",
     )
+    check.add_argument(
+        "--comfy-image",
+        action="store_true",
+        help="用 ComfyUI (Z-Image Turbo) 產出一張 16:9 測試圖到 jobs/_smoke/",
+    )
+    check.add_argument(
+        "--prompt",
+        nargs="*",
+        default=None,
+        help="指定測試生圖提示詞 (Prompt)",
+    )
+    check.add_argument(
+        "--negative-prompt",
+        nargs="*",
+        default=None,
+        help="指定負面提示詞 (Negative Prompt)",
+    )
+    check.add_argument(
+        "--ref-image",
+        nargs="?",
+        const=None,
+        default=None,
+        help="指定參考圖路徑 (可為專案或本機圖檔)",
+    )
+    check.add_argument(
+        "--denoise",
+        nargs="?",
+        const=0.75,
+        type=float,
+        default=0.75,
+        help="參考圖重繪強度 (0.1~1.0，預設 0.75，有指定參考圖時生效)",
+    )
+    check.add_argument(
+        "--lora",
+        nargs="?",
+        const=None,
+        default=None,
+        help="指定 LoRA 模型檔案名稱 (需放置於 ComfyUI models/loras/ 目錄)",
+    )
+    check.add_argument(
+        "--lora-strength",
+        type=float,
+        default=1.0,
+        help="指定 LoRA 作用強度 (0.1~2.0，預設 1.0)",
+    )
+    check.add_argument(
+        "--engine",
+        choices=["auto", "z-image", "illustrious"],
+        default="auto",
+        help="生圖引擎模式：z-image (Z-Image Turbo 極速) 或 illustrious (Illustrious-XL 二次元/LoRA)",
+    )
     check.set_defaults(func=run_check)
 
-    images = sub.add_parser("images", help="使用 Gemini 產生場景 16:9 畫面")
+    images = sub.add_parser("images", help="使用 AI (Gemini / ComfyUI) 產生場景 16:9 畫面")
     images.add_argument("--job", required=True, help="Job 目錄路徑，例如 jobs/20260916_roman_telescope")
     images.add_argument("--scene", help="指定單一場景 id 或前綴，例如 001 或 001_yuzhou_miji")
+    images.add_argument("--model", help="指定生圖模型，例如 comfyui:z-image-turbo 或 gemini-3.1-flash-image")
     images.add_argument("--count", type=int, default=1, help="每場抽取的 take 數量（預設 1）")
     images.add_argument("--new-seed", action="store_true", default=True, help="使用新 seed（預設）")
     images.add_argument("--keep-seed", action="store_true", help="沿用上一張 take 的 seed")
